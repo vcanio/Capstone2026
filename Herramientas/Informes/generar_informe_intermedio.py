@@ -50,6 +50,8 @@ def table(doc,rows):
     elif n==4: weights=[2.1,4.2,3.4,6.9]
     elif n==5 and rows[0][0]=='Hito y actividad':weights=[4.7,1.3,2.5,2.5,6.6]
     elif n==5:weights=[4.1,3.6,2.4,2.4,4.1]
+    elif n==3 and rows[0][0]=='Tecnología o decisión':weights=[3.5,6.1,8.0]
+    elif n==2 and rows[0][0] in ('Concepto','Medida'):weights=[4.4,13.2]
     elif n==8:weights=[4.2,1.75,1.9,1.9,1.9,1.2,2.3,1.45]
     else:weights=[17.6/n]*n
     scale=17.6/sum(weights)

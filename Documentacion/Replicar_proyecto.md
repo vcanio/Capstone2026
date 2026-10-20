@@ -10,6 +10,12 @@ Para compartir mejoras entre Paulo, Vicente Canio y Vicente Vilches, seguir la
 [PDF](Trabajo_en_equipo.pdf). Incluye dónde guardar scripts, abrir PR y descargar
 los cambios integrados por los demás.
 
+## Antes de empezar
+
+Para familiarizarse con el proyecto, leer la [guía de conceptos y ejemplos](Guia_para_entender_el_proyecto.md). Entrenar significa ajustar un modelo con imágenes etiquetadas; ejecutar o hacer inferencia significa utilizar un modelo ya entrenado. Walmart Lite permite lo segundo sin preparar el entorno de entrenamiento.
+
+Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Transferencias/Walmart` son ejemplos y deben reemplazarse por la carpeta real donde se recibieron los ZIP. Un hash es una huella que permite comprobar si un archivo cambió.
+
 ## Elegir el alcance
 
 | Necesidad | Archivos y entorno |
@@ -91,7 +97,7 @@ probar la instalación en CPU.
 
 **Ejemplo de comprobación:** elegir V2 y v2_base_yolo26n_01, cargar
 lider_express_040_0_original.jpg y analizar con confianza 0,25 y NMS 0,70.
-La evaluación conservada contiene cinco niveles: cuatro suficientes y uno reponer.
+La confianza filtra predicciones según su puntuación; NMS reduce las muy superpuestas. Estos valores permiten comparar con la evaluación conservada, que contiene cinco niveles: cuatro suficientes y uno reponer.
 Comparar con el primer caso del informe. Los números de detección del visor pueden
 variar respecto de comparaciones históricas.
 

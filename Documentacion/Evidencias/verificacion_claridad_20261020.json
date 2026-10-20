@@ -1,0 +1,71 @@
+{
+  "fecha": "2026-10-20",
+  "alcance": "Revisión de lectura técnica para estudiantes; conserva el corte y la evidencia experimental",
+  "requisitos": "Revision_de_requisitos_informe.md relaciona los cinco puntos del encargo con la documentación",
+  "cambios": [
+    "README con explicación del flujo y motivos de elección",
+    "Guía de conceptos, glosario y ejemplos del proyecto",
+    "Informe con guía de lectura, decisiones técnicas explicadas y métricas interpretadas",
+    "Guía de réplica con explicación previa de comandos y conceptos"
+  ],
+  "conservacion": {
+    "casos_exitosos": 10,
+    "casos_con_errores": 10,
+    "numeros_modelos_e_imagenes_de_casos": "Comparados con la versión anterior: sin cambios",
+    "tabla_resultados_principales": "Comparada exactamente: sin cambios",
+    "pesos_datasets_particiones": "Sin modificaciones",
+    "inferencia_nueva": false,
+    "cambios_de_Paulo": "El script del checkout no se sobrescribe; se copian únicamente los documentos enumerados"
+  },
+  "script_bordes_checkout_sha256": "02f59bc90af42e7459f9928711a3022eae1dce09af770ebe8136401eb238bd42",
+  "render": {
+    "paginas": 34,
+    "imagenes_incrustadas": 42,
+    "metodo": "Microsoft Word ExportAsFixedFormat y Poppler",
+    "alternativa": "render_docx.py intentado; LibreOffice no está instalado. Word utilizado para exportar",
+    "revision_visual": "34 páginas revisadas; conceptos, tecnologías, datos y métricas inspeccionados a mayor tamaño; sin páginas de desborde"
+  },
+  "fuentes_conceptos": [
+    "https://docs.ultralytics.com/guides/yolo-performance-metrics/",
+    "https://docs.ultralytics.com/tasks/segment/",
+    "https://docs.ultralytics.com/modes/val/"
+  ],
+  "entregables": {
+    "Entregables/Informe_Intermedio_Avance_20261020.docx": {
+      "bytes": 29899641,
+      "sha256": "55d3fbf276b41aef4be570bcfe17a6d21657834c64c91225a6a80e86c31b79db"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.pdf": {
+      "bytes": 4052147,
+      "sha256": "470f9657d9d1381169a21b95a93790908c8fd3c87e96e641b538647450eff2ea"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.html": {
+      "bytes": 40541195,
+      "sha256": "d32475c9b585ceacebdf38665696dc951b6d62a897393466dd977b2a51733203"
+    }
+  },
+  "registros_anteriores": [
+    "verificacion_informe_20261020.json",
+    "verificacion_planificacion_20261020.json"
+  ],
+  "distribucion": "Informe actualizado por paquete separado de equipo; Release pública sin cambios, solo Walmart Lite",
+  "comprobaciones": {
+    "publicacion": {
+      "estado": "correcto",
+      "archivos_git": 838,
+      "python_sintaxis": 80,
+      "enlaces_disponibles": 311,
+      "paquetes": 5
+    },
+    "integridad_proyecto": {
+      "estado": "correcto",
+      "documentos": 52,
+      "enlaces_locales": 304,
+      "exportaciones_compartidas": 2,
+      "python_sintaxis": 52,
+      "registros_imagenes": 435,
+      "imagenes_unicas": 405
+    },
+    "pruebas_modelo": "No repetidas; cambios documentales, sin inferencia ni ajustes nuevos"
+  }
+}
