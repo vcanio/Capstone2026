@@ -8,6 +8,23 @@ Laboratorio del proyecto Capstone DUOC UC para localizar niveles de góndola y c
 
 Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; usa Python privado y CPU. V2 base distingue reponer y suficiente, y no reconoce no evaluable.
 
+### Walmart Lite en la Release
+
+El activo para quienes solo quieren probar la aplicación es
+[Walmart_Lite_V2_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_20261020.zip)
+(aproximadamente 36 MiB). Incluye los cuatro modelos y el visor local. Funciona
+en Windows x64 sin instalar previamente Python, Docker o CVAT; en el primer
+inicio descarga Python y las dependencias. Después, las fotos se analizan
+localmente en CPU y no se guardan.
+
+**Alcance de esta demo:** detección/segmentación y estados con YOLO. El análisis
+experimental de bordes, color y textura de Paulo está en el panel completo,
+descrito más abajo. El archivo “Source code (zip)” generado por GitHub contiene
+el código del repositorio; para ejecutar Lite hay que descargar el activo con
+el nombre indicado arriba.
+
+### Laboratorio completo
+
 Para **desarrollar, evaluar o entrenar**, instalar Git, Python 3.11/3.12 y Docker con contenedores Linux. En PowerShell:
 
 ```powershell
@@ -52,6 +69,7 @@ El prototipo clasifica estados aprendidos; no cuenta SKU, mide profundidad o con
 | PyTorch 2.5.1+cu121 y Ultralytics 8.4.174 | Entorno registrado de entrenamiento GPU. Transferencia desde pesos generales e inferencia CPU/GPU. Ver `entorno.json` y `entrenamiento/args.yaml` de cada ensayo. |
 | Polígonos amodales por nivel | Incluyen tanto productos como espacio vacío y siguen bordes inclinados. La tarea responde a reposición por repisa sin exigir un catálogo etiquetado por SKU. |
 | OpenCV, Pillow, NumPy y Shapely | Orientación EXIF, preparación de imágenes, máscaras y comprobaciones geométricas. |
+| Bordes Canny, color y textura | Señal experimental de Paulo dentro de cada máscara YOLO; permite inspeccionar activación y fondos problemáticos sin cambiar los estados del detector. |
 | CVAT | Anotación colaborativa y revisión humana. Un hash verifica integridad de archivos, pero no demuestra que una etiqueta sea correcta. |
 | Familias y grupos de escena | Mantienen original y variantes en el mismo destino y reducen fugas. La separación dentro de una captura no demuestra generalización entre locales. |
 | Python y HTML/CSS/JavaScript | Panel local, importador, subprocesos de entrenamiento/inferencia y revisión de resultados. |
@@ -71,11 +89,49 @@ flowchart LR
     F --> G[Panel y worker de inferencia]
     H[Foto nueva o catálogo] --> G
     G --> I[Máscaras numeradas estados y alertas]
+    G --> J[Análisis opcional de bordes color y textura]
+    H --> J
+    J --> K[Señal experimental por nivel]
 ```
 
 ![Arquitectura del laboratorio](Documentacion/Evidencias/arquitectura_20261020.png)
 
 El panel importa anotaciones sin modificar dibujos en CVAT, valida el inventario y exige revisión antes de exportar. Cada ensayo conserva configuración, snapshot, versión, pesos y evaluación. En inferencia se orienta la fotografía, se ejecuta el modelo y se numeran las detecciones de abajo hacia arriba y de izquierda a derecha. La evaluación propia empareja máscaras de forma única con IoU ≥ 0,50 a confianza 0,25.
+
+## Detección de bordes, color y textura de Paulo
+
+El panel completo incorpora **YOLO + bordes de Paulo**, con la revisión 2 del
+20 de octubre. YOLO localiza y clasifica los niveles; el algoritmo de Paulo
+analiza bordes Canny, color y textura dentro de sus máscaras sobre la fotografía
+original, antes de dibujar los colores del resultado. Entrega área y ancho con
+señal experimental, un mapa de señal y vistas de los bordes.
+
+La revisión evita que cualquier fondo oscuro se considere producto: exige
+brillo suficiente para el apoyo por color y textura para el apoyo en zonas
+oscuras. También valida parámetros y regiones; cuando no puede medir, informa
+el motivo en vez de devolver un cero engañoso. **La señal todavía no equivale
+al porcentaje real de producto y no cambia el estado decidido por YOLO.**
+Fondos con textura, carteles y estructuras siguen siendo fuentes de error.
+
+Para probarlo después de instalar los activos e iniciar el panel:
+
+1. Elegir **V2 → Probar una foto**, un modelo YOLO11/YOLO26 y una fotografía.
+2. En **Método de análisis**, seleccionar **YOLO + bordes de Paulo · experimental**.
+3. Pulsar **Analizar foto** y comprobar **Revisión 2 · color y textura** en el
+   resultado. Un análisis anterior no se recalcula automáticamente.
+4. Revisar la tabla por nivel, el mapa de señal y **Ver solo los bordes**.
+
+El [script independiente](Experimentos/Bordes/gondola_bordes.py) conserva el
+editor manual y la entrada de cajas JSON. La
+[integración con las máscaras YOLO](Herramientas/Modelos/ocupacion_paulo.py), el
+[ejecutor de comparaciones](Herramientas/Modelos/experimentar_paulo.py) y la
+[revisión con resultados y comandos](Experimentos/Bordes/REVISION_20261020.md)
+están en Git. Sus imágenes se instalan desde el paquete `modelos_resultados`.
+
+En la comparación de desarrollo con las mismas diez fotos de validación,
+pesos y ajustes, las 114 detecciones YOLO conservaron clases, confianza e IoU
+entre revisiones. Cambió la señal de Paulo; eso no demuestra precisión global
+de ocupación. El test final no se utilizó para ajustar este algoritmo.
 
 ## Datos y preparación
 
@@ -98,6 +154,7 @@ La versión V2 base usada es `datos_20261019_234626_3df2e643`, con estado `lista
 | Inventarios, importador, exportador y particionador | Implementados con artefactos y verificadores locales. |
 | Entrenamiento y comparación | Cuatro ensayos conservados: dos V1 y dos V2 base. |
 | Panel e inferencia | Código y resultados disponibles; falta aceptación completa de V2 con oclusiones. |
+| Bordes, color y textura de Paulo | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
 | Docker y CVAT | Arranque base sin CVAT; conexión opcional por perfil y credenciales personales. |
 | Walmart Lite | Paquete V1 histórico y nueva demo V1/V2 base; falta comprobarla en otro equipo físico. |
 | Oclusiones, deduplicación y prueba final | En desarrollo o pendientes. |
@@ -163,7 +220,7 @@ El [registro de verificación del informe](Documentacion/Evidencias/verificacion
 
 ### Demo portátil y regeneración del informe
 
-La nueva entrega es `Walmart_Lite_V2_20261020.zip`, con los cuatro modelos V1/V2 base; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. El ZIP del 15 de octubre conserva su alcance histórico V1. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [límites](Herramientas/Demo_lite/VERIFICACION.md).
+La nueva entrega es `Walmart_Lite_V2_20261020.zip`, con los cuatro modelos V1/V2 base; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. El ZIP del 15 de octubre conserva su alcance histórico V1. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md). La demo Lite no incluye todavía el análisis de bordes de Paulo.
 
 Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
 

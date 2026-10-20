@@ -30,6 +30,10 @@ En GitHub, abrir Releases y crear una nueva Release con tag
 `avance-2026-10-20`, apuntando al commit anterior. Título sugerido:
 “Avance intermedio y laboratorio reproducible V1 V2”.
 
+La [descripción preparada de la Release](Notas_Release_avance_20261020.md)
+puede copiarse al campo de notas. Destaca Walmart Lite como descarga para probar
+fotos, y diferencia su alcance del panel completo con bordes de Paulo.
+
 Adjuntar TODOS los archivos de `.publicacion/releases/`:
 
 | Archivo | Contenido |
