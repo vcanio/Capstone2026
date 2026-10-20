@@ -100,7 +100,7 @@ def get_archive(package, assets, cache):
             url = package.get('url')
             if not url:
                 raise ValueError(f'El paquete {package["file"]} se distribuye por separado para desarrollo. '
-                                 'Usa --assets RUTA_A_LOS_ZIP; la Release pública contiene solo Walmart Lite.')
+                                 'Usa --assets RUTA_A_LOS_ZIP; la Release pública contiene solo Walmart Visión.')
             parsed = urlparse(url)
             if parsed.scheme != 'https' or parsed.hostname != 'github.com':
                 raise ValueError('La descarga debe partir de GitHub por HTTPS.')

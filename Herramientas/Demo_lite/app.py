@@ -41,7 +41,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == '/api/models':
             return self.send({'models': self.server.runner.available()})
         if path == '/api/health':
-            return self.send({'status': 'ok', 'app': 'Walmart Lite'})
+            return self.send({'status': 'ok', 'app': 'Walmart Visión'})
         return self.send({'error': 'Ruta no disponible.'}, 404)
 
     def do_POST(self):
@@ -96,7 +96,7 @@ def create_server(port=8095, directory=None, device='auto'):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Walmart Lite: probar modelos con fotos propias')
+    parser = argparse.ArgumentParser(description='Walmart Visión: probar modelos con fotos propias')
     parser.add_argument('--port', type=int, default=8095)
     parser.add_argument('--open', action='store_true', help='Abrir el navegador')
     parser.add_argument('--check', action='store_true', help='Comprobar dependencias y pesos sin iniciar el visor')
@@ -115,7 +115,7 @@ def main():
     except OSError as error:
         raise SystemExit(f'No se pudo abrir el puerto {args.port}. Cierra otra instancia o usa --port 8096.\n{error}')
     url = f'http://127.0.0.1:{server.server_port}'
-    print(f'Walmart Lite: {url}\nDeja esta consola abierta. Ctrl+C detiene el visor.', flush=True)
+    print(f'Walmart Visión: {url}\nDeja esta consola abierta. Ctrl+C detiene el visor.', flush=True)
     if args.open:
         threading.Timer(.5, lambda: webbrowser.open(url)).start()
     try:

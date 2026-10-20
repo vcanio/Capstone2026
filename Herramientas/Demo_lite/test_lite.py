@@ -109,7 +109,7 @@ class LiteTests(unittest.TestCase):
         self.assertFalse(output['occupancy']['changes_yolo_state'])
         self.assertFalse(np.asarray(output['edges_image']).any())
         self.assertTrue(np.array_equal(np.asarray(output['occupancy_image']), original))
-        # Una caja sin máscara debe conservarse como sin medición.
+        # Una caja sin mÃ¡scara debe conservarse como sin mediciÃ³n.
         detections = [{'id': 1, 'state': 'suficiente'}]
         analyze_edges(original, SimpleNamespace(masks=None), detections)
         self.assertEqual(detections[0]['occupancy']['status'], 'sin_medicion')
@@ -168,7 +168,7 @@ class HttpTests(unittest.TestCase):
 
     def test_ui_and_models_are_available_without_cvat(self):
         with urlopen(self.url + '/') as response:
-            self.assertIn(b'Walmart Lite', response.read())
+            self.assertIn('Walmart Visión'.encode('utf-8'), response.read())
         with urlopen(self.url + '/api/models') as response:
             self.assertEqual(json.load(response)['models'][0]['id'], 'fixture')
 

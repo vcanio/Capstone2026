@@ -69,7 +69,7 @@ def main():
     with uv.open('rb') as stream:
         if hashlib.file_digest(stream, 'sha256').hexdigest() != uv_record['sha256']:
             raise RuntimeError('El preparador está incompleto. Extrae de nuevo el ZIP.')
-    print('Preparando Walmart Lite. La primera descarga puede tardar varios minutos.', flush=True)
+    print('Preparando Walmart Visión. La primera descarga puede tardar varios minutos.', flush=True)
     print('Tu Python instalado y sus paquetes no se modifican.', flush=True)
     with (RUNTIME / 'instalacion.log').open('w', encoding='utf-8') as log:
         log.write('Inicio: ' + datetime.now(timezone.utc).isoformat() + '\n')
@@ -105,7 +105,7 @@ def main():
         temporary = READY.with_suffix('.tmp')
         temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         temporary.replace(READY)
-        print('Walmart Lite está listo.', flush=True)
+        print('Walmart Visión está listo.', flush=True)
 
 
 if __name__ == '__main__':

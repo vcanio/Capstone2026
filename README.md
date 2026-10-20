@@ -10,27 +10,26 @@ Al cargar una fotografía, el modelo YOLO busca los niveles de la góndola y dib
 
 El análisis opcional de **detección de bordes** revisa contornos, color y textura dentro de esas regiones. Sus mapas ayudan a estudiar los resultados, pero su señal sigue siendo experimental y no representa un porcentaje real de productos.
 
-Tenemos dos formas de uso: **Walmart Lite**, para probar fotos propias, y el **laboratorio completo**, para preparar datos, entrenar y evaluar. Un modelo entrenado guarda lo aprendido en archivos llamados **pesos**; Lite ya incluye los cuatro modelos disponibles.
+Tenemos dos formas de uso: **Walmart Visión**, para probar fotos propias, y el **laboratorio completo**, para preparar datos, entrenar y evaluar. Un modelo entrenado guarda lo aprendido en archivos llamados **pesos**; Visión ya incluye los cuatro modelos disponibles.
 
-**Versión descargable para probar modelos (Release):** `avance-2026-10-20`, con un único ZIP de Walmart Lite, cuatro modelos y detección de bordes. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
+**Versión descargable para probar modelos (Release):** `walmart-vision-2026-10-20`, con un único ZIP de Walmart Visión, cuatro modelos y detección de bordes. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
 
 ## Empezar desde otro computador
 
-Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_Deteccion_Bordes_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; prepara su propio Python y utiliza el procesador del computador (CPU). V2 base distingue reponer y suficiente, y no reconoce no evaluable.
+Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vision_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar `Walmart_Vision/iniciar.cmd`. El primer inicio requiere Internet; prepara su propio Python y utiliza el procesador del computador (CPU). V2 base distingue reponer y suficiente, y no reconoce no evaluable.
 
-### Walmart Lite en la Release
+### Walmart Visión en la Release
 
 El activo para quienes solo quieren probar la aplicación es
-[Walmart_Lite_V2_Deteccion_Bordes_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_Deteccion_Bordes_20261020.zip)
+[Walmart_Vision_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip)
 (aproximadamente 36 MiB). Incluye los cuatro modelos y el visor local. Funciona
 en Windows x64 sin instalar previamente Python, Docker o CVAT; en el primer
 inicio descarga Python y las dependencias. Después, las fotos se analizan
 localmente en CPU y no se guardan.
 
 **Alcance de esta demo:** detección/segmentación y estados con YOLO, y análisis
-experimental de detección de bordes, color y textura. Se puede elegir el método de
-análisis y ver sus mapas dentro de la misma aplicación. El archivo “Source code (zip)” generado por GitHub contiene
-el código del repositorio; para ejecutar Lite hay que descargar el activo con
+experimental de detección de bordes, color y textura. Se empieza por seleccionar V1 o V2. Las pestañas Original, Niveles, Bordes y Comparar permiten revisar la foto y sus mapas dentro del mismo visor. El archivo “Source code (zip)” generado por GitHub contiene
+el código del repositorio; para ejecutar Visión hay que descargar el activo con
 el nombre indicado arriba.
 
 ### Laboratorio completo
@@ -174,7 +173,7 @@ La copia exacta usada para entrenar V2 base es `datos_20261019_234626_3df2e643`,
 | Panel e inferencia | Código y resultados disponibles; falta aceptación completa de V2 con oclusiones. |
 | Detección de bordes | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
 | Docker y CVAT | Arranque base sin CVAT; conexión opcional por perfil y credenciales personales. |
-| Walmart Lite | Paquete V1 histórico y nueva demo V1/V2 base; falta comprobarla en otro equipo físico. |
+| Walmart Visión | Paquete V1 histórico y nueva demo V1/V2 base; falta comprobarla en otro equipo físico. |
 | Oclusiones, deduplicación y prueba final | En desarrollo o pendientes. |
 
 La tabla siguiente conserva los valores medidos. **Localizados** cuenta niveles encontrados; **estados exactos**, niveles encontrados con la categoría correcta; **TP**, alertas acertadas; **FP**, falsas alertas. El mAP evalúa el comportamiento por clase y contorno; no es el porcentaje de fotos correctas. La [guía de lectura](Documentacion/Guia_para_entender_el_proyecto.md#cómo-leer-los-resultados) explica las métricas con ejemplos.
@@ -248,7 +247,7 @@ Los verificadores comprueban archivos, enlaces y separación de los datos. Las p
 
 ### Demo portátil y regeneración del informe
 
-La nueva entrega es `Walmart_Lite_V2_Deteccion_Bordes_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
+La nueva entrega es `Walmart_Vision_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Vision/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
 
 Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
 

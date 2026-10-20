@@ -1,7 +1,7 @@
 # Replicar Walmart Computer Vision
 
-La versión de entrega es `avance-2026-10-20`. El código y el manifiesto se guardan
-en Git. La Release pública contiene únicamente Walmart Lite con sus modelos y
+La aplicación descargable es `walmart-vision-2026-10-20`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
+en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y
 bordes. Los paquetes del laboratorio se transfieren por separado para desarrollo
 y se instalan con --assets; no se publican como adjuntos de esa Release.
 
@@ -12,7 +12,7 @@ los cambios integrados por los demás.
 
 ## Antes de empezar
 
-Para familiarizarse con el proyecto, leer la [guía de conceptos y ejemplos](Guia_para_entender_el_proyecto.md). Entrenar significa ajustar un modelo con imágenes etiquetadas; ejecutar o hacer inferencia significa utilizar un modelo ya entrenado. Walmart Lite permite lo segundo sin preparar el entorno de entrenamiento.
+Para familiarizarse con el proyecto, leer la [guía de conceptos y ejemplos](Guia_para_entender_el_proyecto.md). Entrenar significa ajustar un modelo con imágenes etiquetadas; ejecutar o hacer inferencia significa utilizar un modelo ya entrenado. Walmart Visión permite lo segundo sin preparar el entorno de entrenamiento.
 
 Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Transferencias/Walmart` son ejemplos y deben reemplazarse por la carpeta real donde se recibieron los ZIP. Un hash es una huella que permite comprobar si un archivo cambió.
 
@@ -20,16 +20,16 @@ Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Tr
 
 | Necesidad | Archivos y entorno |
 |---|---|
-| Probar fotografías propias | Walmart_Lite_V2_Deteccion_Bordes_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
+| Probar fotografías propias | Walmart_Vision_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
 | Desarrollar, evaluar o entrenar | Clon + datos_fuentes + datos_exportados + modelos_resultados; Python 3.11/3.12 para preparar y Docker para ejecutar. |
 | Revisar el informe | Paquete informe; no requiere modelos ni datos de entrenamiento. |
 | Anotar nuevas fotografías | Cuenta propia y acceso al CVAT compartido, configurado por separado. |
 
 ## Demo portátil
 
-Descargar Walmart_Lite_V2_Deteccion_Bordes_20261020.zip de la Release, extraer todo y ejecutar
-`Walmart_Lite/iniciar.cmd`. El primer inicio prepara un Python privado con sus
-dependencias. Seleccionar V2-YOLO26 o uno de los otros tres modelos, elegir
+Descargar Walmart_Vision_20261020.zip de la Release, extraer todo y ejecutar
+`Walmart_Vision/iniciar.cmd`. El primer inicio prepara un Python privado con sus
+dependencias. Seleccionar V1 o V2 en el paso 0, después un modelo, elegir
 YOLO + detección de bordes o Solo YOLO y subir una foto. El modo con bordes añade
 mapas de señal y bordes sin cambiar los estados YOLO.
 
@@ -67,7 +67,7 @@ python Herramientas/Reproducibilidad/preparar.py --paquetes demo
 python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe
 ```
 
-La demo se extrae en `Entregables/Walmart_Lite/`. Para comprobar los archivos ya
+La demo se extrae en `Entregables/Walmart_Vision/`. Para comprobar los archivos ya
 instalados, sin descargar ni escribir:
 
 ```powershell

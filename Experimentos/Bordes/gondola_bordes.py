@@ -5,7 +5,7 @@ import os
 import cv2
 import numpy as np
 
-CARPETA_SALIDA = r"E:\openCV\fotos"
+CARPETA_SALIDA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "salidas")
 
 
 # ---------- Lectura / escritura (funciona con rutas con acentos en Windows) ----------
@@ -14,7 +14,12 @@ def leer_imagen(ruta):
         datos = np.fromfile(ruta, dtype=np.uint8)
     except OSError:
         return None
-    return cv2.imdecode(datos, cv2.IMREAD_COLOR)
+    if datos.size == 0:
+        return None
+    try:
+        return cv2.imdecode(datos, cv2.IMREAD_COLOR)
+    except cv2.error:
+        return None
 
 
 def guardar_imagen(ruta, img):
@@ -128,86 +133,86 @@ def quitar_lineas_largas(recorte, largo_min):
     return limpio
 
 
-# ---------- Ocupacion por caja: criterio clasico adaptativo, sin entrenamiento ----------
-def normalizar_por_roi(mapa, p_bajo=10, p_alto=90):
-    """Escala un mapa de caracteristicas segun sus percentiles dentro del nivel."""
-    mapa = mapa.astype(np.float32)
-    bajo, alto = np.percentile(mapa, [p_bajo, p_alto])
-    if alto - bajo < 1e-6:
-        return np.zeros_like(mapa, dtype=np.float32)
-    return np.clip((mapa - bajo) / (alto - bajo), 0.0, 1.0)
-
-
-def umbral_adaptativo(scores):
-    """Usa Otsu sobre la puntuacion de celdas, con un minimo conservador."""
-    s8 = np.clip(scores * 255.0, 0, 255).astype(np.uint8)
-    if s8.size < 2 or int(s8.max()) == int(s8.min()):
-        return 0.42
-    otsu, _ = cv2.threshold(s8, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    # Evita que Otsu use un umbral casi cero cuando hay mucho ruido de fondo.
-    return float(np.clip(otsu / 255.0, 0.35, 0.62))
+# ---------- Ocupacion por caja ----------
+def validar_parametros(a):
+    if not all(np.isfinite(value) for value in (a.cell, a.margin, a.open, *a.canny,
+            a.thr, a.color_frac, a.sat, a.vmin, a.tex, a.tex_vmax, a.line)):
+        raise ValueError("Los parametros deben ser finitos.")
+    if (a.cell < 2 or not 0 <= a.margin < .5 or a.open < 1 or
+            not 0 <= a.canny[0] < a.canny[1] <= 255 or not 0 <= a.thr <= 1 or
+            not 0 <= a.color_frac <= 1 or not 0 <= a.sat <= 255 or
+            not 0 <= a.vmin <= 255 or a.tex < 0 or not 0 <= a.tex_vmax <= 255 or
+            not 0 <= a.line <= 1):
+        raise ValueError("Parametros de bordes, color, textura o grilla invalidos.")
 
 
 def analizar(img, rois, a):
+    validar_parametros(a)
+    if img is None or img.ndim != 3 or img.shape[2] != 3:
+        raise ValueError("Se requiere una imagen BGR valida.")
     bordes = mapa_bordes(img, a.canny[0], a.canny[1])
-    img_suave = cv2.GaussianBlur(img, (5, 5), 0)
-    hsv = cv2.cvtColor(img_suave, cv2.COLOR_BGR2HSV)
-    gris = cv2.medianBlur(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 5).astype(np.float32)
-    # Magnitud del gradiente: detecta cambios locales incluso en productos poco saturados.
-    gx = cv2.Sobel(gris, cv2.CV_32F, 1, 0, ksize=3)
-    gy = cv2.Sobel(gris, cv2.CV_32F, 0, 1, ksize=3)
-    gradiente = cv2.magnitude(gx, gy)
+    hsv = cv2.cvtColor(cv2.GaussianBlur(img, (5, 5), 0), cv2.COLOR_BGR2HSV)
+    gris_t = cv2.medianBlur(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), 5).astype(np.float32)
     largo_min = max(30, int(a.line * img.shape[1]))
-    vis_bordes = (bordes // 3).astype(np.uint8)
+    vis_bordes = (bordes // 3).astype(np.uint8)        # gris: bordes descartados
     resultados = []
-
-    for (x, y, w, h) in rois:
+    for roi in rois:
+        try:
+            valid_roi = len(roi) == 4 and all(np.isfinite(value) for value in roi)
+        except (TypeError, ValueError):
+            valid_roi = False
+        if not valid_roi:
+            raise ValueError("Cada caja requiere cuatro coordenadas finitas: x, y, ancho, alto.")
+        x, y, w, h = (int(value) for value in roi)
+        if w <= 0 or h <= 0:
+            resultados.append({"pct": None, "zona": (0, 0, 0, 0), "grid": None,
+                               "status": "sin_medicion", "reason": "Caja sin dimensiones positivas."})
+            continue
+        x1, y1 = min(img.shape[1], x+w), min(img.shape[0], y+h)
+        x, y = max(0, x), max(0, y)
+        w, h = max(0, x1-x), max(0, y1-y)
+        # Zona realmente analizada: la caja menos un margen interior
         mx, my = int(w * a.margin), int(h * a.margin)
         x0, y0, w0, h0 = x + mx, y + my, w - 2 * mx, h - 2 * my
         if w0 < a.cell or h0 < a.cell:
-            resultados.append({"pct": 0.0, "zona": (x0, y0, w0, h0), "grid": None})
+            resultados.append({"pct": None, "zona": (x0, y0, w0, h0), "grid": None,
+                               "status": "sin_medicion", "reason": "Caja fuera de la imagen o demasiado pequena."})
             continue
 
-        recorte_bordes = quitar_lineas_largas(bordes[y0:y0+h0, x0:x0+w0], largo_min)
-        vis_bordes[y0:y0+h0, x0:x0+w0] = recorte_bordes
-        nw = max(1, round(w0 / a.cell))
-        nh = max(1, round(h0 / a.cell))
+        recorte = quitar_lineas_largas(bordes[y0:y0 + h0, x0:x0 + w0], largo_min)
+        vis_bordes[y0:y0 + h0, x0:x0 + w0] = recorte    # blanco: bordes contados
 
-        # Calcula caracteristicas por celda. Cada una aporta una señal distinta;
-        # no se marca ocupada solo porque se cumpla cualquiera de varios umbrales fijos.
-        dens_bordes = cv2.resize(recorte_bordes.astype(np.float32) / 255.0,
-                                 (nw, nh), interpolation=cv2.INTER_AREA)
-        hsv_r = hsv[y0:y0+h0, x0:x0+w0]
-        pix_color = ((hsv_r[..., 1] > a.sat) & (hsv_r[..., 2] > a.vmin)).astype(np.float32)
-        fraccion_color = cv2.resize(pix_color, (nw, nh), interpolation=cv2.INTER_AREA)
+        # Criterio 1: densidad de bordes por celda (vectorizado)
+        nw, nh = max(1, round(w0 / a.cell)), max(1, round(h0 / a.cell))
+        densidad = cv2.resize(recorte.astype(np.float32) / 255.0, (nw, nh),
+                              interpolation=cv2.INTER_AREA)
+        grid = (densidad > a.thr).astype(np.uint8)
 
-        g = gris[y0:y0+h0, x0:x0+w0]
-        media = cv2.resize(g, (nw, nh), interpolation=cv2.INTER_AREA)
-        media2 = cv2.resize(g*g, (nw, nh), interpolation=cv2.INTER_AREA)
-        textura = np.sqrt(np.maximum(media2 - media*media, 0.0))
-        grad_r = gradiente[y0:y0+h0, x0:x0+w0]
-        grad_celda = cv2.resize(grad_r, (nw, nh), interpolation=cv2.INTER_AREA)
+        # Criterio 2 (apoyo): color intenso, para productos lisos o de colores fuertes
+        if a.color_frac > 0:
+            hsv_r = hsv[y0:y0 + h0, x0:x0 + w0]
+            # La saturacion de pixeles casi negros es ruido: solo se confia si hay brillo minimo
+            intenso = ((hsv_r[..., 1] > a.sat) & (hsv_r[..., 2] > a.vmin)).astype(np.float32)
+            dens_c = cv2.resize(intenso, (nw, nh), interpolation=cv2.INTER_AREA)
+            grid = grid | (dens_c > a.color_frac).astype(np.uint8)
 
-        # Normalizacion relativa a cada nivel: tolera mejor cambios de luz y contraste.
-        b = normalizar_por_roi(dens_bordes)
-        gnorm = normalizar_por_roi(grad_celda)
-        c = normalizar_por_roi(fraccion_color)
-        t = normalizar_por_roi(textura)
+        # Criterio 3 (apoyo): textura en zonas oscuras o medias (botellas negras, envases oscuros).
+        # Un panel negro liso casi no tiene variacion de brillo; un producto oscuro si (reflejos, relieve).
+        if a.tex > 0:
+            gz = gris_t[y0:y0 + h0, x0:x0 + w0]
+            media = cv2.resize(gz, (nw, nh), interpolation=cv2.INTER_AREA)
+            media2 = cv2.resize(gz * gz, (nw, nh), interpolation=cv2.INTER_AREA)
+            desv = np.sqrt(np.maximum(media2 - media * media, 0))   # desviacion estandar por celda
+            grid = grid | ((desv > a.tex) & (media < a.tex_vmax)).astype(np.uint8)
 
-        # Bordes y gradientes tienen mayor peso; color y textura son apoyos.
-        score = 0.35*b + 0.30*gnorm + 0.20*c + 0.15*t
-        umbral = umbral_adaptativo(score)
-        grid = (score >= umbral).astype(np.uint8)
-
-        # Cierre para unir huecos pequeños dentro de zonas de producto.
-        # La apertura se deja opcional porque puede borrar productos delgados.
+        # Limpieza sobre la grilla: quita celdas sueltas y lineas delgadas
         if a.open > 1:
-            k = np.ones((a.open, a.open), np.uint8)
-            grid = cv2.morphologyEx(grid, cv2.MORPH_OPEN, k)
-        grid = cv2.morphologyEx(grid, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
+            grid = cv2.morphologyEx(grid, cv2.MORPH_OPEN, np.ones((a.open, a.open), np.uint8))
+            grid = cv2.morphologyEx(grid, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
 
-        pct = 100.0 * float(grid.mean())
-        resultados.append({"pct": pct, "zona": (x0, y0, w0, h0), "grid": grid})
+        pct = 100.0 * grid.sum() / grid.size
+        resultados.append({"pct": float(pct), "zona": (x0, y0, w0, h0), "grid": grid,
+                           "status": "medido", "reason": None})
     return resultados, vis_bordes
 
 
@@ -223,6 +228,8 @@ def dibujar(img, resultados):
     salida = cv2.addWeighted(capa, 0.35, salida, 0.65, 0)
     esc = max(img.shape[1] / 1800.0, 0.6)
     for i, r in enumerate(resultados):
+        if r["grid"] is None:
+            continue
         x0, y0, w0, h0 = r["zona"]
         cv2.rectangle(salida, (x0, y0), (x0 + w0, y0 + h0), (0, 200, 0), max(2, int(3 * esc)))
         txt = f"N{i + 1}: {r['pct']:.0f}%"
@@ -266,15 +273,18 @@ def prueba_estres(img, rois, args, n):
     todos = []
     for _ in range(n):
         res, _ = analizar(aumentar(img), rois, args)
-        todos.append([r["pct"] for r in res])
-    todos = np.array(todos)
+        todos.append([np.nan if r["pct"] is None else r["pct"] for r in res])
+    todos = np.array(todos, dtype=float)
     for i in range(todos.shape[1]):
-        print(f"  N{i + 1}: {todos[:, i].mean():.1f}% +/- {todos[:, i].std():.1f}")
+        if np.isnan(todos[:, i]).all():
+            print(f"  N{i + 1}: sin medicion")
+        else:
+            print(f"  N{i + 1}: {np.nanmean(todos[:, i]):.1f}% +/- {np.nanstd(todos[:, i]):.1f}")
 
 
 # ---------- Main ----------
 def main():
-    ap = argparse.ArgumentParser(description="Ocupacion de gondola por criterios clasicos adaptativos (sin entrenamiento)")
+    ap = argparse.ArgumentParser(description="Ocupacion de gondola por deteccion de bordes")
     ap.add_argument("imagen")
     ap.add_argument("--out", default=CARPETA_SALIDA, help="carpeta donde se guardan los resultados")
     ap.add_argument("--rois", help="ruta del JSON de cajas (por defecto <out>/<imagen>_rois.json)")
@@ -282,20 +292,20 @@ def main():
                     help="abrir el editor de nuevo (conserva las cajas existentes)")
     ap.add_argument("--canny", type=int, nargs=2, default=[40, 120], metavar=("LO", "HI"))
     ap.add_argument("--cell", type=int, default=24, help="tamano de celda en px")
-    ap.add_argument("--thr", type=float, default=0.04, help="conservado por compatibilidad; el umbral ahora se adapta por nivel")
+    ap.add_argument("--thr", type=float, default=0.04, help="densidad minima de bordes por celda")
     ap.add_argument("--margin", type=float, default=0.03,
                     help="margen interior ignorado en cada caja (0.03 = 3%%)")
-    ap.add_argument("--open", type=int, default=1,
-                    help="apertura morfologica opcional en celdas (1 = desactivada)")
+    ap.add_argument("--open", type=int, default=3,
+                    help="bloque minimo en celdas para contar como ocupado (1 = sin filtro)")
     ap.add_argument("--line", type=float, default=0.04,
                     help="largo minimo (fraccion del ancho de la foto) de las lineas rectas que se descartan")
     ap.add_argument("--color-frac", dest="color_frac", type=float, default=0.35,
-                    help="conservado por compatibilidad; el color aporta una puntuacion relativa")
+                    help="fraccion minima de color con brillo suficiente (0 = desactiva color)")
     ap.add_argument("--sat", type=int, default=70, help="saturacion minima (0-255) para considerar color")
     ap.add_argument("--vmin", type=int, default=50,
                     help="brillo minimo (0-255) para confiar en la saturacion del color")
     ap.add_argument("--tex", type=float, default=4.0,
-                    help="conservado por compatibilidad; la textura aporta una puntuacion relativa")
+                    help="desviacion estandar minima del brillo en una celda oscura para contarla (0 = no usar)")
     ap.add_argument("--tex-vmax", dest="tex_vmax", type=int, default=90,
                     help="brillo medio maximo (0-255) de la celda para aplicar el criterio de textura")
     # Opciones de la version anterior: se aceptan para no romper comandos, pero ya no tienen efecto
@@ -305,6 +315,10 @@ def main():
     ap.add_argument("--stress", type=int, default=0, help="iteraciones con ruido")
     ap.add_argument("--levels", type=int, help=argparse.SUPPRESS)  # ya no se usa
     args = ap.parse_args()
+    try:
+        validar_parametros(args)
+    except ValueError as error:
+        ap.error(str(error))
 
     img = leer_imagen(args.imagen)
     if img is None:
@@ -319,12 +333,21 @@ def main():
 
     print()
     for i, r in enumerate(resultados):
-        print(f"N{i + 1}: ocupado {r['pct']:.1f}%  |  vacio {100 - r['pct']:.1f}%")
+        if r['pct'] is None:
+            print(f"N{i + 1}: sin medicion ({r['reason']})")
+        else:
+            print(f"N{i + 1}: area con senal {r['pct']:.1f}% (experimental)")
 
     ruta_b = os.path.join(args.out, f"{base}_bordes.png")
     ruta_r = os.path.join(args.out, f"{base}_resultado.png")
     guardar_imagen(ruta_b, vis_bordes)
     guardar_imagen(ruta_r, dibujar(img, resultados))
+    ruta_datos = os.path.join(args.out, f"{base}_mediciones.json")
+    with open(ruta_datos, "w", encoding="utf-8") as f:
+        json.dump({"imagen": os.path.abspath(args.imagen), "parametros": vars(args),
+                   "rois": rois, "resultados": [{**r, "grid": r["grid"].tolist() if r["grid"] is not None else None}
+                                                   for r in resultados], "calibrado": False}, f,
+                  ensure_ascii=False, indent=2, allow_nan=False)
     print(f"\nGuardado en {args.out}:\n  {base}_resultado.png\n  {base}_bordes.png")
     print(f"Cajas en: {ruta_rois}")
 

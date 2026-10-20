@@ -3,7 +3,7 @@ setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
 set "PYTHONUTF8=1"
 cd /d "%~dp0"
-echo Walmart Lite
+echo Walmart Visión
 echo.
 call "%~dp0preparar.cmd"
 if errorlevel 1 goto error
@@ -16,7 +16,7 @@ if errorlevel 1 goto error
 exit /b 0
 :error
 echo.
-echo No se pudo iniciar Walmart Lite. El detalle aparece arriba.
+echo No se pudo iniciar Walmart Visión. El detalle aparece arriba.
 echo Si existe, revisa .runtime\instalacion.log dentro de esta carpeta.
 if /I "%~1"=="--verificar" exit /b 1
 pause

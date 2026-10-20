@@ -68,7 +68,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--git', default='git', help='Ruta del ejecutable Git.')
     p.add_argument('--salida', type=Path, default=ROOT / '.publicacion')
-    p.add_argument('--tag', default='avance-2026-10-20')
+    p.add_argument('--tag', default='walmart-vision-2026-10-20')
     p.add_argument('--solo-codigo', action='store_true', help='Actualizar el checkout sin regenerar ZIP existentes.')
     args = p.parse_args()
     out = args.salida.resolve()
@@ -103,7 +103,7 @@ def main():
         print(f'Empaquetando {key}: {len(selected)} archivos...', flush=True)
         packages[key] = archive(development / name, selected)
         print(f'{name}: {packages[key]["bytes"] / 1024**2:.1f} MiB.', flush=True)
-    lite = ROOT / 'Entregables/Walmart_Lite_V2_Deteccion_Bordes_20261020.zip'
+    lite = ROOT / 'Entregables/Walmart_Vision_20261020.zip'
     shutil.copy2(lite, release / lite.name)
     # El ZIP de la demo es independiente; el preparador lo instala en Entregables.
     with zipfile.ZipFile(lite) as z:
@@ -113,7 +113,7 @@ def main():
                            sha256=digest(release / lite.name), files=demo_files, destination='Entregables')
     packages['demo']['url'] = f'https://github.com/vcanio/Capstone2026/releases/download/{quote(args.tag)}/{lite.name}'
     manifest = dict(schema_version=1, version=args.tag, repository='vcanio/Capstone2026',
-                    publication='Release pública: solo Walmart Lite. Paquetes de desarrollo: distribución separada con --assets.', packages=packages)
+                    publication='Release pública: solo Walmart Visión. Paquetes de desarrollo: distribución separada con --assets.', packages=packages)
     manifest_path = ROOT / 'reproducibilidad/artefactos.json'
     manifest_path.parent.mkdir(exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

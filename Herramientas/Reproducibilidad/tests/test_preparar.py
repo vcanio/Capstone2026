@@ -70,7 +70,7 @@ class ArchiveTests(unittest.TestCase):
 
     def test_development_package_without_remote_url_requests_local_assets(self):
         item = {'file': 'datos.zip', 'bytes': 1, 'sha256': '0' * 64}
-        with self.assertRaisesRegex(ValueError, 'Release pública contiene solo Walmart Lite'):
+        with self.assertRaisesRegex(ValueError, 'Release pública contiene solo Walmart Visión'):
             prepare.get_archive(item, None, self.target)
 
 

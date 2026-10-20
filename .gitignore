@@ -55,3 +55,5 @@ Datos/Publicos/comparacion.jpg
 # Los iniciadores de acceso privado son específicos del equipo anfitrión.
 /Herramientas/CVAT/iniciar_acceso_privado_equipo.ps1
 /Herramientas/CVAT/detener_acceso_privado_equipo.ps1
+
+/Entregables/Walmart_Vision/
