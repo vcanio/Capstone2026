@@ -1,9 +1,16 @@
-# Verificación de la entrega reproducible
+# Verificación de la aplicación y del laboratorio
 
-Fecha de comprobación: 20 de octubre de 2026. Se preparó un checkout separado
-del repositorio remoto y se instalaron allí los activos desde ZIP locales. No se
-hizo commit ni push automáticamente; el mantenedor conserva esos pasos. La Release
-se prepara como borrador y ahora se dedica solo a probar Walmart Lite.
+Este documento conserva las comprobaciones del laboratorio y de las versiones
+anteriores de la demo del 20 de octubre de 2026. La entrega actual para el usuario
+es **Walmart Visión**, con la Release `walmart-vision-2026-10-20` y el activo
+`Walmart_Vision_20261020.zip`. Su [verificación específica](../Herramientas/Demo_lite/VERIFICACION_VISION.md)
+registra las comprobaciones de esa versión. Los resultados históricos siguientes
+mantienen el alcance y los nombres de los paquetes que se probaron.
+
+Se preparó un checkout separado del repositorio remoto y se instalaron allí los
+activos del laboratorio desde ZIP locales. No se hizo commit ni push automáticamente;
+el mantenedor conserva esos pasos. La instalación del laboratorio requiere activos
+del equipo y es independiente del recorrido del usuario de Visión.
 
 ## Resultado comprobado
 
@@ -41,18 +48,26 @@ pesos/ZIP en el historial, archivos de 50 MiB o más y campos JSON con posibles
 credenciales. Esto no equivale a una auditoría completa de seguridad. El workflow
 de GitHub está preparado; su ejecución remota se podrá revisar después del push.
 
-## Qué sigue pendiente
+## Qué sigue pendiente para la aplicación
 
-1. Commit y push por el mantenedor y publicación del borrador con un único ZIP:
-   Walmart_Lite_V2_Deteccion_Bordes_20261020.zip. Los paquetes de datos, resultados e informe
-   se conservan aparte y se instalan con --assets; no se adjuntan a la Release.
-2. Clonar y descargar por HTTPS desde GitHub en otro computador físico, siguiendo
-   [la guía de réplica](../Documentacion/Replicar_proyecto.md). La instalación
-   local con --assets demuestra el contenido de los ZIP, no su descarga remota.
-3. Comprobar GPU y CVAT compartido con cuentas propias si se necesitan esos flujos.
-4. Repetir un entrenamiento completo si se pretende contrastar sus métricas. No
-   se volvió a entrenar durante esta preparación ni se promete igualdad numérica
-   entre hardware diferente.
+Descargar la Release de Walmart Visión en otro computador físico y comprobar la
+preparación inicial, los cuatro modelos, ambos métodos y el reinicio sin conexión.
+La [pauta y plantilla de registro](../Documentacion/Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador)
+define los pasos. No hace falta clonar el repositorio ni instalar Docker o CVAT
+para esta comprobación. La prueba local desde un ZIP extraído no acredita todavía
+ese resultado externo.
+
+## Comprobaciones adicionales para continuar el desarrollo
+
+- Comprobar GPU y CVAT compartido con cuentas propias si se necesitan esos flujos.
+- Repetir un entrenamiento completo si se pretende contrastar sus métricas. No
+  se volvió a entrenar durante esta preparación ni se promete igualdad numérica
+  entre hardware diferente.
+
+Los paquetes de datos, exportaciones, resultados e informe se conservan aparte y
+se instalan con `--assets` según la [guía técnica](../Documentacion/Replicar_proyecto.md).
+Estas operaciones pertenecen al laboratorio del equipo y no son requisitos para
+usar la aplicación publicada.
 
 El ejemplo de cinco niveles es una prueba de funcionamiento, no una estimación
 de rendimiento global. La validación real V2 contiene un único nivel reponer;

@@ -1,4 +1,8 @@
-# Replicar Walmart Computer Vision
+# Laboratorio de desarrollo: instalación y repetición de ensayos
+
+Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuario es Walmart Visión: para descargarla, analizar fotos e interpretar resultados, seguir la [guía de uso](Usar_Walmart_Vision.md). No requiere el panel de entrenamiento, CVAT ni los paquetes del laboratorio.
+
+La [guía conceptual](Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
 
 La aplicación descargable es `walmart-vision-2026-10-20`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
 en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y
@@ -21,13 +25,14 @@ Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Tr
 | Necesidad | Archivos y entorno |
 |---|---|
 | Probar fotografías propias | Walmart_Vision_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
+| Comprender la anotación y el entrenamiento | Guía conceptual, arquitectura, guías de anotación y mapa del código; no requiere instalar el laboratorio. |
 | Desarrollar, evaluar o entrenar | Clon + datos_fuentes + datos_exportados + modelos_resultados; Python 3.11/3.12 para preparar y Docker para ejecutar. |
 | Revisar el informe | Paquete informe; no requiere modelos ni datos de entrenamiento. |
 | Anotar nuevas fotografías | Cuenta propia y acceso al CVAT compartido, configurado por separado. |
 
 ## Demo portátil
 
-Descargar Walmart_Vision_20261020.zip de la Release, extraer todo y ejecutar
+El recorrido para el usuario, incluida la comprobación pendiente en otro computador, está en [Usar Walmart Visión](Usar_Walmart_Vision.md). Como resumen, descargar Walmart_Vision_20261020.zip de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar
 `Walmart_Vision/iniciar.cmd`. El primer inicio prepara un Python privado con sus
 dependencias. Seleccionar V1 o V2 en el paso 0, después un modelo, elegir
 YOLO + detección de bordes o Solo YOLO y subir una foto. El modo con bordes añade
@@ -48,7 +53,9 @@ cd Capstone2026
 python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 ```
 
-Solicitar los paquetes de desarrollo al responsable del equipo. El preparador
+Los paquetes se entregan mediante coordinación interna del equipo; este repositorio no ofrece un canal público de solicitud ni descarga para ellos. Para seguir los comandos de preparación de esta guía, acordar con el mantenedor la entrega de `datos_fuentes`, `datos_exportados`, `modelos_resultados` e `informe`: el preparador incluye esos cuatro paquetes por defecto. Sin los datos y modelos se puede leer el código y usar Visión, pero no repetir los ensayos conservados.
+
+El preparador
 lee los ZIP locales y verifica las fuentes, las exportaciones inmutables, los
 pesos/resultados y el informe. Mantiene rutas, etiquetas y particiones. Repetirlo no duplica ni
 sobrescribe archivos diferentes. Se necesitan varios GB de almacenamiento para
@@ -159,7 +166,7 @@ deben conservar el mismo destino. La reserva final no se usa para escoger umbral
 
 | Síntoma | Acción |
 |---|---|
-| Descarga 404 de la demo | Falta publicar la Release o su ZIP. Para el laboratorio usar --assets con los paquetes compartidos. |
+| Descarga 404 de la demo | Comprobar que se accede a la Release y al ZIP con el nombre indicado; si el activo no está disponible, informar al mantenedor. Los paquetes internos del laboratorio no sustituyen la descarga de Visión. |
 | Falta archivo o hash distinto | Repetir preparación en una copia limpia; no reemplazar trabajo modificado a mano. |
 | Docker no conecta | Iniciar el motor Docker y comprobar docker version. |
 | Error de NVIDIA | Comenzar con -Cpu; verificar compatibilidad de driver y contenedor antes de activar GPU. |

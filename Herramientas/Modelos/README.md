@@ -1,4 +1,4 @@
-> Para otro computador, empezar por la [guía de reproducción](../../Documentacion/Replicar_proyecto.md). El inicio Docker base no necesita CVAT; para traer anotaciones usar -ConCvat y configurar acceso personal.
+> Este panel es una herramienta del **equipo de desarrollo** para preparar datos, entrenar y evaluar. Para usar la aplicación con fotografías propias, seguir [Usar Walmart Visión](../../Documentacion/Usar_Walmart_Vision.md). Para instalar el laboratorio en otro computador, consultar la [guía técnica](../../Documentacion/Replicar_proyecto.md). El inicio Docker base no necesita CVAT; para traer anotaciones usar -ConCvat y configurar acceso personal.
 
 # Panel de niveles y disponibilidad
 
@@ -44,14 +44,17 @@ Panel: http://localhost:8090. Para iniciar el contenedor directamente, usar `ini
 
 Para desarrollo, `iniciar_panel.ps1 -Dev` monta el código local: los cambios de interfaz se ven con F5. Los cambios de Python requieren reiniciar el servicio sin entrenamientos activos; las dependencias requieren reconstrucción. Véase la [guía de desarrollo](../../Infraestructura/Docker/README.md#desarrollo-del-panel).
 
+0. **Seleccionar versión:** el panel abre en este paso y recuerda la versión elegida. Seleccionar V1, V2 o el piloto cuando esté disponible y pulsar **Continuar a Preparar datos**. La elección ajusta datos, modelos, resultados, fotos y actividad. En las demás secciones se muestra un indicador compacto de la versión activa con **Cambiar versión** para volver al paso 0.
 1. **Preparar datos:** actualizar CVAT manualmente, seleccionar la tarea completa, traer sus anotaciones, revisar incidencias, balance y partición y registrar quién revisó niveles y estados. Importar no cambia dibujos de CVAT ni inicia entrenamientos.
 2. **Entrenar:** elegir la copia revisada, el modelo general y los ajustes. Un solo trabajo usa la GPU a la vez. Cada ejecución crea su carpeta y conserva configuración, snapshot, partición, pesos y resultados; reutiliza el dataset de su versión si coincide por SHA-256.
 3. **Comparar resultados:** revisar alertas, métricas por estado, fotos, curvas y omisiones. Las diferencias automáticas requieren fotos, etiquetas y partición coincidentes.
-4. **Probar una foto:** pulsar **Subir mi foto** para elegir o arrastrar un JPG, PNG o WebP propio (hasta 15 MB y 24 megapíxeles), o elegir **Fotos del proyecto**. Seleccionar YOLO11-1 o YOLO26-1 y pulsar **Analizar foto**. La imagen muestra niveles numerados, colores y estados; **Original**, **Resultado** y **Comparar** permiten revisar la predicción. El resumen distingue vacío, baja, suficiente y no evaluable. La confianza y otros parámetros quedan en **Ajustes de detección**.
+4. **Probar una foto:** pulsar **Subir mi foto** para elegir o arrastrar un JPG, PNG o WebP propio (hasta 15 MB y 24 megapíxeles), o elegir **Fotos del proyecto**. Seleccionar YOLO11-1 o YOLO26-1 y pulsar **Analizar foto**. La imagen muestra niveles numerados, colores y estados; **Original**, **Niveles**, **Bordes** y **Comparar** permiten revisar el análisis. **Bordes** muestra directamente el mapa de señal cuando se analiza con YOLO + detección de bordes; en esa pestaña se puede alternar entre el mapa, los bordes de los niveles y los bordes de toda la foto. **Comparar** presenta la original junto a los niveles detectados. El resumen distingue vacío, baja, suficiente y no evaluable. La confianza y otros parámetros quedan en **Ajustes de detección**.
 
 Las fotos propias se guardan orientadas y sin metadatos EXIF en `Experimentos/panel_pruebas/Subidas_panel/`, fuera del inventario, las copias anotadas y el entrenamiento. Se limitan a 4096 píxeles por lado para acotar la memoria de las máscaras. No se incorporan automáticamente al dataset ni se asocian anotaciones por coincidencia de nombre. La inferencia se ejecuta en el equipo local. Una foto propia sin referencias permite observar predicciones, pero no calcular precisión. La confianza del modelo no es el porcentaje de ocupación del nivel.
 
-También se pueden subir manualmente las fotos de `Datos/V1/Reservadas/` en **Probar una foto**. Se procesan como cualquier foto subida y permanecen fuera del entrenamiento y la validación; el catálogo de desarrollo sigue excluyéndolas.
+En **Fotos del proyecto**, el selector y las miniaturas excluyen las imágenes usadas para entrenar el modelo seleccionado, incluidos sus entrenamientos locales anteriores si se continuó desde otro modelo. Cambiar el modelo actualiza las fotos disponibles. Para los modelos v2 base actuales quedan 40 fotos revisadas de desarrollo: las 10 originales y sus 30 variantes, en una sola lista y con los nombres existentes. La reserva final sigue aparte. Las variantes se comparan con las anotaciones de la copia revisada que dio origen al modelo. El servidor también rechaza solicitudes de prueba con fotos del proyecto usadas en ese entrenamiento. Las comparaciones históricas conservan todas sus fotos.
+
+**Probar una foto** es la evaluación de desarrollo: permite revisar errores con validación y fotos nuevas para decidir ajustes de YOLO, confianza y el método de Paulo. Analizar una foto no reentrena el modelo. La reserva final queda fuera del selector y las miniaturas; se utiliza después de fijar los modelos y parámetros que se quieren evaluar. En v2 base, la evaluación final principal usa 9 originales reales y las 27 variantes sintéticas se informan como diagnóstico aparte. La subida manual admite cualquier foto válida, por lo que para estas pruebas habituales deben elegirse fotos nuevas o de desarrollo, conservando la reserva para el cierre.
 
 La interfaz conserva selecciones y ajustes en el navegador. Las imágenes permiten zoom y arrastre. El seguimiento del trabajo local actualiza progreso y resultados; la consulta de anotaciones de CVAT sigue siendo manual.
 
@@ -94,3 +97,7 @@ Las pruebas están agrupadas en tests/. Desde la raíz del proyecto:
 ```
 
 `servidor_prueba_interfaz.py` ofrece escenarios ficticios para revisar la interfaz sin entrenar ni modificar CVAT.
+
+## Evaluar los pesos actuales sobre las 40 fotos de desarrollo
+
+Ejecutar `.venv-modelo/Scripts/python.exe Herramientas/Modelos/evaluar_desarrollo.py --run <nombre_del_ensayo>`. Usa los mejores pesos existentes a confianza 0,25 e IoU de máscara 0,5; no entrena ni cambia la partición, exportaciones o métricas históricas. Guarda `evaluacion_desarrollo.json` en el ensayo con los resultados por foto, por estado, alertas acertadas, omitidas y falsas. El panel muestra este resumen en Comparar resultados.

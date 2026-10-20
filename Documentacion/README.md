@@ -1,7 +1,13 @@
 # Documentación del proyecto
 
+La entrega al usuario se centra en **Walmart Visión**. El laboratorio y CVAT se documentan para explicar cómo se construyó el sistema y permitir al equipo continuar el desarrollo. Instalar esas herramientas no es un requisito para usar la aplicación.
+
 | Necesidad | Documento |
 |---|---|
+| **Instalar y usar la aplicación** | **[Usar Walmart Visión](Usar_Walmart_Vision.md)**: descarga, fotografías propias, resultados y problemas de inicio. |
+| Comprobar la entrega en otro computador | [Pauta y registro pendiente](Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador). |
+| Entender el proceso sin instalar el laboratorio | [Guía conceptual](Guia_para_entender_el_proyecto.md), con la función de cada interfaz y los conceptos de anotación, entrenamiento e inferencia. |
+| Continuar el desarrollo o repetir ensayos | [Guía técnica del laboratorio](Replicar_proyecto.md): requiere los paquetes del equipo y acceso personal a CVAT si se van a traer nuevas anotaciones. |
 | **Presentar el Informe Intermedio de Avance (20 oct 2026)** | **[Informe Intermedio de Avance](Informe_Intermedio_Avance_20261020.md)** (también en [PDF](../Entregables/Informe_Intermedio_Avance_20261020.pdf) y [HTML](../Entregables/Informe_Intermedio_Avance_20261020.html) y [Word `.docx`](../Entregables/Informe_Intermedio_Avance_20261020.docx)). |
 | Mostrar la evolución y ubicar el código v1/v2 | [Evolución del prototipo](Evolucion_v1_v2.md): modelos conservados, clases, scripts y demostración. |
 | Anotar el lote actual | [Guía v2 de Líder Express](Guia_anotacion_lider_express_20261016.md). |
@@ -10,6 +16,6 @@
 | Revisar qué se logró y qué falta en la primera pasada | [Primera pasada](Revision_primera_pasada_20261016.md) y su [recuento](Revision_primera_pasada_20261016.json). |
 | Explicar las decisiones del proyecto | [Defensa del criterio](Defensa_criterio_disponibilidad.md). |
 
-Las instrucciones de uso están junto al [panel](../Herramientas/Modelos/README.md); las de servicios, en [Infraestructura](../Infraestructura/Docker/README.md). Los inventarios y anotaciones se consultan en [Datos](../Datos/Registros/README.md). Los resultados de cada modelo están en [Experimentos](../Experimentos/README.md).
+Las instrucciones técnicas del panel de entrenamiento están junto al [panel](../Herramientas/Modelos/README.md); las de servicios del laboratorio, en [Infraestructura](../Infraestructura/Docker/README.md). Los inventarios y anotaciones se consultan en [Datos](../Datos/Registros/README.md). Los resultados de cada modelo están en [Experimentos](../Experimentos/README.md).
 
 Los planes y documentos anteriores se conservaron en el resguardo (archivo local histórico, fuera de la distribución); sus instrucciones vigentes se integraron en las guías anteriores.

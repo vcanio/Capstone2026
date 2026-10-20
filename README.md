@@ -10,13 +10,25 @@ Al cargar una fotografía, el modelo YOLO busca los niveles de la góndola y dib
 
 El análisis opcional de **detección de bordes** revisa contornos, color y textura dentro de esas regiones. Sus mapas ayudan a estudiar los resultados, pero su señal sigue siendo experimental y no representa un porcentaje real de productos.
 
-Tenemos dos formas de uso: **Walmart Visión**, para probar fotos propias, y el **laboratorio completo**, para preparar datos, entrenar y evaluar. Un modelo entrenado guarda lo aprendido en archivos llamados **pesos**; Visión ya incluye los cuatro modelos disponibles.
+La entrega para el usuario es **Walmart Visión**, una interfaz para probar fotos propias. El **laboratorio de desarrollo** reúne el panel de entrenamiento y CVAT para preparar datos, anotar imágenes y evaluar modelos. Un modelo entrenado guarda lo aprendido en archivos llamados **pesos**; Visión ya incluye los cuatro modelos disponibles.
 
 **Versión descargable para probar modelos (Release):** `walmart-vision-2026-10-20`, con un único ZIP de Walmart Visión, cuatro modelos y detección de bordes. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
 
-## Empezar desde otro computador
+## Alcance de la entrega y de la documentación
+
+La documentación permite comprender la construcción del sistema y ejecutar Walmart Visión con los modelos publicados. Las herramientas de anotación y entrenamiento se explican como parte del proceso de desarrollo; su instalación y los datos utilizados quedan fuera de la distribución para usuarios finales.
+
+| Destinatario | Recorrido |
+|---|---|
+| Usuario de la aplicación | Descargar Visión, cargar una fotografía y revisar niveles, estados y limitaciones. No necesita instalar el laboratorio. |
+| Persona que quiere entender el proyecto | Leer la [guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y el [mapa del código](Documentacion/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). Puede conocer el proceso sin instalar CVAT ni entrenar. |
+| Equipo de desarrollo | Consultar la [guía técnica del laboratorio](Documentacion/Replicar_proyecto.md), que requiere activos y accesos gestionados por separado. |
+
+## Empezar como usuario desde otro computador
 
 Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vision_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar `Walmart_Vision/iniciar.cmd`. El primer inicio requiere Internet; prepara su propio Python y utiliza el procesador del computador (CPU). V2 base distingue reponer y suficiente, y no reconoce no evaluable.
+
+La [guía de uso de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) reúne los pasos, la interpretación de resultados, las soluciones a problemas de inicio y una pauta para comprobar la instalación en otro computador. Esa comprobación externa sigue pendiente.
 
 ### Walmart Visión en la Release
 
@@ -32,20 +44,11 @@ experimental de detección de bordes, color y textura. Se empieza por selecciona
 el código del repositorio; para ejecutar Visión hay que descargar el activo con
 el nombre indicado arriba.
 
-### Laboratorio completo
+### Para el equipo: laboratorio de desarrollo
 
-Para **desarrollar, evaluar o entrenar**, instalar Git, Python 3.11/3.12 y Docker con contenedores Linux. En PowerShell:
+El laboratorio permite anotar, entrenar y evaluar. Su funcionamiento está explicado en la guía conceptual y en la arquitectura de este README. Instalarlo es un recorrido técnico opcional para continuar el desarrollo; requiere los paquetes de datos y resultados del equipo. La Release de Visión permite usar los modelos sin esos paquetes.
 
-```powershell
-git clone https://github.com/vcanio/Capstone2026.git
-cd Capstone2026
-python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
-& ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
-```
-
-Abrir http://localhost:8090. `D:/Transferencias/Walmart` es un ejemplo: reemplazarlo por la carpeta que contiene los ZIP entregados por el responsable del equipo. El preparador comprueba las huellas digitales de los archivos (**hashes**) y los coloca en las rutas previstas. Los grupos de entrenamiento, validación y prueba se conservan. CVAT, la herramienta para dibujar las etiquetas, se configura aparte si se necesita anotar nuevas imágenes.
-
-- [Instalación completa, ejemplo y repetición de entrenamientos](Documentacion/Replicar_proyecto.md).
+- [Instalación técnica, ejemplo y repetición de entrenamientos](Documentacion/Replicar_proyecto.md).
 - [Guía de commit, push y publicación de los activos](Documentacion/Publicar_GitHub.md).
 - [Cómo trabajar en equipo: ramas, PR y actualizaciones](Documentacion/Trabajo_en_equipo.md) · [PDF](Documentacion/Trabajo_en_equipo.pdf).
 - [Verificación de la entrega](reproducibilidad/VERIFICACION.md).
@@ -62,7 +65,7 @@ El informe del 20 de octubre, revisado para explicar los conceptos y conservar l
 
 ## Problema y objetivos
 
-Una góndola puede presentar faltantes visibles aunque haya mercadería en bodega. El objetivo es apoyar la inspección mediante fotografías, localizando niveles, identificando disponibilidad crítica y mostrando resultados revisables. El proyecto incluye datos propios, anotación humana, comparación de modelos y una ejecución reproducible.
+Una góndola puede presentar faltantes visibles aunque haya mercadería en bodega. El objetivo es apoyar la inspección mediante fotografías, localizando niveles, identificando disponibilidad crítica y mostrando resultados revisables. El proyecto incluye datos propios, anotación humana y comparación de modelos. La entrega documenta la ejecución de la aplicación con pesos publicados; repetir los ensayos del laboratorio requiere los activos de desarrollo.
 
 El prototipo clasifica estados aprendidos; no cuenta SKU, mide profundidad o consulta inventario. La confianza de YOLO no es el porcentaje de ocupación. El 30 % es un criterio inicial de anotación pendiente de calibración.
 
@@ -173,7 +176,7 @@ La copia exacta usada para entrenar V2 base es `datos_20261019_234626_3df2e643`,
 | Panel e inferencia | Código y resultados disponibles; falta aceptación completa de V2 con oclusiones. |
 | Detección de bordes | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
 | Docker y CVAT | Arranque base sin CVAT; conexión opcional por perfil y credenciales personales. |
-| Walmart Visión | Paquete V1 histórico y nueva demo V1/V2 base; falta comprobarla en otro equipo físico. |
+| Walmart Visión | Aplicación descargable con cuatro modelos V1/V2 base y análisis experimental de bordes; falta comprobarla en otro equipo físico. |
 | Oclusiones, deduplicación y prueba final | En desarrollo o pendientes. |
 
 La tabla siguiente conserva los valores medidos. **Localizados** cuenta niveles encontrados; **estados exactos**, niveles encontrados con la categoría correcta; **TP**, alertas acertadas; **FP**, falsas alertas. El mAP evalúa el comportamiento por clase y contorno; no es el porcentaje de fotos correctas. La [guía de lectura](Documentacion/Guia_para_entender_el_proyecto.md#cómo-leer-los-resultados) explica las métricas con ejemplos.
@@ -208,7 +211,9 @@ Documentacion/     Guías, informe y evidencias
 Entregables/       PDF, Word, HTML y demo portátil
 ```
 
-## Instalación y ejecución
+## Instalación técnica del laboratorio (equipo de desarrollo)
+
+Para usar la aplicación, seguir la [guía de Walmart Visión](Documentacion/Usar_Walmart_Vision.md). Los requisitos y comandos de esta sección corresponden al panel de desarrollo. Antes de ejecutarlos, preparar los activos según la [guía técnica](Documentacion/Replicar_proyecto.md#instalar-el-laboratorio-desde-una-copia-nueva).
 
 Se requiere Windows x64 con PowerShell y Docker Desktop para los comandos de inicio. El entorno de entrenamiento conservado usa Python 3.11; los scripts locales admiten Python 3.11/3.12. La GPU NVIDIA requiere acceso desde Docker; el modo CPU evita ese requisito. No se certifica aquí un límite de RAM/VRAM ni la latencia en hardware externo.
 
@@ -247,13 +252,13 @@ Los verificadores comprueban archivos, enlaces y separación de los datos. Las p
 
 ### Demo portátil y regeneración del informe
 
-La nueva entrega es `Walmart_Vision_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Vision/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
+La nueva entrega es `Walmart_Vision_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Vision/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía incluida en la aplicación](Herramientas/Demo_lite/LEEME.md) y [verificación de Visión](Herramientas/Demo_lite/VERIFICACION_VISION.md).
 
 Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
 
 ## Próximos pasos
 
-Aprobar las etiquetas con obstáculos de la tarea 22, capturar más faltantes reales y entrenar V2 de tres estados. Después, comparar el filtrado de detecciones repetidas en validación y acordar los resultados mínimos esperados. Se fijarán el modelo y los ajustes antes de consultar la prueba final. También falta comprobar Lite en otro computador físico. La [Carta Gantt y los responsables propuestos](Documentacion/Informe_Intermedio_Avance_20261020.md) están en el informe.
+Aprobar las etiquetas con obstáculos de la tarea 22, capturar más faltantes reales y entrenar V2 de tres estados. Después, comparar el filtrado de detecciones repetidas en validación y acordar los resultados mínimos esperados. Se fijarán el modelo y los ajustes antes de consultar la prueba final. Para la entrega al usuario, falta comprobar Walmart Visión en otro computador físico y registrar el resultado con la [pauta de instalación externa](Documentacion/Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador). La [Carta Gantt y los responsables propuestos](Documentacion/Informe_Intermedio_Avance_20261020.md) están en el informe.
 
 Los componentes de terceros conservan las licencias de sus distribuciones. Los términos de publicación del dataset, código propio y pesos deben documentarse en la entrega.
 

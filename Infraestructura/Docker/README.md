@@ -1,5 +1,7 @@
 # Docker y configuración del proyecto
 
+Esta guía es para el **laboratorio del equipo de desarrollo**. La aplicación de usuario Walmart Visión se inicia sin Docker: consultar la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md).
+
 Los comandos de esta guía se ejecutan desde la raíz del proyecto. Los Compose del panel resuelven sus rutas a Datos, Experimentos, Modelos y Herramientas desde esta carpeta; mantienen el proyecto Docker `walmart-modelos` y los montajes anteriores.
 
 | Archivo | Uso |
@@ -18,7 +20,13 @@ Los comandos de esta guía se ejecutan desde la raíz del proyecto. Los Compose 
 & .\Herramientas\Modelos\iniciar_panel.ps1
 ```
 
-El mismo script admite `-Cpu` y `-Build`. Para levantar CVAT y el acceso privado del equipo, se conserva `Herramientas/CVAT/iniciar_acceso_privado_equipo.ps1`.
+El mismo script admite `-Cpu` y `-Build`. El inicio base no necesita CVAT. Para conectarlo a un CVAT ya disponible, configurar la URL y las credenciales personales según la [guía de conexión opcional](../CVAT/README.md) y ejecutar:
+
+```powershell
+& .\Herramientas\Modelos\iniciar_panel.ps1 -Cpu -ConCvat
+```
+
+`Herramientas/CVAT/iniciar_cvat.ps1` sirve para iniciar una instalación de CVAT que ya tenga sus fuentes, archivos privados y volúmenes preparados. El clon público no incluye ese entorno. Los iniciadores de acceso privado del anfitrión son específicos de su instalación y están excluidos de Git; no forman parte de las instrucciones para otro computador.
 
 ## Desarrollo del panel
 

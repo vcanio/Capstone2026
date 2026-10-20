@@ -2,6 +2,8 @@
 
 Guía preparada para la instalación actual, revisada el 7 de octubre de 2026. Los comandos de respaldo y restauración se ejecutan cuando se decida migrar; preparar esta guía no detiene los servicios actuales.
 
+**Alcance:** procedimiento técnico para quienes administran el laboratorio y disponen de los respaldos y la configuración privada. Para instalar la aplicación de usuario, consultar [Usar Walmart Visión](../Documentacion/Usar_Walmart_Vision.md). Los iniciadores privados del anfitrión no se distribuyen en Git ni son un requisito de Visión.
+
 ## 1. Elegir qué se traslada
 
 | Ruta | Qué corre en el destino | Qué permanece en el PC original |
@@ -395,7 +397,7 @@ docker "${target_cvat_args[@]}" config --quiet
 docker image load -i /srv/transferencias/migracion_walmart/imagenes_cvat.tar
 ```
 
-El último archivo reemplaza las tres rutas de imágenes de Windows por la ruta configurada. No incluir `compose.tailscale.yml` del origen: contiene su dominio y direcciones de proxy específicos. Tampoco ejecutar `iniciar_acceso_privado_equipo.ps1` en el destino: valida la identidad del PC original y no sirve para autorizar una máquina nueva.
+El último archivo reemplaza las tres rutas de imágenes de Windows por la ruta configurada. No incluir `compose.tailscale.yml` del origen: contiene su dominio y direcciones de proxy específicos. Los iniciadores privados del origen validan la identidad de ese PC y no sirven para autorizar una máquina nueva; no se distribuyen en el repositorio público.
 
 #### 6.B.2. Restaurar los siete volúmenes antes de iniciar CVAT
 
@@ -655,13 +657,13 @@ No cambiar la publicación del panel a `0.0.0.0` ni agregarlo directamente a Ser
 
 1. Detener el laboratorio del destino con su prefijo del paso 7 y `stop`.
 2. Si se siguió la ruta B, detener CVAT del destino con sus argumentos de 6.B.1 y `stop`.
-3. En el origen, desde `C:\Proyectos\Walmart`, ejecutar:
+3. En el origen, con sus fuentes CVAT, archivos privados y volúmenes originales conservados, ejecutar desde `C:\Proyectos\Walmart`:
 
 ```powershell
-& .\Herramientas\CVAT\iniciar_acceso_privado_equipo.ps1
+& .\Herramientas\CVAT\iniciar_cvat.ps1
 ```
 
-Ese script corresponde al PC original y vuelve a levantar CVAT y el panel con su configuración original. En la ruta A, basta `& .\Herramientas\Modelos\iniciar_panel.ps1`.
+Ese script vuelve a levantar CVAT y el panel con la configuración local conservada; no configura el acceso privado de Tailscale. El administrador debe comprobar también el acceso privado con la configuración verificada del origen antes de reanudar el trabajo compartido. En la ruta A, basta `& .\Herramientas\Modelos\iniciar_panel.ps1`.
 
 Si ya se guardaron anotaciones o resultados nuevos en el destino, respaldarlos antes de volver: el origen conserva el estado del momento de la copia, no los cambios posteriores. No unir bases de datos ni carpetas de ensayos sobreescribiendo archivos.
 

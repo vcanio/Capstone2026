@@ -10,6 +10,20 @@ El modelo actual V2 base utiliza dos estados: `reponer` y `suficiente`. La versi
 
 La aplicación trabaja con lo visible en una foto. No conoce las unidades que hay detrás de la primera fila ni las existencias de bodega. El criterio inicial del 30 % se usa para etiquetar disponibilidad según el ancho del nivel; todavía debe calibrarse. La confianza de YOLO y la señal experimental de bordes son valores distintos de ese criterio.
 
+## Cómo se relacionan las tres interfaces
+
+| Interfaz | Quién la utiliza | Qué hace y qué entrega |
+|---|---|---|
+| CVAT, anotación de imágenes | Equipo de desarrollo y personas que revisan etiquetas | Abren las fotografías, dibujan un polígono por nivel y asignan su estado. Esas anotaciones se revisan antes de usarse como ejemplos. |
+| Panel del laboratorio | Equipo de desarrollo | Importa las anotaciones, comprueba datos y particiones, registra la revisión, entrena y compara modelos. Conserva pesos, configuración y resultados por ensayo. |
+| Walmart Visión | Usuario de la aplicación | Carga una fotografía nueva y utiliza los pesos publicados para mostrar niveles y estados. No requiere anotar ni volver a entrenar. |
+
+El proceso de construcción es **fotografías → anotación y revisión en CVAT → preparación y entrenamiento en el laboratorio → pesos publicados → análisis de fotos en Walmart Visión**. El usuario recibe los modelos entrenados junto con la aplicación.
+
+La documentación explica los criterios de anotación, la separación de datos y las decisiones de entrenamiento para que una persona externa comprenda ese proceso. Instalar el panel o CVAT es opcional y corresponde a continuar el desarrollo; los datos, resultados y accesos del equipo se gestionan por separado. La distribución para usuarios finales incluye Visión y sus pesos.
+
+Para profundizar sin instalar herramientas: [guía de anotación](Guia_anotacion_lider_express_20261016.md), [funcionamiento del panel](../Herramientas/Modelos/README.md) y [mapa del código](Evolucion_v1_v2.md#dónde-está-cada-parte-del-código).
+
 ## Delimitar un nivel y decidir su estado
 
 **Detección** significa localizar algo en una imagen. **Segmentación** añade la forma de la región: en este proyecto buscamos el contorno completo del nivel, incluso cuando contiene espacios vacíos. La región coloreada resultante se llama **máscara**. Un **polígono** es la figura que dibujamos manualmente para indicar ese contorno durante el etiquetado.
@@ -28,9 +42,9 @@ La aplicación trabaja con lo visible en una foto. No conoce las unidades que ha
 | OpenCV, Pillow y NumPy | Preparan fotografías y calculan operaciones sobre sus píxeles. | Ayudan a orientar imágenes, trabajar con máscaras y calcular la señal de bordes. |
 | Docker | Prepara un entorno con las dependencias del panel. | Facilita ejecutar el laboratorio con una configuración compartida. Los datos y pesos se instalan aparte. |
 | Git y GitHub | Guardan cambios del código y permiten integrarlos entre compañeros. | Mantienen el historial y permiten revisar una mejora antes de incorporarla. |
-| Walmart Lite | Abre una interfaz local para probar los modelos. | Permite cargar fotografías propias sin instalar todo el laboratorio. |
+| Walmart Visión (antes Walmart Lite) | Abre una interfaz local para probar los modelos. | Permite cargar fotografías propias sin instalar todo el laboratorio. |
 
-La **CPU** es el procesador del computador. La **GPU** es la tarjeta gráfica y puede acelerar los cálculos cuando el entorno está configurado para utilizarla. La demo Lite utiliza CPU.
+La **CPU** es el procesador del computador. La **GPU** es la tarjeta gráfica y puede acelerar los cálculos cuando el entorno está configurado para utilizarla. Walmart Visión utiliza CPU en su entorno automático de Windows.
 
 ## Cómo organizamos las imágenes
 
@@ -100,7 +114,7 @@ El equipo comenzó este trabajo en la semana 9 y lo integró con YOLO en la sema
 
 ## Por dónde continuar
 
-- Para probar fotos propias: seguir el [inicio del README](../README.md).
-- Para instalar el laboratorio: seguir la [guía de réplica](Replicar_proyecto.md).
+- Para probar fotos propias: seguir la [guía de Walmart Visión](Usar_Walmart_Vision.md).
+- Para continuar el desarrollo e instalar el laboratorio: seguir la [guía técnica](Replicar_proyecto.md).
 - Para subir y recibir mejoras del equipo: seguir la [guía de trabajo en equipo](Trabajo_en_equipo.md).
 - Para preparar la presentación: revisar el [informe con los 20 casos](Informe_Intermedio_Avance_20261020.md) y la [relación con lo solicitado](Revision_de_requisitos_informe.md).
