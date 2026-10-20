@@ -201,7 +201,6 @@ Trabajamos con un enfoque ágil e iterativo inspirado en Scrum, con dos reunione
 ## Organización del proyecto
 
 ```text
-Contexto/          Enunciados y reunión con orientaciones
 Datos/             V1, V2, inventarios, particiones y versiones
 Herramientas/      Datos, Modelos, Demo_lite, CVAT e Informes
 Infraestructura/   Docker y configuración local

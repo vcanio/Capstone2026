@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from preparar import safe_path
 
 PRIVATE = ('.config-modelo/', '.resguardo/', '.tmp/', '.publicacion/', '.artefactos/',
-           '.venv-modelo/', '.venv-cvat/', 'Experimentos/panel_pruebas/')
+           '.venv-modelo/', '.venv-cvat/', 'Experimentos/panel_pruebas/', 'Contexto/')
 SECRET_KEYS = {'password', 'passwd', 'token', 'api_key', 'secret', 'client_secret', 'access_token', 'auth_token'}
 
 

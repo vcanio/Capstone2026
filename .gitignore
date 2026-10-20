@@ -27,6 +27,8 @@ Datos/Publicos/hitl_pagina.html
 Datos/Publicos/comparacion.jpg
 
 # Archivos locales y paquetes para publicar como activos de una Release.
+# Material privado de referencia; se conserva solo en el equipo local.
+/Contexto/
 /.publicacion/
 /.artefactos/
 /.agents/
