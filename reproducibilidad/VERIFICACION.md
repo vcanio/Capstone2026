@@ -44,7 +44,7 @@ de GitHub está preparado; su ejecución remota se podrá revisar después del p
 ## Qué sigue pendiente
 
 1. Commit y push por el mantenedor y publicación del borrador con un único ZIP:
-   Walmart_Lite_V2_Bordes_20261020.zip. Los paquetes de datos, resultados e informe
+   Walmart_Lite_V2_Deteccion_Bordes_20261020.zip. Los paquetes de datos, resultados e informe
    se conservan aparte y se instalan con --assets; no se adjuntan a la Release.
 2. Clonar y descargar por HTTPS desde GitHub en otro computador físico, siguiendo
    [la guía de réplica](../Documentacion/Replicar_proyecto.md). La instalación
@@ -61,8 +61,8 @@ usó el test reservado para ajustar los cambios de distribución.
 
 ## Actualización: Lite con bordes y Release solo para probar
 
-El ZIP nuevo incluye los cuatro modelos y la revisión 2 de Paulo en disposición
-autónoma. Pasaron 15 pruebas de Lite, 13 del algoritmo de Paulo y 10 del preparador.
+El ZIP nuevo incluye los cuatro modelos y la revisión 2 de detección de bordes en disposición
+autónoma. Pasaron 15 pruebas de Lite, 13 del algoritmo de detección de bordes y 10 del preparador.
 Desde el ZIP extraído se ejecutó la misma fotografía de validación con los cuatro
 modelos, con y sin bordes. Los estados, conteos y confianzas YOLO se conservaron.
 Los tres mapas se generaron en memoria sin guardar fotografías. V2 YOLO26

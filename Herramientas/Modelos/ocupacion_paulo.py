@@ -1,4 +1,4 @@
-"""Señal experimental de Paulo dentro de máscaras YOLO; nunca decide el estado."""
+"""Señal experimental de detección de bordes dentro de máscaras YOLO; nunca decide el estado."""
 from dataclasses import asdict, dataclass
 from functools import lru_cache
 import hashlib

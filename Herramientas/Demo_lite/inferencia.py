@@ -153,7 +153,7 @@ class ModelRunner:
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:
             raise ValueError('La confianza debe estar entre 0,01 y 0,99.')
         if method not in ('yolo', 'yolo_paulo'):
-            raise ValueError('Elige YOLO o YOLO + bordes de Paulo.')
+            raise ValueError('Elige YOLO o YOLO + detección de bordes.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
@@ -190,7 +190,7 @@ class ModelRunner:
 
 
 def analyze_edges(original_rgb, result, detections):
-    """Reutiliza el algoritmo de Paulo sin dibujar sobre la entrada ni guardar fotos."""
+    """Reutiliza el algoritmo de detección de bordes sin dibujar sobre la entrada ni guardar fotos."""
     # En el ZIP ambos archivos se copian junto a inferencia.py. En el laboratorio
     # se usa el mismo módulo de Modelos; no se mantiene otra implementación.
     try:

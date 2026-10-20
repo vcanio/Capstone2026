@@ -21,7 +21,7 @@ Merge integra los cambios. Pull descarga e integra las novedades de la rama actu
 | Si cambias... | Trabaja en... | Cómo se comparte |
 |---|---|---|
 | Script experimental de bordes | Experimentos/Bordes/gondola_bordes.py | Rama y PR con el archivo en su ruta actual. |
-| Cálculo de ocupación de Paulo | Herramientas/Modelos/ocupacion_paulo.py | Rama y PR; incluir pruebas pertinentes. |
+| Detección de bordes | Herramientas/Modelos/ocupacion_paulo.py | Rama y PR; incluir pruebas pertinentes. |
 | Panel y lógica del laboratorio | Herramientas/Modelos/ | Rama y PR. |
 | Demo portátil | Herramientas/Demo_lite/ | Rama y PR del código; regenerar ZIP al publicar una demo. |
 | Instalación y reproducción | Herramientas/Reproducibilidad/ | Rama y PR. |
@@ -366,7 +366,7 @@ demo después de probarla.
 
 Para la primera entrega, el mantenedor sigue Documentacion/Publicar_GitHub.md:
 commit y push del checkout preparado y Release con tag `avance-2026-10-20`.
-Solo adjunta Walmart_Lite_V2_Bordes_20261020.zip de `.publicacion/releases/`;
+Solo adjunta Walmart_Lite_V2_Deteccion_Bordes_20261020.zip de `.publicacion/releases/`;
 los paquetes del laboratorio quedan en `.publicacion/paquetes_desarrollo/`.
 El PDF de esta guía y su fuente Markdown se incluyen en el código del repositorio.
 

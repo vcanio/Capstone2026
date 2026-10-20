@@ -1,12 +1,12 @@
 # Walmart Lite — probar modelos con fotos propias
 
-La entrega **Walmart_Lite_V2_Bordes_20261020.zip** contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + bordes de Paulo. No necesita el proyecto completo, CVAT, Docker, las imágenes de entrenamiento ni acceso al computador original.
+La entrega **Walmart_Lite_V2_Deteccion_Bordes_20261020.zip** contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. No necesita el proyecto completo, CVAT, Docker, las imágenes de entrenamiento ni acceso al computador original.
 
 ## Otro PC con Windows
 
 1. **Extraer todo el ZIP** a una carpeta local donde puedas guardar archivos. No ejecutar los archivos desde dentro del ZIP.
 2. Abrir **iniciar.cmd**. La primera vez necesita Internet: descarga automáticamente un Python compatible y las dependencias dentro de esa misma carpeta. Después abre el navegador en **http://127.0.0.1:8095**.
-3. Seleccionar o arrastrar una foto JPG, PNG o WebP, elegir un modelo y el método **YOLO + bordes de Paulo** o **Solo YOLO**, y pulsar **Analizar foto**. Mantener la consola abierta mientras usas el visor; Ctrl+C la detiene.
+3. Seleccionar o arrastrar una foto JPG, PNG o WebP, elegir un modelo y el método **YOLO + detección de bordes** o **Solo YOLO**, y pulsar **Analizar foto**. Mantener la consola abierta mientras usas el visor; Ctrl+C la detiene.
 
 En el modo con bordes, además de las predicciones aparecen una tabla de señal por
 nivel, **Ver mapa de señal** y **Ver solo los bordes**, con la fotografía completa
@@ -39,7 +39,7 @@ El cuaderno usa el mismo módulo de inferencia que la interfaz local, pero muest
 - `modelos/*.pt`: copias exactas de los cuatro `best.pt` conservados, con clases y procedencia por modelo.
 - `modelos.json`: procedencia y SHA-256 de cada modelo; se comprueban al iniciar.
 - `app.py`, `inferencia.py`, `interfaz.html`: visor independiente de inferencia.
-- `ocupacion_paulo.py`, `gondola_bordes.py`: revisión 2 de Paulo, con procedencia y hashes en el manifiesto; se ejecuta sobre la foto original, sin colores dibujados por YOLO.
+- `ocupacion_paulo.py`, `gondola_bordes.py`: revisión 2 de detección de bordes, con procedencia y hashes en el manifiesto; se ejecuta sobre la foto original, sin colores dibujados por YOLO.
 - `iniciar.cmd`, `preparar.cmd`, `preparar.py`, `requirements.txt`: preparación automática y arranque en Windows. `instalar.cmd` es opcional.
 - `herramientas/uv.exe`, su procedencia y sus licencias: gestor oficial de Astral que prepara el Python privado; no se instala globalmente.
 - `Probar_en_Colab.ipynb`: prueba de los mismos pesos en un cuaderno de Colab.

@@ -2,8 +2,8 @@
 
 La Release pública `avance-2026-10-20` sirve solo para probar los modelos con
 fotografías propias. Debe contener **un único activo**:
-`Walmart_Lite_V2_Bordes_20261020.zip`. Incluye la interfaz, los cuatro pesos y la
-revisión 2 de bordes de Paulo. No adjuntar datos, informes ni paquetes de desarrollo.
+`Walmart_Lite_V2_Deteccion_Bordes_20261020.zip`. Incluye la interfaz, los cuatro pesos y la
+revisión 2 de detección de bordes. No adjuntar datos, informes ni paquetes de desarrollo.
 
 ## Código y commit
 
@@ -23,9 +23,9 @@ git push origin main
 
 1. Abrir Releases en https://github.com/vcanio/Capstone2026 y editar el borrador
    con tag avance-2026-10-20, Target main.
-2. Usar el título **Walmart Lite V2 + bordes de Paulo** y la
+2. Usar el título **Walmart Lite V2 + detección de bordes** y la
    [descripción preparada](Notas_Release_avance_20261020.md).
-3. En Assets conservar solo Walmart_Lite_V2_Bordes_20261020.zip. El ZIP local
+3. En Assets conservar solo Walmart_Lite_V2_Deteccion_Bordes_20261020.zip. El ZIP local
    preparado está en `.publicacion/releases/`. Esperar a que termine la carga.
 4. Mantener **This is a pre-release** por su carácter experimental y publicar.
 5. Descargar el ZIP publicado, extraerlo en una carpeta nueva y ejecutar

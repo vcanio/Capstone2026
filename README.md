@@ -2,23 +2,23 @@
 
 Laboratorio del proyecto Capstone DUOC UC para localizar niveles de góndola y clasificar su disponibilidad visual en fotografías. Equipo: Vicente Canio, Paulo Guerra y Vicente Vilches. Docente: Arturo Vargas. Contraparte: José Larraín.
 
-**Release para probar modelos:** `avance-2026-10-20`, con un único ZIP de Walmart Lite, cuatro modelos y bordes de Paulo. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
+**Release para probar modelos:** `avance-2026-10-20`, con un único ZIP de Walmart Lite, cuatro modelos y detección de bordes. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
 
 ## Empezar desde otro computador
 
-Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_Bordes_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; usa Python privado y CPU. V2 base distingue reponer y suficiente, y no reconoce no evaluable.
+Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_Deteccion_Bordes_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; usa Python privado y CPU. V2 base distingue reponer y suficiente, y no reconoce no evaluable.
 
 ### Walmart Lite en la Release
 
 El activo para quienes solo quieren probar la aplicación es
-[Walmart_Lite_V2_Bordes_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_Bordes_20261020.zip)
+[Walmart_Lite_V2_Deteccion_Bordes_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_Deteccion_Bordes_20261020.zip)
 (aproximadamente 36 MiB). Incluye los cuatro modelos y el visor local. Funciona
 en Windows x64 sin instalar previamente Python, Docker o CVAT; en el primer
 inicio descarga Python y las dependencias. Después, las fotos se analizan
 localmente en CPU y no se guardan.
 
 **Alcance de esta demo:** detección/segmentación y estados con YOLO, y análisis
-experimental de bordes, color y textura de Paulo. Se puede elegir el método de
+experimental de detección de bordes, color y textura. Se puede elegir el método de
 análisis y ver sus mapas dentro de la misma aplicación. El archivo “Source code (zip)” generado por GitHub contiene
 el código del repositorio; para ejecutar Lite hay que descargar el activo con
 el nombre indicado arriba.
@@ -69,7 +69,7 @@ El prototipo clasifica estados aprendidos; no cuenta SKU, mide profundidad o con
 | PyTorch 2.5.1+cu121 y Ultralytics 8.4.174 | Entorno registrado de entrenamiento GPU. Transferencia desde pesos generales e inferencia CPU/GPU. Ver `entorno.json` y `entrenamiento/args.yaml` de cada ensayo. |
 | Polígonos amodales por nivel | Incluyen tanto productos como espacio vacío y siguen bordes inclinados. La tarea responde a reposición por repisa sin exigir un catálogo etiquetado por SKU. |
 | OpenCV, Pillow, NumPy y Shapely | Orientación EXIF, preparación de imágenes, máscaras y comprobaciones geométricas. |
-| Bordes Canny, color y textura | Señal experimental de Paulo dentro de cada máscara YOLO; permite inspeccionar activación y fondos problemáticos sin cambiar los estados del detector. |
+| Bordes Canny, color y textura | Señal experimental de detección de bordes dentro de cada máscara YOLO; permite inspeccionar activación y fondos problemáticos sin cambiar los estados del detector. |
 | CVAT | Anotación colaborativa y revisión humana. Un hash verifica integridad de archivos, pero no demuestra que una etiqueta sea correcta. |
 | Familias y grupos de escena | Mantienen original y variantes en el mismo destino y reducen fugas. La separación dentro de una captura no demuestra generalización entre locales. |
 | Python y HTML/CSS/JavaScript | Panel local, importador, subprocesos de entrenamiento/inferencia y revisión de resultados. |
@@ -98,10 +98,10 @@ flowchart LR
 
 El panel importa anotaciones sin modificar dibujos en CVAT, valida el inventario y exige revisión antes de exportar. Cada ensayo conserva configuración, snapshot, versión, pesos y evaluación. En inferencia se orienta la fotografía, se ejecuta el modelo y se numeran las detecciones de abajo hacia arriba y de izquierda a derecha. La evaluación propia empareja máscaras de forma única con IoU ≥ 0,50 a confianza 0,25.
 
-## Detección de bordes, color y textura de Paulo
+## Detección de bordes
 
-El panel completo incorpora **YOLO + bordes de Paulo**, con la revisión 2 del
-20 de octubre. YOLO localiza y clasifica los niveles; el algoritmo de Paulo
+El panel completo incorpora **YOLO + detección de bordes**, con la revisión 2 del
+20 de octubre. YOLO localiza y clasifica los niveles; el algoritmo de detección de bordes
 analiza bordes Canny, color y textura dentro de sus máscaras sobre la fotografía
 original, antes de dibujar los colores del resultado. Entrega área y ancho con
 señal experimental, un mapa de señal y vistas de los bordes.
@@ -116,7 +116,7 @@ Fondos con textura, carteles y estructuras siguen siendo fuentes de error.
 Para probarlo después de instalar los activos e iniciar el panel:
 
 1. Elegir **V2 → Probar una foto**, un modelo YOLO11/YOLO26 y una fotografía.
-2. En **Método de análisis**, seleccionar **YOLO + bordes de Paulo · experimental**.
+2. En **Método de análisis**, seleccionar **YOLO + detección de bordes · experimental**.
 3. Pulsar **Analizar foto** y comprobar **Revisión 2 · color y textura** en el
    resultado. Un análisis anterior no se recalcula automáticamente.
 4. Revisar la tabla por nivel, el mapa de señal y **Ver solo los bordes**.
@@ -130,7 +130,7 @@ están en Git. Sus imágenes se instalan desde el paquete `modelos_resultados`.
 
 En la comparación de desarrollo con las mismas diez fotos de validación,
 pesos y ajustes, las 114 detecciones YOLO conservaron clases, confianza e IoU
-entre revisiones. Cambió la señal de Paulo; eso no demuestra precisión global
+entre revisiones. Cambió la señal de detección de bordes; eso no demuestra precisión global
 de ocupación. El test final no se utilizó para ajustar este algoritmo.
 
 ## Datos y preparación
@@ -154,7 +154,7 @@ La versión V2 base usada es `datos_20261019_234626_3df2e643`, con estado `lista
 | Inventarios, importador, exportador y particionador | Implementados con artefactos y verificadores locales. |
 | Entrenamiento y comparación | Cuatro ensayos conservados: dos V1 y dos V2 base. |
 | Panel e inferencia | Código y resultados disponibles; falta aceptación completa de V2 con oclusiones. |
-| Bordes, color y textura de Paulo | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
+| Detección de bordes | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
 | Docker y CVAT | Arranque base sin CVAT; conexión opcional por perfil y credenciales personales. |
 | Walmart Lite | Paquete V1 histórico y nueva demo V1/V2 base; falta comprobarla en otro equipo físico. |
 | Oclusiones, deduplicación y prueba final | En desarrollo o pendientes. |
@@ -220,7 +220,7 @@ El [registro de verificación del informe](Documentacion/Evidencias/verificacion
 
 ### Demo portátil y regeneración del informe
 
-La nueva entrega es `Walmart_Lite_V2_Bordes_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de bordes de Paulo; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
+La nueva entrega es `Walmart_Lite_V2_Deteccion_Bordes_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
 
 Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
 

@@ -1,4 +1,4 @@
-"""Comparar YOLO y señal de Paulo en la validación de desarrollo V2, sin entrenar."""
+"""Comparar YOLO y señal de detección de bordes en la validación de desarrollo V2, sin entrenar."""
 import argparse
 from datetime import datetime, timezone
 import csv
@@ -88,7 +88,7 @@ def experiment(run, out, partition, device):
         canvas.paste(reference, (0, 50)); canvas.paste(signal_image, (850, 50))
         draw = ImageDraw.Draw(canvas)
         draw.text((12, 12), 'YOLO: niveles numerados | ' + name, font=font, fill='white')
-        draw.text((862, 12), 'Paulo: amarillo = señal de bordes/color/textura', font=font, fill='white')
+        draw.text((862, 12), 'Detección de bordes: señal de bordes/color/textura', font=font, fill='white')
         canvas.save(directory / (stem + '.jpg'), quality=90)
         gallery.append({'photo': name, 'image': run.name + '/' + stem + '.jpg'})
         print(run.name, name, len(predictions), 'niveles', flush=True)
@@ -129,12 +129,12 @@ def main():
     results = [experiment(run, args.out, partition, 0 if torch.cuda.is_available() else 'cpu') if args.device == 'auto'
                else experiment(run, args.out, partition, args.device) for run in runs]
     save(args.out / 'resumen.json', [{k: v for k, v in r.items() if k not in ('levels', 'gallery')} for r in results])
-    parts = ['<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>YOLO + Paulo · experimento V2</title><style>body{font:16px/1.6 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#172b4d}img{max-width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{padding:10px;border-bottom:1px solid #dde4ee;text-align:left}summary{cursor:pointer}</style><h1>YOLO + Paulo · primera comparación</h1><p>10 fotos de validación de desarrollo por modelo. Amarillo indica señal de bordes/color dentro del nivel detectado. Los porcentajes son experimentales: no miden precisión ni ocupación real validada y no cambian el estado de YOLO. La reserva final queda fuera.</p>']
+    parts = ['<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>YOLO + detección de bordes · experimento V2</title><style>body{font:16px/1.6 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#172b4d}img{max-width:100%;height:auto}table{border-collapse:collapse;width:100%}td,th{padding:10px;border-bottom:1px solid #dde4ee;text-align:left}summary{cursor:pointer}</style><h1>YOLO + detección de bordes · primera comparación</h1><p>10 fotos de validación de desarrollo por modelo. Amarillo indica señal de bordes/color dentro del nivel detectado. Los porcentajes son experimentales: no miden precisión ni ocupación real validada y no cambian el estado de YOLO. La reserva final queda fuera.</p>']
     for result in results:
         a = result['yolo_validation']['alertas']
         parts.append(f'<h2>{html.escape(result["run"])}</h2><p>Alertas YOLO: {a["acertadas"]} acertadas, {a["omitidas"]} omitidas y {a["falsas"]} falsas. Señal medible en {result["measured"]}/{result["detections"]} detecciones.</p>')
         for photo in result['gallery']:
-            parts.append(f'<details><summary>{html.escape(photo["photo"])}</summary><img src="{html.escape(photo["image"])}" alt="Niveles YOLO y señal de Paulo"><table><tr><th>Nivel</th><th>YOLO</th><th>Anotado</th><th>Área con señal</th><th>Ancho con señal</th></tr>')
+            parts.append(f'<details><summary>{html.escape(photo["photo"])}</summary><img src="{html.escape(photo["image"])}" alt="Niveles YOLO y señal de detección de bordes"><table><tr><th>Nivel</th><th>YOLO</th><th>Anotado</th><th>Área con señal</th><th>Ancho con señal</th></tr>')
             for row in (r for r in result['levels'] if r['foto'] == photo['photo']):
                 fmt = lambda value: 'Sin medición' if value is None else f'{value:.1f} %'
                 parts.append(f'<tr><td>{row["nivel"]}</td><td>{html.escape(row["estado_yolo"])}</td><td>{html.escape(row["estado_anotado"] or "Sin pareja")}</td><td>{fmt(row["area_signal_pct"])}</td><td>{fmt(row["width_signal_pct"])}</td></tr>')

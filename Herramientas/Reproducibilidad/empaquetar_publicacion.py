@@ -103,7 +103,7 @@ def main():
         print(f'Empaquetando {key}: {len(selected)} archivos...', flush=True)
         packages[key] = archive(development / name, selected)
         print(f'{name}: {packages[key]["bytes"] / 1024**2:.1f} MiB.', flush=True)
-    lite = ROOT / 'Entregables/Walmart_Lite_V2_Bordes_20261020.zip'
+    lite = ROOT / 'Entregables/Walmart_Lite_V2_Deteccion_Bordes_20261020.zip'
     shutil.copy2(lite, release / lite.name)
     # El ZIP de la demo es independiente; el preparador lo instala en Entregables.
     with zipfile.ZipFile(lite) as z:

@@ -14,17 +14,17 @@ los cambios integrados por los demás.
 
 | Necesidad | Archivos y entorno |
 |---|---|
-| Probar fotografías propias | Walmart_Lite_V2_Bordes_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
+| Probar fotografías propias | Walmart_Lite_V2_Deteccion_Bordes_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
 | Desarrollar, evaluar o entrenar | Clon + datos_fuentes + datos_exportados + modelos_resultados; Python 3.11/3.12 para preparar y Docker para ejecutar. |
 | Revisar el informe | Paquete informe; no requiere modelos ni datos de entrenamiento. |
 | Anotar nuevas fotografías | Cuenta propia y acceso al CVAT compartido, configurado por separado. |
 
 ## Demo portátil
 
-Descargar Walmart_Lite_V2_Bordes_20261020.zip de la Release, extraer todo y ejecutar
+Descargar Walmart_Lite_V2_Deteccion_Bordes_20261020.zip de la Release, extraer todo y ejecutar
 `Walmart_Lite/iniciar.cmd`. El primer inicio prepara un Python privado con sus
 dependencias. Seleccionar V2-YOLO26 o uno de los otros tres modelos, elegir
-YOLO + bordes de Paulo o Solo YOLO y subir una foto. El modo con bordes añade
+YOLO + detección de bordes o Solo YOLO y subir una foto. El modo con bordes añade
 mapas de señal y bordes sin cambiar los estados YOLO.
 
 V1 devuelve vacío, baja, suficiente y no evaluable. V2 base devuelve reponer y

@@ -1,9 +1,9 @@
-# Experimento V2: niveles YOLO + señal de Paulo
+# Experimento V2: niveles YOLO + señal de detección de bordes
 
 20 de octubre de 2026. Primera integración ejecutable, sin reentrenar ni cambiar
 las etiquetas de los modelos existentes.
 
-**Actualización · revisión 2:** se integró el script nuevo de Paulo (color con
+**Actualización · revisión 2:** se integró el script de detección de bordes actualizado (color con
 brillo mínimo y textura en zonas oscuras). El fondo negro liso ya no se considera
 ocupado por ser oscuro. El panel muestra «Revisión 2 · color y textura» al ejecutar
 un análisis nuevo. Los resultados anteriores conservan sus parámetros y método.
@@ -12,7 +12,7 @@ Ver [revisión y comparación antes/después](../Experimentos/Bordes/REVISION_20
 ## Propósito y flujo
 
 La foto entra a YOLO11 o YOLO26 V2. YOLO entrega una máscara y un estado por nivel.
-El adaptador aplica las señales de bordes y color de Paulo dentro de cada máscara.
+El adaptador aplica las señales de detección de bordes y color dentro de cada máscara.
 El resultado conserva el estado de YOLO y añade porcentajes experimentales y un
 mapa amarillo de las celdas activadas.
 
@@ -22,7 +22,7 @@ indicación «señal experimental»; no representan confianza YOLO ni un conteo 
 productos. Si falta una medición se escribe «Sin medición», en lugar de 0 %.
 
 En el panel: **V2 → Probar una foto → elegir modelo → Método de análisis →
-YOLO + bordes de Paulo · experimental → Analizar foto**. Se puede usar una foto
+YOLO + detección de bordes · experimental → Analizar foto**. Se puede usar una foto
 de desarrollo o una propia. Elegir YOLO solo permite comparar la misma toma.
 La combinación es un método de análisis dentro de V2; no es un nuevo modelo
 entrenado ni una versión nueva del criterio de anotación.
@@ -37,12 +37,12 @@ originales; hay que analizar de nuevo para generar estos PNG.
 
 ## Qué se reutiliza y qué se adapta
 
-La entrada de Paulo es una copia de los píxeles RGB originales tomada antes de
+La entrada del análisis de bordes es una copia de los píxeles RGB originales tomada antes de
 la inferencia y del dibujo. Las máscaras solo delimitan dónde medir; el relleno
 rojo o verde de YOLO se dibuja en otra capa para mostrarlo. Cada nueva ejecución
 guarda `input_kind` e `input_rgb_sha256` en su procedencia. Una prueba del worker
 verifica que una foto blanca con una visualización YOLO roja conserva 0 % de señal
-para Paulo y el mismo hash de los píxeles originales.
+para el análisis de bordes y el mismo hash de los píxeles originales.
 
 El [original del 18 de octubre](../Experimentos/Bordes/Versiones/gondola_bordes_20261018.py)
 y el [nuevo script recibido de Paulo](../Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py)

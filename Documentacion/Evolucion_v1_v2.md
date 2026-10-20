@@ -14,7 +14,7 @@ La interfaz comienza con el selector **Versión del proyecto**: **V1 (4 estados)
 
 ## Qué se conserva de cada etapa
 
-V2 también permite elegir **YOLO + bordes de Paulo · experimental** al probar una
+V2 también permite elegir **YOLO + detección de bordes · experimental** al probar una
 foto. Usa los pesos ya entrenados, conserva el estado de YOLO y añade una señal
 de bordes/color dentro de cada nivel. La primera comparación y sus límites están
 documentados en el [experimento combinado](Experimento_YOLO_Paulo_v2.md).
@@ -33,7 +33,7 @@ documentados en el [experimento combinado](Experimento_YOLO_Paulo_v2.md).
 | Entrenar V2 completo por consola | [entrenar_niveles.py](../Herramientas/Modelos/entrenar_niveles.py) | Entrada específica para datasets con los tres estados completos; [guía](Entrenamiento_niveles_v2.md). |
 | Evaluar los ensayos del panel | [comparar_niveles.py](../Herramientas/Modelos/comparar_niveles.py) | Interpreta las clases del manifiesto (`vacío`/`baja` son alertas en V1; `reponer` es alerta en V2). |
 | Probar fotos y dibujar resultados | [panel_worker.py](../Herramientas/Modelos/panel_worker.py) | Lee las clases del modelo y aplica sus nombres, colores y alertas. |
-| Estimar ocupación por bordes | [gondola_bordes.py](../Experimentos/Bordes/gondola_bordes.py) | Prototipo separado de Paulo; no integrado automáticamente al entrenamiento V2. |
+| Estimar ocupación por bordes | [gondola_bordes.py](../Experimentos/Bordes/gondola_bordes.py) | Prototipo de detección de bordes; no integrado automáticamente al entrenamiento V2. |
 
 ## Cómo mostrar la evolución en el panel
 

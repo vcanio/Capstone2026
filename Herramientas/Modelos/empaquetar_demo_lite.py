@@ -100,7 +100,7 @@ print('Niveles detectados:', len(prediccion['detections']))
 print('Estados:', prediccion['counts'])
 display(prediccion['image'])
 if usar_bordes:
-    print('Señal experimental de Paulo; no es porcentaje validado de producto.')
+    print('Señal experimental de detección de bordes; no es porcentaje validado de producto.')
     display(prediccion['occupancy_image'])
     display(prediccion['edges_image'])
 ruta_resultado = Path('/content') / f"resultado_{prediccion['model']}.jpg"
@@ -177,5 +177,5 @@ if __name__ == '__main__':
     parser.add_argument('--perfil', choices=('v1', 'v2'), default='v1')
     parser.add_argument('--output')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Lite_V2_Bordes_20261020.zip' if args.perfil == 'v2' else 'Walmart_Lite_Automatico_20261015.zip'))
+    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Lite_V2_Deteccion_Bordes_20261020.zip' if args.perfil == 'v2' else 'Walmart_Lite_Automatico_20261015.zip'))
     print(json.dumps(build(output, args.perfil), ensure_ascii=False))

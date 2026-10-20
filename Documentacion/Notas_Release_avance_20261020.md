@@ -1,6 +1,6 @@
-# Walmart Lite V2 + bordes de Paulo
+# Walmart Lite V2 + detección de bordes
 
-Descargar **Walmart_Lite_V2_Bordes_20261020.zip**, extraer todo y ejecutar
+Descargar **Walmart_Lite_V2_Deteccion_Bordes_20261020.zip**, extraer todo y ejecutar
 **Walmart_Lite/iniciar.cmd** en Windows x64. El visor se abre en
 http://127.0.0.1:8095. El primer inicio necesita Internet para preparar Python y
 sus dependencias; no hace falta instalarlos previamente ni usar Docker o CVAT.
@@ -12,7 +12,7 @@ V2-YOLO26**. No hay que descargar modelos por separado.
 ## Cómo probar
 
 1. Seleccionar o arrastrar una foto JPG, PNG o WebP de hasta 15 MB.
-2. Elegir uno de los cuatro modelos y **YOLO + bordes de Paulo** o **Solo YOLO**.
+2. Elegir uno de los cuatro modelos y **YOLO + detección de bordes** o **Solo YOLO**.
 3. Pulsar **Analizar foto** para ver los niveles numerados, estados y alertas.
 4. Con bordes, revisar la señal por nivel, **Ver mapa de señal** y
    **Ver solo los bordes**. Se muestran los bordes originales y los filtrados.
@@ -39,4 +39,4 @@ En **Assets**, elegir el ZIP de Walmart Lite indicado arriba. Los archivos
 **Source code** automáticos de GitHub contienen el código, no el paquete portátil
 con los cuatro modelos.
 
-SHA-256 del ZIP: `1d99c0c3f19e85bfdc2edd0887c5906f2d104875973880c103133ff6b294c007`.
+SHA-256 del ZIP: `4c512a3760488488ed19885e39d3bf9e06ac99e6ff64eb15e687f70ceba59155`.

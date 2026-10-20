@@ -55,7 +55,7 @@ def compare(before, after):
         report_path = after / 'informe.html'
         report = report_path.read_text(encoding='utf-8')
         section = f'<h2>Corrección del fondo oscuro · misma detección</h2><p>{html.escape(case["foto"])} · nivel {case["nivel"]}, anotado reponer. Área con señal: {case["area_antes"]}% → {case["area_despues"]}%. Ancho con señal: {case["ancho_antes"]}% → {case["ancho_despues"]}%. Esto verifica una corrección concreta; no mide la precisión global del porcentaje.</p><img src="antes_despues_040.jpg" alt="Antes el fondo oscuro aparece activado; después la señal se concentra en zonas con color o textura">'
-        report = report.replace('YOLO + Paulo · primera comparación', 'YOLO + Paulo · revisión 2: color y textura')
+        report = report.replace('YOLO + detección de bordes · primera comparación', 'YOLO + detección de bordes · revisión 2: color y textura')
         index = report.index('<h2>')
         report_path.write_text(report[:index]+section+report[index:], encoding='utf-8')
     return output
