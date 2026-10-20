@@ -1,0 +1,27 @@
+{
+  "corte": "2026-10-20",
+  "inicio": "agosto de 2026 aproximadamente",
+  "escala": "Semanas de referencia del equipo; no equivalen a fechas diarias confirmadas",
+  "procedencia": "Historia y reuniones informadas por el equipo; tabla de hitos compartida; artefactos del repositorio",
+  "primer_commit": {"fecha": "2026-09-02", "id": "e5d0fbb"},
+  "metodologia": {
+    "descripcion": "Trabajo ágil e iterativo inspirado en Scrum",
+    "reuniones_por_semana": 2,
+    "actividades": ["Revisar avances", "Revisar nuevas imágenes para anotar", "Ajustar criterios de etiquetado", "Proponer ideas y mejoras"],
+    "scrum_formal_verificado": false,
+    "referencia": "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-Latin-South-American.pdf"
+  },
+  "hitos": [
+    {"id":"H1", "actividad":"Requerimientos y criterio del 30 %", "desde":1, "hasta":3, "responsables":"Todo el equipo", "estado":"Realizado", "evidencia":"Inicio en agosto aproximado; segmentación por nivel y criterio inicial de anotación."},
+    {"id":"H2", "actividad":"Infraestructura y captura V1", "desde":4, "hasta":6, "responsables":"V. Canio / V. Vilches", "estado":"Realizado", "evidencia":"Docker/CVAT e inventarios; 37 originales y 72 variantes sintéticas."},
+    {"id":"H3", "actividad":"Etiquetado V1 y panel YOLO", "desde":7, "hasta":9, "responsables":"V. Canio / P. Guerra", "estado":"Realizado", "evidencia":"91 fotos activas; ensayos YOLO11/26 V1 y demo conservados del 15 de octubre."},
+    {"id":"H4", "actividad":"Desarrollo de detección de bordes", "desde":9, "hasta":11, "responsables":"Equipo", "estado":"Experimental operativo", "evidencia":"Inicio en semana 9 informado por el equipo; script y revisiones conservados."},
+    {"id":"H5", "actividad":"Captura y partición V2", "desde":10, "hasta":10, "responsables":"Todo el equipo", "estado":"Preparación realizada", "evidencia":"236 imágenes base y 60 con obstáculos; corrección de tareas 20/21 en tarea 22."},
+    {"id":"H6", "actividad":"Integración YOLO y detección de bordes", "desde":11, "hasta":11, "responsables":"Equipo", "estado":"Experimental operativo", "evidencia":"Integración en semana 11 informada por el equipo; panel, adaptador y mapas de señal."},
+    {"id":"H7", "actividad":"Modelos V2 base e informe", "desde":11, "hasta":11, "responsables":"Todo el equipo", "estado":"Realizado", "evidencia":"Dos ensayos V2 base; métricas, informe y entrega Lite con detección de bordes."},
+    {"id":"H8", "actividad":"Revisión de oclusiones y V2 de 3 estados", "desde":12, "hasta":13, "responsables":"P. Guerra / V. Vilches", "estado":"Propuesto pendiente", "fecha_objetivo":"21 oct–3 nov", "evidencia":"Cerrar revisión semántica de tarea 22 y entrenar; no se declara completado."},
+    {"id":"H9", "actividad":"Deduplicación y refuerzo de faltantes", "desde":14, "hasta":15, "responsables":"V. Canio / P. Guerra", "estado":"Propuesto pendiente", "fecha_objetivo":"4–17 nov", "evidencia":"Comparar posprocesamiento en val y ampliar casos reales sin usar test para ajustar."},
+    {"id":"H10", "actividad":"Evaluación final y prueba en otro PC", "desde":16, "hasta":16, "responsables":"Todo el equipo", "estado":"Propuesto pendiente", "fecha_objetivo":"18–26 nov", "evidencia":"Separar test real/sintético/V1 y comprobar instalación de Lite en otro equipo físico."},
+    {"id":"H11", "actividad":"Documentación y defensa", "desde":17, "hasta":17, "responsables":"Todo el equipo", "estado":"Propuesto pendiente", "fecha_objetivo":"3–4 dic tentativo", "evidencia":"Cierre documental y demostración; fecha sujeta a confirmación académica."}
+  ]
+}

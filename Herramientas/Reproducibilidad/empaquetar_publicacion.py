@@ -98,7 +98,7 @@ def main():
         ('datos_fuentes', 'Walmart_Datos_Fuentes_20261020.zip', sources),
         ('datos_exportados', 'Walmart_Datos_Exportados_20261020.zip', exported),
         ('modelos_resultados', 'Walmart_Modelos_Resultados_20261020.zip', models),
-        ('informe', 'Walmart_Informe_20261020.zip', reports),
+        ('informe', 'Walmart_Informe_Planificacion_20261020.zip', reports),
     ]:
         print(f'Empaquetando {key}: {len(selected)} archivos...', flush=True)
         packages[key] = archive(development / name, selected)

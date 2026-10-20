@@ -44,9 +44,10 @@ Abrir http://localhost:8090. Solicitar primero los paquetes de desarrollo al res
 
 ## Informe intermedio
 
-El informe histórico del 20 de octubre contiene 20 casos visuales y las limitaciones de la evaluación. El equipo lo distribuye por separado en `Walmart_Informe_20261020.zip`; puede instalarse con `python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe`.
+El informe del 20 de octubre, revisado para incorporar la planificación desde agosto, contiene 20 casos visuales y las limitaciones de la evaluación. El equipo lo distribuye por separado en `Walmart_Informe_Planificacion_20261020.zip`; puede instalarse con `python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe`.
 
 - [Fuente Markdown](Documentacion/Informe_Intermedio_Avance_20261020.md).
+- [Registro de la revisión de planificación](Documentacion/Evidencias/verificacion_planificacion_20261020.json).
 - Versiones locales después de preparar: [PDF](Entregables/Informe_Intermedio_Avance_20261020.pdf), [Word](Entregables/Informe_Intermedio_Avance_20261020.docx) y [HTML](Entregables/Informe_Intermedio_Avance_20261020.html).
 
 ## Problema y objetivos
@@ -167,6 +168,12 @@ La versión V2 base usada es `datos_20261019_234626_3df2e643`, con estado `lista
 | YOLO26 V2 base | 10 fotos, 51 niveles | 99,28 % | 92,79 % | 50/51 | 50/51 | 1 TP, 0 FP; 1 alerta real |
 
 Fuentes: `metricas_validacion.json`, `metricas_alertas.json` y `evaluacion_por_imagen.json` de [Experimentos](Experimentos/README.md). mAP y conteos propios usan evaluadores distintos; no son equivalentes. El 100 % en alertas de YOLO26 V2 corresponde a **1/1** y no demuestra sensibilidad generalizable. La validación sirve para seleccionar modelos, no es test ciego. No se promedian métricas de V1 y V2 ni de imágenes reales y sintéticas.
+
+## Planificación y forma de trabajo
+
+El proyecto comenzó aproximadamente en agosto de 2026. La detección de bordes se inició en la semana 9 y se integró con YOLO en la semana 11. La [Gantt histórica y el plan de cierre](Documentacion/Planificacion_y_metodologia.md) distinguen trabajo realizado, prototipo experimental y actividades futuras; el inicio exacto y las fechas propuestas de cierre deben confirmarse.
+
+Trabajamos con un enfoque ágil e iterativo inspirado en Scrum, con dos reuniones semanales para revisar avances, nuevas imágenes por anotar, criterios de etiquetado e ideas de mejora. Esta descripción recoge la revisión y adaptación continuas, sin atribuir una aplicación formal completa de Scrum que no está documentada.
 
 ## Organización del proyecto
 

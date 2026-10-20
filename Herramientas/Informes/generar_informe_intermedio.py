@@ -48,6 +48,7 @@ def table(doc,rows):
     elif n==4 and rows[0][0]=='Procedencia':weights=[3.8,1.5,1.8,10.5]
     elif n==4 and rows[0][0]=='Destino V2 base':weights=[3.3,2.6,2.4,9.3]
     elif n==4: weights=[2.1,4.2,3.4,6.9]
+    elif n==5 and rows[0][0]=='Hito y actividad':weights=[4.7,1.3,2.5,2.5,6.6]
     elif n==5:weights=[4.1,3.6,2.4,2.4,4.1]
     elif n==8:weights=[4.2,1.75,1.9,1.9,1.9,1.2,2.3,1.45]
     else:weights=[17.6/n]*n
@@ -121,7 +122,7 @@ def main():
             if m:
                 caption,path=m.groups();p=(SOURCE.parent/path).resolve();raw,size=image_bytes(p)
                 original='original de entrada' in caption.lower()
-                maxw=6.9;maxh=1.35 if original else (2.76 if 'predicción' in caption.lower() else 3.15)
+                maxw=6.9;maxh=1.35 if original else (4.2 if 'gantt' in caption.lower() else (2.55 if 'arquitectura' in caption.lower() else (2.76 if 'predicción' in caption.lower() else 3.15)))
                 w=min(maxw,maxh*size[0]/size[1]);para=doc.add_paragraph();para.alignment=WD_ALIGN_PARAGRAPH.CENTER
                 para.paragraph_format.space_after=Pt(3);para.paragraph_format.keep_with_next=True
                 run=para.add_run();sh=run.add_picture(io.BytesIO(raw),width=Cm(w*2.54));sh._inline.docPr.set('descr',caption)

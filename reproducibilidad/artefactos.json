@@ -25094,24 +25094,24 @@
       "distribution": "team_assets"
     },
     "informe": {
-      "file": "Walmart_Informe_20261020.zip",
-      "bytes": 63975105,
-      "sha256": "058256c311703686f5d3cb06c3286a91d18acf241101e1b217ada65cdd9b71fe",
+      "file": "Walmart_Informe_Planificacion_20261020.zip",
+      "bytes": 64360533,
+      "sha256": "a8e63b750e0dd43a67a7b78d197edd316a381656f3d86462e8146706c85c6661",
       "files": [
         {
           "path": "Entregables/Informe_Intermedio_Avance_20261020.docx",
-          "bytes": 29733622,
-          "sha256": "65ef7d32668bd74daa77bd77c2425a2fcfebadb76022757836687c95da698f97"
-        },
-        {
-          "path": "Entregables/Informe_Intermedio_Avance_20261020.html",
-          "bytes": 40289328,
-          "sha256": "2396d22c8641bdef2f14b44d6d1f0f87a0801015376e7ef8c73bdb6a1d302914"
+          "bytes": 29895990,
+          "sha256": "3b7b964e56f04fa681ef5efb70257ecc6c65ebd2a7afed5d96dc7174ac9298ea"
         },
         {
           "path": "Entregables/Informe_Intermedio_Avance_20261020.pdf",
-          "bytes": 3987038,
-          "sha256": "ee5bc28cfd832140a20012ad2d6b8ecb3a8c0f820493aa74981915e16519dc6e"
+          "bytes": 4028254,
+          "sha256": "ab353dab53357af732b413e665c121b05a25ac87708f7954ee8ddea3be86726a"
+        },
+        {
+          "path": "Entregables/Informe_Intermedio_Avance_20261020.html",
+          "bytes": 40532514,
+          "sha256": "14184113744dcb76360798112ff57e7a9dc69c35b66f89bf51394b665fa0c195"
         }
       ],
       "distribution": "team_assets"

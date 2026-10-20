@@ -1,0 +1,50 @@
+{
+  "fecha": "2026-10-20",
+  "alcance": "Revisión de planificación y metodología; corte de métricas conservado",
+  "historia_equipo": {
+    "inicio": "agosto de 2026 aproximadamente",
+    "deteccion_bordes_inicio_semana": 9,
+    "integracion_yolo_semana": 11,
+    "reuniones_semanales": 2,
+    "escala": "Semanas de referencia del equipo; fecha diaria inicial sin confirmar"
+  },
+  "metodologia": "Enfoque ágil e iterativo inspirado en Scrum; aplicación formal completa no documentada",
+  "fuente_metodologia": "https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Spanish-Latin-South-American.pdf",
+  "primer_commit": {
+    "fecha": "2026-09-02",
+    "id": "e5d0fbb",
+    "alcance": "Inicio del historial conservado; no fecha de inicio del proyecto"
+  },
+  "render": {
+    "paginas": 31,
+    "metodo": "Microsoft Word ExportAsFixedFormat y Poppler",
+    "alternativa": "LibreOffice no disponible en render_docx.py; Word instalado utilizado para exportar",
+    "revision_visual": "31 páginas revisadas; Gantt, hitos, metodología, arquitectura y cierre revisados a mayor tamaño. Sin páginas de desborde."
+  },
+  "conservacion": {
+    "datos_y_particiones": "Sin modificaciones",
+    "pesos_modelos": "Sin modificaciones",
+    "metricas_y_20_casos": "Bloques Markdown comparados y conservados exactamente",
+    "inferencias_sobre_test": false
+  },
+  "registro_historico": "verificacion_informe_20261020.json corresponde a la versión inicial de 29 páginas y a sus comprobaciones originales",
+  "entregables": {
+    "Entregables/Informe_Intermedio_Avance_20261020.docx": {
+      "bytes": 29895990,
+      "sha256": "3b7b964e56f04fa681ef5efb70257ecc6c65ebd2a7afed5d96dc7174ac9298ea"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.pdf": {
+      "bytes": 4028254,
+      "sha256": "ab353dab53357af732b413e665c121b05a25ac87708f7954ee8ddea3be86726a"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.html": {
+      "bytes": 40532514,
+      "sha256": "14184113744dcb76360798112ff57e7a9dc69c35b66f89bf51394b665fa0c195"
+    },
+    "Documentacion/Evidencias/gantt_20261020.png": {
+      "bytes": 225012,
+      "sha256": "4f1131f4a08a686cc63255bb5f8cd83d7c09467a9910053005496170a5407e75"
+    }
+  },
+  "distribucion": "Informe por paquete separado de equipo; Release pública conserva solo Walmart Lite"
+}

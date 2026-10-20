@@ -5,6 +5,8 @@
 
 **Equipo:** Vicente Canio, Paulo Guerra y Vicente Vilches.
 
+**Revisión de planificación:** inicio aproximado en agosto, detección de bordes en semana 9 e integración con YOLO en semana 11; se conserva el corte y las métricas del 20 de octubre.
+
 El prototipo permite preparar datos, anotar niveles de góndola, entrenar modelos de segmentación y analizar fotografías desde un panel local. Se conservan cuatro ensayos completos: dos V1 de cuatro estados y dos V2 base de dos estados. La principal tarea pendiente es validar el manejo de oclusiones y demostrar la detección de faltantes con más fotografías reales independientes.
 
 | Indicador verificado | Resultado al corte |
@@ -37,37 +39,70 @@ Los porcentajes siguientes son estimaciones de ingeniería basadas en cuatro hit
 | Importación y exportación | Lectura, revisión, versión, YOLO-Seg | 100 % implementado | datos_modelos.py y conjuntos.py |
 | Modelos base | V1 YOLO11/26, V2 base YOLO11/26 | 100 % para esta etapa | Cuatro ensayos en Experimentos |
 | Panel | Carga, inferencia, comparación | 75 % en desarrollo | panel_modelos.py y panel_worker.py |
-| Distribución | Docker, arranque, Lite V1 | 75 % en desarrollo | Infraestructura/Docker y Entregables |
+| Distribución | Docker, arranque, Lite V2 | 75 % en desarrollo | Infraestructura/Docker y Entregables |
 | Oclusiones V2 | Lote y partición preparados | 50 % en desarrollo | 60 imágenes y tarea 22 |
 | Cierre de calidad | Diagnóstico de errores | 25 % en desarrollo | evaluacion_por_imagen.json |
 
-**Hitos restantes:** datos: ampliar faltantes reales; panel: aceptación con tres estados; distribución: Lite V2 probado; oclusiones: revisión semántica final y ensayo de tres estados; cierre: deduplicación, prueba final y aceptación del MVP.
+**Hitos restantes:** datos: ampliar faltantes reales; panel: aceptación con tres estados; distribución: instalación de Lite en otro computador físico; oclusiones: revisión semántica final y ensayo de tres estados; cierre: deduplicación, prueba final y aceptación del MVP.
 
-“Implementado” indica que existen código, configuración o artefactos comprobables. El estado en vivo de CVAT y Docker no quedó verificado en esta revisión porque el acceso al motor Docker fue denegado. No equivale a disponibilidad garantizada del servicio.
+“Implementado” indica que existen código, configuración o artefactos comprobables. La preparación posterior de la entrega verificó el arranque Docker en CPU y la demo Lite con los cuatro modelos, sin requerir CVAT. Esto no equivale a disponibilidad garantizada del CVAT compartido ni a una prueba en otro computador físico; el registro actualizado está en reproducibilidad/VERIFICACION.md.
 
 Las cuatro ejecuciones conservan pesos, parámetros, métricas, partición y entorno. V2 base utiliza la copia aprobada datos_20261019_234626_3df2e643. Algunos README de lotes todavía describen la exportación como pendiente; para el ensayo se toma como evidencia su versión congelada, sin extender esa aprobación al lote de oclusiones.
 
 
 <!-- page -->
 
-## 1 Planificación y riesgos
+## 1 Planificación desde el inicio del proyecto
 
-![Carta Gantt propuesta](Evidencias/gantt_20261020.png)
+![Carta Gantt histórica y propuesta de cierre](Evidencias/gantt_20261020.png)
 
-La Carta Gantt presenta una replanificación desde el corte. Los hitos anteriores se sustentan en los artefactos V1 del 15 de octubre y en los lotes y versiones V2 del 16 al 19 de octubre. Los nombres de los ensayos usan UTC: las ejecuciones V2 iniciadas el 20 de octubre UTC corresponden al 19 de octubre en Santiago.
+El proyecto comenzó aproximadamente en agosto de 2026, según la reconstrucción del equipo. La Gantt incorpora la historia de trabajo y el cierre propuesto. La detección de bordes comenzó en la semana 9 y se integró con el modelo YOLO en la semana 11.
 
-La transcripción de la reunión sitúa el cierre en semana 17 y menciona tentativamente el 3 o 4 de diciembre. No se dispone aquí de una línea base aprobada que permita cuantificar retrasos; estas fechas son estimaciones y no compromisos ya acordados.
+Las semanas son referencias de organización comunicadas por el equipo, no fechas diarias confirmadas. El corte corresponde al 20 de octubre. La fecha exacta de inicio y la equivalencia calendario de las primeras semanas quedan por confirmar; el primer commit conservado es del 2 de septiembre de 2026.
+
+La defensa del 3 o 4 de diciembre es tentativa. Los hitos futuros y sus responsables están sujetos a acuerdo; no existe una línea base aprobada que permita cuantificar retrasos en días.
+
+<!-- page -->
+
+## 1 Hitos y trazabilidad
+
+| Hito y actividad | Sem. | Responsables | Estado | Evidencia y alcance |
+|---|---|---|---|---|
+| H1 Requerimientos y criterio del 30 % | 1–3 | Todo el equipo | Realizado | Inicio en agosto aproximado; segmentación por nivel y criterio inicial de anotación. |
+| H2 Infraestructura y captura V1 | 4–6 | V. Canio / V. Vilches | Realizado | Docker/CVAT e inventarios; 37 originales y 72 variantes sintéticas. |
+| H3 Etiquetado V1 y panel YOLO | 7–9 | V. Canio / P. Guerra | Realizado | 91 fotos activas; ensayos YOLO11/26 V1 y demo conservados del 15 de octubre. |
+| H4 Desarrollo de detección de bordes | 9–11 | Equipo | Experimental operativo | Inicio en semana 9 informado por el equipo; script y revisiones conservados. |
+| H5 Captura y partición V2 | 10 | Todo el equipo | Preparación realizada | 236 imágenes base y 60 con obstáculos; corrección de tareas 20/21 en tarea 22. |
+| H6 Integración YOLO y detección de bordes | 11 | Equipo | Experimental operativo | Integración en semana 11 informada por el equipo; panel, adaptador y mapas de señal. |
+| H7 Modelos V2 base e informe | 11 | Todo el equipo | Realizado | Dos ensayos V2 base; métricas, informe y entrega Lite con detección de bordes. |
+| H8 Revisión de oclusiones y V2 de 3 estados | 12–13 | P. Guerra / V. Vilches | Propuesto pendiente | Cerrar revisión semántica de tarea 22 y entrenar; no se declara completado. |
+| H9 Deduplicación y refuerzo de faltantes | 14–15 | V. Canio / P. Guerra | Propuesto pendiente | Comparar posprocesamiento en val y ampliar casos reales sin usar test para ajustar. |
+| H10 Evaluación final y prueba en otro PC | 16 | Todo el equipo | Propuesto pendiente | Separar test real/sintético/V1 y comprobar instalación de Lite en otro equipo físico. |
+| H11 Documentación y defensa | 17 | Todo el equipo | Propuesto pendiente | Cierre documental y demostración; fecha sujeta a confirmación académica. |
+
+Los rangos semanales históricos se reconstruyen con el equipo y la tabla de referencia; los artefactos permiten verificar resultados, pero no fijan por sí solos la fecha de inicio de cada actividad. El desarrollo de bordes es experimental y su integración no valida un porcentaje real de ocupación.
+
+El hito H5 indica preparación del lote y su partición. La corrección de tareas 20/21 en la 22 no cierra la revisión semántica ni acredita un entrenamiento de tres estados. La validación de Lite en otro computador sigue pendiente aunque la demo ya esté publicada.
+
+<!-- page -->
+
+## 1 Metodología de trabajo y riesgos
+
+Trabajamos con un enfoque ágil e iterativo inspirado en principios de Scrum. El equipo mantuvo dos reuniones semanales para revisar avances, revisar nuevas imágenes para anotar, discutir diferencias de etiquetado, ajustar criterios y proponer ideas y mejoras. Los acuerdos orientaron el siguiente ciclo de trabajo y permitieron adaptar los datos y los componentes a los resultados observados.
+
+Esta descripción recoge prácticas de inspección y adaptación. Con la información disponible no se atribuyen roles formales, sprints definidos ni una ejecución completa de los eventos de Scrum. Las dos reuniones semanales se describen como seguimiento del equipo; su frecuencia por sí sola no acredita Scrum formal.
+
+Referencia metodológica: Guía Scrum 2020 de Ken Schwaber y Jeff Sutherland, https://scrumguides.org/scrum-guide.html. Para reforzar la trazabilidad se propone registrar fecha, participantes, avances, acuerdos y pendientes de cada reunión.
 
 | Riesgo o dificultad | Evidencia y acción prioritaria |
 |---|---|
-| Pocos faltantes reales | V2 val contiene un nivel reponer. Capturar y anotar escenas reales adicionales; mantenerlas separadas por escena y sesión. |
+| Pocos faltantes reales | V2 val contiene un nivel reponer. Capturar escenas reales adicionales y separarlas por escena y sesión. |
 | Oclusiones sin validar | V2 base no aprende no_evaluable. Cerrar tarea 22 y medir los tres estados por separado. |
-| Etiquetado parcial y duplicados | Hay predicciones extra y estados superpuestos. Revisar ROI y referencias; comparar deduplicación en val sin cambiar test. |
-| Diferencias entre copias de anotaciones | Tarea 19 registra 1.229 niveles en un registro antiguo y 1.212 en la exportación usada. Fijar siempre versión y fecha del snapshot. |
-| Publicación incompleta | GitHub consultado conserva README V1. Publicar código/documentación de V2 y un manifiesto de artefactos de reproducción. |
+| Etiquetado parcial y duplicados | Revisar ROI y referencias; comparar deduplicación en val sin cambiar test. |
+| Diferencias entre copias | Tarea 19 registra 1.229 niveles en un registro antiguo y 1.212 en la exportación usada. Fijar versión y snapshot. |
+| Réplica y aceptación externa | La demo está disponible, pero falta comprobar la instalación en otro computador físico y ampliar validación. |
 
-El cambio de dimensiones de imágenes de oclusión motivó sustituir las tareas 20/21 por la 22. Existen registros de corrección; falta cerrar la aprobación semántica. No se atribuye un retraso en días sin una planificación anterior verificable.
-
+El cambio de dimensiones de imágenes de oclusión motivó sustituir las tareas 20/21 por la 22. Se conservan registros de corrección; falta cerrar la aprobación semántica. No se atribuye un retraso en días sin una planificación anterior verificable.
 
 <!-- page -->
 
@@ -85,6 +120,7 @@ El objetivo es localizar el espacio completo de cada nivel de góndola y clasifi
 | CVAT y control de versiones | Permiten revisión humana y trazabilidad del estado de cada foto. SHA-256 detecta cambios de bytes, pero no demuestra corrección semántica de etiquetas. |
 | Partición por familias y grupos | Evita que original y variantes compartan destinos. No demuestra generalización entre tiendas; los grupos son conservadores y no identidades físicas certificadas. |
 | Docker y panel local | Organizan dependencias y facilitan la ejecución. Datos, pesos y configuración deben estar disponibles por separado. |
+| Detección de bordes, color y textura | Iniciada en semana 9 e integrada con YOLO en semana 11. Añade señal experimental dentro de las máscaras sin cambiar sus estados. |
 
 OpenCV, Pillow y NumPy preparan imágenes y máscaras; Shapely interviene en comprobaciones geométricas. El panel Python y su interfaz HTML/CSS/JavaScript coordinan importación, entrenamiento y pruebas. En inferencia se orienta la foto, se ejecuta YOLO, se numeran niveles y se muestran estados y alertas. La confianza de una detección no es su porcentaje de ocupación.
 
@@ -589,9 +625,9 @@ Los entornos de entrenamiento registran una GTX 1660 SUPER. Las mediciones de in
 
 La carpeta local organiza código en Herramientas, datos y versiones en Datos, resultados en Experimentos, configuración en Infraestructura y documentación en Documentacion. El README local describe decisiones, arquitectura, datasets, estado e instrucciones.
 
-Repositorio de referencia: https://github.com/vcanio/Capstone2026. La consulta a GitHub del 20 de octubre muestra que el README publicado aún corresponde al laboratorio del 15 de octubre y V1. La carpeta de trabajo carece de .git, por lo que no puede probarse su sincronización con main ni atribuir cambios locales a commits. La consulta y los commits devueltos se conservan en Evidencias/consulta_github_20261020.json. El historial remoto contiene entregas académicas y cambios de README, pero no demuestra por sí solo la participación en el código local V2.
+Repositorio de referencia: https://github.com/vcanio/Capstone2026. El historial Git conserva un primer commit del 2 de septiembre de 2026; el inicio aproximado en agosto procede del relato del equipo. La primera consulta del 20 de octubre, conservada en Evidencias/consulta_github_20261020.json, describía un estado anterior y no representa la publicación actual.
 
-**Pendiente para la publicación:** llevar código y documentación a un checkout verificado, revisar el diff, agregar un manifiesto de datos y pesos compartibles, registrar contribuciones verificables y publicar una versión de entrega. No se deben subir credenciales ni configuraciones privadas. Las imágenes y pesos requieren un mecanismo de acceso para el evaluador; un clon por sí solo no reproduce el laboratorio completo.
+La preparación posterior llevó código y documentación al checkout .publicacion/repositorio y permitió publicar Walmart Lite con cuatro pesos y detección de bordes. La Release está enfocada en probar fotografías propias: no contiene el dataset ni el informe. Para desarrollar, los paquetes del laboratorio se transfieren por separado y se instalan con el preparador y --assets. El registro de comprobaciones y los límites están en reproducibilidad/VERIFICACION.md.
 
 Desde la raíz, con Python 3.11 o 3.12 y los datos/modelos necesarios disponibles:
 
@@ -606,9 +642,9 @@ python -m venv .venv-modelo
 
 Abrir http://localhost:8090, seleccionar V2 y v2_base_yolo26n_01, cargar la foto lider_express_040_0_original y analizar. La evaluación guardada a conf 0,25 contiene cinco niveles, cuatro suficientes y uno reponer. La demostración debe comparar contra esa configuración y referencia. Una foto propia sin etiqueta permite observar una predicción, no calcular precisión.
 
-La demo Walmart Lite distribuida conserva los modelos V1 y descarga dependencias en el primer arranque. Su actualización a V2 y su prueba en otro equipo siguen pendientes. La presencia del ZIP no demuestra funcionamiento offline ni reproducibilidad en un equipo limpio.
+La demo Walmart Lite publicada incluye los cuatro modelos V1/V2 y detección de bordes; descarga dependencias en el primer arranque. Queda pendiente probarla en otro computador físico. Su ejecución local verificada no demuestra una instalación correcta en un equipo limpio.
 
-**Verificación al corte:** auditoría correcta de 43 documentos, 270 enlaces locales, 435 registros de imágenes, 2 exportaciones compartidas y 52 archivos Python. Pasaron las 11 pruebas de datos; la suite de modelos terminó correctamente con 222 pruebas y una omitida. La partición de 296 imágenes también pasó. El registro y los logs están en Evidencias/verificacion_informe_20261020.json. Las pruebas de código no sustituyen una validación del modelo ni una demostración en hardware externo.
+**Verificación al corte:** auditoría correcta de 43 documentos, 270 enlaces locales, 435 registros de imágenes, 2 exportaciones compartidas y 52 archivos Python. Pasaron las 11 pruebas de datos; la suite de modelos terminó correctamente con 222 pruebas y una omitida. La partición de 296 imágenes también pasó. El registro y los logs están en Evidencias/verificacion_informe_20261020.json. La revisión de planificación amplía el documento a 31 páginas e incorpora el inicio aproximado en agosto, los hitos de bordes y la metodología; se registra en Evidencias/verificacion_planificacion_20261020.json. Las pruebas de código no sustituyen una validación del modelo ni una demostración en hardware externo.
 
 
 <!-- page -->
@@ -617,7 +653,7 @@ La demo Walmart Lite distribuida conserva los modelos V1 y descarga dependencias
 
 Se alcanzó el objetivo de construir un flujo local trazable de datos, anotación, entrenamiento, evaluación e inferencia. Existen cuatro modelos entrenados y comparaciones visuales conservadas. La etapa V2 base mejora las métricas de máscaras respecto de V1 bajo su propio conjunto de validación; su detección real de faltantes aún tiene evidencia escasa.
 
-El panel dispone de carga de imágenes, selección de modelo, ejecución de inferencia y visualización de estados. Los artefactos demuestran implementación, mientras que la disponibilidad del despliegue y la ejecución en un equipo limpio necesitan una comprobación adicional. V2 de tres estados, deduplicación validada, prueba final y distribución actualizada permanecen pendientes.
+El panel dispone de carga de imágenes, selección de modelo, ejecución de inferencia y visualización de estados. Los artefactos demuestran implementación, mientras que la disponibilidad del despliegue y la ejecución en un equipo limpio necesitan una comprobación adicional. V2 de tres estados, deduplicación validada, prueba final y validación de Lite en otro computador permanecen pendientes.
 
 | Actividad propuesta | Responsable propuesto | Fecha estimada | Criterio de cierre |
 |---|---|---|---|
@@ -626,7 +662,7 @@ El panel dispone de carga de imágenes, selección de modelo, ejecución de infe
 | Evaluar deduplicación y referencias de bordes | Vicente Canio y Paulo Guerra | 10 nov | Comparativa en val sin degradar niveles vecinos |
 | Capturar faltantes reales independientes | Vicente Vilches y equipo | 17 nov | Nuevas escenas anotadas y partición versionada |
 | Congelar modelo y ejecutar prueba final | Todo el equipo | 26 nov | Test real separado de diagnóstico sintético |
-| Validar Lite V2 y publicar entrega reproducible | Vicente Canio y equipo | 26 nov | Ejecución en otro equipo y versión publicada |
+| Validar Lite V2 en otro computador físico | Vicente Canio y equipo | 26 nov | Instalación y ejecución externa verificadas; la demo ya está publicada |
 | Cerrar informe y preparar defensa | Todo el equipo | 3 o 4 dic | Demostración y documentación consistentes |
 
 Estas asignaciones y fechas son una propuesta de planificación que el equipo debe acordar. La viabilidad de completar el MVP es condicionada: requiere resolver la revisión de etiquetas y el refuerzo real antes de congelar el modelo. El 77,8 % de hitos no autoriza afirmar que resta el 22,2 % del esfuerzo; la captura y validación pueden dominar el tiempo restante.
