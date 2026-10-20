@@ -1,0 +1,73 @@
+name: walmart-modelos
+services:
+  panel_modelos:
+    image: walmart-panel-modelos:local
+    build:
+      context: ../..
+      dockerfile: Herramientas/Modelos/docker/Dockerfile
+    restart: always
+    init: true
+    ports:
+      - "127.0.0.1:8090:8090"
+    environment:
+      CVAT_ENABLED: ${MODEL_CVAT_ENABLED:-false}
+      CVAT_URL: ${MODEL_CVAT_URL:-http://host.docker.internal:8082/api}
+      CVAT_HOST_HEADER: ${MODEL_CVAT_HOST_HEADER-localhost:8082}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - type: bind
+        source: ../../Datos
+        target: /app/Datos
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/V1
+        target: /app/Datos/V1
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/V2
+        target: /app/Datos/V2
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Experimentos
+        target: /app/Experimentos
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Modelos
+        target: /app/Modelos
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../.config-modelo
+        target: /app/.config-modelo
+      - type: bind
+        source: ../../Datos/Registros/reserva_evaluacion.json
+        target: /app/Datos/Registros/reserva_evaluacion.json
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/Registros/CVAT/organizacion.json
+        target: /app/Datos/Registros/CVAT/organizacion.json
+        read_only: true
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/api/health', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    shm_size: "1gb"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

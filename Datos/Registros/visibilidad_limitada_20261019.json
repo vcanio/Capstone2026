@@ -1,0 +1,73 @@
+{
+  "imagenes": 60,
+  "familias": 59,
+  "distribucion": {
+    "carro": 24,
+    "persona": 24,
+    "cajas": 12
+  },
+  "imagenes_aprobadas_usuario": 30,
+  "pendientes_revision_independiente": 30,
+  "niveles_por_estado": {
+    "reponer": 0,
+    "suficiente": 299,
+    "no_evaluable": 9
+  },
+  "particion_modelo": "sin_asignar",
+  "aprobado_entrenamiento": false,
+  "panel_incorporado": false,
+  "manifest": "Datos/V2/visibilidad_limitada_20261019/manifest.json",
+  "cvat_task_id": 22,
+  "url": "https://pcvicen.tailca514b.ts.net/tasks/22",
+  "tareas_sustituidas": [
+    20,
+    21
+  ],
+  "tandas_produccion": [
+    {
+      "tanda": 1,
+      "imagenes": 30,
+      "aceptadas_usuario": 30
+    },
+    {
+      "tanda": 2,
+      "imagenes": 30,
+      "pendientes_revision_independiente": 30
+    }
+  ],
+  "preanotacion_niveles": {
+    "poligonos": 308,
+    "estados_asignados": 0,
+    "estados_sin_asignar": 308,
+    "tarea_fuente": 19,
+    "revision_geometria": "pendiente",
+    "revision_oclusion": "pendiente",
+    "informe": ".resguardo/orden_v1_v2_20261019/visibilidad_limitada_intermedios/traspaso_niveles.json",
+    "vista": ".resguardo/orden_v1_v2_20261019/visibilidad_limitada_intermedios/preanotacion_niveles.html",
+    "fecha": "2026-10-19T18:39:17.949914+00:00"
+  },
+  "anotacion_actual": {
+    "estado": "anotacion_lista_para_seleccion_y_validacion",
+    "fecha": "2026-10-19T22:55:43.206342+00:00",
+    "revision_tecnica": "completada_por_Codex",
+    "validacion_humana_independiente": "no_certificada_por_este_cierre",
+    "niveles_por_estado_provisionales": {
+      "reponer": 0,
+      "suficiente": 299,
+      "no_evaluable": 9
+    },
+    "estados_sin_asignar": 0,
+    "occluded": 176,
+    "incidencias_pendientes": [],
+    "incidencias_resueltas": [
+      7,
+      6,
+      5,
+      4,
+      3
+    ],
+    "registro": "Datos/Registros/CVAT/revisiones/visibilidad_20261019T222744Z/cierre_criterio/resultado.json",
+    "vista": "Datos/Registros/CVAT/revisiones/visibilidad_20261019T222744Z/cierre_criterio/revision_final.html"
+  },
+  "recuentos_revision_tecnica": "completos_por_Codex"
+}

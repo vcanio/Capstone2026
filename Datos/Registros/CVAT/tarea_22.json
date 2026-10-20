@@ -1,0 +1,667 @@
+{
+  "status": "verified",
+  "verified_at": "2026-10-19T18:16:47.182841+00:00",
+  "name": "Visibilidad limitada - 60 variantes IA - carros personas cajas",
+  "images": 60,
+  "real": 0,
+  "synthetic": 60,
+  "families": 59,
+  "distribution": {
+    "carro": 24,
+    "persona": 24,
+    "cajas": 12
+  },
+  "project_id": 7,
+  "task_id": 22,
+  "url": "https://pcvicen.tailca514b.ts.net/tasks/22",
+  "project_url": "https://pcvicen.tailca514b.ts.net/projects/7",
+  "guide_id": 9,
+  "frames": [
+    {
+      "frame": 0,
+      "archivo": "lider_express_001_D_carro.png",
+      "familia": "lider_express_001",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=0"
+    },
+    {
+      "frame": 1,
+      "archivo": "lider_express_001_E_cajas.png",
+      "familia": "lider_express_001",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=1"
+    },
+    {
+      "frame": 2,
+      "archivo": "lider_express_002_D_persona.png",
+      "familia": "lider_express_002",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=2"
+    },
+    {
+      "frame": 3,
+      "archivo": "lider_express_003_D_carro.png",
+      "familia": "lider_express_003",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=3"
+    },
+    {
+      "frame": 4,
+      "archivo": "lider_express_004_D_persona.png",
+      "familia": "lider_express_004",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=4"
+    },
+    {
+      "frame": 5,
+      "archivo": "lider_express_005_D_cajas.png",
+      "familia": "lider_express_005",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=5"
+    },
+    {
+      "frame": 6,
+      "archivo": "lider_express_006_D_carro.png",
+      "familia": "lider_express_006",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=6"
+    },
+    {
+      "frame": 7,
+      "archivo": "lider_express_007_E_carro.png",
+      "familia": "lider_express_007",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=7"
+    },
+    {
+      "frame": 8,
+      "archivo": "lider_express_008_D_persona.png",
+      "familia": "lider_express_008",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=8"
+    },
+    {
+      "frame": 9,
+      "archivo": "lider_express_009_D_carro.png",
+      "familia": "lider_express_009",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=9"
+    },
+    {
+      "frame": 10,
+      "archivo": "lider_express_010_D_persona.png",
+      "familia": "lider_express_010",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=10"
+    },
+    {
+      "frame": 11,
+      "archivo": "lider_express_011_E_persona.png",
+      "familia": "lider_express_011",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=11"
+    },
+    {
+      "frame": 12,
+      "archivo": "lider_express_012_E_carro.png",
+      "familia": "lider_express_012",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=12"
+    },
+    {
+      "frame": 13,
+      "archivo": "lider_express_013_D_carro.png",
+      "familia": "lider_express_013",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=13"
+    },
+    {
+      "frame": 14,
+      "archivo": "lider_express_014_D_persona.png",
+      "familia": "lider_express_014",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=14"
+    },
+    {
+      "frame": 15,
+      "archivo": "lider_express_015_D_cajas.png",
+      "familia": "lider_express_015",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=15"
+    },
+    {
+      "frame": 16,
+      "archivo": "lider_express_016_D_carro.png",
+      "familia": "lider_express_016",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=16"
+    },
+    {
+      "frame": 17,
+      "archivo": "lider_express_017_E_persona.png",
+      "familia": "lider_express_017",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=17"
+    },
+    {
+      "frame": 18,
+      "archivo": "lider_express_018_E_carro.png",
+      "familia": "lider_express_018",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=18"
+    },
+    {
+      "frame": 19,
+      "archivo": "lider_express_019_D_persona.png",
+      "familia": "lider_express_019",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 54,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=19"
+    },
+    {
+      "frame": 20,
+      "archivo": "lider_express_020_D_carro.png",
+      "familia": "lider_express_020",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=20"
+    },
+    {
+      "frame": 21,
+      "archivo": "lider_express_021_E_persona.png",
+      "familia": "lider_express_021",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=21"
+    },
+    {
+      "frame": 22,
+      "archivo": "lider_express_022_E_carro.png",
+      "familia": "lider_express_022",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=22"
+    },
+    {
+      "frame": 23,
+      "archivo": "lider_express_023_E_persona.png",
+      "familia": "lider_express_023",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=23"
+    },
+    {
+      "frame": 24,
+      "archivo": "lider_express_024_D_persona.png",
+      "familia": "lider_express_024",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=24"
+    },
+    {
+      "frame": 25,
+      "archivo": "lider_express_025_E_carro.png",
+      "familia": "lider_express_025",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=25"
+    },
+    {
+      "frame": 26,
+      "archivo": "lider_express_026_D_carro.png",
+      "familia": "lider_express_026",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=26"
+    },
+    {
+      "frame": 27,
+      "archivo": "lider_express_027_E_persona.png",
+      "familia": "lider_express_027",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=27"
+    },
+    {
+      "frame": 28,
+      "archivo": "lider_express_028_D_cajas.png",
+      "familia": "lider_express_028",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=28"
+    },
+    {
+      "frame": 29,
+      "archivo": "lider_express_029_D_persona.png",
+      "familia": "lider_express_029",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=29"
+    },
+    {
+      "frame": 30,
+      "archivo": "lider_express_030_E_carro.png",
+      "familia": "lider_express_030",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=30"
+    },
+    {
+      "frame": 31,
+      "archivo": "lider_express_031_D_cajas.png",
+      "familia": "lider_express_031",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=31"
+    },
+    {
+      "frame": 32,
+      "archivo": "lider_express_032_E_persona.png",
+      "familia": "lider_express_032",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=32"
+    },
+    {
+      "frame": 33,
+      "archivo": "lider_express_033_D_carro.png",
+      "familia": "lider_express_033",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=33"
+    },
+    {
+      "frame": 34,
+      "archivo": "lider_express_034_E_carro.png",
+      "familia": "lider_express_034",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=34"
+    },
+    {
+      "frame": 35,
+      "archivo": "lider_express_035_E_persona.png",
+      "familia": "lider_express_035",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=35"
+    },
+    {
+      "frame": 36,
+      "archivo": "lider_express_036_D_persona.png",
+      "familia": "lider_express_036",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=36"
+    },
+    {
+      "frame": 37,
+      "archivo": "lider_express_037_E_persona.png",
+      "familia": "lider_express_037",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=37"
+    },
+    {
+      "frame": 38,
+      "archivo": "lider_express_038_E_carro.png",
+      "familia": "lider_express_038",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=38"
+    },
+    {
+      "frame": 39,
+      "archivo": "lider_express_039_D_carro.png",
+      "familia": "lider_express_039",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 55,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=39"
+    },
+    {
+      "frame": 40,
+      "archivo": "lider_express_040_E_persona.png",
+      "familia": "lider_express_040",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=40"
+    },
+    {
+      "frame": 41,
+      "archivo": "lider_express_041_E_carro.png",
+      "familia": "lider_express_041",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=41"
+    },
+    {
+      "frame": 42,
+      "archivo": "lider_express_042_D_persona.png",
+      "familia": "lider_express_042",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=42"
+    },
+    {
+      "frame": 43,
+      "archivo": "lider_express_043_D_carro.png",
+      "familia": "lider_express_043",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=43"
+    },
+    {
+      "frame": 44,
+      "archivo": "lider_express_044_D_cajas.png",
+      "familia": "lider_express_044",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=44"
+    },
+    {
+      "frame": 45,
+      "archivo": "lider_express_045_E_persona.png",
+      "familia": "lider_express_045",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=45"
+    },
+    {
+      "frame": 46,
+      "archivo": "lider_express_046_E_cajas.png",
+      "familia": "lider_express_046",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=46"
+    },
+    {
+      "frame": 47,
+      "archivo": "lider_express_047_E_carro.png",
+      "familia": "lider_express_047",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=47"
+    },
+    {
+      "frame": 48,
+      "archivo": "lider_express_048_E_cajas.png",
+      "familia": "lider_express_048",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=48"
+    },
+    {
+      "frame": 49,
+      "archivo": "lider_express_049_E_cajas.png",
+      "familia": "lider_express_049",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=49"
+    },
+    {
+      "frame": 50,
+      "archivo": "lider_express_050_E_carro.png",
+      "familia": "lider_express_050",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=50"
+    },
+    {
+      "frame": 51,
+      "archivo": "lider_express_051_D_persona.png",
+      "familia": "lider_express_051",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=51"
+    },
+    {
+      "frame": 52,
+      "archivo": "lider_express_052_E_persona.png",
+      "familia": "lider_express_052",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=52"
+    },
+    {
+      "frame": 53,
+      "archivo": "lider_express_053_E_cajas.png",
+      "familia": "lider_express_053",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=53"
+    },
+    {
+      "frame": 54,
+      "archivo": "lider_express_054_D_carro.png",
+      "familia": "lider_express_054",
+      "tipo": "carro",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=54"
+    },
+    {
+      "frame": 55,
+      "archivo": "lider_express_055_D_persona.png",
+      "familia": "lider_express_055",
+      "tipo": "persona",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=55"
+    },
+    {
+      "frame": 56,
+      "archivo": "lider_express_056_E_persona.png",
+      "familia": "lider_express_056",
+      "tipo": "persona",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=56"
+    },
+    {
+      "frame": 57,
+      "archivo": "lider_express_057_E_carro.png",
+      "familia": "lider_express_057",
+      "tipo": "carro",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=57"
+    },
+    {
+      "frame": 58,
+      "archivo": "lider_express_058_D_cajas.png",
+      "familia": "lider_express_058",
+      "tipo": "cajas",
+      "tanda_produccion": 1,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=58"
+    },
+    {
+      "frame": 59,
+      "archivo": "lider_express_059_E_cajas.png",
+      "familia": "lider_express_059",
+      "tipo": "cajas",
+      "tanda_produccion": 2,
+      "job_id": 56,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=59"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 54,
+      "images": 20,
+      "start_frame": 0,
+      "stop_frame": 19,
+      "assignee": null,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54",
+      "stage": "validation",
+      "state": "new"
+    },
+    {
+      "id": 55,
+      "images": 20,
+      "start_frame": 20,
+      "stop_frame": 39,
+      "assignee": null,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55",
+      "stage": "validation",
+      "state": "new"
+    },
+    {
+      "id": 56,
+      "images": 20,
+      "start_frame": 40,
+      "stop_frame": 59,
+      "assignee": null,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56",
+      "stage": "validation",
+      "state": "new"
+    }
+  ],
+  "labels": [
+    {
+      "id": 21,
+      "name": "Nivel",
+      "color": "#d7e871",
+      "attributes": [
+        {
+          "id": 82,
+          "name": "estado",
+          "mutable": false,
+          "input_type": "select",
+          "default_value": "no_evaluable",
+          "values": [
+            "reponer",
+            "suficiente",
+            "no_evaluable",
+            "__undefined__"
+          ]
+        }
+      ],
+      "type": "polygon",
+      "sublabels": [],
+      "project_id": 7,
+      "parent_id": null,
+      "has_parent": false
+    }
+  ],
+  "annotations": {
+    "shapes": 308,
+    "tags": 0,
+    "tracks": 0,
+    "poligonos": 308
+  },
+  "annotations_verified": true,
+  "independent_review": {
+    "accepted_by_user": 30,
+    "pending": 30
+  },
+  "split": "sin_asignar",
+  "aprobado_entrenamiento": false,
+  "backup": ".resguardo/unificacion_visibilidad_20261019",
+  "source_tasks": [
+    20,
+    21
+  ],
+  "source_inventory": "Datos/V2/visibilidad_limitada_20261019/inventario.csv",
+  "consolidation_complete": true,
+  "obsolete_tasks_deleted": [
+    20,
+    21
+  ],
+  "annotation_status": "anotacion_lista_para_seleccion_y_validacion",
+  "states_assigned": 308,
+  "states_unassigned": 0,
+  "preannotation_report": ".resguardo/orden_v1_v2_20261019/visibilidad_limitada_intermedios/traspaso_niveles.json",
+  "level_state_counts": {
+    "reponer": 0,
+    "suficiente": 299,
+    "no_evaluable": 9
+  },
+  "occluded": 176,
+  "corrections_report": "Datos/Registros/CVAT/revisiones/visibilidad_20261019T222744Z/correcciones/resultado.json",
+  "pending_validation_issues": [],
+  "annotations_verified_at": "2026-10-19T22:55:43.206342+00:00",
+  "resolved_issues": [
+    7,
+    6,
+    5,
+    4,
+    3
+  ],
+  "criterion_closure_report": "Datos/Registros/CVAT/revisiones/visibilidad_20261019T222744Z/cierre_criterio/resultado.json",
+  "technical_review": "completed_by_Codex",
+  "independent_human_validation": "not_certified_by_this_closure"
+}

@@ -1,0 +1,2 @@
+# Mismas versiones principales para el laboratorio local y su imagen Docker.
+-r docker/requirements.txt

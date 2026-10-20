@@ -1,0 +1,37 @@
+# Usar después del Compose original de CVAT y de compose.local.yml.
+# No incluir el compose.tailscale.yml específico del PC original.
+services:
+  cvat_server:
+    volumes:
+      - type: bind
+        source: ${WALMART_IMAGE_DIR:?Configura WALMART_IMAGE_DIR con la ruta absoluta de Datos/V1/Lider}
+        target: /home/django/share
+        read_only: true
+        bind:
+          create_host_path: false
+    labels:
+      traefik.http.routers.cvat.rule: >-
+        (Host(`localhost`) || Host(`${CVAT_DOMAIN:-localhost}`)) &&
+        (PathPrefix(`/api/`) || PathPrefix(`/static/`) || PathPrefix(`/admin`) || PathPrefix(`/django-rq`))
+  cvat_worker_import:
+    volumes:
+      - type: bind
+        source: ${WALMART_IMAGE_DIR:?Configura WALMART_IMAGE_DIR}
+        target: /home/django/share
+        read_only: true
+        bind:
+          create_host_path: false
+  cvat_worker_export:
+    volumes:
+      - type: bind
+        source: ${WALMART_IMAGE_DIR:?Configura WALMART_IMAGE_DIR}
+        target: /home/django/share
+        read_only: true
+        bind:
+          create_host_path: false
+  cvat_ui:
+    labels:
+      traefik.http.routers.cvat-ui.rule: Host(`localhost`) || Host(`${CVAT_DOMAIN:-localhost}`)
+  traefik:
+    environment:
+      TRAEFIK_ENTRYPOINTS_web_FORWARDEDHEADERS_TRUSTEDIPS: ${CVAT_PROXY_TRUSTED_IPS:-127.0.0.1/32}

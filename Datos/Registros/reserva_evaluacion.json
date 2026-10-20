@@ -1,0 +1,18 @@
+{
+  "groups": [
+    "escena_04",
+    "escena_07",
+    "escena_08"
+  ],
+  "independent_evaluation_requires_new_scenes": true,
+  "image_ids": [
+    "14",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "35"
+  ],
+  "status": "reservada_sin_abrir"
+}

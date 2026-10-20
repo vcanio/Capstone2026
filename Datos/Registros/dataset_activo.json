@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "fecha": "2026-10-15",
+  "id": "Equilibrado_v1_20261013",
+  "estado": "copia_revisada_usada_en_YOLO11_1_y_YOLO26_1",
+  "definitivo": false,
+  "aprobado_entrenamiento": true,
+  "imagenes": 102,
+  "reales": 30,
+  "sinteticas": 72,
+  "directorio": "Datos/V1",
+  "inventario": "Datos/Registros/Lotes/Equilibrado_v1_20261013/inventario.csv",
+  "manifest": "Datos/Registros/Lotes/Equilibrado_v1_20261013/manifest.json",
+  "train": {
+    "reales": 25,
+    "sinteticas": 72
+  },
+  "val": {
+    "reales": 5,
+    "sinteticas": 0
+  },
+  "cvat": {
+    "project_id": 6,
+    "task_id": 16,
+    "jobs": [
+      36,
+      37,
+      38
+    ]
+  },
+  "recibo_cvat": "Datos/Registros/CVAT/tarea_16.json",
+  "guia": "Documentacion/Guia_anotacion_CVAT.md",
+  "exportador": "Herramientas/Modelos/datos_modelos.py",
+  "nota": "Estado de la copia local revisada. El inventario de procedencia conserva 102 imágenes; la copia usada por los ensayos contiene 91. Nuevas importaciones requieren su propia revisión. No modifica CVAT.",
+  "version_modelos": "datos_20261015_012453_4ba1d339",
+  "version_modelos_ruta": "Datos/Registros/Versiones_modelos/datos_20261015_012453_4ba1d339/version.json",
+  "imagenes_activas": 91,
+  "imagenes_excluidas": 11,
+  "criterio": {
+    "version": "disponibilidad_visual_nivel_v1",
+    "threshold": 0.3,
+    "measure": "presencia de producto por ancho útil evaluable",
+    "threshold_validated": false,
+    "non_evaluable_alert": false,
+    "guide": "v1.3",
+    "export_mode": "full_image"
+  },
+  "revision": {
+    "reviewer": "Vicente",
+    "date": "2026-10-15T01:35:59.532185+00:00",
+    "guide": "disponibilidad_visual_nivel_v1",
+    "scope": "Nivel_estados",
+    "note": "Revisión de niveles y estados con el criterio v1."
+  },
+  "train_activo": {
+    "reales": 24,
+    "sinteticas": 62
+  },
+  "val_activo": {
+    "reales": 5
+  }
+}

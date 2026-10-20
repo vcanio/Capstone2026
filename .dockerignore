@@ -1,0 +1,12 @@
+*
+!Herramientas/
+!Herramientas/Modelos/
+!Herramientas/Modelos/*.py
+!Herramientas/Modelos/panel.html
+!Herramientas/Modelos/docker/
+!Herramientas/Modelos/docker/Dockerfile
+!Herramientas/Modelos/docker/requirements.txt
+!Herramientas/Reproducibilidad/
+!Herramientas/Reproducibilidad/*.py
+!Herramientas/Datos/
+!Herramientas/Datos/*.py

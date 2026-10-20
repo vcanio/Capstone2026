@@ -1,0 +1,147 @@
+{
+  "status": "verified",
+  "verified_at": "2026-10-19T22:55:43.206342+00:00",
+  "task_id": 22,
+  "imagenes": 60,
+  "familias": 59,
+  "poligonos": 308,
+  "niveles_por_estado": {
+    "reponer": 0,
+    "suficiente": 299,
+    "no_evaluable": 9
+  },
+  "occluded": 176,
+  "cambios_estado_este_cierre": 13,
+  "contornos_conservados": [
+    6458,
+    6595,
+    6706,
+    6726
+  ],
+  "incidencias_resueltas": [
+    7,
+    6,
+    5,
+    4,
+    3
+  ],
+  "incidencias_abiertas": 0,
+  "criterio_aplicado_por": "Codex, por solicitud del usuario",
+  "revision_tecnica": "completada",
+  "validacion_humana_independiente": "no_certificada_por_este_cierre",
+  "estado": "anotacion_lista_para_seleccion_y_validacion",
+  "particion": "sin_asignar",
+  "entrenamiento_iniciado": false,
+  "anotaciones_fuente_preservadas": true,
+  "respaldo": ".resguardo/cierre_criterio_visibilidad_20261019T225111Z",
+  "cambios": [
+    {
+      "shape_id": 6453,
+      "frame": 0,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Las botellas del propio nivel visibles a la derecha y entre los barrotes alcanzan conjuntamente el 30 %; se excluyen las compras del carro."
+    },
+    {
+      "shape_id": 6468,
+      "frame": 3,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Las latas del propio estante visibles detrás del carro, especialmente a la derecha, ya superan el umbral."
+    },
+    {
+      "shape_id": 6483,
+      "frame": 6,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los paquetes y envases del propio estante visibles detrás del carro superan el 30 %, aunque parte del frente esté oculto."
+    },
+    {
+      "shape_id": 6488,
+      "frame": 7,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los paquetes Aqua del estante visibles a la derecha y por encima de las compras superan el umbral."
+    },
+    {
+      "shape_id": 6512,
+      "frame": 12,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los paquetes de higiene del estante visibles a los lados y detrás del carro superan el umbral."
+    },
+    {
+      "shape_id": 6518,
+      "frame": 13,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los paquetes de higiene del estante visibles a ambos lados y detrás del carro superan el umbral."
+    },
+    {
+      "shape_id": 6536,
+      "frame": 16,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los envases Pantene del propio nivel se reconocen detrás de los barrotes en una extensión mayor al 30 %."
+    },
+    {
+      "shape_id": 6558,
+      "frame": 21,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Las botellas del estante visibles a ambos lados de la persona y al fondo suman más del 30 %."
+    },
+    {
+      "shape_id": 6629,
+      "frame": 34,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los envases del estante visibles por encima y a los lados de las compras superan el umbral; la oclusión no borra esa evidencia."
+    },
+    {
+      "shape_id": 6654,
+      "frame": 39,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los paquetes del propio estante visibles a los lados y detrás del carro superan el 30 %, sin contar sus compras."
+    },
+    {
+      "shape_id": 6706,
+      "frame": 50,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Las botellas del propio estante visibles por encima de las compras y entre los barrotes ya superan el 30 %."
+    },
+    {
+      "shape_id": 6726,
+      "frame": 53,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Los doypacks del propio nivel visibles por encima de la caja izquierda y en el centro ya superan el 30 %."
+    },
+    {
+      "shape_id": 6735,
+      "frame": 55,
+      "antes": "no_evaluable",
+      "despues": "suficiente",
+      "motivo": "Comprobación ampliada del nivel 3: producto del estante visible aproximadamente en x=218–266 y x=701–910 sobre un ancho de unos 710 píxeles, por encima del 30 %. No se cuentan el cuerpo ni el bolso."
+    }
+  ],
+  "trabajos": [
+    {
+      "id": 56,
+      "stage": "validation",
+      "state": "new"
+    },
+    {
+      "id": 55,
+      "stage": "validation",
+      "state": "new"
+    },
+    {
+      "id": 54,
+      "stage": "validation",
+      "state": "new"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "action": "train",
+  "model": "Modelos/preentrenados/yolo11n-seg.pt",
+  "imgsz": 640,
+  "source": "datos_20261019_234626_3df2e643",
+  "source_kind": "dataset",
+  "epochs": 100,
+  "scope": "Nivel_estados",
+  "batch": 2,
+  "lr": 0.001,
+  "seed": 42,
+  "run": "v2_base_yolo11n_01_20261020_002800_ec8d"
+}

@@ -1,0 +1,1715 @@
+{
+  "schema_version": 1,
+  "version": "datos_20261019_234626_3df2e643",
+  "clases": [
+    "Nivel_reponer",
+    "Nivel_suficiente"
+  ],
+  "archivos": [
+    {
+      "archivo": "images/train/lider_express_001_0_original.jpg",
+      "sha256": "470b91f7250eff808db5d45792453227cb6f46bd83ff143c48712504b1e32e19",
+      "bytes": 4743174
+    },
+    {
+      "archivo": "images/train/lider_express_001_A_vacios.png",
+      "sha256": "becfdc128d9fa8a03c2602778fc0794a22b7a444354742518ca486acf015b65d",
+      "bytes": 2450021
+    },
+    {
+      "archivo": "images/train/lider_express_001_B_baja.png",
+      "sha256": "bdea6a1c3f34edabb466f39e51ec35f4a2aa9ea02974765e96fcf37094fca26f",
+      "bytes": 2405778
+    },
+    {
+      "archivo": "images/train/lider_express_001_C_mixta.png",
+      "sha256": "f716a02d48299840ce9b3bef32564c0a5ad1358637e4178567a4896cf5dcf373",
+      "bytes": 2332020
+    },
+    {
+      "archivo": "images/train/lider_express_002_0_original.jpg",
+      "sha256": "3e491db1df16fe27c77bf9e286d7f7bc2856e1345e34921129c1360cd8fe1e40",
+      "bytes": 4700436
+    },
+    {
+      "archivo": "images/train/lider_express_002_A_vacios.png",
+      "sha256": "eb1ba1df94f431e0bd742a724aa67feca4cfa56b5534401d8c759cb434b6d48d",
+      "bytes": 2454022
+    },
+    {
+      "archivo": "images/train/lider_express_002_B_baja.png",
+      "sha256": "2c3919561ed797523d8ecbf91f140faed655d99f64d3fe713babff9dd13a419e",
+      "bytes": 2622853
+    },
+    {
+      "archivo": "images/train/lider_express_002_C_mixta.png",
+      "sha256": "04974e993412919bd0af8f20616a6fc29bf48a0e69dd80b59d36e6b904baed1b",
+      "bytes": 2547310
+    },
+    {
+      "archivo": "images/train/lider_express_003_0_original.jpg",
+      "sha256": "0b0056acdbe96b9756352ac98139c871890f4670a9e8416e069a5a9993b18fbd",
+      "bytes": 4702378
+    },
+    {
+      "archivo": "images/train/lider_express_003_A_vacios.png",
+      "sha256": "980827602f32082b168ce74bda1a8aa91956e91418d321d677676ee4d33874aa",
+      "bytes": 2355546
+    },
+    {
+      "archivo": "images/train/lider_express_003_B_baja.png",
+      "sha256": "ba9ccbd0495651bfeec66937b41f2e91aa6c178a0b886640fbd7f080329dfd92",
+      "bytes": 2321528
+    },
+    {
+      "archivo": "images/train/lider_express_003_C_mixta.png",
+      "sha256": "89f9b0e8a1cda8c8907dfd70fe0cf1fe8fc48a158ca993d9b8e562c4e2ed1cdb",
+      "bytes": 2271689
+    },
+    {
+      "archivo": "images/train/lider_express_004_0_original.jpg",
+      "sha256": "704e595950e86d6592f5f687602409a0c70bea3460e4e5e00767086e398a0293",
+      "bytes": 4474230
+    },
+    {
+      "archivo": "images/train/lider_express_004_A_vacios.png",
+      "sha256": "2f47276b1509a510dff9d4a791c79d16f282634d1fd79f544fd97223ed59aaec",
+      "bytes": 2268962
+    },
+    {
+      "archivo": "images/train/lider_express_004_B_baja.png",
+      "sha256": "8f454f0de944d761c0cc3a3bdfd3717ef0aea3b2acdf2cc1e27e8461d9f41523",
+      "bytes": 2272449
+    },
+    {
+      "archivo": "images/train/lider_express_004_C_mixta.png",
+      "sha256": "f392bc87f05583807cf6a438b163b20b802521c8895a640740307046e71834c4",
+      "bytes": 2468178
+    },
+    {
+      "archivo": "images/train/lider_express_005_0_original.jpg",
+      "sha256": "b20a7985cfb4b025f721839d04fde1b91985e1ff18c7b1ae18e425452403b2d8",
+      "bytes": 4464424
+    },
+    {
+      "archivo": "images/train/lider_express_005_A_vacios.png",
+      "sha256": "bf95ad77831dc7aa0fc8b9574c0e13a4a4ebaa62b1fa17951e4dbf698ea4f23f",
+      "bytes": 2481464
+    },
+    {
+      "archivo": "images/train/lider_express_005_B_baja.png",
+      "sha256": "72165112016cd01cf5b19fdb7031aa484c4c218b415f69e96f85914c9dfc87dd",
+      "bytes": 2433430
+    },
+    {
+      "archivo": "images/train/lider_express_005_C_mixta.png",
+      "sha256": "8a073f250b08837e1a37dd0257ca4720ff565f93b4973960bdde6e8e88f8159b",
+      "bytes": 2415811
+    },
+    {
+      "archivo": "images/train/lider_express_011_0_original.jpg",
+      "sha256": "72e9243c314fdf0f67fcd7d5eb58e2fbb752cbd54bf483bd10edff780228bca6",
+      "bytes": 4840388
+    },
+    {
+      "archivo": "images/train/lider_express_011_A_vacios.png",
+      "sha256": "e8efc95111b6635cdf5479b99291403ce2e46d33b0e44ffe455a2e90d981617a",
+      "bytes": 2426948
+    },
+    {
+      "archivo": "images/train/lider_express_011_B_baja.png",
+      "sha256": "ed1f4e850dab82f3652bddbbc3cb61e6921ca794f2be239677306b0c0b7834cf",
+      "bytes": 2458444
+    },
+    {
+      "archivo": "images/train/lider_express_011_C_mixta.png",
+      "sha256": "9669454c401c3a869218ab5d0de22926602a19c63faece066d2939a25e9c9ae5",
+      "bytes": 2406243
+    },
+    {
+      "archivo": "images/train/lider_express_012_0_original.jpg",
+      "sha256": "f687f6aef9e75e5207675c3563013755daf948a87da4d1a7111acfce936686c1",
+      "bytes": 4927492
+    },
+    {
+      "archivo": "images/train/lider_express_012_A_vacios.png",
+      "sha256": "e0ab6db6d0396312194e693f76df0779b785926c8a5bcd69c4de111a95e516c2",
+      "bytes": 2598267
+    },
+    {
+      "archivo": "images/train/lider_express_012_B_baja.png",
+      "sha256": "20fa0e96b8d5709c4f8104f9299cbd746d749371fb55d9cef8161d1e99e54817",
+      "bytes": 2440792
+    },
+    {
+      "archivo": "images/train/lider_express_012_C_mixta.png",
+      "sha256": "1bfeb2dbe3649f2de4e1e4b1868c393de03a95f348a3b43d4355c5d46eea4b02",
+      "bytes": 2419335
+    },
+    {
+      "archivo": "images/train/lider_express_013_0_original.jpg",
+      "sha256": "f79570b871fe94daea6b3de47e900f85c9b9bc37565228c79908888888c924cb",
+      "bytes": 5009210
+    },
+    {
+      "archivo": "images/train/lider_express_013_A_vacios.png",
+      "sha256": "0f683e8882f4cd8e12c839e7077c5030cbfbc93bc61638c9264c3b95ca78c3ea",
+      "bytes": 2506989
+    },
+    {
+      "archivo": "images/train/lider_express_013_B_baja.png",
+      "sha256": "922a19973411764f077d12e3f47f1045e71251efb883c5c8d2dfd8e659fb12b7",
+      "bytes": 2465611
+    },
+    {
+      "archivo": "images/train/lider_express_013_C_mixta.png",
+      "sha256": "793732ea141f8655f45c8fd0bc944cc8c19bc86fa869b7e6b11c1bd97d46857f",
+      "bytes": 2514374
+    },
+    {
+      "archivo": "images/train/lider_express_017_0_original.jpg",
+      "sha256": "082c332da20d49838ee03c4b94b3fd1024f12166e3c521144aa294cdb470b698",
+      "bytes": 4592913
+    },
+    {
+      "archivo": "images/train/lider_express_017_A_vacios.png",
+      "sha256": "c6269443c6ce06680df9be489f2c0b0fc27edd9f526a5a246808d76b3da96504",
+      "bytes": 2311716
+    },
+    {
+      "archivo": "images/train/lider_express_017_B_baja.png",
+      "sha256": "79e679c6949c6aaa8abd6d0f337251219ba93cf41758ec2cfb08cfbc78586325",
+      "bytes": 2290075
+    },
+    {
+      "archivo": "images/train/lider_express_017_C_mixta.png",
+      "sha256": "6c6e74b0408efa01ae02111784d999197f46855d38af25ee13e13837c66f191a",
+      "bytes": 2365330
+    },
+    {
+      "archivo": "images/train/lider_express_018_0_original.jpg",
+      "sha256": "d2b62fc0a1cec4644e09a4cfed66c3c153318bda0f677451c61f4dafc2fba9e6",
+      "bytes": 4686624
+    },
+    {
+      "archivo": "images/train/lider_express_018_A_vacios.png",
+      "sha256": "b5f35fee90abdb5ed6088297927886f108944538757a4047fbca61a9d9914841",
+      "bytes": 2372827
+    },
+    {
+      "archivo": "images/train/lider_express_018_B_baja.png",
+      "sha256": "668794d769be71768b624976232d358d89e4b254d5009be4279edefb9811b77f",
+      "bytes": 2193148
+    },
+    {
+      "archivo": "images/train/lider_express_018_C_mixta.png",
+      "sha256": "3a8ffd052608211c8316b8e0142f34d4c4a580a51b33058d1f5de372878eb451",
+      "bytes": 2222210
+    },
+    {
+      "archivo": "images/train/lider_express_019_0_original.jpg",
+      "sha256": "dd212a96808c9e2a0ffae9f594e347bc56396b5292855b0e709d9a0c4dc25cfc",
+      "bytes": 4434231
+    },
+    {
+      "archivo": "images/train/lider_express_019_A_vacios.png",
+      "sha256": "3b724149035539ed5c3a556e36c0f8ab35764e6dc0f55850187c5ad8a66809ce",
+      "bytes": 2517755
+    },
+    {
+      "archivo": "images/train/lider_express_019_B_baja.png",
+      "sha256": "71cc54cec9989bc63ee097f7d0c2b4a81614b4bbc16730081cd9f24a46d50263",
+      "bytes": 2422249
+    },
+    {
+      "archivo": "images/train/lider_express_019_C_mixta.png",
+      "sha256": "2af10354cc89bf0bfc7362695f91bcac55816e6a0efc7226acaf4fe6d40d9586",
+      "bytes": 2356017
+    },
+    {
+      "archivo": "images/train/lider_express_020_0_original.jpg",
+      "sha256": "c8e9c587b7f1e771cd992fe5f18541082e7fec231f0c238ac356add04238143e",
+      "bytes": 4318478
+    },
+    {
+      "archivo": "images/train/lider_express_020_A_vacios.png",
+      "sha256": "01f519da6b23fbfe90583bb2b03d8b718b042a2ab034df33f57d08f7b05ee8f9",
+      "bytes": 2302974
+    },
+    {
+      "archivo": "images/train/lider_express_020_B_baja.png",
+      "sha256": "15cf97b4be464ebefa2a5b55f8599006fca00a1f397d01254ba7e45eb39e6562",
+      "bytes": 2310789
+    },
+    {
+      "archivo": "images/train/lider_express_020_C_mixta.png",
+      "sha256": "df74531a0ffb8df37e659c90e772b5b67bbe99935eb088c7832314d9209bb10e",
+      "bytes": 2399595
+    },
+    {
+      "archivo": "images/train/lider_express_021_0_original.jpg",
+      "sha256": "c2879c5014c644a5c1670525546b91462d9b5331a679eb1ea6123ec49a01369b",
+      "bytes": 4312543
+    },
+    {
+      "archivo": "images/train/lider_express_021_A_vacios.png",
+      "sha256": "dc343f1656d986d2b95fb0f917a700d1cfdf80111f0fb3872df3e36183eddf3e",
+      "bytes": 2352307
+    },
+    {
+      "archivo": "images/train/lider_express_021_B_baja.png",
+      "sha256": "220e9d0bd592e7524ae5027f930af94964059a925753919a137182e211ae1504",
+      "bytes": 2232193
+    },
+    {
+      "archivo": "images/train/lider_express_021_C_mixta.png",
+      "sha256": "3c7d5c7176ed761d85aa3510699ca099fd86da8386e451767f06443e16c15fc9",
+      "bytes": 2311056
+    },
+    {
+      "archivo": "images/train/lider_express_022_0_original.jpg",
+      "sha256": "1721fc4b872aa2f003eb6ce19bc25ae466f8bef9de89756e9186c7b1d6480a3f",
+      "bytes": 4483969
+    },
+    {
+      "archivo": "images/train/lider_express_022_A_vacios.png",
+      "sha256": "27195786c6d0b8ef37e2d1f87fc6081d852c1e504f72dab305dd49957916e208",
+      "bytes": 2397780
+    },
+    {
+      "archivo": "images/train/lider_express_022_B_baja.png",
+      "sha256": "bec1952e08f1b6b0504f8368ccecf116841967a322c7cbd88b5e72747bb10a19",
+      "bytes": 2287609
+    },
+    {
+      "archivo": "images/train/lider_express_022_C_mixta.png",
+      "sha256": "ae0edf0089a39bc15b1064d24133377e75be227ca229672fafd8369fe2556c58",
+      "bytes": 2353842
+    },
+    {
+      "archivo": "images/train/lider_express_023_0_original.jpg",
+      "sha256": "6178ac9c534b252f48d9215d30e4de8d390dce9205e93c210eb78be7df06088c",
+      "bytes": 4233573
+    },
+    {
+      "archivo": "images/train/lider_express_023_A_vacios.png",
+      "sha256": "a54150526127d87a6b16f06817e47e45a4369b2ad2b58b514529015823ecc6fc",
+      "bytes": 2341180
+    },
+    {
+      "archivo": "images/train/lider_express_023_B_baja.png",
+      "sha256": "d0885dd6e99d65ffb4e03e0e2173bb6b4d3b997cd39753885265e9700479f3f2",
+      "bytes": 2244287
+    },
+    {
+      "archivo": "images/train/lider_express_023_C_mixta.png",
+      "sha256": "03cc1337cc20b93c9a3e5dac3faf54ee79dd3db10b769862cd3506ad65d096f5",
+      "bytes": 2257204
+    },
+    {
+      "archivo": "images/train/lider_express_024_0_original.jpg",
+      "sha256": "20b71636b12ba9f45807faea624ed38a5640619a2412ae94813a0506dec30bfa",
+      "bytes": 4142833
+    },
+    {
+      "archivo": "images/train/lider_express_024_A_vacios.png",
+      "sha256": "106e87b28087a077a37f203dfea9f4081aca31ddd4e1161eed72b96f79291835",
+      "bytes": 2349895
+    },
+    {
+      "archivo": "images/train/lider_express_024_B_baja.png",
+      "sha256": "6dcb0c574c3c4e95b20834e63521c4e0e1c9b6d7d7a99768ce3a4d43d770e9c9",
+      "bytes": 2250564
+    },
+    {
+      "archivo": "images/train/lider_express_024_C_mixta.png",
+      "sha256": "80325721dea3a8f377cad6de22872d5a796d8e7afb9b20578c570c6b0a493aa8",
+      "bytes": 2254170
+    },
+    {
+      "archivo": "images/train/lider_express_025_0_original.jpg",
+      "sha256": "12bae00087525a56b0978115e228f41ae58c613228b08e3358acbe21f709e716",
+      "bytes": 4520665
+    },
+    {
+      "archivo": "images/train/lider_express_025_A_vacios.png",
+      "sha256": "5b25b9af2acd259b75e1f47c8862a1bfe3077fd51280571999061f499062a8dd",
+      "bytes": 2411114
+    },
+    {
+      "archivo": "images/train/lider_express_025_B_baja.png",
+      "sha256": "70acc7a622abfdc23f501deb50b0e76ccacbbe1b21ad7f278be9646a91fbf870",
+      "bytes": 2338678
+    },
+    {
+      "archivo": "images/train/lider_express_025_C_mixta.png",
+      "sha256": "949f1622742f8c59cd5d0181f0644a1e7b9214e7760f97bc23c630c3208c2651",
+      "bytes": 2502528
+    },
+    {
+      "archivo": "images/train/lider_express_029_0_original.jpg",
+      "sha256": "cba4067937eb4bf7ebf96054a448af4c83e9250252090fb9f59d591e8dc0f74e",
+      "bytes": 4698511
+    },
+    {
+      "archivo": "images/train/lider_express_029_A_vacios.png",
+      "sha256": "fe7b9cc811174cf1fa59bbbddd95d908492d326ee7035bee273db9dd08e10120",
+      "bytes": 2415524
+    },
+    {
+      "archivo": "images/train/lider_express_029_B_baja.png",
+      "sha256": "009cf384580dea47e2d160e00a308c6636abcdf0f75767b5825e8b130295db28",
+      "bytes": 2307356
+    },
+    {
+      "archivo": "images/train/lider_express_029_C_mixta.png",
+      "sha256": "e37f73cd64a7d37368a45aadec3d8126f843656a3df29658925f6f4db72773c8",
+      "bytes": 2284850
+    },
+    {
+      "archivo": "images/train/lider_express_030_0_original.jpg",
+      "sha256": "aed3d2c3cf618c7c73b3852f41cd626a1cc522b63934d029a088c37d912d9a61",
+      "bytes": 4631044
+    },
+    {
+      "archivo": "images/train/lider_express_030_A_vacios.png",
+      "sha256": "cf4285bd43dd175c4223dbc429f749f10840e8c7c27fa10eac4896285d373f76",
+      "bytes": 2253276
+    },
+    {
+      "archivo": "images/train/lider_express_030_B_baja.png",
+      "sha256": "718bd105b9827862736a21731601d2f466eb783f45697fcd1fbcca16027b092c",
+      "bytes": 2388025
+    },
+    {
+      "archivo": "images/train/lider_express_030_C_mixta.png",
+      "sha256": "29fc2a5ffa9ca659453f506ac8bd58614ed58be089eaa323a5c364e17e08044a",
+      "bytes": 2366996
+    },
+    {
+      "archivo": "images/train/lider_express_031_0_original.jpg",
+      "sha256": "1975e76e843c502d784b045aeb4f029e77048e40fad8c33eab336b8b400de611",
+      "bytes": 4853473
+    },
+    {
+      "archivo": "images/train/lider_express_031_A_vacios.png",
+      "sha256": "f6a462743b8c0f0ae6a041984c4ae59ae8cd8b49bb25799a1c47bac55aaeac8d",
+      "bytes": 2488233
+    },
+    {
+      "archivo": "images/train/lider_express_031_B_baja.png",
+      "sha256": "f6d396af8e6c0abe3012bcc2c2d8da33be3e34ac27667ecf0a4d8408a621abdd",
+      "bytes": 2286849
+    },
+    {
+      "archivo": "images/train/lider_express_031_C_mixta.png",
+      "sha256": "0f92c842010ae79732b53554e574ec1b17bb6d7aa3793ca7ea9272bf02980fc7",
+      "bytes": 2313465
+    },
+    {
+      "archivo": "images/train/lider_express_032_0_original.jpg",
+      "sha256": "7c6790c914f013fd67e500acfa889f14f43e3c9beeb784d4c86df1cab1712023",
+      "bytes": 5083111
+    },
+    {
+      "archivo": "images/train/lider_express_032_A_vacios.png",
+      "sha256": "eabe869924975094f3eee1877ab470212dcb0f8a35dbb4d76617d934cf648563",
+      "bytes": 2447359
+    },
+    {
+      "archivo": "images/train/lider_express_032_B_baja.png",
+      "sha256": "3a0a6c2bc8265f80e3f5ce7833a0959c1f0096ec927b9e6963c5330fd157ec0d",
+      "bytes": 2408639
+    },
+    {
+      "archivo": "images/train/lider_express_032_C_mixta.png",
+      "sha256": "976d5b01db442630517eb8952b3d145878ae81cbcb7eaafcdfb0fb08cfcdb7de",
+      "bytes": 2437610
+    },
+    {
+      "archivo": "images/train/lider_express_033_0_original.jpg",
+      "sha256": "485ef629865ff3ba4a2d845fae3d583e2dcf79d122559eb368fc3753f0583ccc",
+      "bytes": 4785367
+    },
+    {
+      "archivo": "images/train/lider_express_033_A_vacios.png",
+      "sha256": "707e0645bdae759e3e146e73f865ca9e49c26445048fa78afa9e9dae8a984ec0",
+      "bytes": 2447974
+    },
+    {
+      "archivo": "images/train/lider_express_033_B_baja.png",
+      "sha256": "0326ad92a24db03c674ca4abf574240cdd951035c0e5db3dd737a7fde64a3b4c",
+      "bytes": 2432303
+    },
+    {
+      "archivo": "images/train/lider_express_033_C_mixta.png",
+      "sha256": "44ad2f881a87ea34709211b49eaef18805cad95df3e1defecad5d4e835cf4adc",
+      "bytes": 2491765
+    },
+    {
+      "archivo": "images/train/lider_express_034_0_original.jpg",
+      "sha256": "ef0c07a363af0984a034b205bf6af4d7086a97b9a2bb93c0433f96d1ab83f466",
+      "bytes": 4987003
+    },
+    {
+      "archivo": "images/train/lider_express_034_A_vacios.png",
+      "sha256": "0f501637ec7d9e4ea40a01fa156dd7721ec8a81d993163928aa950c76f013254",
+      "bytes": 2365418
+    },
+    {
+      "archivo": "images/train/lider_express_034_B_baja.png",
+      "sha256": "b7d13e8e7ee0a59135f5bbb67327f8d7204ca48fc57fdffd8a86d51a47d99f45",
+      "bytes": 2426472
+    },
+    {
+      "archivo": "images/train/lider_express_034_C_mixta.png",
+      "sha256": "322178bd8e59a79ea1cc444cf3329908e0b53938a7d5f46ecef2e7098c8be1cb",
+      "bytes": 2321481
+    },
+    {
+      "archivo": "images/train/lider_express_035_0_original.jpg",
+      "sha256": "8636d2b20fdea7a26a7a2c4d181cdb6bdb852eefb44b98e1e5f7012dc373119c",
+      "bytes": 4545552
+    },
+    {
+      "archivo": "images/train/lider_express_035_A_vacios.png",
+      "sha256": "f8067bd2726448e6f4512bdb9a7742fb708d28e214ef0d6d2bb1e2e39e787836",
+      "bytes": 2417702
+    },
+    {
+      "archivo": "images/train/lider_express_035_B_baja.png",
+      "sha256": "77bcfe305461346aeee90b64796491ac1719191b5bbc6f2529cd140cc8883090",
+      "bytes": 2281439
+    },
+    {
+      "archivo": "images/train/lider_express_035_C_mixta.png",
+      "sha256": "f7f96497903799ff5e9cf8cde6b4e0f8b5100900b52a3628e6b5a30ce8349b8f",
+      "bytes": 2416425
+    },
+    {
+      "archivo": "images/train/lider_express_036_0_original.jpg",
+      "sha256": "8dd9d8ee1c6a664d907a07cbae0929b0d2732ad6bf036c5a100eb61ebe2865e7",
+      "bytes": 4664511
+    },
+    {
+      "archivo": "images/train/lider_express_036_A_vacios.png",
+      "sha256": "fdbd0c2f3249bd38f6a3da32d0fba2171fbd984214271788f6b3862b47cb6451",
+      "bytes": 2480480
+    },
+    {
+      "archivo": "images/train/lider_express_036_B_baja.png",
+      "sha256": "c6494c2501803d2a7c4702b0468c10e5e389d91f3c75d99470e686b48505a447",
+      "bytes": 2220726
+    },
+    {
+      "archivo": "images/train/lider_express_036_C_mixta.png",
+      "sha256": "7c41bcc2372f2f39d4e9d0809c8f6741a9a07319a1a418ce707a2ba053114ffc",
+      "bytes": 2466850
+    },
+    {
+      "archivo": "images/train/lider_express_037_0_original.jpg",
+      "sha256": "5b0c967beb58a407c03e22d95ec4d5211418b8029c9bd893f9f74a4215f3f66c",
+      "bytes": 4495761
+    },
+    {
+      "archivo": "images/train/lider_express_037_A_vacios.png",
+      "sha256": "3d4ba65df0e370708c5a51c2c488a45701ac302ae43e193a5368da24a3923779",
+      "bytes": 2344573
+    },
+    {
+      "archivo": "images/train/lider_express_037_B_baja.png",
+      "sha256": "381794e92f0d215476adc1dc3c2d514253caae5f174092669d84aa4b9c3fef78",
+      "bytes": 2196130
+    },
+    {
+      "archivo": "images/train/lider_express_037_C_mixta.png",
+      "sha256": "fdd02999849de68175d785577832192bfaa97c65c21c22782dbc2897aadbcf6e",
+      "bytes": 2355428
+    },
+    {
+      "archivo": "images/train/lider_express_038_0_original.jpg",
+      "sha256": "d93ea089ba2e35b0a187a751905d6fe665339487fddbf2dc7828f771de17d49f",
+      "bytes": 4295238
+    },
+    {
+      "archivo": "images/train/lider_express_038_A_vacios.png",
+      "sha256": "652dcef1b70314319c3b3866058129928ca8400e8480d0993c33b94c9ba5c791",
+      "bytes": 2270033
+    },
+    {
+      "archivo": "images/train/lider_express_038_B_baja.png",
+      "sha256": "bc73eb0ec73c798f79986d334001ff90a8518b9e8be6cdcc4e8b57a0ca8b0100",
+      "bytes": 2298344
+    },
+    {
+      "archivo": "images/train/lider_express_038_C_mixta.png",
+      "sha256": "0214a943995ce47d7e640357c32fd557cc7a96bb6d0025ceea5cdbc58a22c57a",
+      "bytes": 2258111
+    },
+    {
+      "archivo": "images/train/lider_express_043_0_original.jpg",
+      "sha256": "06469c1fb8d9ef00ee47e81d3e1fe967d964e0bbe3d12e3da33d0a50bac9fbea",
+      "bytes": 4387181
+    },
+    {
+      "archivo": "images/train/lider_express_043_A_vacios.png",
+      "sha256": "245d6f378800c46b56add94ff2c65a48a1aeb9d896d47d4bedb2050af3a4ce13",
+      "bytes": 2577532
+    },
+    {
+      "archivo": "images/train/lider_express_043_B_baja.png",
+      "sha256": "84fa8224353da264a229072407299653f8be609701e4ad84ce4f4987746887ce",
+      "bytes": 2489785
+    },
+    {
+      "archivo": "images/train/lider_express_043_C_mixta.png",
+      "sha256": "8c8bc3bc6c3012d68175d5aab71925877d685ac49d6eda1f8537a31ddce56e11",
+      "bytes": 2487588
+    },
+    {
+      "archivo": "images/train/lider_express_044_0_original.jpg",
+      "sha256": "09fe266410084518611da1aa24766fee28616822ca73a834fe5ef2e12791fad9",
+      "bytes": 4607993
+    },
+    {
+      "archivo": "images/train/lider_express_044_A_vacios.png",
+      "sha256": "8912ac38b0ce0d03da3f3126502b3df234507b45435bb657f2a45c0ef6c799d9",
+      "bytes": 2410407
+    },
+    {
+      "archivo": "images/train/lider_express_044_B_baja.png",
+      "sha256": "3f33507e8ef2632dadfb88859739cc691834bb8003400ce23f2d754d73c1c275",
+      "bytes": 2351854
+    },
+    {
+      "archivo": "images/train/lider_express_044_C_mixta.png",
+      "sha256": "762d5ad92dd2ae7714cb0d4f32303a0ba34d289ef8b28b38e2b2d2d4b0965fc8",
+      "bytes": 2411897
+    },
+    {
+      "archivo": "images/train/lider_express_045_0_original.jpg",
+      "sha256": "ad6c60fa9a438095ec7927dd05222f6ee20429cb7296e0cefcc6d5c7338ac5b8",
+      "bytes": 4558998
+    },
+    {
+      "archivo": "images/train/lider_express_045_A_vacios.png",
+      "sha256": "d24aa0ea0f3e1484fd64a37f5e1129e14defacd6cc4ba0bad43fe5c1abbffb8e",
+      "bytes": 2485910
+    },
+    {
+      "archivo": "images/train/lider_express_045_B_baja.png",
+      "sha256": "db8d65b75e1a6ef853dc53f8b3e863cd4791d658fe73d389a1bab1dc5de84ae7",
+      "bytes": 2378533
+    },
+    {
+      "archivo": "images/train/lider_express_045_C_mixta.png",
+      "sha256": "99e500ff7f07e0bec02687f734915dffc4c65957263e45e6b77aa0f0dc372131",
+      "bytes": 2385095
+    },
+    {
+      "archivo": "images/train/lider_express_046_0_original.jpg",
+      "sha256": "5f9f01c17eacbc5a3cc8b8253f3eb1e947f20d6496341d40044a6a82fa46f66c",
+      "bytes": 4694671
+    },
+    {
+      "archivo": "images/train/lider_express_046_A_vacios.png",
+      "sha256": "242c0b32bc1b532e265ab200cc10dcd97c902c16c30546db4159ec0d83c5a2e3",
+      "bytes": 2523180
+    },
+    {
+      "archivo": "images/train/lider_express_046_B_baja.png",
+      "sha256": "3867996d59ece215f8bb093763f3d68251962003f2766e490e091fe702b3ff18",
+      "bytes": 2451104
+    },
+    {
+      "archivo": "images/train/lider_express_046_C_mixta.png",
+      "sha256": "f0233a2e14280a78f50a595305234a191d4cb806567dfc9084b7fa05bb781f97",
+      "bytes": 2448100
+    },
+    {
+      "archivo": "images/train/lider_express_047_0_original.jpg",
+      "sha256": "e2bdaabc32c59c1e17b3db647ba3cf57d0150d4131e5e93a0df33bbd23b43081",
+      "bytes": 4417605
+    },
+    {
+      "archivo": "images/train/lider_express_047_A_vacios.png",
+      "sha256": "b73cd3eb4e63f98b82a0ba49f741a19ce712447e014208b35f53eb4f38a1384f",
+      "bytes": 2425526
+    },
+    {
+      "archivo": "images/train/lider_express_047_B_baja.png",
+      "sha256": "7e8c62730190006765fb63f0f4ab143187969cbe9f079073637e0d9bc3bb289a",
+      "bytes": 2363773
+    },
+    {
+      "archivo": "images/train/lider_express_047_C_mixta.png",
+      "sha256": "f63bd0d479ec28191e1d882f84054d0d30d6ec0a155ce24e1d80129addb9d29f",
+      "bytes": 2406103
+    },
+    {
+      "archivo": "images/train/lider_express_048_0_original.jpg",
+      "sha256": "3b4143073866e183ecd6a0cec76e3a58a21e255875f50ba99c51d8e1de0b5196",
+      "bytes": 4590944
+    },
+    {
+      "archivo": "images/train/lider_express_048_A_vacios.png",
+      "sha256": "4abb0820610ad4c8e390afeb71134804e554b0d0a725dcd5cc917fd4daf31a03",
+      "bytes": 2409777
+    },
+    {
+      "archivo": "images/train/lider_express_048_B_baja.png",
+      "sha256": "52af6ac1c49d3435d17cf9477589ee8c9fa982f01c87844c19dc15bd54eb4380",
+      "bytes": 2405603
+    },
+    {
+      "archivo": "images/train/lider_express_048_C_mixta.png",
+      "sha256": "cbfc6cdd86f98f42dd099f37c693373e48d3ffaef47b8a1ff219e88d56592fca",
+      "bytes": 2504747
+    },
+    {
+      "archivo": "images/train/lider_express_049_0_original.jpg",
+      "sha256": "df290f1777037e783af252baafa3b04e9873e7e6926280ec3dcf68de2c022a3d",
+      "bytes": 4402966
+    },
+    {
+      "archivo": "images/train/lider_express_049_A_vacios.png",
+      "sha256": "05404400c7e7deee09886247b6bf5ccbdb910631ec85e2d68e56bfea0da25d54",
+      "bytes": 2354607
+    },
+    {
+      "archivo": "images/train/lider_express_049_B_baja.png",
+      "sha256": "ca57898fe7724f7a319318cc4d021f3a8879d692b7b7d472d75bd62fcbc3b4a1",
+      "bytes": 2311267
+    },
+    {
+      "archivo": "images/train/lider_express_049_C_mixta.png",
+      "sha256": "6dd513fd08f2f48c3dfb948e543cd5c34ed5ef7ba954a88ca6bd4006b2473233",
+      "bytes": 2404982
+    },
+    {
+      "archivo": "images/train/lider_express_050_0_original.jpg",
+      "sha256": "2792814d0dc4c6b1c1e1513af8e080c4c3b1b40260685b2eab5b218e8b06d344",
+      "bytes": 4255973
+    },
+    {
+      "archivo": "images/train/lider_express_050_A_vacios.png",
+      "sha256": "a45e6555e7c15ac155954d05d7ee9e923d42fdee54e70fb07948efc80c43aedc",
+      "bytes": 2460434
+    },
+    {
+      "archivo": "images/train/lider_express_050_B_baja.png",
+      "sha256": "2817b2db2f633fe8a7864d44f64110711c9023d6e2d26f625e883378f7a6d723",
+      "bytes": 2358701
+    },
+    {
+      "archivo": "images/train/lider_express_050_C_mixta.png",
+      "sha256": "c5ebfc4417936f77fbb59ab1ed46b8c6f16b19f002fdea30d294c1132729c905",
+      "bytes": 2369658
+    },
+    {
+      "archivo": "images/train/lider_express_055_0_original.jpg",
+      "sha256": "81c8cc5d1f52f05b64d13fca7386488fd1388a7aa76081d18f8803e3f2b96e7f",
+      "bytes": 4381626
+    },
+    {
+      "archivo": "images/train/lider_express_055_A_vacios.png",
+      "sha256": "a00219f236dbe6276d30e4529f5d406a38f65cb8f3b87e8dcca2b4f3035d2621",
+      "bytes": 2579219
+    },
+    {
+      "archivo": "images/train/lider_express_055_B_baja.png",
+      "sha256": "e63b4c0828ed9936f0ce574a777d9e5d5717e73b6cbdbe5abdc810093b27195c",
+      "bytes": 2502954
+    },
+    {
+      "archivo": "images/train/lider_express_055_C_mixta.png",
+      "sha256": "be779ecd65c55cde637021319c8140ef69d74cee09fa9de5bad482c994dab232",
+      "bytes": 2464657
+    },
+    {
+      "archivo": "images/train/lider_express_056_0_original.jpg",
+      "sha256": "06676a1ccf80715856ccccba333c218f1325652765bfaddcf2a4edf1ee3d4295",
+      "bytes": 4901310
+    },
+    {
+      "archivo": "images/train/lider_express_056_A_vacios.png",
+      "sha256": "001150bd4198293e20346449b9478b03a28504ff6fa0d34c15b020a35adc4c09",
+      "bytes": 2730499
+    },
+    {
+      "archivo": "images/train/lider_express_056_B_baja.png",
+      "sha256": "ced9a63bc1992524269506c29f08402ffb47feccf42aae70ae1d2d16fc52e4c7",
+      "bytes": 2697337
+    },
+    {
+      "archivo": "images/train/lider_express_056_C_mixta.png",
+      "sha256": "ce915cd42df9866d19cba165210068d56ac7e58fc0344baafeeac6e133fd0d04",
+      "bytes": 2584503
+    },
+    {
+      "archivo": "images/train/lider_express_057_0_original.jpg",
+      "sha256": "43bf139698fab3606f01fae0e824e851e17f6cb652cc8a2b26acd34a2b7b7b83",
+      "bytes": 3876877
+    },
+    {
+      "archivo": "images/train/lider_express_057_A_vacios.png",
+      "sha256": "ee7dc465952b9844590f9da8a8501bf125dfa6f20527438b3329602522320879",
+      "bytes": 2328041
+    },
+    {
+      "archivo": "images/train/lider_express_057_B_baja.png",
+      "sha256": "751071d766105a85202767dca017d691bbf6c9b7caa8ca546724082b7b11b4f0",
+      "bytes": 2324626
+    },
+    {
+      "archivo": "images/train/lider_express_057_C_mixta.png",
+      "sha256": "40963087be313b9f4904a0f9dc34e6c7d7619e0ad5877756b585c05acdae25cf",
+      "bytes": 2313732
+    },
+    {
+      "archivo": "images/train/lider_express_058_0_original.jpg",
+      "sha256": "f0f3cd0c4597beb84ee9daa95547681a335055f32bf285967a98449852fc9429",
+      "bytes": 4274193
+    },
+    {
+      "archivo": "images/train/lider_express_058_A_vacios.png",
+      "sha256": "e38fc8aa27e2ebd20f3be2f06c90f87c25fca9877ce244000a006dbe891a97ad",
+      "bytes": 2498233
+    },
+    {
+      "archivo": "images/train/lider_express_058_B_baja.png",
+      "sha256": "a281567b0213e971904b257d717c1fb9493195c82586e3a9338296445064764b",
+      "bytes": 2503836
+    },
+    {
+      "archivo": "images/train/lider_express_058_C_mixta.png",
+      "sha256": "c25fd599e84cf21d5e2ca9320294b22fc6d05cf155506f5ed412c97b06c6a8ee",
+      "bytes": 2507957
+    },
+    {
+      "archivo": "images/train/lider_express_059_0_original.jpg",
+      "sha256": "41f6ddcdc9820f70ef876349f07f03771c9a14bba2ed63a739a99fa99deec174",
+      "bytes": 3408044
+    },
+    {
+      "archivo": "images/train/lider_express_059_A_vacios.png",
+      "sha256": "f498eba72c194cbef492e4d9b3dab77399019083cbb28cd73cae55be846909ef",
+      "bytes": 2626384
+    },
+    {
+      "archivo": "images/train/lider_express_059_B_baja.png",
+      "sha256": "e8382051316a708c47f3922810e095b84a7c8f75338cc2d715c56f7a0b583908",
+      "bytes": 2574247
+    },
+    {
+      "archivo": "images/train/lider_express_059_C_mixta.png",
+      "sha256": "4e3759d4fcec5ff45a3703fcd4aa390a83a52be2636360cbea19394f0e6ec033",
+      "bytes": 2413977
+    },
+    {
+      "archivo": "images/val/lider_express_014_0_original.jpg",
+      "sha256": "04c7a6c69f402ffa190c03809b6fb5ecfb1b216ce7c464f9ce58346cf9ae05db",
+      "bytes": 5174964
+    },
+    {
+      "archivo": "images/val/lider_express_015_0_original.jpg",
+      "sha256": "6784b1e810be3a5ce236820c8c39da2f863cfb42208564480ff070698c8886b7",
+      "bytes": 4759344
+    },
+    {
+      "archivo": "images/val/lider_express_016_0_original.jpg",
+      "sha256": "98d2da5a6e2ff48ea8f2d1d3b78a38b85307cc4d14b7c04414637e0c81954e5e",
+      "bytes": 4813064
+    },
+    {
+      "archivo": "images/val/lider_express_026_0_original.jpg",
+      "sha256": "59b6a645ee6efd6e1ca6fd9d7b7e91b5a66af45b15fc1a9a45310f8b011d01c2",
+      "bytes": 5314645
+    },
+    {
+      "archivo": "images/val/lider_express_027_0_original.jpg",
+      "sha256": "e58bf37d9df0f67713db85f1b9eb4a27eaa818f2acc6b017fbc6a341eb96bddc",
+      "bytes": 5432540
+    },
+    {
+      "archivo": "images/val/lider_express_028_0_original.jpg",
+      "sha256": "e11c38a0860870ddff7a77129aae66f24508c7ac6bbf1567ed4163ec05e8ed58",
+      "bytes": 5142294
+    },
+    {
+      "archivo": "images/val/lider_express_039_0_original.jpg",
+      "sha256": "62f072b34dd1aaa5f40419e820d8c365c22e55c245701e1fb453d9a05ca176f4",
+      "bytes": 4105729
+    },
+    {
+      "archivo": "images/val/lider_express_040_0_original.jpg",
+      "sha256": "dcb63e333e6095ecda7ef1eb9b114c5a2d57481ae0cbb0356c7b9523692a6745",
+      "bytes": 4368792
+    },
+    {
+      "archivo": "images/val/lider_express_041_0_original.jpg",
+      "sha256": "767622f444df1dcef82b341720c5b3e6b07db4f0f30f37ea06ff7a222a8649fd",
+      "bytes": 4893909
+    },
+    {
+      "archivo": "images/val/lider_express_042_0_original.jpg",
+      "sha256": "a709188246355688c5e73525c8ab886eb4297a5cd50b89e4631d535b2e08626f",
+      "bytes": 4198607
+    },
+    {
+      "archivo": "labels/train/lider_express_001_0_original.txt",
+      "sha256": "9e1d69c31471b120bf341db914c4376a8cd33ec49c9c66229367372440669e64",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_001_A_vacios.txt",
+      "sha256": "9d38179cff9197a581e1d4e867b047a322d41c750092cf8a8f7973e34181125f",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_001_B_baja.txt",
+      "sha256": "ad772dbb8d17508be9415fc55737300dd8afa658c9259ad0d0ce951a7ec5379f",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_001_C_mixta.txt",
+      "sha256": "e2655531ecff6fa52549c88290e454a47a129da593f767727880d8de502ba1ec",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_002_0_original.txt",
+      "sha256": "2cf73987f851a195d03c1809851eceeafe7337aa297c730ee7647915937d5bf9",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_002_A_vacios.txt",
+      "sha256": "7134ddca25b62ec6b3d8e629fe17596b1b4ca7290ecb27168f62b355f68b3f36",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_002_B_baja.txt",
+      "sha256": "354c53812fc5136fb1a14242978b3d97ab3b0f99f0e74dc89c2b5b906d9f7c27",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_002_C_mixta.txt",
+      "sha256": "027d6314cf6fd58bf485cde8e5bbf291d830328ea03a69d8fe9d3bed99cc79df",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_003_0_original.txt",
+      "sha256": "8bf3e2835e0b9350775961cc27cc909dfbb104e873c2d24c2772cc12492a5f08",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_003_A_vacios.txt",
+      "sha256": "ffbff012e2bafeae8cedbdc64bae8371e79072b50488e089d3ecf09f1a3ce3b7",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_003_B_baja.txt",
+      "sha256": "be202d73d530326740dd048dceab8a7fe007cd591d9cc4a3513cd09c4f8aadcb",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_003_C_mixta.txt",
+      "sha256": "df486ffccda75a85dbf94cdc4464b9b48c706c03404a06cdee3a143aacb60877",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_004_0_original.txt",
+      "sha256": "f88e29a6fcd78c7217526f7f821e9c39b1c75bcccc383cbfeeceea29aad94cef",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_004_A_vacios.txt",
+      "sha256": "290a0098bc283c2bcc5b72e3516d0c6ed7376f8770d92d0082767e1e082c1102",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_004_B_baja.txt",
+      "sha256": "4fdae0ba0980ea219263de2c421c0c3cb052d719250ae9de49d91c6cdd803e55",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_004_C_mixta.txt",
+      "sha256": "d1841817e6348491c761590df17f239ad9b4181177a1c423a98ab39bfc88e767",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_005_0_original.txt",
+      "sha256": "2f228f50802ba2832106050cf6282aa3df760ced0d24d301361abedfbf088bc1",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_005_A_vacios.txt",
+      "sha256": "5c30379f831d210ea72ae57b688589c3362b1e3414192c169429d47c490d0267",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_005_B_baja.txt",
+      "sha256": "148ccd177fc413df87ed5f175fa9d936f37befa59b7bde9bff7a0fc3143c2d5f",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_005_C_mixta.txt",
+      "sha256": "be8752b02d5fd0c95620fe16dce42b0771e06cfc0a894df3d04b001107185a9c",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_011_0_original.txt",
+      "sha256": "cfc7f856bdfa0b7d837086c6c414b5dc3720aef15813b1508e209c233292f408",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_011_A_vacios.txt",
+      "sha256": "6a6d7b2bae3e544489bb83925bcb596d863394338c5c090c713d314a189a275d",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_011_B_baja.txt",
+      "sha256": "12746a80be9ea2db30f475e99d9d77c1ca0cc073e9249ce1b62382fa5a9870e4",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_011_C_mixta.txt",
+      "sha256": "29536b77831ebbed224d91204b4462381915b7879c45bb8966e83cfd45b8cd6e",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_012_0_original.txt",
+      "sha256": "457a780bc8a8617cecafeee76ba4f8fae7aac634d817eaa9f7a9ba93b9db483b",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_012_A_vacios.txt",
+      "sha256": "39e2afddc2e696591fea47d5ae525d810ddb11f761b73ebb6430edd4f57f6d84",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_012_B_baja.txt",
+      "sha256": "7762b82e03b9ce974976b1f41b9a6883fe727f6a277c02e3ba687ed49080f1ce",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_012_C_mixta.txt",
+      "sha256": "f1ddd7d9f94d71eccf0b12aa65deca8685f6294a12e931794dc5bbd91b96d9c7",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_013_0_original.txt",
+      "sha256": "fb613c35f499857bcc1871f7b366ca43000c83c289c7301b9ce46319219ee3a6",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_013_A_vacios.txt",
+      "sha256": "12921fbd684b092aa3340dedd2e5fc09de5d0314102fb759dd5b01f5d54d3cfa",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_013_B_baja.txt",
+      "sha256": "3f624bf30e6b502a2cd05ca21686edb53e78b1be9513345682c350f9337def70",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_013_C_mixta.txt",
+      "sha256": "0981c5c428ddab54a659ac9333cf394c1323e4280eeb25da9be98ee3a3e80204",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_017_0_original.txt",
+      "sha256": "99296de4663855fd21cd44cf147f5701fde8bd2fd50c43c3c80c32b5d3a50b62",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_017_A_vacios.txt",
+      "sha256": "6c83d8a3dea894169c1c237aaa13a136ce26d370021efc5f631da5543e739c5b",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_017_B_baja.txt",
+      "sha256": "1eeaeaa91c01e0d44bd55c20c01ccdd4d2eba5539d0096fb20d60bdf058d26e3",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_017_C_mixta.txt",
+      "sha256": "b95f25bc41835a19677fd95edf2e28573c861dffbe3d3517ed4da24995ffe543",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_018_0_original.txt",
+      "sha256": "f644f130b9d08bdd12b9848a8148194951bef4749beecbd530830c72b6f3e391",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_018_A_vacios.txt",
+      "sha256": "2350fd537195f6d8c0067c0c34700a4477cb37ce9314185e29c24e98fd01870a",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_018_B_baja.txt",
+      "sha256": "80ee07c2bb43bda56e28075bea27844506885612e0f0e5020cbb7e96a36810f1",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_018_C_mixta.txt",
+      "sha256": "c57cb7ee41473fd90d711f1ca9dc4a9bc2383af77667fc2a0cc859a16d1c69f8",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_019_0_original.txt",
+      "sha256": "fec7a65e65ec8539b9ec61ddec03ffdd23d321d2eb04f04d5f29184ef04c3214",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_019_A_vacios.txt",
+      "sha256": "b977d227432f254faa4988ed513a352595fdd181bd7e474f602d43dc3a34b8ff",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_019_B_baja.txt",
+      "sha256": "526a2cf20a6f89a1b1ba690bac7190f379cd44a66c349a696d3caae546c6a1d5",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_019_C_mixta.txt",
+      "sha256": "1c2795077b004e559719a35a7b90378254f852be976107cbc73c4657bc3948bb",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_020_0_original.txt",
+      "sha256": "5f64fc6f08ced82c01671e9ff2d68c3ee4528b18a89d8f781a51a6b473425217",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_020_A_vacios.txt",
+      "sha256": "71102a0bbc67be3afde758d00bf3e8a586d1cdaca491715812fc35a43ef6bf50",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_020_B_baja.txt",
+      "sha256": "643b4ad582e6c493e656c5de5c04291712fd406fc0d4497445d80f165b1fa460",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_020_C_mixta.txt",
+      "sha256": "4474d66ba82fa0fd230696c42a87d88990f53c28bc465fc78f8ead176e530d35",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_021_0_original.txt",
+      "sha256": "77bfff4f48c9e4a0e5131fbe0c78f0e6f9a3d251926d77ffd7edeb8eb6448893",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_021_A_vacios.txt",
+      "sha256": "8e52a71eb1365e3643fa2d2d3d34b53911964e3263df3daab9ca5533d7a7841b",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_021_B_baja.txt",
+      "sha256": "93e561f317337fbcb7f47c52007f3ef4137d280c3d139ed78bf6be575011d2ac",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_021_C_mixta.txt",
+      "sha256": "5c7b26dac9d9bf481e982003aa3f23defa6a49e66daf8d505f032253bb3edc90",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_022_0_original.txt",
+      "sha256": "f1a5827e87ef0e2912d977d7ece3aeb64568b8d83a2f6a2a57788516e02258f6",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_022_A_vacios.txt",
+      "sha256": "8974a7ed099c903e8103a5fdedac933c60c22f60ca3d056d481a896167205495",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_022_B_baja.txt",
+      "sha256": "cf1d64c775fde792b015c73b3897f80748eaccf9e5fb337ddd83c8b40bb0bf81",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_022_C_mixta.txt",
+      "sha256": "13542ab27f8c817cdce3e0b4d580b7951c03e2a45bbc98fbdd2d27332629b068",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_023_0_original.txt",
+      "sha256": "c3ed0aac0b6e61c94092344ff3b4b6212b7cd8213e1368a345c4e26530202177",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_023_A_vacios.txt",
+      "sha256": "e80083145aa934bb596304dc9f16192500d46bf3ed07604367bcc84deb423844",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_023_B_baja.txt",
+      "sha256": "89cda1371eadab62cc7cec5d95ef75fa1977acfb3bbb15caf8aee1f7c06c8e54",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_023_C_mixta.txt",
+      "sha256": "ae7ec0668a5fd5fc65c29d9ee82c5427b5cf70df28adb52258b0787a93363f3e",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_024_0_original.txt",
+      "sha256": "667a7c092b6991c269edc92cbaa7673e6c295da28d2ee58179ad22ec57af5654",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_024_A_vacios.txt",
+      "sha256": "e65695f2b94ad0dc7338bde14746f8af821e0ce41b12b88e7e0436a54d2cee34",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_024_B_baja.txt",
+      "sha256": "8d5f909559489b7a33f3d4fce6c4ff57e18bed3e076c0a1f79d6a4499e86d912",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_024_C_mixta.txt",
+      "sha256": "76af5170517b7e4421a804ca3831fb824209bff2d69ad149fac868a8b9c77ee4",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_025_0_original.txt",
+      "sha256": "1111c5d70ebf5599e55a721f263477a70269a1dca6fa6bda34f77f8f14ad417c",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_025_A_vacios.txt",
+      "sha256": "dfce417068ccc3454d816319965e0f8b529b7792e1c89c478247b9c60eca4271",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_025_B_baja.txt",
+      "sha256": "6f49b0aef2f32fd3aaa54680883dcb6aea059f4f7824a1719310fd9b4a1608de",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_025_C_mixta.txt",
+      "sha256": "b9f52498f6d6c9065fd0935a07989ddab75e2dc15f6934f85a5daba8e3d141bf",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_029_0_original.txt",
+      "sha256": "e599cdc0326d8dde1cff53951fa2a72bd2d30c5b70e5b831a24221f68fd5d938",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_029_A_vacios.txt",
+      "sha256": "4fbe51427f35c0a05473e071fdc879320ed103fab85f0d46a251b52ade690a4a",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_029_B_baja.txt",
+      "sha256": "37c431a6550f755684a0dc3c5bd71512f932b9edfbf57ac7dff9113c8af0a7c7",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_029_C_mixta.txt",
+      "sha256": "9fde1569c6cd66705aa52546b749f7991817fd0296a7977d65273a45e8629ee7",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_030_0_original.txt",
+      "sha256": "ef0aaa6c3686ad19cc0e5b8ea205b2407ba09efcea1491d16134bb1836ef774a",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_030_A_vacios.txt",
+      "sha256": "052745090db4f0923a5047aa421f271061e8ce1c1e268e847cd3e0278ad05110",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_030_B_baja.txt",
+      "sha256": "d1bd47cab4dab66efd98156ac8dc2e0975c97eb7c26fc32b41cdb631f368d882",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_030_C_mixta.txt",
+      "sha256": "91107f3b21a29dc2c7a8236b6511eb065f139fa1a802af676cbf96846a724edd",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_031_0_original.txt",
+      "sha256": "4f42bf19fc4324048e59689919660681c47c7d4f25692303f4913dde94cec728",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_031_A_vacios.txt",
+      "sha256": "2c7a9330bbbd273ada3856b570636919c67b6399cdcace1754b138056cc0da7a",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_031_B_baja.txt",
+      "sha256": "215bce1d36ca4bf8bf83e80a1ac0202a0a574ca182dd8e75f6204961a0d2bd10",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_031_C_mixta.txt",
+      "sha256": "e1647a87a8d8225c2ea60f4dcece9a6c3e30d2650a50b01a8b2dd811d3a2cfc2",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_032_0_original.txt",
+      "sha256": "1293cdf4aa4161feb5b3f533fcea9026b1b6d0f529a0c98113ea90bd915dbb03",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_032_A_vacios.txt",
+      "sha256": "84e398fa8d7a32729f81a4644afa6818d533d3158fbbe52aba42339283a94091",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_032_B_baja.txt",
+      "sha256": "5170167d2ee4aa73603820dba7156ea5362ff4715a4d3c0dd262a3b8ae7bd75f",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_032_C_mixta.txt",
+      "sha256": "036a164e64979578acbade7ac7548b9a0727aa495dac3e681e70c24b9a2c9c7f",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/train/lider_express_033_0_original.txt",
+      "sha256": "5217183666719e8ebefbbb4dde975c1af6af198af5e3e1d54599906018b8bb56",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_033_A_vacios.txt",
+      "sha256": "65b0865f9ead79ade0078784b05e18d49066bbbbbe7e16912403c99beccbe159",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_033_B_baja.txt",
+      "sha256": "90fab21ddb5bcfe27a5242f7e5ea61c7b184aae500b95b806ab342dc78490323",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_033_C_mixta.txt",
+      "sha256": "f1a379fc72e055c0b04ec9a8809235c15a53a490db47b826bebe2736fa470fb0",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_034_0_original.txt",
+      "sha256": "056fd6e67b0cfcf3bcf04f8bbccc1c3905f55c29703635889ca6736696b3797e",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_034_A_vacios.txt",
+      "sha256": "f10a409b6fe0dd36da53c9613a108e26c5c93738a9802dafe19705c6a745684c",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_034_B_baja.txt",
+      "sha256": "5f55de221ec7ce6a9d55f382f6e4d4e9e1bde9671946f6a7b1bb429b82fb57cd",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_034_C_mixta.txt",
+      "sha256": "28a55895d1ae730cff75528ef9b395d415d1378bebeb04709b47b31c7f005e3d",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_035_0_original.txt",
+      "sha256": "5e061c342deadcc9ffa097a6d6a931fda6168c340c9bcb0b1fe4f6e2125c44c4",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_035_A_vacios.txt",
+      "sha256": "af64d8571b1c79aca2c43df9aaa05c6351082bb441c5beff224263926c88e87d",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_035_B_baja.txt",
+      "sha256": "c1a3f9372c38521176e1e0fcf6a1f6ec1cf7926f8cb60eec25f2ed9a698b2f1e",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_035_C_mixta.txt",
+      "sha256": "07387ea1bf96201e4b7a9ff185cac7115b70d1955f2af1b62bc422101eea5ee4",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_036_0_original.txt",
+      "sha256": "c8ceb65ac7e1b40f00563492f35d74bdee46a6eeda58445640f30a474a8a8b0c",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_036_A_vacios.txt",
+      "sha256": "d6416632d40cd326950f1a4218e273e7d0e7153043f5a32dfba162c2dff80ec0",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_036_B_baja.txt",
+      "sha256": "ebb66266f7eaa3e4f3fc8186debc8c0b1e6b188ec191d059b58b2bdc56b62413",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_036_C_mixta.txt",
+      "sha256": "8db8674cfb8b13b78509275e20b6aca76f4024fd68e06261e8fdebe8d70ea82a",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_037_0_original.txt",
+      "sha256": "679da456df5a9ae3d72b088de9995e6a04097f3dc29c346057380ef4d5a99a41",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_037_A_vacios.txt",
+      "sha256": "054c179f013c333b90960586d13013f9dd73f9b88c61db7fc557cd51796711d8",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_037_B_baja.txt",
+      "sha256": "a0e6abac47c7f037bd075ad871df3db2b1bbd9810e35b504d51016d3c941fc19",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_037_C_mixta.txt",
+      "sha256": "4d1766191939dd117575d755197816c5fd09b47330365ad82e7ab1f048a6bd6d",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_038_0_original.txt",
+      "sha256": "b22536ca3a2a279cfb1f8722d9bdfe712195beb33e1519fb46172ece2a719fb7",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_038_A_vacios.txt",
+      "sha256": "068aa6c4b3cf7c4e900bdbe62329b29393510127659a3428c98c249bfd8e0915",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_038_B_baja.txt",
+      "sha256": "04a881adcff8ea6677ebaa2825d9c31411856671b418253bbc65b240d08f9d5f",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_038_C_mixta.txt",
+      "sha256": "7a4922092bdc9a868ec9d24a5dce3768348b997b73911def272a91b6a71b7a88",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_043_0_original.txt",
+      "sha256": "dba5b05c80ffe3dca1097e68acfc413fad28eafa814a912db231df3caf5617cf",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_043_A_vacios.txt",
+      "sha256": "24578980e9989a8f59f39cabcd509fa26781e8fe5bddd40f8db7abb9f56784be",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_043_B_baja.txt",
+      "sha256": "5f7f4eaaa6c545a91b8f2257d876a8c7502f2882856aefb1712358f21b506785",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_043_C_mixta.txt",
+      "sha256": "d5e3120a59a6a37a1cce47c03d5e5813cb687ea767f57dbd1a2a4f0875c363a8",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_044_0_original.txt",
+      "sha256": "fbd5d2ab66813de2d5abd9f6538ab4cbeae8d85ec27e3b0658e1604676c1beb7",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_044_A_vacios.txt",
+      "sha256": "caf6cd18294cc76a16afe8ab599b13b649c4e49366888133f1e5d7db274a81e7",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_044_B_baja.txt",
+      "sha256": "18e8c68f7ec8b849192acc80ef0552a4b911832779566e3155cf1e301df15a92",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_044_C_mixta.txt",
+      "sha256": "db0daece17278922fd1c70fad55cfabd584a35da1a756e006e7bf4d33e84d4a9",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_045_0_original.txt",
+      "sha256": "d20c9dccad97d7db4a7ae55788ad58bb5ec473506d58e6d5e15261b58973f134",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_045_A_vacios.txt",
+      "sha256": "4ba626061a24969f5a629996fa2043b2d121545e23776026c179fe6847263b09",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_045_B_baja.txt",
+      "sha256": "c78c7d781364d7342b4869e0043b897721e456e04e104cde2aa05b4b9e61b1f4",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_045_C_mixta.txt",
+      "sha256": "1829ff9146bbc33876654ac48865f70412d3dd83ebe41b97c2efc0d093c4bc41",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_046_0_original.txt",
+      "sha256": "5f44cda82ecd29f8b2c7bf2e1ec2ffaeb65932ece81926c0af4555e2e4cd9d3c",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_046_A_vacios.txt",
+      "sha256": "3015fac7c1508ad5eec0214174933cff4de8f616b8bbbc284e36ea8b376c9cf9",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_046_B_baja.txt",
+      "sha256": "e2a8e543d16729d4c4caebc7bf914683140596d08ad390a13909d979e233870b",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_046_C_mixta.txt",
+      "sha256": "f048c11814d55ebb614f67338ab0659d201cbf5dca7028157f56feff41973270",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_047_0_original.txt",
+      "sha256": "2fe20c22b579a6169d992468c36f15d6839b4163dc8c79032bb1f3f39c1ac718",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_047_A_vacios.txt",
+      "sha256": "56289612441d0acdf0d741b49747d98c169f139872e0a1f083ae89eb74329f1b",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_047_B_baja.txt",
+      "sha256": "be4ebe92f4995ebcb66dc68837e38ae7b387b5da0c6a2dbf9c6cdbee4fb13456",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_047_C_mixta.txt",
+      "sha256": "49b52e26938c8c75cdadf83a0f0787020851dff58e37387aae545e2c72662d93",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_048_0_original.txt",
+      "sha256": "1bf30bc45e0787695c24785b267e1206f968e48055231f1070244211cfc4622b",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_048_A_vacios.txt",
+      "sha256": "ed93adbbc72d7ad00d6c9a8007d61767ec62ecb93960416f21470e76dff7dd5f",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_048_B_baja.txt",
+      "sha256": "5e5d12164218de73ea9e5a67e54acb4b1807116f404044ac1278b66a2e823d43",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_048_C_mixta.txt",
+      "sha256": "9f2b17d0591531495ddc5b329e44f9fa07865bc51f24d5ec1688e69e24ee677d",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_049_0_original.txt",
+      "sha256": "1e6be2bee4728d0d789ca11f580b00336443133a467619ea83819ac9cd046945",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_049_A_vacios.txt",
+      "sha256": "5d2c8ef23c6f370d3048924450cc2c503207e84207e3be281f71e62de56b8f05",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_049_B_baja.txt",
+      "sha256": "049661da7ae0a8796daf11557b64f1bbc71c0d7f541dc98596fd330cc5cb7cc6",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_049_C_mixta.txt",
+      "sha256": "96a2cd5588569324ec6f2501e88be9d6440f179613ce0a899d5d1c92a313c07e",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_050_0_original.txt",
+      "sha256": "9c013b8320a36ae74f494e5a4e55cbebbf641e92382f62d4d5ac85071b061779",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_050_A_vacios.txt",
+      "sha256": "33bd3bbcd502a602e12ceac818d8a917425e09c071c53bf41ebd513071520fe1",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_050_B_baja.txt",
+      "sha256": "e4286422411c79b4bbc588281cf35d46d1f9dcdd7bcf305c51b304e4278e9682",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_050_C_mixta.txt",
+      "sha256": "ed579213e5e5845a530ed3ff4f7445c7efc16872debeedf1bc6a85f82c827096",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_055_0_original.txt",
+      "sha256": "7dbaba95ac5d0e38ecb5547e069659a9b989f1b567c2b17997d5f92c78cb89c3",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_055_A_vacios.txt",
+      "sha256": "05539572c2d06cfd0ce8aeab5aff60ccbc6dbc2b88beea59ee438f3ccd385054",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_055_B_baja.txt",
+      "sha256": "c726046655f46c054c2fda306438096486a413765f930df06c9a9a6f419b8a47",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_055_C_mixta.txt",
+      "sha256": "665602de1e98e0de64956c87fe1111afc5d073c2db0226281ee0a41f9050f979",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_056_0_original.txt",
+      "sha256": "0b9d687bcd4dd89fca3a4d229304a0141f2286dc748d4345c027312e7287eb13",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_056_A_vacios.txt",
+      "sha256": "d90b0790990146745ebba638fe7d99678bcab1997007db9653be09e33882493c",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_056_B_baja.txt",
+      "sha256": "914217dd428c0d8e9b255bf0986e6feca0939b679e3576862e5c54c28d44db12",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_056_C_mixta.txt",
+      "sha256": "8758d3cce00d9a709719cf7972bb47076fa1786b66e6fe665876e87ed30a4743",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_057_0_original.txt",
+      "sha256": "5a8fdd63fa3c73b37613e11c6e6ac98e705cb3964f6c6c422d8776d92b1d5147",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_057_A_vacios.txt",
+      "sha256": "a5d0b598c74ca60c6d6919e03b7c4712176fea4dec38e6f7ff23fb9f28ff4cad",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_057_B_baja.txt",
+      "sha256": "0c86b377b0075e5190e35d242fb7d8448cfda76f1137904f2397e7f60dbd6b83",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_057_C_mixta.txt",
+      "sha256": "bc256b6f4146b4307f65300c882714516f9dc76149f91f93b52eae8f6378cab7",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_058_0_original.txt",
+      "sha256": "38a3f06ca29439f3c3b49ccec39246be8c95a1ca1c446426e0bff42f843a6917",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_058_A_vacios.txt",
+      "sha256": "d8eaba90769333c6ce7e116781aaec15ca4885b85b4dd5bce7ab311f59830a37",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_058_B_baja.txt",
+      "sha256": "8928b552a8d901f998d17c120f6254c58b3f1063ad37fc99677d48a4b32e72cc",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_058_C_mixta.txt",
+      "sha256": "229354517341716133bd42e5d509e4f1c8387d031d6f912e431616dcdd734350",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/train/lider_express_059_0_original.txt",
+      "sha256": "c13c4de2dde61b3a1a34b944e30438601aaf8ea22ae01bcbd6212a8f72884e3b",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_059_A_vacios.txt",
+      "sha256": "08558cc082c9ac42bb035ff57f53e7a79678da0888267cde4e3b3897e98e0e7d",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_059_B_baja.txt",
+      "sha256": "0ed276f6723d0d91338cbc7a650f3f76944d0cd4d58aaa727aa43764b4efaa44",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/train/lider_express_059_C_mixta.txt",
+      "sha256": "7837c4f6953d8570b914a68189d1ae01fe91d07bc87a68e31256c55891a8a9ac",
+      "bytes": 360
+    },
+    {
+      "archivo": "labels/val/lider_express_014_0_original.txt",
+      "sha256": "772614687acebdf30567b076dea9d643f93e8ec73d2a83bbf53907d4638af397",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/val/lider_express_015_0_original.txt",
+      "sha256": "be6a412506f01e3504faa193beeead71e662de78996a0add4d75f96cc81f4a49",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/val/lider_express_016_0_original.txt",
+      "sha256": "48aa1f35e8a8b67b22c3265dcf8d192f01c3991c71e020312e5219ebd3017a2b",
+      "bytes": 540
+    },
+    {
+      "archivo": "labels/val/lider_express_026_0_original.txt",
+      "sha256": "8d1d0ed56f91bf0438148df73e590899fe25e33dd01353e88343407ff6f85b47",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_027_0_original.txt",
+      "sha256": "87289bbb06d66cc7e8db90fa618145f3b9581abf6d56a5df6f41d8797e488ccd",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_028_0_original.txt",
+      "sha256": "50f94f959dc902696023cfa552f6ab18e3a47327a27081ffaa7ac3850393402d",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_039_0_original.txt",
+      "sha256": "6b4a92f2fcf6ecfb574e6b7c2462bb9473b417f69fd7194fc4219a0a4d343411",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_040_0_original.txt",
+      "sha256": "4b5aa92213a678c71d3983ae24bdcf677b056c1e45a219d3640aee24478fc364",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_041_0_original.txt",
+      "sha256": "e508f7be31d47f2c7e151fd2ae65210740673fa1d4602b8c34fef2cd3f646184",
+      "bytes": 450
+    },
+    {
+      "archivo": "labels/val/lider_express_042_0_original.txt",
+      "sha256": "2035cab7f9a5ebcb16bd363109ee858801916a2d49d6f3bacf4c1bf4bcd541b6",
+      "bytes": 270
+    },
+    {
+      "archivo": "data.yaml",
+      "sha256": "9176bd8099e5bd35b75aa743dc116482085266ad5fc029643bed15e953058eb5",
+      "bytes": 84
+    }
+  ]
+}

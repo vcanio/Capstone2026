@@ -1,0 +1,56 @@
+{
+  "capturado_utc": "20261019T222744Z",
+  "task_id": 22,
+  "imagenes": 60,
+  "poligonos": 308,
+  "estados": {
+    "suficiente": 256,
+    "no_evaluable": 41,
+    "reponer": 11
+  },
+  "occluded": {
+    "False": 133,
+    "True": 175
+  },
+  "estados_por_oclusion": {
+    "suficiente | False": 129,
+    "suficiente | True": 127,
+    "no_evaluable | True": 41,
+    "reponer | True": 7,
+    "reponer | False": 4
+  },
+  "contornos_modificados": 0,
+  "poligonos_eliminados": [],
+  "poligonos_nuevos": 0,
+  "imagenes_sin_poligonos": [],
+  "trabajos": [
+    {
+      "id": 56,
+      "state": "in progress",
+      "stage": "annotation"
+    },
+    {
+      "id": 55,
+      "state": "in progress",
+      "stage": "annotation"
+    },
+    {
+      "id": 54,
+      "state": "in progress",
+      "stage": "annotation"
+    }
+  ],
+  "incidencias": 0,
+  "hallazgos_registrados": 38,
+  "imagenes_con_hallazgos": 24,
+  "hallazgos_por_tipo": {
+    "estado": 25,
+    "oclusion": 1,
+    "estado_por_adjudicar": 7,
+    "geometria_por_adjudicar": 5
+  },
+  "poligonos_invalidos": [],
+  "alcance": "Vista general de las 60 imágenes; revisión ampliada de los 52 niveles marcados reponer o no_evaluable y de casos de oclusión. Estimaciones visuales, sin medición exhaustiva del ancho ocupado.",
+  "anotaciones_modificadas": false,
+  "cierre_recomendado": "pendiente_de_correcciones_y_adjudicacion"
+}

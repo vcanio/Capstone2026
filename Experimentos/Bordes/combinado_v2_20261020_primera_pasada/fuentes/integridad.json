@@ -1,0 +1,26 @@
+[
+  {
+    "source": "Herramientas/Modelos/experimentar_paulo.py",
+    "sha256": "e38f7e7925d8ce87f5dc6ef3eb099ca8f0141e2109e1df16e2b60c31a09c7f7b"
+  },
+  {
+    "source": "Herramientas/Modelos/ocupacion_paulo.py",
+    "sha256": "4541d6f07a30b1cb4f143d21fa13a0ee826361a78a0562abfe55cd9a1bc898dc"
+  },
+  {
+    "source": "Herramientas/Modelos/panel_worker.py",
+    "sha256": "55241b315c8c7a3152f57192fa0f448274d479bafca18b207a692a5d60b5805f"
+  },
+  {
+    "source": "Herramientas/Modelos/comparar_niveles.py",
+    "sha256": "b1a15cfd8a1d005e46a38e623defef74b58bc5a49e643aff92d5b9074692c3d1"
+  },
+  {
+    "source": "Herramientas/Modelos/particion_niveles.py",
+    "sha256": "51795656515f05925326cc3331ffeb3c563d23fb442f51889e08be92185f3106"
+  },
+  {
+    "source": "Experimentos/Bordes/gondola_bordes.py",
+    "sha256": "0032602f643d3a658acd128dbd8f933abfdf9225c7dc96214c4ea8080360be8b"
+  }
+]

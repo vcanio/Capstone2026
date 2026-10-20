@@ -1,0 +1,755 @@
+{
+  "status": "verified",
+  "verified_at": "2026-10-19T22:37:28.076149+00:00",
+  "task_id": 22,
+  "imagenes": 60,
+  "poligonos": 308,
+  "niveles_por_estado": {
+    "reponer": 0,
+    "suficiente": 286,
+    "no_evaluable": 22
+  },
+  "occluded": 176,
+  "poligonos_modificados": 31,
+  "cambios_estado": 30,
+  "cambios_oclusion": 1,
+  "cambios_geometria": 1,
+  "anotaciones_fuente_preservadas": true,
+  "validacion_humana": "pendiente",
+  "casos_especiales": [
+    {
+      "shape_id": 6458,
+      "frame": 1,
+      "issue_id": 3,
+      "motivo": "geometria_por_adjudicar",
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54?frame=1"
+    },
+    {
+      "shape_id": 6595,
+      "frame": 28,
+      "issue_id": 4,
+      "motivo": "geometria_por_adjudicar",
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55?frame=28"
+    },
+    {
+      "shape_id": 6706,
+      "frame": 50,
+      "issue_id": 5,
+      "motivo": "geometria_por_adjudicar",
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=50"
+    },
+    {
+      "shape_id": 6726,
+      "frame": 53,
+      "issue_id": 6,
+      "motivo": "geometria_por_adjudicar",
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=53"
+    },
+    {
+      "shape_id": 6735,
+      "frame": 55,
+      "issue_id": 7,
+      "motivo": "estado_por_adjudicar",
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56?frame=55"
+    }
+  ],
+  "changes": [
+    {
+      "shape_id": 6478,
+      "frame": 5,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los paquetes Aqua de la repisa, detrás de las cajas, aportan suficiente ancho visible. No contar los paquetes dentro de la caja."
+        }
+      ]
+    },
+    {
+      "shape_id": 6547,
+      "frame": 19,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los frascos y envases del lado derecho ya superan el umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6566,
+      "frame": 23,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los envases de ambos lados, especialmente los de la derecha, superan el umbral visible."
+        }
+      ]
+    },
+    {
+      "shape_id": 6568,
+      "frame": 23,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Las botellas visibles de los extremos suman más del 30 %; la persona no vuelve insuficiente ese stock."
+        }
+      ]
+    },
+    {
+      "shape_id": 6569,
+      "frame": 23,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Las botellas visibles a la derecha y a la izquierda deben sumarse sobre el ancho completo."
+        }
+      ]
+    },
+    {
+      "shape_id": 6570,
+      "frame": 24,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los dos grupos de espumantes superan el 30 %; el hueco central no basta para asignar reponer."
+        },
+        {
+          "campo": "points",
+          "antes": [
+            75.2189,
+            278.7715,
+            1026.595,
+            287.2353,
+            1046.0352,
+            55.386,
+            57.6038,
+            41.7607
+          ],
+          "despues": [
+            71.5941,
+            230.0,
+            1030.6395,
+            239.0,
+            1046.0352,
+            55.386,
+            57.6038,
+            41.7607
+          ],
+          "motivo": "Excluir la franja promocional inferior conservando perspectiva, límites laterales y borde superior."
+        }
+      ]
+    },
+    {
+      "shape_id": 6601,
+      "frame": 29,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "El grupo de bolsas visible a la derecha ocupa una proporción amplia, por encima del umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6631,
+      "frame": 35,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "La fila de botellas a la derecha de la persona ya supera el 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6655,
+      "frame": 40,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los paquetes de los extremos suman claramente más del 30 % del ancho."
+        }
+      ]
+    },
+    {
+      "shape_id": 6656,
+      "frame": 40,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "El grupo visible de paquetes a la izquierda, más el extremo derecho, supera el umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6667,
+      "frame": 42,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los paquetes de papel visibles a la derecha ya superan el 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6676,
+      "frame": 44,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los sacos amarillos visibles detrás y a la derecha de las cajas superan el umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6685,
+      "frame": 46,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Hay producto visible al fondo además de las botellas delanteras. La ocupación no se limita a la primera fila."
+        }
+      ]
+    },
+    {
+      "shape_id": 6686,
+      "frame": 46,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Se ven varias botellas del propio nivel por encima de las cajas; sus tramos de ancho ya permiten decidir."
+        }
+      ]
+    },
+    {
+      "shape_id": 6690,
+      "frame": 47,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "La fila trasera visible y los grupos de los extremos deben contarse aunque el carro oculte parte del frente."
+        }
+      ]
+    },
+    {
+      "shape_id": 6696,
+      "frame": 48,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los grupos de botellas visibles a los lados de las cajas deben sumarse; comprobar el umbral sin contar stock dentro de cajas."
+        }
+      ]
+    },
+    {
+      "shape_id": 6708,
+      "frame": 51,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los grupos de paquetes a ambos extremos ya superan conjuntamente el 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6709,
+      "frame": 51,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los panes visibles a la derecha de la persona ya superan el umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6736,
+      "frame": 55,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los envases visibles a ambos extremos suman más del 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6737,
+      "frame": 55,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los envases visibles a ambos extremos suman más del 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6740,
+      "frame": 56,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los paquetes Ariel de la izquierda y Downy de la derecha superan ampliamente el 30 %."
+        }
+      ]
+    },
+    {
+      "shape_id": 6741,
+      "frame": 56,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los dos grupos de producto visibles superan el umbral; comparar con el nivel inferior, ya marcado suficiente."
+        }
+      ]
+    },
+    {
+      "shape_id": 6752,
+      "frame": 58,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los paquetes del propio estante visibles a la derecha de la caja superan el 30 %; no contar los que están dentro de ella."
+        }
+      ]
+    },
+    {
+      "shape_id": 6573,
+      "frame": 24,
+      "cambios": [
+        {
+          "campo": "occluded",
+          "antes": false,
+          "despues": true,
+          "motivo": "El torso y el brazo de la persona cubren la parte izquierda del nivel, aunque su estado suficiente es interpretable."
+        }
+      ]
+    },
+    {
+      "shape_id": 6574,
+      "frame": 24,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "motivo": "La zona tapada por el cuerpo puede cambiar si se alcanza el 30 %; la parte visible no justifica concluir reponer."
+        }
+      ]
+    },
+    {
+      "shape_id": 6700,
+      "frame": 49,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Sumando la botella acostada, las del fondo y los extremos hay producto visible en más del 30 % del ancho."
+        }
+      ]
+    },
+    {
+      "shape_id": 6705,
+      "frame": 50,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "reponer"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los grupos de botellas visibles de ambos extremos y del fondo alcanzan el umbral; no contar solo el frente."
+        }
+      ]
+    },
+    {
+      "shape_id": 6616,
+      "frame": 32,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los grupos visibles de bolsas a ambos extremos alcanzan el umbral, aun excluyendo el envase sostenido."
+        }
+      ]
+    },
+    {
+      "shape_id": 6715,
+      "frame": 52,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "Los envases del estante visibles a izquierda y derecha alcanzan el umbral; se excluye el envase sostenido."
+        }
+      ]
+    },
+    {
+      "shape_id": 6716,
+      "frame": 52,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "La unión de los tramos visibles de producto a ambos lados alcanza el umbral."
+        }
+      ]
+    },
+    {
+      "shape_id": 6717,
+      "frame": 52,
+      "cambios": [
+        {
+          "campo": "attributes",
+          "antes": [
+            {
+              "spec_id": 82,
+              "value": "no_evaluable"
+            }
+          ],
+          "despues": [
+            {
+              "spec_id": 82,
+              "value": "suficiente"
+            }
+          ],
+          "motivo": "El grupo visible de envases de la izquierda más los de la derecha supera el umbral."
+        }
+      ]
+    }
+  ],
+  "respaldo": ".resguardo/correcciones_visibilidad_20261019T223458Z"
+}

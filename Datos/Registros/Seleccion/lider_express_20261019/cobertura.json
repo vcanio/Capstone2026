@@ -1,0 +1,42 @@
+{
+  "fecha": "2026-10-19T22:55:43.206342+00:00",
+  "imagenes": 296,
+  "familias": 59,
+  "bloques_provisionales": 52,
+  "origen": {
+    "real": 59,
+    "sintetica": 237
+  },
+  "niveles_por_estado": {
+    "reponer": 411,
+    "suficiente": 1100,
+    "no_evaluable": 9
+  },
+  "por_tarea": {
+    "19": {
+      "suficiente": 801,
+      "reponer": 411
+    },
+    "22": {
+      "suficiente": 299,
+      "no_evaluable": 9
+    }
+  },
+  "por_origen": {
+    "real": {
+      "reponer": 4,
+      "suficiente": 299,
+      "no_evaluable": 0
+    },
+    "sintetica": {
+      "reponer": 407,
+      "suficiente": 801,
+      "no_evaluable": 9
+    }
+  },
+  "particion": "sin_asignar",
+  "entrenamiento_iniciado": false,
+  "reserva_anterior": "fuera_del_inventario_y_sin_modificar",
+  "advertencia_escenas": "Los bloques conocidos son provisionales. Confirmar también otras escenas compartidas antes de congelar el reparto.",
+  "validacion_y_reserva_principales": "Usar originales reales independientes por escena; variantes sintéticas de esos bloques solo como diagnóstico separado."
+}

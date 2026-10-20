@@ -1,0 +1,127 @@
+[
+  {
+    "run": "v2_base_yolo11n_01_20261020_002800_ec8d",
+    "weights_sha256": "802cc6f72187eec3059e64ec239e70c0fbcb253cc436f9ab320e642bad5dc088",
+    "manifest_sha256": "c2070f400119587c3b46cee23734e311961ee8f8ddc90c06dff73bfa7fe18e17",
+    "yolo_validation": {
+      "fotos": 10,
+      "por_estado": {
+        "reponer": {
+          "referencias": 1,
+          "predicciones": 5,
+          "aciertos": 1,
+          "precision": 0.2,
+          "recall": 1.0
+        },
+        "suficiente": {
+          "referencias": 50,
+          "predicciones": 54,
+          "aciertos": 47,
+          "precision": 0.8703703703703703,
+          "recall": 0.94
+        }
+      },
+      "alertas": {
+        "reales": 1,
+        "predichas": 5,
+        "acertadas": 1,
+        "omitidas": 0,
+        "falsas": 4,
+        "precision": 0.2,
+        "recall": 1.0,
+        "falsas_por_foto": 0.4
+      },
+      "no_evaluables_predichos": 0,
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 47,
+          "reponer": 3
+        },
+        "sin_referencia": {
+          "suficiente": 7,
+          "reponer": 1
+        }
+      }
+    },
+    "signal_by_human_state": {
+      "reponer": {
+        "niveles": 1,
+        "area_mediana": 17.46,
+        "ancho_mediano": 42.5
+      },
+      "suficiente": {
+        "niveles": 34,
+        "area_mediana": 69.2,
+        "ancho_mediano": 93.84
+      }
+    },
+    "measured": 43,
+    "detections": 59,
+    "percentage_accuracy": null
+  },
+  {
+    "run": "v2_base_yolo26n_01_20261020_004933_b105",
+    "weights_sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67",
+    "manifest_sha256": "c2070f400119587c3b46cee23734e311961ee8f8ddc90c06dff73bfa7fe18e17",
+    "yolo_validation": {
+      "fotos": 10,
+      "por_estado": {
+        "reponer": {
+          "referencias": 1,
+          "predicciones": 1,
+          "aciertos": 1,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "suficiente": {
+          "referencias": 50,
+          "predicciones": 54,
+          "aciertos": 49,
+          "precision": 0.9074074074074074,
+          "recall": 0.98
+        }
+      },
+      "alertas": {
+        "reales": 1,
+        "predichas": 1,
+        "acertadas": 1,
+        "omitidas": 0,
+        "falsas": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "falsas_por_foto": 0.0
+      },
+      "no_evaluables_predichos": 0,
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 49,
+          "no_detectado": 1
+        },
+        "sin_referencia": {
+          "suficiente": 5
+        }
+      }
+    },
+    "signal_by_human_state": {
+      "reponer": {
+        "niveles": 0,
+        "area_mediana": null,
+        "ancho_mediano": null
+      },
+      "suficiente": {
+        "niveles": 35,
+        "area_mediana": 68.86,
+        "ancho_mediano": 90.48
+      }
+    },
+    "measured": 36,
+    "detections": 55,
+    "percentage_accuracy": null
+  }
+]

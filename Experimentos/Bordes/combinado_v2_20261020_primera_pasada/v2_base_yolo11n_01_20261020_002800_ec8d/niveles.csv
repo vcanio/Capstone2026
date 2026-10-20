@@ -1,0 +1,60 @@
+﻿foto,nivel,estado_yolo,confianza_yolo,method,status,area_signal_pct,width_signal_pct,calibrated,valid_cells,reason,estado_anotado,iou_referencia
+lider_express_014_0_original.jpg,1,suficiente,0.94181,paulo_mascara_v1,medido,96.86,100.0,False,231,,suficiente,0.9298120821640857
+lider_express_014_0_original.jpg,2,suficiente,0.85147,paulo_mascara_v1,medido,95.61,97.44,False,269,,suficiente,0.9370087090598568
+lider_express_014_0_original.jpg,3,suficiente,0.91064,paulo_mascara_v1,medido,99.33,100.0,False,285,,suficiente,0.9602052031210535
+lider_express_014_0_original.jpg,4,suficiente,0.9353,paulo_mascara_v1,medido,96.3,100.0,False,357,,suficiente,0.9488012443028426
+lider_express_014_0_original.jpg,5,suficiente,0.96398,paulo_mascara_v1,medido,97.4,100.0,False,353,,suficiente,0.9574242574925106
+lider_express_014_0_original.jpg,6,suficiente,0.96308,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9002320216849742
+lider_express_015_0_original.jpg,1,suficiente,0.89219,paulo_mascara_v1,medido,35.27,68.42,False,252,,suficiente,0.9317541054788409
+lider_express_015_0_original.jpg,2,suficiente,0.88375,paulo_mascara_v1,medido,80.38,100.0,False,313,,suficiente,0.9191739807111075
+lider_express_015_0_original.jpg,3,suficiente,0.95405,paulo_mascara_v1,medido,70.83,97.44,False,307,,suficiente,0.9622161595618239
+lider_express_015_0_original.jpg,4,suficiente,0.96017,paulo_mascara_v1,medido,93.46,97.5,False,339,,suficiente,0.9749591081608995
+lider_express_015_0_original.jpg,5,suficiente,0.9364,paulo_mascara_v1,medido,100.0,100.0,False,367,,suficiente,0.9683697577847855
+lider_express_015_0_original.jpg,6,suficiente,0.9486,paulo_mascara_v1,medido,75.32,100.0,False,461,,suficiente,0.9632115552779832
+lider_express_016_0_original.jpg,1,suficiente,0.9004,paulo_mascara_v1,medido,38.63,68.18,False,327,,suficiente,0.8179943995711729
+lider_express_016_0_original.jpg,2,suficiente,0.41793,paulo_mascara_v1,medido,29.85,58.82,False,238,,,
+lider_express_016_0_original.jpg,3,suficiente,0.83533,paulo_mascara_v1,medido,81.91,100.0,False,263,,suficiente,0.9081931423230819
+lider_express_016_0_original.jpg,4,suficiente,0.92619,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9442654006820224
+lider_express_016_0_original.jpg,5,suficiente,0.94652,paulo_mascara_v1,medido,100.0,100.0,False,335,,suficiente,0.9514507603871499
+lider_express_016_0_original.jpg,6,suficiente,0.96712,paulo_mascara_v1,medido,83.03,97.62,False,377,,suficiente,0.9535624845422269
+lider_express_016_0_original.jpg,7,suficiente,0.93665,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.6843559314779007
+lider_express_026_0_original.jpg,1,suficiente,0.93354,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9399873426964924
+lider_express_026_0_original.jpg,2,suficiente,0.91721,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9569269210599377
+lider_express_026_0_original.jpg,3,suficiente,0.94128,paulo_mascara_v1,medido,81.22,100.0,False,334,,suficiente,0.974020005671207
+lider_express_026_0_original.jpg,4,suficiente,0.95976,paulo_mascara_v1,medido,85.72,100.0,False,384,,suficiente,0.9691901650966355
+lider_express_026_0_original.jpg,5,suficiente,0.89039,paulo_mascara_v1,medido,82.95,100.0,False,469,,suficiente,0.8097212914450086
+lider_express_026_0_original.jpg,6,suficiente,0.93502,paulo_mascara_v1,medido,65.62,97.56,False,361,,,
+lider_express_027_0_original.jpg,1,suficiente,0.95016,paulo_mascara_v1,medido,96.7,100.0,False,278,,suficiente,0.9747818140161978
+lider_express_027_0_original.jpg,2,suficiente,0.928,paulo_mascara_v1,medido,90.51,97.3,False,320,,suficiente,0.9723353762884835
+lider_express_027_0_original.jpg,3,suficiente,0.90767,paulo_mascara_v1,medido,62.08,92.11,False,345,,suficiente,0.9705425926182975
+lider_express_027_0_original.jpg,4,suficiente,0.96958,paulo_mascara_v1,medido,92.01,100.0,False,372,,suficiente,0.969074652163317
+lider_express_027_0_original.jpg,5,suficiente,0.96138,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.8782572019652577
+lider_express_028_0_original.jpg,1,reponer,0.41477,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.924722677194778
+lider_express_028_0_original.jpg,2,suficiente,0.84519,paulo_mascara_v1,medido,88.87,100.0,False,321,,,
+lider_express_028_0_original.jpg,3,reponer,0.35835,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9646428116302468
+lider_express_028_0_original.jpg,4,suficiente,0.78281,paulo_mascara_v1,medido,81.79,92.11,False,406,,,
+lider_express_028_0_original.jpg,5,reponer,0.5405,paulo_mascara_v1,medido,86.41,97.62,False,420,,suficiente,0.953274347695179
+lider_express_028_0_original.jpg,6,suficiente,0.87188,paulo_mascara_v1,medido,90.82,100.0,False,413,,,
+lider_express_028_0_original.jpg,7,reponer,0.32323,paulo_mascara_v1,medido,70.61,92.68,False,490,,,
+lider_express_028_0_original.jpg,8,suficiente,0.77241,paulo_mascara_v1,medido,65.26,90.7,False,501,,suficiente,0.9653657808197981
+lider_express_028_0_original.jpg,9,suficiente,0.43799,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9184644378343325
+lider_express_039_0_original.jpg,1,suficiente,0.9457,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9701158598628796
+lider_express_039_0_original.jpg,2,suficiente,0.92342,paulo_mascara_v1,medido,72.85,91.89,False,341,,suficiente,0.9413260266311666
+lider_express_039_0_original.jpg,3,suficiente,0.90905,paulo_mascara_v1,medido,85.71,97.37,False,363,,suficiente,0.9575772469185302
+lider_express_039_0_original.jpg,4,suficiente,0.95952,paulo_mascara_v1,medido,96.37,100.0,False,395,,suficiente,0.9668293339964358
+lider_express_039_0_original.jpg,5,suficiente,0.75559,paulo_mascara_v1,medido,78.46,100.0,False,581,,suficiente,0.918822147963199
+lider_express_040_0_original.jpg,1,suficiente,0.92067,paulo_mascara_v1,medido,74.56,100.0,False,283,,suficiente,0.9268749809488738
+lider_express_040_0_original.jpg,2,suficiente,0.80024,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9199839502222587
+lider_express_040_0_original.jpg,3,suficiente,0.32928,paulo_mascara_v1,medido,80.97,95.0,False,397,,suficiente,0.9254267374074802
+lider_express_040_0_original.jpg,4,suficiente,0.31159,paulo_mascara_v1,medido,94.31,100.0,False,429,,,
+lider_express_040_0_original.jpg,5,reponer,0.82804,paulo_mascara_v1,medido,94.64,100.0,False,432,,reponer,0.9656529204725195
+lider_express_040_0_original.jpg,6,suficiente,0.3904,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.6136492520756925
+lider_express_041_0_original.jpg,1,suficiente,0.92875,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.8873672018499414
+lider_express_041_0_original.jpg,2,suficiente,0.94901,paulo_mascara_v1,medido,46.96,55.56,False,347,,suficiente,0.8974289561484617
+lider_express_041_0_original.jpg,3,suficiente,0.91073,paulo_mascara_v1,medido,79.26,94.74,False,386,,suficiente,0.8767353238052049
+lider_express_041_0_original.jpg,4,suficiente,0.95467,paulo_mascara_v1,medido,43.96,78.95,False,409,,suficiente,0.9053000971952981
+lider_express_041_0_original.jpg,5,suficiente,0.55767,paulo_mascara_v1,medido,87.97,97.37,False,271,,suficiente,0.7419432385067012
+lider_express_042_0_original.jpg,1,suficiente,0.86392,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.9222728438653516
+lider_express_042_0_original.jpg,2,suficiente,0.83118,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.8252785865298774
+lider_express_042_0_original.jpg,3,suficiente,0.68241,paulo_mascara_v1,medido,80.6,100.0,False,275,,,
+lider_express_042_0_original.jpg,4,suficiente,0.76055,paulo_mascara_v1,sin_medicion,,,False,,El contorno del nivel requiere revisión.,suficiente,0.6348259098016751

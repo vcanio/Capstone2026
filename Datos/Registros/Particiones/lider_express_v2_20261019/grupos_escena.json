@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "criterio": "disponibilidad_visual_nivel_v2_reponer",
+  "metodo": "Revision visual de los 59 originales en tres hojas de contacto; agrupacion conservadora por vistas repetidas, vecindad y contenido compartido. No se usaron predicciones ni resultados de modelos.",
+  "alcance": "Grupos operativos para impedir filtracion; no afirman identidad fisica exacta de todos los modulos de un grupo. Incluyen deliberadamente algunos tramos vecinos. Independencia dentro de una unica captura/local, no entre locales.",
+  "evidencia": ["fuentes/escenas_001_020.jpg", "fuentes/escenas_021_040.jpg", "fuentes/escenas_041_059.jpg"],
+  "grupos": [
+    {"id": "le_g01", "familias": [1,2,3,4,5], "split": "train", "motivo": "Banco promocional inicial: cerveza, snacks y conservas; tramos vecinos visibles en los bordes."},
+    {"id": "le_g02", "familias": [6,7,8,9,10], "split": "test", "motivo": "Bloque de higiene infantil: panales y toallitas; vistas vecinas y productos compartidos."},
+    {"id": "le_g03", "familias": [11,12,13], "split": "train", "motivo": "Higiene femenina: tramos contiguos con disposicion y productos compartidos."},
+    {"id": "le_g04", "familias": [14,15,16], "split": "val", "motivo": "Tinturas e higiene capilar; se mantiene junto el bloque vecino por precaucion."},
+    {"id": "le_g05", "familias": [17,18], "split": "train", "motivo": "Papel/tolllas: vistas vecinas del mismo banco, paquetes compartidos."},
+    {"id": "le_g06", "familias": [19], "split": "train", "motivo": "Cabecera de salsas, vista unica en el lote."},
+    {"id": "le_g07", "familias": [20,21,22,23,24], "split": "train", "motivo": "Banco de vinos y espumantes: mantener juntas las vistas consecutivas y vecinos visibles."},
+    {"id": "le_g08", "familias": [25], "split": "train", "motivo": "Pan envasado, vista unica en el lote."},
+    {"id": "le_g09", "familias": [26,27,28], "split": "val", "motivo": "Bebidas en caja: 26/27 contiguas; 28 conservada junto al bloque vecino con una gran zona despejada."},
+    {"id": "le_g10", "familias": [29,30], "split": "train", "motivo": "Productos especiales/sin gluten; cabecera y tramos contiguos compartidos."},
+    {"id": "le_g11", "familias": [31,32], "split": "train", "motivo": "Confites, galletas y snacks: vistas vecinas con productos compartidos."},
+    {"id": "le_g12", "familias": [33,34,35], "split": "train", "motivo": "Agua embotellada: repeticion visible entre 33/34 y tramo vecino 35."},
+    {"id": "le_g13", "familias": [36,37,38], "split": "train", "motivo": "Limpieza: bloque contiguo agrupado de forma conservadora."},
+    {"id": "le_g14", "familias": [39,40,41,42], "split": "val", "motivo": "Papeles: 39/40 comparten disposicion; se incorporan los tramos vecinos 41/42. Contiene un reponer real."},
+    {"id": "le_g15", "familias": [43,59], "split": "train", "motivo": "Exhibidor promocional de bebidas con carteleria y estructura similares; union conservadora pese a la distancia temporal."},
+    {"id": "le_g16", "familias": [44,45], "split": "train", "motivo": "Alimentos de mascotas: tramos vecinos y bolsas compartidas en los extremos."},
+    {"id": "le_g17", "familias": [46,47,48,49,50], "split": "train", "motivo": "Banco de bebidas cola: varias vistas repetidas y tramos contiguos. Contiene dos reponer reales."},
+    {"id": "le_g18", "familias": [51,52,53,54], "split": "test", "motivo": "Abarrotes: tramos vecinos mantenidos juntos. Contiene un reponer real."},
+    {"id": "le_g19", "familias": [55,56,57,58], "split": "train", "motivo": "Exhibicion promocional de aseo/higiene: caras vecinas con misma estructura y carteleria."}
+  ]
+}

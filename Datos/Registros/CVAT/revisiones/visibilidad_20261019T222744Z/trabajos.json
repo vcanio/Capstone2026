@@ -1,0 +1,140 @@
+[
+  {
+    "url": "http://localhost:8082/api/jobs/56",
+    "id": 56,
+    "task_id": 22,
+    "task_name": "Visibilidad limitada - 60 variantes IA - carros personas cajas",
+    "project_id": 7,
+    "project_name": "Walmart Stock · Estados por nivel",
+    "assignee": {
+      "url": "http://localhost:8082/api/users/3",
+      "id": 3,
+      "username": "vi.vilches",
+      "first_name": "",
+      "last_name": ""
+    },
+    "guide_id": 4,
+    "dimension": "2d",
+    "mode": "annotation",
+    "media_type": "image",
+    "bug_tracker": "",
+    "status": "annotation",
+    "stage": "annotation",
+    "state": "in progress",
+    "frame_count": 20,
+    "start_frame": 40,
+    "stop_frame": 59,
+    "data_chunk_size": 47,
+    "data_compressed_chunk_type": "imageset",
+    "data_original_chunk_type": "imageset",
+    "created_date": "2026-10-19T18:16:29.269687Z",
+    "updated_date": "2026-10-19T19:34:15.650472Z",
+    "issues": {
+      "url": "http://localhost:8082/api/issues?job_id=56",
+      "count": 0
+    },
+    "labels": {
+      "url": "http://localhost:8082/api/labels?job_id=56"
+    },
+    "type": "annotation",
+    "organization": null,
+    "target_storage": null,
+    "source_storage": null,
+    "assignee_updated_date": "2026-10-19T18:28:41.480142Z",
+    "parent_job_id": null,
+    "replicas_count": 0,
+    "consensus_replicas": 0
+  },
+  {
+    "url": "http://localhost:8082/api/jobs/55",
+    "id": 55,
+    "task_id": 22,
+    "task_name": "Visibilidad limitada - 60 variantes IA - carros personas cajas",
+    "project_id": 7,
+    "project_name": "Walmart Stock · Estados por nivel",
+    "assignee": {
+      "url": "http://localhost:8082/api/users/3",
+      "id": 3,
+      "username": "vi.vilches",
+      "first_name": "",
+      "last_name": ""
+    },
+    "guide_id": 4,
+    "dimension": "2d",
+    "mode": "annotation",
+    "media_type": "image",
+    "bug_tracker": "",
+    "status": "annotation",
+    "stage": "annotation",
+    "state": "in progress",
+    "frame_count": 20,
+    "start_frame": 20,
+    "stop_frame": 39,
+    "data_chunk_size": 47,
+    "data_compressed_chunk_type": "imageset",
+    "data_original_chunk_type": "imageset",
+    "created_date": "2026-10-19T18:16:29.257590Z",
+    "updated_date": "2026-10-19T19:31:12.910369Z",
+    "issues": {
+      "url": "http://localhost:8082/api/issues?job_id=55",
+      "count": 0
+    },
+    "labels": {
+      "url": "http://localhost:8082/api/labels?job_id=55"
+    },
+    "type": "annotation",
+    "organization": null,
+    "target_storage": null,
+    "source_storage": null,
+    "assignee_updated_date": "2026-10-19T18:28:42.981719Z",
+    "parent_job_id": null,
+    "replicas_count": 0,
+    "consensus_replicas": 0
+  },
+  {
+    "url": "http://localhost:8082/api/jobs/54",
+    "id": 54,
+    "task_id": 22,
+    "task_name": "Visibilidad limitada - 60 variantes IA - carros personas cajas",
+    "project_id": 7,
+    "project_name": "Walmart Stock · Estados por nivel",
+    "assignee": {
+      "url": "http://localhost:8082/api/users/3",
+      "id": 3,
+      "username": "vi.vilches",
+      "first_name": "",
+      "last_name": ""
+    },
+    "guide_id": 4,
+    "dimension": "2d",
+    "mode": "annotation",
+    "media_type": "image",
+    "bug_tracker": "",
+    "status": "annotation",
+    "stage": "annotation",
+    "state": "in progress",
+    "frame_count": 20,
+    "start_frame": 0,
+    "stop_frame": 19,
+    "data_chunk_size": 47,
+    "data_compressed_chunk_type": "imageset",
+    "data_original_chunk_type": "imageset",
+    "created_date": "2026-10-19T18:16:29.084278Z",
+    "updated_date": "2026-10-19T22:27:00.480096Z",
+    "issues": {
+      "url": "http://localhost:8082/api/issues?job_id=54",
+      "count": 0
+    },
+    "labels": {
+      "url": "http://localhost:8082/api/labels?job_id=54"
+    },
+    "type": "annotation",
+    "organization": null,
+    "target_storage": null,
+    "source_storage": null,
+    "assignee_updated_date": "2026-10-19T18:28:44.077830Z",
+    "parent_job_id": null,
+    "replicas_count": 0,
+    "consensus_replicas": 0
+  }
+]

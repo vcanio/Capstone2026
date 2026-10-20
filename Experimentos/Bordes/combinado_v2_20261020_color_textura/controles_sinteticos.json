@@ -1,0 +1,37 @@
+[
+  {
+    "control": "blanco",
+    "antes_pct": 0.0,
+    "script_corregido_pct": 0.0,
+    "integrado_area_pct": 0.0,
+    "integrado_ancho_pct": 0.0
+  },
+  {
+    "control": "negro",
+    "antes_pct": 100.0,
+    "script_corregido_pct": 0.0,
+    "integrado_area_pct": 0.0,
+    "integrado_ancho_pct": 0.0
+  },
+  {
+    "control": "gris_oscuro",
+    "antes_pct": 100.0,
+    "script_corregido_pct": 0.0,
+    "integrado_area_pct": 0.0,
+    "integrado_ancho_pct": 0.0
+  },
+  {
+    "control": "color_casi_negro",
+    "antes_pct": 100.0,
+    "script_corregido_pct": 0.0,
+    "integrado_area_pct": 0.0,
+    "integrado_ancho_pct": 0.0
+  },
+  {
+    "control": "rojo_intenso",
+    "antes_pct": 100.0,
+    "script_corregido_pct": 100.0,
+    "integrado_area_pct": 100.0,
+    "integrado_ancho_pct": 100.0
+  }
+]

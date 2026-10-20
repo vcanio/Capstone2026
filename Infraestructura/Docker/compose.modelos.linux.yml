@@ -1,0 +1,9 @@
+# Solo Docker Engine en Linux. El panel mantiene el acceso por loopback.
+# La red del host permite alcanzar CVAT local y Tailscale del servidor.
+services:
+  panel_modelos:
+    network_mode: host
+    ports: !reset []
+    command: ["python", "-u", "Herramientas/Modelos/panel_modelos.py", "--host", "127.0.0.1"]
+    environment:
+      CVAT_URL: ${MODEL_CVAT_URL:-http://127.0.0.1:8082/api}

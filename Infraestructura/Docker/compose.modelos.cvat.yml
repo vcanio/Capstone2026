@@ -1,0 +1,13 @@
+# Opcional. La inferencia y el entrenamiento de copias exportadas no requieren CVAT.
+services:
+  panel_modelos:
+    environment:
+      CVAT_ENABLED: "true"
+      CVAT_ACCESS_FILE: /run/secrets/cvat_access
+    volumes:
+      - type: bind
+        source: ${MODEL_CVAT_ACCESS_FILE:-../CVAT/acceso_local.json}
+        target: /run/secrets/cvat_access
+        read_only: true
+        bind:
+          create_host_path: false

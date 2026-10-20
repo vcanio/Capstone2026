@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "lider_express_20261016",
+  "origen": "mixto",
+  "local": "Lider Express",
+  "fecha_captura": "2026-10-16",
+  "fecha_captura_fuente": "Nombres originales de la camara",
+  "autor": null,
+  "estado": "anotado_particionado_pendiente_auditoria",
+  "imagenes": 236,
+  "inventario": "inventario.csv",
+  "directorio_imagenes": "imagenes_ordenadas",
+  "cvat": {
+    "task_id": 19,
+    "project_id": 7,
+    "url": "https://pcvicen.tailca514b.ts.net/tasks/19",
+    "project_url": "https://pcvicen.tailca514b.ts.net/projects/7",
+    "registro": "Datos/Registros/CVAT/tarea_19.json",
+    "jobs": [
+      {
+        "id": 45,
+        "account": "vi.canio",
+        "images": 80,
+        "real": 20,
+        "synthetic": 60,
+        "url": "https://pcvicen.tailca514b.ts.net/tasks/19/jobs/45"
+      },
+      {
+        "id": 46,
+        "account": "pau.guera",
+        "images": 80,
+        "real": 20,
+        "synthetic": 60,
+        "url": "https://pcvicen.tailca514b.ts.net/tasks/19/jobs/46"
+      },
+      {
+        "id": 47,
+        "account": "vi.vilches",
+        "images": 76,
+        "real": 19,
+        "synthetic": 57,
+        "url": "https://pcvicen.tailca514b.ts.net/tasks/19/jobs/47"
+      }
+    ]
+  },
+  "aprobado_entrenamiento": false,
+  "reparto": {
+    "anotacion": 236,
+    "pruebas": 0,
+    "evaluacion_final": 0,
+    "pendientes": 0
+  },
+  "nota": "236 anotadas. Particion por familias/escenas fijada; no habilita entrenamiento ni modifica el reparto de CVAT.",
+  "actualizado": "2026-10-17",
+  "criterio": "disponibilidad_visual_nivel_v2_reponer",
+  "guia": "Documentacion/Guia_anotacion_lider_express_20261016.md",
+  "split": "ver_inventario",
+  "esquema": {
+    "etiqueta": "Nivel",
+    "tipo": "polygon",
+    "atributo": "estado",
+    "valores": [
+      "reponer",
+      "suficiente",
+      "no_evaluable"
+    ],
+    "predeterminado": "no_evaluable"
+  },
+  "variantes_sinteticas": {
+    "imagenes": 177,
+    "originales_base": 59,
+    "directorio": "imagenes_ordenadas",
+    "indice": "indice_imagenes_ordenadas.json",
+    "documentacion": "documentacion_ia/manifiesto.json",
+    "galeria": "galeria_imagenes_ordenadas.html",
+    "entrenamiento_habilitado": false,
+    "cvat": {
+      "task_id": 19,
+      "shared_with_originals": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/19",
+      "registro": "Datos/Registros/CVAT/tarea_19.json"
+    }
+  },
+  "patron_originales": "lider_express_*_0_original.jpg",
+  "imagenes_reales": 59,
+  "imagenes_sinteticas": 177,
+  "inventario_originales_filtro": {
+    "origen": "real"
+  },
+  "particion": {
+    "estado": "fijada_por_escena",
+    "registro": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "unidad": "familia_y_grupo_escena_conservador",
+    "imagenes_por_split": {
+      "train": 160,
+      "test": 36,
+      "val": 40
+    },
+    "revision_cobertura_vacios_y_bajo_stock": "pendiente"
+  },
+  "particion_modelo": "ver_inventario"
+}

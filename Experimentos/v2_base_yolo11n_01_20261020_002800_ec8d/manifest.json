@@ -1,0 +1,2571 @@
+{
+  "snapshot": "snapshot_cvat.json",
+  "clases": [
+    "Nivel_reponer",
+    "Nivel_suficiente"
+  ],
+  "scope": "Nivel_estados",
+  "dataset_dir": "dataset_niveles",
+  "criterion": {
+    "version": "disponibilidad_visual_nivel_v2_reponer",
+    "threshold": 0.3,
+    "measure": "presencia de producto por ancho útil evaluable",
+    "threshold_validated": false,
+    "non_evaluable_alert": false,
+    "stage": "base"
+  },
+  "estados": {
+    "suficiente": 801,
+    "reponer": 411
+  },
+  "estados_por_split": {
+    "train": {
+      "suficiente": 538,
+      "reponer": 278
+    },
+    "val": {
+      "suficiente": 50,
+      "reponer": 1
+    },
+    "reserva": {
+      "suficiente": 128,
+      "reponer": 64
+    },
+    "diagnostico": {
+      "suficiente": 85,
+      "reponer": 68
+    }
+  },
+  "imagenes": [
+    {
+      "imagen": "lider_express_001_0_original.jpg",
+      "imagen_id": "lider_express_001_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_001_0_original.jpg",
+      "grupo_escena": "le_g01",
+      "sha256": "804aed944e9f1a23bf662205c24a000326b9d517892bf2e1771d849f8e0c55ac",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_001_A_vacios.png",
+      "imagen_id": "lider_express_001_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_001_A_vacios.png",
+      "grupo_escena": "le_g01",
+      "sha256": "becfdc128d9fa8a03c2602778fc0794a22b7a444354742518ca486acf015b65d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_001_B_baja.png",
+      "imagen_id": "lider_express_001_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_001_B_baja.png",
+      "grupo_escena": "le_g01",
+      "sha256": "bdea6a1c3f34edabb466f39e51ec35f4a2aa9ea02974765e96fcf37094fca26f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_001_C_mixta.png",
+      "imagen_id": "lider_express_001_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_001_C_mixta.png",
+      "grupo_escena": "le_g01",
+      "sha256": "f716a02d48299840ce9b3bef32564c0a5ad1358637e4178567a4896cf5dcf373",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_002_0_original.jpg",
+      "imagen_id": "lider_express_002_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_002_0_original.jpg",
+      "grupo_escena": "le_g01",
+      "sha256": "de18b8b68063245ca52ec17e421895ec7533f2d3d7fe2519a2e99c92d506cdb0",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_002_A_vacios.png",
+      "imagen_id": "lider_express_002_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_002_A_vacios.png",
+      "grupo_escena": "le_g01",
+      "sha256": "eb1ba1df94f431e0bd742a724aa67feca4cfa56b5534401d8c759cb434b6d48d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_002_B_baja.png",
+      "imagen_id": "lider_express_002_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_002_B_baja.png",
+      "grupo_escena": "le_g01",
+      "sha256": "2c3919561ed797523d8ecbf91f140faed655d99f64d3fe713babff9dd13a419e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 1
+      }
+    },
+    {
+      "imagen": "lider_express_002_C_mixta.png",
+      "imagen_id": "lider_express_002_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_002_C_mixta.png",
+      "grupo_escena": "le_g01",
+      "sha256": "04974e993412919bd0af8f20616a6fc29bf48a0e69dd80b59d36e6b904baed1b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_003_0_original.jpg",
+      "imagen_id": "lider_express_003_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_003_0_original.jpg",
+      "grupo_escena": "le_g01",
+      "sha256": "ae09ccd965be4147162d79f2e70281b32162bd5522beea40f7650f4fef7bb2c2",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_003_A_vacios.png",
+      "imagen_id": "lider_express_003_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_003_A_vacios.png",
+      "grupo_escena": "le_g01",
+      "sha256": "980827602f32082b168ce74bda1a8aa91956e91418d321d677676ee4d33874aa",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_003_B_baja.png",
+      "imagen_id": "lider_express_003_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_003_B_baja.png",
+      "grupo_escena": "le_g01",
+      "sha256": "ba9ccbd0495651bfeec66937b41f2e91aa6c178a0b886640fbd7f080329dfd92",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_003_C_mixta.png",
+      "imagen_id": "lider_express_003_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_003_C_mixta.png",
+      "grupo_escena": "le_g01",
+      "sha256": "89f9b0e8a1cda8c8907dfd70fe0cf1fe8fc48a158ca993d9b8e562c4e2ed1cdb",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_004_0_original.jpg",
+      "imagen_id": "lider_express_004_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_004_0_original.jpg",
+      "grupo_escena": "le_g01",
+      "sha256": "cab9b715722cb6e6ec15f616d5b5a7444e07c10487f571143d779eeb7ce10ded",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_004_A_vacios.png",
+      "imagen_id": "lider_express_004_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_004_A_vacios.png",
+      "grupo_escena": "le_g01",
+      "sha256": "2f47276b1509a510dff9d4a791c79d16f282634d1fd79f544fd97223ed59aaec",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_004_B_baja.png",
+      "imagen_id": "lider_express_004_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_004_B_baja.png",
+      "grupo_escena": "le_g01",
+      "sha256": "8f454f0de944d761c0cc3a3bdfd3717ef0aea3b2acdf2cc1e27e8461d9f41523",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_004_C_mixta.png",
+      "imagen_id": "lider_express_004_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_004_C_mixta.png",
+      "grupo_escena": "le_g01",
+      "sha256": "f392bc87f05583807cf6a438b163b20b802521c8895a640740307046e71834c4",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_005_0_original.jpg",
+      "imagen_id": "lider_express_005_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_005_0_original.jpg",
+      "grupo_escena": "le_g01",
+      "sha256": "e3c5dfdb50ec5c7f3bb10a8036029f62c1b8c845ad6386ee4785d8419337c0bf",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_005_A_vacios.png",
+      "imagen_id": "lider_express_005_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_005_A_vacios.png",
+      "grupo_escena": "le_g01",
+      "sha256": "bf95ad77831dc7aa0fc8b9574c0e13a4a4ebaa62b1fa17951e4dbf698ea4f23f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_005_B_baja.png",
+      "imagen_id": "lider_express_005_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_005_B_baja.png",
+      "grupo_escena": "le_g01",
+      "sha256": "72165112016cd01cf5b19fdb7031aa484c4c218b415f69e96f85914c9dfc87dd",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_005_C_mixta.png",
+      "imagen_id": "lider_express_005_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_005_C_mixta.png",
+      "grupo_escena": "le_g01",
+      "sha256": "8a073f250b08837e1a37dd0257ca4720ff565f93b4973960bdde6e8e88f8159b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_011_0_original.jpg",
+      "imagen_id": "lider_express_011_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_011_0_original.jpg",
+      "grupo_escena": "le_g03",
+      "sha256": "84ff2fc5988acda09b87f76433be5e392c2df046c96e4b9fbedb542585a3db40",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_011_A_vacios.png",
+      "imagen_id": "lider_express_011_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_011_A_vacios.png",
+      "grupo_escena": "le_g03",
+      "sha256": "e8efc95111b6635cdf5479b99291403ce2e46d33b0e44ffe455a2e90d981617a",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_011_B_baja.png",
+      "imagen_id": "lider_express_011_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_011_B_baja.png",
+      "grupo_escena": "le_g03",
+      "sha256": "ed1f4e850dab82f3652bddbbc3cb61e6921ca794f2be239677306b0c0b7834cf",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_011_C_mixta.png",
+      "imagen_id": "lider_express_011_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_011_C_mixta.png",
+      "grupo_escena": "le_g03",
+      "sha256": "9669454c401c3a869218ab5d0de22926602a19c63faece066d2939a25e9c9ae5",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_012_0_original.jpg",
+      "imagen_id": "lider_express_012_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_012_0_original.jpg",
+      "grupo_escena": "le_g03",
+      "sha256": "79826a40768655567a7dea91a736d5cfe764a38ee32f900900ef6f6709562f30",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_012_A_vacios.png",
+      "imagen_id": "lider_express_012_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_012_A_vacios.png",
+      "grupo_escena": "le_g03",
+      "sha256": "e0ab6db6d0396312194e693f76df0779b785926c8a5bcd69c4de111a95e516c2",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_012_B_baja.png",
+      "imagen_id": "lider_express_012_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_012_B_baja.png",
+      "grupo_escena": "le_g03",
+      "sha256": "20fa0e96b8d5709c4f8104f9299cbd746d749371fb55d9cef8161d1e99e54817",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_012_C_mixta.png",
+      "imagen_id": "lider_express_012_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_012_C_mixta.png",
+      "grupo_escena": "le_g03",
+      "sha256": "1bfeb2dbe3649f2de4e1e4b1868c393de03a95f348a3b43d4355c5d46eea4b02",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_013_0_original.jpg",
+      "imagen_id": "lider_express_013_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_013_0_original.jpg",
+      "grupo_escena": "le_g03",
+      "sha256": "36e760fd7e1a18676ff9924a8c2b4eff75fcb78dc1488ff9dfc81abd54a5d561",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_013_A_vacios.png",
+      "imagen_id": "lider_express_013_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_013_A_vacios.png",
+      "grupo_escena": "le_g03",
+      "sha256": "0f683e8882f4cd8e12c839e7077c5030cbfbc93bc61638c9264c3b95ca78c3ea",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_013_B_baja.png",
+      "imagen_id": "lider_express_013_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_013_B_baja.png",
+      "grupo_escena": "le_g03",
+      "sha256": "922a19973411764f077d12e3f47f1045e71251efb883c5c8d2dfd8e659fb12b7",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_013_C_mixta.png",
+      "imagen_id": "lider_express_013_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_013_C_mixta.png",
+      "grupo_escena": "le_g03",
+      "sha256": "793732ea141f8655f45c8fd0bc944cc8c19bc86fa869b7e6b11c1bd97d46857f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_014_0_original.jpg",
+      "imagen_id": "lider_express_014_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_014_0_original.jpg",
+      "grupo_escena": "le_g04",
+      "sha256": "1bb438a2286b7d775358cd55bc91267808702c97e176bc1480bff417f1162f2d",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_015_0_original.jpg",
+      "imagen_id": "lider_express_015_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_015_0_original.jpg",
+      "grupo_escena": "le_g04",
+      "sha256": "f6719fb1176ce41421b6c0f7b95d9a3bddbd8675dda0b2196139eedf0f005e72",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_016_0_original.jpg",
+      "imagen_id": "lider_express_016_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_016_0_original.jpg",
+      "grupo_escena": "le_g04",
+      "sha256": "0dca8a84be8e32f6fa974d8dd89539e865c0599511a1c8c5e0afef1affea8ea1",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_017_0_original.jpg",
+      "imagen_id": "lider_express_017_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_017_0_original.jpg",
+      "grupo_escena": "le_g05",
+      "sha256": "784e03e1e8f7f1906635863ff1c2d667954579d17f4662c2303a66d4fd741475",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_017_A_vacios.png",
+      "imagen_id": "lider_express_017_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_017_A_vacios.png",
+      "grupo_escena": "le_g05",
+      "sha256": "c6269443c6ce06680df9be489f2c0b0fc27edd9f526a5a246808d76b3da96504",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_017_B_baja.png",
+      "imagen_id": "lider_express_017_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_017_B_baja.png",
+      "grupo_escena": "le_g05",
+      "sha256": "79e679c6949c6aaa8abd6d0f337251219ba93cf41758ec2cfb08cfbc78586325",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 1
+      }
+    },
+    {
+      "imagen": "lider_express_017_C_mixta.png",
+      "imagen_id": "lider_express_017_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_017_C_mixta.png",
+      "grupo_escena": "le_g05",
+      "sha256": "6c6e74b0408efa01ae02111784d999197f46855d38af25ee13e13837c66f191a",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_018_0_original.jpg",
+      "imagen_id": "lider_express_018_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_018_0_original.jpg",
+      "grupo_escena": "le_g05",
+      "sha256": "5ba13a9fe23f6a65bc4cb824d7b0e891e84715b188fd1c696628e52a2f5dffa0",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_018_A_vacios.png",
+      "imagen_id": "lider_express_018_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_018_A_vacios.png",
+      "grupo_escena": "le_g05",
+      "sha256": "b5f35fee90abdb5ed6088297927886f108944538757a4047fbca61a9d9914841",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_018_B_baja.png",
+      "imagen_id": "lider_express_018_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_018_B_baja.png",
+      "grupo_escena": "le_g05",
+      "sha256": "668794d769be71768b624976232d358d89e4b254d5009be4279edefb9811b77f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 1
+      }
+    },
+    {
+      "imagen": "lider_express_018_C_mixta.png",
+      "imagen_id": "lider_express_018_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_018_C_mixta.png",
+      "grupo_escena": "le_g05",
+      "sha256": "3a8ffd052608211c8316b8e0142f34d4c4a580a51b33058d1f5de372878eb451",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 1
+      }
+    },
+    {
+      "imagen": "lider_express_019_0_original.jpg",
+      "imagen_id": "lider_express_019_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_019_0_original.jpg",
+      "grupo_escena": "le_g06",
+      "sha256": "b9edb36063519629d8e893decc477c4e6a95b1e3dcf26f703c9cfc70038f3d9f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_019_A_vacios.png",
+      "imagen_id": "lider_express_019_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_019_A_vacios.png",
+      "grupo_escena": "le_g06",
+      "sha256": "3b724149035539ed5c3a556e36c0f8ab35764e6dc0f55850187c5ad8a66809ce",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_019_B_baja.png",
+      "imagen_id": "lider_express_019_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_019_B_baja.png",
+      "grupo_escena": "le_g06",
+      "sha256": "71cc54cec9989bc63ee097f7d0c2b4a81614b4bbc16730081cd9f24a46d50263",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_019_C_mixta.png",
+      "imagen_id": "lider_express_019_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_019_C_mixta.png",
+      "grupo_escena": "le_g06",
+      "sha256": "2af10354cc89bf0bfc7362695f91bcac55816e6a0efc7226acaf4fe6d40d9586",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_020_0_original.jpg",
+      "imagen_id": "lider_express_020_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_020_0_original.jpg",
+      "grupo_escena": "le_g07",
+      "sha256": "7d75e3517595165d4b21fcc2d7b3a4547192d0c2d995fdde795144f8c13d0025",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_020_A_vacios.png",
+      "imagen_id": "lider_express_020_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_020_A_vacios.png",
+      "grupo_escena": "le_g07",
+      "sha256": "01f519da6b23fbfe90583bb2b03d8b718b042a2ab034df33f57d08f7b05ee8f9",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_020_B_baja.png",
+      "imagen_id": "lider_express_020_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_020_B_baja.png",
+      "grupo_escena": "le_g07",
+      "sha256": "15cf97b4be464ebefa2a5b55f8599006fca00a1f397d01254ba7e45eb39e6562",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_020_C_mixta.png",
+      "imagen_id": "lider_express_020_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_020_C_mixta.png",
+      "grupo_escena": "le_g07",
+      "sha256": "df74531a0ffb8df37e659c90e772b5b67bbe99935eb088c7832314d9209bb10e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_021_0_original.jpg",
+      "imagen_id": "lider_express_021_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_021_0_original.jpg",
+      "grupo_escena": "le_g07",
+      "sha256": "d1f6b97e78e800cbe9d1cd9fb2c022a33bce0fa5257656343a56c73311b9000f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_021_A_vacios.png",
+      "imagen_id": "lider_express_021_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_021_A_vacios.png",
+      "grupo_escena": "le_g07",
+      "sha256": "dc343f1656d986d2b95fb0f917a700d1cfdf80111f0fb3872df3e36183eddf3e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_021_B_baja.png",
+      "imagen_id": "lider_express_021_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_021_B_baja.png",
+      "grupo_escena": "le_g07",
+      "sha256": "220e9d0bd592e7524ae5027f930af94964059a925753919a137182e211ae1504",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_021_C_mixta.png",
+      "imagen_id": "lider_express_021_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_021_C_mixta.png",
+      "grupo_escena": "le_g07",
+      "sha256": "3c7d5c7176ed761d85aa3510699ca099fd86da8386e451767f06443e16c15fc9",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_022_0_original.jpg",
+      "imagen_id": "lider_express_022_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_022_0_original.jpg",
+      "grupo_escena": "le_g07",
+      "sha256": "0939f47eb27eec927374880423784c3dd7067b702870332427a7bef1b0c05f3d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_022_A_vacios.png",
+      "imagen_id": "lider_express_022_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_022_A_vacios.png",
+      "grupo_escena": "le_g07",
+      "sha256": "27195786c6d0b8ef37e2d1f87fc6081d852c1e504f72dab305dd49957916e208",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_022_B_baja.png",
+      "imagen_id": "lider_express_022_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_022_B_baja.png",
+      "grupo_escena": "le_g07",
+      "sha256": "bec1952e08f1b6b0504f8368ccecf116841967a322c7cbd88b5e72747bb10a19",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_022_C_mixta.png",
+      "imagen_id": "lider_express_022_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_022_C_mixta.png",
+      "grupo_escena": "le_g07",
+      "sha256": "ae0edf0089a39bc15b1064d24133377e75be227ca229672fafd8369fe2556c58",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_023_0_original.jpg",
+      "imagen_id": "lider_express_023_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_023_0_original.jpg",
+      "grupo_escena": "le_g07",
+      "sha256": "72174915c6a2411916088a57e22254e672087a52ea668f96e9fc2a806de9b1c6",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_023_A_vacios.png",
+      "imagen_id": "lider_express_023_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_023_A_vacios.png",
+      "grupo_escena": "le_g07",
+      "sha256": "a54150526127d87a6b16f06817e47e45a4369b2ad2b58b514529015823ecc6fc",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_023_B_baja.png",
+      "imagen_id": "lider_express_023_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_023_B_baja.png",
+      "grupo_escena": "le_g07",
+      "sha256": "d0885dd6e99d65ffb4e03e0e2173bb6b4d3b997cd39753885265e9700479f3f2",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_023_C_mixta.png",
+      "imagen_id": "lider_express_023_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_023_C_mixta.png",
+      "grupo_escena": "le_g07",
+      "sha256": "03cc1337cc20b93c9a3e5dac3faf54ee79dd3db10b769862cd3506ad65d096f5",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_024_0_original.jpg",
+      "imagen_id": "lider_express_024_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_024_0_original.jpg",
+      "grupo_escena": "le_g07",
+      "sha256": "5062eba46da7a00403d3aabe2be2268818d64f7c53c40175de6030b28e65395b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_024_A_vacios.png",
+      "imagen_id": "lider_express_024_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_024_A_vacios.png",
+      "grupo_escena": "le_g07",
+      "sha256": "106e87b28087a077a37f203dfea9f4081aca31ddd4e1161eed72b96f79291835",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_024_B_baja.png",
+      "imagen_id": "lider_express_024_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_024_B_baja.png",
+      "grupo_escena": "le_g07",
+      "sha256": "6dcb0c574c3c4e95b20834e63521c4e0e1c9b6d7d7a99768ce3a4d43d770e9c9",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_024_C_mixta.png",
+      "imagen_id": "lider_express_024_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_024_C_mixta.png",
+      "grupo_escena": "le_g07",
+      "sha256": "80325721dea3a8f377cad6de22872d5a796d8e7afb9b20578c570c6b0a493aa8",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_025_0_original.jpg",
+      "imagen_id": "lider_express_025_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_025_0_original.jpg",
+      "grupo_escena": "le_g08",
+      "sha256": "c61dd604403732164e87d0f4006b891224d1b5849e7c4a71de698d4731314042",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_025_A_vacios.png",
+      "imagen_id": "lider_express_025_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_025_A_vacios.png",
+      "grupo_escena": "le_g08",
+      "sha256": "5b25b9af2acd259b75e1f47c8862a1bfe3077fd51280571999061f499062a8dd",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_025_B_baja.png",
+      "imagen_id": "lider_express_025_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_025_B_baja.png",
+      "grupo_escena": "le_g08",
+      "sha256": "70acc7a622abfdc23f501deb50b0e76ccacbbe1b21ad7f278be9646a91fbf870",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_025_C_mixta.png",
+      "imagen_id": "lider_express_025_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_025_C_mixta.png",
+      "grupo_escena": "le_g08",
+      "sha256": "949f1622742f8c59cd5d0181f0644a1e7b9214e7760f97bc23c630c3208c2651",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_026_0_original.jpg",
+      "imagen_id": "lider_express_026_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_026_0_original.jpg",
+      "grupo_escena": "le_g09",
+      "sha256": "fa25b68743eb183f9bda8bd4745fad428d9229c454ecf647026d614ad2f9b9fa",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_027_0_original.jpg",
+      "imagen_id": "lider_express_027_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_027_0_original.jpg",
+      "grupo_escena": "le_g09",
+      "sha256": "3691463b9deb0be8e72fe91e335648f0211eae65f3670bc58f3e7788905e37e0",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_028_0_original.jpg",
+      "imagen_id": "lider_express_028_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_028_0_original.jpg",
+      "grupo_escena": "le_g09",
+      "sha256": "f31b25f183a625f2f2ede148f3e141ec043196f43923266c02ee3064079d9481",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_029_0_original.jpg",
+      "imagen_id": "lider_express_029_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_029_0_original.jpg",
+      "grupo_escena": "le_g10",
+      "sha256": "e8d8d5cac68085a7f93ee5c5983df3c017bf6c625aeedd8c9703f45b03ab1778",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_029_A_vacios.png",
+      "imagen_id": "lider_express_029_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_029_A_vacios.png",
+      "grupo_escena": "le_g10",
+      "sha256": "fe7b9cc811174cf1fa59bbbddd95d908492d326ee7035bee273db9dd08e10120",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_029_B_baja.png",
+      "imagen_id": "lider_express_029_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_029_B_baja.png",
+      "grupo_escena": "le_g10",
+      "sha256": "009cf384580dea47e2d160e00a308c6636abcdf0f75767b5825e8b130295db28",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_029_C_mixta.png",
+      "imagen_id": "lider_express_029_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_029_C_mixta.png",
+      "grupo_escena": "le_g10",
+      "sha256": "e37f73cd64a7d37368a45aadec3d8126f843656a3df29658925f6f4db72773c8",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_030_0_original.jpg",
+      "imagen_id": "lider_express_030_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_030_0_original.jpg",
+      "grupo_escena": "le_g10",
+      "sha256": "86e16ad90829c5bdd0a87a3e1cc7004a281caeafe90810cf990cb1fab3025219",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_030_A_vacios.png",
+      "imagen_id": "lider_express_030_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_030_A_vacios.png",
+      "grupo_escena": "le_g10",
+      "sha256": "cf4285bd43dd175c4223dbc429f749f10840e8c7c27fa10eac4896285d373f76",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_030_B_baja.png",
+      "imagen_id": "lider_express_030_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_030_B_baja.png",
+      "grupo_escena": "le_g10",
+      "sha256": "718bd105b9827862736a21731601d2f466eb783f45697fcd1fbcca16027b092c",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_030_C_mixta.png",
+      "imagen_id": "lider_express_030_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_030_C_mixta.png",
+      "grupo_escena": "le_g10",
+      "sha256": "29fc2a5ffa9ca659453f506ac8bd58614ed58be089eaa323a5c364e17e08044a",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_031_0_original.jpg",
+      "imagen_id": "lider_express_031_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_031_0_original.jpg",
+      "grupo_escena": "le_g11",
+      "sha256": "ed58ca86b1805a85527d3590bbd2557dd7d9d0bfbee3dab68416af543e8bd50e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_031_A_vacios.png",
+      "imagen_id": "lider_express_031_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_031_A_vacios.png",
+      "grupo_escena": "le_g11",
+      "sha256": "f6a462743b8c0f0ae6a041984c4ae59ae8cd8b49bb25799a1c47bac55aaeac8d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_031_B_baja.png",
+      "imagen_id": "lider_express_031_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_031_B_baja.png",
+      "grupo_escena": "le_g11",
+      "sha256": "f6d396af8e6c0abe3012bcc2c2d8da33be3e34ac27667ecf0a4d8408a621abdd",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_031_C_mixta.png",
+      "imagen_id": "lider_express_031_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_031_C_mixta.png",
+      "grupo_escena": "le_g11",
+      "sha256": "0f92c842010ae79732b53554e574ec1b17bb6d7aa3793ca7ea9272bf02980fc7",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_032_0_original.jpg",
+      "imagen_id": "lider_express_032_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_032_0_original.jpg",
+      "grupo_escena": "le_g11",
+      "sha256": "386826a8e8f7dc7eab49765b4f30767796b731b02958104c493579e2d233140d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 6
+      }
+    },
+    {
+      "imagen": "lider_express_032_A_vacios.png",
+      "imagen_id": "lider_express_032_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_032_A_vacios.png",
+      "grupo_escena": "le_g11",
+      "sha256": "eabe869924975094f3eee1877ab470212dcb0f8a35dbb4d76617d934cf648563",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_032_B_baja.png",
+      "imagen_id": "lider_express_032_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_032_B_baja.png",
+      "grupo_escena": "le_g11",
+      "sha256": "3a0a6c2bc8265f80e3f5ce7833a0959c1f0096ec927b9e6963c5330fd157ec0d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_032_C_mixta.png",
+      "imagen_id": "lider_express_032_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_032_C_mixta.png",
+      "grupo_escena": "le_g11",
+      "sha256": "976d5b01db442630517eb8952b3d145878ae81cbcb7eaafcdfb0fb08cfcdb7de",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 6,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_033_0_original.jpg",
+      "imagen_id": "lider_express_033_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_033_0_original.jpg",
+      "grupo_escena": "le_g12",
+      "sha256": "f9a1f9da2a825e7d0d6204e685f93710d36ec1282ef1f8876ab064faf2e3b88f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_033_A_vacios.png",
+      "imagen_id": "lider_express_033_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_033_A_vacios.png",
+      "grupo_escena": "le_g12",
+      "sha256": "707e0645bdae759e3e146e73f865ca9e49c26445048fa78afa9e9dae8a984ec0",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_033_B_baja.png",
+      "imagen_id": "lider_express_033_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_033_B_baja.png",
+      "grupo_escena": "le_g12",
+      "sha256": "0326ad92a24db03c674ca4abf574240cdd951035c0e5db3dd737a7fde64a3b4c",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_033_C_mixta.png",
+      "imagen_id": "lider_express_033_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_033_C_mixta.png",
+      "grupo_escena": "le_g12",
+      "sha256": "44ad2f881a87ea34709211b49eaef18805cad95df3e1defecad5d4e835cf4adc",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_034_0_original.jpg",
+      "imagen_id": "lider_express_034_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_034_0_original.jpg",
+      "grupo_escena": "le_g12",
+      "sha256": "023850fa73c5e2c0f7b70cbf25a0006b42eb3969e9cfbfb24f5e5c6286b57353",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_034_A_vacios.png",
+      "imagen_id": "lider_express_034_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_034_A_vacios.png",
+      "grupo_escena": "le_g12",
+      "sha256": "0f501637ec7d9e4ea40a01fa156dd7721ec8a81d993163928aa950c76f013254",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_034_B_baja.png",
+      "imagen_id": "lider_express_034_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_034_B_baja.png",
+      "grupo_escena": "le_g12",
+      "sha256": "b7d13e8e7ee0a59135f5bbb67327f8d7204ca48fc57fdffd8a86d51a47d99f45",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_034_C_mixta.png",
+      "imagen_id": "lider_express_034_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_034_C_mixta.png",
+      "grupo_escena": "le_g12",
+      "sha256": "322178bd8e59a79ea1cc444cf3329908e0b53938a7d5f46ecef2e7098c8be1cb",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_035_0_original.jpg",
+      "imagen_id": "lider_express_035_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_035_0_original.jpg",
+      "grupo_escena": "le_g12",
+      "sha256": "423bfe5c3f2938d208c7c01ff1e2f67eb74cb9e19afabcd23f6dc7aab14c8137",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_035_A_vacios.png",
+      "imagen_id": "lider_express_035_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_035_A_vacios.png",
+      "grupo_escena": "le_g12",
+      "sha256": "f8067bd2726448e6f4512bdb9a7742fb708d28e214ef0d6d2bb1e2e39e787836",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_035_B_baja.png",
+      "imagen_id": "lider_express_035_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_035_B_baja.png",
+      "grupo_escena": "le_g12",
+      "sha256": "77bcfe305461346aeee90b64796491ac1719191b5bbc6f2529cd140cc8883090",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_035_C_mixta.png",
+      "imagen_id": "lider_express_035_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_035_C_mixta.png",
+      "grupo_escena": "le_g12",
+      "sha256": "f7f96497903799ff5e9cf8cde6b4e0f8b5100900b52a3628e6b5a30ce8349b8f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_036_0_original.jpg",
+      "imagen_id": "lider_express_036_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_036_0_original.jpg",
+      "grupo_escena": "le_g13",
+      "sha256": "7607f26aca74c32c00290360a3a2e0c9e276e33868e4980ef37475ad424593df",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_036_A_vacios.png",
+      "imagen_id": "lider_express_036_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_036_A_vacios.png",
+      "grupo_escena": "le_g13",
+      "sha256": "fdbd0c2f3249bd38f6a3da32d0fba2171fbd984214271788f6b3862b47cb6451",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_036_B_baja.png",
+      "imagen_id": "lider_express_036_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_036_B_baja.png",
+      "grupo_escena": "le_g13",
+      "sha256": "c6494c2501803d2a7c4702b0468c10e5e389d91f3c75d99470e686b48505a447",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_036_C_mixta.png",
+      "imagen_id": "lider_express_036_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_036_C_mixta.png",
+      "grupo_escena": "le_g13",
+      "sha256": "7c41bcc2372f2f39d4e9d0809c8f6741a9a07319a1a418ce707a2ba053114ffc",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_037_0_original.jpg",
+      "imagen_id": "lider_express_037_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_037_0_original.jpg",
+      "grupo_escena": "le_g13",
+      "sha256": "5a787dc72610309b89224052ec8c7037b2b1155ffbef8c8b02bce312f18aaa50",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_037_A_vacios.png",
+      "imagen_id": "lider_express_037_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_037_A_vacios.png",
+      "grupo_escena": "le_g13",
+      "sha256": "3d4ba65df0e370708c5a51c2c488a45701ac302ae43e193a5368da24a3923779",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_037_B_baja.png",
+      "imagen_id": "lider_express_037_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_037_B_baja.png",
+      "grupo_escena": "le_g13",
+      "sha256": "381794e92f0d215476adc1dc3c2d514253caae5f174092669d84aa4b9c3fef78",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_037_C_mixta.png",
+      "imagen_id": "lider_express_037_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_037_C_mixta.png",
+      "grupo_escena": "le_g13",
+      "sha256": "fdd02999849de68175d785577832192bfaa97c65c21c22782dbc2897aadbcf6e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_038_0_original.jpg",
+      "imagen_id": "lider_express_038_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_038_0_original.jpg",
+      "grupo_escena": "le_g13",
+      "sha256": "eec0ab66adee2c0fe0259b952de1d7a3853d4e874bcb1a290eb5d4920a0afbe8",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_038_A_vacios.png",
+      "imagen_id": "lider_express_038_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_038_A_vacios.png",
+      "grupo_escena": "le_g13",
+      "sha256": "652dcef1b70314319c3b3866058129928ca8400e8480d0993c33b94c9ba5c791",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_038_B_baja.png",
+      "imagen_id": "lider_express_038_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_038_B_baja.png",
+      "grupo_escena": "le_g13",
+      "sha256": "bc73eb0ec73c798f79986d334001ff90a8518b9e8be6cdcc4e8b57a0ca8b0100",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_038_C_mixta.png",
+      "imagen_id": "lider_express_038_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_038_C_mixta.png",
+      "grupo_escena": "le_g13",
+      "sha256": "0214a943995ce47d7e640357c32fd557cc7a96bb6d0025ceea5cdbc58a22c57a",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_039_0_original.jpg",
+      "imagen_id": "lider_express_039_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_039_0_original.jpg",
+      "grupo_escena": "le_g14",
+      "sha256": "73d1a38ae952cc42db62ef0e9e0cf26c557b8719189120402c0552fd3ee9423e",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_040_0_original.jpg",
+      "imagen_id": "lider_express_040_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_040_0_original.jpg",
+      "grupo_escena": "le_g14",
+      "sha256": "f1689fcd1e9527d2f1cd1c093d80ed3e0ac06e3674ff438d8c0cde9a8a9cb6eb",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 1
+      }
+    },
+    {
+      "imagen": "lider_express_041_0_original.jpg",
+      "imagen_id": "lider_express_041_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_041_0_original.jpg",
+      "grupo_escena": "le_g14",
+      "sha256": "66516780b4771327c490411ca1873272ba8017a5f32b4634ce217888a8383fe4",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_042_0_original.jpg",
+      "imagen_id": "lider_express_042_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_042_0_original.jpg",
+      "grupo_escena": "le_g14",
+      "sha256": "67b9f935833173453319c97c6632c4e1c7ef9404cfd22169f437067b061648d0",
+      "split": "val",
+      "modulos": 0,
+      "niveles": 3,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_043_0_original.jpg",
+      "imagen_id": "lider_express_043_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_043_0_original.jpg",
+      "grupo_escena": "le_g15",
+      "sha256": "28b196b61a02cba69f10cfbb05a86aa27a07ae39423c7dd5288ac4987bd4b15b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_043_A_vacios.png",
+      "imagen_id": "lider_express_043_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_043_A_vacios.png",
+      "grupo_escena": "le_g15",
+      "sha256": "245d6f378800c46b56add94ff2c65a48a1aeb9d896d47d4bedb2050af3a4ce13",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_043_B_baja.png",
+      "imagen_id": "lider_express_043_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_043_B_baja.png",
+      "grupo_escena": "le_g15",
+      "sha256": "84fa8224353da264a229072407299653f8be609701e4ad84ce4f4987746887ce",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 1
+      }
+    },
+    {
+      "imagen": "lider_express_043_C_mixta.png",
+      "imagen_id": "lider_express_043_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_043_C_mixta.png",
+      "grupo_escena": "le_g15",
+      "sha256": "8c8bc3bc6c3012d68175d5aab71925877d685ac49d6eda1f8537a31ddce56e11",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_044_0_original.jpg",
+      "imagen_id": "lider_express_044_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_044_0_original.jpg",
+      "grupo_escena": "le_g16",
+      "sha256": "806118786e638990c448dce6356dd3d7712fd49f3ef02e55784348732656f86b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_044_A_vacios.png",
+      "imagen_id": "lider_express_044_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_044_A_vacios.png",
+      "grupo_escena": "le_g16",
+      "sha256": "8912ac38b0ce0d03da3f3126502b3df234507b45435bb657f2a45c0ef6c799d9",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_044_B_baja.png",
+      "imagen_id": "lider_express_044_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_044_B_baja.png",
+      "grupo_escena": "le_g16",
+      "sha256": "3f33507e8ef2632dadfb88859739cc691834bb8003400ce23f2d754d73c1c275",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_044_C_mixta.png",
+      "imagen_id": "lider_express_044_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_044_C_mixta.png",
+      "grupo_escena": "le_g16",
+      "sha256": "762d5ad92dd2ae7714cb0d4f32303a0ba34d289ef8b28b38e2b2d2d4b0965fc8",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_045_0_original.jpg",
+      "imagen_id": "lider_express_045_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_045_0_original.jpg",
+      "grupo_escena": "le_g16",
+      "sha256": "e442ab936be6835831d8f56aa363cd4e57ab1c574183fe2891dd0839e068bd14",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_045_A_vacios.png",
+      "imagen_id": "lider_express_045_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_045_A_vacios.png",
+      "grupo_escena": "le_g16",
+      "sha256": "d24aa0ea0f3e1484fd64a37f5e1129e14defacd6cc4ba0bad43fe5c1abbffb8e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_045_B_baja.png",
+      "imagen_id": "lider_express_045_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_045_B_baja.png",
+      "grupo_escena": "le_g16",
+      "sha256": "db8d65b75e1a6ef853dc53f8b3e863cd4791d658fe73d389a1bab1dc5de84ae7",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_045_C_mixta.png",
+      "imagen_id": "lider_express_045_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_045_C_mixta.png",
+      "grupo_escena": "le_g16",
+      "sha256": "99e500ff7f07e0bec02687f734915dffc4c65957263e45e6b77aa0f0dc372131",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_046_0_original.jpg",
+      "imagen_id": "lider_express_046_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_046_0_original.jpg",
+      "grupo_escena": "le_g17",
+      "sha256": "f64b996f4dcba8efedb2d3c42d7b85cef3ac2549e399277141ddc8469cb18093",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_046_A_vacios.png",
+      "imagen_id": "lider_express_046_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_046_A_vacios.png",
+      "grupo_escena": "le_g17",
+      "sha256": "242c0b32bc1b532e265ab200cc10dcd97c902c16c30546db4159ec0d83c5a2e3",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_046_B_baja.png",
+      "imagen_id": "lider_express_046_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_046_B_baja.png",
+      "grupo_escena": "le_g17",
+      "sha256": "3867996d59ece215f8bb093763f3d68251962003f2766e490e091fe702b3ff18",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_046_C_mixta.png",
+      "imagen_id": "lider_express_046_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_046_C_mixta.png",
+      "grupo_escena": "le_g17",
+      "sha256": "f0233a2e14280a78f50a595305234a191d4cb806567dfc9084b7fa05bb781f97",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_047_0_original.jpg",
+      "imagen_id": "lider_express_047_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_047_0_original.jpg",
+      "grupo_escena": "le_g17",
+      "sha256": "9dc9d3e1cf7b3000ac240fcbdce2008a37a87bafbd049d8fd4f8694b662f2d9e",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_047_A_vacios.png",
+      "imagen_id": "lider_express_047_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_047_A_vacios.png",
+      "grupo_escena": "le_g17",
+      "sha256": "b73cd3eb4e63f98b82a0ba49f741a19ce712447e014208b35f53eb4f38a1384f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_047_B_baja.png",
+      "imagen_id": "lider_express_047_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_047_B_baja.png",
+      "grupo_escena": "le_g17",
+      "sha256": "7e8c62730190006765fb63f0f4ab143187969cbe9f079073637e0d9bc3bb289a",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_047_C_mixta.png",
+      "imagen_id": "lider_express_047_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_047_C_mixta.png",
+      "grupo_escena": "le_g17",
+      "sha256": "f63bd0d479ec28191e1d882f84054d0d30d6ec0a155ce24e1d80129addb9d29f",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_048_0_original.jpg",
+      "imagen_id": "lider_express_048_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_048_0_original.jpg",
+      "grupo_escena": "le_g17",
+      "sha256": "2cb6a768dc4f8b719650dd08b785a979ea6293777f82b98d987bc7942eabc923",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_048_A_vacios.png",
+      "imagen_id": "lider_express_048_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_048_A_vacios.png",
+      "grupo_escena": "le_g17",
+      "sha256": "4abb0820610ad4c8e390afeb71134804e554b0d0a725dcd5cc917fd4daf31a03",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_048_B_baja.png",
+      "imagen_id": "lider_express_048_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_048_B_baja.png",
+      "grupo_escena": "le_g17",
+      "sha256": "52af6ac1c49d3435d17cf9477589ee8c9fa982f01c87844c19dc15bd54eb4380",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_048_C_mixta.png",
+      "imagen_id": "lider_express_048_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_048_C_mixta.png",
+      "grupo_escena": "le_g17",
+      "sha256": "cbfc6cdd86f98f42dd099f37c693373e48d3ffaef47b8a1ff219e88d56592fca",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_049_0_original.jpg",
+      "imagen_id": "lider_express_049_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_049_0_original.jpg",
+      "grupo_escena": "le_g17",
+      "sha256": "f5fa943005ad22258a249c5763eba34804bde6f300710ad8d2d50639b732e4d3",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 1
+      }
+    },
+    {
+      "imagen": "lider_express_049_A_vacios.png",
+      "imagen_id": "lider_express_049_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_049_A_vacios.png",
+      "grupo_escena": "le_g17",
+      "sha256": "05404400c7e7deee09886247b6bf5ccbdb910631ec85e2d68e56bfea0da25d54",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_049_B_baja.png",
+      "imagen_id": "lider_express_049_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_049_B_baja.png",
+      "grupo_escena": "le_g17",
+      "sha256": "ca57898fe7724f7a319318cc4d021f3a8879d692b7b7d472d75bd62fcbc3b4a1",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 1,
+        "reponer": 4
+      }
+    },
+    {
+      "imagen": "lider_express_049_C_mixta.png",
+      "imagen_id": "lider_express_049_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_049_C_mixta.png",
+      "grupo_escena": "le_g17",
+      "sha256": "6dd513fd08f2f48c3dfb948e543cd5c34ed5ef7ba954a88ca6bd4006b2473233",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_050_0_original.jpg",
+      "imagen_id": "lider_express_050_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_050_0_original.jpg",
+      "grupo_escena": "le_g17",
+      "sha256": "d5dd234359285a3afb986778a280fc070c14f67eaeebb4be732756d88a472327",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4,
+        "reponer": 1
+      }
+    },
+    {
+      "imagen": "lider_express_050_A_vacios.png",
+      "imagen_id": "lider_express_050_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_050_A_vacios.png",
+      "grupo_escena": "le_g17",
+      "sha256": "a45e6555e7c15ac155954d05d7ee9e923d42fdee54e70fb07948efc80c43aedc",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_050_B_baja.png",
+      "imagen_id": "lider_express_050_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_050_B_baja.png",
+      "grupo_escena": "le_g17",
+      "sha256": "2817b2db2f633fe8a7864d44f64110711c9023d6e2d26f625e883378f7a6d723",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_050_C_mixta.png",
+      "imagen_id": "lider_express_050_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_050_C_mixta.png",
+      "grupo_escena": "le_g17",
+      "sha256": "c5ebfc4417936f77fbb59ab1ed46b8c6f16b19f002fdea30d294c1132729c905",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_055_0_original.jpg",
+      "imagen_id": "lider_express_055_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_055_0_original.jpg",
+      "grupo_escena": "le_g19",
+      "sha256": "9d08c3ebee50a8a7d1b0faa972f19cd99c09c4c99657d493e194908d78e18a5b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_055_A_vacios.png",
+      "imagen_id": "lider_express_055_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_055_A_vacios.png",
+      "grupo_escena": "le_g19",
+      "sha256": "a00219f236dbe6276d30e4529f5d406a38f65cb8f3b87e8dcca2b4f3035d2621",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_055_B_baja.png",
+      "imagen_id": "lider_express_055_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_055_B_baja.png",
+      "grupo_escena": "le_g19",
+      "sha256": "e63b4c0828ed9936f0ce574a777d9e5d5717e73b6cbdbe5abdc810093b27195c",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_055_C_mixta.png",
+      "imagen_id": "lider_express_055_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_055_C_mixta.png",
+      "grupo_escena": "le_g19",
+      "sha256": "be779ecd65c55cde637021319c8140ef69d74cee09fa9de5bad482c994dab232",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_056_0_original.jpg",
+      "imagen_id": "lider_express_056_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_056_0_original.jpg",
+      "grupo_escena": "le_g19",
+      "sha256": "1116a4a641ae7682d2aeb083bd93a86c9bb145522a1734d721d879d4d7587bff",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_056_A_vacios.png",
+      "imagen_id": "lider_express_056_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_056_A_vacios.png",
+      "grupo_escena": "le_g19",
+      "sha256": "001150bd4198293e20346449b9478b03a28504ff6fa0d34c15b020a35adc4c09",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_056_B_baja.png",
+      "imagen_id": "lider_express_056_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_056_B_baja.png",
+      "grupo_escena": "le_g19",
+      "sha256": "ced9a63bc1992524269506c29f08402ffb47feccf42aae70ae1d2d16fc52e4c7",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_056_C_mixta.png",
+      "imagen_id": "lider_express_056_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_056_C_mixta.png",
+      "grupo_escena": "le_g19",
+      "sha256": "ce915cd42df9866d19cba165210068d56ac7e58fc0344baafeeac6e133fd0d04",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_057_0_original.jpg",
+      "imagen_id": "lider_express_057_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_057_0_original.jpg",
+      "grupo_escena": "le_g19",
+      "sha256": "ebc9ded57c9b2f66bff7c408d5754f116ef8713f8eb430e2c85c724c041d622d",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_057_A_vacios.png",
+      "imagen_id": "lider_express_057_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_057_A_vacios.png",
+      "grupo_escena": "le_g19",
+      "sha256": "ee7dc465952b9844590f9da8a8501bf125dfa6f20527438b3329602522320879",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_057_B_baja.png",
+      "imagen_id": "lider_express_057_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_057_B_baja.png",
+      "grupo_escena": "le_g19",
+      "sha256": "751071d766105a85202767dca017d691bbf6c9b7caa8ca546724082b7b11b4f0",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 3
+      }
+    },
+    {
+      "imagen": "lider_express_057_C_mixta.png",
+      "imagen_id": "lider_express_057_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_057_C_mixta.png",
+      "grupo_escena": "le_g19",
+      "sha256": "40963087be313b9f4904a0f9dc34e6c7d7619e0ad5877756b585c05acdae25cf",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_058_0_original.jpg",
+      "imagen_id": "lider_express_058_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_058_0_original.jpg",
+      "grupo_escena": "le_g19",
+      "sha256": "990549c0345410d6b0ff64cdce5012c9da84b6147bd9394c8f7f9b22f47fd2a1",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 5
+      }
+    },
+    {
+      "imagen": "lider_express_058_A_vacios.png",
+      "imagen_id": "lider_express_058_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_058_A_vacios.png",
+      "grupo_escena": "le_g19",
+      "sha256": "e38fc8aa27e2ebd20f3be2f06c90f87c25fca9877ce244000a006dbe891a97ad",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 3
+      }
+    },
+    {
+      "imagen": "lider_express_058_B_baja.png",
+      "imagen_id": "lider_express_058_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_058_B_baja.png",
+      "grupo_escena": "le_g19",
+      "sha256": "a281567b0213e971904b257d717c1fb9493195c82586e3a9338296445064764b",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_058_C_mixta.png",
+      "imagen_id": "lider_express_058_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_058_C_mixta.png",
+      "grupo_escena": "le_g19",
+      "sha256": "c25fd599e84cf21d5e2ca9320294b22fc6d05cf155506f5ed412c97b06c6a8ee",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 5,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 3,
+        "reponer": 2
+      }
+    },
+    {
+      "imagen": "lider_express_059_0_original.jpg",
+      "imagen_id": "lider_express_059_0_original",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_059_0_original.jpg",
+      "grupo_escena": "le_g15",
+      "sha256": "41f6ddcdc9820f70ef876349f07f03771c9a14bba2ed63a739a99fa99deec174",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 4
+      }
+    },
+    {
+      "imagen": "lider_express_059_A_vacios.png",
+      "imagen_id": "lider_express_059_A_vacios",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_059_A_vacios.png",
+      "grupo_escena": "le_g15",
+      "sha256": "f498eba72c194cbef492e4d9b3dab77399019083cbb28cd73cae55be846909ef",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 2,
+        "suficiente": 2
+      }
+    },
+    {
+      "imagen": "lider_express_059_B_baja.png",
+      "imagen_id": "lider_express_059_B_baja",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_059_B_baja.png",
+      "grupo_escena": "le_g15",
+      "sha256": "e8382051316a708c47f3922810e095b84a7c8f75338cc2d715c56f7a0b583908",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "reponer": 3,
+        "suficiente": 1
+      }
+    },
+    {
+      "imagen": "lider_express_059_C_mixta.png",
+      "imagen_id": "lider_express_059_C_mixta",
+      "archivo": "Pendientes/lider_express_20261016/imagenes_ordenadas/lider_express_059_C_mixta.png",
+      "grupo_escena": "le_g15",
+      "sha256": "4e3759d4fcec5ff45a3703fcd4aa390a83a52be2636360cbea19394f0e6ec033",
+      "split": "train",
+      "modulos": 0,
+      "niveles": 4,
+      "niveles_solo_revision": 0,
+      "estados": {
+        "suficiente": 2,
+        "reponer": 2
+      }
+    }
+  ],
+  "reserva_utilizada": false,
+  "partition_binding": {
+    "path": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "sha256": "1b49e8fd90ff2d8c61256c6fdb34fbf06d152268e795bce232456d87abb735e9",
+    "stage": "base"
+  },
+  "partition_counts": {
+    "train": 160,
+    "reserva": 36,
+    "val": 10,
+    "diagnostico": 30
+  },
+  "semilla": 42,
+  "version_datos": "datos_20261019_234626_3df2e643",
+  "revision": {
+    "reviewer": "Usuario · validación confirmada en chat",
+    "date": "2026-10-19T23:47:31.879803+00:00",
+    "guide": "disponibilidad_visual_nivel_v2_reponer",
+    "scope": "Nivel_estados",
+    "note": "Revisión humana de niveles y estados registrada."
+  },
+  "orientacion_imagenes": "EXIF aplicada en las copias; originales conservados",
+  "nota": "Validación de desarrollo por escena. No evaluable no genera alerta de stock.",
+  "dataset_ref": {
+    "version": "datos_20261019_234626_3df2e643",
+    "directorio": "dataset_niveles",
+    "integridad_sha256": "873f72cb72efe99f0b480275f68cecc4035186b094ebd944c90e483df4adf537"
+  }
+}

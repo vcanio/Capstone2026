@@ -1,0 +1,1 @@
+{"estado": "correcto", "cvat_enabled": false, "credenciales_montadas": false, "ensayos": 4, "modelos_entrenados": 4, "niveles": 5, "reponer": 1, "suficiente": 4, "metricas": {"scope": "Nivel_estados", "anotados": 5, "aciertos": 5, "omitidos": 0, "extras": 0, "iou_medio": 0.9297526846796009, "estados_acertados": 5, "alertas_reales": 1, "alertas_acertadas": 1, "falsas_alertas": 0}}

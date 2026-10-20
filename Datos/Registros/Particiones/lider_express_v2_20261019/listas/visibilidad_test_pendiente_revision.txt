@@ -1,0 +1,9 @@
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_006_D_carro.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_007_E_carro.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_008_D_persona.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_009_D_carro.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_010_D_persona.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_051_D_persona.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_052_E_persona.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_053_E_cajas.png
+Datos/V2/visibilidad_limitada_20261019/imagenes/lider_express_054_D_carro.png

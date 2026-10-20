@@ -1,0 +1,97 @@
+{
+  "criterion": {
+    "version": "disponibilidad_visual_nivel_v2_reponer",
+    "threshold": 0.3,
+    "measure": "presencia de producto por ancho útil evaluable",
+    "threshold_validated": false,
+    "non_evaluable_alert": false,
+    "stage": "base"
+  },
+  "confidence": 0.25,
+  "iou_minimo": 0.5,
+  "train": {
+    "fotos": 160,
+    "por_estado": {
+      "reponer": {
+        "referencias": 278,
+        "predicciones": 281,
+        "aciertos": 278,
+        "precision": 0.9893238434163701,
+        "recall": 1.0
+      },
+      "suficiente": {
+        "referencias": 538,
+        "predicciones": 538,
+        "aciertos": 537,
+        "precision": 0.9981412639405205,
+        "recall": 0.9981412639405205
+      }
+    },
+    "alertas": {
+      "reales": 278,
+      "predichas": 281,
+      "acertadas": 278,
+      "omitidas": 0,
+      "falsas": 3,
+      "precision": 0.9893238434163701,
+      "recall": 1.0,
+      "falsas_por_foto": 0.01875
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "reponer": {
+        "reponer": 278
+      },
+      "suficiente": {
+        "suficiente": 537,
+        "reponer": 1
+      },
+      "sin_referencia": {
+        "reponer": 2,
+        "suficiente": 1
+      }
+    }
+  },
+  "val": {
+    "fotos": 10,
+    "por_estado": {
+      "reponer": {
+        "referencias": 1,
+        "predicciones": 1,
+        "aciertos": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "suficiente": {
+        "referencias": 50,
+        "predicciones": 54,
+        "aciertos": 49,
+        "precision": 0.9074074074074074,
+        "recall": 0.98
+      }
+    },
+    "alertas": {
+      "reales": 1,
+      "predichas": 1,
+      "acertadas": 1,
+      "omitidas": 0,
+      "falsas": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "falsas_por_foto": 0.0
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "reponer": {
+        "reponer": 1
+      },
+      "suficiente": {
+        "suficiente": 49,
+        "no_detectado": 1
+      },
+      "sin_referencia": {
+        "suficiente": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "criterion": {
+    "version": "disponibilidad_visual_nivel_v1",
+    "threshold": 0.3,
+    "measure": "presencia de producto por ancho útil evaluable",
+    "threshold_validated": false,
+    "non_evaluable_alert": false,
+    "guide": "v1.3",
+    "export_mode": "full_image"
+  },
+  "confidence": 0.25,
+  "iou_minimo": 0.5,
+  "train": {
+    "fotos": 86,
+    "por_estado": {
+      "vacio": {
+        "referencias": 80,
+        "predicciones": 87,
+        "aciertos": 77,
+        "precision": 0.8850574712643678,
+        "recall": 0.9625
+      },
+      "baja_disponibilidad": {
+        "referencias": 74,
+        "predicciones": 78,
+        "aciertos": 70,
+        "precision": 0.8974358974358975,
+        "recall": 0.9459459459459459
+      },
+      "suficiente": {
+        "referencias": 522,
+        "predicciones": 524,
+        "aciertos": 516,
+        "precision": 0.9847328244274809,
+        "recall": 0.9885057471264368
+      },
+      "no_evaluable": {
+        "referencias": 7,
+        "predicciones": 0,
+        "aciertos": 0,
+        "precision": null,
+        "recall": 0.0
+      }
+    },
+    "alertas": {
+      "reales": 154,
+      "predichas": 165,
+      "acertadas": 152,
+      "omitidas": 2,
+      "falsas": 13,
+      "precision": 0.9212121212121213,
+      "recall": 0.987012987012987,
+      "falsas_por_foto": 0.1511627906976744
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "vacio": {
+        "vacio": 77,
+        "baja_disponibilidad": 2,
+        "no_detectado": 1
+      },
+      "baja_disponibilidad": {
+        "baja_disponibilidad": 70,
+        "suficiente": 1,
+        "vacio": 3
+      },
+      "suficiente": {
+        "suficiente": 516,
+        "no_detectado": 5,
+        "baja_disponibilidad": 1
+      },
+      "no_evaluable": {
+        "suficiente": 1,
+        "no_detectado": 1,
+        "vacio": 3,
+        "baja_disponibilidad": 2
+      },
+      "sin_referencia": {
+        "suficiente": 6,
+        "baja_disponibilidad": 3,
+        "vacio": 4
+      }
+    }
+  },
+  "val": {
+    "fotos": 5,
+    "por_estado": {
+      "vacio": {
+        "referencias": 0,
+        "predicciones": 0,
+        "aciertos": 0,
+        "precision": null,
+        "recall": null
+      },
+      "baja_disponibilidad": {
+        "referencias": 0,
+        "predicciones": 0,
+        "aciertos": 0,
+        "precision": null,
+        "recall": null
+      },
+      "suficiente": {
+        "referencias": 34,
+        "predicciones": 46,
+        "aciertos": 34,
+        "precision": 0.7391304347826086,
+        "recall": 1.0
+      },
+      "no_evaluable": {
+        "referencias": 2,
+        "predicciones": 0,
+        "aciertos": 0,
+        "precision": null,
+        "recall": 0.0
+      }
+    },
+    "alertas": {
+      "reales": 0,
+      "predichas": 0,
+      "acertadas": 0,
+      "omitidas": 0,
+      "falsas": 0,
+      "precision": null,
+      "recall": null,
+      "falsas_por_foto": 0.0
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "vacio": {},
+      "baja_disponibilidad": {},
+      "suficiente": {
+        "suficiente": 34
+      },
+      "no_evaluable": {
+        "suficiente": 1,
+        "no_detectado": 1
+      },
+      "sin_referencia": {
+        "suficiente": 11
+      }
+    }
+  }
+}

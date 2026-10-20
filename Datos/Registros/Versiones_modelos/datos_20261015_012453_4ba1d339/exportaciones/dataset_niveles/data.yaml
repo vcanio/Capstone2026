@@ -1,0 +1,7 @@
+train: images/train
+val: images/val
+names:
+  0: Nivel_vacio
+  1: Nivel_baja_disponibilidad
+  2: Nivel_suficiente
+  3: Nivel_no_evaluable

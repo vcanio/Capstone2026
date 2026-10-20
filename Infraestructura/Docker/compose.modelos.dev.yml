@@ -1,0 +1,10 @@
+# Código local: panel.html se relee en cada petición; Python requiere reiniciar el servicio.
+services:
+  panel_modelos:
+    volumes:
+      - type: bind
+        source: ../../Herramientas/Modelos
+        target: /app/Herramientas/Modelos
+        read_only: true
+        bind:
+          create_host_path: false

@@ -1,0 +1,50 @@
+[
+  {
+    "model": "YOLO11-1",
+    "device": "CPU",
+    "seconds": 0.34,
+    "counts": {
+      "vacio": 0,
+      "baja_disponibilidad": 0,
+      "suficiente": 0,
+      "no_evaluable": 0
+    },
+    "width": 3000,
+    "height": 4000
+  },
+  {
+    "model": "YOLO26-1",
+    "device": "CPU",
+    "seconds": 0.66,
+    "counts": {
+      "vacio": 0,
+      "baja_disponibilidad": 0,
+      "suficiente": 6,
+      "no_evaluable": 0
+    },
+    "width": 3000,
+    "height": 4000
+  },
+  {
+    "model": "V2-YOLO11",
+    "device": "CPU",
+    "seconds": 0.58,
+    "counts": {
+      "reponer": 1,
+      "suficiente": 5
+    },
+    "width": 3000,
+    "height": 4000
+  },
+  {
+    "model": "V2-YOLO26",
+    "device": "CPU",
+    "seconds": 0.46,
+    "counts": {
+      "reponer": 1,
+      "suficiente": 4
+    },
+    "width": 3000,
+    "height": 4000
+  }
+]

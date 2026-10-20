@@ -1,0 +1,4788 @@
+{
+  "version": 1,
+  "fecha": "2026-10-13",
+  "imagenes": [
+    {
+      "id": "REAL_01",
+      "archivo": "V1/Lider/lider_001.jpg",
+      "origen": "real",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_02",
+      "archivo": "V1/Lider/lider_002.jpg",
+      "origen": "real",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_03",
+      "archivo": "V1/Lider/lider_003.jpg",
+      "origen": "real",
+      "imagen_fuente": "03.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "61e9130dccd19e8b09b8c7678646ccf6490ad5af2d281ddc86549e1f7467eb40",
+      "fuente_sha256": "61e9130dccd19e8b09b8c7678646ccf6490ad5af2d281ddc86549e1f7467eb40",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_04",
+      "archivo": "V1/Lider/lider_004.jpg",
+      "origen": "real",
+      "imagen_fuente": "04.jpg",
+      "escena": "escena_02",
+      "split": "val",
+      "sha256": "49285834452c6c0dbb9970d5494dcbe394a3be205d538d3e0fafbe0938524980",
+      "fuente_sha256": "49285834452c6c0dbb9970d5494dcbe394a3be205d538d3e0fafbe0938524980",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_05",
+      "archivo": "V1/Lider/lider_005.jpg",
+      "origen": "real",
+      "imagen_fuente": "05.jpg",
+      "escena": "escena_02",
+      "split": "val",
+      "sha256": "70677728e44dfa55db253dfcdc5d44b72446c9aa5d3e82a4794e7996805735c1",
+      "fuente_sha256": "70677728e44dfa55db253dfcdc5d44b72446c9aa5d3e82a4794e7996805735c1",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_06",
+      "archivo": "V1/Lider/lider_006.jpg",
+      "origen": "real",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_07",
+      "archivo": "V1/Lider/lider_007.jpg",
+      "origen": "real",
+      "imagen_fuente": "07.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "d7bfc728649bf8723f4ac2ade3345e01fd2a133ec0db55c8f454916795db510d",
+      "fuente_sha256": "d7bfc728649bf8723f4ac2ade3345e01fd2a133ec0db55c8f454916795db510d",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_08",
+      "archivo": "V1/Lider/lider_008.jpg",
+      "origen": "real",
+      "imagen_fuente": "08.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "4a833b49c132fc0a77e51bad22bb5b890da7165e364771c4304538201f6ffde3",
+      "fuente_sha256": "4a833b49c132fc0a77e51bad22bb5b890da7165e364771c4304538201f6ffde3",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_09",
+      "archivo": "V1/Lider/lider_009.jpg",
+      "origen": "real",
+      "imagen_fuente": "09.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "63a35d52d70a513204845c2d3009d9796b2ac39187e7b855f8f4fd739e1e8d37",
+      "fuente_sha256": "63a35d52d70a513204845c2d3009d9796b2ac39187e7b855f8f4fd739e1e8d37",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_10",
+      "archivo": "V1/Lider/lider_010.jpg",
+      "origen": "real",
+      "imagen_fuente": "10.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "85ac56a5c131103633f1e44bbacd6d119490120fb9d52f147fa6ffee39f4f592",
+      "fuente_sha256": "85ac56a5c131103633f1e44bbacd6d119490120fb9d52f147fa6ffee39f4f592",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_11",
+      "archivo": "V1/Lider/lider_011.jpg",
+      "origen": "real",
+      "imagen_fuente": "11.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "de21cf8a30cbd58f1ab39c060734150adce609702120d58274c93121e1d7f402",
+      "fuente_sha256": "de21cf8a30cbd58f1ab39c060734150adce609702120d58274c93121e1d7f402",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_12",
+      "archivo": "V1/Lider/lider_012.jpg",
+      "origen": "real",
+      "imagen_fuente": "12.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "16f986919efc2bbb2fd13fc879e13ffdece95b2addd2e06969a045e6c0533c8c",
+      "fuente_sha256": "16f986919efc2bbb2fd13fc879e13ffdece95b2addd2e06969a045e6c0533c8c",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_13",
+      "archivo": "V1/Lider/lider_013.jpg",
+      "origen": "real",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_15",
+      "archivo": "V1/Lider/lider_015.jpg",
+      "origen": "real",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_16",
+      "archivo": "V1/Lider/lider_016.jpg",
+      "origen": "real",
+      "imagen_fuente": "16.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "8af0d40b4b8ffd0ea2fd5a717e0933aa3f9b07558c2e107a17cb16a71ae8afda",
+      "fuente_sha256": "8af0d40b4b8ffd0ea2fd5a717e0933aa3f9b07558c2e107a17cb16a71ae8afda",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_22",
+      "archivo": "V1/Lider/lider_022.jpg",
+      "origen": "real",
+      "imagen_fuente": "22.jpg",
+      "escena": "escena_09",
+      "split": "val",
+      "sha256": "757b472d264dd65f1b7a2f43fcf5dba3a86a31b054f0d65ca55639222bed2639",
+      "fuente_sha256": "757b472d264dd65f1b7a2f43fcf5dba3a86a31b054f0d65ca55639222bed2639",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_23",
+      "archivo": "V1/Lider/lider_023.jpg",
+      "origen": "real",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_24",
+      "archivo": "V1/Lider/lider_024.jpg",
+      "origen": "real",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_25",
+      "archivo": "V1/Lider/lider_025.jpg",
+      "origen": "real",
+      "imagen_fuente": "25.jpg",
+      "escena": "escena_11",
+      "split": "train",
+      "sha256": "45a5f24a804f9a30c569c0ce604be02ef2f7d8f09a6ff1093d8165a187e212fc",
+      "fuente_sha256": "45a5f24a804f9a30c569c0ce604be02ef2f7d8f09a6ff1093d8165a187e212fc",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_26",
+      "archivo": "V1/Lider/lider_026.jpg",
+      "origen": "real",
+      "imagen_fuente": "26.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "2268505ddf65ec061ef2e7557bbb8527e80501f83572ebf1d2f98590785c9f8c",
+      "fuente_sha256": "2268505ddf65ec061ef2e7557bbb8527e80501f83572ebf1d2f98590785c9f8c",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_27",
+      "archivo": "V1/Lider/lider_027.jpg",
+      "origen": "real",
+      "imagen_fuente": "27.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "c943638547a74012ea63595dabd99ce9f0531c6fdbf1887f4e8d3fdcf4e8507c",
+      "fuente_sha256": "c943638547a74012ea63595dabd99ce9f0531c6fdbf1887f4e8d3fdcf4e8507c",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_28",
+      "archivo": "V1/Lider/lider_028.jpg",
+      "origen": "real",
+      "imagen_fuente": "28.jpg",
+      "escena": "escena_12",
+      "split": "train",
+      "sha256": "635f7361c151bd707ed971604f651350753f617115206ca77a6a5548816fa396",
+      "fuente_sha256": "635f7361c151bd707ed971604f651350753f617115206ca77a6a5548816fa396",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_29",
+      "archivo": "V1/Lider/lider_029.jpg",
+      "origen": "real",
+      "imagen_fuente": "29.jpg",
+      "escena": "escena_13",
+      "split": "val",
+      "sha256": "6df27095bb6aa0847d5fd4eb41d12b310defe3b17c981fced65ccbdb9fe68400",
+      "fuente_sha256": "6df27095bb6aa0847d5fd4eb41d12b310defe3b17c981fced65ccbdb9fe68400",
+      "ancho": 3000,
+      "alto": 4000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_30",
+      "archivo": "V1/Lider/lider_030.jpg",
+      "origen": "real",
+      "imagen_fuente": "30.jpg",
+      "escena": "escena_13",
+      "split": "val",
+      "sha256": "ce664cd4c541ac63a053c0727095a07e287f779ef82af49cc6ecc7df56f7e882",
+      "fuente_sha256": "ce664cd4c541ac63a053c0727095a07e287f779ef82af49cc6ecc7df56f7e882",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_31",
+      "archivo": "V1/Lider/lider_031.jpg",
+      "origen": "real",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 3000,
+      "alto": 4000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_32",
+      "archivo": "V1/Lider/lider_032.jpg",
+      "origen": "real",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 4000,
+      "alto": 3000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_33",
+      "archivo": "V1/Lider/lider_033.jpg",
+      "origen": "real",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 3000,
+      "alto": 4000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_34",
+      "archivo": "V1/Lider/lider_034.jpg",
+      "origen": "real",
+      "imagen_fuente": "34.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "df72b5f9093dc599a0ecbe9a5ab8a3760dd7af55b74c67d802b82733ee2e890b",
+      "fuente_sha256": "df72b5f9093dc599a0ecbe9a5ab8a3760dd7af55b74c67d802b82733ee2e890b",
+      "ancho": 3000,
+      "alto": 4000,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_36",
+      "archivo": "V1/Lider/lider_036.jpg",
+      "origen": "real",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 2992,
+      "alto": 2992,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "REAL_37",
+      "archivo": "V1/Lider/lider_037.jpg",
+      "origen": "real",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 2992,
+      "alto": 2992,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false
+    },
+    {
+      "id": "EQ_01_V1",
+      "archivo": "V1/Sinteticas/EQ_01_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "57dac61df702ca25c9af78512af553ad9f34fcc5e4ef761451a1574b5524480b",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_01_V2",
+      "archivo": "V1/Sinteticas/EQ_01_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "082382011ab0a7aff60f88baabbe9dacb5bc4b1dc2001da6eeb20c2ea8751833",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true,
+        "corregida": true,
+        "fallo_version_inicial": "no_cumple_baja"
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_01_V3",
+      "archivo": "V1/Sinteticas/EQ_01_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "ab44a62fd672b57933e9785265d9f968ce6b2ad30556d3addcecc690d374049c",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_01_V4",
+      "archivo": "V1/Sinteticas/EQ_01_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "3d2a9bf9abf42949237975ff0f2f5e6ee62d69b0780144978cc66db2a8b6f58e",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true,
+        "corregida": true,
+        "fallo_version_inicial": "no_cumple_vacio"
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_01_V5",
+      "archivo": "V1/Sinteticas/EQ_01_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "6952a760d6a307429ff1cebe1aa0ac78d607835470724e4e7d0119aece02d4e0",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true,
+        "corregida": true,
+        "fallo_version_inicial": "no_cumple_baja"
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_01_V6",
+      "archivo": "V1/Sinteticas/EQ_01_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "01.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "9c30a6436caf45e4cfddbaccb0d3ff7629d2fd6b8574aa9a096a8766cfc3d472",
+      "fuente_sha256": "7fe9fe7919fc893f03e3fdb1d97bcd83b2b6d05093c61dc09e98952949c81590",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true,
+        "corregida": true,
+        "fallo_version_inicial": "no_cumple_vacio"
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.369,
+            0.515,
+            0.475
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.487,
+            0.515,
+            0.602
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, orange Nova packs",
+          "bbox_normalized": [
+            0.195,
+            0.618,
+            0.515,
+            0.738
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V1",
+      "archivo": "V1/Sinteticas/EQ_02_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "2b0121e82fc112369ebf0cc515e5bd9ab6a6cf587ed1498abedd6e6988ce1203",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V2",
+      "archivo": "V1/Sinteticas/EQ_02_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "392c2dbc01d256f2681b3b40efead52c9c7a883d602ae9f067d8b5b8f99f8f85",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V3",
+      "archivo": "V1/Sinteticas/EQ_02_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "35ee242b0318b0f66f303324395d7ca27c9b4f508a7ab6e713cb101989bedf92",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V4",
+      "archivo": "V1/Sinteticas/EQ_02_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "612f83ef4621ffb8b74083d922203b52c4715d17bbc8d74ff9cecd2512651e3c",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V5",
+      "archivo": "V1/Sinteticas/EQ_02_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "5e532cc1d1a1a5de1e4796203438275b573835db23315b6b53ab8b5da4ca0e30",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_02_V6",
+      "archivo": "V1/Sinteticas/EQ_02_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "02.jpg",
+      "escena": "escena_01",
+      "split": "train",
+      "sha256": "8a42a576ce16ef5bf7ee0a8166633cb54f761fd387b71aa66d2b5100d4a13d55",
+      "fuente_sha256": "8caa6a75b8196eea6562a59625493423d1b49eb0325348c07da37d37cfaa51d7",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "servilletas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.374,
+            0.905,
+            0.475
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.488,
+            0.905,
+            0.592
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row of blue Elite packs",
+          "bbox_normalized": [
+            0.415,
+            0.612,
+            0.905,
+            0.715
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V1",
+      "archivo": "V1/Sinteticas/EQ_06_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "00f492b963965038ce0e29de7e5e1f9e04dfa884223a184f314a23b26e77af3c",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V2",
+      "archivo": "V1/Sinteticas/EQ_06_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "2e9478783d03ed080408f2cc50a0471c99d7f560ff20fb1db63907556c1026cc",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V3",
+      "archivo": "V1/Sinteticas/EQ_06_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "75df353d57928fe1dd7d2f16c51584e2d7c0c6d1a1fa819d867b4480dc5559a5",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V4",
+      "archivo": "V1/Sinteticas/EQ_06_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "667c71dd016af0395842a4bdb8d11aafaa64916c1a986c3107ec5e1515aa9b03",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V5",
+      "archivo": "V1/Sinteticas/EQ_06_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "0c68dded884f937121c105dedbdd496df84c54d68ea7d558000344c5ae946b4a",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_06_V6",
+      "archivo": "V1/Sinteticas/EQ_06_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "06.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "f6e6914c658501e7cf0785b5fee834cc72ea63edacd2f3c2af4823d71bf0a92b",
+      "fuente_sha256": "7c044e768637bde2e061f4e8c75062dadaa47992738c500ae9a92149c3f38635",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "aceites",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, white-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.306,
+            0.533,
+            0.429
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.45,
+            0.533,
+            0.574
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, black-label olive oil bottles",
+          "bbox_normalized": [
+            0.162,
+            0.602,
+            0.533,
+            0.721
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V1",
+      "archivo": "V1/Sinteticas/EQ_13_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "f4c8586c003c28e09bb1369d3cb172b7ee069a1f726caa794b730d3998ca9d02",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V2",
+      "archivo": "V1/Sinteticas/EQ_13_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "b23a19074bce4d181fc3c5b5d43571ed6450a7c963daa8786c5afad5bf31f5ca",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V3",
+      "archivo": "V1/Sinteticas/EQ_13_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "8469fd5e1e2bd4862aa764c8a79c7b9358666ba5f592c71acd9a07447a38a2bd",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V4",
+      "archivo": "V1/Sinteticas/EQ_13_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "1007ba969cede1390487a5a75ea468c647e27f58d9239bb83d12a9649ba6640b",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V5",
+      "archivo": "V1/Sinteticas/EQ_13_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "276cdfa82320e77b372581a5099834bc9816ffe4fb6dff1e29c86d096d99fc09",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_13_V6",
+      "archivo": "V1/Sinteticas/EQ_13_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "13.jpg",
+      "escena": "escena_03",
+      "split": "train",
+      "sha256": "87bbba3888006fa6994389685e38e93e375c2500ba54a0c69ffb28bd7c101931",
+      "fuente_sha256": "e0495b24debd0caab9513932841e5b4fbba22d6c3becb5cb76052cb5235ba419",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pure_papas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": true
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.327,
+            0.52,
+            0.42
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, small mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.444,
+            0.52,
+            0.529
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, mashed-potato cartons",
+          "bbox_normalized": [
+            0.139,
+            0.558,
+            0.52,
+            0.648
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V1",
+      "archivo": "V1/Sinteticas/EQ_15_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "2741278bfdf3a1e668f49611482d2586ca380c97e3b1ce9fd67e7805489f1dd2",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V2",
+      "archivo": "V1/Sinteticas/EQ_15_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "7386632f79ad80cdb57b44229e9bd59efe2590ba1bef6fee064caffa9fb73cf2",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V3",
+      "archivo": "V1/Sinteticas/EQ_15_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "086148435d0ba1ec1f913ebb0b91b8a919f6b295fcd9bd9275188d64497cd0f2",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V4",
+      "archivo": "V1/Sinteticas/EQ_15_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "d6e95ab1d13b8acf4a4d71e78264777ca000bd2dc51b9ada272f1bd511f8d916",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V5",
+      "archivo": "V1/Sinteticas/EQ_15_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "5c38b2b990d0770609c13427d7158df777b408d38d2f7d4ec792a46d3872fdb6",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_15_V6",
+      "archivo": "V1/Sinteticas/EQ_15_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "15.jpg",
+      "escena": "escena_05",
+      "split": "train",
+      "sha256": "9fae94e01001ba4905e6cb6db8e367c96dbb9351e6edc5428a89b74150c1a740",
+      "fuente_sha256": "57de03f9cee534f210d3392178d0548f263aa00445c81e64bd835a2e951f13af",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "salsa_tomate",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, individual red pouches",
+          "bbox_normalized": [
+            0.367,
+            0.35,
+            0.775,
+            0.446
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.472,
+            0.775,
+            0.566
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, wrapped red multipacks",
+          "bbox_normalized": [
+            0.367,
+            0.592,
+            0.775,
+            0.69
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V1",
+      "archivo": "V1/Sinteticas/EQ_23_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "2c37db580c50184de97d045073d2a301b53029a21894b1d0ec4ab236c3d53885",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V2",
+      "archivo": "V1/Sinteticas/EQ_23_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "f297156210f4980c8cf321cd3a400ce6ce2f2e6bba2f306bde8ed61ab519a8ec",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V3",
+      "archivo": "V1/Sinteticas/EQ_23_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "8b65a5c39da994050eaa20da47d437f1cf8ec6a968610bc8d6504bdc46f87e49",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V4",
+      "archivo": "V1/Sinteticas/EQ_23_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "288dadda7869273afde316d29e70b088d4184a3baca776eb23a275c07d70d021",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V5",
+      "archivo": "V1/Sinteticas/EQ_23_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "d1cf8526308416c01101e51a80ea5e02d19d09682f4a294f8a59994bd5d0c1de",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_23_V6",
+      "archivo": "V1/Sinteticas/EQ_23_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "23.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "684d40929325ab1ec9264a940e38fb8e7cd1b7aebc421833fddc2adfd6586a6d",
+      "fuente_sha256": "1894298ae35affb17d9fe95135186720c18b9bdcd4ff6721191bdbbe19894187",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.309,
+            0.468,
+            0.455
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, blue Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.48,
+            0.468,
+            0.625
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, yellow Lay's bags",
+          "bbox_normalized": [
+            0.037,
+            0.655,
+            0.468,
+            0.802
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V1",
+      "archivo": "V1/Sinteticas/EQ_24_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "ed0395e0c3c8a84c40a91163cdea41a50efc37423098225244a2a32ebea0fef5",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V2",
+      "archivo": "V1/Sinteticas/EQ_24_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "e340e05e69b9571b4834e39c25f179a3a154e1cccfa50f1f412a0af884228777",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V3",
+      "archivo": "V1/Sinteticas/EQ_24_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "42773f0f1f4dd167753f83f1f46db711c939bfeb342abab2b7664134bd8ad822",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V4",
+      "archivo": "V1/Sinteticas/EQ_24_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "d59ac2024c9fc311439b8fd130c27156c9dbd3c5963f11ada3f9bc63131264ef",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V5",
+      "archivo": "V1/Sinteticas/EQ_24_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "2b354346cedf6375154600abbac8db61975f20ea5cb4eab0ba684838fbad8cbf",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_24_V6",
+      "archivo": "V1/Sinteticas/EQ_24_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "24.jpg",
+      "escena": "escena_10",
+      "split": "train",
+      "sha256": "178d43db3c530111474c65f016862fa2e3414cb82cf96c0e82dee2c8bcb63fcf",
+      "fuente_sha256": "fd429991f000322c674f6cac9490fa74bc44a9b1320acda3b66dad2aa3f7868c",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "snacks",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green and red Marco Polo bags",
+          "bbox_normalized": [
+            0.09,
+            0.31,
+            0.477,
+            0.444
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, green and red Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.479,
+            0.477,
+            0.613
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, green Lay's bags",
+          "bbox_normalized": [
+            0.09,
+            0.652,
+            0.477,
+            0.773
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V1",
+      "archivo": "V1/Sinteticas/EQ_31_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "252f9d1b478e0d8b206ec0e84433a326bfad56e762adc8c130b398055a6bfca3",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V2",
+      "archivo": "V1/Sinteticas/EQ_31_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "6f2a918e0cbf0a9c349bc86f0a3fc53e9586bafb3e924e260a7f2fc0c6c9d68f",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V3",
+      "archivo": "V1/Sinteticas/EQ_31_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "b244932c8643e77298724af84018841d8e7efad0f0ce7dceee27def510fba4c8",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V4",
+      "archivo": "V1/Sinteticas/EQ_31_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "0b42805b1f1b94ac223a2133b4a558659d55901b9a6210115aee0f44051488a9",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V5",
+      "archivo": "V1/Sinteticas/EQ_31_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "60b812fa8bd93008f1fc30e1fde8dee41b8edaf18e88923f33a6ec0be53e9ff4",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_31_V6",
+      "archivo": "V1/Sinteticas/EQ_31_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "31.jpg",
+      "escena": "escena_14",
+      "split": "train",
+      "sha256": "a62cbde70ff56a993d813fd9adbf4153ddbca07345f1945c15ce1cb82786a351",
+      "fuente_sha256": "6b364a24dbae1ba33d1dac4edea0ddfdbfe6f1eb72d0e251057b515b13779665",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "leche_latas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.283,
+            0.839,
+            0.422
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, condensed milk cans",
+          "bbox_normalized": [
+            0.172,
+            0.451,
+            0.839,
+            0.588
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, Leche Sur cans and carton",
+          "bbox_normalized": [
+            0.172,
+            0.617,
+            0.839,
+            0.749
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V1",
+      "archivo": "V1/Sinteticas/EQ_32_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "6ee0ac268e05e058629f254e918dca7cb093a1cefeafca46d1f98f59692ad08d",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V2",
+      "archivo": "V1/Sinteticas/EQ_32_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "ea1501659e2c4ee47aa67b0e2a496813f5c0ec9f6f3458e74e5264a10c69e233",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V3",
+      "archivo": "V1/Sinteticas/EQ_32_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "c838716ff704db1418a9e1dab313eb2d17043b7297a208c23e2e0e55356ba6af",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V4",
+      "archivo": "V1/Sinteticas/EQ_32_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "cbaec2f1a82fd4beec72b0854be9fe84f49af2badf4b10397cf74dd36e31e68f",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V5",
+      "archivo": "V1/Sinteticas/EQ_32_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "139e85d327476afa69784befaffddc76947b5c5072b62d4917ee18072a935c5a",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_32_V6",
+      "archivo": "V1/Sinteticas/EQ_32_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "32.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "323412352083c6e1ffde9a4ddf7467a9cb1ae48431133c8d31029c4a532f35ad",
+      "fuente_sha256": "fbc880fb590edb01f384f8cf8c5e3d2b60afecf4297ba333bf05f65beabd79b1",
+      "ancho": 1448,
+      "alto": 1086,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.281,
+            0.528,
+            0.449
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, brown Chocapic cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.479,
+            0.528,
+            0.635
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, brown cereal boxes",
+          "bbox_normalized": [
+            0.074,
+            0.674,
+            0.528,
+            0.813
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V1",
+      "archivo": "V1/Sinteticas/EQ_33_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "6ab87a45ead5a3754e2181cc5d8ede39d60200297688b38a51243dc120e81cae",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V2",
+      "archivo": "V1/Sinteticas/EQ_33_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "acfb6bb13aa2faa4c8e277c96dfa8e011a27a907d93b5188d70f567d795c0e4d",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V3",
+      "archivo": "V1/Sinteticas/EQ_33_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "bc39307581a120cd5d0ff53e00898c516e3216956c1f8dbf98b7645d816fb4f0",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V4",
+      "archivo": "V1/Sinteticas/EQ_33_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "7cbe6d68a40fdfe9ee37c0a98b0c11aa3f25f4378740d79e9bd4e73c227a8e13",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V5",
+      "archivo": "V1/Sinteticas/EQ_33_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "43dbadfeccdb23641a4c1b07d8934b08121847b4b83452cdefa3bf047412c923",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_33_V6",
+      "archivo": "V1/Sinteticas/EQ_33_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "33.jpg",
+      "escena": "escena_15",
+      "split": "train",
+      "sha256": "98d3ff9c50f123df7bf0805fbd39abaad0dcb8298c061750300384de597fbc1d",
+      "fuente_sha256": "0c5be9ba50d1c057e55f9f0f7861c03f66dd10e30f04aec67658817a8aebb574",
+      "ancho": 1086,
+      "alto": 1448,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "cereales",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, green Milo cereal boxes",
+          "bbox_normalized": [
+            0.272,
+            0.39,
+            0.831,
+            0.502
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, Chocapic and Milo Max boxes",
+          "bbox_normalized": [
+            0.272,
+            0.536,
+            0.831,
+            0.637
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, red Chocapic boxes",
+          "bbox_normalized": [
+            0.272,
+            0.678,
+            0.831,
+            0.771
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V1",
+      "archivo": "V1/Sinteticas/EQ_36_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "74e6c4db8a1195a7ac56b7bdc20a49335309c3be34fcf4170f1fd0443afe55ac",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V2",
+      "archivo": "V1/Sinteticas/EQ_36_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "1db477458f9e914e36c04dfd1473a6bb16a6444c5f1da99d50925abeca293305",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V3",
+      "archivo": "V1/Sinteticas/EQ_36_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "053c1a7e6ffbb4edbb6604caf8b7f514b6bd2f12084b674e07d91ab3f67d187e",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V4",
+      "archivo": "V1/Sinteticas/EQ_36_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "c89889baf360a3bda7a20d833aff3ae66d988a6ece699223cb84de691e27a2b3",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V5",
+      "archivo": "V1/Sinteticas/EQ_36_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "a3a908faffb2aac82f1f36f73a5619dc1513bd1afbfa58164e7bb9b91978a57a",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_36_V6",
+      "archivo": "V1/Sinteticas/EQ_36_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "36.jpg",
+      "escena": "escena_16",
+      "split": "train",
+      "sha256": "f886253d930fa31f50af22518f12d592d6bc1b202d50de6ca5c13dc142217241",
+      "fuente_sha256": "0c042829b4574bb8b87467c20080d549a8d9d2521688c2a103e09379db093860",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "legumbres",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked beige legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.332,
+            0.855,
+            0.388
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.411,
+            0.855,
+            0.476
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked white legume bags",
+          "bbox_normalized": [
+            0.478,
+            0.497,
+            0.855,
+            0.568
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V1",
+      "archivo": "V1/Sinteticas/EQ_37_V1.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "2ee6ae54cb38e6b3cc9235b058122e81c10fc8ccbb491aa178726ca987c7f868",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V2",
+      "archivo": "V1/Sinteticas/EQ_37_V2.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "10f8a0596067cf7203f35038346946095fba8721064cfa830edb6239c5f44bb1",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V3",
+      "archivo": "V1/Sinteticas/EQ_37_V3.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "95a0dc89925c399490f5a2e3fe0046c46f69d2dbd68690c10b14c84eb303c934",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "suficiente"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V4",
+      "archivo": "V1/Sinteticas/EQ_37_V4.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "23c0cb56eb5f93f92a9c30d679fc80d2ab28004bcd1e33734314045e4073a4cd",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V5",
+      "archivo": "V1/Sinteticas/EQ_37_V5.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "0d36c6c867ccb793841a938cc36fcdf9bb9eaf28adbcad97d1e7f7acc3ccb34d",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "vacio"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "baja_disponibilidad"
+        }
+      ]
+    },
+    {
+      "id": "EQ_37_V6",
+      "archivo": "V1/Sinteticas/EQ_37_V6.png",
+      "origen": "sintetica",
+      "imagen_fuente": "37.jpg",
+      "escena": "escena_06",
+      "split": "train",
+      "sha256": "6802f4e15df68346d27376c195379941e25ea0bc4d1f8c5f51d82e6bbec2e843",
+      "fuente_sha256": "2b96eb33e31b5a8ff4ef6f0bf1bf6551cbd699fa61eaa43bd49e24e4fc3079d6",
+      "ancho": 1254,
+      "alto": 1254,
+      "anotacion": "pendiente",
+      "aprobado_entrenamiento": false,
+      "familia": "pastas",
+      "revision_visual": {
+        "inspeccionada": true,
+        "metodo": "vista_contacto",
+        "objetivos_visuales": [
+          "compatible",
+          "compatible",
+          "compatible"
+        ],
+        "cambios_vecinos": false
+      },
+      "objetivos_solicitados": [
+        {
+          "target": "A",
+          "description": "second visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.367,
+            0.948,
+            0.462
+          ],
+          "requested_state": "suficiente"
+        },
+        {
+          "target": "B",
+          "description": "third visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.49,
+            0.948,
+            0.585
+          ],
+          "requested_state": "baja_disponibilidad"
+        },
+        {
+          "target": "C",
+          "description": "fourth visible row, horizontally stacked orange pasta bags",
+          "bbox_normalized": [
+            0.55,
+            0.617,
+            0.948,
+            0.709
+          ],
+          "requested_state": "vacio"
+        }
+      ]
+    }
+  ],
+  "conteo_imagenes": {
+    "real": 30,
+    "sintetica": 72
+  },
+  "conteo_particion": {
+    "train": 97,
+    "val": 5
+  },
+  "objetivos_solicitados": {
+    "vacio": 72,
+    "baja_disponibilidad": 72,
+    "suficiente": 72
+  },
+  "niveles_anotados": 0,
+  "balance_niveles_revisados": "pendiente_de_anotacion",
+  "aprobado_entrenamiento": false,
+  "entrenamiento_iniciado": false,
+  "escenas_por_particion": {
+    "train": [
+      "escena_01",
+      "escena_03",
+      "escena_05",
+      "escena_06",
+      "escena_10",
+      "escena_11",
+      "escena_12",
+      "escena_14",
+      "escena_15",
+      "escena_16"
+    ],
+    "val": [
+      "escena_02",
+      "escena_09",
+      "escena_13"
+    ]
+  },
+  "politica": "Toda variante, recorte y fuente heredan la misma escena y partición. Validación real heredada, ya usada para desarrollo; test final externo intacto.",
+  "limitacion": "72 sintéticas no son 72 escenas independientes; fuentes: 12 fotos de 8 escenas. No se garantiza rendimiento ni balance final de objetos.",
+  "base_archivos": "Datos",
+  "version_rutas": 2
+}

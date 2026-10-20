@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-10-20T04:09:20.160086+00:00",
+  "partition": {
+    "path": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "sha256": "1b49e8fd90ff2d8c61256c6fdb34fbf06d152268e795bce232456d87abb735e9",
+    "stage": "base"
+  },
+  "split": "val",
+  "uses_final_reserve": false,
+  "occupancy": {
+    "method": "paulo_mascara_v2_color_textura",
+    "parameters": {
+      "max_side": 1600,
+      "cell": 24,
+      "canny_low": 40,
+      "canny_high": 120,
+      "edge_density": 0.04,
+      "margin": 0.03,
+      "opening": 3,
+      "line": 0.04,
+      "color_fraction": 0.35,
+      "saturation": 70,
+      "min_color_value": 50,
+      "texture_std": 4.0,
+      "texture_max_value": 90,
+      "cell_coverage": 0.5,
+      "column_fraction": 0.15,
+      "min_column_rows": 2
+    },
+    "sources": {
+      "Herramientas/Modelos/ocupacion_paulo.py": "88dcdd9a68c817fb4b0cb5e752db4f7eef3807626cc7cee8b6a52d9ad08ed786",
+      "Experimentos/Bordes/gondola_bordes.py": "d5e278d889f8b75424b3bce8e41c8cdba60ccf2b56df97b379893d00a4bd837a",
+      "Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py": "f570e972a8801b5c852ed5d79e9306eed6ad5015164f2b2502f93a53b79d69dd"
+    },
+    "calibrated": false,
+    "changes_yolo_state": false,
+    "meaning": "Señal de bordes/color/textura; no porcentaje validado de producto ni confianza YOLO."
+  },
+  "runs": [
+    "v2_base_yolo11n_01_20261020_002800_ec8d",
+    "v2_base_yolo26n_01_20261020_004933_b105"
+  ],
+  "script_sha256": "79b84933d88a29d9a40d467e77cc3268c2b1e3155ac2dad571f0f01db4e8776d"
+}

@@ -1,0 +1,9 @@
+{
+  "validation_ids": [],
+  "guia": "v2",
+  "fixed_partition": {
+    "path": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "sha256": "1b49e8fd90ff2d8c61256c6fdb34fbf06d152268e795bce232456d87abb735e9",
+    "stage": "base"
+  }
+}

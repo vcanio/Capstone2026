@@ -1,0 +1,9 @@
+torch==2.5.1
+torchvision==0.20.1
+ultralytics==8.4.174
+numpy==1.26.4
+shapely==2.1.2
+pillow==12.3.0
+opencv-python==4.11.0.86
+matplotlib==3.10.9
+pyyaml==6.0.3

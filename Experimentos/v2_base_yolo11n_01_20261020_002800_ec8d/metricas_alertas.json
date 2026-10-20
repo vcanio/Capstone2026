@@ -1,0 +1,99 @@
+{
+  "criterion": {
+    "version": "disponibilidad_visual_nivel_v2_reponer",
+    "threshold": 0.3,
+    "measure": "presencia de producto por ancho útil evaluable",
+    "threshold_validated": false,
+    "non_evaluable_alert": false,
+    "stage": "base"
+  },
+  "confidence": 0.25,
+  "iou_minimo": 0.5,
+  "train": {
+    "fotos": 160,
+    "por_estado": {
+      "reponer": {
+        "referencias": 278,
+        "predicciones": 282,
+        "aciertos": 271,
+        "precision": 0.9609929078014184,
+        "recall": 0.9748201438848921
+      },
+      "suficiente": {
+        "referencias": 538,
+        "predicciones": 548,
+        "aciertos": 537,
+        "precision": 0.9799270072992701,
+        "recall": 0.9981412639405205
+      }
+    },
+    "alertas": {
+      "reales": 278,
+      "predichas": 282,
+      "acertadas": 271,
+      "omitidas": 7,
+      "falsas": 11,
+      "precision": 0.9609929078014184,
+      "recall": 0.9748201438848921,
+      "falsas_por_foto": 0.06875
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "reponer": {
+        "reponer": 271,
+        "suficiente": 7
+      },
+      "suficiente": {
+        "suficiente": 537,
+        "reponer": 1
+      },
+      "sin_referencia": {
+        "reponer": 10,
+        "suficiente": 4
+      }
+    }
+  },
+  "val": {
+    "fotos": 10,
+    "por_estado": {
+      "reponer": {
+        "referencias": 1,
+        "predicciones": 5,
+        "aciertos": 1,
+        "precision": 0.2,
+        "recall": 1.0
+      },
+      "suficiente": {
+        "referencias": 50,
+        "predicciones": 54,
+        "aciertos": 47,
+        "precision": 0.8703703703703703,
+        "recall": 0.94
+      }
+    },
+    "alertas": {
+      "reales": 1,
+      "predichas": 5,
+      "acertadas": 1,
+      "omitidas": 0,
+      "falsas": 4,
+      "precision": 0.2,
+      "recall": 1.0,
+      "falsas_por_foto": 0.4
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "reponer": {
+        "reponer": 1
+      },
+      "suficiente": {
+        "suficiente": 47,
+        "reponer": 3
+      },
+      "sin_referencia": {
+        "suficiente": 7,
+        "reponer": 1
+      }
+    }
+  }
+}

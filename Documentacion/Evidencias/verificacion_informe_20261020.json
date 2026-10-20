@@ -1,0 +1,87 @@
+{
+  "fecha": "2026-10-20",
+  "zona": "America/Santiago",
+  "casos": {
+    "total": 20,
+    "exitos": 10,
+    "errores": 10,
+    "fuente": "casos_informe_20261020.json",
+    "inferencia_nueva_sobre_test": false
+  },
+  "pruebas_datos": {
+    "estado": "correcto",
+    "pruebas": 11,
+    "segundos": 1.414,
+    "resultado": "OK",
+    "log": "pruebas_datos_20261020.log"
+  },
+  "pruebas_modelos": {
+    "estado": "correcto",
+    "pruebas": 222,
+    "segundos": 87.989,
+    "resultado": "OK (skipped=1)",
+    "log": "pruebas_modelos_20261020.log",
+    "omitida": "Integración real opcional RUN_NIVELES_REAL=1"
+  },
+  "intento_modelos_restringido": {
+    "estado": "fallido",
+    "pruebas": 222,
+    "segundos": 92.064,
+    "resultado": "FAILED (errors=19, skipped=1)",
+    "log": ".tmp/informe_tests_modelos_venv.log"
+  },
+  "nota_entorno": "El intento restringido bloqueó HTTP local con WinError 10013. La repetición final usa el entorno .venv-modelo fuera de esa restricción.",
+  "particion": {
+    "estado": "correcto",
+    "imagenes": 296,
+    "log": "particion_20261020.log"
+  },
+  "github": {
+    "consulta": "consulta_github_20261020.json",
+    "publicacion_v2": "pendiente",
+    "git_local": false
+  },
+  "despliegue": {
+    "estado": "no_verificado",
+    "motivo": "Acceso al motor Docker denegado en el entorno restringido."
+  },
+  "render": {
+    "paginas": 29,
+    "metodo": "Word ExportAsFixedFormat y Poppler",
+    "docx_renderer": "render_docx.py no pudo convertir: LibreOffice no disponible; se usó Word instalado como alternativa.",
+    "revision_visual": "29 páginas inspeccionadas; páginas 1, 5, 27, 28 y 29 revisadas después de ajustes; las otras 24 no cambiaron por comparación de píxeles"
+  },
+  "integridad_proyecto": {
+    "estado": "correcto",
+    "documentos": 43,
+    "enlaces_locales": 270,
+    "exportaciones_compartidas": 2,
+    "python_sintaxis": 52,
+    "datos": {
+      "lotes": {
+        "fuentes_iniciales": 37,
+        "Equilibrado_v1_20261013": 102,
+        "lider_express_20261016": 236,
+        "visibilidad_limitada_20261019": 60
+      },
+      "registros_verificados": 435,
+      "archivos_imagen_unicos": 405,
+      "fotos_pendientes": 0,
+      "imagenes_activas": 91
+    }
+  },
+  "entregables": {
+    "Informe_Intermedio_Avance_20261020.docx": {
+      "bytes": 29733622,
+      "sha256": "65ef7d32668bd74daa77bd77c2425a2fcfebadb76022757836687c95da698f97"
+    },
+    "Informe_Intermedio_Avance_20261020.html": {
+      "bytes": 40289328,
+      "sha256": "2396d22c8641bdef2f14b44d6d1f0f87a0801015376e7ef8c73bdb6a1d302914"
+    },
+    "Informe_Intermedio_Avance_20261020.pdf": {
+      "bytes": 3987038,
+      "sha256": "ee5bc28cfd832140a20012ad2d6b8ecb3a8c0f820493aa74981915e16519dc6e"
+    }
+  }
+}

@@ -1,0 +1,239 @@
+metodología, los documentos de gestión eh cambian o serán los mismos. Eh, básicamente según la metodología no van a cambiar, pues no no no deberían, ¿no? Porque incluso aquellos hoy día hoy día tuve un caso bastante particular, un equipo eh va a llevar dos metodologías, una porque tiene un hardware que controlar, es un un robot, entonces eh va a llevar una metodología híbrida y tampoco va a haber cambio de los documentos. Así que no, dale n más. Y chicos, por favor, vo a hacer hincapié que por favor me respetan los nombres de los archivos. Mucho hincapié en eso porque como te digo, no tengo idea cómo será el bot que los va nos va a auditar. ¿Te das cuenta? Eso me hace mucho. La base de datos.
+
+De nada, amigo, de nada.
+
+Eh, Francisco me dice, "Oye, Arturo, eh, se conocen las ubicaciones de las cámaras. Eh, serán siempre iguales o en distintos lugar ángulos. Mira, la conversación que tuvimos con José La Raín aquella vez ustedes están haciendo pruebas con sus propias imágenes o pueden sacar de la web o puedes sacarlas tú mismos de góndolas del supermercado y la idea que sean en primera instancia imágenes limpias, sin ruido de luz, sin ángulos medio oblicuos, ¿no? Recta, clara, nítida la imagen. Ya recordemos que el foco preguntar indicar el producto, sino que eh la cantidad de espacio disponible que hay. Y eh la misma sugerencia que nos hizo José la Raí la anterior, que segmentaran la góndola. Imagínate la góndula que es un rectángulo, eh una matriz quizás de tres filas donde posicionas productos, segmentan los cuadrantes y quizás cuántos cuadrantes te pueden caer en un en un en un segmento, por si acaso, porque de repente unos espacios pueden haber caber en productos, no hay que ver de stock.
+
+Eh, Vicente me hace La siguiente pregunta. Ah, sí, Arturo, la parte de la base de datos de los documentos no aplica. Mira, en esta fase nos dieron la libertad que el ítem de la carpeta completa de base de datos puede ser omitida. En serio, vale decir eh te estoy hablando del diccionario de datos, modelo lógico, modelo relacional y los script para poblar la base de datos, las primeras tablas, las más básicas, la lógica de los crud básico. Ya, esos son los cuatro ítems que nos están pidiendo para el ítem de base de datos y para esta primera fase en estrict no va a ser evaluado. No obstante, necesitamos las bases de datos para ponernos a programar. O sea, va a ser uno de los puntap inicial de la fase dos, por si acaso. Así que ojo con eso. No es que la estemos dilatando mucho, ¿no? No podemos dilatarla mucho. Así que al menos, oye, lo que me hace ruido que hoy día estuve revisando los GitHub y revisé unos seis, siete así random. Uno, uno está documentado. Y por favor, me respetan la distribución de la carpeta. En el drive compartido del curso, yo te dejé un video que te da la distribución de carpeta desde raíz que dice fase uno, así dice el raíz del GitHub y ahí empieza la distribución de contenido porque algunos están tomando el drive tal cual, todo completo y lo chan acá en el Vamos a hacer base de datos,
+
+no te va a hacer match la por si acaso. Ya, ¿qué me están preguntando? A ver, eh, disculpa. A ver, dice Arturo, "La reunión, eh, la reunión dado que la ¿Qué,
+
+Arturo?" La reunión dado que la reunión Se está grabando después. Sí, obvio, obvio. Sí, sí, sí. Comp, de todas formas deberían grabarlo ustedes, pero yo tengo lo estoy grabando en este instante ya por si acaso. La voy a compartir obviamente
+
+está recién está dormido. Francisco me pregunta, "Oye, consulta sobre la reunión. ¿Se compartirá?" Sí, la minuta de esta sí voy a hacer una minuta con ella, obviamente, pero la grabación más importante que de la grabación tú tienes que sacar el audio y con el audio tú haces una acta
+
+o el análisis que sea cabro, eh. Me ocurrió ayer, por ejemplo, que algunos no están tomando bien lo que es la los notebook LM. Acuérdate que te sugerí hace rato que te crearas un not LM para el proyecto completo. Yo, por ejemplo, ayer en Chem agarré como base de conocimiento un cuaderno de un proyecto que yo ya tengo creado y ahí hago consultas. Por ejemplo, alguien me mandó unos diagramas, cachá, un diagrama a nivel de un caso particular con uso de IA y teníamos la duda, yo también, cómo voy a representarse la IA dentro del diagrama porque es una entidad, un agente y se lo pedimos a ella, obviamente lo hizo, lo hizo, lo hizo espectacular. Así que ojo ahí los gran parte de los diagramas te los puede corregir todos los casos duos. ¿Qué más me dicen por acá? Eh, se compartió, obvio, sí, se va a compartir todo. Oye, José la Raí no me responde. Espero hón, déjalo piola.
+
+Está haciéndose la paja. Está está raja durmiendo.
+
+¿Alguna otra duda? Acuérdense que mañana al mediodía parto la descarga de G empiezo a corregir como loco.
+
+No audit por eso eso apurado.
+
+Los documentos para el
+
+ya David me dice oye Arturo, hola, hola a todos en este mensaje automático. Anyway,
+
+Vicente, bien, hay cosas mejores.
+
+Anyways,
+
+sí, yo lo grabo con Flix y lo grabo con Meet que propio que tengo contratado el servicio. Oye, pero eh notificaciones,
+
+estructura de kit.
+
+Estoy ready, dice David. Bien, me parece
+
+sí es lo mismo. Es lo mismo, se supone.
+
+Eh, con respecto a qué otra pregunta recibido estos días de los proyectos en general, eh, con respecto a los MOCAP. incluso enfocado a los que son investigación con respecto a los MOCAP. Eh, chicos, ustedes hacen una lógica, el MOCAP puede cambiar mucho también, así que no es que sea estricto, ya tampoco te estoy pidiendo un mocap de alta gama, básicamente que se entienda cómo va a ser la distribución de los lacha, de los componentes, cosas así y qué es lo que se quiere capturar o qué es lo que se quiere reflejar.
+
+Nicolás Anquim Cartes, disculpa,
+
+eh, perdón, dos preguntas. Macarena me dice pregunta que tengo es que el otro día cuando hablamos sobre Una posible pregunta de espacios vacíos se refería la a profundidad, ¿cierto? Eh, sí, sí, sí, claro, claro, claro. O sea, mira, buena pregunta, Maegunta, cabro. Yo acá hay ciertos parámetros que nosotros tenemos que dejar así como
+
+ya por sentado. Por ejemplo, hagamos un supuesto, estoy inventando, hagamos un supuesto que quizás la profundidad de la góndola puede ser 30 cm,
+
+dado un supuesto y ya. Entonces, 30 cm de profundidad por cuánto de ura por cuánto de anchura, ¿cachá? Entonces ahí tú ya tienes tu primer segmento, segmento de toda una góndola y ahí empiezas tu análisis de ese segmento, ¿cachá? Claro, la profundidad incide bastante, pero por eso te digo, hagamos un supuesto que todas las góndolas son 30 cm por si acaso.
+
+Te voy a buscar
+
+porque también, por ejemplo, si haces el match de un producto, tú tienes que ver las dimensiones, los bordes del producto. A ver, me explico. Si tú fotografías una góndola, eh, vas a de
+
+Pero la medida de la góndola debe estar por ahí Quier ver hasta cuándo están llegando los productos y cuánto abarca un producto en particular, largo, ancho, en profundidad, porque eso te da lación de volumen de que podría, ¿cuántos podrían caber eh eh en dicha distribución de espacios?
+
+¿Cachá? Como te vuelvo a repetir, de repente, oye, tenemos harto espacio, pero esos alcanza caer una unidad,
+
+tenemos a un insider, huón del medo.
+
+Eh, otro tema que también yo tengo la duda y me gustaría preguntarle a José la Raín, que es un poquito más minuciosa, es con respecto a los productos que son eh Son apilables. Ahí viene José la Rí. Parece Aní Sotelo. No, no, no, no lo aceptamos. No, viene Sotelo. Don Aní Sodelo. Buenos días. Ya sigo respondiendo preguntas, mis queridos. Mientras tantas fotos.
+
+¿Qué más me preguntó por acá? Eh, a ver, respondió la Maca. Respondió Nicolás. Nicolás,
+
+¿cómo estás? Eh,
+
+pensaba que se había metido alguien con una foto en
+
+cómo está. Hola, Arturo, ¿cómo está? ¿Cómo preguntas tenemos esto? Hola, Arturo. Ros
+
+eh, ¿es necesario aplicar una interfaz o solo se entrega un código bruto? Yo creo que una interfaz, mi querido Nicolás. Claro, claro. Eh, va a ser importante interfaz para que entienda cómo va a ser la distribución de los componentes o hubo una especie de mocup genérico de qué estamos identificando.
+
+Eh, quizás no una imagen real, pero No sé si has visto distribuciones de contenedores sobre una alerta tiene una alerta alerta de algo productos sobre un contenedor por lo estoy haciendo una gráfica de cómo se van a pilaramente podéis colocar una carpeta algoritmo clásico de los mínimos relativa incorporar proc ¿Qué dijo el? No escuché.
+
+Está saludando alguien.
+
+Ah, hola.
+
+No, Aníbal. Hón,
+
+Aníbal, no.
+
+Profe, ¿cómo se llama ese algoritmo que mencionó? Otra pregunta. A ver, Ignacio me pregunta por acá, "Profe, eh, ¿cómo se llamaba ese algoritmo que mencionó?" Menocioné tanto estos días. He visto tanto. Mira, por ejemplo, yo creo que le haban conversado algunos de ustedes que yo en la universidad traté de imágenes digitales y puntualmente lo hice conformas rápidas de furiar. Te lo escribo. Mira, por si acaso, a lo mejor yo creo que era eso.
+
+Vamos a investigar eso también por si transformada rápida de
+
+rápida de furier cachá. Furión.
+
+Problemas de conexión
+
+de furier. La huevada me suena. Lo tengo ahí.
+
+Ah, no, no abre. me dice, "No, no era el algoritmo furi." Ah, no sé. Ahí me pillaste, Nicolás. Ahí, ahí refiriendo, pero creo haber conversado durante la semana de cómo poder detectar eh ordes. Por ejemplo, yo en mi tiempo eh mucho referirse y para poder explicar los bordes que estaba las diferencias de los RGB. Me di cuenta una imagen de un montón de pixel, ¿cachá?
+
+Entonces matemáticamente lo determinabas con transformadas rápidas de furia. hacía como un analizado de espectro.
+
+Ay, ay, sí, c\*\*\*.
+
+Pero no sé si para ya va apuntando la solución de ustedes. Tengan presente que algunos de ustedes ya incluso eh de los que hemos conversado la investigación que han desarrollado, han visto el algoritmo de Yolo, la librería Yolo, algo así. Vamos, Paulo. Por ejemplo, la otra vez la Mariana le preguntó qué versión de Yolo era la más apropiada y él dijo, "No te lo puedo decir, ustedes tienen que investigar." Pero claro, hay una versión que Te sirve para los que van en ese camino.
+
+Ya. Yolo, cabrón. No más
+
+yolo.
+
+Hay solamente un camino, huevón.
+
+Yolo.
+
+Arturo.
+
+No me leyó la pregunta. Oh, Francisco, copy paste de nuevo. A ver, Francisco Sandoval. Francisco Sandoval. Francisco Sandoval. A ver,
+
+debemos presentar en una solución eh escalable desde el minuto uno
+
+o solo entregar una solución para un entorno aislado y único.
+
+Pregunto por si es necesario eh expandir y tener eh eh uf adaptabilidad distintos escenarios o espacios.
+
+Buena pregunta, no sé qué tanto lo quiere cliente, pero lo tenemos que acotar. Yo creo que hagamos
+
+vale decir no los demos muchas vueltas porque si entre más variable les vamos a colocar esto,
+
+más largo se va a hacer el proyecto. Son 10 semanas de desarrollo así que desarrollo entre el desarrollo y la documentación también. Te está grabando. Vale oro. Esto vale oro.
+
+Así que no todos hagámoslo en el escenario perfecto y góndolas perfectas. Los productos están ordenaditos, no están torsionados, no hay foco de la imagen. La imagen es nítida. Puede la idea es como te digo, es
+
+para hacer para empezar segmentar los bloques de la góndola y en función de esto ver qué segmentos están más vacíos y o tienen stock y esto a través de los espacios libres que posea,
+
+¿correcto? Ahora, como dijo Macarena, claro, Macarena, el tema de la profundidad, claro, te incide, te incide si al final es un volumen largo, ancho y profundidad.
+
+J Wen
+
+hoy veo como si todos se van de la sede y usted
+
+anyway,
+
+anyway, anyway.
+
+Ya querido, oye, parece que don Cristian la rey nos dejó pagando.
+
+No es primera vez que un cliente me deja pagando. Yo la consultora Oh,
+
+sí. Hón, para qu estamos con
+
+A ver, ¿qué más me están diciendo acá? A ver, eh,
+
+están llamando, concha de tu madre.
+
+A mí igual me faltó preguntar en la aplicación tiene que ver web, escritorio. Eh, en este instante yo creo que lo más cómodo en interfaz web eh puede ser es que es responsivo, así que a local no creo que sea muy útil porque conlleva el tema de la instalación y por ejemplo hay un equipo al hay y equipos que tienen, por ejemplo, de cliente el Hotel Plaza San Francisco y el Hotel Plaza San Francisco tiene unas medidas de seguridad para instalar cosas que es increíble. Por lo tanto, el único camino el único camino que ellos tienen con la propuesta de solución es web, cachá. Yo creo que acá por un tema de comodidad para evitar las instalaciones cosas, sí, lo más cómodo. Absolutamente.
+
+Y como última, los teaming, si se pueden aclarar. Y los para poder en
+
+mira el tema de la G y cosas así. Ustedes deciden la distribución, tengan cuenta que hay una fase de levantamiento de requerimiento, hay una fase de análisis, hay una fase de construcción, creo que les di la otra vez la botones
+
+más básicos que, o sea, más que básicos que deberían estar, ¿no? No todos necesariamente. Todos los proyectos son distintos. Ya, mira, si no entra don en si minutos más yo cancelo la reunión. Sí, pues ya lo esperamos media hora, sea 11 horas esto y no lo veo todavía
+
+en volante. Cadens que era a las 11:30\.
+
+Eric, más que nada la duda, a ver, uf, disculpa, Eric me dice, a ver, más que nada la duda es, ¿hasta qué fecha sería el término del proyecto? Hasta la semana número 16, 17, perdón, hasta la semana número 17, por ejemplo, estuve revisando algunas GAN de los equipos que me mandaron material durante la semana 6 de los 19\. Eh, estaban tomando la semana 18, cabro, usted a la semana 17 se le hace el corte. De hecho, hasta te podría decir la fecha tentativa que vas a tener presentación ante comisión. El cierre te digo enseguida. Tentativamente tu presentación o va a ser el jueves 3 de diciembre o el viernes 4 de diciembre. Ahí tú cierras conmigo. Ahí tienes claridad a tope. ¿Qué más? El Nico. El Nico me pregunta, "Oye, eh, ese día nos dijo que era para evitar instalación de que teníamos que ocupar Dockers.
+
+Ah, perfecto.
+
+Ah, sí, pero Docker eh que para trabajar con Docker es perfecto. Pues hoy en día es un estando trabajar con Docker porque al final de cuentas no podéis decirle al cliente o tu mismo compañero de pega, "Oye, mi máquina funciona." No sé por qué tu máquina no funciona. Claro, si al final de cuentas tenemos un contenedor, cachá. Por eso la gracia de los dogers es casi como una política de buenas prácticas.
+
+Sí, sí, sí, sí.
+
+Profe, disculpe. Dale, cállate respectivo eso mismo, habían mencionado que bueno, querían trabajar con Google Colab, pero por ejemploía posible
+
+eh trabajar, por ejemplo, en un servidor Linux y ver cuánto gasta en recursos así
+
+no lo había pensado y es la primera persona que lo está proponiendo, ¿no? ¿Por qué tu alcance tú dices que nos pueda consumir mucho cuánto? Mucha
+
+es que claro, no sé cuánto gaste en específico un modelo y pero
+
+cambiarlofiero más como instalo
+
+en vez de como crear la solución en Google Colab crear como una solución así como en archivos Python un poco más ordenado y claro en eso correr un servidor de Linux y ver cuánto gast porque haban dado como un máximo como de 4 GB creo
+
+y como dos de gráfica, algo así por el estilo. Entonces
+
+igual Linux que cómo gasta menos el sistema oper igual se puede saber como cuánto gasta el sistema. Lo
+
+no había pensado el tema de los tiempos de ejecución. Eh, bueno, aquí claramente lo que nos está pidiendo nuestro person que determine los quebr de stockaba algoritmos
+
+y el dijo si corren colab va a correr en todo. Colab era como una métrica de que funcionaba significaba que estaba la máquina no chup
+
+y dijo incluso queabaimos malón
+
+eh no sé soy muy sincero yo creo queo como una
+
+una arista beta cachá y nuestro foco hacerlo correr y yo creo que no debería
+
+ese día que va ser de largo y estaba
+
+igual como si fuera como en tiempo real
+
+lo único que estaba anotando, así que
+
+como
+
+te felicit
+
+tipo porque ya se ese puede hacer como por ejemplo sacando fotos desde la cámara, pero si uno lo quiere implementar en una cámara en tiempo real,
+
+una cámara de video te estás refiriendo entonces.
+
+Sí,
+
+no, mira, por ahora ese es algo que tú te lo estás imponiendo así como una meta. Está buena la meta, pero no obstante en este instante era imágenes estáticas más, ¿no? En la captura de video, la sola captura puede venir errónea y ya tenemos una imagen con ruido.
+
+Minutos, chicos.
+
+Vale, entiendo. Ya igual, muchas gracias.
+
+No, igual ¿Alguna otra duda, consulta?
+
+Sí, en verdad la Raín. Vamos a conversar con Jos la Raín porque nos dejó pagando hoy día.
+
+Oh, concha de tu madre.
+
+No, nada con respecto al entregable, mis chiquillos, chicos. Espérate a ver esp. Bueno, preguntar por un plantilla ahora mismo con estupidez.
+
+Mira, eh, si uno de los detalles que también estás esperando de José la Raín, bueno, ya que ya no se está presentando, eh, Él nos comprometió a tenernar un enunciado, un contexto, porque le habíamos mencionado junto con Valeria eh el tema que ustedes necesitaba un poquito más de aterrizar el ejercicio para poder ver la el alcance del proyecto, como siempre hemos dicho bien, el tema del alcance del proyecto, eh, el límite, hasta dónde vas a a generar los módulos y esas cosas. Maquina, me vuelve a hacer una pregunta, me dice, "Profe, eh, a ver, dice, las evidencias de individuales, ¿no? Queridos, a todos les puedo decir buen objetivo. Mira, cuando yo hice esa esa imagen con IA, obviamente eh yo tenía un archivo de imagen en mi computadora justo en esa carpeta. No tiene nada que ver eso que dice en imagen dos, así que omítanla por favor. Ya de verdad fue no me ha percatado, pero es una pifia de mía.
+
+
+Francisco dice la imagen. Sí, sí, claro, claro. Sí, disculpen. Ya, quizás no no voy a mandar un comunicado en la tarde, quizás se puede prestar más más de una conclusión para la mayoría de ustedes.
+
+Pero vuelvo a repetir, hoy día estaba revisando los GitHub. Uno uno estaba documentado
+
+y encima estaba mal documentado. Decía final fase uno, final fase uno el GitHub. Y no, pues si revisas el video dice fase uno no más, cachá. Anyway, espérame y lo va a revisar una por eso me hace ruido. Existo. Ya. Michel me dice, "Oye, eh, ah, pregunta un eh pregunta un poco torpe, ¿no? Nada es torpe, mi querido. Yo sin pensarlo mucho espré el spring de planificaciones y el backlock si hay que conservar los nombres de los archivos." Supongo que sí. Sí, por favor, conserva los nombres de los archivos. Sí, sí, sí. No. Tenemos dudas totales de cómo se va a comportar esa de partida leyendo el nombre del archivo para identificar qué es lo que va a analizar y después metiéndose el contenido del archivo.
+
+O sea, que no no nos va a revisar,
+
+creo que están usando cl
+
+nos va a revisar una idea esta.
+
+
+Ya pues, chicos, mira, son las 11:30 y nuestro cliente no se presentó. Te digo. El semestre pasado tuvimos un cliente de una constructora que él quería todas las reuniones presenciales y se pusieron presencia los cabros. Pues el cliente nos dejó pagando dos veces. Incendios que hay a veces la pega y nosotros somos segundo plano. Pasa, pasa en todos lados. En serio.
+
+Ya, mis queridos, si no hay más consultas, voy a dar por término esta mini reunión.

@@ -1,0 +1,56 @@
+﻿foto,nivel,estado_yolo,confianza_yolo,method,status,area_signal_pct,width_signal_pct,calibrated,reason,estado_anotado,iou_referencia,valid_cells
+lider_express_014_0_original.jpg,1,suficiente,0.92627,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9363919500480116,
+lider_express_014_0_original.jpg,2,suficiente,0.87857,paulo_mascara_v2_color_textura,medido,94.76,97.37,False,,suficiente,0.9246709025962003,252
+lider_express_014_0_original.jpg,3,suficiente,0.92282,paulo_mascara_v2_color_textura,medido,80.71,97.5,False,,suficiente,0.9498099225253838,296
+lider_express_014_0_original.jpg,4,suficiente,0.93006,paulo_mascara_v2_color_textura,medido,64.03,97.56,False,,suficiente,0.9376344948638469,334
+lider_express_014_0_original.jpg,5,suficiente,0.91783,paulo_mascara_v2_color_textura,medido,68.7,100.0,False,,suficiente,0.9559197767371458,368
+lider_express_014_0_original.jpg,6,suficiente,0.82926,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.8444391704022571,
+lider_express_015_0_original.jpg,1,suficiente,0.93164,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9311592132996972,
+lider_express_015_0_original.jpg,2,suficiente,0.9322,paulo_mascara_v2_color_textura,medido,83.29,97.44,False,,suficiente,0.9220951384040748,293
+lider_express_015_0_original.jpg,3,suficiente,0.93719,paulo_mascara_v2_color_textura,medido,68.86,92.31,False,,suficiente,0.9411804637198468,293
+lider_express_015_0_original.jpg,4,suficiente,0.92105,paulo_mascara_v2_color_textura,medido,85.31,92.5,False,,suficiente,0.9668764377091525,340
+lider_express_015_0_original.jpg,5,suficiente,0.9519,paulo_mascara_v2_color_textura,medido,92.64,97.56,False,,suficiente,0.967126854922075,328
+lider_express_015_0_original.jpg,6,suficiente,0.94366,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9501261036933963,
+lider_express_016_0_original.jpg,1,suficiente,0.82108,paulo_mascara_v2_color_textura,medido,35.18,47.5,False,,suficiente,0.8879617063253461,272
+lider_express_016_0_original.jpg,2,suficiente,0.83126,paulo_mascara_v2_color_textura,medido,94.77,100.0,False,,suficiente,0.930094925072453,293
+lider_express_016_0_original.jpg,3,suficiente,0.92853,paulo_mascara_v2_color_textura,medido,82.78,92.5,False,,suficiente,0.9636464620888501,305
+lider_express_016_0_original.jpg,4,suficiente,0.92177,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9551124768080382,
+lider_express_016_0_original.jpg,5,suficiente,0.9318,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9526280957191124,
+lider_express_016_0_original.jpg,6,suficiente,0.80467,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.7849462195873924,
+lider_express_026_0_original.jpg,1,suficiente,0.89834,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9494274519069157,
+lider_express_026_0_original.jpg,2,suficiente,0.9438,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9570112896613102,
+lider_express_026_0_original.jpg,3,suficiente,0.94175,paulo_mascara_v2_color_textura,medido,71.77,100.0,False,,suficiente,0.9742249611989774,354
+lider_express_026_0_original.jpg,4,suficiente,0.95431,paulo_mascara_v2_color_textura,medido,59.44,84.62,False,,suficiente,0.9774590867615749,399
+lider_express_026_0_original.jpg,5,suficiente,0.87172,paulo_mascara_v2_color_textura,medido,58.3,63.41,False,,suficiente,0.7485672614485502,419
+lider_express_027_0_original.jpg,1,suficiente,0.89177,paulo_mascara_v2_color_textura,medido,93.79,100.0,False,,suficiente,0.9663547049620692,268
+lider_express_027_0_original.jpg,2,suficiente,0.95621,paulo_mascara_v2_color_textura,medido,91.6,100.0,False,,suficiente,0.9603077418195647,330
+lider_express_027_0_original.jpg,3,suficiente,0.94064,paulo_mascara_v2_color_textura,medido,42.17,71.05,False,,suficiente,0.9527833819433784,351
+lider_express_027_0_original.jpg,4,suficiente,0.94237,paulo_mascara_v2_color_textura,medido,42.72,81.58,False,,suficiente,0.9680957526737385,379
+lider_express_027_0_original.jpg,5,suficiente,0.9045,paulo_mascara_v2_color_textura,medido,69.14,78.05,False,,suficiente,0.7956271874827383,434
+lider_express_028_0_original.jpg,1,suficiente,0.92659,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9280616884112016,
+lider_express_028_0_original.jpg,2,suficiente,0.93059,paulo_mascara_v2_color_textura,medido,51.18,55.0,False,,suficiente,0.9601526449149017,436
+lider_express_028_0_original.jpg,3,suficiente,0.93771,paulo_mascara_v2_color_textura,medido,58.95,71.43,False,,suficiente,0.9417667616624297,425
+lider_express_028_0_original.jpg,4,suficiente,0.87601,paulo_mascara_v2_color_textura,medido,61.06,95.45,False,,suficiente,0.9619182824137998,499
+lider_express_028_0_original.jpg,5,suficiente,0.86029,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9160608993479293,
+lider_express_039_0_original.jpg,1,suficiente,0.94005,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9578985538708438,
+lider_express_039_0_original.jpg,2,suficiente,0.95851,paulo_mascara_v2_color_textura,medido,57.54,83.78,False,,suficiente,0.9470028260402569,335
+lider_express_039_0_original.jpg,3,suficiente,0.96325,paulo_mascara_v2_color_textura,medido,51.71,81.58,False,,suficiente,0.9679222161840474,362
+lider_express_039_0_original.jpg,4,suficiente,0.9553,paulo_mascara_v2_color_textura,medido,65.38,94.87,False,,suficiente,0.9483843393227187,391
+lider_express_039_0_original.jpg,5,suficiente,0.87378,paulo_mascara_v2_color_textura,medido,40.66,79.07,False,,suficiente,0.9103395474007238,577
+lider_express_040_0_original.jpg,1,suficiente,0.95447,paulo_mascara_v2_color_textura,medido,73.55,83.78,False,,suficiente,0.9169951441061013,319
+lider_express_040_0_original.jpg,2,suficiente,0.94444,paulo_mascara_v2_color_textura,medido,95.23,100.0,False,,suficiente,0.9457330187946187,325
+lider_express_040_0_original.jpg,3,suficiente,0.94202,paulo_mascara_v2_color_textura,medido,85.72,92.5,False,,suficiente,0.9402344846112825,379
+lider_express_040_0_original.jpg,4,reponer,0.63328,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,reponer,0.9481457379213359,
+lider_express_040_0_original.jpg,5,suficiente,0.40242,paulo_mascara_v2_color_textura,medido,35.98,58.14,False,,suficiente,0.8843389177871526,435
+lider_express_041_0_original.jpg,1,suficiente,0.92957,paulo_mascara_v2_color_textura,medido,72.19,86.11,False,,suficiente,0.8406637841116386,299
+lider_express_041_0_original.jpg,2,suficiente,0.91434,paulo_mascara_v2_color_textura,medido,52.77,83.78,False,,suficiente,0.875619837510757,348
+lider_express_041_0_original.jpg,3,suficiente,0.94236,paulo_mascara_v2_color_textura,medido,69.68,89.47,False,,suficiente,0.890076310322445,375
+lider_express_041_0_original.jpg,4,suficiente,0.8847,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.9061837662080348,
+lider_express_041_0_original.jpg,5,suficiente,0.34405,paulo_mascara_v2_color_textura,medido,54.75,76.74,False,,suficiente,0.8694252314955436,274
+lider_express_041_0_original.jpg,6,suficiente,0.77199,paulo_mascara_v2_color_textura,medido,68.21,76.74,False,,,,223
+lider_express_042_0_original.jpg,1,suficiente,0.3349,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,,,
+lider_express_042_0_original.jpg,2,suficiente,0.58408,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,suficiente,0.8674415821156113,
+lider_express_042_0_original.jpg,3,suficiente,0.44075,paulo_mascara_v2_color_textura,medido,75.01,90.48,False,,suficiente,0.7387319829132674,511
+lider_express_042_0_original.jpg,4,suficiente,0.31781,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,,,
+lider_express_042_0_original.jpg,5,suficiente,0.48708,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,,,
+lider_express_042_0_original.jpg,6,suficiente,0.55686,paulo_mascara_v2_color_textura,sin_medicion,,,False,El contorno del nivel requiere revisión.,,,

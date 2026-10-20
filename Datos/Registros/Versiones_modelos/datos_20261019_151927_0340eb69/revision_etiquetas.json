@@ -1,0 +1,12 @@
+[
+  {
+    "foto": "",
+    "shape_id": null,
+    "job_id": null,
+    "problema": "Líder Express: falta revisar y congelar familias, grupos de escena y particiones de entrenamiento, validación y evaluación. La importación permite revisar anotaciones; no habilita el entrenamiento.",
+    "clase": "Nivel",
+    "categoria": "niveles",
+    "bloquea_entrenamiento": true,
+    "bloquea_modulos": false
+  }
+]

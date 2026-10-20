@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26n-seg.pt",
+  "archivo": "yolo26n-seg.pt",
+  "bytes": 6719965,
+  "sha256": "361fbfabab285c3237700b6bb91d7ecfa602cd945fffda8dbe1242829b71e73f",
+  "digest_source": "GitHub releases API, ultralytics/assets v8.4.0",
+  "ultralytics": "8.4.174",
+  "date": "2026-10-09T06:43:50.836266+00:00"
+}

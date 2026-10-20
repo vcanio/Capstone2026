@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-10-20T03:42:07.919636+00:00",
+  "partition": {
+    "path": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "sha256": "1b49e8fd90ff2d8c61256c6fdb34fbf06d152268e795bce232456d87abb735e9",
+    "stage": "base"
+  },
+  "split": "val",
+  "uses_final_reserve": false,
+  "occupancy": {
+    "method": "paulo_mascara_v1",
+    "parameters": {
+      "max_side": 1600,
+      "cell": 24,
+      "canny_low": 40,
+      "canny_high": 120,
+      "edge_density": 0.04,
+      "margin": 0.03,
+      "opening": 3,
+      "line": 0.04,
+      "color_fraction": 0.35,
+      "saturation": 70,
+      "dark": 70,
+      "cell_coverage": 0.5,
+      "column_fraction": 0.15,
+      "min_column_rows": 2
+    },
+    "sources": {
+      "Herramientas/Modelos/ocupacion_paulo.py": "4541d6f07a30b1cb4f143d21fa13a0ee826361a78a0562abfe55cd9a1bc898dc",
+      "Experimentos/Bordes/gondola_bordes.py": "0032602f643d3a658acd128dbd8f933abfdf9225c7dc96214c4ea8080360be8b"
+    },
+    "calibrated": false,
+    "changes_yolo_state": false,
+    "meaning": "Señal de bordes/color; no porcentaje validado de producto ni confianza YOLO."
+  },
+  "runs": [
+    "v2_base_yolo11n_01_20261020_002800_ec8d",
+    "v2_base_yolo26n_01_20261020_004933_b105"
+  ],
+  "script_sha256": "e38f7e7925d8ce87f5dc6ef3eb099ca8f0141e2109e1df16e2b60c31a09c7f7b"
+}
