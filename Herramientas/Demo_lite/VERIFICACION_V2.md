@@ -1,8 +1,19 @@
-# Verificación de la entrega V1 y V2 base
+# Verificación de Walmart Lite V2 con bordes
 
 Esta entrega incorpora los dos modelos V1 históricos y los dos V2 base. El manifiesto
 incluye la procedencia y el SHA-256 de cada best.pt. La interfaz muestra las clases
 del modelo elegido; V2 base no reconoce no_evaluable.
+
+La revisión con bordes incluye el mismo Analyzer y script de Paulo del laboratorio
+en disposición autónoma. El manifiesto verifica sus dos archivos de código además
+de los cuatro pesos. La tabla informa área y ancho con señal experimental, conserva
+los estados YOLO y no asigna porcentajes a niveles sin medición. Las fotografías
+y los tres mapas resultantes se procesan en memoria, sin escribir fotos en disco.
+
+Comprobaciones de esta revisión: 15 pruebas de Lite, 13 del algoritmo de Paulo y
+10 del preparador. Se comprobó inferencia real con los cuatro modelos, con y sin bordes, desde el
+ZIP extraído. Los estados y confianzas YOLO se conservaron. La interfaz se revisó
+en escritorio y móvil, incluyendo ambos métodos y los tres mapas.
 
 La revisión del 20 de octubre de 2026 incluye pruebas del preparador y de la demo,
 integridad de los pesos y comprobación de inferencia CPU en una copia separada.

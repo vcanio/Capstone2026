@@ -2,7 +2,8 @@
 
 Fecha de comprobación: 20 de octubre de 2026. Se preparó un checkout separado
 del repositorio remoto y se instalaron allí los activos desde ZIP locales. No se
-ha hecho commit, push, tag ni publicación de la Release desde esta preparación.
+hizo commit ni push automáticamente; el mantenedor conserva esos pasos. La Release
+se prepara como borrador y ahora se dedica solo a probar Walmart Lite.
 
 ## Resultado comprobado
 
@@ -42,8 +43,9 @@ de GitHub está preparado; su ejecución remota se podrá revisar después del p
 
 ## Qué sigue pendiente
 
-1. Commit y push por el mantenedor, creación de la Release con el tag previsto y
-   carga de sus siete archivos. Las URLs remotas aún dependen de esa publicación.
+1. Commit y push por el mantenedor y publicación del borrador con un único ZIP:
+   Walmart_Lite_V2_Bordes_20261020.zip. Los paquetes de datos, resultados e informe
+   se conservan aparte y se instalan con --assets; no se adjuntan a la Release.
 2. Clonar y descargar por HTTPS desde GitHub en otro computador físico, siguiendo
    [la guía de réplica](../Documentacion/Replicar_proyecto.md). La instalación
    local con --assets demuestra el contenido de los ZIP, no su descarga remota.
@@ -56,3 +58,18 @@ El ejemplo de cinco niveles es una prueba de funcionamiento, no una estimación
 de rendimiento global. La validación real V2 contiene un único nivel reponer;
 las limitaciones de datos, oclusiones y generalización siguen vigentes. No se
 usó el test reservado para ajustar los cambios de distribución.
+
+## Actualización: Lite con bordes y Release solo para probar
+
+El ZIP nuevo incluye los cuatro modelos y la revisión 2 de Paulo en disposición
+autónoma. Pasaron 15 pruebas de Lite, 13 del algoritmo de Paulo y 10 del preparador.
+Desde el ZIP extraído se ejecutó la misma fotografía de validación con los cuatro
+modelos, con y sin bordes. Los estados, conteos y confianzas YOLO se conservaron.
+Los tres mapas se generaron en memoria sin guardar fotografías. V2 YOLO26
+mantuvo cuatro suficientes y uno reponer.
+
+La [salida compacta](evidencias/demo_lite_bordes_cpu.json) registra la procedencia
+de los dos scripts y las mediciones por nivel. Los porcentajes son señal
+experimental, no ocupación real validada. La estructura no requiere rutas del
+laboratorio ni una conexión a CVAT. Los resultados anteriores de Docker y del
+informe conservan su alcance histórico.

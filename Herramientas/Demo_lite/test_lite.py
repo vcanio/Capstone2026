@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 from PIL import Image
 import app
 import preparar
-from inferencia import BusyError, ModelRunner, draw_result, read_photo
+from inferencia import BusyError, ModelRunner, analyze_edges, draw_result, read_photo
 
 
 def photo(format='PNG', size=(120, 80), exif=None):
@@ -77,6 +77,43 @@ class LiteTests(unittest.TestCase):
                 read_photo(body)
         with patch('inferencia.MAX_PIXELS', 100), self.assertRaises(ValueError):
             read_photo(photo())
+
+    def test_invalid_analysis_method_is_rejected_before_model_loading(self):
+        with self.assertRaisesRegex(ValueError, 'bordes'):
+            ModelRunner(self.root).analyze(photo(), 'fixture', method='invalid')
+
+    def test_portable_edge_sources_are_checked_at_startup(self):
+        manifest = json.loads((self.root / 'modelos.json').read_text())
+        manifest['edge_sources'] = {}
+        for name in ('ocupacion_paulo.py', 'gondola_bordes.py'):
+            body = b'fixture source'
+            (self.root / name).write_bytes(body)
+            manifest['edge_sources'][name] = hashlib.sha256(body).hexdigest()
+        (self.root / 'modelos.json').write_text(json.dumps(manifest))
+        ModelRunner(self.root)
+        (self.root / 'gondola_bordes.py').write_text('changed')
+        with self.assertRaisesRegex(ValueError, 'bordes.*modificado'):
+            ModelRunner(self.root)
+
+    def test_edges_use_original_pixels_and_keep_yolo_states(self):
+        import numpy as np
+        original = np.full((240, 720, 3), 255, dtype=np.uint8)
+        mask = np.zeros((2, 240, 720), dtype=np.uint8)
+        mask[:, 20:220, 30:690] = 1
+        masks = SimpleNamespace(data=SimpleNamespace(cpu=lambda: SimpleNamespace(numpy=lambda: mask)))
+        detections = [{'id': 1, 'state': 'reponer'}, {'id': 2, 'state': 'no_evaluable'}]
+        output = analyze_edges(original.copy(), SimpleNamespace(masks=masks), detections)
+        self.assertEqual([d['state'] for d in detections], ['reponer', 'no_evaluable'])
+        self.assertEqual(detections[0]['occupancy']['area_signal_pct'], 0)
+        self.assertIsNone(detections[1]['occupancy']['area_signal_pct'])
+        self.assertFalse(output['occupancy']['changes_yolo_state'])
+        self.assertFalse(np.asarray(output['edges_image']).any())
+        self.assertTrue(np.array_equal(np.asarray(output['occupancy_image']), original))
+        # Una caja sin máscara debe conservarse como sin medición.
+        detections = [{'id': 1, 'state': 'suficiente'}]
+        analyze_edges(original, SimpleNamespace(masks=None), detections)
+        self.assertEqual(detections[0]['occupancy']['status'], 'sin_medicion')
+        self.assertIsNone(detections[0]['occupancy']['area_signal_pct'])
         with patch('inferencia.MAX_BYTES', 1), self.assertRaises(ValueError):
             read_photo(photo())
 
@@ -140,6 +177,21 @@ class HttpTests(unittest.TestCase):
         with urlopen(request) as response:
             data = json.load(response)
             self.assertTrue(data['image_url'].startswith('data:image/jpeg;base64,'))
+
+    def test_edge_method_and_three_images_travel_through_http_without_files(self):
+        from unittest.mock import Mock
+        predict = Mock(return_value={'image': Image.new('RGB', (20, 20)),
+            'occupancy_image': Image.new('RGB', (20, 20)), 'edges_image': Image.new('L', (20, 20)),
+            'filtered_edges_image': Image.new('L', (20, 20)), 'occupancy': {'calibrated': False},
+            'detections': [], 'counts': {}, 'model': 'fixture'})
+        self.server.runner.analyze = predict
+        request = Request(self.url + '/api/predict?model=fixture&method=yolo_paulo', data=photo(),
+                          headers={'Content-Type': 'image/png'})
+        with urlopen(request) as response:
+            data = json.load(response)
+        self.assertEqual(predict.call_args.args[3], 'yolo_paulo')
+        for field in ('occupancy_image_url', 'edges_image_url', 'filtered_edges_image_url'):
+            self.assertTrue(data[field].startswith('data:image/png;base64,'))
 
     def test_private_paths_foreign_origin_and_large_uploads_are_rejected(self):
         for path in ('/modelos.json', '/../app.py'):

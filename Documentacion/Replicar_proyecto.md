@@ -1,8 +1,9 @@
 # Replicar Walmart Computer Vision
 
 La versión de entrega es `avance-2026-10-20`. El código y el manifiesto se guardan
-en Git; los archivos grandes se publican como activos de la misma Release.
-Las descargas remotas funcionarán después de que el mantenedor publique esa Release.
+en Git. La Release pública contiene únicamente Walmart Lite con sus modelos y
+bordes. Los paquetes del laboratorio se transfieren por separado para desarrollo
+y se instalan con --assets; no se publican como adjuntos de esa Release.
 
 Para compartir mejoras entre Paulo, Vicente Canio y Vicente Vilches, seguir la
 [guía de trabajo en equipo](Trabajo_en_equipo.md), también disponible en
@@ -13,16 +14,18 @@ los cambios integrados por los demás.
 
 | Necesidad | Archivos y entorno |
 |---|---|
-| Probar fotografías propias | Walmart_Lite_V2_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
+| Probar fotografías propias | Walmart_Lite_V2_Bordes_20261020.zip. Windows x64; Internet en el primer inicio; sin CVAT ni Docker. |
 | Desarrollar, evaluar o entrenar | Clon + datos_fuentes + datos_exportados + modelos_resultados; Python 3.11/3.12 para preparar y Docker para ejecutar. |
 | Revisar el informe | Paquete informe; no requiere modelos ni datos de entrenamiento. |
 | Anotar nuevas fotografías | Cuenta propia y acceso al CVAT compartido, configurado por separado. |
 
 ## Demo portátil
 
-Descargar Walmart_Lite_V2_20261020.zip de la Release, extraer todo y ejecutar
+Descargar Walmart_Lite_V2_Bordes_20261020.zip de la Release, extraer todo y ejecutar
 `Walmart_Lite/iniciar.cmd`. El primer inicio prepara un Python privado con sus
-dependencias. Seleccionar V2-YOLO26 o uno de los otros tres modelos y subir una foto.
+dependencias. Seleccionar V2-YOLO26 o uno de los otros tres modelos, elegir
+YOLO + bordes de Paulo o Solo YOLO y subir una foto. El modo con bordes añade
+mapas de señal y bordes sin cambiar los estados YOLO.
 
 V1 devuelve vacío, baja, suficiente y no evaluable. V2 base devuelve reponer y
 suficiente: no reconoce no evaluable. Una fotografía sin referencias no permite
@@ -36,16 +39,16 @@ Docker Desktop con WSL2. Empezar por CPU; NVIDIA es opcional.
 ```powershell
 git clone https://github.com/vcanio/Capstone2026.git
 cd Capstone2026
-python Herramientas/Reproducibilidad/preparar.py
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 ```
 
-El preparador descarga y verifica las fuentes, las exportaciones inmutables, los
+Solicitar los paquetes de desarrollo al responsable del equipo. El preparador
+lee los ZIP locales y verifica las fuentes, las exportaciones inmutables, los
 pesos/resultados y el informe. Mantiene rutas, etiquetas y particiones. Repetirlo no duplica ni
 sobrescribe archivos diferentes. Se necesitan varios GB de almacenamiento para
 los activos, su extracción y las imágenes Docker.
 
-Si el equipo recibió los ZIP por transferencia privada o la Release aún no está
-publicada, usar la carpeta que los contiene:
+Usar la carpeta que contiene los ZIP recibidos por transferencia separada:
 
 ```powershell
 python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
@@ -54,7 +57,8 @@ python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walm
 Para incorporar la demo o recuperar por separado el informe:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py --paquetes informe demo
+python Herramientas/Reproducibilidad/preparar.py --paquetes demo
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe
 ```
 
 La demo se extrae en `Entregables/Walmart_Lite/`. Para comprobar los archivos ya
@@ -149,7 +153,7 @@ deben conservar el mismo destino. La reserva final no se usa para escoger umbral
 
 | Síntoma | Acción |
 |---|---|
-| Descarga 404 | Falta publicar la Release o su activo; usar --assets con los ZIP compartidos. |
+| Descarga 404 de la demo | Falta publicar la Release o su ZIP. Para el laboratorio usar --assets con los paquetes compartidos. |
 | Falta archivo o hash distinto | Repetir preparación en una copia limpia; no reemplazar trabajo modificado a mano. |
 | Docker no conecta | Iniciar el motor Docker y comprobar docker version. |
 | Error de NVIDIA | Comenzar con -Cpu; verificar compatibilidad de driver y contenedor antes de activar GPU. |

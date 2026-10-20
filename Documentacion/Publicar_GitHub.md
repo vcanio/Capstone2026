@@ -1,80 +1,55 @@
-# Publicar el código y los activos de la entrega
+# Publicar la demo de Walmart Lite
 
-La preparación no hace commit, tag, push ni carga archivos a GitHub. El checkout
-revisable está en `.publicacion/repositorio/` del laboratorio y los activos en
-`.publicacion/releases/`. Conserva el historial remoto y las entregas de Fase 1.
+La Release pública `avance-2026-10-20` sirve solo para probar los modelos con
+fotografías propias. Debe contener **un único activo**:
+`Walmart_Lite_V2_Bordes_20261020.zip`. Incluye la interfaz, los cuatro pesos y la
+revisión 2 de bordes de Paulo. No adjuntar datos, informes ni paquetes de desarrollo.
 
-## Revisar y publicar el código
+## Código y commit
 
-En PowerShell, desde la raíz del laboratorio:
+El checkout preparado está en `.publicacion/repositorio/`. Revisar sus cambios,
+hacer commit y push a main antes de publicar el borrador. El empaquetador no hace
+commit, push ni modifica credenciales. No usar push forzado.
 
 ```powershell
 Set-Location .publicacion/repositorio
 git status --short
-git diff -- README.md
-python Herramientas/Reproducibilidad/verificar_publicacion.py
-git add .
 git diff --cached --stat
-git diff --cached --check
-git commit -m "Prepara laboratorio V1 V2 reproducible y entrega intermedia"
+git commit -m "Integra bordes en Lite y simplifica la Release"
 git push origin main
 ```
 
-Si main cambió desde la clonación, resolver primero esa diferencia en el checkout;
-no usar push forzado. Los archivos nuevos aparecen en el diff después de git add.
-No se ha cambiado la identidad de Git ni sus credenciales.
+## Revisar el borrador y publicar
 
-## Publicar los archivos grandes
+1. Abrir Releases en https://github.com/vcanio/Capstone2026 y editar el borrador
+   con tag avance-2026-10-20, Target main.
+2. Usar el título **Walmart Lite V2 + bordes de Paulo** y la
+   [descripción preparada](Notas_Release_avance_20261020.md).
+3. En Assets conservar solo Walmart_Lite_V2_Bordes_20261020.zip. El ZIP local
+   preparado está en `.publicacion/releases/`. Esperar a que termine la carga.
+4. Mantener **This is a pre-release** por su carácter experimental y publicar.
+5. Descargar el ZIP publicado, extraerlo en una carpeta nueva y ejecutar
+   Walmart_Lite/iniciar.cmd. Probar una fotografía con cada método.
 
-En GitHub, abrir Releases y crear una nueva Release con tag
-`avance-2026-10-20`, apuntando al commit anterior. Título sugerido:
-“Avance intermedio y laboratorio reproducible V1 V2”.
+Los archivos Source code automáticos que añade GitHub son normales. No contienen
+los pesos y no sustituyen el ZIP portátil. No volver a utilizar el nombre del ZIP
+anterior con otro contenido; esta revisión tiene un nombre nuevo.
 
-La [descripción preparada de la Release](Notas_Release_avance_20261020.md)
-puede copiarse al campo de notas. Destaca Walmart Lite como descarga para probar
-fotos, y diferencia su alcance del panel completo con bordes de Paulo.
+## Paquetes del laboratorio, fuera de la Release
 
-Adjuntar TODOS los archivos de `.publicacion/releases/`:
+Los cuatro paquetes de datos, exportaciones, modelos/resultados e informe se
+conservan en `.publicacion/paquetes_desarrollo/`, junto con metadatos de integridad
+y copias históricas. Compartirlos por separado con los compañeros que desarrollan.
+No forman parte de la descarga para probar la app. El
+[preparador](Replicar_proyecto.md) los instala con --assets RUTA_A_LOS_ZIP.
 
-| Archivo | Contenido |
-|---|---|
-| Walmart_Datos_Fuentes_20261020.zip | Imágenes originales/sintéticas y evidencias binarias de los datos. |
-| Walmart_Datos_Exportados_20261020.zip | Exportaciones YOLO congeladas, con integridad y etiquetas. |
-| Walmart_Modelos_Resultados_20261020.zip | Best.pt, pesos generales, comparaciones y resultados visuales; herramienta uv verificada para regenerar Lite. |
-| Walmart_Lite_V2_20261020.zip | Demo autónoma con cuatro modelos V1/V2 base. |
-| Walmart_Informe_20261020.zip | PDF, Word y HTML del informe intermedio. |
-| artefactos.json | Versión, rutas, tamaños y hashes de los activos. |
-| SHA256SUMS.txt | Huellas SHA-256 de todos los archivos distribuidos. |
-
-Los nombres y el tag deben coincidir exactamente con
-[artefactos.json](../reproducibilidad/artefactos.json). Si se cambia el contenido de
-un ZIP, regenerar manifiesto y sumas antes de publicar. No reemplazar silenciosamente
-un activo publicado: crear otra versión y actualizar el manifiesto del código.
-
-El manifiesto y el preparador también admiten transferencia privada de esos ZIP:
-los compañeros pueden usar --assets sin esperar la publicación. La Release del
-repositorio actual será pública; revisar que esa sea la vía elegida para las imágenes.
-
-## Verificar desde otro equipo
-
-Seguir [Replicar el proyecto](Replicar_proyecto.md) en una carpeta nueva. Confirmar
-descarga, integridad, inicio CPU y ejemplo V2. La verificación local de una copia
-separada está en [VERIFICACION](../reproducibilidad/VERIFICACION.md); no sustituye la
-comprobación de descarga desde GitHub después de publicar los activos.
-
-## Regenerar la preparación desde el laboratorio
+Para regenerar la demo y actualizar el checkout desde el laboratorio:
 
 ```powershell
 python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2
-python Herramientas/Reproducibilidad/empaquetar_publicacion.py
-```
-
-El segundo comando requiere el checkout ya clonado en .publicacion/repositorio.
-Para actualizar solo código/documentación sin reconstruir activos:
-
-```powershell
 python Herramientas/Reproducibilidad/empaquetar_publicacion.py --solo-codigo
 ```
 
-No copiar la carpeta del laboratorio completa a Git. Los .env, accesos privados,
-fotos subidas, cachés, entornos, backups, ZIP y pesos se excluyen del historial.
+La regeneración completa de paquetes coloca los del laboratorio en
+paquetes_desarrollo y solo la demo en releases. Los pesos, ZIP, .env, accesos
+personales, entornos y fotos privadas siguen fuera del historial Git.

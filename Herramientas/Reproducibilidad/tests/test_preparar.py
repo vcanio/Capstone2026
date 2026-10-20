@@ -68,6 +68,11 @@ class ArchiveTests(unittest.TestCase):
         self.assertEqual((self.target / 'Entregables/Datos/foto.jpg').read_bytes(), self.body)
         prepare.verify_files(package, self.target)
 
+    def test_development_package_without_remote_url_requests_local_assets(self):
+        item = {'file': 'datos.zip', 'bytes': 1, 'sha256': '0' * 64}
+        with self.assertRaisesRegex(ValueError, 'Release pública contiene solo Walmart Lite'):
+            prepare.get_archive(item, None, self.target)
+
 
 if __name__ == '__main__':
     unittest.main()

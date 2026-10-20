@@ -1,0 +1,293 @@
+{
+  "estado": "correcto",
+  "photo": "lider_express_040_0_original.jpg",
+  "conf": 0.25,
+  "nms": 0.7,
+  "models": [
+    {
+      "model": "YOLO11-1",
+      "counts": {
+        "vacio": 0,
+        "baja_disponibilidad": 0,
+        "suficiente": 0,
+        "no_evaluable": 0
+      },
+      "device": "CPU",
+      "yolo_unchanged": true,
+      "sources": {
+        "ocupacion_paulo.py": "2cf3a0f4f53a1dc50f22d1dc631d61657b17efa04d2ebfc88d2efed0e7b666df",
+        "gondola_bordes.py": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+      },
+      "measurements": []
+    },
+    {
+      "model": "YOLO26-1",
+      "counts": {
+        "vacio": 0,
+        "baja_disponibilidad": 0,
+        "suficiente": 6,
+        "no_evaluable": 0
+      },
+      "device": "CPU",
+      "yolo_unchanged": true,
+      "sources": {
+        "ocupacion_paulo.py": "2cf3a0f4f53a1dc50f22d1dc631d61657b17efa04d2ebfc88d2efed0e7b666df",
+        "gondola_bordes.py": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+      },
+      "measurements": [
+        {
+          "id": 1,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 8.27,
+          "width_signal_pct": 22.22,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 221,
+          "reason": null
+        },
+        {
+          "id": 2,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 54.83,
+          "width_signal_pct": 91.43,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 278,
+          "reason": null
+        },
+        {
+          "id": 3,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 76.72,
+          "width_signal_pct": 93.1,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 269,
+          "reason": null
+        },
+        {
+          "id": 4,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 83.75,
+          "width_signal_pct": 100.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 311,
+          "reason": null
+        },
+        {
+          "id": 5,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 20.51,
+          "width_signal_pct": 40.74,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 281,
+          "reason": null
+        },
+        {
+          "id": 6,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 85.31,
+          "width_signal_pct": 100.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 340,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "model": "V2-YOLO11",
+      "counts": {
+        "reponer": 1,
+        "suficiente": 5
+      },
+      "device": "CPU",
+      "yolo_unchanged": true,
+      "sources": {
+        "ocupacion_paulo.py": "2cf3a0f4f53a1dc50f22d1dc631d61657b17efa04d2ebfc88d2efed0e7b666df",
+        "gondola_bordes.py": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+      },
+      "measurements": [
+        {
+          "id": 1,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 70.54,
+          "width_signal_pct": 100.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 283,
+          "reason": null
+        },
+        {
+          "id": 2,
+          "state": "reponer",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 15.85,
+          "width_signal_pct": 27.5,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 426,
+          "reason": null
+        },
+        {
+          "id": 3,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 100.0,
+          "width_signal_pct": 100.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 350,
+          "reason": null
+        },
+        {
+          "id": 4,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 38.56,
+          "width_signal_pct": 54.76,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 302,
+          "reason": null
+        },
+        {
+          "id": 5,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 79.6,
+          "width_signal_pct": 90.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 397,
+          "reason": null
+        },
+        {
+          "id": 6,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 22.34,
+          "width_signal_pct": 60.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 428,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "model": "V2-YOLO26",
+      "counts": {
+        "reponer": 1,
+        "suficiente": 4
+      },
+      "device": "CPU",
+      "yolo_unchanged": true,
+      "sources": {
+        "ocupacion_paulo.py": "2cf3a0f4f53a1dc50f22d1dc631d61657b17efa04d2ebfc88d2efed0e7b666df",
+        "gondola_bordes.py": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+      },
+      "measurements": [
+        {
+          "id": 1,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 63.82,
+          "width_signal_pct": 81.08,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 319,
+          "reason": null
+        },
+        {
+          "id": 2,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 87.0,
+          "width_signal_pct": 100.0,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 325,
+          "reason": null
+        },
+        {
+          "id": 3,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 86.87,
+          "width_signal_pct": 92.5,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 379,
+          "reason": null
+        },
+        {
+          "id": 4,
+          "state": "reponer",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 25.72,
+          "width_signal_pct": 78.57,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 416,
+          "reason": null
+        },
+        {
+          "id": 5,
+          "state": "suficiente",
+          "method": "paulo_mascara_v2_color_textura",
+          "status": "medido",
+          "area_signal_pct": 36.48,
+          "width_signal_pct": 65.12,
+          "mask_source": "yolo_raster",
+          "contour_warning": false,
+          "calibrated": false,
+          "valid_cells": 435,
+          "reason": null
+        }
+      ]
+    }
+  ],
+  "photos_saved": false
+}

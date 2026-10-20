@@ -34,7 +34,8 @@ class Parameters:
 
 @lru_cache(maxsize=1)
 def paulo():
-    source = ROOT / 'Experimentos/Bordes/gondola_bordes.py'
+    portable = Path(__file__).with_name('gondola_bordes.py')
+    source = portable if portable.is_file() else ROOT / 'Experimentos/Bordes/gondola_bordes.py'
     spec = importlib.util.spec_from_file_location('paulo_original', source)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -42,11 +43,14 @@ def paulo():
 
 
 def provenance():
-    files = [Path(__file__), ROOT / 'Experimentos/Bordes/gondola_bordes.py',
-             ROOT / 'Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py']
+    portable = Path(__file__).with_name('gondola_bordes.py')
+    base = Path(__file__).parent if portable.is_file() else ROOT
+    files = ([Path(__file__), portable] if portable.is_file() else
+             [Path(__file__), ROOT / 'Experimentos/Bordes/gondola_bordes.py',
+              ROOT / 'Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py'])
     return {'method': METHOD, 'parameters': asdict(Parameters()),
             'mask_policy': 'yolo_raster_v1',
-            'sources': {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
+            'sources': {p.relative_to(base).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
             'calibrated': False, 'changes_yolo_state': False,
             'meaning': 'Señal de bordes/color/textura; no porcentaje validado de producto ni confianza YOLO.'}
 

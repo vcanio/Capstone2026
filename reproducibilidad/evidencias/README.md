@@ -17,3 +17,10 @@ El alcance completo y los pendientes están en [VERIFICACION](../VERIFICACION.md
 
 Los JSON son registros de estas comprobaciones; no sustituyen ejecutarlas de
 nuevo en el computador del receptor ni la evaluación del conjunto completo.
+
+La [revisión autónoma con bordes](demo_lite_bordes_cpu.json) corresponde al ZIP
+nuevo de Walmart Lite: cuatro modelos en CPU, cada uno con y sin bordes sobre la
+misma fotografía. Conserva estados, conteos y confianzas YOLO; registra los hashes
+de los dos scripts portátiles y las mediciones experimentales. No se guardaron
+fotos ni mapas en el paquete. La interfaz se comprobó en 1280 px y 390 px, con
+los dos métodos y los tres mapas cargados; la página no presentó desborde horizontal.

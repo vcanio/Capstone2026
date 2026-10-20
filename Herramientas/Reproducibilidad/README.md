@@ -12,7 +12,8 @@ de entrenamiento que requiere las dependencias del laboratorio.
 
 La [guía para replicar](../../Documentacion/Replicar_proyecto.md) explica instalación,
 demostración y entrenamiento. La [guía para publicar](../../Documentacion/Publicar_GitHub.md)
-describe commit, push y carga manual de la Release. El manifiesto de activos está
+describe commit, push y la Release con un solo ZIP de Lite. Los paquetes del
+laboratorio se transfieren por separado y se instalan con --assets. El manifiesto de activos está
 en [reproducibilidad/artefactos.json](../../reproducibilidad/artefactos.json).
 El flujo diario de ramas, revisión y actualización está en
 [Trabajo en equipo](../../Documentacion/Trabajo_en_equipo.md).

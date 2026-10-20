@@ -10,6 +10,8 @@ SOURCE = ROOT / 'Herramientas/Demo_lite'
 FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instalar.cmd', 'iniciar.cmd',
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT')
+EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Herramientas/Modelos/ocupacion_paulo.py',
+              'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py'}
 RUNS = {'YOLO11-1': 'YOLO11-1_20261015_013749_f709', 'YOLO26-1': 'YOLO26-1_20261015_021212_c452'}
 V2_RUNS = {**RUNS, 'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
            'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
@@ -90,11 +92,17 @@ La confianza mínima predeterminada es 0,25. Puedes cambiarla en la siguiente ce
 Para probar el otro modelo, cambia el selector y vuelve a ejecutar esta celda. Para usar otra foto, repite la celda de carga y luego esta.
 ''')
     code('''confianza = 0.25
-prediccion = visor.analyze(contenido_foto, selector.value, confianza)
+usar_bordes = True  # False para ejecutar solo YOLO.
+prediccion = visor.analyze(contenido_foto, selector.value, confianza,
+                          method='yolo_paulo' if usar_bordes else 'yolo')
 print(f"{prediccion['model']} · {prediccion['device']} · {prediccion['seconds']} s")
 print('Niveles detectados:', len(prediccion['detections']))
 print('Estados:', prediccion['counts'])
 display(prediccion['image'])
+if usar_bordes:
+    print('Señal experimental de Paulo; no es porcentaje validado de producto.')
+    display(prediccion['occupancy_image'])
+    display(prediccion['edges_image'])
 ruta_resultado = Path('/content') / f"resultado_{prediccion['model']}.jpg"
 prediccion['image'].save(ruta_resultado, quality=92)
 ''')
@@ -131,10 +139,12 @@ def build(output, profile='v1'):
                        'sha256': hashlib.sha256(body).hexdigest(), 'bytes': len(body), 'source_run': run,
                        'classes': metadata['clases'], 'guide': 'v2 base' if model_id.startswith('V2-') else 'v1.3'})
         weights[f'modelos/{model_id}.pt'] = body
-    manifest = {'schema_version': 3, 'date': '2026-10-20' if profile == 'v2' else '2026-10-15',
+    manifest = {'schema_version': 4, 'date': '2026-10-20' if profile == 'v2' else '2026-10-15',
                 'guide': 'per_model', 'default_model': 'V2-YOLO26' if profile == 'v2' else 'YOLO26-1', 'ultralytics': '8.4.174',
                 'windows_setup': 'private_python_3.12_automatic',
-                'task': 'segment', 'purpose': 'inference_only', 'models': models}
+                'task': 'segment', 'purpose': 'inference_only', 'models': models,
+                'features': ['yolo', 'paulo_mascara_v2_color_textura'],
+                'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
     nb = json.dumps(notebook(output.name, manifest['default_model']), ensure_ascii=False, indent=2) + '\n'
     verify_name = 'VERIFICACION_V2.md' if profile == 'v2' else 'VERIFICACION.md'
     verify = (SOURCE / verify_name).read_text(encoding='utf-8') if (SOURCE / verify_name).exists() else 'Verificación de esta entrega pendiente.\n'
@@ -146,6 +156,8 @@ def build(output, profile='v1'):
             archive.writestr('Walmart_Lite/' + name, body)
         for name, body in weights.items():
             archive.writestr('Walmart_Lite/' + name, body)
+        for name, path in EDGE_FILES.items():
+            archive.writestr('Walmart_Lite/' + name, path.read_bytes())
         archive.writestr('Walmart_Lite/modelos.json', json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
         archive.writestr('Walmart_Lite/Probar_en_Colab.ipynb', nb)
         archive.writestr('Walmart_Lite/VERIFICACION.md', verify)
@@ -165,5 +177,5 @@ if __name__ == '__main__':
     parser.add_argument('--perfil', choices=('v1', 'v2'), default='v1')
     parser.add_argument('--output')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Lite_V2_20261020.zip' if args.perfil == 'v2' else 'Walmart_Lite_Automatico_20261015.zip'))
+    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Lite_V2_Bordes_20261020.zip' if args.perfil == 'v2' else 'Walmart_Lite_Automatico_20261015.zip'))
     print(json.dumps(build(output, args.perfil), ensure_ascii=False))

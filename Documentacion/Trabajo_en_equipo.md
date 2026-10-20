@@ -26,8 +26,8 @@ Merge integra los cambios. Pull descarga e integra las novedades de la rama actu
 | Demo portátil | Herramientas/Demo_lite/ | Rama y PR del código; regenerar ZIP al publicar una demo. |
 | Instalación y reproducción | Herramientas/Reproducibilidad/ | Rama y PR. |
 | Manuales o acuerdos | Documentacion/ y README.md | Rama y PR. |
-| Datos, etiquetas o ensayo nuevo | Datos/ o Experimentos/ con versión nueva | Metadatos pequeños por Git; binarios por Release. |
-| Fotos, pesos .pt y ZIP | Activos de una Release | No añadirlos al historial de Git. |
+| Datos, etiquetas o ensayo nuevo | Datos/ o Experimentos/ con versión nueva | Metadatos pequeños por Git; binarios compartidos aparte. |
+| Fotos, pesos .pt y ZIP | Paquetes compartidos aparte | Solo la demo portátil va en la Release pública. |
 
 No crear copias como `script_final_paulo_v3.py` para reemplazar un script existente.
 Modificar el original en la rama permite ver exactamente qué cambió y conservar
@@ -70,13 +70,13 @@ pedir autenticación mediante Git Credential Manager o el navegador.
 Preparar datos y modelos e iniciar en CPU:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
 ```
 
-Abrir **http://localhost:8090**. La descarga necesita que la Release
-`avance-2026-10-20` esté publicada. Antes de eso, recibir los siete archivos de
-`.publicacion/releases/` del mantenedor y usar su carpeta local:
+Abrir **http://localhost:8090**. Para desarrollar, recibir los paquetes de
+`.publicacion/paquetes_desarrollo/` del mantenedor y usar su carpeta local. La
+Release pública contiene solo la demo Lite, sus cuatro modelos y bordes:
 
 ```powershell
 python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
@@ -307,8 +307,9 @@ por qué y revisar más casos; acertar una imagen no demuestra generalización.
 
 ## 7. Datos, modelos y CVAT: cómo compartirlos
 
-**Código pequeño y documentación van por Git. Archivos grandes van por una
-Release. Anotaciones en curso se coordinan en el CVAT compartido.**
+**Código pequeño y documentación van por Git. Los paquetes grandes del
+laboratorio se comparten por separado. La Release pública contiene solo la demo
+con modelos y bordes. Las anotaciones se coordinan en el CVAT compartido.**
 
 ### Datos y anotaciones
 
@@ -327,7 +328,7 @@ final, sin usarlo para elegir umbrales o modelos.
 
 Usar una carpeta/identificador único, por ejemplo `paulo_yolo26_20261021_01`.
 Guardar configuración, versión de datos, entorno, métricas y conclusiones. El
-archivo best.pt y los resultados visuales grandes se distribuyen como activos;
+archivo best.pt y los resultados visuales grandes se comparten en paquetes del laboratorio;
 no añadir pesos al historial. No sobrescribir los cuatro ensayos conservados.
 
 El script `Herramientas/Reproducibilidad/repetir_ensayo.py` permite repetir un
@@ -335,13 +336,13 @@ ensayo congelado con otro nombre. Las opciones están en la guía de reproducci�
 Una ejecución con menos épocas sirve como prueba de funcionamiento, no como
 reproducción de las métricas del entrenamiento completo.
 
-### Qué hacen los compañeros al publicarse activos nuevos
+### Qué hacen los compañeros al recibir paquetes nuevos
 
 1. Actualizan main con pull para recibir el manifiesto correspondiente.
-2. Leen las instrucciones de esa versión y ejecutan el preparador:
+2. Reciben los ZIP correspondientes, leen las instrucciones y ejecutan el preparador:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 python Herramientas/Reproducibilidad/preparar.py --verificar
 ```
 
@@ -364,8 +365,9 @@ debe llegar al evaluador mediante Lite, regenerar y publicar otra entrega de la
 demo después de probarla.
 
 Para la primera entrega, el mantenedor sigue Documentacion/Publicar_GitHub.md:
-commit y push del checkout preparado, Release con tag `avance-2026-10-20` y los
-siete archivos preparados en `.publicacion/releases/` del laboratorio original.
+commit y push del checkout preparado y Release con tag `avance-2026-10-20`.
+Solo adjunta Walmart_Lite_V2_Bordes_20261020.zip de `.publicacion/releases/`;
+los paquetes del laboratorio quedan en `.publicacion/paquetes_desarrollo/`.
 El PDF de esta guía y su fuente Markdown se incluyen en el código del repositorio.
 
 Para entregas posteriores, definir un tag nuevo y activos coherentes con esa
@@ -373,7 +375,8 @@ versión. Actualizar nombres, URLs y hashes del manifiesto antes de integrar el 
 de publicación. No reemplazar un ZIP publicado bajo el mismo nombre/tag con
 contenido distinto. El empaquetador permite indicar `--tag`, pero los nombres de
 esta entrega están fijados por fecha: revisar y adaptar el empaquetado para la
-siguiente versión. El PR debe contener el manifiesto y la documentación final.
+siguiente versión. Mantener la Release enfocada en probar la aplicación. El PR
+debe contener el manifiesto y la documentación final.
 Crear la Release apuntando al commit aprobado y probar su descarga desde un clon
 nuevo. Si los datos necesitan distribución privada, acordar el canal autorizado
 y usar `--assets`; no adjuntarlos a una Release pública.

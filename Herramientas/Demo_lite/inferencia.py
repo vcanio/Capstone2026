@@ -116,6 +116,14 @@ class ModelRunner:
         self.models = {}
         self.manifest = json.loads((self.root / 'modelos.json').read_text(encoding='utf-8'))
         self.entries = {item['id']: item for item in self.manifest['models']}
+        if 'edge_sources' in self.manifest:
+            sources = self.manifest['edge_sources']
+            if set(sources) != {'ocupacion_paulo.py', 'gondola_bordes.py'}:
+                raise ValueError('El manifiesto de bordes no corresponde a este paquete.')
+            for name, expected in sources.items():
+                path = self.root / name
+                if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                    raise ValueError('El análisis de bordes está incompleto o modificado. Extrae otra vez el ZIP.')
         for entry in self.entries.values():
             path = (self.root / entry['file']).resolve()
             if not path.is_relative_to(self.root / 'modelos') or not path.is_file():
@@ -139,15 +147,20 @@ class ModelRunner:
             models.append(value)
         return models
 
-    def analyze(self, body, model_id='YOLO26-1', confidence=0.25):
+    def analyze(self, body, model_id='YOLO26-1', confidence=0.25, method='yolo'):
         if model_id not in self.entries:
             raise ValueError('Elige uno de los modelos incluidos.')
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:
             raise ValueError('La confianza debe estar entre 0,01 y 0,99.')
+        if method not in ('yolo', 'yolo_paulo'):
+            raise ValueError('Elige YOLO o YOLO + bordes de Paulo.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
             image = read_photo(body)
+            if method == 'yolo_paulo':
+                import numpy as np
+                original_rgb = np.asarray(image).copy()
             # No external experiment trackers or downloads are required to predict.
             os.environ.setdefault('YOLO_AUTOINSTALL', 'false')
             import torch
@@ -164,10 +177,40 @@ class ModelRunner:
             result = self.models[model_id].predict(image, imgsz=640, conf=float(confidence), iou=.7,
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
+            extra = {}
+            if method == 'yolo_paulo':
+                extra = analyze_edges(original_rgb, result, detections)
             counts = Counter(d['state'] for d in detections)
             return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
                     'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
                     'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
-                    'width': image.width, 'height': image.height}
+                    'width': image.width, 'height': image.height, 'method': method, **extra}
         finally:
             self.lock.release()
+
+
+def analyze_edges(original_rgb, result, detections):
+    """Reutiliza el algoritmo de Paulo sin dibujar sobre la entrada ni guardar fotos."""
+    # En el ZIP ambos archivos se copian junto a inferencia.py. En el laboratorio
+    # se usa el mismo módulo de Modelos; no se mantiene otra implementación.
+    try:
+        from ocupacion_paulo import Analyzer, provenance
+    except ModuleNotFoundError as error:
+        if error.name != 'ocupacion_paulo':
+            raise
+        import importlib.util
+        import sys
+        path = Path(__file__).resolve().parents[1] / 'Modelos/ocupacion_paulo.py'
+        spec = importlib.util.spec_from_file_location('ocupacion_paulo', path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        Analyzer, provenance = module.Analyzer, module.provenance
+    analyzer = Analyzer(original_rgb)
+    masks = result.masks.data.cpu().numpy() if result.masks is not None else []
+    for index, detection in enumerate(detections):
+        mask = (masks[index] > .5).astype('uint8') if index < len(masks) else None
+        detection['occupancy'] = analyzer.analyze(mask, state=detection['state'])
+    return {'occupancy': provenance(), 'occupancy_image': Image.fromarray(analyzer.overlay()),
+            'edges_image': Image.fromarray(analyzer.edges),
+            'filtered_edges_image': Image.fromarray(analyzer.filtered_edges)}

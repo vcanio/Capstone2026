@@ -97,7 +97,10 @@ def get_archive(package, assets, cache):
         cache.mkdir(parents=True, exist_ok=True)
         source = cache / package['file']
         if not source.is_file() or digest(source) != package['sha256']:
-            url = package['url']
+            url = package.get('url')
+            if not url:
+                raise ValueError(f'El paquete {package["file"]} se distribuye por separado para desarrollo. '
+                                 'Usa --assets RUTA_A_LOS_ZIP; la Release pública contiene solo Walmart Lite.')
             parsed = urlparse(url)
             if parsed.scheme != 'https' or parsed.hostname != 'github.com':
                 raise ValueError('La descarga debe partir de GitHub por HTTPS.')
@@ -152,7 +155,7 @@ def main(argv=None):
             (ROOT / '.config-modelo').mkdir(exist_ok=True)
             (ROOT / 'Experimentos/panel_pruebas').mkdir(parents=True, exist_ok=True)
     except (ValueError, OSError, KeyError, zipfile.BadZipFile) as error:
-        parser.exit(1, f'Error: {error}\nSi la Release aún no está publicada, usa --assets RUTA_A_LOS_ZIP.\n')
+        parser.exit(1, f'Error: {error}\nPara paquetes de desarrollo o una Release aún no publicada, usa --assets RUTA_A_LOS_ZIP.\n')
 
 
 if __name__ == '__main__':

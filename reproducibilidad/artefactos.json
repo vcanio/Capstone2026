@@ -2,7 +2,7 @@
   "schema_version": 1,
   "version": "avance-2026-10-20",
   "repository": "vcanio/Capstone2026",
-  "publication": "Publicar los activos junto con el tag antes de usar la descarga remota.",
+  "publication": "Release pública: solo Walmart Lite. Paquetes del laboratorio: distribución separada con --assets.",
   "packages": {
     "datos_fuentes": {
       "file": "Walmart_Datos_Fuentes_20261020.zip",
@@ -2545,7 +2545,7 @@
           "sha256": "9f21a1c8bcdf58d62d8143882623dc2f8e6284c634ca576d29adb54f11a3900c"
         }
       ],
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Datos_Fuentes_20261020.zip"
+      "distribution": "team_assets"
     },
     "datos_exportados": {
       "file": "Walmart_Datos_Exportados_20261020.zip",
@@ -5183,7 +5183,7 @@
           "sha256": "2035cab7f9a5ebcb16bd363109ee858801916a2d49d6f3bacf4c1bf4bcd541b6"
         }
       ],
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Datos_Exportados_20261020.zip"
+      "distribution": "team_assets"
     },
     "modelos_resultados": {
       "file": "Walmart_Modelos_Resultados_20261020.zip",
@@ -25091,7 +25091,7 @@
           "sha256": "4075a09490327d2bedfacc807fa48252fb93647c5bd7ef28f00e579160ea3fb5"
         }
       ],
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Modelos_Resultados_20261020.zip"
+      "distribution": "team_assets"
     },
     "informe": {
       "file": "Walmart_Informe_20261020.zip",
@@ -25114,27 +25114,27 @@
           "sha256": "ee5bc28cfd832140a20012ad2d6b8ecb3a8c0f820493aa74981915e16519dc6e"
         }
       ],
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Informe_20261020.zip"
+      "distribution": "team_assets"
     },
     "demo": {
-      "file": "Walmart_Lite_V2_20261020.zip",
-      "bytes": 37459668,
-      "sha256": "0d41c9e5b8388a312bfb48aedf588e9a4aa5085801587316e2f10a117d514b5c",
+      "file": "Walmart_Lite_V2_Bordes_20261020.zip",
+      "bytes": 37471063,
+      "sha256": "1d99c0c3f19e85bfdc2edd0887c5906f2d104875973880c103133ff6b294c007",
       "files": [
         {
           "path": "Walmart_Lite/app.py",
-          "bytes": 5592,
-          "sha256": "110b6bef0c7af9913d12503d31321048c055dd2f2ac9ba9c58e0f1ac731c2b63"
+          "bytes": 6016,
+          "sha256": "b5f785683d52f7cd9f23e02bd7e66ffd743112858cf7477d58c8c79a99f48dc0"
         },
         {
           "path": "Walmart_Lite/inferencia.py",
-          "bytes": 9664,
-          "sha256": "56e0f952cf7b3e412acef21152e8f673c69dc043f91731e31fd55549edd38b5c"
+          "bytes": 12112,
+          "sha256": "026419ca1dc3b27adb00c9b33ca0c5fce74150518fef633116762c876a428de2"
         },
         {
           "path": "Walmart_Lite/interfaz.html",
-          "bytes": 17719,
-          "sha256": "c65fbc31fb8d7a0768135b5df0ca9fb9210e8eff2e1f8b6473c77cc4f8419bf8"
+          "bytes": 20619,
+          "sha256": "be9b5ee5f5677f1c273fcb9411ff28658bba711623ce685036b62a2223070132"
         },
         {
           "path": "Walmart_Lite/requirements.txt",
@@ -25158,13 +25158,13 @@
         },
         {
           "path": "Walmart_Lite/preparar.py",
-          "bytes": 4846,
-          "sha256": "177392d9b6b665dfab8a8c0de20465d4c76af5e8e0485b608bf05f3412797003"
+          "bytes": 5038,
+          "sha256": "f4c37454e9a3ff142adc097f352ec24b1e0a8e13270afa6d15e584ab538846d3"
         },
         {
           "path": "Walmart_Lite/LEEME.md",
-          "bytes": 6526,
-          "sha256": "621f0589c55c9f6ddebbf57cd205162d98ce9ced79f1e66ddfb4e2740280285b"
+          "bytes": 7229,
+          "sha256": "3827d5220dd0ef45d2460954021a6f62d1baaafd193da2987cd6ca9353d2ceed"
         },
         {
           "path": "Walmart_Lite/herramientas/uv.exe",
@@ -25207,23 +25207,33 @@
           "sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67"
         },
         {
+          "path": "Walmart_Lite/ocupacion_paulo.py",
+          "bytes": 8361,
+          "sha256": "2cf3a0f4f53a1dc50f22d1dc631d61657b17efa04d2ebfc88d2efed0e7b666df"
+        },
+        {
+          "path": "Walmart_Lite/gondola_bordes.py",
+          "bytes": 16969,
+          "sha256": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+        },
+        {
           "path": "Walmart_Lite/modelos.json",
-          "bytes": 1870,
-          "sha256": "e501bfac7adc103c8ea6f0c358eaebacbf35f9b3f201001e8ff635824c651f0a"
+          "bytes": 2151,
+          "sha256": "4a11682f121b18a3ff10c990cf5a5e8082565d13a3dd38dc93ed2c948aaf51e0"
         },
         {
           "path": "Walmart_Lite/Probar_en_Colab.ipynb",
-          "bytes": 6228,
-          "sha256": "a14c71eec2a7134223ccda1141ba338daa70571adda0e1fb7f145d2d4587f2d6"
+          "bytes": 6620,
+          "sha256": "f6428b7c20909a7d6bfe19976e3ef1f64e3fcc1824ca512c6b59c20097a47d3a"
         },
         {
           "path": "Walmart_Lite/VERIFICACION.md",
-          "bytes": 779,
-          "sha256": "ef57dcbbcfaac87e3b3519733a7063a49197f818f745d73c4091595a9258c1eb"
+          "bytes": 1538,
+          "sha256": "f9b468ac33bca05dd9d382e6188fd1d75c3cd4607f0d4c243f80029bbf4f91b4"
         }
       ],
       "destination": "Entregables",
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_20261020.zip"
+      "url": "https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_Bordes_20261020.zip"
     }
   }
 }

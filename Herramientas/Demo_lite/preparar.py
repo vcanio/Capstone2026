@@ -34,6 +34,10 @@ def fingerprint():
     for name in ('preparar.py', 'requirements.txt', 'app.py', 'inferencia.py', 'modelos.json'):
         digest.update(name.encode())
         digest.update((ROOT / name).read_bytes())
+    for name in ('ocupacion_paulo.py', 'gondola_bordes.py'):
+        if (ROOT / name).is_file():
+            digest.update(name.encode())
+            digest.update((ROOT / name).read_bytes())
     return digest.hexdigest()
 
 

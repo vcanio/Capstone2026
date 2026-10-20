@@ -2,24 +2,24 @@
 
 Laboratorio del proyecto Capstone DUOC UC para localizar niveles de góndola y clasificar su disponibilidad visual en fotografías. Equipo: Vicente Canio, Paulo Guerra y Vicente Vilches. Docente: Arturo Vargas. Contraparte: José Larraín.
 
-**Entrega reproducible:** `avance-2026-10-20`, con dos modelos V1 y dos V2 base. Código y metadatos en Git; datos, pesos y documentos grandes en activos de la misma Release. La descarga remota requiere que esa Release haya sido publicada.
+**Release para probar modelos:** `avance-2026-10-20`, con un único ZIP de Walmart Lite, cuatro modelos y bordes de Paulo. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
 
 ## Empezar desde otro computador
 
-Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; usa Python privado y CPU. V2 base distingue reponer y suficiente, y no reconoce no evaluable.
+Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Lite_V2_Bordes_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/avance-2026-10-20), extraer todo y ejecutar `Walmart_Lite/iniciar.cmd`. El primer inicio requiere Internet; usa Python privado y CPU. V2 base distingue reponer y suficiente, y no reconoce no evaluable.
 
 ### Walmart Lite en la Release
 
 El activo para quienes solo quieren probar la aplicación es
-[Walmart_Lite_V2_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_20261020.zip)
+[Walmart_Lite_V2_Bordes_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/avance-2026-10-20/Walmart_Lite_V2_Bordes_20261020.zip)
 (aproximadamente 36 MiB). Incluye los cuatro modelos y el visor local. Funciona
 en Windows x64 sin instalar previamente Python, Docker o CVAT; en el primer
 inicio descarga Python y las dependencias. Después, las fotos se analizan
 localmente en CPU y no se guardan.
 
-**Alcance de esta demo:** detección/segmentación y estados con YOLO. El análisis
-experimental de bordes, color y textura de Paulo está en el panel completo,
-descrito más abajo. El archivo “Source code (zip)” generado por GitHub contiene
+**Alcance de esta demo:** detección/segmentación y estados con YOLO, y análisis
+experimental de bordes, color y textura de Paulo. Se puede elegir el método de
+análisis y ver sus mapas dentro de la misma aplicación. El archivo “Source code (zip)” generado por GitHub contiene
 el código del repositorio; para ejecutar Lite hay que descargar el activo con
 el nombre indicado arriba.
 
@@ -30,11 +30,11 @@ Para **desarrollar, evaluar o entrenar**, instalar Git, Python 3.11/3.12 y Docke
 ```powershell
 git clone https://github.com/vcanio/Capstone2026.git
 cd Capstone2026
-python Herramientas/Reproducibilidad/preparar.py
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
 ```
 
-Abrir http://localhost:8090. El preparador verifica hashes y conserva rutas y particiones. El inicio base no requiere tu cuenta ni los archivos privados del CVAT original. Para preparar sin descargas remotas, usar `--assets RUTA_A_LOS_ZIP`.
+Abrir http://localhost:8090. Solicitar primero los paquetes de desarrollo al responsable del equipo. El preparador verifica hashes y conserva rutas y particiones. El inicio base no requiere tu cuenta ni los archivos privados del CVAT original. Para preparar sin descargas remotas, usar `--assets RUTA_A_LOS_ZIP`.
 
 - [Instalación completa, ejemplo y repetición de entrenamientos](Documentacion/Replicar_proyecto.md).
 - [Guía de commit, push y publicación de los activos](Documentacion/Publicar_GitHub.md).
@@ -44,7 +44,7 @@ Abrir http://localhost:8090. El preparador verifica hashes y conserva rutas y pa
 
 ## Informe intermedio
 
-El informe histórico del 20 de octubre contiene 20 casos visuales y las limitaciones de la evaluación. Descargar `Walmart_Informe_20261020.zip` de la Release o instalarlo con `python Herramientas/Reproducibilidad/preparar.py --paquetes informe`.
+El informe histórico del 20 de octubre contiene 20 casos visuales y las limitaciones de la evaluación. El equipo lo distribuye por separado en `Walmart_Informe_20261020.zip`; puede instalarse con `python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe`.
 
 - [Fuente Markdown](Documentacion/Informe_Intermedio_Avance_20261020.md).
 - Versiones locales después de preparar: [PDF](Entregables/Informe_Intermedio_Avance_20261020.pdf), [Word](Entregables/Informe_Intermedio_Avance_20261020.docx) y [HTML](Entregables/Informe_Intermedio_Avance_20261020.html).
@@ -185,7 +185,7 @@ Entregables/       PDF, Word, HTML y demo portátil
 
 Se requiere Windows x64 con PowerShell y Docker Desktop para los comandos de inicio. El entorno de entrenamiento conservado usa Python 3.11; los scripts locales admiten Python 3.11/3.12. La GPU NVIDIA requiere acceso desde Docker; el modo CPU evita ese requisito. No se certifica aquí un límite de RAM/VRAM ni la latencia en hardware externo.
 
-Un clon del código necesita también las imágenes, versiones exportadas y pesos de los ensayos. El manifiesto reproducibilidad/artefactos.json fija las descargas de la Release. Antes de publicarla, se puede usar --assets con los ZIP transferidos. No se distribuyen credenciales del equipo. CVAT es opcional para ejecutar pesos y versiones ya exportadas.
+Un clon del código necesita también las imágenes, versiones exportadas y pesos de los ensayos. El manifiesto reproducibilidad/artefactos.json fija los hashes y la descarga de la demo. Los ZIP de datos, pesos/resultados e informe se transfieren por separado y se instalan con --assets. No se distribuyen credenciales del equipo. CVAT es opcional para ejecutar pesos y versiones ya exportadas.
 
 ### Preparar Python local
 
@@ -220,7 +220,7 @@ El [registro de verificación del informe](Documentacion/Evidencias/verificacion
 
 ### Demo portátil y regeneración del informe
 
-La nueva entrega es `Walmart_Lite_V2_20261020.zip`, con los cuatro modelos V1/V2 base; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. El ZIP del 15 de octubre conserva su alcance histórico V1. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md). La demo Lite no incluye todavía el análisis de bordes de Paulo.
+La nueva entrega es `Walmart_Lite_V2_Bordes_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de bordes de Paulo; extraerla y ejecutar `Walmart_Lite/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía](Herramientas/Demo_lite/LEEME.md) y [verificación V2](Herramientas/Demo_lite/VERIFICACION_V2.md).
 
 Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
 

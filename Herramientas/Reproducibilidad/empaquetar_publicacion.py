@@ -84,6 +84,7 @@ def main():
         print(f'Código actualizado: {len(copy_code(args.git, checkout))} archivos. Sin commit ni push.', flush=True)
         return
     release = out / 'releases';release.mkdir(exist_ok=True)
+    development = out / 'paquetes_desarrollo';development.mkdir(exist_ok=True)
     packages = {}
     data = files_under(ROOT / 'Datos')
     sources = [f for f in data if 'exportaciones' not in f.parts and f.suffix.lower() in ('.jpg', '.jpeg', '.png', '.webp', '.xlsx')]
@@ -100,9 +101,9 @@ def main():
         ('informe', 'Walmart_Informe_20261020.zip', reports),
     ]:
         print(f'Empaquetando {key}: {len(selected)} archivos...', flush=True)
-        packages[key] = archive(release / name, selected)
+        packages[key] = archive(development / name, selected)
         print(f'{name}: {packages[key]["bytes"] / 1024**2:.1f} MiB.', flush=True)
-    lite = ROOT / 'Entregables/Walmart_Lite_V2_20261020.zip'
+    lite = ROOT / 'Entregables/Walmart_Lite_V2_Bordes_20261020.zip'
     shutil.copy2(lite, release / lite.name)
     # El ZIP de la demo es independiente; el preparador lo instala en Entregables.
     with zipfile.ZipFile(lite) as z:
@@ -110,16 +111,15 @@ def main():
                            sha256=hashlib.sha256(z.read(i)).hexdigest()) for i in z.infolist()]
     packages['demo'] = dict(file=lite.name, bytes=(release / lite.name).stat().st_size,
                            sha256=digest(release / lite.name), files=demo_files, destination='Entregables')
-    for value in packages.values():
-        value['url'] = f'https://github.com/vcanio/Capstone2026/releases/download/{quote(args.tag)}/{value["file"]}'
+    packages['demo']['url'] = f'https://github.com/vcanio/Capstone2026/releases/download/{quote(args.tag)}/{lite.name}'
     manifest = dict(schema_version=1, version=args.tag, repository='vcanio/Capstone2026',
-                    publication='Publicar los activos junto con el tag antes de usar la descarga remota.', packages=packages)
+                    publication='Release pública: solo Walmart Lite. Paquetes de desarrollo: distribución separada con --assets.', packages=packages)
     manifest_path = ROOT / 'reproducibilidad/artefactos.json'
     manifest_path.parent.mkdir(exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    shutil.copy2(manifest_path, release / 'artefactos.json')
-    sums = ''.join(f'{digest(f)}  {f.name}\n' for f in sorted(release.iterdir()) if f.is_file() and f.name != 'SHA256SUMS.txt')
-    (release / 'SHA256SUMS.txt').write_text(sums, encoding='utf-8')
+    shutil.copy2(manifest_path, development / 'artefactos.json')
+    sums = ''.join(f'{digest(f)}  {f.name}\n' for f in sorted(development.iterdir()) if f.is_file() and f.name != 'SHA256SUMS.txt')
+    (development / 'SHA256SUMS.txt').write_text(sums, encoding='utf-8')
     copied = copy_code(args.git, checkout)
     (out / 'resumen.json').write_text(json.dumps(dict(checkout=str(checkout), release=str(release),
         archivos_codigo=len(copied), packages={k:{a:b for a,b in v.items() if a != 'files'} for k,v in packages.items()}), indent=2),encoding='utf-8')

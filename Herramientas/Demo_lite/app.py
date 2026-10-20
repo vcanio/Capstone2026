@@ -62,13 +62,19 @@ class Handler(BaseHTTPRequestHandler):
             default_model = getattr(self.server.runner, 'manifest', {}).get('default_model', 'YOLO26-1')
             model = params.get('model', [default_model])[0]
             confidence = float(params.get('confidence', ['0.25'])[0])
+            method = params.get('method', ['yolo'])[0]
             body = self.rfile.read(length)
             if len(body) != length:
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
-            prediction = self.server.runner.analyze(body, model, confidence)
+            prediction = self.server.runner.analyze(body, model, confidence, method)
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=92)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
+            for field in ('occupancy_image', 'edges_image', 'filtered_edges_image'):
+                if field in prediction:
+                    buffer = BytesIO()
+                    prediction.pop(field).save(buffer, format='PNG')
+                    prediction[field + '_url'] = 'data:image/png;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
             self.send(prediction)
         except BusyError as error:
             self.send({'error': str(error)}, 409)
