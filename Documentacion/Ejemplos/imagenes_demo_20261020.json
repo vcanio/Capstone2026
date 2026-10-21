@@ -1,0 +1,149 @@
+{
+  "version": "2026-10-20",
+  "zip": "Walmart_Vision_Imagenes_Demo_20261020.zip",
+  "uso": "demostracion; no evaluacion independiente",
+  "modelo_recomendado": "V2-YOLO26",
+  "confianza": 0.25,
+  "reserva_final_incluida": false,
+  "fuente_resultados_historicos": "Documentacion/Evidencias/casos_informe_20261020.json",
+  "nota": "Las variantes sinteticas son ediciones con IA de fotos reales. Se conservan las particiones. Los estados son referencias anotadas, no predicciones garantizadas. No se han vuelto a ejecutar modelos para esta seleccion.",
+  "imagenes": [
+    {
+      "archivo": "reales/lider_express_015_0_original.jpg",
+      "origen": "real",
+      "familia": "lider_express_015",
+      "uso_datos": "val_real",
+      "fuente": "Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images/val/lider_express_015_0_original.jpg",
+      "bytes": 4759344,
+      "sha256": "6784b1e810be3a5ce236820c8c39da2f863cfb42208564480ff070698c8886b7",
+      "dimensiones": [
+        3000,
+        4000
+      ],
+      "referencia_niveles": {
+        "suficiente": 6
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 56,
+      "resultado_historico_V2_YOLO26": {
+        "predichos": 6,
+        "omitidos": 0,
+        "falsos_positivos": 0,
+        "estados_predichos": {
+          "suficiente": 6
+        }
+      }
+    },
+    {
+      "archivo": "reales/lider_express_040_0_original.jpg",
+      "origen": "real",
+      "familia": "lider_express_040",
+      "uso_datos": "val_real",
+      "fuente": "Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images/val/lider_express_040_0_original.jpg",
+      "bytes": 4368792,
+      "sha256": "dcb63e333e6095ecda7ef1eb9b114c5a2d57481ae0cbb0356c7b9523692a6745",
+      "dimensiones": [
+        3000,
+        4000
+      ],
+      "referencia_niveles": {
+        "suficiente": 4,
+        "reponer": 1
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 156,
+      "resultado_historico_V2_YOLO26": {
+        "predichos": 5,
+        "omitidos": 0,
+        "falsos_positivos": 0,
+        "estados_predichos": {
+          "suficiente": 4,
+          "reponer": 1
+        }
+      }
+    },
+    {
+      "archivo": "reales/lider_express_042_0_original.jpg",
+      "origen": "real",
+      "familia": "lider_express_042",
+      "uso_datos": "val_real",
+      "fuente": "Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images/val/lider_express_042_0_original.jpg",
+      "bytes": 4198607,
+      "sha256": "a709188246355688c5e73525c8ab886eb4297a5cd50b89e4631d535b2e08626f",
+      "dimensiones": [
+        3000,
+        4000
+      ],
+      "referencia_niveles": {
+        "suficiente": 3
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 164,
+      "resultado_historico_V2_YOLO26": {
+        "predichos": 6,
+        "omitidos": 1,
+        "falsos_positivos": 4,
+        "estados_predichos": {
+          "suficiente": 6
+        }
+      }
+    },
+    {
+      "archivo": "sinteticas/lider_express_014_A_vacios.png",
+      "origen": "sintetica",
+      "familia": "lider_express_014",
+      "uso_datos": "val_sintetica_diagnostico",
+      "fuente": "Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_014_A_vacios.png",
+      "bytes": 2678460,
+      "sha256": "5d7861752ff7378e87f313d82b9466c615f89f1a2afc5a915c683e39003ee8e1",
+      "dimensiones": [
+        1086,
+        1448
+      ],
+      "referencia_niveles": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 53
+    },
+    {
+      "archivo": "sinteticas/lider_express_026_B_baja.png",
+      "origen": "sintetica",
+      "familia": "lider_express_026",
+      "uso_datos": "val_sintetica_diagnostico",
+      "fuente": "Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_026_B_baja.png",
+      "bytes": 2487591,
+      "sha256": "60c9b7f9213d0723ae219657735029d1f0b6825c19181cba7c9c066126c8d479",
+      "dimensiones": [
+        1086,
+        1448
+      ],
+      "referencia_niveles": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 102
+    },
+    {
+      "archivo": "sinteticas/lider_express_040_C_mixta.png",
+      "origen": "sintetica",
+      "familia": "lider_express_040",
+      "uso_datos": "val_sintetica_diagnostico",
+      "fuente": "Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_040_C_mixta.png",
+      "bytes": 2156125,
+      "sha256": "4031a966cf80709ea061113c188b6f015cb021d352859c3689ff4c16be1535a8",
+      "dimensiones": [
+        1086,
+        1448
+      ],
+      "referencia_niveles": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "fuente_referencia": "Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json",
+      "frame_referencia": 159
+    }
+  ]
+}

@@ -22,6 +22,20 @@ Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bord
 
 Los archivos Source code añadidos automáticamente por GitHub no contienen los pesos ni sustituyen el ZIP. No reutilizar el nombre de un activo publicado con contenido distinto. La aplicación mantiene su carácter de prototipo y sus límites se explican en las notas.
 
+## Añadir el conjunto de imágenes de demostración
+
+Se preparó una selección confirmada de **tres fotos reales y tres variantes sintéticas**, documentada en [Imágenes para probar Visión](Imagenes_de_prueba.md). Es una excepción limitada a esas seis imágenes; el dataset completo sigue distribuyéndose por separado. El ZIP de la aplicación publicado conserva su contenido.
+
+Desde el laboratorio con las fuentes disponibles, ejecutar:
+
+```powershell
+python Herramientas/Reproducibilidad/empaquetar_imagenes_demo.py
+```
+
+El script comprueba las seis fuentes declaradas y crea `.publicacion/releases/Walmart_Vision_Imagenes_Demo_20261020.zip`, con su SHA-256 al lado. El ZIP contiene las carpetas `reales` y `sinteticas`, un LEEME y el manifiesto de procedencia. No incluye pesos, credenciales, el dataset completo ni imágenes de la reserva final. Una copia nueva del código necesita las fuentes de desarrollo para regenerarlo; el usuario solo necesita descargar el ZIP resultante.
+
+Tras revisar y subir el commit de documentación, adjuntar ese ZIP como activo adicional a la Release `walmart-vision-2026-10-20`. Publicar también el SHA-256 en sus notas. Comprobar la descarga y actualizar el estado de distribución en README, índice de documentación y guías de uso. Los nuevos ejemplos no están publicados por el simple hecho de hacer push del código; requieren adjuntar el archivo a la Release. No reemplazar el ZIP de la aplicación ni reutilizar el nombre del ZIP de ejemplos para un contenido distinto.
+
 ## Paquetes del laboratorio
 
 Los paquetes de datos, exportaciones, modelos/resultados e informe permanecen en `.publicacion/paquetes_desarrollo/`, con metadatos de integridad y copias históricas. Compartirlos por separado para desarrollar; el [preparador](Replicar_proyecto.md) los instala con `--assets RUTA_A_LOS_ZIP`. No incluir en Git pesos, ZIP, entornos, fotografías, archivos .env ni accesos personales.

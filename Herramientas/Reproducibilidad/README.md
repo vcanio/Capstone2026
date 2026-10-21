@@ -9,6 +9,7 @@ de entrenamiento que requiere las dependencias del laboratorio.
 | verificar_publicacion.py | Auditar el checkout Git antes de descargar archivos grandes. |
 | repetir_ensayo.py | Repetir V1 o V2 base en una carpeta nueva usando su copia congelada y sin consultar CVAT/test. |
 | empaquetar_publicacion.py | Preparar el checkout y los activos desde el laboratorio del mantenedor. No hace commit ni push. |
+| empaquetar_imagenes_demo.py | Preparar el ZIP separado de las seis imágenes reales/sintéticas seleccionadas, comprobando hashes y sin publicarlo. |
 
 La [guía para replicar](../../Documentacion/Replicar_proyecto.md) explica instalación,
 demostración y entrenamiento. La [guía para publicar](../../Documentacion/Publicar_GitHub.md)

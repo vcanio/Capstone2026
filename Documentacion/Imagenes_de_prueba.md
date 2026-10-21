@@ -1,0 +1,33 @@
+# Imágenes para probar Walmart Visión
+
+El conjunto **Walmart_Vision_Imagenes_Demo_20261020.zip** combina tres fotografías reales y tres variantes sintéticas del proyecto. Permite probar disponibilidad suficiente, reposición, espacios vacíos, baja disponibilidad y un caso con errores conocidos del modelo.
+
+**Estado de distribución: paquete preparado; pendiente de adjuntarlo a la Release.** Cuando esté publicado, aparecerá como activo adicional en la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20). El ZIP de la aplicación permanece separado y no cambia.
+
+## Cómo usarlo
+
+1. Extraer el ZIP de ejemplos. La carpeta `Imagenes_demo` contiene `reales`, `sinteticas`, las instrucciones y el manifiesto de procedencia.
+2. Iniciar Walmart Visión, elegir **V2 → V2-YOLO26**, confianza **0,25** y **Solo YOLO**.
+3. Cargar una imagen de cualquiera de las dos carpetas y pulsar **Analizar foto**.
+4. Comparar visualmente el resultado con la referencia de la tabla. Probar después **YOLO + detección de bordes** para revisar sus mapas; la señal experimental no cambia el estado de YOLO.
+
+| Imagen | Origen | Referencia de los niveles anotados |
+|---|---|---|
+| `lider_express_015_0_original.jpg` | Real | 6 suficientes. Caso de disponibilidad suficiente. |
+| `lider_express_040_0_original.jpg` | Real | 4 suficientes y 1 reponer. Caso con faltante real. |
+| `lider_express_042_0_original.jpg` | Real | 3 suficientes en el tramo anotado. Caso para observar omisiones y detecciones en tramos vecinos. |
+| `lider_express_014_A_vacios.png` | Sintética | 4 suficientes y 2 reponer. Presenta dos niveles vaciados en la edición. |
+| `lider_express_026_B_baja.png` | Sintética | 2 suficientes y 3 reponer. Presenta niveles con pocos productos. |
+| `lider_express_040_C_mixta.png` | Sintética | 3 suficientes y 2 reponer. Combina un nivel vaciado y otro con disponibilidad baja. |
+
+V2 base reúne vacío y baja disponibilidad en `reponer`; no los muestra como categorías separadas. La referencia no garantiza que el modelo acierte. En los resultados históricos de V2-YOLO26, la foto 042 produjo seis detecciones, con un nivel de referencia omitido y cuatro predicciones sin correspondencia en el tramo anotado. Se incluye para mostrar esa limitación.
+
+## Procedencia y límites
+
+Las fotos reales se copian de la exportación orientada de validación V2. Las sintéticas son ediciones con IA de fotografías reales, identificadas como tales; no son nuevas capturas. Sus referencias se obtienen de las anotaciones conservadas de la tarea 19, no se deducen únicamente del nombre A/B/C.
+
+Las seis imágenes pertenecen al material de validación o diagnóstico sintético de validación. No se incorpora la reserva final ni se cambia ninguna partición. La foto real 040 y su variante sintética están relacionadas: no son ejemplos independientes. Este conjunto sirve para demostrar el recorrido de la aplicación; su selección pequeña y conocida no permite estimar precisión global.
+
+El [manifiesto de selección](Ejemplos/imagenes_demo_20261020.json) conserva hashes, procedencia, uso de los datos y referencias por imagen. Los bytes de las fuentes seleccionadas se copian sin modificar. La preparación del ZIP comprueba esos hashes y su integridad; no representa una nueva ejecución de los modelos ni una prueba de instalación en otro computador.
+
+Para instalar la aplicación, seguir [Usar Walmart Visión](Usar_Walmart_Vision.md).

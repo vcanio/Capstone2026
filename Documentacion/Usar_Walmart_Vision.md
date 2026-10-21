@@ -23,6 +23,12 @@ El iniciador prepara Python 3.12 y las bibliotecas dentro de la carpeta de la ap
 
 Cambiar foto, versión, modelo, método o confianza descarta la predicción anterior y requiere analizar de nuevo. Para terminar, pulsar Ctrl+C en la consola.
 
+## Probar con imágenes de ejemplo
+
+Se preparó un [ZIP de seis imágenes de demostración](Imagenes_de_prueba.md), separado de la aplicación y pendiente de publicación como activo adicional de la Release. Mezcla tres fotografías reales y tres variantes sintéticas para mostrar disponibilidad suficiente, faltantes, baja disponibilidad y errores conocidos. La guía indica qué imagen cargar y cuáles son sus estados de referencia.
+
+Una vez descargado, extraerlo y cargar los archivos de `Imagenes_demo/reales` o `Imagenes_demo/sinteticas` como cualquier otra fotografía. Empezar con **V2-YOLO26**, confianza **0,25** y **Solo YOLO**. Son ejemplos de validación y diagnóstico ya conocidos; no pertenecen a la reserva final ni permiten medir precisión independiente.
+
 ## Interpretar los resultados
 
 | Resultado | Qué significa |
