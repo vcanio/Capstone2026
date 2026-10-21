@@ -1,5 +1,7 @@
 # Guía para marcar niveles en CVAT
 
+> **Documento histórico · criterio V1 de cuatro estados.** Se conserva para interpretar los datos y modelos V1. Para el lote V2, consultar la [guía de Líder Express](Guia_anotacion_lider_express_20261016.md). Para probar fotografías con los modelos publicados, seguir [Usar Walmart Visión](Usar_Walmart_Vision.md). Véase el [índice histórico](Historico.md).
+
 **Versión 1.3 · 14 de octubre de 2026 · Jobs 36, 37 y 38**
 
 ## 1. Qué marcar

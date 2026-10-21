@@ -1,0 +1,26 @@
+# Resúmenes públicos de las comprobaciones
+
+Esta carpeta conserva resultados compactos y figuras que respaldan la documentación. Los registros describen la fecha en que se hicieron las comprobaciones; no acreditan una nueva ejecución ni el estado actual de un servicio remoto.
+
+| Evidencia pública | Alcance |
+|---|---|
+| [Verificación del informe](verificacion_informe_20261020.json) | Corte original del 20 de octubre: 20 casos visuales, 11 pruebas de datos, 222 pruebas de modelos con una omitida y verificación de la partición de 296 imágenes. También conserva los intentos fallidos y las limitaciones del entorno. |
+| [Revisión de claridad](verificacion_claridad_20261020.json) | Comprobaciones documentales de lectura y requisitos. |
+| [Revisión de planificación](verificacion_planificacion_20261020.json) y [datos de planificación](planificacion_20261020.json) | Hitos, responsables propuestos y datos de la Gantt. |
+| [Casos del informe](casos_informe_20261020.json) | Selección de los veinte casos explicados en el informe. |
+| [Verificación de Visión](../../Herramientas/Demo_lite/VERIFICACION_VISION.md) | Comprobaciones de la aplicación publicada; conserva pendiente la instalación en otro computador físico. |
+| [Preparación del laboratorio y la demo](../../reproducibilidad/VERIFICACION.md) | Alcance de las comprobaciones de instalación, Docker e inferencia. |
+
+## Consulta histórica de GitHub
+
+La consulta conservada localmente el 20 de octubre de 2026 correspondía a un estado anterior de `vcanio/Capstone2026`, cuya rama predeterminada era `main`. En su lista de commits figuraba `ddbc7acb9f227faafbf87dfe7c3dcf08f573b125` del 15 de octubre, con el mensaje «Readme update». Ese registro no representa la publicación posterior de Walmart Visión ni el estado remoto actual. La evolución se comprueba en el historial Git y en las referencias actuales del README.
+
+La respuesta completa de la consulta se conserva en local. Este resumen sustituye su publicación; no vuelve a consultar GitHub ni añade una comprobación remota.
+
+## Material que queda solo en local
+
+- Los logs extensos de pruebas y partición bajo `Documentacion/Evidencias/`, incluidos los de subcarpetas.
+- Las respuestas completas `consulta_github_*.json` bajo esa misma carpeta.
+- Los respaldos bajo `Datos/Registros/Particiones/**/respaldo_registros/`.
+
+Los archivos locales originales se conservan sin cambios. En los registros públicos, `log_local` y `consulta_local` identifican esos originales para el equipo; no son archivos descargables del repositorio. Las reglas de Git, el empaquetador y la auditoría de publicación excluyen este material. Las métricas, particiones vigentes, resúmenes y evidencia técnica de los modelos permanecen en Git.

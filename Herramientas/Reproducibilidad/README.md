@@ -18,6 +18,8 @@ en [reproducibilidad/artefactos.json](../../reproducibilidad/artefactos.json).
 El flujo diario de ramas, revisión y actualización está en
 [Trabajo en equipo](../../Documentacion/Trabajo_en_equipo.md).
 
+El [criterio de publicación](../../Documentacion/Publicar_GitHub.md#mantener-limpio-el-repositorio) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
+
 Pruebas del preparador y de CVAT opcional:
 
 ```powershell

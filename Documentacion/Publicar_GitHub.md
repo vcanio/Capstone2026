@@ -25,3 +25,11 @@ Los archivos Source code añadidos automáticamente por GitHub no contienen los 
 ## Paquetes del laboratorio
 
 Los paquetes de datos, exportaciones, modelos/resultados e informe permanecen en `.publicacion/paquetes_desarrollo/`, con metadatos de integridad y copias históricas. Compartirlos por separado para desarrollar; el [preparador](Replicar_proyecto.md) los instala con `--assets RUTA_A_LOS_ZIP`. No incluir en Git pesos, ZIP, entornos, fotografías, archivos .env ni accesos personales.
+
+## Mantener limpio el repositorio
+
+Publicar código, pruebas, guías vigentes y resúmenes de resultados que respalden el proyecto. El material obligatorio de `Fase 1/` se conserva en Git. Las guías de versiones anteriores mantienen sus rutas y llevan un aviso histórico, con un enlace a la documentación vigente; consultar el [índice histórico](Historico.md).
+
+Los respaldos `Datos/Registros/Particiones/**/respaldo_registros/`, los logs bajo `Documentacion/Evidencias/` y las respuestas completas `consulta_github_*.json` de esa carpeta quedan solo en local. Actualizar los [resúmenes públicos](Evidencias/README.md) cuando haya comprobaciones nuevas, manteniendo la fecha y los límites de cada resultado. Las reglas se aplican también a futuras subcarpetas y fechas.
+
+El empaquetador excluye esos archivos y la auditoría rechaza su incorporación forzada a Git o a los activos declarados. Antes de hacer commit, comprobar lo preparado con `git diff --cached --stat` y ejecutar `python Herramientas/Reproducibilidad/verificar_publicacion.py` en el checkout. Añadir un patrón a `.gitignore` no retira archivos ya versionados: si corresponde, usar `git rm --cached` sobre las rutas concretas y conservar los originales locales.

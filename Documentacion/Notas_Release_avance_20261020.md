@@ -1,5 +1,7 @@
 # Walmart Lite V2 + detección de bordes
 
+> **Documento histórico · Lite V2 anterior a Walmart Visión.** Los nombres del paquete y los pasos siguientes corresponden a esa entrega. Para la aplicación actual, consultar las [notas de Walmart Visión](Notas_Release_Walmart_Vision_20261020.md) y la [guía de uso vigente](Usar_Walmart_Vision.md). Véase el [índice histórico](Historico.md).
+
 Descargar **Walmart_Lite_V2_Deteccion_Bordes_20261020.zip**, extraer todo y ejecutar
 **Walmart_Lite/iniciar.cmd** en Windows x64. El visor se abre en
 http://127.0.0.1:8095. El primer inicio necesita Internet para preparar Python y

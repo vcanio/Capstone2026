@@ -29,6 +29,10 @@ Datos/Publicos/comparacion.jpg
 # Archivos locales y paquetes para publicar como activos de una Release.
 # Material privado de referencia; se conserva solo en el equipo local.
 /Contexto/
+# Respaldos y salidas extensas: publicar solo los resúmenes de verificación.
+/Datos/Registros/Particiones/**/respaldo_registros/
+/Documentacion/Evidencias/**/*.log
+/Documentacion/Evidencias/**/consulta_github_*.json
 /.publicacion/
 /.artefactos/
 /.agents/

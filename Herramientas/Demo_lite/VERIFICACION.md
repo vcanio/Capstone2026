@@ -1,5 +1,7 @@
 # Verificación de Walmart Lite — 15 de octubre de 2026
 
+> **Registro histórico · Lite V1 con dos modelos.** Estas comprobaciones corresponden al paquete inicial. La entrega actual utiliza cuatro modelos y se documenta en [Verificación de Walmart Visión](VERIFICACION_VISION.md). Para instalarla, seguir [Usar Walmart Visión](../../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../../Documentacion/Historico.md).
+
 El paquete fue extraído en una carpeta separada y ejecutado con solo sus archivos y pesos, sin montar datos, CVAT, anotaciones, credenciales ni el resto del proyecto.
 
 ## Comprobado

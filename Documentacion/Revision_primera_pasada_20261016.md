@@ -1,5 +1,7 @@
 # Primera pasada: revisión y propuesta para el siguiente entrenamiento
 
+> **Documento histórico · diagnóstico V1 del 16 de octubre de 2026.** Los pendientes y las referencias a la validación describen esa primera pasada. El estado posterior de V2 está en [Evolución del prototipo](Evolucion_v1_v2.md); para usar la aplicación, seguir [Walmart Visión](Usar_Walmart_Vision.md). Véase el [índice histórico](Historico.md).
+
 16 de octubre de 2026 · Proyecto Walmart · Revisión de archivos locales.
 
 **La primera pasada sirve como prototipo de localización y clasificación de niveles. Todavía no permite demostrar detección de faltantes en escenas nuevas. La siguiente ronda debe mejorar las referencias y la evaluación antes de aumentar épocas o cambiar de arquitectura.**

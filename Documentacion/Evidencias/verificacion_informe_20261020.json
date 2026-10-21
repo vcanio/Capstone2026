@@ -13,33 +13,35 @@
     "pruebas": 11,
     "segundos": 1.414,
     "resultado": "OK",
-    "log": "pruebas_datos_20261020.log"
+    "log_local": "pruebas_datos_20261020.log"
   },
   "pruebas_modelos": {
     "estado": "correcto",
     "pruebas": 222,
     "segundos": 87.989,
     "resultado": "OK (skipped=1)",
-    "log": "pruebas_modelos_20261020.log",
-    "omitida": "Integración real opcional RUN_NIVELES_REAL=1"
+    "omitida": "Integración real opcional RUN_NIVELES_REAL=1",
+    "log_local": "pruebas_modelos_20261020.log"
   },
   "intento_modelos_restringido": {
     "estado": "fallido",
     "pruebas": 222,
     "segundos": 92.064,
     "resultado": "FAILED (errors=19, skipped=1)",
-    "log": ".tmp/informe_tests_modelos_venv.log"
+    "log_local": ".tmp/informe_tests_modelos_venv.log"
   },
   "nota_entorno": "El intento restringido bloqueó HTTP local con WinError 10013. La repetición final usa el entorno .venv-modelo fuera de esa restricción.",
   "particion": {
     "estado": "correcto",
     "imagenes": 296,
-    "log": "particion_20261020.log"
+    "log_local": "particion_20261020.log"
   },
   "github": {
-    "consulta": "consulta_github_20261020.json",
     "publicacion_v2": "pendiente",
-    "git_local": false
+    "git_local": false,
+    "consulta_local": "consulta_github_20261020.json",
+    "resumen_publico": "README.md#consulta-histórica-de-github",
+    "alcance": "Estado anterior a la publicación de Walmart Visión; no representa el estado remoto actual."
   },
   "despliegue": {
     "estado": "no_verificado",
@@ -83,5 +85,6 @@
       "bytes": 3987038,
       "sha256": "ee5bc28cfd832140a20012ad2d6b8ecb3a8c0f820493aa74981915e16519dc6e"
     }
-  }
+  },
+  "alcance_registro": "Resumen histórico del corte original del informe; no acredita nuevas pruebas ni el estado remoto actual. Los logs extensos y consultas completas se conservan solo en local; consultar README.md en esta carpeta."
 }

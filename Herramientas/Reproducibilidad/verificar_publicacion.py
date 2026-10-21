@@ -1,7 +1,7 @@
 """Auditoría del código publicable; funciona antes de descargar datos y modelos."""
 import ast
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import subprocess
 from urllib.parse import unquote, urlparse
@@ -14,6 +14,17 @@ from preparar import safe_path
 PRIVATE = ('.config-modelo/', '.resguardo/', '.tmp/', '.publicacion/', '.artefactos/',
            '.venv-modelo/', '.venv-cvat/', 'Experimentos/panel_pruebas/', 'Contexto/')
 SECRET_KEYS = {'password', 'passwd', 'token', 'api_key', 'secret', 'client_secret', 'access_token', 'auth_token'}
+
+
+def local_only(name):
+    """Material local que no debe entrar en Git ni en activos publicados."""
+    path = PurePosixPath(name)
+    partition_backup = (path.parts[:3] == ('Datos', 'Registros', 'Particiones') and
+                        'respaldo_registros' in path.parts)
+    raw_evidence = (path.parts[:2] == ('Documentacion', 'Evidencias') and
+                    (path.suffix == '.log' or
+                     (path.name.startswith('consulta_github_') and path.suffix == '.json')))
+    return name.startswith(PRIVATE) or partition_backup or raw_evidence
 
 
 def secret_fields(value, path=''):
@@ -43,7 +54,7 @@ def verify(root=ROOT):
         for item in package['files']:
             name = (package.get('destination', '').rstrip('/') + '/' + item['path']).lstrip('/')
             safe_path(root, name)
-            if name.startswith(PRIVATE) or 'acceso_local.json' in name:
+            if local_only(name) or 'acceso_local.json' in name:
                 raise ValueError('Un activo incluye configuración privada: ' + name)
             declared.add(name)
     git = subprocess.run(['git', '-C', str(root), 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], capture_output=True)
@@ -53,7 +64,9 @@ def verify(root=ROOT):
     links = pending = python = 0
     for path in paths:
         rel = path.relative_to(root).as_posix()
-        if rel.startswith(PRIVATE) or path.name == 'acceso_local.json' or (path.name.startswith('.env') and not path.name.endswith('.example')):
+        if local_only(rel):
+            raise ValueError('Archivo privado visible para Git: ' + rel)
+        if path.name == 'acceso_local.json' or (path.name.startswith('.env') and not path.name.endswith('.example')):
             raise ValueError('Archivo privado visible para Git: ' + rel)
         if path.suffix.lower() in ('.pt', '.zip') or path.stat().st_size >= 50 * 1024**2:
             raise ValueError('Binario o archivo grande fuera de Releases: ' + rel)

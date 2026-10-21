@@ -14,7 +14,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).parent))
 from preparar import digest
-from verificar_publicacion import secret_fields
+from verificar_publicacion import local_only, secret_fields
 
 
 def files_under(base):
@@ -22,10 +22,12 @@ def files_under(base):
         return []
     files = []
     for folder, dirs, names in os.walk(base):
-        dirs[:] = [d for d in dirs if d not in ('__pycache__', '.runtime', '.entorno-py312', 'cvat-v2.77.0', 'panel_pruebas')]
+        dirs[:] = [d for d in dirs
+                   if d not in ('__pycache__', '.runtime', '.entorno-py312', 'cvat-v2.77.0', 'panel_pruebas')
+                   and not local_only((Path(folder) / d).relative_to(ROOT).as_posix() + '/')]
         for name in names:
             p = Path(folder) / name
-            if p.suffix not in ('.pyc', '.cache'):
+            if p.suffix not in ('.pyc', '.cache') and not local_only(p.relative_to(ROOT).as_posix()):
                 files.append(p)
     return sorted(files)
 

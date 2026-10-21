@@ -97,7 +97,7 @@ y la exportación v2 por completar, `aprobado_entrenamiento` sigue en `false`.
 
 Se guardaron copias de tareas, etiquetas, metadatos y anotaciones leídas desde CVAT
 en `fuentes/tarea_19.json` y `fuentes/tarea_22.json`, con SHA-256 en el registro.
-Los registros locales anteriores a la aplicación están en `respaldo_registros/`.
+Los registros anteriores a la aplicación se conservan solo en la carpeta local `respaldo_registros/`, excluida de Git y del empaquetado. No se necesita ese respaldo para verificar la partición: el repositorio conserva `particion.json`, las listas, los grupos y las fuentes registradas.
 La partición verifica SHA-256 de las 296 imágenes, consistencia con los frames y
 separación de las familias y grupos entre destinos.
 
