@@ -291,7 +291,7 @@ No reconstruir ni reiniciar el contenedor mientras otro proceso local esté
 entrenando o procesando una tarea que necesiten conservar.
 
 Para desarrollo existe `-Dev`: monta Herramientas/Modelos desde el clon. En ese
-modo, panel.html se lee de nuevo al recargar; un cambio Python requiere reiniciar
+modo, panel.html y los CSS/JavaScript de static/ se leen al recargar; un cambio Python requiere reiniciar
 el servicio cuando esté libre. Cambios de dependencias o de otros directorios
 copiados en la imagen requieren Build. Usar el arranque normal de arriba como
 referencia común si no están seguros.
@@ -361,12 +361,12 @@ implica permiso para publicar cualquier fotografía del cliente.
 
 Integrar un PR de código actualiza main. **Eso no crea una Release ni actualiza
 automáticamente el ZIP portátil que ya descargó otra persona.** Si una mejora
-debe llegar al evaluador mediante Lite, regenerar y publicar otra entrega de la
-demo después de probarla.
+debe llegar al evaluador mediante Walmart Visión, regenerar y publicar otra entrega
+de la aplicación después de probarla.
 
-Para la primera entrega, el mantenedor sigue Documentacion/Desarrollo/Publicar_GitHub.md:
-commit y push del checkout preparado y Release con tag `avance-2026-10-20`.
-Solo adjunta Walmart_Lite_V2_Deteccion_Bordes_20261020.zip de `.publicacion/releases/`;
+La entrega vigente sigue Documentacion/Desarrollo/Publicar_GitHub.md:
+commit y push del checkout preparado y Release con tag `walmart-vision-2026-10-20`.
+Solo adjunta Walmart_Vision_20261020.zip de `.publicacion/releases/`;
 los paquetes del laboratorio quedan en `.publicacion/paquetes_desarrollo/`.
 El PDF de esta guía y su fuente Markdown se incluyen en el código del repositorio.
 

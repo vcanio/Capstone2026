@@ -1,5 +1,6 @@
 """Execute the browser's real polling code with controlled HTTP responses."""
 from pathlib import Path
+from panel_source import read_panel
 import shutil
 import subprocess
 import unittest
@@ -11,7 +12,7 @@ class PollingTests(unittest.TestCase):
         cls.node = shutil.which('node')
         if not cls.node:
             raise unittest.SkipTest('Node.js is required for UI polling tests')
-        html = (Path(__file__).resolve().parents[1] / 'panel.html').read_text(encoding='utf-8')
+        html = read_panel()
         start = html.index('function schedulePoll(){')
         cls.poll_code = html[start:html.index("document.addEventListener('visibilitychange'", start)]
         start = html.index('let catalogResponse=null;')

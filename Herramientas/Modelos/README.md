@@ -2,6 +2,18 @@
 
 # Panel de niveles y disponibilidad
 
+Esta carpeta contiene el código del laboratorio. Los modelos generales están en [Modelos](../../Modelos/README.md) desde la raíz, y los resultados de entrenamiento en [Experimentos](../../Experimentos/README.md).
+
+| Archivo o carpeta | Función |
+|---|---|
+| `panel.html` | Estructura y contenido del panel. |
+| `static/` | Estilos CSS y scripts JavaScript del panel, separados por función. |
+| `panel_modelos.py`, `panel_worker.py` | Servidor local y ejecución de los trabajos. |
+| `entrenar_niveles.py` | Entrenamiento por consola con el criterio V2 de tres estados. |
+| `tests/` | Pruebas de datos, servidor y comportamiento del panel. |
+
+El código de Walmart Visión, la aplicación para usuarios, está en [Herramientas/Demo_lite](../Demo_lite/LEEME.md).
+
 La interfaz se adapta al **criterio del dataset y del modelo seleccionado**.
 Los selectores identifican v1 (4 estados), v2 base (2 estados) y v2 completo
 (3 estados, cuando exista un ensayo con esas clases). La ayuda, los colores y
@@ -88,7 +100,7 @@ La validación histórica v1 tiene 34 niveles suficientes y 2 no evaluables; no 
 
 El sondeo lee progreso y registros de los trabajos activos en cada consulta. Los terminados se conservan en memoria y sus archivos se comprueban cada 15 segundos; las ediciones externas pueden tardar ese intervalo en aparecer. La caché conserva como máximo los 30 trabajos recientes. El catálogo reutiliza JSON, compresión y ETag: una consulta sin cambios devuelve 304 sin descargar ni procesar de nuevo el catálogo completo. Las operaciones del panel invalidan el catálogo; los cambios externos se recogen al vencer su caché (5 segundos durante un trabajo, 15 en reposo).
 
-Los colores de `panel.html` se definen al inicio de su bloque de estilos: `:root` contiene la paleta clara y `:root[data-theme=dark]` sus variaciones. Componentes y gráficos SVG consumen las mismas variables semánticas (`--paper`, `--ink`, `--warning-surface`, etc.). Los colores de disponibilidad se mantienen alineados con las máscaras generadas por el modelo.
+Los colores se definen al inicio de `static/panel.css`: `:root` contiene la paleta clara y `:root[data-theme=dark]` sus variaciones. Componentes y gráficos SVG consumen las mismas variables semánticas (`--paper`, `--ink`, `--warning-surface`, etc.). Los colores de disponibilidad se mantienen alineados con las máscaras generadas por el modelo.
 
 Las pruebas están agrupadas en tests/. Desde la raíz del proyecto:
 

@@ -10,6 +10,7 @@ RUN python -m pip install --no-cache-dir -r /tmp/panel-requirements.txt
 
 WORKDIR /app
 COPY Herramientas/Modelos/*.py Herramientas/Modelos/panel.html /app/Herramientas/Modelos/
+COPY Herramientas/Modelos/static/ /app/Herramientas/Modelos/static/
 COPY Herramientas/Reproducibilidad/*.py /app/Herramientas/Reproducibilidad/
 COPY Herramientas/Datos/*.py /app/Herramientas/Datos/
 EXPOSE 8090

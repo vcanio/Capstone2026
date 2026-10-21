@@ -4,6 +4,13 @@ Proyecto Capstone DUOC UC para apoyar la revisión de góndolas mediante fotogra
 
 **Primera lectura:** la [guía para entender el proyecto](Documentacion/Guia_para_entender_el_proyecto.md) explica términos como segmentación, entrenamiento, validación, IoU y mAP con ejemplos de nuestros resultados.
 
+| Quiero… | Dónde empezar |
+|---|---|
+| Usar Walmart Visión con mis fotos | [Guía de usuario](Documentacion/Usar_Walmart_Vision.md) y [descarga de la aplicación](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20). |
+| Entender cómo se construyó | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y [mapa del código](Documentacion/Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). |
+| Preparar datos y entrenar | [Laboratorio de desarrollo](Documentacion/Desarrollo/Replicar_proyecto.md), [panel](Herramientas/Modelos/README.md) y [entrenamiento por consola](Documentacion/Desarrollo/Entrenamiento_niveles_v2.md). |
+| Consultar los ensayos y sus resultados | [Índice de experimentos](Experimentos/README.md). |
+
 ## Qué hace la aplicación
 
 Al cargar una fotografía, el modelo YOLO busca los niveles de la góndola y dibuja una región sobre cada uno. Esa región se llama **máscara**. Después muestra el estado de cada nivel. V2 base utiliza `reponer` y `suficiente`; todavía no reconoce `no_evaluable`, que se necesita cuando un obstáculo impide decidir.
@@ -202,15 +209,18 @@ Trabajamos con un enfoque ágil e iterativo inspirado en Scrum, con dos reunione
 
 ## Organización del proyecto
 
-```text
-Datos/             V1, V2, inventarios, particiones y versiones
-Herramientas/      Datos, Modelos, Demo_lite, CVAT e Informes
-Infraestructura/   Docker y configuración local
-Modelos/           Pesos generales gestionados por separado
-Experimentos/      Configuración, métricas y pesos entrenados
-Documentacion/     Guías, informe y evidencias
-Entregables/       PDF, Word, HTML y demo portátil
-```
+| Carpeta | Función |
+|---|---|
+| [Datos](Datos/README.md) | Lotes V1/V2, inventarios, anotaciones, particiones y versiones de datos. |
+| [Herramientas](Herramientas/README.md) | Código de Walmart Visión y del laboratorio: preparación, entrenamiento, evaluación y empaquetado. |
+| [Infraestructura](Infraestructura/README.md) | Configuración de Docker, conexión opcional a CVAT y migración del laboratorio. |
+| [Modelos](Modelos/README.md) | Modelos generales para iniciar el entrenamiento y registros de su procedencia. |
+| [Experimentos](Experimentos/README.md) | Configuraciones, métricas y evidencias de cada ensayo; los pesos entrenados se instalan aparte. |
+| [Documentacion](Documentacion/README.md) | Guías vigentes, informe, planificación y documentación histórica identificada. |
+| [Entregables](Entregables/README.md) | Acceso a la entrega vigente y organización local de informes y paquetes anteriores. |
+| [reproducibilidad](reproducibilidad/README.md) | Manifiesto de activos y registros de verificación de la entrega. |
+
+GitHub contiene el código, los registros y la documentación. Las fotografías, los pesos y los paquetes del laboratorio se distribuyen por separado; la aplicación lista para usar se descarga desde Releases. Los scripts de verificación están en `Herramientas/Reproducibilidad`, mientras que sus registros están en `reproducibilidad`.
 
 ## Instalación técnica del laboratorio (equipo de desarrollo)
 

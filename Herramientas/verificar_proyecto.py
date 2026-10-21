@@ -17,7 +17,7 @@ def verify(root=ROOT):
     root = Path(root)
     data = verify_data(root)
     folders = ('Datos', 'Documentacion', 'Herramientas', 'Infraestructura', 'Entregables',
-               'Experimentos', 'Modelos')
+               'Experimentos', 'Modelos', 'reproducibilidad')
     documents = [root / 'README.md']
     for folder in folders:
         documents.extend(p for p in (root / folder).rglob('*.md') if 'cvat-v2.77.0' not in p.parts)

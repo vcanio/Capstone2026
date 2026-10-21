@@ -171,9 +171,11 @@ def execute(job):
                   title, font=font, fill=(24, 51, 59, 255))
     Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB').save(job / 'prediccion.jpg', quality=90)
     truth, truth_classes, matches = [], [], []
-    if config.get('truth'):
+    has_truth = 'truth_rows' in config or bool(config.get('truth'))
+    if has_truth:
         from conjuntos import experiment_file
-        for line in experiment_file(pilot.ROOT, config['truth']).read_text().splitlines():
+        reference_rows = config['truth_rows'] if 'truth_rows' in config else experiment_file(pilot.ROOT, config['truth']).read_text().splitlines()
+        for line in reference_rows:
             truth_classes.append(int(line.split()[0]))
             values = list(map(float, line.split()[1:]))
             points = [(x * width, y * height) for x, y in zip(values[::2], values[1::2])]
@@ -187,17 +189,18 @@ def execute(job):
             if iou >= 0.5 and ti not in used_t and pi not in used_p:
                 used_t.add(ti); used_p.add(pi); matches.append(iou)
     metrics = None
-    if config.get('truth') and set(model.names.values()) == {'Modulo'}:
+    if has_truth and set(model.names.values()) == {'Modulo'}:
         metrics = {'anotados': len(truth), 'aciertos': len(matches), 'omitidos': len(truth) - len(matches),
                    'extras': len(detections) - len(matches), 'iou_medio': sum(matches) / len(matches) if matches else 0}
-    elif config.get('truth') and levels:
+    elif has_truth and levels:
         detail = evaluate_masks(list(zip(truth_classes, truth)),
             [(states.index(d['clase'].removeprefix('Nivel_')), m) for d, m in zip(detections, masks)], states=states)
         metrics = {'scope': 'Nivel_estados', 'anotados': detail['anotados'], 'aciertos': detail['aciertos'],
                    'omitidos': detail['omitidos'], 'extras': detail['falsos_positivos'],
                    'iou_medio': sum(m['iou_mascara'] for m in detail['parejas'])/max(1, len(detail['parejas'])),
                    'estados_acertados': detail['estados_acertados'], 'alertas_reales': detail['alertas_reales'],
-                   'alertas_acertadas': detail['alertas_acertadas'], 'falsas_alertas': detail['falsas_alertas']}
+                   'alertas_acertadas': detail['alertas_acertadas'], 'alertas_omitidas': detail['alertas_omitidas'],
+                   'falsas_alertas': detail['falsas_alertas']}
     pilot.save_json(job / 'resultado.json', {'detecciones': detections, 'metricas': metrics,
                                             'config': config, 'imagen': 'prediccion.jpg',
                                             'level_states': list(states) if levels else None,

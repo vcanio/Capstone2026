@@ -99,7 +99,7 @@ def inventory():
 
 
 def base_development_images():
-    """Only expose v2 images assigned to learning or real development validation."""
+    """Expose registered development photos, including reviewed validation variants."""
     from particion_niveles import load_partition
     partition = load_partition(ROOT)
     if not partition:
@@ -109,7 +109,7 @@ def base_development_images():
              'scene': row['grupo_escena'], 'project_version': 'v2',
              'url': file_url(ROOT / 'Datos' / registered[name]['archivo'])}
             for name, row in partition['records'].items()
-            if row['effective_split'] in ('train', 'val')]
+            if row['effective_split'] in ('train', 'val', 'diagnostico')]
 
 
 def uploaded_photo(requested):
@@ -170,6 +170,30 @@ def model_archive_records():
     return value['models']
 
 
+def manifest_image_path(photo):
+    """Resolve historical names against the same paths as the photo inventory."""
+    return current_image_path('Datos/' + photo['archivo'] if photo.get('archivo')
+                              else 'Datos/V1/Lider/' + photo['imagen'])
+
+
+def training_image_ids(model, runs):
+    """Include local parent training runs when a model was fine-tuned."""
+    by_id = {run['id']: run for run in runs}
+    pending, visited, images = [model.get('run')], set(), set()
+    while pending:
+        run_id = pending.pop()
+        if run_id in visited or run_id not in by_id:
+            continue
+        visited.add(run_id)
+        run = by_id[run_id]
+        images.update(manifest_image_path(photo) for photo in run['manifest']['imagenes']
+                      if photo.get('split') == 'train')
+        parent = run.get('config', {}).get('model', '').split('/')
+        if len(parent) > 2 and parent[0] == 'Experimentos':
+            pending.append(parent[1])
+    return sorted(images)
+
+
 def catalog():
     runs, models = [], []
     for path in sorted((ROOT / 'Experimentos').iterdir()):
@@ -195,6 +219,7 @@ def catalog():
                      'history': history, 'comparisons': comparisons,
                      'config': read_json(path / 'config_interfaz.json', {}),
                      'availability': read_json(path / 'metricas_alertas.json', None),
+                     'development_evaluation': read_json(path / 'evaluacion_desarrollo.json', None),
                      'ready': (path / 'metricas_validacion.json').exists()})
         for checkpoint in ('best', 'last'):
             weights = path / f'entrenamiento/weights/{checkpoint}.pt'
@@ -217,6 +242,7 @@ def catalog():
                 if photo.get('archivo') and photo.get('split') in ('train', 'val')}
     images = [{**image, 'project_version': 'v1'} if image['id'] in v1_paths else image for image in images]
     images = list({item['id']: item for item in [*images, *base_development_images()]}.values())
+    models = [{**model, 'training_images': training_image_ids(model, runs)} for model in models]
     records = model_archive_records()
     archived = [{**model, 'archived_at': records[model['id']].get('archived_at')}
                 for model in models if model['run'] and model['id'] in records]
@@ -284,6 +310,8 @@ def validate(config, data):
         clean.update(image=config['image'], conf=number(config, 'conf', 0.01, 0.99), nms=number(config, 'nms', 0.1, 0.95))
         run = models[clean['model']]['run']
         source = next((item for item in data['runs'] if item['id'] == run), None)
+        if not upload and clean['image'] in training_image_ids(models[clean['model']], data['runs']):
+            raise ValueError('Esta foto se usó para entrenar el modelo seleccionado. Elige una foto no usada en su entrenamiento.')
         if source:
             clean['scope'] = source['manifest'].get('scope', 'Modulo')
         if occupancy:
@@ -294,8 +322,7 @@ def validate(config, data):
             clean.update(image_source='upload', image_name=upload['name'])
         if source and not upload:
             entry = next((item for item in source['manifest']['imagenes']
-                          if Path(current_image_path('Datos/V1/Lider/' + item['imagen'])).name
-                          == Path(clean['image']).name), None)
+                          if manifest_image_path(item) == clean['image']), None)
             if entry:
                 directory = source['manifest'].get('dataset_dir', 'dataset_modulos')
                 if directory not in ('dataset_modulos', 'dataset_niveles'):
@@ -305,6 +332,13 @@ def validate(config, data):
                 clean['truth'] = relative(labels / entry['split'] / (Path(entry['imagen']).stem + '.txt'))
                 clean['scope'] = source['manifest'].get('scope', 'Modulo')
                 clean['split'] = entry['split']
+            elif source['manifest'].get('criterion', {}).get('stage') == 'base':
+                from evaluar_desarrollo import development_records, verified_image
+                reference = next((photo for photo in development_records(ROOT / 'Experimentos' / run)
+                                  if manifest_image_path(photo) == clean['image']), None)
+                if reference:
+                    verified_image(reference)
+                    clean.update(truth_rows=reference['truth_rows'], split='val')
         return clean
     if action != 'train':
         raise ValueError('Acción desconocida.')
@@ -577,6 +611,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply(preview)
             if url.path == '/':
                 path = HERE / 'panel.html'
+            elif url.path.startswith('/static/'):
+                static = (HERE / 'static').resolve()
+                path = (static / url.path.removeprefix('/static/')).resolve()
+                if not path.is_relative_to(static) or path.suffix not in ('.css', '.js') or not path.is_file():
+                    return self.reply({'error': 'Recurso no disponible.'}, 404)
             elif url.path == '/file':
                 query = parse_qs(url.query)
                 path = allowed_file(query.get('path', [''])[0])

@@ -1,5 +1,6 @@
 """Persistencia local y navegación real de imágenes, sin modelos ni CVAT."""
 from pathlib import Path
+from panel_source import read_panel
 import re
 import shutil
 import subprocess
@@ -9,7 +10,7 @@ import unittest
 class QolUiTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = (Path(__file__).resolve().parents[1] / 'panel.html').read_text(encoding='utf-8')
+        cls.html = read_panel()
         cls.node = shutil.which('node')
         if not cls.node:
             raise unittest.SkipTest('Se necesita Node.js.')
@@ -24,6 +25,39 @@ class QolUiTests(unittest.TestCase):
         result = subprocess.run([self.node], input="const assert=require('node:assert/strict');\n" + code,
                                 text=True, encoding='utf-8', capture_output=True, timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_edges_view_uses_current_analysis_and_resets_when_unavailable(self):
+        start = self.html.index('let edgeLayers=[];')
+        views = self.html[start:self.html.index('function resetPrediction(){', start)]
+        self.js("""
+        const nodes=new Map(),$=id=>{
+          if(!nodes.has(id))nodes.set(id,{value:'',dataset:{},attributes:{},
+            setAttribute(name,value){this.attributes[name]=value},
+            removeAttribute(name){delete this.attributes[name]}});
+          return nodes.get(id);
+        };
+        const tabs=['original','result','edges','compare'].map(mode=>
+          Object.assign($('photo-view-'+mode),{id:'photo-view-'+mode,dataset:{demoView:mode},disabled:false}));
+        const document={querySelectorAll:()=>tabs},ImageNavigation={mount:()=>{},release:()=>{}};
+        const esc=String,setHTML=(node,html)=>node.innerHTML=html;
+        const options=(id,items)=>$(id).value=items[0]?.id||'';
+        """ + views + """
+        renderEdgeViews({result:{occupancy:{}},occupancy_image_url:'signal.jpg',
+          occupancy_edges_url:'edges.png',occupancy_filtered_edges_url:'levels.png'});
+        assert.equal($('photo-view-edges').disabled,false);
+        assert.match($('edge-output').innerHTML,/signal.jpg/);
+        demoView('edges');
+        assert.equal($('demo-visual').dataset.mode,'edges');
+        assert.equal($('photo-view-edges').attributes['aria-selected'],'true');
+        assert.equal($('photo-view-original').tabIndex,-1);
+        $('edge-layer').value='photo';renderEdgeLayer();
+        assert.match($('edge-output').innerHTML,/edges.png/);
+        renderEdgeViews({result:{}});demoView('result');demoView('edges');
+        assert.equal($('photo-view-edges').disabled,true);
+        assert.equal($('demo-visual').dataset.mode,'result');
+        assert.match($('edge-output').textContent,/Analiza con YOLO/);
+        assert.equal($('edge-open').attributes.href,undefined);
+        """)
 
     def test_corrupt_or_unavailable_storage_keeps_panel_usable(self):
         self.js(self.preferences + """
@@ -83,17 +117,19 @@ class QolUiTests(unittest.TestCase):
         self.js(self.preferences + """
         let projectVersion='v2';
         const source={id:'task:16',name:'Tarea 16',jobs:[36],image_ids:['REAL_01']};
-        const localStorage={getItem:()=>JSON.stringify({version:1,view:'datasets',
+        const localStorage={getItem:()=>JSON.stringify({version:1,view:'predict',
           fields:{epochs:'999',batch:'3',conf:'NaN','train-size':'9999',reviewed:'true',participant:'task:16'},sources:[source]})};
         const nodes=new Map();
         const $=id=>{if(!nodes.has(id))nodes.set(id,{value:'default',min:'1',max:'500',maxLength:-1,tagName:'INPUT'});return nodes.get(id)};
         Object.assign($('epochs'),{value:'100'});Object.assign($('batch'),{value:'2',min:'1',max:'4'});
         Object.assign($('conf'),{value:'.25',min:'.01',max:'.99'});Object.assign($('nms'),{value:'.70'});
         Object.assign($('train-size'),{tagName:'SELECT',value:'640',options:[{value:'640'}]});
-        let importSources=[],monitorJob=null,currentView='datasets';
+        let importSources=[],monitorJob=null,currentView='version';
         const renderImportSources=()=>{},selectImportSource=()=>{},switchTab=()=>{throw Error('unexpected view')},localDate=String;
         """ + self.adapter + """
         restoreUiPreferences();
+        assert.equal(currentView,'version');
+        assert.equal(UiPreferences.views.includes('version'),true);
         assert.equal($('epochs').value,'100');assert.equal($('batch').value,'3');
         assert.equal($('conf').value,'.25');assert.equal($('train-size').value,'640');
         assert.equal($('reviewed').checked,undefined);

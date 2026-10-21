@@ -53,6 +53,7 @@ Datos/Publicos/comparacion.jpg
 /Entregables/*.pdf
 /Entregables/*.docx
 /Entregables/*.html
+/Entregables/*.mp4
 /Entregables/Probar_en_Colab.ipynb
 /Entregables/Walmart_Lite/
 /Herramientas/Demo_lite/.runtime/
@@ -63,3 +64,4 @@ Datos/Publicos/comparacion.jpg
 /Herramientas/CVAT/detener_acceso_privado_equipo.ps1
 
 /Entregables/Walmart_Vision/
+/Entregables/Historico/

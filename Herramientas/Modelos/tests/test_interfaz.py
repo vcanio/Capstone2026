@@ -1,5 +1,6 @@
 """Casos de estados del panel: Node ejecuta las funciones reales sin DOM ni ML."""
 from pathlib import Path
+from panel_source import read_panel
 import re
 import shutil
 import subprocess
@@ -9,6 +10,32 @@ HERE = Path(__file__).resolve().parents[1]
 
 
 class InterfaceTests(unittest.TestCase):
+    def test_decision_uses_the_expanded_evaluation_when_available(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const run={id:'base',ready:true,manifest:{scope:'Nivel_estados',clases:['Nivel_reponer','Nivel_suficiente'],imagenes:[]},
+          availability:{val:{alertas:{reales:1,acertadas:1,falsas:0}}},
+          development_evaluation:{metrics:{fotos:40,alertas:{reales:69,acertadas:66,falsas:15}}}};
+        assert.match(Lab.resultDecision(run,'YOLO26').title,/YOLO26 reconoció 66 de 69 niveles/);
+        assert.match(Lab.resultDecision(run).detail,/Omitió 3 niveles/);
+        assert.match(Lab.resultDecision(run).detail,/anotaciones revisadas de 40 fotos/);
+        assert.match(Lab.evaluationContext(run),/40 fotos/);
+        """)
+
+    def test_prediction_photos_follow_selected_model_without_changing_other_catalogs(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const catalog={images:[{id:'train'},{id:'val'},{id:'new'}],models:[
+          {id:'a',training_images:['train']},{id:'b',training_images:['val']},
+          {id:'all',training_images:['train','val','new']},{id:'general',run:null}]};
+        assert.deepEqual(Lab.predictionImages(catalog,'a').map(i=>i.id),['val','new']);
+        assert.deepEqual(Lab.predictionImages(catalog,'b').map(i=>i.id),['train','new']);
+        assert.deepEqual(Lab.predictionImages(catalog,'all'),[]);
+        assert.deepEqual(Lab.predictionImages(catalog,'missing'),[]);
+        assert.equal(Lab.predictionImages(catalog,'general').length,3);
+        assert.equal(catalog.images.length,3);
+        """)
+
     def test_paulo_percentages_do_not_change_yolo_alerts_or_turn_missing_into_zero(self):
         self.js("""
         const assert=require('node:assert/strict');
@@ -128,8 +155,8 @@ class InterfaceTests(unittest.TestCase):
           availability:{val:{alertas:{reales:4,acertadas:0,falsas:2}}}};
         const decision=Lab.resultDecision(run);
         assert.equal(decision.kind,'attention');
-        assert.match(decision.title,/0 de 4 casos críticos/);
-        assert.match(decision.detail,/4 casos críticos omitidos/);
+        assert.match(decision.title,/0 de 4 niveles/);
+        assert.match(decision.detail,/Omitió 4 niveles/);
         assert.match(decision.detail,/2 falsas alertas/);
         run.availability.val.alertas.acertadas=4;
         assert.equal(Lab.resultDecision(run).kind,'observed');
@@ -143,7 +170,7 @@ class InterfaceTests(unittest.TestCase):
         assert.equal(Lab.resultDecision(run).kind,'limited');
         assert.match(Lab.resultDecision(run).title,/no hay métricas/);
         run.availability={val:{alertas:{reales:0,acertadas:0,falsas:0}}};
-        assert.match(Lab.resultDecision(run).title,/no tiene casos críticos/);
+        assert.match(Lab.resultDecision(run).title,/no tiene niveles anotados/);
         assert.equal(Lab.resultDecision({...run,ready:false}).kind,'limited');
         const technical={...run,id:'verificacion_panel_1'};
         assert.match(Lab.resultDecision(technical).title,/funcionamiento del panel/);
@@ -227,7 +254,7 @@ class InterfaceTests(unittest.TestCase):
         cls.node = shutil.which('node')
         if not cls.node:
             raise RuntimeError('Se necesita Node.js para comprobar los estados de la interfaz.')
-        cls.html = (HERE / 'panel.html').read_text(encoding='utf-8')
+        cls.html = read_panel()
         cls.logic = re.search(r'<script id="lab-logic">(.*?)</script>', cls.html, re.S).group(1)
         cls.logic += '\n' + re.search(r'<script id="prediction-demo-logic">(.*?)</script>', cls.html, re.S).group(1)
 

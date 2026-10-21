@@ -1,0 +1,3004 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-20T20:41:09.584587+00:00",
+  "model": "Experimentos/v2_base_yolo26n_01_20261020_004933_b105/entrenamiento/weights/best.pt",
+  "weights_sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67",
+  "snapshot_sha256": "3a8b84c59b9df4b52a87eff013ca213eeb1b6d3c1c6793855b53e9fa64bc5a20",
+  "partition_binding": {
+    "path": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+    "sha256": "1b49e8fd90ff2d8c61256c6fdb34fbf06d152268e795bce232456d87abb735e9",
+    "stage": "base"
+  },
+  "confidence": 0.25,
+  "nms_iou": 0.7,
+  "minimum_mask_iou": 0.5,
+  "imgsz": 640,
+  "metrics": {
+    "fotos": 40,
+    "por_estado": {
+      "reponer": {
+        "referencias": 69,
+        "predicciones": 81,
+        "aciertos": 66,
+        "precision": 0.8148148148148148,
+        "recall": 0.9565217391304348
+      },
+      "suficiente": {
+        "referencias": 135,
+        "predicciones": 139,
+        "aciertos": 123,
+        "precision": 0.8848920863309353,
+        "recall": 0.9111111111111111
+      }
+    },
+    "alertas": {
+      "reales": 69,
+      "predichas": 81,
+      "acertadas": 66,
+      "omitidas": 3,
+      "falsas": 15,
+      "precision": 0.8148148148148148,
+      "recall": 0.9565217391304348,
+      "falsas_por_foto": 0.375
+    },
+    "no_evaluables_predichos": 0,
+    "matriz_confusion": {
+      "reponer": {
+        "reponer": 66,
+        "suficiente": 2,
+        "no_detectado": 1
+      },
+      "suficiente": {
+        "suficiente": 123,
+        "reponer": 9,
+        "no_detectado": 3
+      },
+      "sin_referencia": {
+        "reponer": 6,
+        "suficiente": 14
+      }
+    }
+  },
+  "images": [
+    {
+      "imagen": "lider_express_014_0_original.jpg",
+      "sha256": "1bb438a2286b7d775358cd55bc91267808702c97e176bc1480bff417f1162f2d",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9559422546213331,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 3,
+          "iou_mascara": 0.9497274614364475,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9377199510963945,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.9364790835160399,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.9244729668804644,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 6,
+          "iou_mascara": 0.84358725689983,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 6
+      },
+      "estados_predichos": {
+        "suficiente": 6
+      },
+      "aciertos_por_estado": {
+        "suficiente": 6
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 6
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_014_A_vacios.png",
+      "sha256": "5d7861752ff7378e87f313d82b9466c615f89f1a2afc5a915c683e39003ee8e1",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.9585034522870322,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.9557074511505833,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 4,
+          "iou_mascara": 0.9382623118142384,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9311468589654694,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.9272185333156079,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 6,
+          "iou_mascara": 0.8344248128520412,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_014_B_baja.png",
+      "sha256": "2fb2755f93c9d21f1b9b20ea7263b3b863b6f6ef61684839a89446886b491e53",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9578747387021146,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9564280757718558,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.950347457901031,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 6,
+          "iou_mascara": 0.9315127962749011,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.9234842406876791,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 5,
+          "iou_mascara": 0.841088418379031,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "suficiente": 3,
+        "reponer": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_014_C_mixta.png",
+      "sha256": "6548e280153d6c1ce401319872aa46dc60b6226b45a4c90d50b52227f6ef4633",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.9604209258283285,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 6,
+          "iou_mascara": 0.9584267974905845,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9566094328451433,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9281807958344246,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.9234130204107109,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 5,
+          "iou_mascara": 0.8107950760774358,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "aciertos_por_estado": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_015_0_original.jpg",
+      "sha256": "f6719fb1176ce41421b6c0f7b95d9a3bddbd8675dda0b2196139eedf0f005e72",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 6,
+          "prediccion": 1,
+          "iou_mascara": 0.9671409359965832,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 6,
+          "iou_mascara": 0.9668002509908878,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9496087461821918,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.9412148787595536,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 5,
+          "iou_mascara": 0.9308845317388208,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 4,
+          "iou_mascara": 0.9221341933798309,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 6
+      },
+      "estados_predichos": {
+        "suficiente": 6
+      },
+      "aciertos_por_estado": {
+        "suficiente": 6
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 6
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_015_A_vacios.png",
+      "sha256": "7fac2b75106aa3df348160fe929d8a2598e05169db90d5552630483a9add5f79",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.9718499946015332,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 1,
+          "iou_mascara": 0.9539913488006292,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 5,
+          "iou_mascara": 0.9539465295192757,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9514457643013442,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 6,
+          "iou_mascara": 0.9345703191641815,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9243277048155097,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_015_B_baja.png",
+      "sha256": "216fa9862badec90595c6ca978eb88e850a556359089fd1f9f8ebf4226caf87d",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 6,
+          "iou_mascara": 0.9764394737160633,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.9662013382645317,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.9541720371310654,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9522435997380648,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9259418453835249,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 1,
+          "iou_mascara": 0.9137379548975034,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "suficiente": 3,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_015_C_mixta.png",
+      "sha256": "d62f61f5a3445335e7a6108ca06fac67dafd8d7b539dcb41dba0dcf913805f58",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.976140413933567,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 6,
+          "iou_mascara": 0.9582648947289831,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 1,
+          "iou_mascara": 0.9578711728447841,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9509962974108043,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9239600508149309,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.920351195519333,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_016_0_original.jpg",
+      "sha256": "0dca8a84be8e32f6fa974d8dd89539e865c0599511a1c8c5e0afef1affea8ea1",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.9633780768486011,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9551117924175577,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9526869358459773,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9285236838623878,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 5,
+          "iou_mascara": 0.8864532644438247,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 6,
+          "iou_mascara": 0.7896857275583004,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 6
+      },
+      "estados_predichos": {
+        "suficiente": 6
+      },
+      "aciertos_por_estado": {
+        "suficiente": 6
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 6
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_016_A_vacios.png",
+      "sha256": "93e2a9057507955a5b9ec0682c7d6bf6c8b49fa535d0f2d031e5c9fc9579d06d",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9549283461862687,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.9461434726460269,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.9452740128136407,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 1,
+          "iou_mascara": 0.9341356936879205,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.9014140651225243,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 6,
+          "iou_mascara": 0.7496991527981808,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "estados_predichos": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_016_B_baja.png",
+      "sha256": "91d0bc955383b6eadb2d9e2bae84341e977a5e58a126f5a5ade62d3148cd125b",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 5,
+          "iou_mascara": 0.9547489573963529,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9539182811723795,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.945412258814763,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 4,
+          "iou_mascara": 0.9374740947605167,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.898783817670168,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 6,
+          "iou_mascara": 0.8238572169528734,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 3
+      },
+      "estados_predichos": {
+        "suficiente": 3,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_016_C_mixta.png",
+      "sha256": "bf8b11b7130517c3717f032c2c8840ac997944a29c58d53e3f10ca4aa831f741",
+      "anotados": 6,
+      "predichos": 6,
+      "aciertos": 6,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.9518163550202513,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 6,
+          "prediccion": 1,
+          "iou_mascara": 0.9513208836255979,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 6,
+          "iou_mascara": 0.9509511710062832,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.9196494993317841,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.8889202725324993,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.8401010850598688,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 6,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "estados_predichos": {
+        "suficiente": 4,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 4
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_026_0_original.jpg",
+      "sha256": "fa25b68743eb183f9bda8bd4745fad428d9229c454ecf647026d614ad2f9b9fa",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9774982967656638,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.9740778360916017,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.9571377686005729,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9495223774217942,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 5,
+          "iou_mascara": 0.7485391490112888,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 5
+      },
+      "estados_predichos": {
+        "suficiente": 5
+      },
+      "aciertos_por_estado": {
+        "suficiente": 5
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 5
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_026_A_vacios.png",
+      "sha256": "884a660f1f5bf3a27cbd51d799cd644b4b1cc09c1377e3b7110971c874f0d762",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 4,
+          "iou_mascara": 0.9768508765770194,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 1,
+          "iou_mascara": 0.9666447869351747,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.943728960671851,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.9394995311845404,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.7599221587285058,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_026_B_baja.png",
+      "sha256": "60c9b7f9213d0723ae219657735029d1f0b6825c19181cba7c9c066126c8d479",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9767884925330029,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9645817434071059,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 1,
+          "iou_mascara": 0.9438665899672463,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.9195158670417178,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 5,
+          "iou_mascara": 0.5838113219831375,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "estados_predichos": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 2
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_026_C_mixta.png",
+      "sha256": "35c36b06784ce7a32d6d49c0aca4572171b49f503231a717cc12614e3d4026f8",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9747398733498908,
+          "estado_real": "reponer",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9638901196278246,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.93759687086324,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.9352632008297498,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 5,
+          "iou_mascara": 0.7595963406583043,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "suficiente": 1,
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 2
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 1,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_027_0_original.jpg",
+      "sha256": "3691463b9deb0be8e72fe91e335648f0211eae65f3670bc58f3e7788905e37e0",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9680143790938002,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.9663200702199812,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9599432904524499,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.9528146926345639,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.7959209681600471,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 5
+      },
+      "estados_predichos": {
+        "suficiente": 5
+      },
+      "aciertos_por_estado": {
+        "suficiente": 5
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 5
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_027_A_vacios.png",
+      "sha256": "905efc2d8cbce01ba1facb7be0241bc112ecb1dd0b83534eee203ebdc8d48e80",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.9661969266386167,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9630843965083096,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9625450949256892,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.9560836001579016,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.8485822985187796,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_027_B_baja.png",
+      "sha256": "f282c0490b5bb43931a3b1fa66db4015f92d80bffec0313a4a1e59326d3b8b3f",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9785506972793129,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.9703567986613431,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9671161920707381,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.9554502527822736,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.9006651325117967,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "estados_predichos": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 2
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_027_C_mixta.png",
+      "sha256": "43995ced394a6395c9d63f1c006036515f2cb9ef086e927887ed89e19ff87d56",
+      "anotados": 5,
+      "predichos": 6,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 1,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.9775889043934204,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9627244383513179,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9569658221874576,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 5,
+          "iou_mascara": 0.9559538132216684,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.886335234448743,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 3,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {
+          "reponer": 1
+        }
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 1,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_028_0_original.jpg",
+      "sha256": "f31b25f183a625f2f2ede148f3e141ec043196f43923266c02ee3064079d9481",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9623192381263651,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9601819900417259,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9420952231138073,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9278912946415739,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.915707969962314,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 5
+      },
+      "estados_predichos": {
+        "suficiente": 5
+      },
+      "aciertos_por_estado": {
+        "suficiente": 5
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 5
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_028_A_vacios.png",
+      "sha256": "099e54bebac0271a6f1e1fe37518704d1ac7f2b8331dde9325a926bfa8e490e1",
+      "anotados": 5,
+      "predichos": 7,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 2,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.9708443714224344,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9601549988436179,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9469120005608967,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.925258770724558,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 4,
+          "iou_mascara": 0.9080060526858793,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "reponer": 4,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 2,
+          "reponer": 1
+        },
+        "sin_referencia": {
+          "reponer": 1,
+          "suficiente": 1
+        }
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 4,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 2,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_028_B_baja.png",
+      "sha256": "b4cca4cc2960551e9c607f25c767e647fa907746c72ff7c4e7f05a77c7faae9d",
+      "anotados": 5,
+      "predichos": 6,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 1,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 6,
+          "iou_mascara": 0.9661197266663939,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.96240024827097,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9561108126640548,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9253554676227324,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.7439226454504917,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 3,
+      "estados_reales": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "estados_predichos": {
+        "reponer": 5,
+        "suficiente": 1
+      },
+      "aciertos_por_estado": {
+        "reponer": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "reponer": 2
+        },
+        "sin_referencia": {
+          "suficiente": 1
+        }
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 5,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 2,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_028_C_mixta.png",
+      "sha256": "031432846a70c86b630f49e8ca0d6e304c0919881f681189a762fd9c34cc6f63",
+      "anotados": 5,
+      "predichos": 6,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 1,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.9585200007083031,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9580624478110462,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9443765361513085,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 6,
+          "iou_mascara": 0.9271415581598224,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9193417738918699,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 3,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 5,
+        "suficiente": 1
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "reponer": 2,
+          "suficiente": 1
+        },
+        "sin_referencia": {
+          "reponer": 1
+        }
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 5,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 3,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_039_0_original.jpg",
+      "sha256": "73d1a38ae952cc42db62ef0e9e0cf26c557b8719189120402c0552fd3ee9423e",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9680174555981479,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9579517182929164,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.94789917139872,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9471670067655382,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.9101095015303526,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 5
+      },
+      "estados_predichos": {
+        "suficiente": 5
+      },
+      "aciertos_por_estado": {
+        "suficiente": 5
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 5
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_039_A_vacios.png",
+      "sha256": "73447c62d233969fb2aa89ef74a5bfa1ea6a5fb840d98d88d1545dea22550362",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.9617636161541312,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 3,
+          "iou_mascara": 0.9557282392298126,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 4,
+          "iou_mascara": 0.9543378014934427,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.946607104871304,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.8979166994724824,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_039_B_baja.png",
+      "sha256": "0a53fad4e01b42cffb0404a200db7fe7702d5ffca83ec44981da66a9c8446b90",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.970127828659382,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9614214576172875,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9491586974942501,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9450354609929078,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.9336110497811603,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 2,
+          "reponer": 1
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 1,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_039_C_mixta.png",
+      "sha256": "f5479cdb3c00d77744c5df5ef0ed3c7aa18ddee26120bdcf29d980a0d0cb2301",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 1,
+          "iou_mascara": 0.9644965918464812,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.9608129960868546,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.9568981611126669,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 4,
+          "iou_mascara": 0.9541248679721002,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 5,
+          "iou_mascara": 0.9013857870567865,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_040_0_original.jpg",
+      "sha256": "f1689fcd1e9527d2f1cd1c093d80ed3e0ac06e3674ff438d8c0cde9a8a9cb6eb",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.9481515069847093,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.94639911520793,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9407230384166553,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9172717924027605,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.8962179703859491,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 1
+      },
+      "estados_predichos": {
+        "suficiente": 4,
+        "reponer": 1
+      },
+      "aciertos_por_estado": {
+        "reponer": 1,
+        "suficiente": 4
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 4
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 1,
+      "alertas_predichas": 1,
+      "alertas_acertadas": 1,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_040_A_vacios.png",
+      "sha256": "56de6d88e02bfe10324d9b8a97996273d79c9159e2f304f1ee8b9997ecce53d3",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9425634862907561,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9408664155444368,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9351585761860793,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 2,
+          "iou_mascara": 0.8911331865653027,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 5,
+          "iou_mascara": 0.8144901328720812,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "estados_predichos": {
+        "reponer": 4,
+        "suficiente": 1
+      },
+      "aciertos_por_estado": {
+        "reponer": 3,
+        "suficiente": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 1,
+          "reponer": 1
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 4,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 1,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_040_B_baja.png",
+      "sha256": "3a93d7fec426e8ce82caa1e87c40ac0252f256eb6174bcc1c879a37b1ac5f0a1",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 4,
+          "iou_mascara": 0.9685828121254878,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.9641505803886359,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 3,
+          "iou_mascara": 0.9429919581927497,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.9131455399061033,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9054891357066641,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "estados_predichos": {
+        "suficiente": 2,
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 3
+        },
+        "suficiente": {
+          "suficiente": 2
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 3,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_040_C_mixta.png",
+      "sha256": "4031a966cf80709ea061113c188b6f015cb021d352859c3689ff4c16be1535a8",
+      "anotados": 5,
+      "predichos": 4,
+      "aciertos": 4,
+      "omitidos": 1,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.950953555915388,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 4,
+          "iou_mascara": 0.9356648172281086,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.9259055520317034,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.9214357167385819,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "suficiente": 2,
+        "reponer": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 2,
+          "no_detectado": 1
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_041_0_original.jpg",
+      "sha256": "66516780b4771327c490411ca1873272ba8017a5f32b4634ce217888a8383fe4",
+      "anotados": 5,
+      "predichos": 6,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 1,
+      "parejas": [
+        {
+          "anotacion": 5,
+          "prediccion": 4,
+          "iou_mascara": 0.906117964415883,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.8906716323046748,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.8763000347218455,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 6,
+          "iou_mascara": 0.870612278547471,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 2,
+          "iou_mascara": 0.8406375234102113,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 5
+      },
+      "estados_predichos": {
+        "suficiente": 6
+      },
+      "aciertos_por_estado": {
+        "suficiente": 5
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 5
+        },
+        "sin_referencia": {
+          "suficiente": 1
+        }
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_041_A_vacios.png",
+      "sha256": "64dc7c95bcab6cf130fe6d7406d670d48f571000b52090849b58a8421ed0fef1",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.8846701806025099,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.8747063836863658,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 3,
+          "iou_mascara": 0.872859856753472,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.8696282022845736,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.8024128611629656,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 5,
+      "estados_reales": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "estados_predichos": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "aciertos_por_estado": {
+        "suficiente": 3,
+        "reponer": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 2,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_041_B_baja.png",
+      "sha256": "de6c184caa31803d0af81fd4064d2cfb0714157f07115c4b3ecb6f027a7d8672",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.8972234760274657,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.894519190955643,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 1,
+          "iou_mascara": 0.8716930896768728,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 4,
+          "iou_mascara": 0.8557075320145041,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 5,
+          "iou_mascara": 0.7784658945258791,
+          "estado_real": "suficiente",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 3,
+      "estados_reales": {
+        "suficiente": 4,
+        "reponer": 1
+      },
+      "estados_predichos": {
+        "reponer": 3,
+        "suficiente": 2
+      },
+      "aciertos_por_estado": {
+        "suficiente": 2,
+        "reponer": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 2,
+          "reponer": 2
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 1,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 1,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 2,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_041_C_mixta.png",
+      "sha256": "0404aadfa788c0c29a878be3cc4ab87888c3965123950013bdd40199caad49ca",
+      "anotados": 5,
+      "predichos": 5,
+      "aciertos": 5,
+      "omitidos": 0,
+      "falsos_positivos": 0,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.9085093690411513,
+          "estado_real": "reponer",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 4,
+          "prediccion": 2,
+          "iou_mascara": 0.906074612753075,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.8844389630718876,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 5,
+          "prediccion": 5,
+          "iou_mascara": 0.85722330656257,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 3,
+          "iou_mascara": 0.82103201266385,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 4,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "reponer": 1,
+        "suficiente": 4
+      },
+      "aciertos_por_estado": {
+        "suficiente": 3,
+        "reponer": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "suficiente": 1,
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 3
+        },
+        "sin_referencia": {}
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 1,
+      "alertas_acertadas": 1,
+      "alertas_omitidas": 1,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_042_0_original.jpg",
+      "sha256": "67b9f935833173453319c97c6632c4e1c7ef9404cfd22169f437067b061648d0",
+      "anotados": 3,
+      "predichos": 7,
+      "aciertos": 2,
+      "omitidos": 1,
+      "falsos_positivos": 5,
+      "parejas": [
+        {
+          "anotacion": 1,
+          "prediccion": 1,
+          "iou_mascara": 0.8684800388002358,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 4,
+          "iou_mascara": 0.74077905956212,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 2,
+      "estados_reales": {
+        "suficiente": 3
+      },
+      "estados_predichos": {
+        "suficiente": 7
+      },
+      "aciertos_por_estado": {
+        "suficiente": 2
+      },
+      "matriz_confusion": {
+        "reponer": {},
+        "suficiente": {
+          "suficiente": 2,
+          "no_detectado": 1
+        },
+        "sin_referencia": {
+          "suficiente": 5
+        }
+      },
+      "alertas_reales": 0,
+      "alertas_predichas": 0,
+      "alertas_acertadas": 0,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_042_A_vacios.png",
+      "sha256": "74b45517806f473e3a9256afeb9858352991dfc06dcb994f9caba22fe00e69fc",
+      "anotados": 3,
+      "predichos": 7,
+      "aciertos": 2,
+      "omitidos": 1,
+      "falsos_positivos": 5,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 1,
+          "iou_mascara": 0.9085201571273109,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 2,
+          "iou_mascara": 0.8750652412740937,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        }
+      ],
+      "estados_acertados": 2,
+      "estados_reales": {
+        "suficiente": 2,
+        "reponer": 1
+      },
+      "estados_predichos": {
+        "reponer": 1,
+        "suficiente": 6
+      },
+      "aciertos_por_estado": {
+        "reponer": 1,
+        "suficiente": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 1
+        },
+        "suficiente": {
+          "suficiente": 1,
+          "no_detectado": 1
+        },
+        "sin_referencia": {
+          "suficiente": 5
+        }
+      },
+      "alertas_reales": 1,
+      "alertas_predichas": 1,
+      "alertas_acertadas": 1,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 0,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_042_B_baja.png",
+      "sha256": "7230c457d30ec73789b0e0f2f44caac9c381b68ebc7572d3631a01fb69c59fe9",
+      "anotados": 3,
+      "predichos": 3,
+      "aciertos": 2,
+      "omitidos": 1,
+      "falsos_positivos": 1,
+      "parejas": [
+        {
+          "anotacion": 3,
+          "prediccion": 2,
+          "iou_mascara": 0.9606362144185263,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.9307997072116557,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 2,
+      "estados_reales": {
+        "reponer": 3
+      },
+      "estados_predichos": {
+        "reponer": 3
+      },
+      "aciertos_por_estado": {
+        "reponer": 2
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2,
+          "no_detectado": 1
+        },
+        "suficiente": {},
+        "sin_referencia": {
+          "reponer": 1
+        }
+      },
+      "alertas_reales": 3,
+      "alertas_predichas": 3,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 1,
+      "falsas_alertas": 1,
+      "no_evaluables_predichos": 0
+    },
+    {
+      "imagen": "lider_express_042_C_mixta.png",
+      "sha256": "9578e84ccc55e86b401edf5f026cd132153778c1659ff0dd16f2fee159a337f2",
+      "anotados": 3,
+      "predichos": 6,
+      "aciertos": 3,
+      "omitidos": 0,
+      "falsos_positivos": 3,
+      "parejas": [
+        {
+          "anotacion": 2,
+          "prediccion": 1,
+          "iou_mascara": 0.8845231317379566,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        },
+        {
+          "anotacion": 3,
+          "prediccion": 3,
+          "iou_mascara": 0.8808433654885806,
+          "estado_real": "suficiente",
+          "estado_predicho": "suficiente"
+        },
+        {
+          "anotacion": 1,
+          "prediccion": 4,
+          "iou_mascara": 0.7176016306282692,
+          "estado_real": "reponer",
+          "estado_predicho": "reponer"
+        }
+      ],
+      "estados_acertados": 3,
+      "estados_reales": {
+        "reponer": 2,
+        "suficiente": 1
+      },
+      "estados_predichos": {
+        "reponer": 4,
+        "suficiente": 2
+      },
+      "aciertos_por_estado": {
+        "reponer": 2,
+        "suficiente": 1
+      },
+      "matriz_confusion": {
+        "reponer": {
+          "reponer": 2
+        },
+        "suficiente": {
+          "suficiente": 1
+        },
+        "sin_referencia": {
+          "reponer": 2,
+          "suficiente": 1
+        }
+      },
+      "alertas_reales": 2,
+      "alertas_predichas": 4,
+      "alertas_acertadas": 2,
+      "alertas_omitidas": 0,
+      "falsas_alertas": 2,
+      "no_evaluables_predichos": 0
+    }
+  ]
+}

@@ -33,6 +33,29 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(config['split'], 'val')
         self.assertTrue(config['truth'].endswith('/val/28.txt'))
 
+    def test_training_photo_is_rejected_even_with_a_historical_path(self):
+        for path in ('Datos/V1/Lider/lider_003.jpg', 'Datos/Imagenes/03.jpg'):
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, 'se usó para entrenar'):
+                panel.validate({**self.config, 'image': path}, self.data)
+
+    def test_training_history_includes_parent_runs_but_keeps_validation(self):
+        parent = {'id': 'parent', 'manifest': {'imagenes': [
+            {'imagen': 'REAL_03.jpg', 'archivo': 'Equilibrado_v1_20261013/reales/entrenamiento/REAL_03.jpg', 'split': 'train'},
+            {'imagen': '28.jpg', 'split': 'val'}]}}
+        child = {'id': 'child', 'config': {'model': 'Experimentos/parent/entrenamiento/weights/best.pt'},
+                 'manifest': {'imagenes': [{'imagen': '04.jpg', 'split': 'train'}]}}
+        self.assertEqual(panel.training_image_ids({'run': 'child'}, [parent, child]),
+                         ['Datos/V1/Lider/lider_003.jpg', 'Datos/V1/Lider/lider_004.jpg'])
+        self.assertEqual(panel.training_image_ids({'run': None}, [parent, child]), [])
+
+    def test_same_filename_in_another_folder_is_not_mistaken_for_training(self):
+        data = copy.deepcopy(self.data)
+        data['runs'][0]['manifest']['imagenes'] = [
+            {'imagen': 'lider_028.jpg', 'archivo': 'V1/otra/lider_028.jpg', 'split': 'train'}]
+        clean = panel.validate(self.config, data)
+        self.assertNotIn('truth', clean)
+        self.assertNotIn('split', clean)
+
     def test_unsafe_paths_and_invalid_numbers(self):
         for change in ({'model': '../private.pt'}, {'conf': float('nan')}, {'imgsz': 641},
                        {'conf': True}, {'nms': 2}, {'imgsz': 640.5}):
@@ -82,6 +105,31 @@ class HttpTests(unittest.TestCase):
         import json
         with urlopen(self.url + '/api/health') as response:
             self.assertEqual(json.load(response), {'status': 'ok'})
+
+    def test_frontend_resources_are_served_and_support_revalidation(self):
+        import re
+        with urlopen(self.url + '/') as response:
+            html = response.read().decode('utf-8')
+        resources = re.findall(r'(?:src|href)="(/static/[^\"]+)"', html)
+        self.assertTrue(any(path.endswith('.css') for path in resources))
+        self.assertTrue(any(path.endswith('.js') for path in resources))
+        for path in resources:
+            with self.subTest(resource=path), urlopen(self.url + path) as response:
+                self.assertEqual(response.status, 200)
+                self.assertTrue(response.read().strip())
+                expected = 'css' if path.endswith('.css') else 'javascript'
+                self.assertIn(expected, response.headers['Content-Type'])
+                etag = response.headers['ETag']
+            request = Request(self.url + path, headers={'If-None-Match': etag})
+            with self.assertRaises(HTTPError) as context:
+                urlopen(request)
+            self.assertEqual(context.exception.code, 304)
+
+    def test_static_route_rejects_missing_files_and_paths_outside_assets(self):
+        for path in ('/static/missing.js', '/static/../panel_modelos.py', '/static/../../README.md'):
+            with self.subTest(path=path), self.assertRaises(HTTPError) as context:
+                urlopen(self.url + path)
+            self.assertEqual(context.exception.code, 404)
 
     def test_foreign_host_is_denied(self):
         request = Request(self.url + '/api/health', headers={'Host': 'example.com:8090'})

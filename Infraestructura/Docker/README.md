@@ -34,7 +34,7 @@ El mismo script admite `-Cpu` y `-Build`. El inicio base no necesita CVAT. Para 
 & .\Herramientas\Modelos\iniciar_panel.ps1 -Dev
 ```
 
-Admite también `-Cpu`. El montaje de `Herramientas/Modelos` es de solo lectura: al guardar HTML, CSS o JavaScript en `panel.html`, basta F5 en el navegador. No hace falta reconstruir la imagen. Para cambios de Python, reiniciar el servicio cuando no haya entrenamientos activos:
+Admite también `-Cpu`. El montaje de `Herramientas/Modelos` es de solo lectura: al guardar `panel.html` o los archivos CSS y JavaScript de `static/`, basta F5 en el navegador. No hace falta reconstruir la imagen. Para cambios de Python, reiniciar el servicio cuando no haya entrenamientos activos:
 
 ```powershell
 docker compose -f Infraestructura/Docker/compose.modelos.yml -f Infraestructura/Docker/compose.modelos.dev.yml restart panel_modelos

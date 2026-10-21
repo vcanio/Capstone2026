@@ -1,6 +1,6 @@
 # Modelos generales para empezar a entrenar
 
-`preentrenados/` contiene los pesos generales descargados para iniciar los entrenamientos:
+Esta carpeta organiza los modelos generales que sirven de punto de partida para el laboratorio. `preentrenados/` recibe los pesos descargados para iniciar los entrenamientos:
 
 - `yolo11n-seg.pt`: base de YOLO11 con segmentación.
 - `yolo26n-seg.pt`: base de YOLO26 con segmentación.
@@ -8,4 +8,8 @@
 
 Los **modelos ya entrenados con nuestras anotaciones** están en `Experimentos/<ensayo>/entrenamiento/weights/best.pt`. [Índice de ensayos](../Experimentos/README.md).
 
-Para probarlos en otro computador, el [ZIP de Entregables](../Entregables/README.md) ya incluye ambos modelos entrenados. Esta carpeta contiene los puntos de partida del laboratorio.
+GitHub conserva este índice y los registros de procedencia; los pesos `.pt` se instalan desde los activos del equipo según la [guía del laboratorio](../Documentacion/Desarrollo/Replicar_proyecto.md).
+
+Para probar fotos en otro computador, la [entrega vigente de Walmart Visión](../Entregables/README.md) incluye cuatro modelos entrenados: YOLO11 y YOLO26 para V1 y V2 base.
+
+El código para entrenar está en [Herramientas/Modelos](../Herramientas/Modelos/README.md). Los resultados de cada entrenamiento están en [Experimentos](../Experimentos/README.md).

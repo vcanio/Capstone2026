@@ -3,6 +3,9 @@
 !Herramientas/Modelos/
 !Herramientas/Modelos/*.py
 !Herramientas/Modelos/panel.html
+!Herramientas/Modelos/static/
+!Herramientas/Modelos/static/*.css
+!Herramientas/Modelos/static/*.js
 !Herramientas/Modelos/docker/
 !Herramientas/Modelos/docker/Dockerfile
 !Herramientas/Modelos/docker/requirements.txt

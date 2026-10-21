@@ -1,5 +1,6 @@
 """Selección de proyecto y tarea: filtros, persistencia y recuperación de CVAT."""
 from pathlib import Path
+from panel_source import read_panel
 import re
 import shutil
 import subprocess
@@ -9,7 +10,7 @@ import unittest
 class CvatProjectsUiTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        html = (Path(__file__).resolve().parents[1] / 'panel.html').read_text(encoding='utf-8')
+        html = read_panel()
         cls.node = shutil.which('node')
         if not cls.node:
             raise unittest.SkipTest('Se necesita Node.js.')

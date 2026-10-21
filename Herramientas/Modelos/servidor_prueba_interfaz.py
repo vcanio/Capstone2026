@@ -71,6 +71,13 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         url=urlparse(self.path)
+        if url.path.startswith('/static/'):
+            static=(HERE/'static').resolve()
+            path=(static/url.path.removeprefix('/static/')).resolve()
+            if not path.is_relative_to(static) or path.suffix not in ('.css','.js') or not path.is_file():
+                self.send({'error':'Recurso no disponible'},404);return
+            mime='text/css; charset=utf-8' if path.suffix=='.css' else 'text/javascript; charset=utf-8'
+            self.send(path.read_bytes(),mime=mime);return
         if url.path=='/':
             html=(HERE/'panel.html').read_text(encoding='utf-8')
             html=html.replace('<title>Walmart', '<title>Prueba aislada de Walmart')
