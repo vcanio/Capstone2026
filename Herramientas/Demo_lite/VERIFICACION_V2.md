@@ -1,6 +1,6 @@
 # Verificación de Walmart Lite V2 con bordes
 
-> **Registro histórico · Lite V2 anterior al cambio de nombre y visor de Walmart Visión.** Las comprobaciones vigentes de esa nueva entrega están en [Verificación de Walmart Visión](VERIFICACION_VISION.md); su instalación se explica en la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../../Documentacion/Historico.md).
+> **Registro histórico · Lite V2 anterior al cambio de nombre y visor de Walmart Visión.** Las comprobaciones vigentes de esa nueva entrega están en [Verificación de Walmart Visión](VERIFICACION_VISION.md); su instalación se explica en la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../../Documentacion/Historico/README.md).
 
 Esta entrega incorpora los dos modelos V1 históricos y los dos V2 base. El manifiesto
 incluye la procedencia y el SHA-256 de cada best.pt. La interfaz muestra las clases

@@ -30,7 +30,7 @@ del equipo y es independiente del recorrido del usuario de Visión.
 
 La prueba Docker utilizó un proyecto y puerto separados del servicio del
 laboratorio. Al terminar se retiraron su contenedor y su red de prueba. Los
-resultados JSON compactos se conservan en [evidencias](evidencias/).
+resultados JSON compactos se conservan en [evidencias](evidencias).
 
 ## Pruebas de código
 
@@ -65,7 +65,7 @@ ese resultado externo.
   entre hardware diferente.
 
 Los paquetes de datos, exportaciones, resultados e informe se conservan aparte y
-se instalan con `--assets` según la [guía técnica](../Documentacion/Replicar_proyecto.md).
+se instalan con `--assets` según la [guía técnica](../Documentacion/Desarrollo/Replicar_proyecto.md).
 Estas operaciones pertenecen al laboratorio del equipo y no son requisitos para
 usar la aplicación publicada.
 

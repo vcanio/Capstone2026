@@ -1,23 +1,19 @@
 # Documentación del proyecto
 
-La entrega al usuario se centra en **Walmart Visión**. El laboratorio y CVAT se documentan para explicar cómo se construyó el sistema y permitir al equipo continuar el desarrollo. Instalar esas herramientas no es un requisito para usar la aplicación.
+La entrega para el usuario es Walmart Visión. Este índice y las cuatro guías principales explican cómo usarla, cómo se construyó y cuál es el avance del proyecto.
 
-| Necesidad | Documento |
+| Lectura | Contenido |
 |---|---|
-| **Instalar y usar la aplicación** | **[Usar Walmart Visión](Usar_Walmart_Vision.md)**: descarga, fotografías propias, resultados y problemas de inicio. |
-| Probar con ejemplos del proyecto | [Descargar imágenes desde Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y seguir la [guía de demostración](Imagenes_de_prueba.md): tres reales y tres sintéticas, con referencias y procedencia. |
-| Comprobar la entrega en otro computador | [Pauta y registro pendiente](Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador). |
-| Entender el proceso sin instalar el laboratorio | [Guía conceptual](Guia_para_entender_el_proyecto.md), con la función de cada interfaz y los conceptos de anotación, entrenamiento e inferencia. |
-| Continuar el desarrollo o repetir ensayos | [Guía técnica del laboratorio](Replicar_proyecto.md): requiere los paquetes del equipo y acceso personal a CVAT si se van a traer nuevas anotaciones. |
-| Consultar comprobaciones y antecedentes | [Resúmenes públicos de evidencias](Evidencias/README.md) y [documentación histórica](Historico.md), con su etapa y referencia vigente. |
-| **Presentar el Informe Intermedio de Avance (20 oct 2026)** | **[Informe Intermedio de Avance](Informe_Intermedio_Avance_20261020.md)** (también en [PDF](../Entregables/Informe_Intermedio_Avance_20261020.pdf) y [HTML](../Entregables/Informe_Intermedio_Avance_20261020.html) y [Word `.docx`](../Entregables/Informe_Intermedio_Avance_20261020.docx)). |
-| Mostrar la evolución y ubicar el código v1/v2 | [Evolución del prototipo](Evolucion_v1_v2.md): modelos conservados, clases, scripts y demostración. |
-| Anotar el lote actual | [Guía v2 de Líder Express](Guia_anotacion_lider_express_20261016.md). |
-| Consultar las reglas del primer lote | [Guía histórica v1](Guia_anotacion_CVAT.md). |
-| Preparar la siguiente ronda | [Guía para mejorar el modelo](Guia_mejora_modelo_paso_a_paso.md), con captura, reparto por escenas, revisión, entrenamiento y ejemplos. |
-| Revisar el diagnóstico histórico de la primera pasada | [Primera pasada V1](Revision_primera_pasada_20261016.md) y su [recuento](Revision_primera_pasada_20261016.json); no describen el estado actual de V2. |
-| Explicar las decisiones del proyecto | [Defensa del criterio](Defensa_criterio_disponibilidad.md). |
+| [Usar Walmart Visión](Usar_Walmart_Vision.md) | Instalación, fotos propias, imágenes de ejemplo en Drive, resultados, solución de problemas y prueba pendiente en otro computador. |
+| [Entender el proyecto](Guia_para_entender_el_proyecto.md) | Conceptos, herramientas, criterio de disponibilidad, decisiones, fundamentos y límites de las métricas. |
+| [Informe intermedio](Informe_Intermedio_Avance_20261020.md) | Avance, veinte casos visuales, resultados y próximos pasos. [PDF](../Entregables/Informe_Intermedio_Avance_20261020.pdf), [Word](../Entregables/Informe_Intermedio_Avance_20261020.docx) y [HTML](../Entregables/Informe_Intermedio_Avance_20261020.html) se distribuyen por separado. |
+| [Planificación y metodología](Planificacion_y_metodologia.md) | Hitos, responsables propuestos y forma de trabajo. |
 
-Las instrucciones técnicas del panel de entrenamiento están junto al [panel](../Herramientas/Modelos/README.md); las de servicios del laboratorio, en [Infraestructura](../Infraestructura/Docker/README.md). Los inventarios y anotaciones se consultan en [Datos](../Datos/Registros/README.md). Los resultados de cada modelo están en [Experimentos](../Experimentos/README.md).
+## Material de consulta
 
-Las guías históricas públicas se identifican en el [índice histórico](Historico.md). Los respaldos y registros extensos de operación quedan solo en local; los [resúmenes públicos](Evidencias/README.md) conservan sus resultados y limitaciones.
+- [Desarrollo](Desarrollo/README.md): arquitectura y mapa del código, anotación, entrenamiento, laboratorio y trabajo en equipo.
+- [Histórico](Historico/README.md): guías V1, primeras revisiones y notas de versiones anteriores.
+- [Evidencias](Evidencias/README.md): resúmenes de comprobaciones y figuras que respaldan el informe.
+- [Ejemplos](Ejemplos/README.md): recursos didácticos y fuentes del ZIP de imágenes; su uso está integrado en la guía de usuario.
+
+Los datos y accesos del laboratorio se gestionan por separado. Los respaldos y logs extensos quedan en local. El material obligatorio de `Fase 1/` se conserva en el repositorio.

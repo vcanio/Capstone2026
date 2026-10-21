@@ -10,7 +10,7 @@
 
 Un polígono `Nivel` por nivel delimitable. El atributo `estado` admite `reponer` (vacío o menos del 30 % del ancho ocupado), `suficiente` (30 % o más) y `no_evaluable`. A/B/C describe la edición solicitada, no el estado verdadero.
 
-Consultar la [guía de anotación](../../../Documentacion/Guia_anotacion_lider_express_20261016.md), el [registro verificado](../../Registros/CVAT/tarea_19.json) y el [plan de partición](../../../Documentacion/Plan_particion_lider_express_20261016.md).
+Consultar la [guía de anotación](../../../Documentacion/Desarrollo/Guia_anotacion.md), el [registro verificado](../../Registros/CVAT/tarea_19.json) y el [plan de partición](../../../Documentacion/Desarrollo/Plan_particion_lider_express_20261016.md).
 
 | Contenido | Uso |
 |---|---|

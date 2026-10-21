@@ -20,7 +20,7 @@ class PrivateContextTests(unittest.TestCase):
             root.mkdir()
             checkout.mkdir()
             public = ['Documentacion/Evidencias/verificacion.json',
-                      'Documentacion/Historico.md',
+                      'Documentacion/Historico/README.md',
                       'Datos/Registros/Particiones/lote/particion.json']
             local = ['Datos/Registros/Particiones/lote/respaldo_registros/manifest.json',
                      'Documentacion/Evidencias/pruebas_20261021.log',

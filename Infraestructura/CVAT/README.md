@@ -1,7 +1,7 @@
 # Conexión opcional a CVAT
 
 La inferencia y los ensayos congelados funcionan sin CVAT. Para traer anotaciones
-nuevas, consultar [Replicar el proyecto](../../Documentacion/Replicar_proyecto.md).
+nuevas, consultar [Replicar el proyecto](../../Documentacion/Desarrollo/Replicar_proyecto.md).
 
 Cada compañero usa su propia cuenta. La URL se configura en
 Infraestructura/Docker/.env.modelos y las credenciales en

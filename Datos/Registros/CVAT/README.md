@@ -14,7 +14,7 @@ Proyecto [Walmart Stock · Estados por nivel](https://pcvicen.tailca514b.ts.net/
 
 [tarea_19.json](tarea_19.json) registra la carga, la recuperación de cinco polígonos originales y la verificación de anotaciones. La tarea 17 ya estaba ausente al iniciar la unificación; la 18 se eliminó tras validar la nueva. Los seis trabajos anteriores ya no existen. Los registros de esas tareas y sus respaldos están archivados en `.resguardo/unificacion_cvat_lider_express_20261017`.
 
-Se usa la etiqueta `Nivel` de tipo polígono y únicamente `estado`: `reponer`, `suficiente` y `no_evaluable`. El umbral es 30 %. Consultar la [guía](../../../Documentacion/Guia_anotacion_lider_express_20261016.md) y el [plan de partición](../../../Documentacion/Plan_particion_lider_express_20261016.md). Se anotan todas; no se ha asignado partición ni habilitado entrenamiento.
+Se usa la etiqueta `Nivel` de tipo polígono y únicamente `estado`: `reponer`, `suficiente` y `no_evaluable`. El umbral es 30 %. Consultar la [guía](../../../Documentacion/Desarrollo/Guia_anotacion.md) y el [plan de partición](../../../Documentacion/Desarrollo/Plan_particion_lider_express_20261016.md). Se anotan todas; no se ha asignado partición ni habilitado entrenamiento.
 
 Los originales y variantes están en `Datos/V2/lider_express_20261016/imagenes_ordenadas`. El [inventario](../../V2/lider_express_20261016/inventario.csv) relaciona las 236 imágenes con sus trabajos actuales.
 

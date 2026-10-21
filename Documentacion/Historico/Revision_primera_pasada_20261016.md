@@ -1,6 +1,6 @@
 # Primera pasada: revisión y propuesta para el siguiente entrenamiento
 
-> **Documento histórico · diagnóstico V1 del 16 de octubre de 2026.** Los pendientes y las referencias a la validación describen esa primera pasada. El estado posterior de V2 está en [Evolución del prototipo](Evolucion_v1_v2.md); para usar la aplicación, seguir [Walmart Visión](Usar_Walmart_Vision.md). Véase el [índice histórico](Historico.md).
+> **Documento histórico · diagnóstico V1 del 16 de octubre de 2026.** Los pendientes y las referencias a la validación describen esa primera pasada. El estado posterior de V2 está en [Evolución del prototipo](../Desarrollo/Evolucion_v1_v2.md); para usar la aplicación, seguir [Walmart Visión](../Usar_Walmart_Vision.md). Véase el [índice histórico](README.md).
 
 16 de octubre de 2026 · Proyecto Walmart · Revisión de archivos locales.
 
@@ -24,7 +24,7 @@ Los 182 archivos exportados de imágenes y etiquetas son idénticos por SHA-256 
 
 **Conviene conservar:** guía común, anotación humana de sintéticas, exclusiones de material defectuoso, agrupación por escena, validación real, versiones de datos aprobadas y ensayos completos con pesos, configuración y métricas. Estos elementos permiten revisar decisiones sin perder la primera referencia.
 
-Fuentes: [manifest](../Experimentos/YOLO26-1_20261015_021212_c452/manifest.json), [guía v1.3](Guia_anotacion_CVAT.md) y [recuento independiente](Revision_primera_pasada_20261016.json).
+Fuentes: [manifest](../../Experimentos/YOLO26-1_20261015_021212_c452/manifest.json), [guía v1.3](Guia_anotacion_CVAT.md) y [recuento independiente](Revision_primera_pasada_20261016.json).
 
 ## 2. Hallazgos que cambian la siguiente ronda
 
@@ -59,7 +59,7 @@ La documentación señala discrepancias pendientes de revisión en REAL_25. Revi
 
 También existen predicciones de estados distintos sobre un mismo nivel. La supresión entre clases redujo duplicados en las pruebas guardadas de REAL_03, pero no garantiza escoger el estado correcto. Evaluar esa política por separado, sobre varias escenas, contando también niveles vecinos eliminados.
 
-Fuentes: [comparación REAL_22](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_22_val.jpg), [REAL_29 y carteles](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_29_val.jpg), diagnóstico corregido de REAL_03 (archivo local histórico, fuera de la distribución) y [casos REAL_11/REAL_25](Guia_mejora_modelo_paso_a_paso.md#10-ejemplos-concretos-fotos-11-y-25).
+Fuentes: [comparación REAL_22](../../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_22_val.jpg), [REAL_29 y carteles](../../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_29_val.jpg), diagnóstico corregido de REAL_03 (archivo local histórico, fuera de la distribución) y [casos REAL_11/REAL_25](../Desarrollo/Guia_mejora_modelo_paso_a_paso.md#10-ejemplos-concretos-fotos-11-y-25).
 
 ## 3. Augmentation que ya utilizaron
 
@@ -81,7 +81,7 @@ No hace falta activar augment=True por ver augment: false en args.yaml: ese argu
 
 Mi propuesta inicial es conservar variación suave de color y usar geometría que mantenga visible el nivel completo. Si todavía no se verifica esa condición, probar una configuración conservadora con degrees=0, translate=0 y scale=0, frente a la configuración actual sobre exactamente los mismos datos. No añadir de entrada borrado de regiones, mezclas o recortes agresivos.
 
-Fuentes locales: [args.yaml](../Experimentos/YOLO26-1_20261015_021212_c452/entrenamiento/args.yaml), [función train](../Herramientas/Modelos/piloto_modulos.py) y [lote de entrenamiento guardado](../Experimentos/YOLO26-1_20261015_021212_c452/entrenamiento/train_batch0.jpg). Las propuestas anteriores son decisiones para este proyecto, pendientes de comparación.
+Fuentes locales: [args.yaml](../../Experimentos/YOLO26-1_20261015_021212_c452/entrenamiento/args.yaml), [función train](../../Herramientas/Modelos/piloto_modulos.py) y [lote de entrenamiento guardado](../../Experimentos/YOLO26-1_20261015_021212_c452/entrenamiento/train_batch0.jpg). Las propuestas anteriores son decisiones para este proyecto, pendientes de comparación.
 
 ## 4. Qué dicen los dos entrenamientos
 
@@ -102,7 +102,7 @@ YOLO26 es un candidato razonable para la siguiente comparación. Su mejor mAP no
 
 ## 5. Secuencia concreta para la ronda 2
 
-1. **Capturar escenas reales nuevas.** Mantener el [reparto de 40 fotos por persona](Guia_mejora_modelo_paso_a_paso.md) como objetivo operativo: 12 orientadas a vacío, 12 a baja, 12 a suficiente y cuatro a no evaluable. Contar después niveles y escenas por estado; no confundir la cuota de fotos con balance de clases. Cubrir perspectiva, producto del fondo, tramos vecinos, niveles inferiores y carteles.
+1. **Capturar escenas reales nuevas.** Mantener el [reparto de 40 fotos por persona](../Desarrollo/Guia_mejora_modelo_paso_a_paso.md) como objetivo operativo: 12 orientadas a vacío, 12 a baja, 12 a suficiente y cuatro a no evaluable. Contar después niveles y escenas por estado; no confundir la cuota de fotos con balance de clases. Cubrir perspectiva, producto del fondo, tramos vecinos, niveles inferiores y carteles.
 2. **Separar antes de generar variantes.** Reservar aproximadamente una cuarta parte de las escenas nuevas para validación real, asegurando las cuatro clases y diversidad por clase. Mantener las cinco fotos antiguas fuera del entrenamiento. Conservar la reserva final separada y auditar que no se haya usado para ajustar decisiones antes de presentarla como independiente.
 3. **Revisión cruzada.** Rotar Vicente → Paulo → Vilches → Vicente. Revisar todos los críticos, los no evaluables y los casos próximos al 30 %. Registrar desacuerdos iniciales sobre un mismo subconjunto antes de resolverlos; así se comprueba si el criterio se aplica consistentemente. No cambiar el 30 % en esta misma ronda sin una evaluación específica del criterio.
 4. **Corregir cobertura y etiquetas.** Resolver la región de análisis y las discrepancias señaladas; conservar los archivos de los ensayos históricos. Crear una nueva versión con datos antiguos útiles corregidos más nuevos, con procedencia y particiones. El importador actual requiere adaptación para registrar/fusionar nuevos lotes: una tarea nueva en CVAT no los incorpora automáticamente.

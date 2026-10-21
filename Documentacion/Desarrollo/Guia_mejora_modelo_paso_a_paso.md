@@ -36,7 +36,7 @@ Para nuestro proyecto conviene priorizar:
 - Carteles y otras estructuras horizontales que se confundan con niveles.
 - Niveles suficientes, para conservar ejemplos de funcionamiento habitual.
 
-Guarda los originales nuevos en la carpeta de imágenes del lote. En `Datos/V2/lider_express_20261016/imagenes_ordenadas/`, los originales se identifican por `*_0_original.jpg` y conviven con variantes IA; usa el inventario para seleccionar únicamente las fotos reales. Registra archivo original, local, fecha, tramo físico y SHA-256 en su inventario, y enlaza el lote en `Datos/Registros/lotes.json`. Las 59 fotos de Líder Express se asignaron a anotación en la tarea 19 el 17 de octubre de 2026, con reparto 80/80/76 (originales y variantes). Su [guía específica](Guia_anotacion_lider_express_20261016.md) usa reponer, suficiente y no_evaluable. Sigue el [flujo común](../Datos/README.md).
+Guarda los originales nuevos en la carpeta de imágenes del lote. En `Datos/V2/lider_express_20261016/imagenes_ordenadas/`, los originales se identifican por `*_0_original.jpg` y conviven con variantes IA; usa el inventario para seleccionar únicamente las fotos reales. Registra archivo original, local, fecha, tramo físico y SHA-256 en su inventario, y enlaza el lote en `Datos/Registros/lotes.json`. Las 59 fotos de Líder Express se asignaron a anotación en la tarea 19 el 17 de octubre de 2026, con reparto 80/80/76 (originales y variantes). Su [guía específica](Guia_anotacion.md) usa reponer, suficiente y no_evaluable. Sigue el [flujo común](../../Datos/README.md).
 
 **No hay una cantidad de fotos que garantice la mejora.** El [plan de captura del equipo](Guia_mejora_modelo_paso_a_paso.md) propone 40 por persona como primera ronda; lo importante es cubrir los errores con ejemplos útiles y revisados.
 
@@ -57,7 +57,7 @@ Mantén las cinco fotos actuales de validación fuera del entrenamiento y conser
 
 ## 4. Marcar las fotos en CVAT
 
-Usa el mismo esquema del proyecto: etiqueta **Nivel**, polígono completo y estado. Sigue la [guía de anotación v1.3](Guia_anotacion_CVAT.md).
+Usa el mismo esquema del proyecto: etiqueta **Nivel**, polígono completo y estado. Sigue la [guía de anotación v1.3](../Historico/Guia_anotacion_CVAT.md).
 
 | Estado | Regla sencilla |
 |---|---|
@@ -218,22 +218,22 @@ La propuesta inicial es de 40 fotos útiles por persona, preferentemente en loca
 
 Priorizar encuadres frontales o casi frontales, nítidos, con ancho completo, límites y detalle de productos al fondo. Usar la cámara normal y el archivo original. Cubrir varias familias de productos, locales, horarios y condiciones; registrar las carencias sin cambiar etiquetas para cumplir cuotas. Conservar la mejor toma de encuadres casi idénticos. Otras visitas, recortes y variantes del mismo tramo permanecen en su grupo de escena.
 
-Registrar nombre original, local, fecha, autor cuando se conozca, escena física, objetivo provisional y fuente celular o cámara. El inventario común añade dimensiones y SHA-256. Usar la convención vigente de [Datos](../Datos/README.md), como lider_express_001.jpg; no crear nombres de clase en el archivo. El objetivo de búsqueda no sustituye el estado revisado en CVAT.
+Registrar nombre original, local, fecha, autor cuando se conozca, escena física, objetivo provisional y fuente celular o cámara. El inventario común añade dimensiones y SHA-256. Usar la convención vigente de [Datos](../../Datos/README.md), como lider_express_001.jpg; no crear nombres de clase en el archivo. El objetivo de búsqueda no sustituye el estado revisado en CVAT.
 
 Como orientación de pilotaje, separar aproximadamente una cuarta parte de las escenas nuevas para validación de desarrollo, con casos críticos presentes. No repartir cada cuarta foto al azar. La reserva final sigue independiente. Las pruebas con celular no demuestran transferencia a cámaras de seguridad; esa evaluación requiere imágenes reales del entorno previsto.
 
-Las 59 fotos de Lider Express están asignadas a anotación en la tarea 19: 20 para Canio, 20 para Guerra y 19 para Vilches. Este reparto no define su partición de entrenamiento, validación o evaluación; sus grupos de escena siguen pendientes de identificar.
+Las 59 fotos de Lider Express se asignaron a anotación en la tarea 19: 20 para Canio, 20 para Guerra y 19 para Vilches. Ese reparto no define la partición del modelo. La [partición por familias y escenas](../../Datos/Registros/Particiones/lider_express_v2_20261019/README.md) está fijada para la etapa base; las escenas nuevas deben registrarse antes de incorporarlas.
 
 ## Demostrar y explicar el proyecto
 
 Para una demostración breve: explicar el criterio, mostrar una anotación de CVAT, analizar una foto con cada modelo, revisar un acierto y una limitación y presentar qué se mejorará en la siguiente ronda. Aclarar si la foto fue usada para entrenar. Subirla al panel realiza inferencia y no cambia los pesos.
 
-El prototipo predice disponibilidad visual, sin consultar inventario ni contar unidades exactas. La validación actual carece de vacíos y bajos: mostrar una predicción no demuestra precisión sobre faltantes nuevos. La [defensa del criterio](Defensa_criterio_disponibilidad.md) contiene la explicación para presentar y la [revisión de la primera pasada](Revision_primera_pasada_20261016.md) conserva la evidencia y el siguiente experimento recomendado.
+El prototipo predice disponibilidad visual, sin consultar inventario ni contar unidades exactas. La validación histórica V1 carece de vacíos y bajos; la de V2 base tiene una sola referencia real de reposición. Mostrar una predicción no demuestra precisión sobre faltantes nuevos. La [explicación del criterio](../Guia_para_entender_el_proyecto.md#criterio-de-disponibilidad) contiene los fundamentos para presentar y la [revisión de la primera pasada](../Historico/Revision_primera_pasada_20261016.md) conserva el diagnóstico inicial de V1.
 
 ## Referencias
 
-- [Guía para marcar en CVAT](Guia_anotacion_CVAT.md).
-- [Uso del panel](../Herramientas/Modelos/README.md).
+- [Guía para marcar en CVAT](../Historico/Guia_anotacion_CVAT.md).
+- [Uso del panel](../../Herramientas/Modelos/README.md).
 - Diagnóstico de omisión, duplicado y perspectiva en REAL_03 (archivo local histórico, fuera de la distribución).
-- [Revisión de YOLO11-1](../Experimentos/YOLO11-1_20261015_013749_f709/REVISION_MODELO.md) y [comparación con YOLO26-1](../Experimentos/YOLO26-1_20261015_021212_c452/REVISION_MODELO.md).
+- [Revisión de YOLO11-1](../../Experimentos/YOLO11-1_20261015_013749_f709/REVISION_MODELO.md) y [comparación con YOLO26-1](../../Experimentos/YOLO26-1_20261015_021212_c452/REVISION_MODELO.md).
 - [Ultralytics: ajuste fino desde pesos entrenados](https://docs.ultralytics.com/guides/finetuning-guide).

@@ -7,7 +7,7 @@ las etiquetas de los modelos existentes.
 brillo mínimo y textura en zonas oscuras). El fondo negro liso ya no se considera
 ocupado por ser oscuro. El panel muestra «Revisión 2 · color y textura» al ejecutar
 un análisis nuevo. Los resultados anteriores conservan sus parámetros y método.
-Ver [revisión y comparación antes/después](../Experimentos/Bordes/REVISION_20261020.md).
+Ver [revisión y comparación antes/después](../../Experimentos/Bordes/REVISION_20261020.md).
 
 ## Propósito y flujo
 
@@ -44,12 +44,12 @@ guarda `input_kind` e `input_rgb_sha256` en su procedencia. Una prueba del worke
 verifica que una foto blanca con una visualización YOLO roja conserva 0 % de señal
 para el análisis de bordes y el mismo hash de los píxeles originales.
 
-El [original del 18 de octubre](../Experimentos/Bordes/Versiones/gondola_bordes_20261018.py)
-y el [nuevo script recibido de Paulo](../Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py)
-se conservan sin editar. La entrada [gondola_bordes.py](../Experimentos/Bordes/gondola_bordes.py)
+El [original del 18 de octubre](../../Experimentos/Bordes/Versiones/gondola_bordes_20261018.py)
+y el [nuevo script recibido de Paulo](../../Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py)
+se conservan sin editar. La entrada [gondola_bordes.py](../../Experimentos/Bordes/gondola_bordes.py)
 contiene la revisión ejecutable con validación de cajas y salida de mediciones.
 Se importan sus funciones de mapa de bordes y eliminación de líneas.
-La capa [ocupacion_paulo.py](../Herramientas/Modelos/ocupacion_paulo.py) añade:
+La capa [ocupacion_paulo.py](../../Herramientas/Modelos/ocupacion_paulo.py) añade:
 
 - Máscaras automáticas de YOLO, sin dibujar cajas manualmente.
 - Normalización de la foto a un máximo de 1600 píxeles por lado, sin ampliarla.
@@ -160,6 +160,6 @@ docker exec walmart-modelos-panel_modelos-1 python /app/Herramientas/Modelos/exp
 ```
 
 Código del experimento:
-[experimentar_paulo.py](../Herramientas/Modelos/experimentar_paulo.py).
+[experimentar_paulo.py](../../Herramientas/Modelos/experimentar_paulo.py).
 Los resultados del panel también conservan método, parámetros y hashes del
 adaptador y del original de Paulo en su `resultado.json`.

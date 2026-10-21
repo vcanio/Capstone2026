@@ -2,7 +2,7 @@
 
 **Actualización del 19 de octubre:** la división por familias y grupos de escena
 está fijada para las 236 imágenes base y las 60 de visibilidad. Consultar el
-[registro y sus comprobaciones](../Datos/Registros/Particiones/lider_express_v2_20261019/README.md).
+[registro y sus comprobaciones](../../Datos/Registros/Particiones/lider_express_v2_20261019/README.md).
 El lote base queda en 160/40/36; la validación y evaluación principales usan solo
 los 10/9 originales reales de esos bloques. Las sintéticas se evalúan aparte.
 La división no habilita entrenamiento: faltan la auditoría de cobertura vacío/poco

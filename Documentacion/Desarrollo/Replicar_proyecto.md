@@ -1,8 +1,8 @@
 # Laboratorio de desarrollo: instalación y repetición de ensayos
 
-Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuario es Walmart Visión: para descargarla, analizar fotos e interpretar resultados, seguir la [guía de uso](Usar_Walmart_Vision.md). No requiere el panel de entrenamiento, CVAT ni los paquetes del laboratorio.
+Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuario es Walmart Visión: para descargarla, analizar fotos e interpretar resultados, seguir la [guía de uso](../Usar_Walmart_Vision.md). No requiere el panel de entrenamiento, CVAT ni los paquetes del laboratorio.
 
-La [guía conceptual](Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
+La [guía conceptual](../Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
 
 La aplicación descargable es `walmart-vision-2026-10-20`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
 en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y
@@ -16,7 +16,7 @@ los cambios integrados por los demás.
 
 ## Antes de empezar
 
-Para familiarizarse con el proyecto, leer la [guía de conceptos y ejemplos](Guia_para_entender_el_proyecto.md). Entrenar significa ajustar un modelo con imágenes etiquetadas; ejecutar o hacer inferencia significa utilizar un modelo ya entrenado. Walmart Visión permite lo segundo sin preparar el entorno de entrenamiento.
+Para familiarizarse con el proyecto, leer la [guía de conceptos y ejemplos](../Guia_para_entender_el_proyecto.md). Entrenar significa ajustar un modelo con imágenes etiquetadas; ejecutar o hacer inferencia significa utilizar un modelo ya entrenado. Walmart Visión permite lo segundo sin preparar el entorno de entrenamiento.
 
 Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Transferencias/Walmart` son ejemplos y deben reemplazarse por la carpeta real donde se recibieron los ZIP. Un hash es una huella que permite comprobar si un archivo cambió.
 
@@ -32,7 +32,7 @@ Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Tr
 
 ## Demo portátil
 
-El recorrido para el usuario, incluida la comprobación pendiente en otro computador, está en [Usar Walmart Visión](Usar_Walmart_Vision.md). Como resumen, descargar Walmart_Vision_20261020.zip de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar
+El recorrido para el usuario, incluida la comprobación pendiente en otro computador, está en [Usar Walmart Visión](../Usar_Walmart_Vision.md). Como resumen, descargar Walmart_Vision_20261020.zip de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar
 `Walmart_Vision/iniciar.cmd`. El primer inicio prepara un Python privado con sus
 dependencias. Seleccionar V1 o V2 en el paso 0, después un modelo, elegir
 YOLO + detección de bordes o Solo YOLO y subir una foto. El modo con bordes añade
@@ -123,7 +123,7 @@ docker compose -f Infraestructura/Docker/compose.modelos.yml exec panel_modelos 
 ```
 
 Usar --device auto en un contenedor con GPU disponible. Los cuatro IDs originales
-están en [Experimentos](../Experimentos/README.md). La ejecución CPU puede tardar
+están en [Experimentos](../../Experimentos/README.md). La ejecución CPU puede tardar
 considerablemente más que GPU. --epochs 1 permite comprobar el recorrido, pero
 ese ensayo corto no reproduce las métricas del entrenamiento completo.
 

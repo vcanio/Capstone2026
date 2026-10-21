@@ -30,7 +30,7 @@
       "has_parent": false
     }
   ],
-  "guide": "Documentacion/Guia_proyecto_CVAT.md",
+  "guide": "Documentacion/Desarrollo/Guia_anotacion.md",
   "guide_version": "2.0",
   "criterion_version": "disponibilidad_visual_nivel_v2_reponer",
   "tasks": [
@@ -74,7 +74,7 @@
       "url": "https://pcvicen.tailca514b.ts.net/tasks/16",
       "project_id": 6,
       "project_name": "Walmart Stock · Histórico (criterio v1)",
-      "guide_source": "Documentacion/Guia_anotacion_CVAT.md",
+      "guide_source": "Documentacion/Historico/Guia_anotacion_CVAT.md",
       "guide_version": "1.3",
       "criterion_version": "disponibilidad_visual_nivel_v1",
       "local_snapshot_version": "datos_20261015_012453_4ba1d339"

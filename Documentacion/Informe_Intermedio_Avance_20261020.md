@@ -47,7 +47,7 @@ Las imágenes de entrenamiento permiten aprender y revisar fallos. Las de valida
 
 En los veinte casos, la imagen de referencia aparece a la izquierda y la salida del modelo a la derecha. Primero se revisa si encontró los niveles y luego si decidió bien sus estados. Antes de las tablas de resultados explicamos las métricas y mostramos un ejemplo con cifras reales.
 
-Una explicación ampliada y un glosario están en Documentacion/Guia_para_entender_el_proyecto.md. La relación con cada requisito del encargo está en Documentacion/Revision_de_requisitos_informe.md.
+Una explicación ampliada y un glosario están en Documentacion/Guia_para_entender_el_proyecto.md. La relación con cada requisito del encargo está en Documentacion/Desarrollo/Revision_de_requisitos_informe.md.
 
 <!-- page -->
 

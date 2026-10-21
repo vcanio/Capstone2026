@@ -11,15 +11,15 @@ de entrenamiento que requiere las dependencias del laboratorio.
 | empaquetar_publicacion.py | Preparar el checkout y los activos desde el laboratorio del mantenedor. No hace commit ni push. |
 | empaquetar_imagenes_demo.py | Preparar el ZIP separado de las seis imágenes reales/sintéticas seleccionadas, comprobando hashes y sin publicarlo. |
 
-La [guía para replicar](../../Documentacion/Replicar_proyecto.md) explica instalación,
-demostración y entrenamiento. La [guía para publicar](../../Documentacion/Publicar_GitHub.md)
+La [guía para replicar](../../Documentacion/Desarrollo/Replicar_proyecto.md) explica instalación,
+demostración y entrenamiento. La [guía para publicar](../../Documentacion/Desarrollo/Publicar_GitHub.md)
 describe commit, push, la Release de Walmart Visión y el ZIP de imágenes de ejemplo compartido en Drive. Los paquetes del
 laboratorio se transfieren por separado y se instalan con --assets. El manifiesto de activos está
 en [reproducibilidad/artefactos.json](../../reproducibilidad/artefactos.json).
 El flujo diario de ramas, revisión y actualización está en
-[Trabajo en equipo](../../Documentacion/Trabajo_en_equipo.md).
+[Trabajo en equipo](../../Documentacion/Desarrollo/Trabajo_en_equipo.md).
 
-El [criterio de publicación](../../Documentacion/Publicar_GitHub.md#mantener-limpio-el-repositorio) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
+El [criterio de publicación](../../Documentacion/Desarrollo/Publicar_GitHub.md#mantener-limpio-el-repositorio) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
 
 Pruebas del preparador y de CVAT opcional:
 

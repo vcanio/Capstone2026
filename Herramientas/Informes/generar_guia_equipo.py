@@ -19,7 +19,7 @@ from reportlab.platypus import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / 'Documentacion/Trabajo_en_equipo.md'
+SOURCE = ROOT / 'Documentacion/Desarrollo/Trabajo_en_equipo.md'
 TARGET = SOURCE.with_suffix('.pdf')
 WIDTH = A4[0] - 36 * mm
 INK = colors.HexColor('#142639')

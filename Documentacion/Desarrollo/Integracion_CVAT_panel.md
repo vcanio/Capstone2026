@@ -1,6 +1,6 @@
 # Proyectos de CVAT en el panel
 
-Esta guía corresponde a la **integración del laboratorio de desarrollo**. Para usar los modelos publicados, seguir [Usar Walmart Visión](Usar_Walmart_Vision.md); no se necesita CVAT. La conexión del laboratorio a CVAT es opcional y utiliza una cuenta personal.
+Esta guía corresponde a la **integración del laboratorio de desarrollo**. Para usar los modelos publicados, seguir [Usar Walmart Visión](../Usar_Walmart_Vision.md); no se necesita CVAT. La conexión del laboratorio a CVAT es opcional y utiliza una cuenta personal.
 
 El botón **Cargar proyectos y tareas de CVAT** consulta los proyectos incorporados
 al laboratorio y sus tareas compatibles con los inventarios locales registrados.
@@ -35,8 +35,8 @@ el número de proyecto por sí solo no habilita sus tareas.
 
 La indicación anterior de que todo el entrenamiento V2 estaba bloqueado describía
 la etapa inicial de integración. La etapa base ya dispone de partición y ensayos
-conservados; consultar el [registro de partición](../Datos/Registros/Particiones/lider_express_v2_20261019/README.md)
-y el [flujo vigente del panel](../Herramientas/Modelos/README.md).
+conservados; consultar el [registro de partición](../../Datos/Registros/Particiones/lider_express_v2_20261019/README.md)
+y el [flujo vigente del panel](../../Herramientas/Modelos/README.md).
 
 **V2 completo de tres estados sigue pendiente:** el lote con obstáculos de la tarea
 22 requiere aprobación final de sus estados antes de entrenar y validar esa etapa.

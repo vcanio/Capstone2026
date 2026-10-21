@@ -19,7 +19,7 @@ se usan como diagnóstico sintético separado. La evaluación final principal us
 los 9 originales reales; sus 27 variantes son un diagnóstico final adicional.
 No sumar ambos tipos de métricas como si representaran fotos reales independientes.
 
-Las listas de rutas, relativas a la raíz del proyecto, están en [listas](listas/).
+Las listas de rutas, relativas a la raíz del proyecto, están en [listas](listas).
 `base_train.txt`, `base_val_real.txt` y `base_test_real.txt` definen el flujo
 principal. Las listas `*_sintetica_diagnostico.txt` conservan su alcance separado.
 La primera etapa aprende `reponer` y `suficiente`; no contiene ejemplos de
@@ -52,7 +52,7 @@ la misma evaluación reservada al terminar el desarrollo.
 ## Escenas y familias
 
 Se revisaron visualmente los 59 originales, con evidencia en las tres hojas de
-contacto de [fuentes](fuentes/). [grupos_escena.json](grupos_escena.json) documenta
+contacto de [fuentes](fuentes). [grupos_escena.json](grupos_escena.json) documenta
 19 grupos conservadores, con motivos por grupo. Se agrupan vistas repetidas y
 algunos tramos vecinos para reducir filtración; no se presenta cada grupo como
 una identidad física confirmada por el fotógrafo. No se consultaron predicciones.

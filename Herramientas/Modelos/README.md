@@ -1,4 +1,4 @@
-> Este panel es una herramienta del **equipo de desarrollo** para preparar datos, entrenar y evaluar. Para usar la aplicación con fotografías propias, seguir [Usar Walmart Visión](../../Documentacion/Usar_Walmart_Vision.md). Para instalar el laboratorio en otro computador, consultar la [guía técnica](../../Documentacion/Replicar_proyecto.md). El inicio Docker base no necesita CVAT; para traer anotaciones usar -ConCvat y configurar acceso personal.
+> Este panel es una herramienta del **equipo de desarrollo** para preparar datos, entrenar y evaluar. Para usar la aplicación con fotografías propias, seguir [Usar Walmart Visión](../../Documentacion/Usar_Walmart_Vision.md). Para instalar el laboratorio en otro computador, consultar la [guía técnica](../../Documentacion/Desarrollo/Replicar_proyecto.md). El inicio Docker base no necesita CVAT; para traer anotaciones usar -ConCvat y configurar acceso personal.
 
 # Panel de niveles y disponibilidad
 
@@ -6,13 +6,13 @@ La interfaz se adapta al **criterio del dataset y del modelo seleccionado**.
 Los selectores identifican v1 (4 estados), v2 base (2 estados) y v2 completo
 (3 estados, cuando exista un ensayo con esas clases). La ayuda, los colores y
 las métricas corresponden a ese perfil. Los modelos v1 se conservan para mostrar
-la primera versión. [Evolución, scripts y guía de demostración](../../Documentacion/Evolucion_v1_v2.md).
+la primera versión. [Evolución, scripts y guía de demostración](../../Documentacion/Desarrollo/Evolucion_v1_v2.md).
 
 Para entrenar por consola con el **criterio nuevo de tres estados** (`reponer`,
 `suficiente`, `no_evaluable`), usar `entrenar_niveles.py`. Está comentado e incluye
 `--solo-verificar` y `--verificar-entorno`, copia de datos por ensayo y métricas de
 reposición por clase. Las dependencias locales de `requirements.txt` comparten
-las versiones de Docker. Véase la [guía de entrenamiento v2](../../Documentacion/Entrenamiento_niveles_v2.md).
+las versiones de Docker. Véase la [guía de entrenamiento v2](../../Documentacion/Desarrollo/Entrenamiento_niveles_v2.md).
 Requiere un dataset YOLO de segmentación preparado con esas clases.
 
 El panel también admite ahora la **etapa base v2 de Líder Express**: importar la
@@ -30,7 +30,7 @@ Se recomienda partir de pesos generales para comparar la nueva base. El panel
 mantiene compatibles los modelos v1 de cuatro estados.
 
 El lote histórico v1 usa la **guía v1.3**, tarea 16, proyecto 6, jobs 36/37/38.
-El lote nuevo usa la [guía v2 de Líder Express](../../Documentacion/Guia_anotacion_lider_express_20261016.md).
+El lote nuevo usa la [guía v2 de Líder Express](../../Documentacion/Desarrollo/Guia_anotacion.md).
 
 ## Abrir y usar
 

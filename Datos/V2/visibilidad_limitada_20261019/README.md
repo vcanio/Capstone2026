@@ -20,7 +20,7 @@ Los tres trabajos de veinte imágenes permanecen sin asignación personal. Las t
 
 Un polígono `Nivel` por nivel completo cuyo contorno pueda localizarse con claridad. El contorno incluye la parte tapada y se activa `Occluded`. Se asigna `estado` por la evidencia visible: `reponer`, `suficiente` o `no_evaluable`. No forzar una clase por el obstáculo, ni contar compras o productos sostenidos como stock del nivel.
 
-También se revisa el nivel inferior. Bajo oclusión parcial se conserva el contorno completo cuando la geometría tiene respaldo fiable en la escena o en el original verificado de la edición. Se conservaron los niveles inferiores de 001 con cajas, 028, 050 y 053 tras comparar su estructura con los originales y se resolvieron sus incidencias técnicas. Los trabajos están en etapa de validación del equipo. Consultar el [criterio de oclusiones](../../../Documentacion/Criterio_oclusiones_niveles.md) y el [ejemplo didáctico](../../../Documentacion/Ejemplos/README.md).
+También se revisa el nivel inferior. Bajo oclusión parcial se conserva el contorno completo cuando la geometría tiene respaldo fiable en la escena o en el original verificado de la edición. Se conservaron los niveles inferiores de 001 con cajas, 028, 050 y 053 tras comparar su estructura con los originales y se resolvieron sus incidencias técnicas. Los trabajos están en etapa de validación del equipo. Consultar el [criterio de oclusiones](../../../Documentacion/Desarrollo/Guia_anotacion.md#oclusiones-y-geometría) y el [ejemplo didáctico](../../../Documentacion/Ejemplos/README.md).
 
 ## Procedencia y partición
 

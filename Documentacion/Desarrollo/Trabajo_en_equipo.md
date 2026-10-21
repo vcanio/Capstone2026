@@ -364,7 +364,7 @@ automáticamente el ZIP portátil que ya descargó otra persona.** Si una mejora
 debe llegar al evaluador mediante Lite, regenerar y publicar otra entrega de la
 demo después de probarla.
 
-Para la primera entrega, el mantenedor sigue Documentacion/Publicar_GitHub.md:
+Para la primera entrega, el mantenedor sigue Documentacion/Desarrollo/Publicar_GitHub.md:
 commit y push del checkout preparado y Release con tag `avance-2026-10-20`.
 Solo adjunta Walmart_Lite_V2_Deteccion_Bordes_20261020.zip de `.publicacion/releases/`;
 los paquetes del laboratorio quedan en `.publicacion/paquetes_desarrollo/`.
@@ -406,6 +406,6 @@ y usar `--assets`; no adjuntarlos a una Release pública.
 
 - [Instalación, CVAT opcional y repetición de ensayos](Replicar_proyecto.md).
 - [Primera publicación del código y los activos](Publicar_GitHub.md).
-- [Alcance de la verificación de esta entrega](../reproducibilidad/VERIFICACION.md).
+- [Alcance de la verificación de esta entrega](../../reproducibilidad/VERIFICACION.md).
 - [Fuente editable de esta guía](Trabajo_en_equipo.md).
 - [Versión PDF para compartir](Trabajo_en_equipo.pdf).

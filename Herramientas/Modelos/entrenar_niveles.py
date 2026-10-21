@@ -1,7 +1,7 @@
 """Entrenar segmentación de niveles con el criterio v2 de tres estados.
 
 Requiere un dataset YOLO de segmentación ya anotado, revisado y separado
-en entrenamiento/validación. Ver Documentacion/Entrenamiento_niveles_v2.md.
+en entrenamiento/validación. Ver Documentacion/Desarrollo/Entrenamiento_niveles_v2.md.
 No importa CVAT ni convierte automáticamente las etiquetas del criterio v1.
 """
 import argparse

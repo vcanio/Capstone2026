@@ -53,7 +53,7 @@
   "nota": "236 anotadas. Particion por familias/escenas fijada; no habilita entrenamiento ni modifica el reparto de CVAT.",
   "actualizado": "2026-10-17",
   "criterio": "disponibilidad_visual_nivel_v2_reponer",
-  "guia": "Documentacion/Guia_anotacion_lider_express_20261016.md",
+  "guia": "Documentacion/Desarrollo/Guia_anotacion.md",
   "split": "ver_inventario",
   "esquema": {
     "etiqueta": "Nivel",

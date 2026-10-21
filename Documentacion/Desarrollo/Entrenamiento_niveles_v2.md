@@ -2,7 +2,7 @@
 
 El script `Herramientas/Modelos/entrenar_niveles.py` entrena YOLO de segmentación
 con el criterio `disponibilidad_visual_nivel_v2_reponer`, descrito en la
-[guía de Líder Express](Guia_anotacion_lider_express_20261016.md).
+[guía de Líder Express](Guia_anotacion.md).
 Está comentado en español y usa las dependencias del laboratorio de modelos.
 
 ## Entorno compatible

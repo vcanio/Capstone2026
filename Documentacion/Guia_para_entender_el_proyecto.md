@@ -22,7 +22,7 @@ El proceso de construcción es **fotografías → anotación y revisión en CVAT
 
 La documentación explica los criterios de anotación, la separación de datos y las decisiones de entrenamiento para que una persona externa comprenda ese proceso. Instalar el panel o CVAT es opcional y corresponde a continuar el desarrollo; los datos, resultados y accesos del equipo se gestionan por separado. La distribución para usuarios finales incluye Visión y sus pesos.
 
-Para profundizar sin instalar herramientas: [guía de anotación](Guia_anotacion_lider_express_20261016.md), [funcionamiento del panel](../Herramientas/Modelos/README.md) y [mapa del código](Evolucion_v1_v2.md#dónde-está-cada-parte-del-código).
+Para profundizar sin instalar herramientas: [guía de anotación](Desarrollo/Guia_anotacion.md), [funcionamiento del panel](../Herramientas/Modelos/README.md) y [mapa del código](Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código).
 
 ## Delimitar un nivel y decidir su estado
 
@@ -31,6 +31,61 @@ Para profundizar sin instalar herramientas: [guía de anotación](Guia_anotacion
 **Clasificar** significa asignar una categoría. Un nivel puede estar bien delimitado y tener una categoría equivocada. Por eso revisamos ambas cosas: dónde dibujó el modelo y qué estado decidió.
 
 **Inferencia** es usar un modelo ya entrenado para analizar una imagen. **Entrenar** es ajustar el modelo con ejemplos etiquetados. Los **pesos** son los archivos que guardan lo aprendido; en nuestros ensayos se conservan como archivos `.pt`. Un **checkpoint** es un guardado de esos pesos durante el entrenamiento.
+
+## Criterio de disponibilidad
+
+### Estados y criterio inicial
+
+El criterio original V1 distingue los cuatro estados siguientes; V2 base reúne los dos primeros en `reponer`. Analizamos cada nivel entre sus límites laterales y comparamos el ancho que tiene producto con el ancho completo disponible.
+
+| Estado | Criterio |
+|---|---|
+| **Vacío** | No se ve producto del propio nivel y se puede comprobar todo su contenido. |
+| **Baja disponibilidad** | Hay producto, pero ocupa menos del 30 % del ancho completo. |
+| **Suficiente** | El producto ocupa el 30 % del ancho completo o más. |
+| **No evaluable** | La visibilidad no permite decidir el estado. |
+
+Contamos el producto visible al fondo del propio nivel. No contamos mercancía de un tramo vecino que aparezca por perspectiva. Si hay una ocultación que podría cambiar la decisión, usamos no evaluable.
+
+“Suficiente” significa que supera nuestro umbral visual; no garantiza stock suficiente para la demanda ni presencia de todos los productos.
+
+### Motivos de la decisión
+
+- **Por nivel:** permite ubicar la zona que requiere revisión dentro de la góndola.
+- **Por ancho ocupado:** evita considerar el aire sobre botellas o envases bajos como falta de producto. Es una simplificación que puede perder información sobre profundidad y apilamiento.
+- **Con una guía común:** permite que todos anoten con las mismas reglas y que los ejemplos de entrenamiento sean coherentes.
+- **Con un estado no evaluable:** evita tomar una zona tapada como evidencia de vacío.
+
+Estas son decisiones de diseño del equipo, que debemos comprobar con datos reales.
+
+### Respaldo bibliográfico y límites
+
+**Jha y colaboradores (2022)** explican que el concepto de estante vacío puede resultar ambiguo y establecen reglas explícitas de anotación. Su trabajo respalda la necesidad de definir qué se marca y mantener un criterio consistente. Sus etiquetas son de huecos; no equivalen a nuestros estados por nivel. [Artículo, sección 5](https://arxiv.org/html/2205.13060v2#S5).
+
+**Šikić y colaboradores (2024)** distinguen espacios completamente vacíos de espacios vacíos al frente con productos detrás. Esto respalda aclarar cómo tratamos el producto del fondo y qué entendemos por disponibilidad. [Artículo](https://pmc.ncbi.nlm.nih.gov/articles/PMC10819825/).
+
+**Estas fuentes apoyan el enfoque general y la definición clara de las etiquetas. No demuestran que el 30 % sea el umbral correcto para nuestro proyecto.**
+
+### Por qué se utiliza el 30 %
+
+Lo adoptamos como una regla inicial, sencilla y común para separar presencia reducida de producto del resto de los niveles con producto.
+
+**Es un umbral provisional del equipo. No lo presentamos como una norma de Walmart ni como un valor científicamente validado.** Para justificar su utilidad necesitamos contrastarlo con personas que conozcan la reposición y con fotos reales.
+
+La validación propuesta es revisar la ocupación y la necesidad de reposición de manera independiente, y comparar alternativas como 20 %, 30 % y 40 %. Si el resultado favorece otro valor, habrá que actualizar el criterio y las etiquetas correspondientes.
+
+### Cómo se comprueba el criterio y el modelo
+
+Debemos comprobar dos cosas distintas:
+
+1. **El criterio:** que las personas lo apliquen de forma consistente y que los estados sean útiles para la revisión de reposición.
+2. **El modelo:** que encuentre los niveles y prediga correctamente sus estados en escenas que no usó para entrenar.
+
+En la validación histórica V1, las cinco fotos no contienen niveles vacíos ni bajos. La validación V2 base incorpora una única referencia real de reposición; su cobertura de faltantes sigue siendo insuficiente para una estimación robusta. Que el modelo acierte fotos de entrenamiento no demuestra que funcione igual en otras góndolas.
+
+### Explicación breve para presentar
+
+> Nuestro proyecto identifica disponibilidad visual por nivel de góndola. Elegimos trabajar por nivel para ubicar posibles faltantes y usamos el ancho ocupado como una regla común para anotar. V1 distingue vacío, baja disponibilidad, suficiente y no evaluable; V2 base reúne vacío y baja en reponer y conserva suficiente. La etapa V2 con no evaluable sigue pendiente. La literatura respalda definir claramente los espacios vacíos y considerar si hay productos al fondo. El 30 % es un umbral inicial del equipo, pendiente de validación con casos reales y conocimiento de reposición. Nuestro objetivo es apoyar la revisión visual; no medir inventario exacto.
 
 ## Para qué sirve cada herramienta
 
@@ -115,6 +170,6 @@ El equipo comenzó este trabajo en la semana 9 y lo integró con YOLO en la sema
 ## Por dónde continuar
 
 - Para probar fotos propias: seguir la [guía de Walmart Visión](Usar_Walmart_Vision.md).
-- Para continuar el desarrollo e instalar el laboratorio: seguir la [guía técnica](Replicar_proyecto.md).
-- Para subir y recibir mejoras del equipo: seguir la [guía de trabajo en equipo](Trabajo_en_equipo.md).
-- Para preparar la presentación: revisar el [informe con los 20 casos](Informe_Intermedio_Avance_20261020.md) y la [relación con lo solicitado](Revision_de_requisitos_informe.md).
+- Para continuar el desarrollo e instalar el laboratorio: seguir la [guía técnica](Desarrollo/Replicar_proyecto.md).
+- Para subir y recibir mejoras del equipo: seguir la [guía de trabajo en equipo](Desarrollo/Trabajo_en_equipo.md).
+- Para preparar la presentación: revisar el [informe con los 20 casos](Informe_Intermedio_Avance_20261020.md) y la [relación con lo solicitado](Desarrollo/Revision_de_requisitos_informe.md).

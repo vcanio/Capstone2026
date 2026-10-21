@@ -325,5 +325,7 @@
     43,
     44
   ],
-  "project_guide_id": 4
+  "project_guide_id": 4,
+  "guide_current": "Documentacion/Desarrollo/Guia_anotacion.md",
+  "guide_source_note": "guide_source y guide_sha256 conservan la procedencia historica de la guia publicada en CVAT. guide_current identifica la guia local consolidada."
 }

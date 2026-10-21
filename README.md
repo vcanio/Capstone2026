@@ -21,8 +21,8 @@ La documentación permite comprender la construcción del sistema y ejecutar Wal
 | Destinatario | Recorrido |
 |---|---|
 | Usuario de la aplicación | Descargar Visión, cargar una fotografía y revisar niveles, estados y limitaciones. No necesita instalar el laboratorio. |
-| Persona que quiere entender el proyecto | Leer la [guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y el [mapa del código](Documentacion/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). Puede conocer el proceso sin instalar CVAT ni entrenar. |
-| Equipo de desarrollo | Consultar la [guía técnica del laboratorio](Documentacion/Replicar_proyecto.md), que requiere activos y accesos gestionados por separado. |
+| Persona que quiere entender el proyecto | Leer la [guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y el [mapa del código](Documentacion/Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). Puede conocer el proceso sin instalar CVAT ni entrenar. |
+| Equipo de desarrollo | Consultar la [guía técnica del laboratorio](Documentacion/Desarrollo/Replicar_proyecto.md), que requiere activos y accesos gestionados por separado. |
 
 ## Empezar como usuario desde otro computador
 
@@ -30,7 +30,7 @@ Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vis
 
 La [guía de uso de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) reúne los pasos, la interpretación de resultados, las soluciones a problemas de inicio y una pauta para comprobar la instalación en otro computador. Esa comprobación externa sigue pendiente.
 
-Para probar con ejemplos del proyecto, descargar el ZIP desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Incluye tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. La [guía de ejemplos](Documentacion/Imagenes_de_prueba.md) explica su uso y procedencia. Las imágenes se distribuyen por separado y permanecen fuera del historial Git.
+Para probar con ejemplos del proyecto, descargar el ZIP desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Incluye tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. La [guía de ejemplos](Documentacion/Usar_Walmart_Vision.md#probar-con-imágenes-de-ejemplo) explica su uso y procedencia. Las imágenes se distribuyen por separado y permanecen fuera del historial Git.
 
 ### Walmart Visión en la Release
 
@@ -50,9 +50,9 @@ el nombre indicado arriba.
 
 El laboratorio permite anotar, entrenar y evaluar. Su funcionamiento está explicado en la guía conceptual y en la arquitectura de este README. Instalarlo es un recorrido técnico opcional para continuar el desarrollo; requiere los paquetes de datos y resultados del equipo. La Release de Visión permite usar los modelos sin esos paquetes.
 
-- [Instalación técnica, ejemplo y repetición de entrenamientos](Documentacion/Replicar_proyecto.md).
-- [Guía de commit, push y publicación de los activos](Documentacion/Publicar_GitHub.md).
-- [Cómo trabajar en equipo: ramas, PR y actualizaciones](Documentacion/Trabajo_en_equipo.md) · [PDF](Documentacion/Trabajo_en_equipo.pdf).
+- [Instalación técnica, ejemplo y repetición de entrenamientos](Documentacion/Desarrollo/Replicar_proyecto.md).
+- [Guía de commit, push y publicación de los activos](Documentacion/Desarrollo/Publicar_GitHub.md).
+- [Cómo trabajar en equipo: ramas, PR y actualizaciones](Documentacion/Desarrollo/Trabajo_en_equipo.md) · [PDF](Documentacion/Desarrollo/Trabajo_en_equipo.pdf).
 - [Verificación de la entrega](reproducibilidad/VERIFICACION.md).
 - [Manifiesto de archivos y hashes](reproducibilidad/artefactos.json).
 
@@ -214,7 +214,7 @@ Entregables/       PDF, Word, HTML y demo portátil
 
 ## Instalación técnica del laboratorio (equipo de desarrollo)
 
-Para usar la aplicación, seguir la [guía de Walmart Visión](Documentacion/Usar_Walmart_Vision.md). Los requisitos y comandos de esta sección corresponden al panel de desarrollo. Antes de ejecutarlos, preparar los activos según la [guía técnica](Documentacion/Replicar_proyecto.md#instalar-el-laboratorio-desde-una-copia-nueva).
+Para usar la aplicación, seguir la [guía de Walmart Visión](Documentacion/Usar_Walmart_Vision.md). Los requisitos y comandos de esta sección corresponden al panel de desarrollo. Antes de ejecutarlos, preparar los activos según la [guía técnica](Documentacion/Desarrollo/Replicar_proyecto.md#instalar-el-laboratorio-desde-una-copia-nueva).
 
 Se requiere Windows x64 con PowerShell y Docker Desktop para los comandos de inicio. El entorno de entrenamiento conservado usa Python 3.11; los scripts locales admiten Python 3.11/3.12. La GPU NVIDIA requiere acceso desde Docker; el modo CPU evita ese requisito. No se certifica aquí un límite de RAM/VRAM ni la latencia en hardware externo.
 
@@ -265,4 +265,4 @@ Los componentes de terceros conservan las licencias de sus distribuciones. Los t
 
 ## Relación con el informe solicitado
 
-La [revisión de requisitos](Documentacion/Revision_de_requisitos_informe.md) indica dónde se responde cada punto del encargo: avance, README técnico, veinte casos, reproducibilidad y conclusiones. La explicación técnica se acompaña de ejemplos; las configuraciones y evidencias se conservan para respaldarla.
+La [revisión de requisitos](Documentacion/Desarrollo/Revision_de_requisitos_informe.md) indica dónde se responde cada punto del encargo: avance, README técnico, veinte casos, reproducibilidad y conclusiones. La explicación técnica se acompaña de ejemplos; las configuraciones y evidencias se conservan para respaldarla.
