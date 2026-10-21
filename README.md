@@ -6,10 +6,10 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 > **Estado del proyecto:** prototipo funcional en desarrollo. La aplicación de prueba está disponible para Windows x64 y con Docker para Mac Intel y Apple Silicon; la evaluación final y el manejo completo de obstáculos siguen pendientes.
 
-| 🚀 Probar la aplicación | 📖 Entender el proyecto | 🧪 Explorar los resultados |
-|:---:|:---:|:---:|
-| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
-| Windows x64 · Mac con Docker · 4 modelos incluidos | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
+| 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
+|:---:|:---:|:---:|:---:|
+| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
+| Windows x64 · Mac con Docker · 4 modelos incluidos | Recorrido de la app y casos del informe | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
 
 ## Contenido
 
@@ -258,6 +258,10 @@ python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walm
 También están disponibles la [revisión de planificación](Documentacion/Evidencias/verificacion_planificacion_20261020.json), la [verificación de claridad](Documentacion/Evidencias/verificacion_claridad_20261020.json) y el [mapeo de requisitos del informe](Documentacion/Desarrollo/Revision_de_requisitos_informe.md). El generador `Herramientas/Informes/generar_informe_intermedio.py` puede regenerar Word y HTML desde Markdown con `python-docx` y `Pillow`; el PDF se exporta y revisa por separado.
 
 La [evidencia de los nuevos casos](Documentacion/Evidencias/casos_yolo_bordes_20261021.json) conserva su procedencia y las correcciones de tablas y categorías. El caso de reemplazo de cuidado capilar es una variante sintética de diagnóstico; no se presenta como una foto real independiente. La [verificación documental de esta revisión](Documentacion/Evidencias/verificacion_informe_yolo_bordes_20261021.json) registra las comprobaciones del informe.
+
+### Demostración funcional
+
+- 🎬 [**Video de demostración funcional (7 min 01 s · YouTube)**](https://youtu.be/sN_6XPdxtKk): recorrido en ejecución local de **Walmart Visión** (carga de imagen, inferencia con `V2-YOLO26`, análisis experimental de bordes, comparación visual y revisión de dos casos favorables y dos casos con dificultades del informe).
 
 ## Limitaciones y próximos pasos
 
