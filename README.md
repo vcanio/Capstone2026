@@ -161,15 +161,19 @@ La copia usada en los ensayos V2 base es `datos_20261019_234626_3df2e643` (`list
 
 ## Tecnologías
 
-| Tecnología | Función en el proyecto |
-|---|---|
-| **YOLO11n-seg / YOLO26n-seg** | Segmentación y clasificación de niveles completos. |
-| **PyTorch + Ultralytics** | Ajuste de modelos preentrenados, entrenamiento e inferencia. |
-| **CVAT** | Anotación de polígonos y revisión humana. |
-| **OpenCV, Pillow, NumPy, Shapely** | Tratamiento de imágenes, máscaras y validación geométrica. |
-| **Canny + análisis de color y textura** | Estudio experimental de señales dentro de máscaras YOLO. |
-| **Python + HTML/CSS/JavaScript** | Procesamiento y panel/visor local. |
-| **Docker Compose** | Configuración reproducible de los servicios del laboratorio. |
+Trabajamos con niveles completos porque buscamos apoyar la reposición por repisa. Dibujar sus contornos permite considerar tanto el producto como los espacios vacíos; el conteo por SKU exigiría otras etiquetas y un catálogo de productos.
+
+| Tecnología | Función en el proyecto | Por qué la elegimos |
+|---|---|---|
+| **YOLO11n-seg / YOLO26n-seg** | Segmentación y clasificación de niveles completos. | Permiten localizar cada nivel y predecir su estado con un mismo modelo. Comparamos ambas variantes Nano con los mismos datos dentro de cada versión para respaldar la elección con resultados. |
+| **PyTorch + Ultralytics** | Ajuste de modelos preentrenados, entrenamiento e inferencia. | Permiten adaptar pesos generales ya entrenados a nuestras góndolas, en lugar de aprender desde cero, y conservar la configuración de cada ensayo. |
+| **CVAT** | Anotación de polígonos y revisión humana. | Facilita que los integrantes trabajen sobre las mismas imágenes, dibujen contornos y revisen diferencias de etiquetado con un criterio común. |
+| **OpenCV, Pillow, NumPy, Shapely** | Tratamiento de imágenes, máscaras y validación geométrica. | Permiten orientar fotografías, operar sobre píxeles y máscaras y comprobar las regiones que importamos, exportamos o analizamos. |
+| **Canny + análisis de color y textura** | Estudio experimental de señales dentro de máscaras YOLO. | Añaden una señal visual para explorar productos y espacios dentro de los niveles localizados. Su utilidad se está evaluando: los fondos y envases claros pueden confundir el análisis, y la señal no equivale a ocupación real. |
+| **Python + HTML/CSS/JavaScript** | Procesamiento y panel/visor local. | Conectan la inferencia y el procesamiento de imágenes con una interfaz de navegador donde una persona puede cargar fotos y revisar resultados sin ejecutar comandos para cada análisis. |
+| **Docker Compose** | Configuración reproducible de servicios y ejecución de la entrega Docker. | Permite compartir una configuración de servicios y dependencias, facilitando preparar el entorno entre compañeros. La instalación en otro computador físico sigue pendiente de comprobación. |
+
+La [guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md#para-qué-sirve-cada-herramienta) y el [informe](Documentacion/Informe_Intermedio_Avance_20261020.md) desarrollan estas decisiones y sus límites.
 
 **Entorno conservado de entrenamiento:** PyTorch `2.5.1+cu121` y Ultralytics `8.4.174`. Cada ensayo guarda `entorno.json` y `entrenamiento/args.yaml`.
 
