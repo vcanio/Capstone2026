@@ -1,258 +1,203 @@
-# Walmart Computer Vision
+# 🛒 Walmart Computer Vision
 
-Proyecto Capstone DUOC UC para apoyar la revisión de góndolas mediante fotografías. La aplicación identifica cada nivel o repisa, dibuja su contorno y señala si necesita reposición o tiene disponibilidad suficiente. Equipo: Vicente Canio, Paulo Guerra y Vicente Vilches. Docente: Arturo Vargas. Contraparte: José Larraín.
+**Análisis de disponibilidad en góndolas mediante visión por computador**
 
-**Primera lectura:** la [guía para entender el proyecto](Documentacion/Guia_para_entender_el_proyecto.md) explica términos como segmentación, entrenamiento, validación, IoU y mAP con ejemplos de nuestros resultados.
+Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. El sistema utiliza modelos de segmentación YOLO para **identificar las repisas, delimitar sus contornos y clasificar su estado de disponibilidad**.
 
-| Quiero… | Dónde empezar |
-|---|---|
-| Usar Walmart Visión con mis fotos | [Guía de usuario](Documentacion/Usar_Walmart_Vision.md) y [descarga de la aplicación](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20). |
-| Entender cómo se construyó | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y [mapa del código](Documentacion/Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). |
-| Preparar datos y entrenar | [Laboratorio de desarrollo](Documentacion/Desarrollo/Replicar_proyecto.md), [panel](Herramientas/Modelos/README.md) y [entrenamiento por consola](Documentacion/Desarrollo/Entrenamiento_niveles_v2.md). |
-| Consultar los ensayos y sus resultados | [Índice de experimentos](Experimentos/README.md). |
+> **Estado del proyecto:** prototipo funcional en desarrollo. La aplicación de prueba está disponible para Windows x64; la evaluación final y el manejo completo de obstáculos siguen pendientes.
 
-## Qué hace la aplicación
+| 🚀 Probar la aplicación | 📖 Entender el proyecto | 🧪 Explorar los resultados |
+|:---:|:---:|:---:|
+| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
+| Windows x64 · 4 modelos incluidos | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
 
-Al cargar una fotografía, el modelo YOLO busca los niveles de la góndola y dibuja una región sobre cada uno. Esa región se llama **máscara**. Después muestra el estado de cada nivel. V2 base utiliza `reponer` y `suficiente`; todavía no reconoce `no_evaluable`, que se necesita cuando un obstáculo impide decidir.
+## Contenido
 
-El análisis opcional de **detección de bordes** revisa contornos, color y textura dentro de esas regiones. Sus mapas ayudan a estudiar los resultados, pero su señal sigue siendo experimental y no representa un porcentaje real de productos.
+- [¿Qué hace el sistema?](#qué-hace-el-sistema)
+- [Inicio rápido: Walmart Visión](#inicio-rápido-walmart-visión)
+- [Versiones y estados](#versiones-y-estados)
+- [Resultados obtenidos](#resultados-obtenidos)
+- [Arquitectura](#arquitectura)
+- [Datos y entrenamiento](#datos-y-entrenamiento)
+- [Tecnologías](#tecnologías)
+- [Laboratorio de desarrollo](#laboratorio-de-desarrollo)
+- [Documentación y estructura](#documentación-y-estructura)
+- [Limitaciones y próximos pasos](#limitaciones-y-próximos-pasos)
+- [Equipo](#equipo)
 
-La entrega para el usuario es **Walmart Visión**, una interfaz para probar fotos propias. El **laboratorio de desarrollo** reúne el panel de entrenamiento y CVAT para preparar datos, anotar imágenes y evaluar modelos. Un modelo entrenado guarda lo aprendido en archivos llamados **pesos**; Visión ya incluye los cuatro modelos disponibles.
+---
 
-**Versión descargable para probar modelos (Release):** `walmart-vision-2026-10-20`, con un único ZIP de Walmart Visión, cuatro modelos y detección de bordes. Código y metadatos están en Git. Los datos, resultados e informes del laboratorio se comparten por separado con el equipo, fuera de la Release pública.
+## ¿Qué hace el sistema?
 
-## Alcance de la entrega y de la documentación
+El objetivo es **facilitar la revisión de niveles con posibles faltantes visibles**, incluso cuando existe mercadería disponible en bodega. A partir de una fotografía, el sistema:
 
-La documentación permite comprender la construcción del sistema y ejecutar Walmart Visión con los modelos publicados. Las herramientas de anotación y entrenamiento se explican como parte del proceso de desarrollo; su instalación y los datos utilizados quedan fuera de la distribución para usuarios finales.
+1. **Detecta** cada nivel de una góndola.
+2. **Segmenta** su superficie mediante una máscara o contorno.
+3. **Clasifica** el nivel según los estados aprendidos por el modelo.
+4. **Visualiza** los resultados y señala los niveles que podrían requerir reposición.
+5. **Permite explorar**, de manera opcional, bordes, color y textura dentro de las máscaras.
 
-| Destinatario | Recorrido |
-|---|---|
-| Usuario de la aplicación | Descargar Visión, cargar una fotografía y revisar niveles, estados y limitaciones. No necesita instalar el laboratorio. |
-| Persona que quiere entender el proyecto | Leer la [guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) y el [mapa del código](Documentacion/Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código). Puede conocer el proceso sin instalar CVAT ni entrenar. |
-| Equipo de desarrollo | Consultar la [guía técnica del laboratorio](Documentacion/Desarrollo/Replicar_proyecto.md), que requiere activos y accesos gestionados por separado. |
+La solución incluye dos entornos con propósitos diferentes:
 
-## Empezar como usuario desde otro computador
-
-Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vision_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar `Walmart_Vision/iniciar.cmd`. El primer inicio requiere Internet; prepara su propio Python y utiliza el procesador del computador (CPU). V2 base distingue reponer y suficiente, y no reconoce no evaluable.
-
-**Mac Intel y Apple Silicon:** el paquete adicional `Walmart_Vision_Docker_20261021.zip` incluye Docker Compose y los cuatro modelos. Con Docker Desktop abierto, extraerlo, entrar en la carpeta `Walmart_Vision` y ejecutar `docker compose up --build -d --wait`; abrir http://localhost:8095. Consultar la [guía Docker para macOS](Herramientas/Demo_lite/DOCKER.md). Es un paquete nuevo preparado por separado; el activo ya publicado del 20 de octubre conserva su contenido.
-
-La [guía de uso de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) reúne los pasos, la interpretación de resultados, las soluciones a problemas de inicio y una pauta para comprobar la instalación en otro computador. Esa comprobación externa sigue pendiente.
-
-Para probar con ejemplos del proyecto, descargar el ZIP desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Incluye tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. La [guía de ejemplos](Documentacion/Usar_Walmart_Vision.md#probar-con-imágenes-de-ejemplo) explica su uso y procedencia. Las imágenes se distribuyen por separado y permanecen fuera del historial Git.
-
-### Walmart Visión en la Release
-
-El activo para quienes solo quieren probar la aplicación es
-[Walmart_Vision_20261020.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip)
-(aproximadamente 36 MiB). Incluye los cuatro modelos y el visor local. Funciona
-en Windows x64 sin instalar previamente Python, Docker o CVAT; en el primer
-inicio descarga Python y las dependencias. Después, las fotos se analizan
-localmente en CPU y no se guardan.
-
-**Alcance de esta demo:** detección/segmentación y estados con YOLO, y análisis
-experimental de detección de bordes, color y textura. Se empieza por seleccionar V1 o V2. Las pestañas Original, Niveles, Bordes y Comparar permiten revisar la foto y sus mapas dentro del mismo visor. El archivo “Source code (zip)” generado por GitHub contiene
-el código del repositorio; para ejecutar Visión hay que descargar el activo con
-el nombre indicado arriba.
-
-### Para el equipo: laboratorio de desarrollo
-
-El laboratorio permite anotar, entrenar y evaluar. Su funcionamiento está explicado en la guía conceptual y en la arquitectura de este README. Instalarlo es un recorrido técnico opcional para continuar el desarrollo; requiere los paquetes de datos y resultados del equipo. La Release de Visión permite usar los modelos sin esos paquetes.
-
-- [Instalación técnica, ejemplo y repetición de entrenamientos](Documentacion/Desarrollo/Replicar_proyecto.md).
-- [Guía de commit, push y publicación de los activos](Documentacion/Desarrollo/Publicar_GitHub.md).
-- [Cómo trabajar en equipo: ramas, PR y actualizaciones](Documentacion/Desarrollo/Trabajo_en_equipo.md) · [PDF](Documentacion/Desarrollo/Trabajo_en_equipo.pdf).
-- [Verificación de la entrega](reproducibilidad/VERIFICACION.md).
-- [Manifiesto de archivos y hashes](reproducibilidad/artefactos.json).
-
-## Informe intermedio
-
-El informe del 20 de octubre, revisado para explicar los conceptos y conservar la planificación desde agosto, contiene 20 casos visuales y las limitaciones de la evaluación. El equipo lo distribuye por separado en `Walmart_Informe_Revision_20261020.zip`; puede instalarse con `python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe`.
-
-- [Fuente Markdown](Documentacion/Informe_Intermedio_Avance_20261020.md).
-- [Registro de la revisión de planificación](Documentacion/Evidencias/verificacion_planificacion_20261020.json).
-- [Registro de la revisión de lectura y requisitos](Documentacion/Evidencias/verificacion_claridad_20261020.json).
-- Versiones locales después de preparar: [PDF](Entregables/Informe_Intermedio_Avance_20261020.pdf), [Word](Entregables/Informe_Intermedio_Avance_20261020.docx) y [HTML](Entregables/Informe_Intermedio_Avance_20261020.html).
-
-## Problema y objetivos
-
-Una góndola puede presentar faltantes visibles aunque haya mercadería en bodega. El objetivo es apoyar la inspección mediante fotografías, localizando niveles, identificando disponibilidad crítica y mostrando resultados revisables. El proyecto incluye datos propios, anotación humana y comparación de modelos. La entrega documenta la ejecución de la aplicación con pesos publicados; repetir los ensayos del laboratorio requiere los activos de desarrollo.
-
-El prototipo clasifica estados aprendidos; no cuenta SKU, mide profundidad o consulta inventario. La confianza de YOLO no es el porcentaje de ocupación. El 30 % es un criterio inicial de anotación pendiente de calibración.
-
-| Perfil | Estados y criterio |
-|---|---|
-| V1 operativo | `vacio` sin producto visible propio; `baja_disponibilidad` con producto y menos del 30 % del ancho; `suficiente` desde el 30 %; `no_evaluable` cuando no se puede decidir. |
-| V2 base operativo | `reponer` reúne vacío y baja; `suficiente` mantiene el criterio del 30 %. |
-| V2 completo pendiente | Añade `no_evaluable` para oclusiones que pueden cambiar la decisión. |
-
-## Tecnologías y justificación
-
-| Tecnología o decisión | Qué hace aquí | Por qué la usamos |
+| Componente | Para qué sirve | Público |
 |---|---|---|
-| YOLO11n-seg y YOLO26n-seg | Dibujan el contorno de cada nivel y predicen su estado. | Necesitamos analizar repisas completas. Comparamos ambas variantes Nano con la misma preparación dentro de cada versión. |
-| PyTorch y Ultralytics | Permiten entrenar y ejecutar YOLO. | Partimos de pesos generales ya entrenados y los ajustamos con imágenes propias, en vez de aprender todo desde cero. |
-| Polígonos por nivel completo | Cada dibujo manual incluye los productos y el espacio vacío de una repisa. | Queremos decidir si reponer un nivel; contar cada producto requeriría otras etiquetas y un catálogo por SKU, es decir, por tipo específico de producto. |
-| OpenCV, Pillow, NumPy y Shapely | Preparan imágenes, operan con sus píxeles y comprueban regiones. | Necesitamos orientar fotos, trabajar con máscaras y validar sus formas antes de analizar o exportar. |
-| Bordes Canny, color y textura | Marcan cambios de intensidad y señales dentro de las máscaras YOLO. | Nos permiten estudiar contornos y fondos problemáticos con mapas visibles. Esta señal no modifica el estado de YOLO. |
-| CVAT | Permite dibujar y revisar etiquetas entre compañeros. | Las personas deben acordar el contorno y el estado que el modelo aprenderá. |
-| Familias y grupos de imágenes | Mantienen una foto y sus variantes en el mismo grupo de datos. | Evitamos evaluar con una imagen casi igual a otra usada para entrenar. Esto reduce la fuga de datos; no demuestra funcionamiento en otras tiendas. |
-| Python y HTML/CSS/JavaScript | Conectan los procesos con el panel local. | Permiten cargar una foto, ejecutar el modelo y revisar resultados desde una interfaz. |
-| Docker Compose | Prepara los servicios del laboratorio y la ejecución de Visión con Docker. | Permite compartir la configuración; el paquete de Visión incluye sus cuatro pesos y utiliza CPU en Intel y ARM64. |
+| **Walmart Visión** | Probar fotografías y revisar máscaras, estados y mapas desde un visor local. | Usuarios y evaluadores. |
+| **Laboratorio de desarrollo** | Preparar datos, anotar en CVAT, entrenar modelos, comparar ensayos y verificar resultados. | Equipo de desarrollo. |
 
-**Versiones del entrenamiento conservado:** PyTorch 2.5.1+cu121 y Ultralytics 8.4.174. La configuración exacta se guarda en `entorno.json` y `entrenamiento/args.yaml` de cada ensayo.
+**Importante:** el prototipo no cuenta unidades ni SKU, no mide profundidad y no consulta inventario. La confianza del modelo tampoco representa un porcentaje de ocupación.
 
-Fusionar vacío y baja en `reponer` refleja la misma acción de reposición y reduce distinciones ambiguas. V1 y V2 también cambian dataset y partición, por lo que la mejora de métricas no puede atribuirse solo a esa fusión.
+## Inicio rápido: Walmart Visión
 
-## Arquitectura y procesamiento
+La versión descargable permite probar fotografías **sin instalar Docker, CVAT ni Python previamente**.
+
+<https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip>
+
+1. Descarga **`Walmart_Vision_20261020.zip`** desde la [Release del 20 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20).
+2. Extrae el archivo ZIP completo.
+3. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
+4. Selecciona **V1 o V2**, escoge uno de los modelos incluidos y carga una fotografía.
+5. Revisa las pestañas **Original**, **Niveles**, **Bordes** y **Comparar**.
+
+| Requisito | Detalle |
+|---|---|
+| Sistema | Windows x64. |
+| Descarga | ZIP de aproximadamente **36 MiB**, con cuatro modelos y visor local. |
+| Primer inicio | Requiere Internet para descargar Python y las dependencias. |
+| Procesamiento | Inferencia local mediante CPU; las fotografías no se guardan. |
+| Estado de verificación | Falta comprobar la instalación en otro computador físico. |
+
+> **Descarga correcta:** utiliza el archivo `Walmart_Vision_20261020.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
+
+**Material para probar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) —3 fotografías reales y 3 variantes sintéticas—, con casos de reposición, disponibilidad suficiente y errores conocidos. Las imágenes se distribuyen fuera de Git.
+
+Consulta la [guía completa de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) para instrucciones, interpretación y resolución de problemas.
+
+## Versiones y estados
+
+Las categorías cambian entre versiones para estudiar un problema de etiquetado más simple.
+
+| Versión | Estados | Situación |
+|---|---|---|
+| **V1** | `vacio`, `baja_disponibilidad`, `suficiente`, `no_evaluable` | Operativa. Distingue vacío, baja disponibilidad y niveles no evaluables. |
+| **V2 base** | `reponer`, `suficiente` | Operativa. Agrupa los casos vacíos y de baja disponibilidad en una sola acción. |
+| **V2 completa** | `reponer`, `suficiente`, `no_evaluable` | **Pendiente**: necesita integrar y validar las oclusiones. |
+
+En el criterio inicial de anotación, `baja_disponibilidad` corresponde a producto visible que ocupa **menos del 30 % del ancho del nivel**; `suficiente` comienza en el 30 %. Ese umbral **aún requiere calibración** y no es una medición automática de ocupación.
+
+## Resultados obtenidos
+
+Se conservaron **cuatro ensayos de entrenamiento**: YOLO11 y YOLO26 para V1, y ambos modelos para V2 base.
+
+| Modelo | Validación real | mAP50 máscara | mAP50–95 máscara | Niveles localizados | Estados correctos | Alertas de reposición |
+|---|---|---:|---:|---:|---:|---|
+| YOLO11 · V1 | 5 fotos · 36 niveles | 74,47 % | 56,59 % | 35/36 | 33/36 | 0 TP · 2 FP¹ |
+| YOLO26 · V1 | 5 fotos · 36 niveles | 73,38 % | 62,40 % | 35/36 | 34/36 | 0 TP · 0 FP¹ |
+| YOLO11 · V2 base | 10 fotos · 51 niveles | 98,44 % | 86,26 % | 51/51 | 48/51 | 1 TP · 4 FP |
+| **YOLO26 · V2 base** | **10 fotos · 51 niveles** | **99,28 %** | **92,79 %** | **50/51** | **50/51** | **1 TP · 0 FP** |
+
+<sub>¹ La validación real de V1 no contenía alertas positivas. TP = alerta correcta; FP = falsa alerta. Las métricas mAP y los conteos por nivel usan procedimientos y umbrales distintos.</sub>
+
+**Lectura principal:** en la validación real de V2 base, YOLO26 localizó **50 de 51 niveles**, acertó los estados de esos 50 y detectó el único caso real de reposición, sin falsas alertas.
+
+**Cómo interpretar estas cifras:** son resultados prometedores, pero solo hay **un caso positivo real de reposición** en esa validación. No permiten generalizar la precisión a otras tiendas. Además, V1 y V2 utilizan datasets, particiones y categorías diferentes: la comparación no aísla el efecto de cambiar de modelo o de fusionar clases. La validación sirvió para seleccionar modelos; **no reemplaza la prueba final**.
+
+Fuentes y detalle: [índice de experimentos](Experimentos/README.md), archivos `metricas_validacion.json`, `metricas_alertas.json`, `evaluacion_por_imagen.json` y [guía de lectura de métricas](Documentacion/Guia_para_entender_el_proyecto.md#cómo-leer-los-resultados).
+
+## Arquitectura
+
+El flujo separa la **preparación y el entrenamiento** de la **inferencia sobre una fotografía nueva**:
 
 ```mermaid
-flowchart LR
-    A[Fotografías e inventarios SHA256] --> B[CVAT y revisión humana]
-    B --> C[Versiones y partición por familias]
-    C --> D[Exportación YOLO Seg]
-    D --> E[Entrenamiento YOLO11 o YOLO26]
-    E --> F[Métricas y pesos por ensayo]
-    F --> G[Panel y worker de inferencia]
-    H[Foto nueva o catálogo] --> G
-    G --> I[Máscaras numeradas estados y alertas]
-    G --> J[Análisis opcional de bordes color y textura]
-    H --> J
-    J --> K[Señal experimental por nivel]
+flowchart TB
+    A[Fotografías e inventarios] --> B[Anotación y revisión en CVAT]
+    B --> C[Partición por familias y exportación YOLO]
+    C --> D[Entrenamiento YOLO11 / YOLO26]
+    D --> E[Pesos, métricas y evaluación]
+    E --> F[Walmart Visión / panel]
+    G[Fotografía nueva] --> F
+    F --> H[Máscaras, estados y alertas]
+    F --> I[Bordes, color y textura]
 ```
 
 ![Arquitectura del laboratorio](Documentacion/Evidencias/arquitectura_20261020.png)
 
-El recorrido tiene dos partes. **Para preparar el modelo**, reunimos fotos, dibujamos etiquetas en CVAT, separamos los datos y entrenamos. **Para usarlo**, cargamos una foto, ejecutamos el modelo y mostramos contornos, estados y alertas. Este uso se llama **inferencia**.
+Las anotaciones se importan desde CVAT y requieren revisión antes de exportarse. Cada ensayo conserva configuración, una copia fija de datos (*snapshot*), pesos y métricas. En la interfaz, los niveles detectados se numeran de abajo hacia arriba y de izquierda a derecha.
 
-El panel importa las anotaciones sin cambiar los dibujos de CVAT y exige revisión antes de exportar. Cada ensayo guarda su configuración, una copia fija de los datos (**snapshot**), los pesos y la evaluación. Las detecciones se numeran de abajo hacia arriba y de izquierda a derecha. Los criterios exactos para comparar contornos se explican en la guía de lectura y en el informe.
+### Análisis de bordes experimental
 
-## Detección de bordes
+El modo **“YOLO + detección de bordes”** analiza bordes Canny, color y textura dentro de las máscaras, sobre la imagen original. Produce mapas y señales experimentales de área y ancho. La **revisión 2** mejora las comprobaciones de brillo, textura y regiones inválidas, pero puede fallar con fondos texturados, carteles y estructuras.
 
-El panel completo incorpora **YOLO + detección de bordes**, con la revisión 2 del
-20 de octubre. YOLO localiza y clasifica los niveles; el algoritmo de detección de bordes
-analiza bordes Canny, color y textura dentro de sus máscaras sobre la fotografía
-original, antes de dibujar los colores del resultado. Entrega área y ancho con
-señal experimental, un mapa de señal y vistas de los bordes.
+> **Esta señal no es el porcentaje real de productos y no modifica el estado clasificado por YOLO.** No se ha demostrado una precisión global de ocupación.
 
-La revisión evita que cualquier fondo oscuro se considere producto: exige
-brillo suficiente para el apoyo por color y textura para el apoyo en zonas
-oscuras. También valida parámetros y regiones; cuando no puede medir, informa
-el motivo en vez de devolver un cero engañoso. **La señal todavía no equivale
-al porcentaje real de producto y no cambia el estado decidido por YOLO.**
-Fondos con textura, carteles y estructuras siguen siendo fuentes de error.
+Para probarlo en el panel de desarrollo: **V2 → Probar una foto → Método de análisis → YOLO + detección de bordes · experimental → Analizar foto**. Debe aparecer **“Revisión 2 · color y textura”**. Los análisis antiguos no se recalculan automáticamente.
 
-Para probarlo después de instalar los activos e iniciar el panel:
+En una comparación de desarrollo sobre 10 fotografías se mantuvieron clases, confianza e IoU de las **114 detecciones YOLO**; cambió únicamente la señal experimental de bordes. El conjunto de prueba final no se utilizó para ajustarla.
 
-1. Elegir **V2 → Probar una foto**, un modelo YOLO11/YOLO26 y una fotografía.
-2. En **Método de análisis**, seleccionar **YOLO + detección de bordes · experimental**.
-3. Pulsar **Analizar foto** y comprobar **Revisión 2 · color y textura** en el
-   resultado. Un análisis anterior no se recalcula automáticamente.
-4. Revisar la tabla por nivel, el mapa de señal y **Ver solo los bordes**.
+Código y evidencia: [script independiente](Experimentos/Bordes/gondola_bordes.py) · [integración YOLO](Herramientas/Modelos/ocupacion_paulo.py) · [ejecutor de comparaciones](Herramientas/Modelos/experimentar_paulo.py) · [revisión del 20 de octubre](Experimentos/Bordes/REVISION_20261020.md).
 
-El [script independiente](Experimentos/Bordes/gondola_bordes.py) conserva el
-editor manual y la entrada de cajas JSON. La
-[integración con las máscaras YOLO](Herramientas/Modelos/ocupacion_paulo.py), el
-[ejecutor de comparaciones](Herramientas/Modelos/experimentar_paulo.py) y la
-[revisión con resultados y comandos](Experimentos/Bordes/REVISION_20261020.md)
-están en Git. Sus imágenes se instalan desde el paquete `modelos_resultados`.
+## Datos y entrenamiento
 
-En la comparación de desarrollo con las mismas diez fotos de validación,
-pesos y ajustes, las 114 detecciones YOLO conservaron clases, confianza e IoU
-entre revisiones. Cambió la señal de detección de bordes; eso no demuestra precisión global
-de ocupación. El test final no se utilizó para ajustar este algoritmo.
+El proyecto combina capturas reales, variantes sintéticas y anotaciones manuales por nivel. Las fotografías originales y sus variaciones se agrupan por **familias** para reducir la fuga de información entre entrenamiento (`train`), validación (`val`) y prueba final (`test`).
 
-## Datos y preparación
-
-Un **dataset** es el conjunto de imágenes y etiquetas. **Entrenamiento (`train`)** sirve para aprender; **validación (`val`)**, para comparar modelos y ajustes; **prueba final (`test`)**, para evaluar al terminar, después de fijar esos ajustes. Una familia reúne una fotografía original y sus variantes. Una foto sintética es una imagen modificada con IA, no una nueva captura real.
-
-| Lote | Procedencia y tamaño | Preparación y uso |
+| Conjunto | Composición | Preparación / uso |
 |---|---|---|
-| [V1](Datos/V1/README.md) | 37 fotografías reales: 30 de desarrollo y 7 de reserva; 72 variantes sintéticas. | 102 candidatas; 11 exclusiones por calidad; copia activa de 91 imágenes: 86 train y 5 reales val, con 719 niveles. |
-| [V2 Líder Express](Datos/V2/lider_express_20261016/README.md) | 59 originales reales y 177 variantes IA: 236 imágenes. | 59 familias y 19 grupos; copia de entrenamiento con 1.212 polígonos. 160 train; 10 originales val; 30 variantes de diagnóstico; 9 originales y 27 variantes de test. |
-| [V2 visibilidad limitada](Datos/V2/visibilidad_limitada_20261019/README.md) | 60 ediciones sintéticas: 24 carros, 24 personas y 12 cajas. | 308 contornos etiquetados pendientes de aprobación final de sus estados. Destinos: 41 train, 10 val y 9 test. |
+| [V1](Datos/V1/README.md) | 37 fotografías reales y 72 variantes sintéticas. | 102 candidatas, 11 exclusiones; conjunto activo de **91 imágenes** (86 `train`, 5 reales `val`) y 719 niveles. |
+| [V2 Líder Express](Datos/V2/lider_express_20261016/README.md) | 59 originales reales y 177 variantes IA (**236 imágenes**). | 59 familias, 19 grupos y **1.212 polígonos**. Incluye 160 `train`, 10 originales `val`, 30 variantes de diagnóstico y 36 imágenes `test`. |
+| [V2 visibilidad limitada](Datos/V2/visibilidad_limitada_20261019/README.md) | 60 imágenes sintéticas con carros, personas o cajas. | 308 contornos etiquetados; estados pendientes de aprobación final. Destinos previstos: 41 `train`, 10 `val`, 9 `test`. |
 
-Total: **405 imágenes únicas** (96 reales y 309 sintéticas). Los **435 registros** de inventario incluyen referencias repetidas; no son 435 fotografías independientes. Los inventarios conservan origen, dimensiones, familia, ruta y SHA-256. Las variantes IA se revisan humanamente; A/B/C no determina su etiqueta.
+**Inventario global:** 405 imágenes únicas (**96 reales y 309 sintéticas**). Los 435 registros de inventario incluyen referencias repetidas y no equivalen a 435 fotografías independientes. Se conserva procedencia, ruta, dimensiones, familia y hash SHA-256. Las variantes IA requieren revisión humana.
 
-El [registro de partición](Datos/Registros/Particiones/lider_express_v2_20261019/README.md) conserva tres grupos para val y dos para test. Hay un solo nivel real `reponer` en val y otro en test. El conjunto sintético se evalúa por separado.
+La copia usada en los ensayos V2 base es `datos_20261019_234626_3df2e643` (`lista_niveles`). Los registros anteriores pueden tener otros conteos: no deben mezclarse. [Ver registro de partición](Datos/Registros/Particiones/lider_express_v2_20261019/README.md).
 
-La copia exacta usada para entrenar V2 base es `datos_20261019_234626_3df2e643`, con estado `lista_niveles`. Sus listas de archivos y exportaciones permiten repetir el ensayo. Hay registros anteriores con otros conteos; no se mezclan con esta versión. Las etiquetas de la tarea 22, que contiene obstáculos, todavía necesitan aprobación final.
+## Tecnologías
 
-## Estado y resultados
-
-| Componente | Estado al corte |
+| Tecnología | Función en el proyecto |
 |---|---|
-| Inventarios, importador, exportador y particionador | Implementados con artefactos y verificadores locales. |
-| Entrenamiento y comparación | Cuatro ensayos conservados: dos V1 y dos V2 base. |
-| Panel e inferencia | Código y resultados disponibles; falta aceptación completa de V2 con oclusiones. |
-| Detección de bordes | Revisión 2 integrada en el panel completo, con comparaciones conservadas; señal experimental pendiente de calibración y evaluación independiente. |
-| Docker y CVAT | Arranque base sin CVAT; conexión opcional por perfil y credenciales personales. |
-| Walmart Visión | Aplicación descargable con cuatro modelos V1/V2 base y análisis experimental de bordes; falta comprobarla en otro equipo físico. |
-| Oclusiones, deduplicación y prueba final | En desarrollo o pendientes. |
+| **YOLO11n-seg / YOLO26n-seg** | Segmentación y clasificación de niveles completos. |
+| **PyTorch + Ultralytics** | Ajuste de modelos preentrenados, entrenamiento e inferencia. |
+| **CVAT** | Anotación de polígonos y revisión humana. |
+| **OpenCV, Pillow, NumPy, Shapely** | Tratamiento de imágenes, máscaras y validación geométrica. |
+| **Canny + análisis de color y textura** | Estudio experimental de señales dentro de máscaras YOLO. |
+| **Python + HTML/CSS/JavaScript** | Procesamiento y panel/visor local. |
+| **Docker Compose** | Configuración reproducible de los servicios del laboratorio. |
 
-La tabla siguiente conserva los valores medidos. **Localizados** cuenta niveles encontrados; **estados exactos**, niveles encontrados con la categoría correcta; **TP**, alertas acertadas; **FP**, falsas alertas. El mAP evalúa el comportamiento por clase y contorno; no es el porcentaje de fotos correctas. La [guía de lectura](Documentacion/Guia_para_entender_el_proyecto.md#cómo-leer-los-resultados) explica las métricas con ejemplos.
+**Entorno conservado de entrenamiento:** PyTorch `2.5.1+cu121` y Ultralytics `8.4.174`. Cada ensayo guarda `entorno.json` y `entrenamiento/args.yaml`.
 
-| Modelo | Validación real | mAP50 máscara | mAP50–95 máscara | Localizados | Estados exactos | Alertas TP y FP |
-|---|---|---|---|---|---|---|
-| YOLO11 V1 | 5 fotos, 36 niveles | 74,47 % | 56,59 % | 35/36 | 33/36 | 0 TP, 2 FP; sin alertas reales |
-| YOLO26 V1 | 5 fotos, 36 niveles | 73,38 % | 62,40 % | 35/36 | 34/36 | 0 TP, 0 FP; sin alertas reales |
-| YOLO11 V2 base | 10 fotos, 51 niveles | 98,44 % | 86,26 % | 51/51 | 48/51 | 1 TP, 4 FP; 1 alerta real |
-| YOLO26 V2 base | 10 fotos, 51 niveles | 99,28 % | 92,79 % | 50/51 | 50/51 | 1 TP, 0 FP; 1 alerta real |
+## Laboratorio de desarrollo
 
-**Cómo interpretar el resultado:** YOLO26 V2 encontró 50 de 51 niveles y acertó esos 50 estados. Detectó el único faltante de reposición de esa validación y no emitió falsas alertas. Es un resultado favorable en diez fotos, pero **1/1 alerta** es una muestra demasiado pequeña para afirmar que encontrará todos los faltantes de una tienda. V1 y V2 usan datos y categorías diferentes; sus cifras no aíslan el efecto de cambiar de modelo.
+Esta sección es **solo para el equipo técnico**. Para usar Walmart Visión no es necesario preparar el laboratorio.
 
-Fuentes: `metricas_validacion.json`, `metricas_alertas.json` y `evaluacion_por_imagen.json` de [Experimentos](Experimentos/README.md). El mAP de Ultralytics y nuestros conteos tienen procedimientos y umbrales distintos; se informan por separado. Las imágenes reales y sintéticas también se evalúan por separado. La validación ya se usó para elegir modelos y no reemplaza la prueba final.
+### Requisitos
 
-## Planificación y forma de trabajo
+- Windows x64, PowerShell y Docker Desktop.
+- Python 3.11 para reproducir el entorno de entrenamiento (los scripts locales admiten 3.11/3.12).
+- Acceso a los paquetes de datos, pesos y resultados distribuidos separadamente al equipo.
+- GPU NVIDIA correctamente expuesta a Docker **solo si se utiliza el modo GPU**; existe modo CPU.
 
-El proyecto comenzó aproximadamente en agosto de 2026. La detección de bordes se inició en la semana 9 y se integró con YOLO en la semana 11. La [Gantt histórica y el plan de cierre](Documentacion/Planificacion_y_metodologia.md) distinguen trabajo realizado, prototipo experimental y actividades futuras; el inicio exacto y las fechas propuestas de cierre deben confirmarse.
+La [guía de reproducción](Documentacion/Desarrollo/Replicar_proyecto.md#instalar-el-laboratorio-desde-una-copia-nueva) explica cómo preparar los activos con `--assets`. No se incluyen imágenes privadas, resultados de laboratorio ni credenciales en el repositorio público. CVAT es opcional cuando solo se ejecutan modelos ya preparados.
 
-Trabajamos con un enfoque ágil e iterativo inspirado en Scrum, con dos reuniones semanales para revisar avances, nuevas imágenes por anotar, criterios de etiquetado e ideas de mejora. Esta descripción recoge la revisión y adaptación continuas, sin atribuir una aplicación formal completa de Scrum que no está documentada.
-
-## Organización del proyecto
-
-| Carpeta | Función |
-|---|---|
-| [Datos](Datos/README.md) | Lotes V1/V2, inventarios, anotaciones, particiones y versiones de datos. |
-| [Herramientas](Herramientas/README.md) | Código de Walmart Visión y del laboratorio: preparación, entrenamiento, evaluación y empaquetado. |
-| [Infraestructura](Infraestructura/README.md) | Configuración de Docker, conexión opcional a CVAT y migración del laboratorio. |
-| [Modelos](Modelos/README.md) | Modelos generales para iniciar el entrenamiento y registros de su procedencia. |
-| [Experimentos](Experimentos/README.md) | Configuraciones, métricas y evidencias de cada ensayo; los pesos entrenados se instalan aparte. |
-| [Documentacion](Documentacion/README.md) | Guías vigentes, informe, planificación y documentación histórica identificada. |
-| [Entregables](Entregables/README.md) | Acceso a la entrega vigente y organización local de informes y paquetes anteriores. |
-| [reproducibilidad](reproducibilidad/README.md) | Manifiesto de activos y registros de verificación de la entrega. |
-
-GitHub contiene el código, los registros y la documentación. Las fotografías, los pesos y los paquetes del laboratorio se distribuyen por separado; la aplicación lista para usar se descarga desde Releases. Los scripts de verificación están en `Herramientas/Reproducibilidad`, mientras que sus registros están en `reproducibilidad`.
-
-## Instalación técnica del laboratorio (equipo de desarrollo)
-
-Para usar la aplicación, seguir la [guía de Walmart Visión](Documentacion/Usar_Walmart_Vision.md). Los requisitos y comandos de esta sección corresponden al panel de desarrollo. Antes de ejecutarlos, preparar los activos según la [guía técnica](Documentacion/Desarrollo/Replicar_proyecto.md#instalar-el-laboratorio-desde-una-copia-nueva).
-
-Se requiere Windows x64 con PowerShell y Docker Desktop para los comandos de inicio. El entorno de entrenamiento conservado usa Python 3.11; los scripts locales admiten Python 3.11/3.12. La GPU NVIDIA requiere acceso desde Docker; el modo CPU evita ese requisito. No se certifica aquí un límite de RAM/VRAM ni la latencia en hardware externo.
-
-Un clon del código necesita también las imágenes, versiones exportadas y pesos de los ensayos. El manifiesto reproducibilidad/artefactos.json fija los hashes y la descarga de la demo. Los ZIP de datos, pesos/resultados e informe se transfieren por separado y se instalan con --assets. No se distribuyen credenciales del equipo. CVAT es opcional para ejecutar pesos y versiones ya exportadas.
-
-### Preparar Python local
+### 1. Preparar el entorno
 
 ```powershell
 python -m venv .venv-modelo
 & ./.venv-modelo/Scripts/python.exe -m pip install -r Herramientas/Modelos/requirements.txt
 ```
 
-### Iniciar el panel
+### 2. Iniciar el panel
 
 ```powershell
-# CPU y construcción inicial de la imagen
+# CPU (construcción inicial)
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
-# GPU NVIDIA configurada
+
+# Alternativa: GPU NVIDIA configurada
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Build
 ```
 
-Abrir http://localhost:8090. Elegir V1 o V2, seleccionar modelo y analizar una fotografía. Para modificar anotaciones se necesita CVAT y su configuración: consultar [Docker](Infraestructura/Docker/README.md) y la [guía del panel](Herramientas/Modelos/README.md). La inferencia con pesos y datos ya disponibles no requiere editar CVAT.
+Abrir **<http://localhost:8090>** y seleccionar versión, modelo y fotografía.
 
-**Ejemplo comprobable:** elegir `v2_base_yolo26n_01`, usar `lider_express_040_0_original.jpg` y confianza 0,25. La evaluación conservada espera cinco niveles: cuatro suficientes y uno reponer. Revisar el primer caso del informe. Una foto propia sin anotación permite revisar predicciones, pero no medir precisión.
+**Caso de comprobación:** modelo `v2_base_yolo26n_01`, imagen `lider_express_040_0_original.jpg` y confianza `0,25`. La evaluación conservada espera **5 niveles**: 4 `suficiente` y 1 `reponer`. Una foto nueva sin anotaciones sirve para inspeccionar predicciones, no para medir precisión.
 
-### Verificar integridad y pruebas
+### 3. Ejecutar verificaciones
 
 ```powershell
 & ./.venv-modelo/Scripts/python.exe Herramientas/verificar_proyecto.py
@@ -261,20 +206,69 @@ Abrir http://localhost:8090. Elegir V1 o V2, seleccionar modelo y analizar una f
 & ./.venv-modelo/Scripts/python.exe -m unittest discover -s Herramientas/Modelos
 ```
 
-Los verificadores comprueban archivos, enlaces y separación de los datos. Las pruebas de código revisan que los programas respondan como se espera; no miden por sí solas qué tan bien reconoce el modelo una góndola nueva. El [registro original del informe](Documentacion/Evidencias/verificacion_informe_20261020.json) conserva lo ejecutado y sus límites.
+Estas pruebas revisan archivos, enlaces, particiones y funcionamiento del código; **no equivalen a una evaluación del modelo en nuevas tiendas**. Ver [registro de verificación](Documentacion/Evidencias/verificacion_informe_20261020.json), [infraestructura Docker](Infraestructura/Docker/README.md) y [panel de modelos](Herramientas/Modelos/README.md).
 
-### Demo portátil y regeneración del informe
+## Documentación y estructura
 
-La nueva entrega es `Walmart_Vision_20261020.zip`, con cuatro modelos V1/V2 base y la revisión 2 de detección de bordes; extraerla y ejecutar `Walmart_Vision/iniciar.cmd`. Los ZIP anteriores se conservan como históricos en el laboratorio. El primer arranque descarga dependencias. Ver [guía incluida en la aplicación](Herramientas/Demo_lite/LEEME.md) y [verificación de Visión](Herramientas/Demo_lite/VERIFICACION_VISION.md).
+### Guías recomendadas
 
-Con `python-docx` y `Pillow`, ejecutar `Herramientas/Informes/generar_informe_intermedio.py` para regenerar Word y HTML desde el Markdown, sin consultar modelos ni la reserva final. Exportar el Word a PDF y revisar el formato antes de distribuirlo.
+| Necesidad | Recurso |
+|---|---|
+| Aprender los conceptos y leer métricas | [Guía para entender el proyecto](Documentacion/Guia_para_entender_el_proyecto.md) |
+| Usar la aplicación | [Manual de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) |
+| Entender las diferencias V1/V2 y ubicar código | [Evolución del proyecto](Documentacion/Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código) |
+| Reproducir preparación y entrenamiento | [Laboratorio de desarrollo](Documentacion/Desarrollo/Replicar_proyecto.md) · [entrenamiento por consola](Documentacion/Desarrollo/Entrenamiento_niveles_v2.md) |
+| Consultar evaluación y pesos por ensayo | [Índice de experimentos](Experimentos/README.md) |
+| Colaborar y publicar | [Trabajo en equipo](Documentacion/Desarrollo/Trabajo_en_equipo.md) · [publicación en GitHub](Documentacion/Desarrollo/Publicar_GitHub.md) |
+| Ver integridad de entrega | [Verificación](reproducibilidad/VERIFICACION.md) · [manifiesto de hashes](reproducibilidad/artefactos.json) |
 
-## Próximos pasos
+### Carpetas principales
 
-Aprobar las etiquetas con obstáculos de la tarea 22, capturar más faltantes reales y entrenar V2 de tres estados. Después, comparar el filtrado de detecciones repetidas en validación y acordar los resultados mínimos esperados. Se fijarán el modelo y los ajustes antes de consultar la prueba final. Para la entrega al usuario, falta comprobar Walmart Visión en otro computador físico y registrar el resultado con la [pauta de instalación externa](Documentacion/Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador). La [Carta Gantt y los responsables propuestos](Documentacion/Informe_Intermedio_Avance_20261020.md) están en el informe.
+| Ruta | Contenido |
+|---|---|
+| [`Datos/`](Datos/README.md) | Inventarios, imágenes, anotaciones, particiones y versiones. |
+| [`Herramientas/`](Herramientas/README.md) | Visor, panel, scripts de procesamiento y pruebas. |
+| [`Infraestructura/`](Infraestructura/README.md) | Docker, servicios, CVAT y migración. |
+| [`Modelos/`](Modelos/README.md) | Modelos generales y procedencia. |
+| [`Experimentos/`](Experimentos/README.md) | Configuraciones, métricas y evidencias. |
+| [`Documentacion/`](Documentacion/README.md) | Guías, planificación e informe. |
+| [`Entregables/`](Entregables/README.md) | Entregas e informes locales. |
+| [`reproducibilidad/`](reproducibilidad/README.md) | Manifiestos y registros de verificación. |
 
-Los componentes de terceros conservan las licencias de sus distribuciones. Los términos de publicación del dataset, código propio y pesos deben documentarse en la entrega.
+### Informe intermedio
 
-## Relación con el informe solicitado
+El [informe del 20 de octubre de 2026](Documentacion/Informe_Intermedio_Avance_20261020.md) documenta **20 casos visuales**, planificación desde agosto, hallazgos y limitaciones. La distribución de sus archivos Word/PDF/HTML se realiza mediante `Walmart_Informe_Revision_20261020.zip`, separado de la Release pública.
 
-La [revisión de requisitos](Documentacion/Desarrollo/Revision_de_requisitos_informe.md) indica dónde se responde cada punto del encargo: avance, README técnico, veinte casos, reproducibilidad y conclusiones. La explicación técnica se acompaña de ejemplos; las configuraciones y evidencias se conservan para respaldarla.
+Una vez disponibles los activos del equipo, se prepara con:
+
+```powershell
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe
+```
+
+También están disponibles la [revisión de planificación](Documentacion/Evidencias/verificacion_planificacion_20261020.json), la [verificación de claridad](Documentacion/Evidencias/verificacion_claridad_20261020.json) y el [mapeo de requisitos del informe](Documentacion/Desarrollo/Revision_de_requisitos_informe.md). El generador `Herramientas/Informes/generar_informe_intermedio.py` puede regenerar Word y HTML desde Markdown con `python-docx` y `Pillow`; el PDF se exporta y revisa por separado.
+
+## Limitaciones y próximos pasos
+
+**Pendientes principales:**
+
+- Aprobar los estados de las etiquetas con obstáculos (tarea 22) y entrenar **V2 con tres estados**, incluido `no_evaluable`.
+- Capturar más casos reales de reposición y evaluar en nuevas condiciones, sin depender de un único positivo.
+- Comparar la eliminación de detecciones duplicadas y fijar ajustes antes de usar el conjunto `test` final.
+- Calibrar y evaluar independientemente las señales de bordes, color y textura.
+- Probar Walmart Visión en otro computador físico y registrar la [verificación externa](Documentacion/Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador).
+- Documentar los términos de publicación de código propio, dataset y pesos; las dependencias de terceros conservan sus respectivas licencias.
+
+La [planificación y Gantt](Documentacion/Planificacion_y_metodologia.md) conserva los hitos históricos y tareas propuestas. El trabajo se ha organizado de forma iterativa, inspirado en Scrum, con dos reuniones semanales; no se afirma una adopción formal completa del marco.
+
+## Equipo
+
+**Capstone DUOC UC · 2026**
+
+| Rol | Integrantes |
+|---|---|
+| Desarrollo | **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches** |
+| Docente | **Arturo Vargas** |
+
+---
+
+<p align="center"><sub>Proyecto académico de visión por computador · Los resultados corresponden a un prototipo y deben interpretarse dentro de las limitaciones de su evaluación.</sub></p>
