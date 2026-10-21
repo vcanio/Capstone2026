@@ -9,16 +9,18 @@ python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2
 python Herramientas/Reproducibilidad/empaquetar_publicacion.py --solo-codigo --git "C:/Program Files/Git/cmd/git.exe"
 ```
 
-El paquete queda en `Entregables/Walmart_Vision_20261020.zip`, con su SHA-256 al lado. El checkout revisable está en `.publicacion/repositorio/`. Los empaquetadores no hacen commit, push ni publicación y no modifican credenciales.
+El empaquetador de Visión genera ahora `Entregables/Walmart_Vision_Docker_20261021.zip`, con su SHA-256 al lado. El activo publicado `Walmart_Vision_20261020.zip` se conserva aparte. El checkout revisable está en `.publicacion/repositorio/`. Los empaquetadores no hacen commit, push ni publicación y no modifican credenciales.
 
 Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bordes y del preparador. Extraer el ZIP en una carpeta nueva, comprobar sus hashes y ejecutar inferencia con ambos métodos. Verificar el visor y el cuaderno incluido. Actualizar la entrada demo de `reproducibilidad/artefactos.json` con el nombre, URL, tamaño, hash y archivos del ZIP final; conservar las entradas históricas de los paquetes del laboratorio.
 
-## Publicar
+## Publicar una nueva versión
+
+La preparación Docker del 21 de octubre se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Docker_20261021.zip`. Contiene los archivos Docker además del visor y los modelos. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Distribuirlo como un activo nuevo con su SHA-256; no sobrescribir el ZIP ya publicado del 20 de octubre. Crear el activo y actualizar sus enlaces/manifiesto de descarga cuando efectivamente se publique. La creación local del ZIP no publica nada en GitHub.
 
 1. Revisar el diff del checkout, hacer commit de código y documentación y push a main, sin forzar.
-2. Crear la Release con tag `walmart-vision-2026-10-20` sobre ese commit y título **Walmart Visión · V1 y V2**. Utilizar las [notas preparadas](Notas_Release_Walmart_Vision_20261020.md) y añadir el SHA-256 del ZIP.
-3. Adjuntar únicamente `Walmart_Vision_20261020.zip` desde `.publicacion/releases/` y publicar. Conservar la release anterior y sus activos históricos.
-4. Descargar el activo publicado y comprobar su SHA-256 contra el ZIP verificado. Extraer todo y abrir `Walmart_Vision/iniciar.cmd`.
+2. Preparar las notas, el tag y el título de la nueva versión con el alcance real de [verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md). Las [notas del 20 de octubre](Notas_Release_Walmart_Vision_20261020.md) corresponden a la entrega Windows anterior.
+3. Adjuntar `Walmart_Vision_Docker_20261021.zip` y su SHA-256 como archivos nuevos. Conservar la release anterior y sus activos históricos. El empaquetador general `empaquetar_publicacion.py`, fuera de `--solo-codigo`, todavía usa el activo del 20 de octubre: para esta nueva distribución preparar explícitamente el ZIP indicado y actualizar el manifiesto con la URL real de publicación.
+4. Descargar el activo publicado y comprobar su SHA-256 contra el ZIP verificado. Extraer todo y comprobar el recorrido Docker de `DOCKER.md`, además del iniciador Windows cuando corresponda.
 
 Los archivos Source code añadidos automáticamente por GitHub no contienen los pesos ni sustituyen el ZIP. No reutilizar el nombre de un activo publicado con contenido distinto. La aplicación mantiene su carácter de prototipo y sus límites se explican en las notas.
 

@@ -9,7 +9,9 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'Herramientas/Demo_lite'
 FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instalar.cmd', 'iniciar.cmd',
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
-         'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT')
+         'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
+         'Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt', 'DOCKER.md',
+         'VERIFICACION_DOCKER.md')
 EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Herramientas/Modelos/ocupacion_paulo.py',
               'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py'}
 RUNS = {'YOLO11-1': 'YOLO11-1_20261015_013749_f709', 'YOLO26-1': 'YOLO26-1_20261015_021212_c452'}
@@ -17,7 +19,7 @@ V2_RUNS = {**RUNS, 'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
            'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
 
 
-def notebook(package='Walmart_Vision_20261020.zip', default_model='V2-YOLO26'):
+def notebook(package='Walmart_Vision_Docker_20261021.zip', default_model='V2-YOLO26'):
     cells = []
 
     def md(text):
@@ -181,6 +183,9 @@ def build(output, profile='v1'):
             body = (SOURCE / name).read_bytes()
             if name.endswith('.cmd'):
                 body = body.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+            elif name in ('Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt',
+                          'DOCKER.md', 'VERIFICACION_DOCKER.md'):
+                body = body.replace(b'\r\n', b'\n')
             archive.writestr('Walmart_Vision/' + name, body)
         for name, body in weights.items():
             archive.writestr('Walmart_Vision/' + name, body)
@@ -205,5 +210,5 @@ if __name__ == '__main__':
     parser.add_argument('--perfil', choices=('v1', 'v2'), default='v2')
     parser.add_argument('--output')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Vision_20261020.zip' if args.perfil == 'v2' else 'Walmart_Vision_V1_20261020.zip'))
+    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Vision_Docker_20261021.zip' if args.perfil == 'v2' else 'Walmart_Vision_V1_Docker_20261021.zip'))
     print(json.dumps(build(output, args.perfil), ensure_ascii=False))

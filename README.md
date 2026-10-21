@@ -35,6 +35,8 @@ La documentación permite comprender la construcción del sistema y ejecutar Wal
 
 Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vision_20261020.zip` de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20), extraer todo y ejecutar `Walmart_Vision/iniciar.cmd`. El primer inicio requiere Internet; prepara su propio Python y utiliza el procesador del computador (CPU). V2 base distingue reponer y suficiente, y no reconoce no evaluable.
 
+**Mac Intel y Apple Silicon:** el paquete adicional `Walmart_Vision_Docker_20261021.zip` incluye Docker Compose y los cuatro modelos. Con Docker Desktop abierto, extraerlo, entrar en la carpeta `Walmart_Vision` y ejecutar `docker compose up --build -d --wait`; abrir http://localhost:8095. Consultar la [guía Docker para macOS](Herramientas/Demo_lite/DOCKER.md). Es un paquete nuevo preparado por separado; el activo ya publicado del 20 de octubre conserva su contenido.
+
 La [guía de uso de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) reúne los pasos, la interpretación de resultados, las soluciones a problemas de inicio y una pauta para comprobar la instalación en otro computador. Esa comprobación externa sigue pendiente.
 
 Para probar con ejemplos del proyecto, descargar el ZIP desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Incluye tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. La [guía de ejemplos](Documentacion/Usar_Walmart_Vision.md#probar-con-imágenes-de-ejemplo) explica su uso y procedencia. Las imágenes se distribuyen por separado y permanecen fuera del historial Git.
@@ -96,7 +98,7 @@ El prototipo clasifica estados aprendidos; no cuenta SKU, mide profundidad o con
 | CVAT | Permite dibujar y revisar etiquetas entre compañeros. | Las personas deben acordar el contorno y el estado que el modelo aprenderá. |
 | Familias y grupos de imágenes | Mantienen una foto y sus variantes en el mismo grupo de datos. | Evitamos evaluar con una imagen casi igual a otra usada para entrenar. Esto reduce la fuga de datos; no demuestra funcionamiento en otras tiendas. |
 | Python y HTML/CSS/JavaScript | Conectan los procesos con el panel local. | Permiten cargar una foto, ejecutar el modelo y revisar resultados desde una interfaz. |
-| Docker Compose | Prepara los servicios y dependencias del laboratorio. | Facilita compartir la configuración de ejecución. Los datos y pesos se instalan por separado. |
+| Docker Compose | Prepara los servicios del laboratorio y la ejecución de Visión con Docker. | Permite compartir la configuración; el paquete de Visión incluye sus cuatro pesos y utiliza CPU en Intel y ARM64. |
 
 **Versiones del entrenamiento conservado:** PyTorch 2.5.1+cu121 y Ultralytics 8.4.174. La configuración exacta se guarda en `entorno.json` y `entrenamiento/args.yaml` de cada ensayo.
 

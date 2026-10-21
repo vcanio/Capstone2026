@@ -1,6 +1,6 @@
 # Docker y configuración del proyecto
 
-Esta guía es para el **laboratorio del equipo de desarrollo**. La aplicación de usuario Walmart Visión se inicia sin Docker: consultar la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md).
+Esta guía es para el **laboratorio del equipo de desarrollo**. La aplicación de usuario Walmart Visión conserva su iniciador Windows y tiene un paquete Docker independiente para macOS: consultar la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md) y [Docker para Visión](../../Herramientas/Demo_lite/DOCKER.md). El Compose de Visión viene dentro de su paquete y no inicia el laboratorio ni CVAT.
 
 Los comandos de esta guía se ejecutan desde la raíz del proyecto. Los Compose del panel resuelven sus rutas a Datos, Experimentos, Modelos y Herramientas desde esta carpeta; mantienen el proyecto Docker `walmart-modelos` y los montajes anteriores.
 

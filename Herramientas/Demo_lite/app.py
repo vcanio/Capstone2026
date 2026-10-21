@@ -88,9 +88,9 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
-def create_server(port=8095, directory=None, device='auto'):
+def create_server(port=8095, directory=None, device='auto', host='127.0.0.1'):
     runner = ModelRunner(directory, device)
-    server = ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    server = ThreadingHTTPServer((host, port), Handler)
     server.runner = runner
     return server
 
@@ -98,6 +98,8 @@ def create_server(port=8095, directory=None, device='auto'):
 def main():
     parser = argparse.ArgumentParser(description='Walmart Visión: probar modelos con fotos propias')
     parser.add_argument('--port', type=int, default=8095)
+    parser.add_argument('--host', choices=('127.0.0.1', '0.0.0.0'), default='127.0.0.1',
+                        help='Dirección de escucha; 0.0.0.0 para el contenedor Docker')
     parser.add_argument('--open', action='store_true', help='Abrir el navegador')
     parser.add_argument('--check', action='store_true', help='Comprobar dependencias y pesos sin iniciar el visor')
     parser.add_argument('--device', choices=('auto', 'cpu'), default='auto')
@@ -111,7 +113,7 @@ def main():
         print(f"Listo: {len(runner.available())} modelos, PyTorch {torch.__version__}, Ultralytics {ultralytics.__version__}.")
         return
     try:
-        server = create_server(args.port, device=args.device)
+        server = create_server(args.port, device=args.device, host=args.host)
     except OSError as error:
         raise SystemExit(f'No se pudo abrir el puerto {args.port}. Cierra otra instancia o usa --port 8096.\n{error}')
     url = f'http://127.0.0.1:{server.server_port}'

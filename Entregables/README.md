@@ -9,6 +9,8 @@ GitHub conserva este índice. Los ZIP, informes exportados y demás archivos gen
 
 ## Organización local
 
+También se prepara **Walmart_Vision_Docker_20261021.zip**, con su `.sha256`, para ejecutar Visión con Docker en Mac Intel y Apple Silicon. Incluye los mismos cuatro modelos, el visor y las instrucciones de [Docker](../Herramientas/Demo_lite/DOCKER.md). Es un artefacto local nuevo, pendiente de publicación; no reemplaza el activo de la Release del 20 de octubre.
+
 | Ubicación | Contenido |
 |---|---|
 | `Walmart_Vision_20261020.zip` y su `.sha256` | Paquete vigente de la aplicación y comprobación de integridad. |

@@ -1,0 +1,6 @@
+# Mantener las versiones de inferencia del paquete en ambas arquitecturas.
+-r requirements.txt
+torch==2.5.1
+torchvision==0.20.1
+matplotlib==3.10.9
+pyyaml==6.0.3

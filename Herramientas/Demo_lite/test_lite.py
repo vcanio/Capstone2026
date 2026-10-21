@@ -172,6 +172,21 @@ class HttpTests(unittest.TestCase):
         with urlopen(self.url + '/api/models') as response:
             self.assertEqual(json.load(response)['models'][0]['id'], 'fixture')
 
+    def test_container_listener_keeps_local_host_and_origin_checks(self):
+        with patch.object(app, 'ModelRunner', return_value=self.server.runner):
+            container = app.create_server(port=0, host='0.0.0.0')
+        self.addCleanup(container.server_close)
+        threading.Thread(target=container.serve_forever, daemon=True).start()
+        self.addCleanup(container.shutdown)
+        url = f'http://127.0.0.1:{container.server_port}/api/health'
+        with urlopen(url) as response:
+            self.assertEqual(json.load(response)['status'], 'ok')
+        for headers in ({'Host': f'example.com:{container.server_port}'},
+                        {'Origin': 'https://example.com'}):
+            with self.subTest(headers=headers), self.assertRaises(HTTPError) as error:
+                urlopen(Request(url, headers=headers))
+            self.assertEqual(error.exception.code, 403)
+
     def test_prediction_response_contains_an_image_and_uploads_are_not_saved(self):
         request = Request(self.url + '/api/predict?model=fixture&confidence=0.25', data=photo(), headers={'Content-Type': 'image/png'})
         with urlopen(request) as response:

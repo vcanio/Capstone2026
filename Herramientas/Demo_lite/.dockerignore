@@ -1,0 +1,13 @@
+# Contexto limitado a la aplicación y sus cuatro modelos.
+*
+!Dockerfile
+!requirements.txt
+!requirements-docker.txt
+!app.py
+!inferencia.py
+!interfaz.html
+!modelos.json
+!ocupacion_paulo.py
+!gondola_bordes.py
+!modelos/
+!modelos/*.pt

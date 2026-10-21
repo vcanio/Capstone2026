@@ -2,6 +2,16 @@
 
 La entrega **Walmart_Vision_20261020.zip** contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. No necesita el proyecto completo, CVAT, Docker, las imágenes de entrenamiento ni acceso al computador original.
 
+## Mac con Docker
+
+El paquete **Walmart_Vision_Docker_20261021.zip** agrega ejecución con Docker para Mac Intel y Apple Silicon. Instalar y abrir Docker Desktop, extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`. Ejecutar:
+
+```bash
+docker compose up --build -d --wait
+```
+
+Abrir http://localhost:8095. Para detener, ejecutar `docker compose down`. La primera construcción requiere Internet; después se puede usar la imagen instalada sin conexión. El análisis utiliza CPU y las fotos se procesan localmente en memoria. Las [instrucciones de Docker](DOCKER.md) explican instalación, reinicio, puerto alternativo y solución de problemas. El ZIP de Windows publicado el 20 de octubre conserva su contenido y no incluye estos archivos Docker.
+
 ## Otro PC con Windows
 
 1. **Extraer todo el ZIP** a una carpeta local donde puedas guardar archivos. No ejecutar los archivos desde dentro del ZIP.
@@ -48,6 +58,8 @@ Una foto sin anotaciones permite observar predicciones; no mide precisión. La v
 Límites de imagen: 15 MB, 24 megapíxeles, JPG/PNG/WebP sin animación. Se corrige la orientación y se limita el lado mayor a 4096 píxeles para acotar la memoria. La inferencia usa entrada de 640 px y NMS 0,7, como la demostración del panel.
 
 ## Versiones y otras plataformas
+
+La ejecución Docker utiliza Python 3.12, PyTorch 2.5.1 y torchvision 0.20.1 en CPU para Linux AMD64 y ARM64. El constructor selecciona la arquitectura del equipo. Consultar [Docker en macOS](DOCKER.md) y el registro `VERIFICACION_DOCKER.md` del código fuente para el alcance de las comprobaciones.
 
 El entorno automático Windows fija Python 3.12, PyTorch 2.5.1 para CPU, torchvision 0.20.1, Ultralytics 8.4.174, NumPy 1.26.4 y Pillow 12.3.0. La verificación de esta entrega está en VERIFICACION_VISION.md del código y en VERIFICACION.md dentro del ZIP; el documento histórico VERIFICACION.md del código conserva las pruebas V1. El ZIP incluye el preparador, pero descarga Python y las bibliotecas durante el primer inicio; no es una entrega con instalación inicial sin Internet.
 

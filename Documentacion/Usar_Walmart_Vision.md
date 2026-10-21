@@ -4,15 +4,27 @@ Walmart Visión permite cargar una fotografía de una góndola, localizar sus ni
 
 ## Requisitos y descarga
 
-- Un computador con Windows x64 y una carpeta local con permiso de escritura.
+- Windows x64 para el iniciador automático, o un Mac Intel/Apple Silicon con Docker Desktop para el paquete Docker. Usar una carpeta local con permiso de escritura.
 - Internet durante el primer inicio para descargar Python y las dependencias. Los siguientes arranques reutilizan el entorno instalado y permiten analizar fotos localmente sin conexión.
 - Una fotografía propia en JPG, PNG o WebP, sin animación, de hasta 15 MB y 24 megapíxeles.
 
 Descargar **Walmart_Vision_20261020.zip** desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20). Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los cuatro modelos necesarios para usar la aplicación.
 
-El iniciador prepara Python 3.12 y las bibliotecas dentro de la carpeta de la aplicación. No hace falta instalar previamente Python, Docker, CVAT ni disponer de una GPU NVIDIA. El análisis utiliza CPU; su duración depende del computador. La instalación ocupa más espacio que el ZIP descargado por sus dependencias.
+El iniciador de Windows prepara Python 3.12 y las bibliotecas dentro de la carpeta de la aplicación. No hace falta instalar previamente Python, Docker, CVAT ni disponer de una GPU NVIDIA. El análisis utiliza CPU; su duración depende del computador. La instalación ocupa más espacio que el ZIP descargado por sus dependencias.
 
-## Iniciar y analizar una fotografía
+## Usar en Mac con Docker
+
+Usar **Walmart_Vision_Docker_20261021.zip**, el paquete preparado con los mismos cuatro modelos y los archivos Docker. El ZIP de Windows enlazado en la Release del 20 de octubre no incluye Docker; esta preparación tiene un nombre distinto y su publicación se gestiona por separado.
+
+1. Instalar [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) según el procesador Intel o Apple Silicon y dejarlo abierto.
+2. Extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`, donde está `compose.yaml`.
+3. Ejecutar `docker compose up --build -d --wait`. La primera construcción descarga las dependencias y puede tardar varios minutos.
+4. Abrir http://localhost:8095 y seguir el recorrido de análisis desde la selección de versión y modelo.
+5. Al terminar, ejecutar `docker compose down` desde esa misma carpeta.
+
+El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. No hace falta instalar Python. La [guía Docker incluida](../Herramientas/Demo_lite/DOCKER.md) detalla cómo volver a iniciar sin Internet, cambiar el puerto y resolver problemas. Las pruebas en contenedores Linux y la comprobación en un Mac físico se distinguen en el [registro Docker](../Herramientas/Demo_lite/VERIFICACION_DOCKER.md).
+
+## Iniciar en Windows y analizar una fotografía
 
 1. Extraer **todo** el ZIP. No ejecutar la aplicación desde dentro del archivo comprimido.
 2. Abrir `Walmart_Vision/iniciar.cmd` y mantener la consola abierta. El primer inicio puede tardar varios minutos mientras prepara las dependencias.
@@ -82,6 +94,34 @@ Las fotografías se procesan en memoria en el computador: no se guardan ni se us
 | La foto no se acepta | Comprobar formato, tamaño y dimensiones según los requisitos anteriores. |
 | La primera predicción tarda | Esperar a que se carguen los pesos y revisar la consola; el tiempo depende de la CPU. |
 
+## Comprobar la instalación en otro computador
+
+**Estado: pendiente.** Se verificaron la interfaz y la inferencia CPU desde un ZIP extraído en el equipo de desarrollo. Eso no acredita una instalación en otro computador físico. El [registro de verificación de Visión](../Herramientas/Demo_lite/VERIFICACION_VISION.md) conserva el alcance de las pruebas ya realizadas.
+
+Para cerrar esta comprobación, una persona debe seguir los pasos anteriores en otro computador físico, usando el ZIP descargado desde la Release y sin copiar el entorno Python preparado del equipo de desarrollo:
+
+1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de las [notas de la versión](Desarrollo/Notas_Release_Walmart_Vision_20261020.md), por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_20261020.zip` en PowerShell.
+2. Extraer el ZIP e iniciar con Internet para comprobar la preparación automática y la apertura del visor.
+3. Analizar una fotografía propia autorizada con cada uno de los cuatro modelos, probando **Solo YOLO** y **YOLO + detección de bordes**. Registrar si cada combinación termina y muestra su resultado, incluso si no detecta niveles.
+4. Revisar las cuatro vistas cuando correspondan, cambiar la foto y comprobar que se limpia el resultado anterior.
+5. Cerrar y volver a abrir la aplicación con el entorno ya preparado y sin conexión; analizar otra vez para comprobar el uso local.
+6. Registrar incidencias y adjuntar capturas autorizadas o mensajes de error. Completar el registro de verificación solo con lo que realmente se ejecutó.
+
+Plantilla para registrar el resultado:
+
+| Campo | Registro por completar |
+|---|---|
+| Fecha y persona | Pendiente |
+| Windows, CPU y RAM | Pendiente |
+| Nombre y SHA-256 del ZIP | Pendiente |
+| Preparación inicial y apertura | Pendiente |
+| Cuatro modelos con ambos métodos | Pendiente |
+| Vistas y cambio de foto | Pendiente |
+| Reinicio e inferencia sin conexión | Pendiente |
+| Incidencias y evidencias | Pendiente |
+| Resultado de la instalación: correcta o con incidencias | Pendiente |
+
+Esta comprobación acredita el recorrido de instalación y uso en ese equipo. La precisión de los modelos requiere una evaluación con referencias y conserva las limitaciones documentadas.
 
 ## Entender cómo se construyó
 
