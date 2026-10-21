@@ -22,7 +22,7 @@ Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bord
 
 Los archivos Source code añadidos automáticamente por GitHub no contienen los pesos ni sustituyen el ZIP. No reutilizar el nombre de un activo publicado con contenido distinto. La aplicación mantiene su carácter de prototipo y sus límites se explican en las notas.
 
-## Añadir el conjunto de imágenes de demostración
+## Compartir las imágenes de demostración desde Drive
 
 Se preparó una selección confirmada de **tres fotos reales y tres variantes sintéticas**, documentada en [Imágenes para probar Visión](Imagenes_de_prueba.md). Es una excepción limitada a esas seis imágenes; el dataset completo sigue distribuyéndose por separado. El ZIP de la aplicación publicado conserva su contenido.
 
@@ -34,7 +34,9 @@ python Herramientas/Reproducibilidad/empaquetar_imagenes_demo.py
 
 El script comprueba las seis fuentes declaradas y crea `.publicacion/releases/Walmart_Vision_Imagenes_Demo_20261020.zip`, con su SHA-256 al lado. El ZIP contiene las carpetas `reales` y `sinteticas`, un LEEME y el manifiesto de procedencia. No incluye pesos, credenciales, el dataset completo ni imágenes de la reserva final. Una copia nueva del código necesita las fuentes de desarrollo para regenerarlo; el usuario solo necesita descargar el ZIP resultante.
 
-Tras revisar y subir el commit de documentación, adjuntar ese ZIP como activo adicional a la Release `walmart-vision-2026-10-20`. Publicar también el SHA-256 en sus notas. Comprobar la descarga y actualizar el estado de distribución en README, índice de documentación y guías de uso. Los nuevos ejemplos no están publicados por el simple hecho de hacer push del código; requieren adjuntar el archivo a la Release. No reemplazar el ZIP de la aplicación ni reutilizar el nombre del ZIP de ejemplos para un contenido distinto.
+La ubicación de descarga es la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Mantener allí el ZIP con permiso de lectura para cualquier persona con el enlace y la descarga habilitada. El README y las guías enlazan esa carpeta; no hace falta adjuntar las imágenes a una Release de GitHub.
+
+Conservar el nombre, el contenido y el SHA-256 de la versión publicada. El LEEME incluido se conserva como fuente versionada en `Documentacion/Ejemplos/LEEME_imagenes_demo_20261020.txt`, separado de las guías de descarga que pueden actualizarse. Para un conjunto diferente, crear otra versión del ZIP y del manifiesto, actualizar los enlaces y comprobar la descarga sin iniciar sesión. El commit y push publican los cambios de documentación; la subida del ZIP a Drive es una operación separada.
 
 ## Paquetes del laboratorio
 

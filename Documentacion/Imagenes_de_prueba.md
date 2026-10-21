@@ -2,7 +2,9 @@
 
 El conjunto **Walmart_Vision_Imagenes_Demo_20261020.zip** combina tres fotografías reales y tres variantes sintéticas del proyecto. Permite probar disponibilidad suficiente, reposición, espacios vacíos, baja disponibilidad y un caso con errores conocidos del modelo.
 
-**Estado de distribución: paquete preparado; pendiente de adjuntarlo a la Release.** Cuando esté publicado, aparecerá como activo adicional en la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20). El ZIP de la aplicación permanece separado y no cambia.
+**Descarga:** abrir la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y descargar **Walmart_Vision_Imagenes_Demo_20261020.zip**. Los ejemplos se distribuyen desde Drive; la aplicación se descarga desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20).
+
+El paquete preparado ocupa aproximadamente **19,4 MiB**. Su SHA-256 de referencia es `4ab1ce9975f2799378b2fd630739942f856e9c82e452751eb3bf70bc7f22c9bf`. Después de descargarlo, se puede comprobar en PowerShell con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Imagenes_Demo_20261020.zip`.
 
 ## Cómo usarlo
 

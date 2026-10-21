@@ -30,7 +30,7 @@ Para **probar fotografías sin instalar el laboratorio**, descargar `Walmart_Vis
 
 La [guía de uso de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) reúne los pasos, la interpretación de resultados, las soluciones a problemas de inicio y una pauta para comprobar la instalación en otro computador. Esa comprobación externa sigue pendiente.
 
-También está preparado un [conjunto de imágenes de demostración](Documentacion/Imagenes_de_prueba.md): tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. Se distribuye como ZIP separado; su publicación como activo adicional de la Release está pendiente. Las imágenes permanecen fuera del historial Git.
+Para probar con ejemplos del proyecto, descargar el ZIP desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Incluye tres fotos reales y tres variantes sintéticas, con referencias de disponibilidad suficiente, reposición y errores conocidos. La [guía de ejemplos](Documentacion/Imagenes_de_prueba.md) explica su uso y procedencia. Las imágenes se distribuyen por separado y permanecen fuera del historial Git.
 
 ### Walmart Visión en la Release
 

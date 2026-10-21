@@ -10,7 +10,7 @@ from preparar import digest, safe_path
 
 ROOT = Path(__file__).resolve().parents[2]
 SELECTION = 'Documentacion/Ejemplos/imagenes_demo_20261020.json'
-GUIDE = 'Documentacion/Imagenes_de_prueba.md'
+GUIDE = 'Documentacion/Ejemplos/LEEME_imagenes_demo_20261020.txt'
 
 
 def build(root=ROOT, output=None):
@@ -31,12 +31,7 @@ def build(root=ROOT, output=None):
         if source.stat().st_size != item['bytes'] or digest(source) != item['sha256']:
             raise ValueError('Falta o cambió una fuente seleccionada: ' + item['fuente'])
         members['Imagenes_demo/' + item['archivo']] = source.read_bytes()
-    guide = '\n'.join(line for line in (root / GUIDE).read_text(encoding='utf-8').splitlines()
-                      if not line.startswith('**Estado de distribución:')) + '\n'
-    guide = guide.replace('(Ejemplos/imagenes_demo_20261020.json)', '(manifest.json)')
-    guide = guide.replace('(Usar_Walmart_Vision.md)',
-                          '(https://github.com/vcanio/Capstone2026/blob/main/Documentacion/Usar_Walmart_Vision.md)')
-    members['Imagenes_demo/LEEME.md'] = guide.encode('utf-8')
+    members['Imagenes_demo/LEEME.md'] = (root / GUIDE).read_text(encoding='utf-8').encode('utf-8')
     members['Imagenes_demo/manifest.json'] = (root / SELECTION).read_bytes()
     output.mkdir(parents=True, exist_ok=True)
     target = safe_path(output, manifest['zip'])

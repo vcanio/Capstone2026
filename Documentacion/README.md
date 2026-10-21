@@ -5,7 +5,7 @@ La entrega al usuario se centra en **Walmart Visión**. El laboratorio y CVAT se
 | Necesidad | Documento |
 |---|---|
 | **Instalar y usar la aplicación** | **[Usar Walmart Visión](Usar_Walmart_Vision.md)**: descarga, fotografías propias, resultados y problemas de inicio. |
-| Probar con ejemplos del proyecto | [Imágenes de demostración](Imagenes_de_prueba.md): tres reales y tres sintéticas, con referencias y procedencia. ZIP preparado; publicación pendiente. |
+| Probar con ejemplos del proyecto | [Descargar imágenes desde Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y seguir la [guía de demostración](Imagenes_de_prueba.md): tres reales y tres sintéticas, con referencias y procedencia. |
 | Comprobar la entrega en otro computador | [Pauta y registro pendiente](Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador). |
 | Entender el proceso sin instalar el laboratorio | [Guía conceptual](Guia_para_entender_el_proyecto.md), con la función de cada interfaz y los conceptos de anotación, entrenamiento e inferencia. |
 | Continuar el desarrollo o repetir ensayos | [Guía técnica del laboratorio](Replicar_proyecto.md): requiere los paquetes del equipo y acceso personal a CVAT si se van a traer nuevas anotaciones. |

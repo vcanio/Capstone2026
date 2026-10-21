@@ -25,7 +25,7 @@ Cambiar foto, versión, modelo, método o confianza descarta la predicción ante
 
 ## Probar con imágenes de ejemplo
 
-Se preparó un [ZIP de seis imágenes de demostración](Imagenes_de_prueba.md), separado de la aplicación y pendiente de publicación como activo adicional de la Release. Mezcla tres fotografías reales y tres variantes sintéticas para mostrar disponibilidad suficiente, faltantes, baja disponibilidad y errores conocidos. La guía indica qué imagen cargar y cuáles son sus estados de referencia.
+Descargar **Walmart_Vision_Imagenes_Demo_20261020.zip** desde la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Es un conjunto separado de la aplicación que mezcla tres fotografías reales y tres variantes sintéticas para mostrar disponibilidad suficiente, faltantes, baja disponibilidad y errores conocidos. La [guía de ejemplos](Imagenes_de_prueba.md) indica qué imagen cargar y cuáles son sus estados de referencia.
 
 Una vez descargado, extraerlo y cargar los archivos de `Imagenes_demo/reales` o `Imagenes_demo/sinteticas` como cualquier otra fotografía. Empezar con **V2-YOLO26**, confianza **0,25** y **Solo YOLO**. Son ejemplos de validación y diagnóstico ya conocidos; no pertenecen a la reserva final ni permiten medir precisión independiente.
 
