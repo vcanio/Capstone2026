@@ -2,11 +2,19 @@
 
 Esta guía explica los conceptos necesarios para leer el README, interpretar el informe y participar en el proyecto. Está pensada para quienes están aprendiendo visión computacional. Los resultados, configuraciones y evidencias completas se mantienen en sus documentos de referencia.
 
+**Revisada el 21 de octubre de 2026**, a partir de los ensayos y la entrega de Walmart Visión del 20 de octubre.
+
 ## Qué estamos construyendo
 
 Queremos apoyar la revisión de góndolas a partir de fotografías. La aplicación busca cada nivel o repisa, dibuja su contorno y asigna un estado de disponibilidad. Por ejemplo, puede señalar cuatro niveles suficientes y uno que necesita reposición.
 
-El modelo actual V2 base utiliza dos estados: `reponer` y `suficiente`. La versión V1 utiliza cuatro: `vacio`, `baja_disponibilidad`, `suficiente` y `no_evaluable`. La siguiente etapa de V2 debe incorporar `no_evaluable` para situaciones donde una persona, carro u otro obstáculo impide decidir. Esa etapa aún no está entrenada ni validada.
+Walmart Visión incluye cuatro modelos entrenados: dos de V1 y dos de V2 base. Cada etapa utiliza estados distintos:
+
+| Etapa | Estados | Situación actual |
+|---|---|---|
+| V1 | `vacio`, `baja_disponibilidad`, `suficiente`, `no_evaluable` | Modelos YOLO11-1 y YOLO26-1 disponibles en Visión. |
+| V2 base | `reponer`, `suficiente` | Modelos V2-YOLO11 y V2-YOLO26 disponibles en Visión. Reúne vacío y baja disponibilidad en una misma acción: reponer. |
+| V2 con visibilidad limitada | `reponer`, `suficiente`, `no_evaluable` | Preparación de datos con obstáculos; falta aprobación humana final, entrenamiento y validación. No hay un modelo de esta etapa en Visión. |
 
 La aplicación trabaja con lo visible en una foto. No conoce las unidades que hay detrás de la primera fila ni las existencias de bodega. El criterio inicial del 30 % se usa para etiquetar disponibilidad según el ancho del nivel; todavía debe calibrarse. La confianza de YOLO y la señal experimental de bordes son valores distintos de ese criterio.
 
@@ -22,6 +30,8 @@ El proceso de construcción es **fotografías → anotación y revisión en CVAT
 
 La documentación explica los criterios de anotación, la separación de datos y las decisiones de entrenamiento para que una persona externa comprenda ese proceso. Instalar el panel o CVAT es opcional y corresponde a continuar el desarrollo; los datos, resultados y accesos del equipo se gestionan por separado. La distribución para usuarios finales incluye Visión y sus pesos.
 
+La entrega actual es `Walmart_Vision_20261020.zip`. Se extrae y se abre con `iniciar.cmd`: el primer inicio necesita Internet para preparar su propio Python y las dependencias; después permite analizar fotos localmente sin conexión. Ofrece **Solo YOLO** y **YOLO + detección de bordes**, con las vistas **Original**, **Niveles**, **Bordes** y **Comparar**; Bordes se habilita con el segundo método. Se comprobó la inferencia desde el ZIP en el equipo de desarrollo; la instalación en otro computador físico sigue pendiente. Los pasos y el alcance de esa comprobación están en la [guía de usuario](Usar_Walmart_Vision.md).
+
 Para profundizar sin instalar herramientas: [guía de anotación](Desarrollo/Guia_anotacion.md), [funcionamiento del panel](../Herramientas/Modelos/README.md) y [mapa del código](Desarrollo/Evolucion_v1_v2.md#dónde-está-cada-parte-del-código).
 
 ## Delimitar un nivel y decidir su estado
@@ -31,6 +41,8 @@ Para profundizar sin instalar herramientas: [guía de anotación](Desarrollo/Gui
 **Clasificar** significa asignar una categoría. Un nivel puede estar bien delimitado y tener una categoría equivocada. Por eso revisamos ambas cosas: dónde dibujó el modelo y qué estado decidió.
 
 **Inferencia** es usar un modelo ya entrenado para analizar una imagen. **Entrenar** es ajustar el modelo con ejemplos etiquetados. Los **pesos** son los archivos que guardan lo aprendido; en nuestros ensayos se conservan como archivos `.pt`. Un **checkpoint** es un guardado de esos pesos durante el entrenamiento.
+
+La **confianza** es la puntuación que asigna el modelo a una predicción. Su **umbral** indica la puntuación mínima para mostrarla: subirlo puede quitar predicciones, incluidos niveles correctos. Una confianza de 0,80 no significa que el nivel tenga un 80 % de productos.
 
 ## Criterio de disponibilidad
 
@@ -45,7 +57,9 @@ El criterio original V1 distingue los cuatro estados siguientes; V2 base reúne 
 | **Suficiente** | El producto ocupa el 30 % del ancho completo o más. |
 | **No evaluable** | La visibilidad no permite decidir el estado. |
 
-Contamos el producto visible al fondo del propio nivel. No contamos mercancía de un tramo vecino que aparezca por perspectiva. Si hay una ocultación que podría cambiar la decisión, usamos no evaluable.
+Contamos el producto visible al fondo del propio nivel. No contamos mercancía de un tramo vecino que aparezca por perspectiva. Una **oclusión** ocurre cuando una persona, carro u objeto tapa parte del nivel. Si el producto visible ya alcanza el 30 % del ancho completo, el estado es suficiente; si ni llenando la parte oculta lo alcanzaría, es reponer. Si lo oculto puede cambiar la decisión, usamos no evaluable. Tener un obstáculo no obliga por sí solo a elegir ese estado.
+
+El polígono conserva el nivel completo, incluida la parte tapada, cuando sus límites pueden establecerse de forma fiable. A esto se le llama **criterio amodal**. La geometría puede apoyarse en el original verificado de una edición sintética, pero el estado se decide con el producto visible en la edición. La [guía de anotación](Desarrollo/Guia_anotacion.md#oclusiones-y-geometría) detalla este criterio. V2 base todavía no aprende el estado no evaluable.
 
 “Suficiente” significa que supera nuestro umbral visual; no garantiza stock suficiente para la demanda ni presencia de todos los productos.
 
@@ -117,6 +131,8 @@ Una **familia** reúne la foto original y sus versiones modificadas. Todas deben
 
 Conservamos **405 imágenes únicas: 96 reales y 309 sintéticas**. Los inventarios suman 435 registros porque algunas referencias se repiten. La validación principal V2 base usa 10 fotografías reales con 51 niveles; las variantes sintéticas se revisan por separado.
 
+Cada ensayo conserva una **copia congelada de las anotaciones**, también llamada snapshot, junto con la partición y la configuración utilizadas. Esto permite identificar con qué ejemplos se entrenó. El lote de visibilidad limitada añade 60 ediciones con obstáculos y 308 niveles revisados técnicamente; todavía necesita aprobación humana final y no forma parte del entrenamiento V2 base.
+
 ## Cómo leer los resultados
 
 La **referencia** es el dibujo y estado revisados por personas. La **predicción** es el resultado del modelo. Comparamos ambos para medir los aciertos y revisar errores; la referencia humana también puede necesitar correcciones.
@@ -135,6 +151,8 @@ La **referencia** es el dibujo y estado revisados por personas. La **predicción
 
 **Ejemplo para entender dos métricas distintas:** YOLO11 V2 encontró los 51 niveles, pero acertó 48 estados. Detectó la única alerta real y emitió cuatro falsas. Su precisión de alertas fue 1/5: de cinco avisos, uno era correcto. Su recall fue 1/1: encontró el único faltante de referencia. Por eso hay que mirar ambas medidas y el número de ejemplos.
 
+Esos ejemplos corresponden a la **validación original de diez fotos reales**. El laboratorio conserva además una **evaluación ampliada de desarrollo** sobre esas diez fotos y sus treinta variantes sintéticas, sin volver a entrenar. Sus resultados están en `evaluacion_desarrollo.json` de cada ensayo V2 base y sirven para revisar errores y ajustar el sistema. Las cuarenta imágenes incluyen familias relacionadas: su resumen conjunto no sustituye la validación real ni acredita cuarenta capturas independientes. La reserva final sigue aparte y debe consultarse después de fijar modelo y ajustes. Ver el [procedimiento del panel](../Herramientas/Modelos/README.md#evaluar-los-pesos-actuales-sobre-las-40-fotos-de-desarrollo).
+
 **IoU** compara cuánto coinciden dos regiones, de 0 a 1. Se calcula como el área compartida dividida por el área total que cubren ambas. En nuestro informe se comparan máscaras. Un valor alto indica buen ajuste del contorno, aunque el estado todavía puede estar equivocado.
 
 **mAP** resume la relación entre precisión y recall por clase. `mAP50` usa IoU 0,50; `mAP50–95` promedia umbrales de 0,50 a 0,95 en pasos de 0,05. En el informe mostramos métricas de máscaras. El 92,79 % de mAP50–95 no significa que el sistema acierte el 92,79 % de las fotos ni que detecte ese porcentaje de los faltantes de una tienda.
@@ -145,27 +163,9 @@ Para leer las cifras con más detalle, consultar las explicaciones de [métricas
 
 YOLO decide dónde están los niveles y qué estado tienen. El análisis adicional revisa cambios de intensidad, color y textura dentro de cada máscara. **Canny** es el algoritmo utilizado para marcar bordes, es decir, cambios de intensidad que pueden corresponder a contornos.
 
-Este análisis muestra mapas para estudiar qué zonas activan la señal y dónde se confunde con carteles, estructuras o fondos. Es experimental: su área o ancho con señal todavía no equivale al porcentaje real de productos. Activarlo no cambia la clase elegida por YOLO.
+La entrega actual incorpora la **revisión 2**, que combina bordes Canny, color y textura sobre la foto original dentro de las máscaras YOLO. Muestra mapas para estudiar qué zonas activan la señal y dónde se confunde con carteles, estructuras o fondos. Cuando no puede medir un nivel, informa el motivo. Es experimental: su área o ancho con señal todavía no equivale al porcentaje real de productos. Activarlo no cambia la clase elegida por YOLO. Los cambios y las comprobaciones están en la [revisión del algoritmo](../Experimentos/Bordes/REVISION_20261020.md).
 
 El equipo comenzó este trabajo en la semana 9 y lo integró con YOLO en la semana 11. El inicio del proyecto se sitúa aproximadamente en agosto; las semanas son referencias del equipo.
-
-## Otros términos que aparecen en las guías
-
-| Término | Significado práctico |
-|---|---|
-| Oclusión | Una persona, carro o caja tapa parte del nivel. Puede impedir decidir el estado. |
-| ROI | Región de interés: parte de la imagen que decidimos analizar o evaluar. |
-| Confianza y umbral | Puntuación del modelo y valor mínimo para conservar una predicción. No indican porcentaje de ocupación. |
-| NMS | Filtro que reduce predicciones muy superpuestas. Sus ajustes pueden afectar duplicados y niveles cercanos. |
-| Deduplicación | Revisión o filtrado de predicciones repetidas sobre el mismo nivel. |
-| Posprocesamiento | Operaciones realizadas después de la salida del modelo, como filtrar o numerar detecciones. |
-| Snapshot o copia congelada | Versión guardada de datos y anotaciones para saber con qué ejemplos se hizo un ensayo. |
-| Hash SHA-256 | Huella digital que permite comprobar si cambió el contenido de un archivo. No verifica que su etiqueta sea correcta. |
-| Manifiesto | Lista de archivos y sus datos de control, como tamaño y hash. |
-| Semilla o seed | Valor inicial que ayuda a repetir condiciones aleatorias. No garantiza resultados idénticos entre equipos. |
-| Batch | Cantidad de imágenes que se procesan juntas en un paso del entrenamiento. |
-| Latencia | Tiempo que tarda una operación; para el usuario importa el recorrido completo desde cargar la foto hasta ver el resultado. |
-| MVP | Versión mínima con las funciones necesarias para comprobar que la solución resuelve el problema acordado. |
 
 ## Por dónde continuar
 
