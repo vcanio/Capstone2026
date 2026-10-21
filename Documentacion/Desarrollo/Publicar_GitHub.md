@@ -1,6 +1,6 @@
 # Publicar Walmart Visión
 
-La [Release vigente](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21), `walmart-vision-docker-2026-10-21`, contiene **Walmart_Vision_Docker_20261021.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. Los datos e informes del laboratorio se comparten por separado.
+La [Release vigente](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21), `walmart-vision-docker-2026-10-21`, contiene **Walmart_Vision_Docker_20261021.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. El [informe en PDF](../../Entregables/Informe_Intermedio_Avance_20261020.pdf) se versiona directamente en Git, junto con su fuente y evidencias. Los datos y las copias Word y HTML se comparten por separado.
 
 ## Preparar y comprobar
 
@@ -42,7 +42,7 @@ Conservar el nombre, el contenido y el SHA-256 de la versión publicada. El LEEM
 
 ## Paquetes del laboratorio
 
-Los paquetes de datos, exportaciones, modelos/resultados e informe permanecen en `.publicacion/paquetes_desarrollo/`, con metadatos de integridad y copias históricas. Compartirlos por separado para desarrollar; el [preparador](Replicar_proyecto.md) los instala con `--assets RUTA_A_LOS_ZIP`. No incluir en Git pesos, ZIP, entornos, fotografías, archivos .env ni accesos personales.
+Los paquetes de datos, exportaciones, modelos/resultados e informe permanecen en `.publicacion/paquetes_desarrollo/`, con metadatos de integridad y copias históricas. Compartirlos por separado para desarrollar; el [preparador](Replicar_proyecto.md) los instala con `--assets RUTA_A_LOS_ZIP`. El PDF del informe y las figuras seleccionadas para documentar sus casos se incluyen en Git. Mantener fuera de Git los pesos, ZIP, entornos, el dataset fotográfico completo, archivos .env y accesos personales.
 
 ## Mantener limpio el repositorio
 

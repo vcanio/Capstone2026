@@ -1,0 +1,1681 @@
+{
+  "revision": "2026-10-21",
+  "modelo_reportado": "V2-YOLO26 con análisis de detección de bordes",
+  "tipo_evaluacion": "Revisión visual de casos seleccionados, sin estimación global de precisión",
+  "fuente": {
+    "nombre": "Analisis_Resultados_Walmart_Revisado.docx",
+    "sha256": "0e3d05732c44e7f7b396610e6769fba1b5b0b787b929473d0bfd95a38ffdfbc1"
+  },
+  "correcciones": [
+    "Nombres de productos contrastados con fotografías",
+    "Separación entre señal experimental y ocupación real",
+    "Tablas de F03 y F04 excluidas del conteo: contradicen imágenes",
+    "Confianza y porcentajes de ocupación de F10 no validados por contradicciones de la fuente",
+    "B09 reemplazado por la evidencia de cuidado capilar facilitada por el equipo; entrada sintética identificada en diagnóstico V2"
+  ],
+  "casos": [
+    {
+      "id": "B01",
+      "grupo": "buenos",
+      "numero": 1,
+      "titulo": "Bebidas oscuras",
+      "esperado_y_observado": "Esperamos delimitar las repisas y distinguir el hueco parcial inferior. YOLO recupera los niveles visibles y la señal deja parte del hueco sin marcar.",
+      "criterio_o_mejora": "Criterio visual: los contornos siguen las repisas y la señal se concentra principalmente sobre las botellas. El hueco parcial no implica por sí solo un estado reponer.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B01_original.jpg",
+          "sha256": "b760e0af785306443380b52dd437425c29adc11706f560b5300645848fc41d8e",
+          "imagen_en_fuente": "image41.jpg",
+          "sha256_embebido": "37929028aea2bd15760e9c7232c0ed96c9df2067b8e5bd6fcf4820ce10a62c59"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B01_yolo.jpg",
+          "sha256": "cc9c53a7a7948e547735f1b28ad05c679eca60e05e3f5a7f6862e29a182fcf81",
+          "imagen_en_fuente": "image1.jpg",
+          "sha256_embebido": "e575340a62f24fc24e89f42cbb07f33c6865e04040cfc1e4a16b9d921631ff9b"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B01_bordes.jpg",
+          "sha256": "190b90442e1c88d02d371d32211f65caa91b044faee5fa281d6403a98fa6b84d",
+          "imagen_en_fuente": "image2.jpg",
+          "sha256_embebido": "ff5f23d86e6c5b17d903248e98cb95e46911efddf3467dcb1e62cf67e05970e8"
+        }
+      ],
+      "titulo_original": "Bebidas y Refrescos (Botellas Retornables Coca-Cola)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.92",
+          "71.18%",
+          "78.95%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.89",
+          "81.18%",
+          "97.62%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.78",
+          "93.44%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.73",
+          "92.20%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.55",
+          "81.43%",
+          "100.00%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B02",
+      "grupo": "buenos",
+      "numero": 2,
+      "titulo": "Conservas en varios niveles",
+      "esperado_y_observado": "Esperamos separar las repisas con latas. YOLO distingue los niveles y el mapa de bordes mantiene señal sobre gran parte de los productos.",
+      "criterio_o_mejora": "Criterio visual: separación entre niveles y continuidad sobre las latas. Una referencia manual permitiría medir el ajuste de los contornos.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B02_original.jpg",
+          "sha256": "966b0263c6e8d90d20552135d471964e7af739da71204952ca9777002a12105e",
+          "imagen_en_fuente": "image42.jpg",
+          "sha256_embebido": "561d3829957829dbee11e35d2be5f46c6ad4df6a2808e5ccdacadfada3ef3942"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B02_yolo.jpg",
+          "sha256": "1950ce23f15f72e6e1dc058109fd86692b55b42ff11b30ce2e504876eb236e7e",
+          "imagen_en_fuente": "image3.jpg",
+          "sha256_embebido": "5fd41b36a7d4d313fbadd2c164d0312c0e23e751810e65f536ca138547110877"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B02_bordes.jpg",
+          "sha256": "a2be1dff5f75d3e678050a3458f6c9e7da5ce0383b6d46c9119876c7fb279e85",
+          "imagen_en_fuente": "image4.jpg",
+          "sha256_embebido": "397efc228fa9043bc0134a60a5aa60a04746d27fc81951d80c08a64ed9d07451"
+        }
+      ],
+      "titulo_original": "Cuidado del Hogar y Limpieza (Detergentes líquidos y suavizantes Omo, Downy, Ariel)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.96",
+          "67.97%",
+          "78.95%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.95",
+          "59.30%",
+          "97.44%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.94",
+          "99.50%",
+          "97.44%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.93",
+          "99.41%",
+          "97.30%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.83",
+          "98.25%",
+          "97.22%",
+          "Medido"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.61",
+          "67.46%",
+          "82.50%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B03",
+      "grupo": "buenos",
+      "numero": 3,
+      "titulo": "Productos en bolsas",
+      "esperado_y_observado": "Esperamos identificar las repisas con bolsas y sus espacios libres. Los contornos permanecen separados y la señal responde a los empaques con dibujos y textura.",
+      "criterio_o_mejora": "Criterio visual: correspondencia entre los grupos de producto y la señal. Es una observación de esta foto, no una garantía para todos los envases.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B03_original.jpg",
+          "sha256": "3c9fc7b6964b8c9c334e5d85ccb91d45b08aa3036ec5c35ecf03508fba491dd5",
+          "imagen_en_fuente": "image43.jpg",
+          "sha256_embebido": "4eb293ae9d9dc03b80e5a6dd0be9e71968e3b1765489d6314ee0cb924673927d"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B03_yolo.jpg",
+          "sha256": "578da8237c5ffd91ccf329ada36973a119c295db47a2fa71c0ae0c8b588692d1",
+          "imagen_en_fuente": "image5.jpg",
+          "sha256_embebido": "a68c96b1faf539d88ddaa0d258c37aaa03ca6e914f9318a0823e8d75b60c3126"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B03_bordes.jpg",
+          "sha256": "e9d65f281291ad22392c7a941763f4309f1c3f92261a120de0d63704716960ed",
+          "imagen_en_fuente": "image6.jpg",
+          "sha256_embebido": "c33421f7f5f7d3a4750e4ae37e15fe36af2b6b53c6b5cc88e07c43beda447e2f"
+        }
+      ],
+      "titulo_original": "Alimento para Mascotas (Sacos medianos y grandes de alimento para perros/gatos)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.95",
+          "99.09%",
+          "97.30%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.91",
+          "72.93%",
+          "97.22%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.90",
+          "84.74%",
+          "97.37%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.88",
+          "99.77%",
+          "100.00%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B04",
+      "grupo": "buenos",
+      "numero": 4,
+      "titulo": "Botellas de vidrio",
+      "esperado_y_observado": "Esperamos separar las repisas de botellas. YOLO mantiene los contornos por nivel y el mapa responde sobre buena parte de los envases.",
+      "criterio_o_mejora": "Criterio visual: niveles separados y señal ubicada principalmente en producto. Los reflejos presentes no impiden este resultado; falta comprobar más escenas con reflejos.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B04_original.jpg",
+          "sha256": "a6f46cb6e5233a87d96e381b006d5ebdf0d429d48933ed0b9c0a4469375b5c41",
+          "imagen_en_fuente": "image44.jpg",
+          "sha256_embebido": "3674da3eb29fa1b36c64608540f09b8d52aa4772847063d0db636c45201f6729"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B04_yolo.jpg",
+          "sha256": "8b6d813e02710789aa5538b94ed25f954480c4e1a1febaf1d9bb319aabc937ad",
+          "imagen_en_fuente": "image7.jpg",
+          "sha256_embebido": "3a65e52e63f625936dba13854b7b8b3e1245f5e95999dc7c049ba708ceec4eec"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B04_bordes.jpg",
+          "sha256": "f27f9d50f95dbf2be6bd8b89ff4b95bccaf11327018bf05aabeaaa0f281b7f70",
+          "imagen_en_fuente": "image8.jpg",
+          "sha256_embebido": "d2c2639c6c4b312fb590309d19ee3c71f8a1445a837774e9bd4e6afee4c3de95"
+        }
+      ],
+      "titulo_original": "Despensa y Comestibles (Aceites de cocina Chef, Belmont, Miraflores)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.96",
+          "89.91%",
+          "97.30%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.96",
+          "97.86%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.95",
+          "74.60%",
+          "86.84%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.93",
+          "91.93%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.78",
+          "70.59%",
+          "95.24%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B05",
+      "grupo": "buenos",
+      "numero": 5,
+      "titulo": "Conservas en exhibición",
+      "esperado_y_observado": "Esperamos delimitar las filas de conservas sin unir repisas vecinas. La salida de YOLO mantiene los niveles y el mapa muestra señal continua sobre las latas.",
+      "criterio_o_mejora": "Criterio visual: coherencia entre contornos, producto visible y señal. Falta una referencia manual para medir qué parte del área marcada es correcta.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B05_original.jpg",
+          "sha256": "94585e27be501e8b1a39a107183d6dd6f35fdc9edbd1ec2f1c63b2cbaa4e238e",
+          "imagen_en_fuente": "image45.jpg",
+          "sha256_embebido": "ae09ccd965be4147162d79f2e70281b32162bd5522beea40f7650f4fef7bb2c2"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B05_yolo.jpg",
+          "sha256": "116a80d29c49175a60add8a5d048d56811fa0b34c210f7248a25a7467fcf851b",
+          "imagen_en_fuente": "image9.jpg",
+          "sha256_embebido": "8e8e1e945a3d91325611cd69a305aa9afdfc7d15878eed4c881690e90806a1d7"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B05_bordes.jpg",
+          "sha256": "a03a64ce6d2722df3ffe00ae8a9b5d90a0fd110549ece78db24b8fcd798c9f3f",
+          "imagen_en_fuente": "image10.jpg",
+          "sha256_embebido": "c7a3140addf02f49b566750d7f619235966ede1f24b163d8730ed4d1c4cf08dc"
+        }
+      ],
+      "titulo_original": "Conservas y Enlatados (Pescados, mariscos y legumbres en conserva)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.97",
+          "93.20%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.96",
+          "98.23%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.95",
+          "99.83%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.95",
+          "87.94%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.93",
+          "88.31%",
+          "100.00%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B06",
+      "grupo": "buenos",
+      "numero": 6,
+      "titulo": "Vinos con dos repisas casi vacías",
+      "esperado_y_observado": "Esperamos avisar reposición en las dos repisas casi vacías. YOLO las marca reponer y el mapa muestra mucha menos señal que en los niveles abastecidos.",
+      "criterio_o_mejora": "Criterio visual: concordancia en esos dos niveles. La tabla recibida consigna 6,02 % y 2,15 % de señal de área; son valores reportados, no porcentajes reales de inventario.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B06_original.jpg",
+          "sha256": "32cba202bd4e7b01de237de9fe0e2ca784daf6fc4c475665d0e9296aa29459a1",
+          "imagen_en_fuente": "image46.png",
+          "sha256_embebido": "ae0edf0089a39bc15b1064d24133377e75be227ca229672fafd8369fe2556c58"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B06_yolo.jpg",
+          "sha256": "8c9ec2eaf6b7bdb07e7650dcad304e5bf68ef6dfc6ca9269ca331066d76605ad",
+          "imagen_en_fuente": "image11.jpg",
+          "sha256_embebido": "c6cc2330631d43d6a0ae953631b5972afb5a1f0189ac5327bac7fbc0ce5b408b"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B06_bordes.jpg",
+          "sha256": "5e2d19525d1ae07f3e6ebeed60421603e3061315d63de96a2be7f6e1beb66861",
+          "imagen_en_fuente": "image12.jpg",
+          "sha256_embebido": "4a799472d8b4ca91450785d77adb0ddf508db3f5ac9339e2dc4bd10e5428fb01"
+        }
+      ],
+      "titulo_original": "Licores y Vinos (Góndola de vinos con dos estantes completamente agotados)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Reponer",
+          "0.98",
+          "6.02%",
+          "8.82%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.96",
+          "71.92%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.96",
+          "62.02%",
+          "85.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.95",
+          "47.95%",
+          "86.11%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Reponer",
+          "0.94",
+          "2.15%",
+          "13.16%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B07",
+      "grupo": "buenos",
+      "numero": 7,
+      "titulo": "Snacks con faltantes visibles",
+      "esperado_y_observado": "Esperamos distinguir un nivel vacío y otro con pocos productos. YOLO marca reponer en ambos y la señal se concentra en los sectores con bolsas.",
+      "criterio_o_mejora": "Criterio visual: diferenciación entre repisas abastecidas, huecos y faltantes. El documento consigna 2,74 % de señal de área en el nivel vacío; falta calibración contra una referencia.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B07_original.jpg",
+          "sha256": "c08f8828aee0242e246518d5f1516e72e74aa12f8db6bcd543cb5d527944cd0c",
+          "imagen_en_fuente": "image47.png",
+          "sha256_embebido": "04974e993412919bd0af8f20616a6fc29bf48a0e69dd80b59d36e6b904baed1b"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B07_yolo.jpg",
+          "sha256": "443fa6eb50ff3e94609f606dbdd899c16fb7096b22853f7e28b846f58d2da896",
+          "imagen_en_fuente": "image13.jpg",
+          "sha256_embebido": "742e00ce4c5eb469dfdbfdce279ac323301a15bd43139bf47e2cec19bbf66b59"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B07_bordes.jpg",
+          "sha256": "b863c12a2b0283127d9b289af510b745211ea4b8cf65db668fae244ac68c3f1f",
+          "imagen_en_fuente": "image14.jpg",
+          "sha256_embebido": "8cb42a407299e3016d8873d84a2914d3ae0a1b0778765ac331f65b2e7f16d468"
+        }
+      ],
+      "titulo_original": "Snacks y Golosinas (Bolsas de papas Lay's, Doritos, Ramitas con quiebres parciales y totales)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.98",
+          "100.00%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Reponer",
+          "0.97",
+          "34.24%",
+          "35.48%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.97",
+          "41.13%",
+          "73.53%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Reponer",
+          "0.96",
+          "2.74%",
+          "9.09%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.93",
+          "100.00%",
+          "100.00%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B08",
+      "grupo": "buenos",
+      "numero": 8,
+      "titulo": "Bebidas en exhibidor central",
+      "esperado_y_observado": "Esperamos separar las cuatro repisas del exhibidor. La salida muestra sus contornos y una señal amplia donde están las botellas.",
+      "criterio_o_mejora": "Criterio visual: separación de las cuatro repisas sin incluir todo el pasillo; la señal se concentra principalmente sobre los envases.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B08_original.jpg",
+          "sha256": "e7f7bbba3e7cc1e7c27826de934645981243a32ef589267659940d65dacf5d0e",
+          "imagen_en_fuente": "image48.jpg",
+          "sha256_embebido": "28b196b61a02cba69f10cfbb05a86aa27a07ae39423c7dd5288ac4987bd4b15b"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B08_yolo.jpg",
+          "sha256": "5964abe1897727f905487daa9ee9e6daf837455d7a750fab5130b0c04b417f36",
+          "imagen_en_fuente": "image15.jpg",
+          "sha256_embebido": "925414e108c1308a75f04de0d7b1b645030ed36d5870018d2b2e7af417d513a9"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B08_bordes.jpg",
+          "sha256": "9f5a3075185757afb9e840ae80ca9700cdcf18c8ffe1c4e365e07babf2dbbacc",
+          "imagen_en_fuente": "image16.jpg",
+          "sha256_embebido": "ea56e608e2abf4674380752c429ef3729c2396d23d1a5bf19d5b46f8e86d63e9"
+        }
+      ],
+      "titulo_original": "Limpieza y Desinfección (Gatillos y envases plásticos de Cif, Clorox, Mr. Músculo)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.90",
+          "84.28%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.84",
+          "97.52%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.78",
+          "98.10%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.70",
+          "95.87%",
+          "96.30%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "B09",
+      "grupo": "buenos",
+      "numero": 9,
+      "titulo": "Cuidado capilar con dos repisas vacías",
+      "esperado_y_observado": "Entrada sintética de diagnóstico: seis repisas, dos vacías. YOLO dibuja las seis y marca reponer en las dos vacías. Los bordes se concentran en cajas y etiquetas; el mapa deja poca señal en el vacío.",
+      "criterio_o_mejora": "Criterio: coherencia entre contornos, estados y señal. El mapa indica 0 % y 2 % de área con señal en las repisas vacías, frente a 62,5–95,5 % en las abastecidas. No equivale a ocupación real ni a una prueba independiente.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B09_original.jpg",
+          "sha256": "1b6a73c6e5e3c2f98954dfa3e3552dcbd9380aaf3a8ab11e263bf618d5f03e61",
+          "imagen_en_fuente": "Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_014_A_vacios.png",
+          "sha256_original": "5d7861752ff7378e87f313d82b9466c615f89f1a2afc5a915c683e39003ee8e1"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B09_yolo.jpg",
+          "sha256": "8acdb9b90ba5c0b0c62f90bdd51c4fc85a41f1f4c2e5e1f7f576f8ef70992784",
+          "imagen_en_fuente": "Documentacion/Caso Bueno/Bueno.png",
+          "sha256_original": "8c437f079139f49375ced2a59ed3351bca2ee19d86bb0ae69563b825c816b8b7"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B09_bordes.jpg",
+          "sha256": "899ab4db079e2df83e3fc60e681b992dd08f1061f50dfa0f3a2739c94e378ae8",
+          "imagen_en_fuente": "Documentacion/Caso Bueno/mapa.jpg",
+          "sha256_original": "ec9d06ac33c4bc94a3fe950afb082884b9e8b22d8c854ec4cffa757a17d3a7c4"
+        }
+      ],
+      "fuente_reemplazo": "Carpeta Caso Bueno facilitada por el equipo",
+      "origen_datos": "Variante IA lider_express_014_A_vacios; validación sintética de diagnóstico, no test",
+      "modelo_captura": "Clases V2 base visibles; el peso exacto y los parámetros de captura no se adjuntaron",
+      "bordes_filtrados": {
+        "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B09_bordes_filtrados.jpg",
+        "sha256": "fe263a9111f5e630712ee1ba2452e8b4cfa1b62c494ff6bfa0c0ee52a30d4473",
+        "fuente": "Documentacion/Caso Bueno/bordes.png",
+        "sha256_original": "589aa87c8f1707992ac2997d055a8e9ad8e53083e2fe90fe0d7560b39e6adce6"
+      },
+      "valores_visibles_mapa": {
+        "nivel_1": {
+          "area_senal": 0.0,
+          "ancho_senal": 0.0
+        },
+        "nivel_4": {
+          "area_senal": 2.0,
+          "ancho_senal": 8.3
+        },
+        "rango_area_niveles_abastecidos": [
+          62.5,
+          95.5
+        ]
+      }
+    },
+    {
+      "id": "B10",
+      "grupo": "buenos",
+      "numero": 10,
+      "titulo": "Cervezas en cajas",
+      "esperado_y_observado": "Esperamos localizar los niveles del módulo con cajas. La salida recupera varios niveles y la señal se concentra en las zonas abastecidas.",
+      "criterio_o_mejora": "Criterio visual: correspondencia favorable en los niveles dibujados. El estante vacío superior requiere revisar cobertura; este ejemplo no acredita detección completa del mueble.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B10_original.jpg",
+          "sha256": "28e94dfb8fbf5f767472942d8e9d73b5094d1e0158b72f2d5d7a57c860f95b4d",
+          "imagen_en_fuente": "image50.jpg",
+          "sha256_embebido": "a338fe0759282d1e45ad482a2be1ce8b74f01156e2ebfc485f4938ef060bdb5e"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B10_yolo.jpg",
+          "sha256": "eea1eb4cab36dae977cafa0522352c5569265f892de9e5a3a4b309ce78b73c49",
+          "imagen_en_fuente": "image19.jpg",
+          "sha256_embebido": "da7f5fabbfe55d26b2faf478ae160a8e92a0940f7763740c1b5ebdc9e6625ef7"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/B10_bordes.jpg",
+          "sha256": "0cf859321ea46d76d5219c129f0f252b3dd41e5001dc75b4d5ca82322a861920",
+          "imagen_en_fuente": "image20.jpg",
+          "sha256_embebido": "a43d54aab2f376bcf612f852dd08cc3991008e822a1f069e18cf6d4ff3da04cf"
+        }
+      ],
+      "titulo_original": "Perfumería y Cosmética (Desodorantes y cremas corporales)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Estado Paulo"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.93",
+          "86.79%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.93",
+          "47.88%",
+          "94.44%",
+          "Medido"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.92",
+          "97.59%",
+          "100.00%",
+          "Medido"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.90",
+          "99.42%",
+          "97.14%",
+          "Medido"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.60",
+          "28.61%",
+          "94.59%",
+          "Medido"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.50",
+          "46.21%",
+          "100.00%",
+          "Medido"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F01",
+      "grupo": "malos",
+      "numero": 1,
+      "titulo": "Fondo metálico en una repisa vacía",
+      "esperado_y_observado": "Esperamos poca señal en la repisa vacía, pero el mapa marca parte del fondo. La tabla recibida consigna 39,11 % de área con señal.",
+      "criterio_o_mejora": "Posible causa: textura y perforaciones del metal. Mejora: comparar repisas vacías y ocupadas y ajustar el rechazo de fondo sin perder producto oscuro.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F01_original.jpg",
+          "sha256": "283d6b293eb99760b3f479fe0334bc25efdd260c49e3bd242839ebfda690ca0b",
+          "imagen_en_fuente": "image51.png",
+          "sha256_embebido": "becfdc128d9fa8a03c2602778fc0794a22b7a444354742518ca486acf015b65d"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F01_yolo.jpg",
+          "sha256": "fb5c278ce3eac991c6f8327f06698a8080f3213be776d52a5f69595e1e4d7766",
+          "imagen_en_fuente": "image21.jpg",
+          "sha256_embebido": "aaee582875f53feb461e4f9886116d7f2734105d907b692a70e4fab6c407cbc9"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F01_bordes.jpg",
+          "sha256": "25fca23e29ef593bc2bed6420901d75b5eebc7ae3784b8b16490d564999387b1",
+          "imagen_en_fuente": "image22.jpg",
+          "sha256_embebido": "f96f0a7f34206dc37e95b61452dc69c8f378d8845cfa625c01c32e35ce08f628"
+        }
+      ],
+      "titulo_original": "Cervezas y Licores (Sol y Stella Artois con estantes vacíos)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Reponer",
+          "0.97",
+          "39.11%",
+          "93.33%",
+          "Falso positivo (39.1%)"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.97",
+          "94.18%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Reponer",
+          "0.96",
+          "4.26%",
+          "12.90%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.95",
+          "97.17%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.94",
+          "91.17%",
+          "100.00%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F02",
+      "grupo": "malos",
+      "numero": 2,
+      "titulo": "Toallitas claras y fondo vacío",
+      "esperado_y_observado": "Esperamos señal en los paquetes y poca en el vacío. El mapa deja producto claro poco marcado y activa sectores del fondo; la tabla reporta 32,03 % de área en el nivel señalado como vacío.",
+      "criterio_o_mejora": "Posible causa: poco contraste y textura del fondo. Mejora: evaluar colores claros y fondos por separado antes de cambiar los umbrales.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F02_original.jpg",
+          "sha256": "b837e5f6bd4336453665ca9071b44d350a29ee5ddb1ac1769edde4abc22bca72",
+          "imagen_en_fuente": "image52.png",
+          "sha256_embebido": "8a073f250b08837e1a37dd0257ca4720ff565f93b4973960bdde6e8e88f8159b"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F02_yolo.jpg",
+          "sha256": "d5ea5c6deda38ced11fbe8015a5bc8011ae26444dae1ddb2645f5d559379edb2",
+          "imagen_en_fuente": "image23.jpg",
+          "sha256_embebido": "fbae715b46d407467d22010795715c067ab963e55cbf537a9dd3315bf7a89b1e"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F02_bordes.jpg",
+          "sha256": "16127ab1db5562bd8841ad69a44f8929f88ec78c4e6c5397eebddfe58d4159da",
+          "imagen_en_fuente": "image24.jpg",
+          "sha256_embebido": "4788cf0aa8c596f825bf0c6ccd00e51fefb5d44cb921b0d841a5f76349f0e335"
+        }
+      ],
+      "titulo_original": "Toallitas Húmedas para Bebé (Aqua Wipes Parent's Choice)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.98",
+          "39.68%",
+          "55.17%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.97",
+          "33.15%",
+          "45.16%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Reponer",
+          "0.97",
+          "30.98%",
+          "44.83%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Reponer",
+          "0.96",
+          "32.03%",
+          "96.67%",
+          "Divergencia crítica"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.95",
+          "36.27%",
+          "53.12%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F03",
+      "grupo": "malos",
+      "numero": 3,
+      "titulo": "Nivel omitido en alimento para mascotas",
+      "esperado_y_observado": "Esperamos los cuatro niveles físicos. La imagen de YOLO muestra tres contornos y deja una repisa intermedia sin delimitar; bordes no puede analizar un nivel que no recibe.",
+      "criterio_o_mejora": "Posible causa: sombra o similitud entre filas. Mejora: revisar la etiqueta del nivel y repetir con el registro original. La tabla recibida tiene seis filas incompatibles; no se calcula recall con ella.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F03_original.jpg",
+          "sha256": "f8e8be2e03f26a2e8f925b6db31770db210bcc0755c0b44485c2304c35def27c",
+          "imagen_en_fuente": "image53.jpg",
+          "sha256_embebido": "8ac4349ccd9fcca7bd39daa32ac2bfbb974096df13489714a52bbdf8249830ba"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F03_yolo.jpg",
+          "sha256": "6d02820bfb3ca2559d0f4422712c190bbc5cbb3b7c5be1509cd6f285bcd5930c",
+          "imagen_en_fuente": "image25.jpg",
+          "sha256_embebido": "7634799dac2cb47deb7111872e10ac48b85a1e70f0be500579c09bc88abb5ad1"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F03_bordes.jpg",
+          "sha256": "f0badc36d5a789bbc51367a8bccc12b7519ed3da755b563b837440b4b09a3c67",
+          "imagen_en_fuente": "image26.jpg",
+          "sha256_embebido": "439b842c800938a2a11a0c0ac1a712687225d74abf457480db1f8dcd08d8caec"
+        }
+      ],
+      "titulo_original": "Alimento para Mascotas (Purina Cat Chow en sacos de 8 kg y 2 kg)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.96",
+          "87.87%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.94",
+          "96.82%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.91",
+          "73.40%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Reponer",
+          "0.57",
+          "36.62%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.55",
+          "61.69%",
+          "97.22%",
+          "Operativo"
+        ],
+        [
+          "Nivel 6",
+          "Reponer",
+          "0.41",
+          "7.36%",
+          "28.57%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F04",
+      "grupo": "malos",
+      "numero": 4,
+      "titulo": "Aceites en una toma panorámica",
+      "esperado_y_observado": "Esperamos cubrir los niveles visibles del sector. La salida dibuja solo dos regiones y deja repisas intermedias sin analizar; un carro ocupa el primer plano.",
+      "criterio_o_mejora": "Posible causa: encuadre amplio, escala y obstáculos. Mejora: comparar una captura frontal más cercana. La tabla recibida tiene siete filas y se excluye del conteo hasta cotejarla.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F04_original.jpg",
+          "sha256": "7ec8c09abe7936601b2173aed0aa815dee8c976cced34edbcf7ba559be2c3a3f",
+          "imagen_en_fuente": "image54.jpg",
+          "sha256_embebido": "d7bfc728649bf8723f4ac2ade3345e01fd2a133ec0db55c8f454916795db510d"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F04_yolo.jpg",
+          "sha256": "9766badf9242bb3cd48fd5c2db6eb96996f49dc88a8156bf62b64794f32e1102",
+          "imagen_en_fuente": "image27.jpg",
+          "sha256_embebido": "1e06df95fcfeaa5c78dadbfc44dc755d3afb9d7bc9d9649f90046866705cfc1c"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F04_bordes.jpg",
+          "sha256": "59a8ce5151709105e602436d2000765d345803c32e31a0c53f23579f9bfd3980",
+          "imagen_en_fuente": "image28.jpg",
+          "sha256_embebido": "9e2af6ebb8d83004f0fd8c201fa2d919732633e1709ac94f3bc1466b1b5d6b3e"
+        }
+      ],
+      "titulo_original": "Pasillo de Aceites en Perspectiva Panorámica (Chef, Belmont, Mazola)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.71",
+          "99.60%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.64",
+          "51.39%",
+          "71.11%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.57",
+          "91.00%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.44",
+          "48.67%",
+          "47.06%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.42",
+          "98.87%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.35",
+          "80.40%",
+          "93.02%",
+          "Operativo"
+        ],
+        [
+          "Nivel 7",
+          "Suficiente",
+          "0.30",
+          "73.74%",
+          "79.55%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F05",
+      "grupo": "malos",
+      "numero": 5,
+      "titulo": "Contorno que incluye un exhibidor lateral",
+      "esperado_y_observado": "Esperamos analizar solo la repisa. Un contorno alcanza productos colgados a la derecha y la señal puede incorporar material ajeno al nivel.",
+      "criterio_o_mejora": "Posible causa: límites laterales ambiguos. Mejora: revisar el contorno de referencia y probar un recorte por módulo, comprobando que no elimine producto válido.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F05_original.jpg",
+          "sha256": "625932b327a3c91c4a6e123791d30a5cd9670eee8e329022aeee023bd832753e",
+          "imagen_en_fuente": "image55.jpg",
+          "sha256_embebido": "2ab8cfa5bfdd11b601de6095378577690f68e0cec0bf49098776876f51adb40c"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F05_yolo.jpg",
+          "sha256": "c7d6cfb71b2dc0bcd192f16d01d180aba9d8b3186a35b7a394a907e28bd705c4",
+          "imagen_en_fuente": "image29.jpg",
+          "sha256_embebido": "5140da4dfdba99a7bec006eef2e0ebd1af595662cf8b336ece5ff82438696204"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F05_bordes.jpg",
+          "sha256": "bbf95895d3fac73c53976b54af4e5b889d4bea2e056b0c2e92c021bb259b05c2",
+          "imagen_en_fuente": "image30.jpg",
+          "sha256_embebido": "ff2972862e1340a13ac3ef6c4bbf9c9a6a27e7b72e96860d3e57c045c31f36f5"
+        }
+      ],
+      "titulo_original": "Lavalozas Virginia y Accesorios de Limpieza",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.90",
+          "40.97%",
+          "58.97%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.89",
+          "54.41%",
+          "85.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.82",
+          "74.30%",
+          "94.74%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.59",
+          "6.62%",
+          "15.22%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F06",
+      "grupo": "malos",
+      "numero": 6,
+      "titulo": "Acopio superior y límites del mueble",
+      "esperado_y_observado": "La salida delimita las repisas interiores y deja el área superior de acopio sin analizar. También hay productos laterales que requieren revisar el límite de evaluación.",
+      "criterio_o_mejora": "Posible causa: alcance de etiquetado distinto al esperado. Mejora: acordar si el acopio superior pertenece al problema y etiquetarlo de forma consistente antes de llamarlo omisión.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F06_original.jpg",
+          "sha256": "308f39cda6055f283d10815da85d288044ff129e456551e9b59ae8a4c9182661",
+          "imagen_en_fuente": "image56.jpg",
+          "sha256_embebido": "6fdb220c83c851b73ec865275d2d5cad467e79801bc3757d429a008a49b79067"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F06_yolo.jpg",
+          "sha256": "7581e49ca844739556c14db2eb0be1c629e6b86ba6f82d0fc87346c9ed2b9778",
+          "imagen_en_fuente": "image31.jpg",
+          "sha256_embebido": "d5bc7aea1132cfb179aa25ddd6d571a391be1d5b4cc7dc0372889f66efe4ab2a"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F06_bordes.jpg",
+          "sha256": "d8d971c1046279565292cbd195c81b963f5c4ecbd97f600def517c6ecde79f0d",
+          "imagen_en_fuente": "image32.jpg",
+          "sha256_embebido": "3a28cd6815bf99b22fecb32866c5181663099ce3e16ddf20483558c415d341ba"
+        }
+      ],
+      "titulo_original": "Detergentes Quix y Recargas Económicas",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.92",
+          "44.28%",
+          "73.33%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.86",
+          "68.21%",
+          "80.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.79",
+          "89.64%",
+          "95.24%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.32",
+          "8.82%",
+          "26.09%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F07",
+      "grupo": "malos",
+      "numero": 7,
+      "titulo": "Azúcar en envases blancos",
+      "esperado_y_observado": "Esperamos señal sobre los paquetes blancos. YOLO identifica la repisa, pero el mapa deja gran parte de esos productos sin marcar. La tabla consigna solo 13,57 % de señal de área en el nivel revisado.",
+      "criterio_o_mejora": "Posible causa: bajo contraste, color poco saturado o respuesta insuficiente de textura. Mejora: añadir controles de envases blancos sin aumentar falsas activaciones en repisas vacías.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F07_original.jpg",
+          "sha256": "43960a286f6032bc4f9153f2348b8c8c635e6fe4653fa71439266d060e8027e4",
+          "imagen_en_fuente": "image57.jpg",
+          "sha256_embebido": "8206fc3766d392946c9b3a27d80afc6a21d4573e6d4542ad443c1e3198df1a79"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F07_yolo.jpg",
+          "sha256": "dfd5db9d96d5f2e96f5dc9a38af71887b9cc36a33a29eca5fc38a0ba4fcb259e",
+          "imagen_en_fuente": "image33.jpg",
+          "sha256_embebido": "1fb538238a729957beddee200758138bbe7634069a2c31215aecf1ba667770f8"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F07_bordes.jpg",
+          "sha256": "104edb832d2068ad39a9dbb730e5e3f7b5bc8d639d27d48f2b24e06c0b33104d",
+          "imagen_en_fuente": "image34.jpg",
+          "sha256_embebido": "9a0f2cddc2e61b7752a98f6c94c1b3582f6f882903bde279a65ca3d486120d49"
+        }
+      ],
+      "titulo_original": "Azúcar IANSA y União (Empaques Blancos Monocromáticos)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.96",
+          "13.57%",
+          "40.54%",
+          "Divergencia crítica"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.96",
+          "82.73%",
+          "97.44%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.94",
+          "75.48%",
+          "86.11%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.92",
+          "58.98%",
+          "78.05%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.86",
+          "56.99%",
+          "88.10%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F08",
+      "grupo": "malos",
+      "numero": 8,
+      "titulo": "Sal en bolsas blancas",
+      "esperado_y_observado": "Esperamos señal donde se apilan bolsas. El mapa apenas responde en algunas repisas abastecidas; el documento reporta 5,64 % y 0 % de señal de área.",
+      "criterio_o_mejora": "Posible causa: envases lisos y claros. Mejora: comparar producto y fondo con etiquetas manuales. Un 0 % de señal no significa que no haya producto.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F08_original.jpg",
+          "sha256": "b80282eab9bb043717354e5821e62939d33e8917be1df29e79273ffe1745a696",
+          "imagen_en_fuente": "image58.jpg",
+          "sha256_embebido": "288a3f014c81dd3b0c08745bc80ce9ec447f1ebff18f6fad987fc375052b13c8"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F08_yolo.jpg",
+          "sha256": "796fb7690aff7530122075ebdb59c7fba663411bea37116ab3a9e6f0016a5464",
+          "imagen_en_fuente": "image35.jpg",
+          "sha256_embebido": "90ec41f78261ed60abc168803b9401cf4c4b90529635589823fdae9fcc7ba451"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F08_bordes.jpg",
+          "sha256": "43aee40b2455149c43904e742fbb623b768bd514bc407923c31fca5b8382a76d",
+          "imagen_en_fuente": "image36.jpg",
+          "sha256_embebido": "3c85a14d547afc7728613f1e71fcb392f87d8c923323f08ec291df96912ea631"
+        }
+      ],
+      "titulo_original": "Sal de Mesa Lobos y Acuenta (Empaques Blancos Lisos)",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.97",
+          "50.13%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.96",
+          "78.95%",
+          "89.74%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.96",
+          "5.64%",
+          "24.32%",
+          "Divergencia crítica"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.95",
+          "0.00%",
+          "0.00%",
+          "Ceguera total (0.0%)"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.94",
+          "75.16%",
+          "95.24%",
+          "Operativo"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.91",
+          "66.00%",
+          "90.48%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F09",
+      "grupo": "malos",
+      "numero": 9,
+      "titulo": "Recargas flexibles en la parte superior",
+      "esperado_y_observado": "Esperamos cubrir las repisas acordadas, incluida la superior si está dentro del alcance. La salida omite la fila de recargas y delimita principalmente las botellas inferiores.",
+      "criterio_o_mejora": "Posible causa: forma y posición diferentes de los empaques. Mejora: revisar cobertura de las etiquetas y añadir ejemplos de recargas flexibles en la parte superior.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F09_original.jpg",
+          "sha256": "6c52781f1b4d84e7f24918d532a096fa10a382775fea0ff5fb1b4bbb8b2be174",
+          "imagen_en_fuente": "image59.jpg",
+          "sha256_embebido": "be19c0045eac186caf76158f094cc3de3c6293bd2454d41246d6132351785bfc"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F09_yolo.jpg",
+          "sha256": "b334ddd35ae7a638ad4d5a27df01dfcd2d6dbb90af6e0c614840da2e5ba9253c",
+          "imagen_en_fuente": "image37.jpg",
+          "sha256_embebido": "b8796062189f07ea52fbf4bfa163c31f41833671cd11d23840623bacff401ffb"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F09_bordes.jpg",
+          "sha256": "027c2ae68e684a90473948e138e54b73b166b60f2fd56f2ac59f6ad32bef6067",
+          "imagen_en_fuente": "image38.jpg",
+          "sha256_embebido": "f35c9cfd34f028d6e7c8f0199def8ec74ee0e2ca5492bbd547697204f4e03c6e"
+        }
+      ],
+      "titulo_original": "Cloro Gel y Desinfectantes Clorinda",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.95",
+          "81.04%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.93",
+          "95.77%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.91",
+          "51.90%",
+          "89.74%",
+          "Operativo"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.90",
+          "56.40%",
+          "97.56%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.57",
+          "95.43%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.40",
+          "96.09%",
+          "100.00%",
+          "Operativo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    },
+    {
+      "id": "F10",
+      "grupo": "malos",
+      "numero": 10,
+      "titulo": "Leche en polvo y una detección en el techo",
+      "esperado_y_observado": "Esperamos contornos solo sobre repisas. YOLO también dibuja un nivel en el techo. Hay un hueco parcial que exige revisar el estado esperado con el criterio de ancho acordado.",
+      "criterio_o_mejora": "Posible causa: líneas del techo parecidas a una repisa. Mejora: delimitar la región del mueble y revisar la referencia. No se cambia a reponer solo por señal baja ni por tener un hueco parcial.",
+      "imagenes": [
+        {
+          "tipo": "original",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F10_original.jpg",
+          "sha256": "3eba15ae459e8712380a4ec04fb6a0e4a3d152741dcf0f1b42f11f756f3a4302",
+          "imagen_en_fuente": "image49.jpg",
+          "sha256_embebido": "181ab8fe5f9358aa45120fcd36d16238c94d2d7d8fd0a3d067b2cf2488e17ac1"
+        },
+        {
+          "tipo": "yolo",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F10_yolo.jpg",
+          "sha256": "0a71313c7e928ff625128fd8cf406a977753462957c290428f09d6527c081d31",
+          "imagen_en_fuente": "image39.jpg",
+          "sha256_embebido": "f77b92953f2e2c8f5340009f5268fa7d3b37e2ee9b9d4490ec811684013f5a74"
+        },
+        {
+          "tipo": "bordes",
+          "path": "Documentacion/Evidencias/casos_yolo_bordes_20261021/F10_bordes.jpg",
+          "sha256": "7df8171e5cbc8c425411dec92d8ad64ab0ba903a9502816c235651c76d6331e6",
+          "imagen_en_fuente": "image40.jpg",
+          "sha256_embebido": "6301e0c1c644f7f7e597ffe779e4d28e4d3946a7f9c14ffb81507a04d8541e36"
+        }
+      ],
+      "titulo_original": "Leches en Polvo Infantiles Nido y Calo",
+      "tabla_reportada": [
+        [
+          "Nivel ID",
+          "Clase YOLO",
+          "Confianza",
+          "Área Señal (%)",
+          "Ancho Señal (%)",
+          "Evaluación Crítica"
+        ],
+        [
+          "Nivel 1",
+          "Suficiente",
+          "0.97",
+          "80.08%",
+          "89.74%",
+          "Operativo"
+        ],
+        [
+          "Nivel 2",
+          "Suficiente",
+          "0.97",
+          "95.40%",
+          "94.59%",
+          "Operativo"
+        ],
+        [
+          "Nivel 3",
+          "Suficiente",
+          "0.96",
+          "53.42%",
+          "60.53%",
+          "Divergencia crítica"
+        ],
+        [
+          "Nivel 4",
+          "Suficiente",
+          "0.96",
+          "76.31%",
+          "100.00%",
+          "Operativo"
+        ],
+        [
+          "Nivel 5",
+          "Suficiente",
+          "0.95",
+          "56.45%",
+          "69.05%",
+          "Operativo"
+        ],
+        [
+          "Nivel 6",
+          "Suficiente",
+          "0.73",
+          "3.18%",
+          "6.38%",
+          "Falso estante en techo"
+        ]
+      ],
+      "estado_numeros": "Consignados en la fuente; sin verificación de logs de ejecución"
+    }
+  ]
+}

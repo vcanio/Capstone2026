@@ -26,6 +26,11 @@ def plain(t):
     return t.replace('**','').replace('`','')
 
 def inline(t):
+    picture=re.fullmatch(r'!\[([^]]*)\]\(([^)]+)\)',t)
+    if picture:
+        caption,path=picture.groups();raw,_=image_bytes((SOURCE.parent/path).resolve())
+        uri='data:image/jpeg;base64,'+base64.b64encode(raw).decode()
+        return f'<img class="case-image" src="{uri}" alt="{html.escape(caption)}">'
     t=html.escape(t)
     t=re.sub(r'\*\*(.+?)\*\*',r'<strong>\1</strong>',t)
     t=re.sub(r'`([^`]+)`',r'<code>\1</code>',t)
@@ -56,6 +61,7 @@ def table(doc,rows):
     else:weights=[17.6/n]*n
     scale=17.6/sum(weights)
     for j,w in enumerate(weights):t.columns[j].width=Cm(w*scale)
+    image_table=n==3 and len(rows)==2 and all(re.fullmatch(r'!\[[^]]*\]\([^)]+\)',c) for c in rows[1])
     for i,row in enumerate(rows):
         cells=t.rows[0].cells if i==0 else t.add_row().cells
         trpr=cells[0]._tc.getparent().get_or_add_trPr()
@@ -76,6 +82,14 @@ def table(doc,rows):
             fill='DFE7EE' if i==0 else ('F6F8FA' if i%2==0 else 'FFFFFF')
             shade=OxmlElement('w:shd');shade.set(qn('w:fill'),fill);tcpr.append(shade)
             p=cell.paragraphs[0];p.paragraph_format.space_after=Pt(1);p.paragraph_format.space_before=Pt(1);p.paragraph_format.line_spacing=1.05
+            if image_table and i==1:
+                caption,path=re.fullmatch(r'!\[([^]]*)\]\(([^)]+)\)',row[j]).groups()
+                raw,size=image_bytes((SOURCE.parent/path).resolve())
+                w=min(2.05,2.30*size[0]/size[1])
+                p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+                shape=p.add_run().add_picture(io.BytesIO(raw),width=Cm(w*2.54))
+                shape._inline.docPr.set('descr',caption)
+                continue
             txt=plain(row[j]).replace('/', '/\u200b').replace('_','_\u200b')
             r=p.add_run(txt);r.font.size=Pt(8 if n>5 else 9);r.bold=i==0
             if re.fullmatch(r'[\d,./% –]+',plain(row[j])):p.alignment=WD_ALIGN_PARAGRAPH.CENTER
@@ -94,11 +108,11 @@ def main():
     for border in list(doc.styles.element.xpath('.//w:pBdr')):
         border.getparent().remove(border)
     footer=sec.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
-    footer.add_run('Walmart Computer Vision  |  20 oct 2026  |  ').font.size=Pt(8)
+    footer.add_run('Walmart Computer Vision  |  Revisión 21 oct 2026  |  ').font.size=Pt(8)
     field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
     doc.core_properties.title='Informe intermedio de avance Walmart Computer Vision'
     doc.core_properties.author='Vicente Canio, Paulo Guerra y Vicente Vilches'
-    css='''body{font:15px/1.5 Arial,sans-serif;color:#151515;background:#e9edf0;margin:0}main{max-width:950px;margin:auto}section{background:white;padding:48px 55px;margin:24px 0}h1{font-size:34px}h2{font-size:25px}h3{font-size:22px}table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;overflow-wrap:anywhere}td,th{border:1px solid #d9d9d9;padding:9px;text-align:left}th{background:#dfe7ee}tr:nth-child(even){background:#f6f8fa}figure{margin:16px 0;text-align:center}img{max-width:100%;max-height:400px;object-fit:contain}.original img{max-height:160px}figcaption{font-size:12px;color:#444}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f6f8;padding:12px;font-size:12px}@media print{body{background:white}main{max-width:none}section{padding:0;margin:0;break-after:page}section:last-child{break-after:auto}table,figure{break-inside:avoid}@page{size:A4;margin:17mm}}'''
+    css='''body{font:15px/1.5 Arial,sans-serif;color:#151515;background:#e9edf0;margin:0}main{max-width:950px;margin:auto}section{background:white;padding:48px 55px;margin:24px 0}h1{font-size:34px}h2{font-size:25px}h3{font-size:22px}table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;overflow-wrap:anywhere}td,th{border:1px solid #d9d9d9;padding:9px;text-align:left}th{background:#dfe7ee}tr:nth-child(even){background:#f6f8fa}figure{margin:16px 0;text-align:center}img{max-width:100%;max-height:400px;object-fit:contain}.original img{max-height:160px}.case-image{display:block;margin:auto;width:100%;height:245px;object-fit:contain}figcaption{font-size:12px;color:#444}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f6f8;padding:12px;font-size:12px}@media print{body{background:white}main{max-width:none}section{padding:0;margin:0;break-after:page}section:last-child{break-after:auto}table,figure{break-inside:avoid}@page{size:A4;margin:17mm}}'''
     html_pages=[]
     for pi,page in enumerate(source.split('<!-- page -->')):
         if pi:doc.add_page_break()

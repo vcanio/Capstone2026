@@ -51,6 +51,7 @@ Datos/Publicos/comparacion.jpg
 /Entregables/*.zip
 /Entregables/*.sha256
 /Entregables/*.pdf
+!/Entregables/Informe_Intermedio_Avance_20261020.pdf
 /Entregables/*.docx
 /Entregables/*.html
 /Entregables/*.mp4

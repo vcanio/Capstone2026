@@ -6,7 +6,7 @@ La entrega para el usuario es Walmart Visión. Este índice y las cuatro guías 
 |---|---|
 | [Usar Walmart Visión](Usar_Walmart_Vision.md) | Instalación, fotos propias, imágenes de ejemplo en Drive, resultados, solución de problemas y prueba pendiente en otro computador. |
 | [Entender el proyecto](Guia_para_entender_el_proyecto.md) | Conceptos, herramientas, criterio de disponibilidad, decisiones, fundamentos y límites de las métricas. |
-| [Informe intermedio](Informe_Intermedio_Avance_20261020.md) | Avance, veinte casos visuales, resultados y próximos pasos. [PDF](../Entregables/Informe_Intermedio_Avance_20261020.pdf), [Word](../Entregables/Informe_Intermedio_Avance_20261020.docx) y [HTML](../Entregables/Informe_Intermedio_Avance_20261020.html) se distribuyen por separado. |
+| [Informe intermedio](Informe_Intermedio_Avance_20261020.md) | Revisión del 21 de octubre: avance, diez casos favorables y diez con errores de YOLO + bordes, con explicaciones breves. Las métricas históricas de YOLO se informan por separado. El [PDF](../Entregables/Informe_Intermedio_Avance_20261020.pdf) está disponible en el repositorio; las copias Word y HTML se comparten en el paquete del informe. |
 | [Planificación y metodología](Planificacion_y_metodologia.md) | Hitos, responsables propuestos y forma de trabajo. |
 
 ## Material de consulta

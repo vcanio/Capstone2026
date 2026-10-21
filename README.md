@@ -242,12 +242,12 @@ Estas pruebas revisan archivos, enlaces, particiones y funcionamiento del códig
 | [`Modelos/`](Modelos/README.md) | Modelos generales y procedencia. |
 | [`Experimentos/`](Experimentos/README.md) | Configuraciones, métricas y evidencias. |
 | [`Documentacion/`](Documentacion/README.md) | Guías, planificación e informe. |
-| [`Entregables/`](Entregables/README.md) | Entregas e informes locales. |
+| [`Entregables/`](Entregables/README.md) | PDF del informe e índice de entregas. |
 | [`reproducibilidad/`](reproducibilidad/README.md) | Manifiestos y registros de verificación. |
 
 ### Informe intermedio
 
-El [informe del 20 de octubre de 2026](Documentacion/Informe_Intermedio_Avance_20261020.md) documenta **20 casos visuales**, planificación desde agosto, hallazgos y limitaciones. La distribución de sus archivos Word/PDF/HTML se realiza mediante `Walmart_Informe_Revision_20261020.zip`, separado de la Release pública.
+El [informe con revisión del 21 de octubre de 2026](Documentacion/Informe_Intermedio_Avance_20261020.md) incorpora **10 casos favorables y 10 casos con errores de YOLO + detección de bordes**, resumidos con entrada, salida YOLO y mapa de señal. Conserva la planificación desde agosto y las métricas históricas de YOLO del 20 de octubre, separadas de esta revisión visual. No se calcula una precisión global nueva del método combinado. Puedes [leer o descargar el informe en PDF](Entregables/Informe_Intermedio_Avance_20261020.pdf) directamente desde el repositorio. El paquete completo `Walmart_Informe_YOLO_Bordes_20261021.zip`, que incluye Word, PDF y HTML, se comparte por separado con el equipo; la Release contiene la aplicación para probar los modelos.
 
 Una vez disponibles los activos del equipo, se prepara con:
 
@@ -256,6 +256,8 @@ python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walm
 ```
 
 También están disponibles la [revisión de planificación](Documentacion/Evidencias/verificacion_planificacion_20261020.json), la [verificación de claridad](Documentacion/Evidencias/verificacion_claridad_20261020.json) y el [mapeo de requisitos del informe](Documentacion/Desarrollo/Revision_de_requisitos_informe.md). El generador `Herramientas/Informes/generar_informe_intermedio.py` puede regenerar Word y HTML desde Markdown con `python-docx` y `Pillow`; el PDF se exporta y revisa por separado.
+
+La [evidencia de los nuevos casos](Documentacion/Evidencias/casos_yolo_bordes_20261021.json) conserva su procedencia y las correcciones de tablas y categorías. El caso de reemplazo de cuidado capilar es una variante sintética de diagnóstico; no se presenta como una foto real independiente. La [verificación documental de esta revisión](Documentacion/Evidencias/verificacion_informe_yolo_bordes_20261021.json) registra las comprobaciones del informe.
 
 ## Limitaciones y próximos pasos
 

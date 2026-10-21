@@ -7,7 +7,9 @@ Esta carpeta conserva resultados compactos y figuras que respaldan la documentac
 | [Verificación del informe](verificacion_informe_20261020.json) | Corte original del 20 de octubre: 20 casos visuales, 11 pruebas de datos, 222 pruebas de modelos con una omitida y verificación de la partición de 296 imágenes. También conserva los intentos fallidos y las limitaciones del entorno. |
 | [Revisión de claridad](verificacion_claridad_20261020.json) | Comprobaciones documentales de lectura y requisitos. |
 | [Revisión de planificación](verificacion_planificacion_20261020.json) y [datos de planificación](planificacion_20261020.json) | Hitos, responsables propuestos y datos de la Gantt. |
-| [Casos del informe](casos_informe_20261020.json) | Selección de los veinte casos explicados en el informe. |
+| [Casos históricos de YOLO](casos_informe_20261020.json) | Selección anterior del 20 de octubre; se conserva su evidencia original. |
+| [Casos de YOLO + bordes](casos_yolo_bordes_20261021.json) | Selección actual de 10 casos favorables y 10 con errores; procedencia, imágenes y correcciones de consistencia. B09 reemplaza la fotografía repetida del documento recibido. |
+| [Revisión del informe con bordes](verificacion_informe_yolo_bordes_20261021.json) | Integridad de evidencias, comprobación de los veinte casos y revisión visual del documento actualizado. |
 | [Verificación de Visión](../../Herramientas/Demo_lite/VERIFICACION_VISION.md) | Comprobaciones de la aplicación publicada; conserva pendiente la instalación en otro computador físico. |
 | [Verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md) y [publicación del 21 de octubre](publicacion_vision_docker_20261021.json) | Inferencia AMD64/ARM64 emulada, Release Docker, hashes y descargas públicas verificadas. La prueba en un Mac físico sigue pendiente. |
 | [Preparación del laboratorio y la demo](../../reproducibilidad/VERIFICACION.md) | Alcance de las comprobaciones de instalación, Docker e inferencia. |

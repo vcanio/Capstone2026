@@ -5,11 +5,11 @@
 
 **Equipo:** Vicente Canio, Paulo Guerra y Vicente Vilches.
 
-**Revisión de lectura:** mantenemos el corte y los resultados del 20 de octubre. Explicamos los conceptos técnicos y conservamos la planificación desde agosto aproximado, el inicio de bordes en semana 9 y su integración con YOLO en semana 11.
+**Revisión:** 21 de octubre de 2026. Actualizamos los casos con YOLO + detección de bordes y la entrega Walmart Visión. El corte de los datos y entrenamientos sigue siendo el 20 de octubre; la planificación conserva el inicio aproximado en agosto.
 
-Construimos un prototipo que analiza fotografías de góndolas. Busca cada nivel o repisa, dibuja su contorno y le asigna un estado de disponibilidad. También permite preparar imágenes, dibujar sus etiquetas y entrenar modelos. Conservamos cuatro ensayos: dos V1 de cuatro estados y dos V2 base de dos estados. Falta comprobar mejor las imágenes con obstáculos y ampliar las fotografías reales con faltantes.
+El prototipo localiza y clasifica repisas en fotografías. El análisis adicional de bordes, color y textura aporta mapas para revisar producto y huecos. Los casos nuevos muestran respuestas favorables en algunos envases y fallos en productos blancos, fondos metálicos y cobertura de niveles. Esa señal todavía no mide ocupación real ni cambia los estados YOLO. Faltan etiquetas de referencia para evaluar cuantitativamente esta selección.
 
-| Indicador verificado | Resultado al corte |
+| Antecedente de datos y modelos YOLO | Resultado al 20 de octubre |
 |---|---|
 | Imágenes propias únicas | 405: 96 reales y 309 sintéticas |
 | Datos usados en V1 | 86 entrenamiento y 5 validación real |
@@ -45,7 +45,7 @@ El informe sigue los cinco puntos del encargo: avance, solución técnica, resul
 
 Las imágenes de entrenamiento permiten aprender y revisar fallos. Las de validación permiten comparar modelos y ajustes. La prueba final se consulta después de fijar esas decisiones; usarla para escoger ajustes dejaría de ser una comprobación final independiente del desarrollo.
 
-En los veinte casos, la imagen de referencia aparece a la izquierda y la salida del modelo a la derecha. Primero se revisa si encontró los niveles y luego si decidió bien sus estados. Antes de las tablas de resultados explicamos las métricas y mostramos un ejemplo con cifras reales.
+Cada caso compara tres vistas: fotografía original, salida de YOLO y mapa de señal de bordes. Revisamos si encontró las repisas, si el estado es razonable y si la señal coincide visualmente con los productos. El criterio de calidad se indica en cada ficha; la tabla histórica de métricas YOLO se presenta por separado.
 
 Una explicación ampliada y un glosario están en Documentacion/Guia_para_entender_el_proyecto.md. La relación con cada requisito del encargo está en Documentacion/Desarrollo/Revision_de_requisitos_informe.md.
 
@@ -63,11 +63,11 @@ Para estimar el avance, dividimos cada módulo en cuatro hitos de igual peso. Ca
 | Importación y exportación | Leer etiquetas, revisar y guardar para YOLO | 100 % implementado | datos_modelos.py y conjuntos.py |
 | Modelos base | V1 YOLO11/26, V2 base YOLO11/26 | 100 % para esta etapa | Cuatro ensayos en Experimentos |
 | Panel | Carga, inferencia, comparación | 75 % en desarrollo | panel_modelos.py y panel_worker.py |
-| Distribución | Docker, arranque, Lite V2 | 75 % en desarrollo | Infraestructura/Docker y Entregables |
+| Distribución | Arranque Windows y Docker de Walmart Visión | 75 % en desarrollo | Infraestructura/Docker y Entregables |
 | Oclusiones V2 | Lote y partición preparados | 50 % en desarrollo | 60 imágenes y tarea 22 |
 | Cierre de calidad | Diagnóstico de errores | 25 % en desarrollo | evaluacion_por_imagen.json |
 
-**Hitos restantes:** datos: ampliar faltantes reales; panel: aceptación con tres estados; distribución: instalación de Lite en otro computador físico; oclusiones: revisión del significado de las etiquetas final y ensayo de tres estados; cierre: deduplicación, prueba final y aceptación del MVP.
+**Hitos restantes:** datos: ampliar faltantes reales; panel: aceptación con tres estados; distribución: instalación de Walmart Visión en otro computador físico; oclusiones: revisión final de etiquetas y ensayo de tres estados; cierre: deduplicación, prueba final y aceptación del MVP.
 
 “Implementado” indica que existen código, configuración o artefactos comprobables. La preparación posterior de la entrega verificó el arranque Docker en CPU y la demo Lite con los cuatro modelos, sin requerir CVAT. Esto no equivale a disponibilidad garantizada del CVAT compartido ni a una prueba en otro computador físico; el registro actualizado está en reproducibilidad/VERIFICACION.md.
 
@@ -99,14 +99,14 @@ La defensa del 3 o 4 de diciembre es tentativa. Los hitos futuros y sus responsa
 | H5 Captura y partición V2 | 10 | Todo el equipo | Preparación realizada | 236 imágenes base y 60 con obstáculos; corrección de tareas 20/21 en tarea 22. |
 | H6 Integración YOLO y detección de bordes | 11 | Equipo | Experimental operativo | Integración en semana 11 informada por el equipo; panel, adaptador y mapas de señal. |
 | H7 Modelos V2 base e informe | 11 | Todo el equipo | Realizado | Dos ensayos V2 base; métricas, informe y entrega Lite con detección de bordes. |
-| H8 Revisión de oclusiones y V2 de 3 estados | 12–13 | P. Guerra / V. Vilches | Propuesto pendiente | Cerrar revisión del significado de las etiquetas de tarea 22 y entrenar; no se declara completado. |
+| H8 Revisión de oclusiones y V2 de 3 estados | 12–13 | P. Guerra / V. Vilches | Propuesto pendiente | Cerrar la revisión de etiquetas de la tarea 22 y entrenar; no se declara completado. |
 | H9 Deduplicación y refuerzo de faltantes | 14–15 | V. Canio / P. Guerra | Propuesto pendiente | Comparar posprocesamiento en val y ampliar casos reales sin usar test para ajustar. |
-| H10 Evaluación final y prueba en otro PC | 16 | Todo el equipo | Propuesto pendiente | Separar test real/sintético/V1 y comprobar instalación de Lite en otro equipo físico. |
+| H10 Evaluación final y prueba en otro PC | 16 | Todo el equipo | Propuesto pendiente | Separar test real/sintético/V1 y comprobar instalación de Walmart Visión en otro equipo físico. |
 | H11 Documentación y defensa | 17 | Todo el equipo | Propuesto pendiente | Cierre documental y demostración; fecha sujeta a confirmación académica. |
 
 Los rangos semanales históricos se reconstruyen con el equipo y la tabla de referencia; los artefactos permiten verificar resultados, pero no fijan por sí solos la fecha de inicio de cada actividad. El desarrollo de bordes es experimental y su integración no valida un porcentaje real de ocupación.
 
-El hito H5 indica preparación del lote y su partición. La corrección de tareas 20/21 en la 22 no cierra la revisión del significado de las etiquetas ni acredita un entrenamiento de tres estados. La validación de Lite en otro computador sigue pendiente aunque la demo ya esté publicada.
+El hito H5 indica preparación del lote y su partición. La corrección de tareas 20/21 en la 22 no cierra la aprobación final de las etiquetas ni acredita un entrenamiento de tres estados. La validación de Walmart Visión en otro computador sigue pendiente aunque la demo ya esté publicada.
 
 <!-- page -->
 
@@ -124,6 +124,7 @@ Referencia metodológica: Guía Scrum 2020 de Ken Schwaber y Jeff Sutherland, ht
 | Oclusiones sin validar | V2 base no aprende no_evaluable. Cerrar tarea 22 y medir los tres estados por separado. |
 | Etiquetado parcial y duplicados | Revisar la región evaluada y las etiquetas; probar el filtro de duplicados en validación, sin ajustar con la prueba final. |
 | Diferencias entre copias | Tarea 19 registra 1.229 niveles en un registro antiguo y 1.212 en la exportación usada. Identificar la versión y su copia fija. |
+| Bordes en producto claro y fondo metálico | La nueva selección muestra señal insuficiente sobre envases blancos y señal espuria sobre metal. Comparar ambos con etiquetas de referencia. |
 | Réplica y aceptación externa | La demo está disponible, pero falta comprobar la instalación en otro computador físico y ampliar validación. |
 
 El cambio de dimensiones de imágenes de oclusión motivó sustituir las tareas 20/21 por la 22. Se conservan registros de corrección; falta cerrar la aprobación semántica. No se atribuye un retraso en días sin una planificación anterior verificable.
@@ -194,489 +195,287 @@ Para la siguiente etapa se reservan 41 imágenes con obstáculos para train, 10 
 
 <!-- page -->
 
-## 3 Cómo interpretar las métricas
+## 3 Resultados preliminares de YOLO y bordes
 
-Evaluamos dos cosas distintas: si el modelo encontró el nivel y si acertó su estado. El contorno y estado revisados por personas constituyen la referencia. En las imágenes de los casos aparece a la izquierda; la predicción del modelo, a la derecha.
+La selección aportada por el equipo utiliza V2-YOLO26 con análisis de bordes, color y textura. Las fichas comparan entrada, salida YOLO y mapa de señal. Se presentan diez ejemplos del grupo favorable y diez de errores, resumidos de dos en dos por página. El caso B09 reemplaza una imagen repetida y pertenece al diagnóstico sintético V2; su captura no identifica el peso exacto. Un resultado favorable puede conservar límites, indicados en su explicación.
 
-| Medida | Interpretación |
-|---|---|
-| Localizados y estados exactos | Localizados cuenta referencias encontradas. Estados exactos exige además que la categoría sea correcta. |
-| Omitidos y extras | Un omitido es una referencia no encontrada. Un extra es una predicción sin referencia asociada; puede exigir revisar el modelo o las etiquetas. |
-| Precisión de alertas | Alertas acertadas divididas por todas las emitidas. Indica cuántos avisos eran correctos. |
-| Recall de alertas | Alertas acertadas divididas por los faltantes de referencia. Indica cuántos faltantes se detectaron. Sin faltantes de referencia no se puede medir. |
-| IoU de máscara | Área compartida por predicción y referencia dividida por el área de su unión. Va de 0 a 1; un contorno idéntico obtiene 1. No mide acierto del estado. |
-| mAP50 y mAP50–95 | Resumen del comportamiento por clase. mAP50 usa IoU 0,50; mAP50–95 promedia de 0,50 a 0,95 en pasos de 0,05. Aquí se informa sobre máscaras. |
+El criterio es visual: contornos, estado esperado y ubicación de la señal. No contamos con referencias y registros completos para calcular precisión global o error de ocupación de esta selección. Los porcentajes son señales experimentales: se cita si proceden de una tabla o del propio mapa. Salvo B09, no se infiere su pertenencia a entrenamiento, validación o prueba final.
 
-**Ejemplo guardado de YOLO11 V2:** encontró los 51 niveles, acertó 48 estados y produjo una alerta correcta y cuatro falsas. Su precisión de alertas fue 1/5, o 20 %. Su recall fue 1/1, o 100 %, porque detectó el único faltante de referencia. Detectarlo no impidió que emitiera avisos equivocados.
+Las tablas de alimento para mascotas y aceites panorámicos contradicen las imágenes y quedan excluidas de los conteos. También se corrigieron nombres de productos. No se atribuyen causas demostradas a iluminación, perspectiva o reflejos a partir de una sola fotografía.
 
-**Ejemplo guardado de YOLO26 V2:** encontró 50 de 51 niveles, acertó esos 50 estados y emitió una alerta acertada, sin falsas alertas. Solo había un faltante real en esas diez fotos. El resultado es favorable para ese caso, pero insuficiente para estimar el comportamiento en una tienda completa.
+### Antecedentes cuantitativos de YOLO
 
-El 92,79 % de mAP50–95 no significa 92,79 % de fotos correctas ni ese porcentaje de faltantes detectados. Leemos esta medida junto con los conteos, los errores y la cantidad de ejemplos. La confianza del modelo y la ocupación visible tampoco son esa medida.
+Los siguientes valores pertenecen a los ensayos originales del 20 de octubre. No son una evaluación nueva del método combinado ni se mezclan con la selección visual.
 
-La guía de métricas de Ultralytics explica precisión, recall y mAP: https://docs.ultralytics.com/guides/yolo-performance-metrics/. La documentación de segmentación distingue las métricas de máscaras: https://docs.ultralytics.com/tasks/segment/.
-
-<!-- page -->
-
-## 3 Resultados preliminares
-
-| Modelo | mAP50 máscara | mAP50–95 máscara | Localizados | Estado exacto | Extras | Alertas acertadas | Falsas alertas |
+| Modelo | mAP50 máscara |mAP50–95 máscara | Localizados | Estado exacto | Extras | Alertas acertadas | Falsas alertas |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | YOLO11-1 | 74,47 % | 56,59 % | 35/36 | 33/36 | 12 | 0/0 | 2 |
 | YOLO26-1 | 73,38 % | 62,40 % | 35/36 | 34/36 | 11 | 0/0 | 0 |
 | v2_base_yolo11n_01 | 98,44 % | 86,26 % | 51/51 | 48/51 | 8 | 1/1 | 4 |
 | v2_base_yolo26n_01 | 99,28 % | 92,79 % | 50/51 | 50/51 | 5 | 1/1 | 0 |
 
-**Fuentes:** metricas_validacion.json, metricas_alertas.json y evaluacion_por_imagen.json de los cuatro ensayos. V1 usa 5 fotos reales y V2 10. Los mAP provienen del evaluador Ultralytics; los conteos se obtienen del emparejamiento propio a conf 0,25 e IoU ≥ 0,50. Sus definiciones y umbrales difieren, por lo que no deben interpretarse como la misma métrica.
+Fuentes: metricas_validacion.json, metricas_alertas.json y evaluacion_por_imagen.json de los ensayos. V1 usa cinco fotos reales; V2 base diez. El 1/1 de alertas V2 es un único faltante. Las métricas no demuestran funcionamiento general en otras tiendas.
 
-YOLO26 V2 logra 50/51 estados exactos, 5 predicciones extra, una omisión y cero falsas alertas. Su precisión de alertas es 1/1 y su recall es 1/1. YOLO11 V2 localiza 51/51 niveles, acierta 48/51 estados y emite 4 falsas alertas: precisión 1/5 y recall 1/1. En V1 no hay referencias de faltantes en val y el recall de alertas no es medible.
-
-La diferencia de mAP50–95 entre los dos modelos V2 es 6,53 puntos a favor de YOLO26. La comparación entre V1 y V2 cambia datos, clases y partición: el salto de 62,40 % a 92,79 % no puede atribuirse exclusivamente a fusionar clases.
-
-**Selección de los 20 casos:** se conserva una selección razonada de 10 resultados completos y 10 errores relevantes. En los éxitos se priorizan escenas reales de val y cobertura de alertas; ocho son de validación real y dos son sintéticos de entrenamiento. En los fallos se priorizan alertas omitidas, falsas alertas, omisiones y problemas de referencia. No constituye un ranking estadístico único entre versiones y particiones distintas. Cada ficha identifica su modelo, origen y métricas verificadas.
-
-La IoU media de cada ficha se calcula solo sobre niveles emparejados; puede ser alta aunque existan omisiones o errores de estado. El resultado esperado es la anotación humana congelada, que también puede contener errores. Las causas visuales se presentan como hipótesis salvo cuando están sustentadas en una auditoría previa.
-
-No se ejecutan nuevas inferencias sobre la reserva para preparar este informe. Las ilustraciones reutilizan comparaciones ya guardadas. Los resultados en train comprueban ajuste y sirven para diagnóstico, no para demostrar generalización.
-
+IoU mide coincidencia de contornos. mAP50 usa IoU 0,50 y mAP50–95 promedia umbrales de 0,50 a 0,95. No representan el porcentaje de fotos correctas ni el porcentaje real de producto.
 
 <!-- page -->
 
-### 3 Mejor caso 1 Alerta real de reposición
+## 3A Casos favorables
 
-**Entrada:** lider_express_040_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
+### B01 Bebidas oscuras
 
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_040_0_original.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B01 original](Evidencias/casos_yolo_bordes_20261021/B01_original.jpg) | ![B01 yolo](Evidencias/casos_yolo_bordes_20261021/B01_yolo.jpg) | ![B01 bordes](Evidencias/casos_yolo_bordes_20261021/B01_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_040_0_original_val.jpg)
+Esperamos delimitar las repisas y distinguir el hueco parcial inferior. YOLO recupera los niveles visibles y la señal deja parte del hueco sin marcar.
 
-**Esperado:** 5 niveles: 4 suficiente, 1 reponer. **Obtenido:** 5 predicciones: 4 suficiente, 1 reponer.
+Criterio visual: los contornos siguen las repisas y la señal se concentra principalmente sobre las botellas. El hueco parcial no implica por sí solo un estado reponer.
 
-**Métricas:** 5/5 localizados; 5/5 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9271. Alertas: 1/1 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### B02 Conservas en varios niveles
 
-**Criterio de éxito:** La única referencia reponer de val se detecta y se clasifican correctamente los otros cuatro niveles. El alcance de este éxito es un caso real.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B02 original](Evidencias/casos_yolo_bordes_20261021/B02_original.jpg) | ![B02 yolo](Evidencias/casos_yolo_bordes_20261021/B02_yolo.jpg) | ![B02 bordes](Evidencias/casos_yolo_bordes_20261021/B02_bordes.jpg) |
 
-**Comprobación siguiente:** Conservar este caso para comprobar futuras mejoras y añadir faltantes reales de otras escenas.
+Esperamos separar las repisas con latas. YOLO distingue los niveles y el mapa de bordes mantiene señal sobre gran parte de los productos.
 
-**Trazabilidad:** registro lider_express_040_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Mejor caso 2 Seis niveles completos
-
-**Entrada:** lider_express_015_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
-
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_015_0_original.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_015_0_original_val.jpg)
-
-**Esperado:** 6 niveles: 6 suficiente. **Obtenido:** 6 predicciones: 6 suficiente.
-
-**Métricas:** 6/6 localizados; 6/6 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9464. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Criterio de éxito:** Las seis referencias se localizan con estado correcto y sin predicciones adicionales. La IoU media es alta dentro de la validación V2.
-
-**Comprobación siguiente:** Conservar el caso para comprobar que los cambios no degradan niveles suficientes.
-
-**Trazabilidad:** registro lider_express_015_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Criterio visual: separación entre niveles y continuidad sobre las latas. Una referencia manual permitiría medir el ajuste de los contornos.
 
 <!-- page -->
 
-### 3 Mejor caso 3 Delimitación precisa de cinco niveles
+## 3A Casos favorables
 
-**Entrada:** lider_express_039_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
+### B03 Productos en bolsas
 
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_039_0_original.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B03 original](Evidencias/casos_yolo_bordes_20261021/B03_original.jpg) | ![B03 yolo](Evidencias/casos_yolo_bordes_20261021/B03_yolo.jpg) | ![B03 bordes](Evidencias/casos_yolo_bordes_20261021/B03_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_039_0_original_val.jpg)
+Esperamos identificar las repisas con bolsas y sus espacios libres. Los contornos permanecen separados y la señal responde a los empaques con dibujos y textura.
 
-**Esperado:** 5 niveles: 5 suficiente. **Obtenido:** 5 predicciones: 5 suficiente.
+Criterio visual: correspondencia entre los grupos de producto y la señal. Es una observación de esta foto, no una garantía para todos los envases.
 
-**Métricas:** 5/5 localizados; 5/5 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9463. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### B04 Botellas de vidrio
 
-**Criterio de éxito:** Los cinco contornos coinciden con las referencias y sus estados. No aparecen alertas de reposición sin referencia.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B04 original](Evidencias/casos_yolo_bordes_20261021/B04_original.jpg) | ![B04 yolo](Evidencias/casos_yolo_bordes_20261021/B04_yolo.jpg) | ![B04 bordes](Evidencias/casos_yolo_bordes_20261021/B04_bordes.jpg) |
 
-**Comprobación siguiente:** Repetir la evaluación bajo nuevas sesiones y condiciones de captura.
+Esperamos separar las repisas de botellas. YOLO mantiene los contornos por nivel y el mapa responde sobre buena parte de los envases.
 
-**Trazabilidad:** registro lider_express_039_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Mejor caso 4 Máscaras de alta coincidencia
-
-**Entrada:** lider_express_027_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo11n_01.
-
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_027_0_original.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo11n_01_20261020_002800_ec8d/comparaciones/lider_express_027_0_original_val.jpg)
-
-**Esperado:** 5 niveles: 5 suficiente. **Obtenido:** 5 predicciones: 5 suficiente.
-
-**Métricas:** 5/5 localizados; 5/5 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9530. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Criterio de éxito:** El modelo YOLO11 V2 alcanza coincidencia geométrica elevada en esta foto. Un éxito individual no reemplaza el balance global de falsas alertas.
-
-**Comprobación siguiente:** Usar como comparación entre arquitecturas sobre la misma entrada.
-
-**Trazabilidad:** registro lider_express_027_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Criterio visual: niveles separados y señal ubicada principalmente en producto. Los reflejos presentes no impiden este resultado; falta comprobar más escenas con reflejos.
 
 <!-- page -->
 
-### 3 Mejor caso 5 Seis estados suficientes correctos
+## 3A Casos favorables
 
-**Entrada:** lider_express_014_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
+### B05 Conservas en exhibición
 
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_014_0_original.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B05 original](Evidencias/casos_yolo_bordes_20261021/B05_original.jpg) | ![B05 yolo](Evidencias/casos_yolo_bordes_20261021/B05_yolo.jpg) | ![B05 bordes](Evidencias/casos_yolo_bordes_20261021/B05_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_014_0_original_val.jpg)
+Esperamos delimitar las filas de conservas sin unir repisas vecinas. La salida de YOLO mantiene los niveles y el mapa muestra señal continua sobre las latas.
 
-**Esperado:** 6 niveles: 6 suficiente. **Obtenido:** 6 predicciones: 6 suficiente.
+Criterio visual: coherencia entre contornos, producto visible y señal. Falta una referencia manual para medir qué parte del área marcada es correcta.
 
-**Métricas:** 6/6 localizados; 6/6 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9248. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### B06 Vinos con dos repisas casi vacías
 
-**Criterio de éxito:** Se recuperan las seis referencias sin extras. La clasificación de suficiente coincide con la versión fija de las etiquetas.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B06 original](Evidencias/casos_yolo_bordes_20261021/B06_original.jpg) | ![B06 yolo](Evidencias/casos_yolo_bordes_20261021/B06_yolo.jpg) | ![B06 bordes](Evidencias/casos_yolo_bordes_20261021/B06_bordes.jpg) |
 
-**Comprobación siguiente:** Mantener este caso en las comprobaciones de geometría y orden espacial.
+Esperamos avisar reposición en las dos repisas casi vacías. YOLO las marca reponer y el mapa muestra mucha menos señal que en los niveles abastecidos.
 
-**Trazabilidad:** registro lider_express_014_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Mejor caso 6 Separaciones entre productos sin falsa alerta
-
-**Entrada:** lider_express_026_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
-
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_026_0_original.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_026_0_original_val.jpg)
-
-**Esperado:** 5 niveles: 5 suficiente. **Obtenido:** 5 predicciones: 5 suficiente.
-
-**Métricas:** 5/5 localizados; 5/5 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9213. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Criterio de éxito:** Los cinco niveles suficientes se clasifican correctamente a pesar de las separaciones visibles entre productos.
-
-**Comprobación siguiente:** Ampliar ejemplos cercanos al umbral del 30 % para contrastar este comportamiento.
-
-**Trazabilidad:** registro lider_express_026_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Criterio visual: concordancia en esos dos niveles. La tabla recibida consigna 6,02 % y 2,15 % de señal de área; son valores reportados, no porcentajes reales de inventario.
 
 <!-- page -->
 
-### 3 Mejor caso 7 Dos módulos completos en V1
+## 3A Casos favorables
 
-**Entrada:** REAL_04.jpg · foto real · validación. **Modelo:** YOLO26-1.
+### B07 Snacks con faltantes visibles
 
-![Imagen original de entrada](../Datos/V1/Lider/lider_004.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B07 original](Evidencias/casos_yolo_bordes_20261021/B07_original.jpg) | ![B07 yolo](Evidencias/casos_yolo_bordes_20261021/B07_yolo.jpg) | ![B07 bordes](Evidencias/casos_yolo_bordes_20261021/B07_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_04_val.jpg)
+Esperamos distinguir un nivel vacío y otro con pocos productos. YOLO marca reponer en ambos y la señal se concentra en los sectores con bolsas.
 
-**Esperado:** 12 niveles: 12 suficiente. **Obtenido:** 12 predicciones: 12 suficiente.
+Criterio visual: diferenciación entre repisas abastecidas, huecos y faltantes. El documento consigna 2,74 % de señal de área en el nivel vacío; falta calibración contra una referencia.
 
-**Métricas:** 12/12 localizados; 12/12 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.8984. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### B08 Bebidas en exhibidor central
 
-**Criterio de éxito:** Se localizan doce niveles y se aciertan todos sus estados. La referencia incluye ambos módulos.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B08 original](Evidencias/casos_yolo_bordes_20261021/B08_original.jpg) | ![B08 yolo](Evidencias/casos_yolo_bordes_20261021/B08_yolo.jpg) | ![B08 bordes](Evidencias/casos_yolo_bordes_20261021/B08_bordes.jpg) |
 
-**Comprobación siguiente:** Conservar como control de fotografías con varios módulos completos.
+Esperamos separar las cuatro repisas del exhibidor. La salida muestra sus contornos y una señal amplia donde están las botellas.
 
-**Trazabilidad:** registro REAL_04.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Mejor caso 8 Dos módulos con perspectiva en V1
-
-**Entrada:** REAL_05.jpg · foto real · validación. **Modelo:** YOLO11-1.
-
-![Imagen original de entrada](../Datos/V1/Lider/lider_005.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO11-1_20261015_013749_f709/comparaciones/REAL_05_val.jpg)
-
-**Esperado:** 12 niveles: 12 suficiente. **Obtenido:** 12 predicciones: 12 suficiente.
-
-**Métricas:** 12/12 localizados; 12/12 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.8551. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Criterio de éxito:** Se aciertan doce niveles bajo perspectiva. No se midió el ángulo de cámara; este caso no define un rango angular garantizado.
-
-**Comprobación siguiente:** Capturar series con ángulos documentados para medir el efecto de la perspectiva.
-
-**Trazabilidad:** registro REAL_05.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Criterio visual: separación de las cuatro repisas sin incluir todo el pasillo; la señal se concentra principalmente sobre los envases.
 
 <!-- page -->
 
-### 3 Mejor caso 9 Cuatro alertas sintéticas de entrenamiento
+## 3A Casos favorables
 
-**Entrada:** lider_express_049_B_baja.png · imagen sintética · entrenamiento. **Modelo:** v2_base_yolo26n_01.
+### B09 Cuidado capilar con dos repisas vacías
 
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_049_B_baja.png)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B09 original](Evidencias/casos_yolo_bordes_20261021/B09_original.jpg) | ![B09 yolo](Evidencias/casos_yolo_bordes_20261021/B09_yolo.jpg) | ![B09 bordes](Evidencias/casos_yolo_bordes_20261021/B09_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_049_B_baja_train.jpg)
+Entrada sintética de diagnóstico: seis repisas, dos vacías. YOLO dibuja las seis y marca reponer en las dos vacías. Los bordes se concentran en cajas y etiquetas; el mapa deja poca señal en el vacío.
 
-**Esperado:** 5 niveles: 1 suficiente, 4 reponer. **Obtenido:** 5 predicciones: 4 reponer, 1 suficiente.
+Criterio: coherencia entre contornos, estados y señal. El mapa indica 0 % y 2 % de área con señal en las repisas vacías, frente a 62,5–95,5 % en las abastecidas. No equivale a ocupación real ni a una prueba independiente.
 
-**Métricas:** 5/5 localizados; 5/5 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9701. Alertas: 4/4 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### B10 Cervezas en cajas
 
-**Criterio de éxito:** Se aciertan cuatro alertas y un estado suficiente en una variante sintética ya vista al entrenar. Es evidencia de ajuste.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![B10 original](Evidencias/casos_yolo_bordes_20261021/B10_original.jpg) | ![B10 yolo](Evidencias/casos_yolo_bordes_20261021/B10_yolo.jpg) | ![B10 bordes](Evidencias/casos_yolo_bordes_20261021/B10_bordes.jpg) |
 
-**Comprobación siguiente:** Comprobar el mismo patrón con faltantes reales fuera de entrenamiento.
+Esperamos localizar los niveles del módulo con cajas. La salida recupera varios niveles y la señal se concentra en las zonas abastecidas.
 
-**Trazabilidad:** registro lider_express_049_B_baja.png en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Mejor caso 10 Tres estados correctos en V1
-
-**Entrada:** EQ_01_V2.png · imagen sintética · entrenamiento. **Modelo:** YOLO26-1.
-
-![Imagen original de entrada](../Datos/V1/Sinteticas/EQ_01_V2.png)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/EQ_01_V2_train.jpg)
-
-**Esperado:** 10 niveles: 6 suficiente, 2 vacio, 2 baja_disponibilidad. **Obtenido:** 10 predicciones: 2 baja_disponibilidad, 2 vacio, 6 suficiente.
-
-**Métricas:** 10/10 localizados; 10/10 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9443. Alertas: 4/4 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Criterio de éxito:** Se aciertan diez estados en una imagen sintética de train: seis suficientes, dos vacíos y dos bajos. No demuestra desempeño fuera de muestra.
-
-**Comprobación siguiente:** Mantener como diagnóstico del criterio histórico V1.
-
-**Trazabilidad:** registro EQ_01_V2.png en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Criterio visual: correspondencia favorable en los niveles dibujados. El estante vacío superior requiere revisar cobertura; este ejemplo no acredita detección completa del mueble.
 
 <!-- page -->
 
-### 3 Peor caso 1 Omisión y detecciones adicionales
+## 3B Casos con errores
 
-**Entrada:** lider_express_042_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo26n_01.
+### F01 Fondo metálico en una repisa vacía
 
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_042_0_original.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F01 original](Evidencias/casos_yolo_bordes_20261021/F01_original.jpg) | ![F01 yolo](Evidencias/casos_yolo_bordes_20261021/F01_yolo.jpg) | ![F01 bordes](Evidencias/casos_yolo_bordes_20261021/F01_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo26n_01_20261020_004933_b105/comparaciones/lider_express_042_0_original_val.jpg)
+Esperamos poca señal en la repisa vacía, pero el mapa marca parte del fondo. La tabla recibida consigna 39,11 % de área con señal.
 
-**Esperado:** 3 niveles: 3 suficiente. **Obtenido:** 6 predicciones: 6 suficiente.
+Posible causa: textura y perforaciones del metal. Mejora: comparar repisas vacías y ocupadas y ajustar el rechazo de fondo sin perder producto oscuro.
 
-**Métricas:** 2/3 localizados; 2/3 estados exactos; 1 omitidos; 4 extras. IoU media de los contornos asociados 0.8031. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### F02 Toallitas claras y fondo vacío
 
-**Error y causa probable:** Se emparejan dos de tres referencias y aparecen cuatro predicciones extra. El encuadre y la cobertura de anotación podrían explicar parte del error.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F02 original](Evidencias/casos_yolo_bordes_20261021/F02_original.jpg) | ![F02 yolo](Evidencias/casos_yolo_bordes_20261021/F02_yolo.jpg) | ![F02 bordes](Evidencias/casos_yolo_bordes_20261021/F02_bordes.jpg) |
 
-**Propuesta de mejora:** Revisar cada extra, completar referencias o definir ROI; repetir la medición con la misma política.
+Esperamos señal en los paquetes y poca en el vacío. El mapa deja producto claro poco marcado y activa sectores del fondo; la tabla reporta 32,03 % de área en el nivel señalado como vacío.
 
-**Trazabilidad:** registro lider_express_042_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Peor caso 2 Cuatro falsas alertas interclase
-
-**Entrada:** lider_express_028_0_original.jpg · foto real · validación. **Modelo:** v2_base_yolo11n_01.
-
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_028_0_original.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo11n_01_20261020_002800_ec8d/comparaciones/lider_express_028_0_original_val.jpg)
-
-**Esperado:** 5 niveles: 5 suficiente. **Obtenido:** 9 predicciones: 5 suficiente, 4 reponer.
-
-**Métricas:** 5/5 localizados; 2/5 estados exactos; 0 omitidos; 4 extras. IoU media de los contornos asociados 0.9453. Alertas: 0/0 acertadas, 0 omitidas y 4 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Error y causa probable:** Se emiten nueve máscaras frente a cinco referencias suficientes. Se registran cuatro falsas alertas y solo dos estados exactos. La superposición de hipótesis es compatible con duplicados interclase.
-
-**Propuesta de mejora:** Comparar NMS agnóstica y supresión por máscara sobre val. Verificar que no eliminen niveles vecinos legítimos.
-
-**Trazabilidad:** registro lider_express_028_0_original.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Posible causa: poco contraste y textura del fondo. Mejora: evaluar colores claros y fondos por separado antes de cambiar los umbrales.
 
 <!-- page -->
 
-### 3 Peor caso 3 Fallo de no evaluable en V1
+## 3B Casos con errores
 
-**Entrada:** REAL_29.jpg · foto real · validación. **Modelo:** YOLO11-1.
+### F03 Nivel omitido en alimento para mascotas
 
-![Imagen original de entrada](../Datos/V1/Lider/lider_029.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F03 original](Evidencias/casos_yolo_bordes_20261021/F03_original.jpg) | ![F03 yolo](Evidencias/casos_yolo_bordes_20261021/F03_yolo.jpg) | ![F03 bordes](Evidencias/casos_yolo_bordes_20261021/F03_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO11-1_20261015_013749_f709/comparaciones/REAL_29_val.jpg)
+Esperamos los cuatro niveles físicos. La imagen de YOLO muestra tres contornos y deja una repisa intermedia sin delimitar; bordes no puede analizar un nivel que no recibe.
 
-**Esperado:** 3 niveles: 1 suficiente, 2 no_evaluable. **Obtenido:** 7 predicciones: 6 suficiente, 1 baja_disponibilidad.
+Posible causa: sombra o similitud entre filas. Mejora: revisar la etiqueta del nivel y repetir con el registro original. La tabla recibida tiene seis filas incompatibles; no se calcula recall con ella.
 
-**Métricas:** 2/3 localizados; 1/3 estados exactos; 1 omitidos; 5 extras. IoU media de los contornos asociados 0.8558. Alertas: 0/0 acertadas, 0 omitidas y 1 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### F04 Aceites en una toma panorámica
 
-**Error y causa probable:** Se acierta un estado de tres y se omite un nivel. La referencia contiene dos no evaluables; la escasez de ejemplos V1 es una causa probable.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F04 original](Evidencias/casos_yolo_bordes_20261021/F04_original.jpg) | ![F04 yolo](Evidencias/casos_yolo_bordes_20261021/F04_yolo.jpg) | ![F04 bordes](Evidencias/casos_yolo_bordes_20261021/F04_bordes.jpg) |
 
-**Propuesta de mejora:** Añadir imágenes con obstáculos y etiquetas revisadas; medir cuántos niveles no evaluables reconoce e indicar cuántos se probaron.
+Esperamos cubrir los niveles visibles del sector. La salida dibuja solo dos regiones y deja repisas intermedias sin analizar; un carro ocupa el primer plano.
 
-**Trazabilidad:** registro REAL_29.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Peor caso 4 Detecciones fuera de las referencias
-
-**Entrada:** REAL_22.jpg · foto real · validación. **Modelo:** YOLO26-1.
-
-![Imagen original de entrada](../Datos/V1/Lider/lider_022.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_22_val.jpg)
-
-**Esperado:** 6 niveles: 6 suficiente. **Obtenido:** 12 predicciones: 12 suficiente.
-
-**Métricas:** 6/6 localizados; 6/6 estados exactos; 0 omitidos; 6 extras. IoU media de los contornos asociados 0.8808. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Error y causa probable:** Las seis referencias centrales son correctas, pero hay seis máscaras sin referencia. Una auditoría debe determinar cuáles representan niveles reales adicionales.
-
-**Propuesta de mejora:** Unificar cobertura de anotación e inferencia antes de atribuir todos los extras al modelo.
-
-**Trazabilidad:** registro REAL_22.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Posible causa: encuadre amplio, escala y obstáculos. Mejora: comparar una captura frontal más cercana. La tabla recibida tiene siete filas y se excluye del conteo hasta cotejarla.
 
 <!-- page -->
 
-### 3 Peor caso 5 Cinco niveles omitidos
+## 3B Casos con errores
 
-**Entrada:** REAL_02.jpg · foto real · entrenamiento. **Modelo:** YOLO26-1.
+### F05 Contorno que incluye un exhibidor lateral
 
-![Imagen original de entrada](../Datos/V1/Lider/lider_002.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F05 original](Evidencias/casos_yolo_bordes_20261021/F05_original.jpg) | ![F05 yolo](Evidencias/casos_yolo_bordes_20261021/F05_yolo.jpg) | ![F05 bordes](Evidencias/casos_yolo_bordes_20261021/F05_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_02_train.jpg)
+Esperamos analizar solo la repisa. Un contorno alcanza productos colgados a la derecha y la señal puede incorporar material ajeno al nivel.
 
-**Esperado:** 10 niveles: 10 suficiente. **Obtenido:** 5 predicciones: 5 suficiente.
+Posible causa: límites laterales ambiguos. Mejora: revisar el contorno de referencia y probar un recorte por módulo, comprobando que no elimine producto válido.
 
-**Métricas:** 5/10 localizados; 5/10 estados exactos; 5 omitidos; 0 extras. IoU media de los contornos asociados 0.9327. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### F06 Acopio superior y límites del mueble
 
-**Error y causa probable:** Se detectan cinco de diez niveles anotados. La causa no está aislada: podrían intervenir geometría, contraste o confianza. El JSON a conf fija no demuestra que bajar el umbral recupere las cinco omisiones.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F06 original](Evidencias/casos_yolo_bordes_20261021/F06_original.jpg) | ![F06 yolo](Evidencias/casos_yolo_bordes_20261021/F06_yolo.jpg) | ![F06 bordes](Evidencias/casos_yolo_bordes_20261021/F06_bordes.jpg) |
 
-**Propuesta de mejora:** Probar distintos mínimos de confianza en validación y revisar tanto los niveles recuperados como las detecciones equivocadas.
+La salida delimita las repisas interiores y deja el área superior de acopio sin analizar. También hay productos laterales que requieren revisar el límite de evaluación.
 
-**Trazabilidad:** registro REAL_02.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Peor caso 6 Confusión entre vacío y baja
-
-**Entrada:** REAL_03.jpg · foto real · entrenamiento. **Modelo:** YOLO11-1.
-
-![Imagen original de entrada](../Datos/V1/Lider/lider_003.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO11-1_20261015_013749_f709/comparaciones/REAL_03_train.jpg)
-
-**Esperado:** 10 niveles: 7 vacio, 2 suficiente, 1 baja_disponibilidad. **Obtenido:** 14 predicciones: 8 vacio, 2 suficiente, 4 baja_disponibilidad.
-
-**Métricas:** 10/10 localizados; 9/10 estados exactos; 0 omitidos; 4 extras. IoU media de los contornos asociados 0.9490. Alertas: 8/8 acertadas, 0 omitidas y 4 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Error y causa probable:** Se localizan diez referencias, se aciertan nueve estados y se generan cuatro falsas alertas extra. La auditoría previa describe intrusión visual de producto vecino por perspectiva.
-
-**Propuesta de mejora:** Revisar pertenencia al nivel y comparar la categoría reponer y filtrar duplicados conservando la decisión correcta.
-
-**Trazabilidad:** registro REAL_03.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Posible causa: alcance de etiquetado distinto al esperado. Mejora: acordar si el acopio superior pertenece al problema y etiquetarlo de forma consistente antes de llamarlo omisión.
 
 <!-- page -->
 
-### 3 Peor caso 7 No evaluable clasificado como suficiente
+## 3B Casos con errores
 
-**Entrada:** REAL_07.jpg · foto real · entrenamiento. **Modelo:** YOLO26-1.
+### F07 Azúcar en envases blancos
 
-![Imagen original de entrada](../Datos/V1/Lider/lider_007.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F07 original](Evidencias/casos_yolo_bordes_20261021/F07_original.jpg) | ![F07 yolo](Evidencias/casos_yolo_bordes_20261021/F07_yolo.jpg) | ![F07 bordes](Evidencias/casos_yolo_bordes_20261021/F07_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_07_train.jpg)
+Esperamos señal sobre los paquetes blancos. YOLO identifica la repisa, pero el mapa deja gran parte de esos productos sin marcar. La tabla consigna solo 13,57 % de señal de área en el nivel revisado.
 
-**Esperado:** 5 niveles: 4 suficiente, 1 no_evaluable. **Obtenido:** 10 predicciones: 10 suficiente.
+Posible causa: bajo contraste, color poco saturado o respuesta insuficiente de textura. Mejora: añadir controles de envases blancos sin aumentar falsas activaciones en repisas vacías.
 
-**Métricas:** 5/5 localizados; 4/5 estados exactos; 0 omitidos; 5 extras. IoU media de los contornos asociados 0.9105. Alertas: 0/0 acertadas, 0 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### F08 Sal en bolsas blancas
 
-**Error y causa probable:** Se aciertan cuatro estados de cinco y hay cinco predicciones extra. La referencia no evaluable se clasifica como suficiente.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F08 original](Evidencias/casos_yolo_bordes_20261021/F08_original.jpg) | ![F08 yolo](Evidencias/casos_yolo_bordes_20261021/F08_yolo.jpg) | ![F08 bordes](Evidencias/casos_yolo_bordes_20261021/F08_bordes.jpg) |
 
-**Propuesta de mejora:** Revisar referencia y cobertura del segundo módulo; entrenar la clase de oclusión con ejemplos variados.
+Esperamos señal donde se apilan bolsas. El mapa apenas responde en algunas repisas abastecidas; el documento reporta 5,64 % y 0 % de señal de área.
 
-**Trazabilidad:** registro REAL_07.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Peor caso 8 Alerta crítica omitida
-
-**Entrada:** REAL_11.jpg · foto real · entrenamiento. **Modelo:** YOLO26-1.
-
-![Imagen original de entrada](../Datos/V1/Lider/lider_011.jpg)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO26-1_20261015_021212_c452/comparaciones/REAL_11_train.jpg)
-
-**Esperado:** 10 niveles: 9 suficiente, 1 baja_disponibilidad. **Obtenido:** 10 predicciones: 10 suficiente.
-
-**Métricas:** 10/10 localizados; 9/10 estados exactos; 0 omitidos; 0 extras. IoU media de los contornos asociados 0.9050. Alertas: 0/1 acertadas, 1 omitidas y 0 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Error y causa probable:** Las diez referencias se localizan, pero el nivel bajo se clasifica como suficiente. Se pierde la única alerta de la imagen; IoU alta no garantiza una decisión correcta.
-
-**Propuesta de mejora:** Revisar la ocupación con dos anotadores y reforzar faltantes reales y niveles inferiores.
-
-**Trazabilidad:** registro REAL_11.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Posible causa: envases lisos y claros. Mejora: comparar producto y fondo con etiquetas manuales. Un 0 % de señal no significa que no haya producto.
 
 <!-- page -->
 
-### 3 Peor caso 9 Discrepancia con la anotación
+## 3B Casos con errores
 
-**Entrada:** REAL_25.jpg · foto real · entrenamiento. **Modelo:** YOLO11-1.
+### F09 Recargas flexibles en la parte superior
 
-![Imagen original de entrada](../Datos/V1/Lider/lider_025.jpg)
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F09 original](Evidencias/casos_yolo_bordes_20261021/F09_original.jpg) | ![F09 yolo](Evidencias/casos_yolo_bordes_20261021/F09_yolo.jpg) | ![F09 bordes](Evidencias/casos_yolo_bordes_20261021/F09_bordes.jpg) |
 
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/YOLO11-1_20261015_013749_f709/comparaciones/REAL_25_train.jpg)
+Esperamos cubrir las repisas acordadas, incluida la superior si está dentro del alcance. La salida omite la fila de recargas y delimita principalmente las botellas inferiores.
 
-**Esperado:** 12 niveles: 1 vacio, 11 suficiente. **Obtenido:** 13 predicciones: 11 suficiente, 1 vacio, 1 baja_disponibilidad.
+Posible causa: forma y posición diferentes de los empaques. Mejora: revisar cobertura de las etiquetas y añadir ejemplos de recargas flexibles en la parte superior.
 
-**Métricas:** 12/12 localizados; 11/12 estados exactos; 0 omitidos; 1 extras. IoU media de los contornos asociados 0.9329. Alertas: 1/1 acertadas, 0 omitidas y 1 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
+### F10 Leche en polvo y una detección en el techo
 
-**Error y causa probable:** La predicción discrepa en un estado y emite una máscara adicional. La guía de mejora ya señala una posible etiqueta suficiente incorrecta en un nivel con poco producto.
+| Original | Resultado YOLO | Señal de bordes |
+|---|---|---|
+| ![F10 original](Evidencias/casos_yolo_bordes_20261021/F10_original.jpg) | ![F10 yolo](Evidencias/casos_yolo_bordes_20261021/F10_yolo.jpg) | ![F10 bordes](Evidencias/casos_yolo_bordes_20261021/F10_bordes.jpg) |
 
-**Propuesta de mejora:** Resolver la discrepancia humana, versionar la corrección y recalcular; no tratar la etiqueta antigua como verdad definitiva.
+Esperamos contornos solo sobre repisas. YOLO también dibuja un nivel en el techo. Hay un hueco parcial que exige revisar el estado esperado con el criterio de ancho acordado.
 
-**Trazabilidad:** registro REAL_25.jpg en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
-
-<!-- page -->
-
-### 3 Peor caso 10 Dos alertas omitidas y dos falsas
-
-**Entrada:** lider_express_032_B_baja.png · imagen sintética · entrenamiento. **Modelo:** v2_base_yolo11n_01.
-
-![Imagen original de entrada](../Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_032_B_baja.png)
-
-![Referencia a la izquierda y predicción a la derecha](../Experimentos/v2_base_yolo11n_01_20261020_002800_ec8d/comparaciones/lider_express_032_B_baja_train.jpg)
-
-**Esperado:** 6 niveles: 3 suficiente, 3 reponer. **Obtenido:** 8 predicciones: 5 suficiente, 3 reponer.
-
-**Métricas:** 6/6 localizados; 4/6 estados exactos; 0 omitidos; 2 extras. IoU media de los contornos asociados 0.9555. Alertas: 1/3 acertadas, 2 omitidas y 2 falsas. Si no hay faltantes de referencia, no se calcula recall de alertas.
-
-**Error y causa probable:** En una variante sintética de train, se localizan seis niveles, pero se aciertan cuatro estados. Se omiten dos alertas y se generan dos falsas alertas extra.
-
-**Propuesta de mejora:** Comparar con YOLO26 sobre la misma entrada y revisar duplicados y producto disperso; validar el patrón en fotos reales.
-
-**Trazabilidad:** registro lider_express_032_B_baja.png en evaluacion_por_imagen.json del ensayo. Los datos completos están en Evidencias/casos_informe_20261020.json.
-
+Posible causa: líneas del techo parecidas a una repisa. Mejora: delimitar la región del mueble y revisar la referencia. No se cambia a reponer solo por señal baja ni por tener un hueco parcial.
 
 <!-- page -->
 
-## 3 Análisis comparativo y mejoras
+## 3C Análisis comparativo y mejoras
 
-Los mejores casos comparten niveles completos y delimitables, anotación consistente y ausencia de obstáculos que impidan decidir el estado. Las fichas muestran que ambos modelos pueden resolver múltiples módulos y perspectiva moderada, pero no se midieron sistemáticamente grados de inclinación, iluminación, reflejos, sombras ni desenfoque. No se establece un umbral angular o de luz validado.
+Los ejemplos favorables muestran que YOLO puede separar repisas y que el mapa de bordes responde sobre productos con contraste o textura. Vinos y snacks permiten observar diferencias entre sectores abastecidos y vacíos. Estos ejemplos no establecen una distancia o un ángulo de captura óptimos ni una mejora de precisión respecto de YOLO solo.
 
-Los errores combinan clasificación incorrecta, omisiones y predicciones adicionales. Las fichas 2 y 10 de peores casos muestran falsas alertas y decisiones incompatibles sobre un nivel; las fichas 1, 4 y 7 requieren revisar cobertura de anotación. La ficha 8 demuestra que una geometría correcta puede acompañar una alerta omitida. Para comprobar estas posibles causas, cambiaremos un aspecto a la vez y mediremos el resultado en validación.
+| Patrón observado | Casos de referencia | Acción prioritaria |
+|---|---|---|
+| Poco marcado de producto blanco o liso | F02, F07 y F08 | Etiquetar producto y fondo; comparar señales con distintos materiales e iluminación. |
+| Señal sobre metal sin producto | F01 y F02 | Preparar controles de repisa vacía y ajustar rechazo de fondo sin perder producto oscuro. |
+| Repisas omitidas o fuera del alcance | F03, F04, F06 y F09 | Revisar etiquetas, alcance del acopio y registros de ejecución; comparar capturas frontales y amplias. |
+| Contorno que invade otra región | F05 y F10 | Delimitar el mueble y probar recortes sin eliminar repisas válidas. |
 
-Todavía no sabemos cuántas predicciones adicionales se deben a etiquetas incompletas: falta revisar los casos y registrar el total comparado. Tampoco se atribuyen errores de forma causal a iluminación o sombras solo por inspección visual.
+Las causas propuestas son hipótesis. Para comprobarlas hay que cambiar un aspecto a la vez, registrar la configuración y comparar con referencias humanas. Las tablas que no coinciden con las imágenes deben cotejarse con la salida original antes de calcular tasas de error. No se incorporaron nuevas inferencias ni se utilizó la reserva final para esta revisión.
 
-**Prioridades técnicas:** mantener YOLO26 V2 como referencia provisional; ampliar faltantes reales; cerrar la revisión de oclusiones; comparar el filtro posterior de predicciones y revisar si están anotados todos los niveles; fijar el modelo, sus ajustes y las etiquetas antes de consultar la prueba final.
+No se propone convertir automáticamente una señal baja en alerta: azúcar y sal muestran que puede haber producto con señal muy baja. Tampoco basta un hueco parcial para declarar reponer; debe revisarse el criterio de ancho del 30 % y acordar su calibración. Las reglas de fusión se evaluarían después de validar ambas salidas.
 
-La validación real V2 tiene tres grupos de imágenes relacionadas y la prueba final dos. Separar originales y variantes evita imágenes casi iguales entre entrenamiento y evaluación, pero no demuestra que el modelo funcione en otros locales. Para las nuevas capturas registraremos sesión, supermercado, familia y grupo asignado.
-
-Los entornos de entrenamiento registran una GTX 1660 SUPER. Las mediciones de inferencia con batch 1 y 2 no representan una latencia garantizada del panel ni permiten inferir fotogramas por segundo de extremo a extremo. Falta un ensayo reproducible que mida lectura, preparación, inferencia, posprocesamiento y respuesta, además de memoria CPU/GPU.
-
-**Criterios propuestos para aceptación:** medir precisión y recall de reponer y no_evaluable por origen; indicar cuántos ejemplos se midieron y la incertidumbre cuando corresponda; comprobar omisiones y duplicados por nivel; definir con el cliente el costo aceptable de falsa alerta frente a omisión; registrar latencia completa y consumo en el hardware de demostración. Los umbrales de aceptación deben acordarse antes de consultar test.
-
+El documento recibido incluye tiempos por foto, pero no identifica de forma suficiente hardware, calentamiento y tramo medido. No se presentan como latencia reproducible. La siguiente evaluación deberá registrar captura, modelo y peso exactos, ajustes, regiones, etiquetas esperadas y tiempo completo hasta mostrar el resultado.
 
 <!-- page -->
 
@@ -686,7 +485,7 @@ La carpeta local organiza código en Herramientas, datos y versiones en Datos, r
 
 Repositorio de referencia: https://github.com/vcanio/Capstone2026. El historial Git conserva un primer commit del 2 de septiembre de 2026; el inicio aproximado en agosto procede del relato del equipo. La primera consulta del 20 de octubre describía un estado anterior y no representa la publicación actual. Su respuesta completa queda solo en local; el [resumen público de la consulta](Evidencias/README.md#consulta-histórica-de-github) conserva el alcance de ese registro.
 
-La preparación posterior llevó código y documentación al checkout .publicacion/repositorio y permitió publicar Walmart Lite con cuatro pesos y detección de bordes. La Release está enfocada en probar fotografías propias: no contiene el dataset ni el informe. Para desarrollar, los paquetes del laboratorio se transfieren por separado y se instalan con el preparador y --assets. El registro de comprobaciones y los límites están en reproducibilidad/VERIFICACION.md.
+La entrega actual es Walmart Visión: https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21. Incluye cuatro modelos y bordes; en Windows usa iniciador local y en Mac ofrece Docker. La Release permite probar fotografías propias y no contiene el dataset ni el informe. El laboratorio requiere los paquetes del equipo, instalados con --assets. La guía de usuario y las instrucciones Docker explican la réplica.
 
 Desde la raíz, con Python 3.11 o 3.12 y los datos/modelos necesarios disponibles:
 
@@ -701,27 +500,28 @@ python -m venv .venv-modelo
 
 Abrir http://localhost:8090, seleccionar V2 y v2_base_yolo26n_01, cargar la foto lider_express_040_0_original y analizar. La evaluación guardada a conf 0,25 contiene cinco niveles, cuatro suficientes y uno reponer. La demostración debe comparar contra esa configuración y referencia. Una foto propia sin etiqueta permite observar una predicción, no calcular precisión.
 
-La demo Walmart Lite publicada incluye los cuatro modelos V1/V2 y detección de bordes; descarga dependencias en el primer arranque. Queda pendiente probarla en otro computador físico. Su ejecución local verificada no demuestra una instalación correcta en un equipo limpio.
+Walmart Visión incluye los cuatro modelos V1/V2 y detección de bordes. El primer inicio prepara dependencias o la imagen Docker. Las comprobaciones en Linux AMD64 y ARM64 emulado no sustituyen una instalación en otro computador físico ni en macOS; esas pruebas siguen pendientes según la documentación de la entrega.
 
-**Verificación al corte:** auditoría correcta de 43 documentos, 270 enlaces locales, 435 registros de imágenes, 2 exportaciones compartidas y 52 archivos Python. Pasaron las 11 pruebas de datos; la suite de modelos terminó correctamente con 222 pruebas y una omitida. La partición de 296 imágenes también pasó. El [registro público](Evidencias/verificacion_informe_20261020.json) conserva los resultados; los logs extensos se guardan solo en local, según la [política de evidencias](Evidencias/README.md). La revisión anterior de planificación quedó registrada en Evidencias/verificacion_planificacion_20261020.json. Esta revisión añade explicaciones para la lectura y mantiene sus hitos; su registro está en Evidencias/verificacion_claridad_20261020.json. Las pruebas de código no sustituyen una validación del modelo ni una demostración en hardware externo.
+**Verificación al corte:** auditoría correcta de 43 documentos, 270 enlaces locales, 435 registros de imágenes, 2 exportaciones compartidas y 52 archivos Python. Pasaron las 11 pruebas de datos; la suite de modelos terminó correctamente con 222 pruebas y una omitida. La partición de 296 imágenes también pasó. El [registro público](Evidencias/verificacion_informe_20261020.json) conserva los resultados; los logs extensos se guardan solo en local, según la [política de evidencias](Evidencias/README.md). La revisión anterior de planificación quedó registrada en Evidencias/verificacion_planificacion_20261020.json. La revisión de lectura quedó en Evidencias/verificacion_claridad_20261020.json. La selección actual y sus correcciones están en Evidencias/casos_yolo_bordes_20261021.json; su revisión documental se registra por separado. Las pruebas de código no sustituyen una validación del modelo ni una demostración en hardware externo.
 
 
 <!-- page -->
 
 ## 5 Conclusiones y próximos pasos
 
-Logramos preparar imágenes, etiquetarlas, entrenar y comparar modelos, y analizar fotos desde una interfaz local. Conservamos cuatro modelos con resultados e imágenes de comparación. V2 base obtiene mejores métricas de contornos en su propia validación, pero cambian los datos y las categorías respecto de V1. La detección de faltantes reales todavía se apoya en pocos ejemplos.
+Logramos preparar imágenes, etiquetarlas, entrenar y comparar modelos, y analizar fotos desde una interfaz local. Conservamos cuatro modelos con resultados e imágenes de comparación y añadimos la revisión visual de YOLO + bordes. V2 base obtiene mejores métricas de contornos en su propia validación, pero cambian los datos y las categorías respecto de V1. La detección de faltantes reales todavía se apoya en pocos ejemplos.
 
-El panel dispone de carga de imágenes, selección de modelo, ejecución de inferencia y visualización de estados. Los artefactos demuestran implementación, mientras que la disponibilidad del despliegue y la ejecución en un equipo limpio necesitan una comprobación adicional. V2 de tres estados, deduplicación validada, prueba final y validación de Lite en otro computador permanecen pendientes.
+El panel dispone de carga de imágenes, selección de modelo, ejecución de inferencia y visualización de estados. Los artefactos demuestran implementación, mientras que la disponibilidad del despliegue y la ejecución en un equipo limpio necesitan una comprobación adicional. V2 de tres estados, deduplicación validada, prueba final y validación de Walmart Visión en otro computador permanecen pendientes.
 
 | Actividad propuesta | Responsable propuesto | Fecha estimada | Criterio de cierre |
 |---|---|---|---|
+| Cotejar imágenes, tablas y configuración de los casos | Todo el equipo | 23 oct | Registros asociados a cada imagen y diferencias resueltas |
 | Cerrar revisión de 308 polígonos de tarea 22 | Paulo Guerra y Vicente Vilches | 27 oct | Copia de etiquetas aprobada y diferencias resueltas |
 | Entrenar y comparar V2 de tres estados | Vicente Canio y Paulo Guerra | 3 nov | Ensayos versionados y métricas por origen/clase |
-| Evaluar deduplicación y referencias de bordes | Vicente Canio y Paulo Guerra | 10 nov | Comparación en validación sin empeorar niveles vecinos |
+| Evaluar duplicados, envases claros y fondos | Vicente Canio y Paulo Guerra | 10 nov | Comparación con referencias sin empeorar niveles vecinos |
 | Capturar faltantes reales independientes | Vicente Vilches y equipo | 17 nov | Nuevas escenas anotadas y partición versionada |
 | Congelar modelo y ejecutar prueba final | Todo el equipo | 26 nov | Prueba real separada de los ejemplos sintéticos |
-| Validar Lite V2 en otro computador físico | Vicente Canio y equipo | 26 nov | Instalación y ejecución externa verificadas; la demo ya está publicada |
+| Validar Walmart Visión en otro computador físico | Vicente Canio y equipo | 26 nov | Instalación y ejecución externa verificadas; la demo ya está publicada |
 | Cerrar informe y preparar defensa | Todo el equipo | 3 o 4 dic | Demostración y documentación consistentes |
 
 Estas asignaciones y fechas son propuestas que el equipo debe acordar. El MVP es la versión mínima necesaria para comprobar la solución. Llegar a tiempo depende de aprobar las etiquetas y reunir más faltantes reales antes de fijar el modelo para la prueba final. El 77,8 % de hitos no autoriza afirmar que resta el 22,2 % del esfuerzo; la captura y validación pueden dominar el tiempo restante.

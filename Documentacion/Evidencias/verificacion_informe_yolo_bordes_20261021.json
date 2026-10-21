@@ -1,0 +1,75 @@
+{
+  "fecha": "2026-10-21",
+  "corte_datos_y_entrenamientos": "2026-10-20",
+  "alcance": "Actualización del informe con revisión visual de YOLO y detección de bordes; explicaciones breves de dos casos por página",
+  "fuente_principal": {
+    "nombre": "Analisis_Resultados_Walmart_Revisado.docx",
+    "sha256": "0e3d05732c44e7f7b396610e6769fba1b5b0b787b929473d0bfd95a38ffdfbc1"
+  },
+  "casos": {
+    "favorables": 10,
+    "con_errores": 10,
+    "entradas_distintas_por_hash": 20,
+    "imagenes_por_caso": 3,
+    "caso_b09": "Reemplazo facilitado por el equipo. Entrada sintética lider_express_014_A_vacios, de validación sintética de diagnóstico; no test."
+  },
+  "correcciones": [
+    "Nombres de productos contrastados con fotografías",
+    "Separación entre señal experimental y ocupación real",
+    "Tablas de F03 y F04 excluidas del conteo: contradicen imágenes",
+    "Confianza y porcentajes de ocupación de F10 no validados por contradicciones de la fuente",
+    "B09 reemplazado por la evidencia de cuidado capilar facilitada por el equipo; entrada sintética identificada en diagnóstico V2"
+  ],
+  "limites": [
+    "No se ejecutaron nuevos modelos para preparar el informe",
+    "Se mantienen separados los resultados históricos de YOLO y la selección visual de YOLO con bordes",
+    "No se calcula IoU, precisión global, ocupación real o latencia reproducible de la selección sin referencias y registros suficientes",
+    "Posibles causas expresadas como hipótesis",
+    "Tablas contradictorias preservadas como fuente consignada, excluidas de conteos",
+    "Peso exacto de la captura B09 no identificado en los archivos recibidos"
+  ],
+  "render": {
+    "paginas": 23,
+    "paginas_anteriores": 34,
+    "imagenes_incrustadas": 62,
+    "metodo": "Word ExportAsFixedFormat y Poppler",
+    "alternativa": "render_docx.py no pudo convertir por falta de LibreOffice; se utilizó Microsoft Word instalado",
+    "revision_visual": "23 páginas inspeccionadas. Después de las últimas correcciones se renderizaron todas; cambiaron las páginas 3, 4, 5, 6 y 10, que se revisaron de nuevo; las otras 18 conservaron los mismos píxeles."
+  },
+  "datos_modelos_particiones": "Sin modificación de pesos, etiquetas congeladas ni grupos de datos",
+  "entregables": {
+    "Entregables/Informe_Intermedio_Avance_20261020.docx": {
+      "bytes": 14613445,
+      "sha256": "ed5f79065db36744449893c3472171ba27ef5bb99fde11b2365f9721c6f6c519"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.pdf": {
+      "bytes": 4222763,
+      "sha256": "cd8782158399dc08e595bd547a005080d9afe499f65976dcbb5f9c0666528e83"
+    },
+    "Entregables/Informe_Intermedio_Avance_20261020.html": {
+      "bytes": 19708616,
+      "sha256": "8d15d838edfea9731e215c09fb6a7fd10ad5f4d278485b8fff59aa1525e9f3fb"
+    }
+  },
+  "distribucion": "PDF, fuente Markdown y evidencias en Git; paquete completo con Word y HTML compartido por separado. La Release de Walmart Visión conserva la aplicación para probar modelos.",
+  "comprobaciones": {
+    "publicacion": {
+      "estado": "correcto",
+      "archivos_git": 925,
+      "python_sintaxis": 87,
+      "enlaces_disponibles": 494,
+      "paquetes": 5
+    },
+    "integridad_proyecto": {
+      "estado": "correcto",
+      "documentos": 62,
+      "enlaces_locales": 494,
+      "exportaciones_compartidas": 2,
+      "python_sintaxis": 56,
+      "registros_imagenes": 435,
+      "imagenes_unicas": 405
+    },
+    "integridad_zip_informe": "Correcta; tres archivos y CRC comprobados",
+    "render_html": "62 imágenes incrustadas; 60 vistas de casos y 2 figuras"
+  }
+}

@@ -25094,24 +25094,24 @@
       "distribution": "team_assets"
     },
     "informe": {
-      "file": "Walmart_Informe_Revision_20261020.zip",
-      "bytes": 64387283,
-      "sha256": "18867db4f8db085bc97f610703d13b8dc8995f88e8ccdee7a6940db8c03753f5",
+      "file": "Walmart_Informe_YOLO_Bordes_20261021.zip",
+      "bytes": 33739147,
+      "sha256": "7ca0851d6614d024cb1e58df5e19f98a3ea9ba70deec57edc0aea72ee5e68a6b",
       "files": [
         {
           "path": "Entregables/Informe_Intermedio_Avance_20261020.docx",
-          "bytes": 29899641,
-          "sha256": "55d3fbf276b41aef4be570bcfe17a6d21657834c64c91225a6a80e86c31b79db"
+          "bytes": 14613445,
+          "sha256": "ed5f79065db36744449893c3472171ba27ef5bb99fde11b2365f9721c6f6c519"
         },
         {
           "path": "Entregables/Informe_Intermedio_Avance_20261020.pdf",
-          "bytes": 4052147,
-          "sha256": "470f9657d9d1381169a21b95a93790908c8fd3c87e96e641b538647450eff2ea"
+          "bytes": 4222763,
+          "sha256": "cd8782158399dc08e595bd547a005080d9afe499f65976dcbb5f9c0666528e83"
         },
         {
           "path": "Entregables/Informe_Intermedio_Avance_20261020.html",
-          "bytes": 40541195,
-          "sha256": "d32475c9b585ceacebdf38665696dc951b6d62a897393466dd977b2a51733203"
+          "bytes": 19708616,
+          "sha256": "8d15d838edfea9731e215c09fb6a7fd10ad5f4d278485b8fff59aa1525e9f3fb"
         }
       ],
       "distribution": "team_assets"
