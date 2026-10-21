@@ -1,6 +1,6 @@
 # Walmart Visión — probar modelos con fotos propias
 
-La entrega **Walmart_Vision_20261020.zip** contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. No necesita el proyecto completo, CVAT, Docker, las imágenes de entrenamiento ni acceso al computador original.
+La entrega [**Walmart_Vision_Docker_20261021.zip**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. Incluye iniciador Windows y archivos Docker para Mac. No necesita el proyecto completo, CVAT, las imágenes de entrenamiento ni acceso al computador original.
 
 ## Mac con Docker
 

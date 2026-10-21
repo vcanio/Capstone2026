@@ -4,12 +4,12 @@
 
 Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. El sistema utiliza modelos de segmentación YOLO para **identificar las repisas, delimitar sus contornos y clasificar su estado de disponibilidad**.
 
-> **Estado del proyecto:** prototipo funcional en desarrollo. La aplicación de prueba está disponible para Windows x64; la evaluación final y el manejo completo de obstáculos siguen pendientes.
+> **Estado del proyecto:** prototipo funcional en desarrollo. La aplicación de prueba está disponible para Windows x64 y con Docker para Mac Intel y Apple Silicon; la evaluación final y el manejo completo de obstáculos siguen pendientes.
 
 | 🚀 Probar la aplicación | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|
-| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
-| Windows x64 · 4 modelos incluidos | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
+| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
+| Windows x64 · Mac con Docker · 4 modelos incluidos | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
 
 ## Contenido
 
@@ -48,25 +48,35 @@ La solución incluye dos entornos con propósitos diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-La versión descargable permite probar fotografías **sin instalar Docker, CVAT ni Python previamente**.
+La versión descargable incluye los cuatro modelos y el visor. En Windows utiliza un iniciador automático; en Mac utiliza Docker Desktop. No requiere instalar CVAT ni Python previamente.
 
-<https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip>
+[**Descargar Walmart_Vision_Docker_20261021.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-docker-2026-10-21/Walmart_Vision_Docker_20261021.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-docker-2026-10-21/Walmart_Vision_Docker_20261021.sha256)
 
-1. Descarga **`Walmart_Vision_20261020.zip`** desde la [Release del 20 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-20).
+**Windows:**
+
+1. Descarga **`Walmart_Vision_Docker_20261021.zip`** desde la [Release del 21 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21).
 2. Extrae el archivo ZIP completo.
 3. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
 4. Selecciona **V1 o V2**, escoge uno de los modelos incluidos y carga una fotografía.
 5. Revisa las pestañas **Original**, **Niveles**, **Bordes** y **Comparar**.
 
+**Mac Intel y Apple Silicon:** instala y abre Docker Desktop, extrae el mismo ZIP y abre Terminal en la carpeta `Walmart_Vision`. Ejecuta:
+
+```bash
+docker compose up --build -d --wait
+```
+
+Abre http://localhost:8095. Para detener la aplicación, ejecuta `docker compose down`. La [guía Docker](Herramientas/Demo_lite/DOCKER.md) explica instalación, reinicio sin descargas y solución de problemas.
+
 | Requisito | Detalle |
 |---|---|
-| Sistema | Windows x64. |
+| Sistema | Windows x64 o Mac Intel/Apple Silicon con Docker Desktop. |
 | Descarga | ZIP de aproximadamente **36 MiB**, con cuatro modelos y visor local. |
-| Primer inicio | Requiere Internet para descargar Python y las dependencias. |
+| Primer inicio | Requiere Internet para preparar Python y las dependencias en Windows, o construir la imagen Docker en Mac. |
 | Procesamiento | Inferencia local mediante CPU; las fotografías no se guardan. |
-| Estado de verificación | Falta comprobar la instalación en otro computador físico. |
+| Estado de verificación | Inferencia comprobada en Linux AMD64 y ARM64 emulado; falta comprobar la instalación en otro computador físico y en macOS. |
 
-> **Descarga correcta:** utiliza el archivo `Walmart_Vision_20261020.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
+> **Descarga correcta:** utiliza el archivo `Walmart_Vision_Docker_20261021.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
 
 **Material para probar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) —3 fotografías reales y 3 variantes sintéticas—, con casos de reposición, disponibilidad suficiente y errores conocidos. Las imágenes se distribuyen fuera de Git.
 

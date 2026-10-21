@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-21",
+  "repository": "vcanio/Capstone2026",
+  "release": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21",
+  "tag": "walmart-vision-docker-2026-10-21",
+  "release_commit": "7aeecd9ab8f0d73ef1f31a51de45a9f296fb3fd6",
+  "latest_at_publication": true,
+  "assets": [
+    {
+      "name": "Walmart_Vision_Docker_20261021.sha256",
+      "bytes": 102,
+      "sha256": "8e78ff94fc43bbf5e78c1f9bfaf7de244c4530bfb9dce0ed1dfb7130ce3f021f",
+      "public_download": "ok"
+    },
+    {
+      "name": "Walmart_Vision_Docker_20261021.zip",
+      "bytes": 37480056,
+      "sha256": "4af7fc6ca6fbd48f9fbfef938c796e98710e787c335b6713d587ce514a93f259",
+      "public_download": "ok"
+    }
+  ],
+  "public_download_verification": "ok",
+  "zip_files": 28,
+  "previous_windows_zip_sha256": "4ca1002d3d4f920987f47d7696c67ff6c247c5036f879ed2efd6e690335947e2",
+  "previous_release_assets_unchanged": true,
+  "offline_inference": [
+    {
+      "architecture": "x86_64",
+      "predictions": 8,
+      "torch": "2.5.1+cpu",
+      "torchvision": "0.20.1+cpu",
+      "ultralytics": "8.4.174",
+      "network": "none",
+      "uid": 10001
+    },
+    {
+      "architecture": "aarch64",
+      "predictions": 8,
+      "torch": "2.5.1",
+      "torchvision": "0.20.1",
+      "ultralytics": "8.4.174",
+      "network": "none",
+      "uid": 10001
+    }
+  ],
+  "test_environment": "Docker Desktop en Windows con motor Linux; ARM64 bajo emulación.",
+  "physical_mac_verification": "pendiente",
+  "note": "Comprobación de publicación e inferencia; no constituye evaluación independiente de precisión."
+}

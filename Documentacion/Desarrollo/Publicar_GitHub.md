@@ -1,6 +1,6 @@
 # Publicar Walmart Visión
 
-La Release `walmart-vision-2026-10-20` contiene un único activo público: **Walmart_Vision_20261020.zip**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores e instrucciones de Windows y el cuaderno de Colab. Los datos e informes del laboratorio se comparten por separado.
+La [Release vigente](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21), `walmart-vision-docker-2026-10-21`, contiene **Walmart_Vision_Docker_20261021.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. Los datos e informes del laboratorio se comparten por separado.
 
 ## Preparar y comprobar
 
@@ -15,7 +15,7 @@ Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bord
 
 ## Publicar una nueva versión
 
-La preparación Docker del 21 de octubre se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Docker_20261021.zip`. Contiene los archivos Docker además del visor y los modelos. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Distribuirlo como un activo nuevo con su SHA-256; no sobrescribir el ZIP ya publicado del 20 de octubre. Crear el activo y actualizar sus enlaces/manifiesto de descarga cuando efectivamente se publique. La creación local del ZIP no publica nada en GitHub.
+La preparación Docker del 21 de octubre se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Docker_20261021.zip`. Contiene los archivos Docker además del visor y los modelos. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Esta versión ya se publicó y sus dos descargas se verificaron contra los archivos locales. Para una entrega posterior, usar un nombre y tag nuevos y actualizar los enlaces y el manifiesto después de publicarla; conservar los activos existentes. La creación local del ZIP no publica nada en GitHub.
 
 1. Revisar el diff del checkout, hacer commit de código y documentación y push a main, sin forzar.
 2. Preparar las notas, el tag y el título de la nueva versión con el alcance real de [verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md). Las [notas del 20 de octubre](Notas_Release_Walmart_Vision_20261020.md) corresponden a la entrega Windows anterior.

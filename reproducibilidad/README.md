@@ -5,6 +5,7 @@ Esta carpeta conserva los registros que permiten identificar la entrega y compro
 | Archivo o carpeta | Contenido |
 |---|---|
 | [artefactos.json](artefactos.json) | Paquetes de la aplicación y del laboratorio, archivos incluidos, tamaños y hashes SHA-256. |
+| [artefactos_demo_20261020.json](artefactos_demo_20261020.json) | Manifiesto histórico del ZIP Windows del 20 de octubre, conservado al publicar la entrega Docker. |
 | [VERIFICACION.md](VERIFICACION.md) | Comprobaciones realizadas, alcance de los resultados y pruebas pendientes. |
 | [evidencias](evidencias/README.md) | Resultados compactos de las comprobaciones del panel y de la aplicación. |
 

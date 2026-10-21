@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "walmart-vision-2026-10-20",
+  "version": "walmart-vision-docker-2026-10-21",
   "repository": "vcanio/Capstone2026",
   "publication": "Release pública: solo Walmart Visión. Paquetes del laboratorio: distribución separada con --assets.",
   "packages": {
@@ -25117,14 +25117,14 @@
       "distribution": "team_assets"
     },
     "demo": {
-      "file": "Walmart_Vision_20261020.zip",
-      "bytes": 37472870,
-      "sha256": "4ca1002d3d4f920987f47d7696c67ff6c247c5036f879ed2efd6e690335947e2",
+      "file": "Walmart_Vision_Docker_20261021.zip",
+      "bytes": 37480056,
+      "sha256": "4af7fc6ca6fbd48f9fbfef938c796e98710e787c335b6713d587ce514a93f259",
       "files": [
         {
           "path": "Walmart_Vision/app.py",
-          "bytes": 6155,
-          "sha256": "12af254f43470e02c87b1f4b9a2c7544a3a12fc85e7d7a214cde6e87cdc2ffa4"
+          "bytes": 6362,
+          "sha256": "dfef77f69701d575c9809a1ea47610e36fb9813e7a68dfe422bcbf302c37f012"
         },
         {
           "path": "Walmart_Vision/inferencia.py",
@@ -25163,8 +25163,8 @@
         },
         {
           "path": "Walmart_Vision/LEEME.md",
-          "bytes": 7851,
-          "sha256": "c7e1bf7a1157980de19e81ee5038f41c934968531a3421ce2cb5663e04da8c76"
+          "bytes": 8928,
+          "sha256": "6509ea525b261cdbea093cd1c3f810acc8b154a7d91b287c487a74c125bf52cc"
         },
         {
           "path": "Walmart_Vision/herramientas/uv.exe",
@@ -25185,6 +25185,36 @@
           "path": "Walmart_Vision/herramientas/licencias/LICENSE-MIT",
           "bytes": 1077,
           "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
+        },
+        {
+          "path": "Walmart_Vision/Dockerfile",
+          "bytes": 1755,
+          "sha256": "047d568ac464b7618db79941d0ab84b62da2964f80e3ed41890e45214d467e29"
+        },
+        {
+          "path": "Walmart_Vision/.dockerignore",
+          "bytes": 231,
+          "sha256": "78b51930a1168b4b817afdb818c26952e26f8d022d5df87f07b9f4f5eedf9a9b"
+        },
+        {
+          "path": "Walmart_Vision/compose.yaml",
+          "bytes": 431,
+          "sha256": "fc194d00a841ac68922fb25f9aa0c48c2a7ce2f39ee525ad75cbbf2a802fc436"
+        },
+        {
+          "path": "Walmart_Vision/requirements-docker.txt",
+          "bytes": 161,
+          "sha256": "84f116def6fd6a8572fb92d597af9ab6bc82325b11c342b1513626caa6045489"
+        },
+        {
+          "path": "Walmart_Vision/DOCKER.md",
+          "bytes": 5985,
+          "sha256": "84b135b4e1925526978e02b6cf6f85692d20ba615e96d62762fe79051ae64b56"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION_DOCKER.md",
+          "bytes": 3544,
+          "sha256": "a72cd2b5de85754dde6f373a32bf5ffc9201e78651a3304342bf1e660505daee"
         },
         {
           "path": "Walmart_Vision/modelos/YOLO11-1.pt",
@@ -25223,8 +25253,8 @@
         },
         {
           "path": "Walmart_Vision/Probar_en_Colab.ipynb",
-          "bytes": 8303,
-          "sha256": "51be528e2950ef1d05b2c47eac5d4fc9ecafdfb46046ed06576316bd6349cd32"
+          "bytes": 8310,
+          "sha256": "89c21f8d6976c7fd9421c6a62753f05145af5a5aed4f0517378cd0611d709c1e"
         },
         {
           "path": "Walmart_Vision/VERIFICACION.md",
@@ -25233,7 +25263,7 @@
         }
       ],
       "destination": "Entregables",
-      "url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip"
+      "url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-docker-2026-10-21/Walmart_Vision_Docker_20261021.zip"
     }
   }
 }

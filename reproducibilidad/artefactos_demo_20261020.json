@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "version": "walmart-vision-2026-10-20",
+  "repository": "vcanio/Capstone2026",
+  "publication": "Registro histórico de la entrega Windows del 20 de octubre.",
+  "packages": {
+    "demo": {
+      "file": "Walmart_Vision_20261020.zip",
+      "bytes": 37472870,
+      "sha256": "4ca1002d3d4f920987f47d7696c67ff6c247c5036f879ed2efd6e690335947e2",
+      "files": [
+        {
+          "path": "Walmart_Vision/app.py",
+          "bytes": 6155,
+          "sha256": "12af254f43470e02c87b1f4b9a2c7544a3a12fc85e7d7a214cde6e87cdc2ffa4"
+        },
+        {
+          "path": "Walmart_Vision/inferencia.py",
+          "bytes": 12348,
+          "sha256": "9845bc8aa9005a7fd6a1385e0061c9b0304d47c70a905f54fb531c01394629ac"
+        },
+        {
+          "path": "Walmart_Vision/interfaz.html",
+          "bytes": 24736,
+          "sha256": "62c7527bac825605cdc14926c1a8392a29d352f1c7531f1546a5c91e8121ba60"
+        },
+        {
+          "path": "Walmart_Vision/requirements.txt",
+          "bytes": 75,
+          "sha256": "4d6ffa96915b53fb10b462125c8a227c84f766fef88064fe883b06edfd5568ab"
+        },
+        {
+          "path": "Walmart_Vision/instalar.cmd",
+          "bytes": 402,
+          "sha256": "85983f77960a4b4cbb016540ce4a10ffb3074133bceebeaa22a4a45ea1ab6e57"
+        },
+        {
+          "path": "Walmart_Vision/iniciar.cmd",
+          "bytes": 602,
+          "sha256": "579002fa4f5f89aa22a27525ea54d14ffd73637e0c067e32b02a9e5e24e135b2"
+        },
+        {
+          "path": "Walmart_Vision/preparar.cmd",
+          "bytes": 1237,
+          "sha256": "604763150715034c6992ae1059e342eaf9278a681135b1c1187fb8b7df1ae1c5"
+        },
+        {
+          "path": "Walmart_Vision/preparar.py",
+          "bytes": 5160,
+          "sha256": "628a58bdcd1e231712d83599b88a37ec3813566950ae9def9104b3b207e8f58c"
+        },
+        {
+          "path": "Walmart_Vision/LEEME.md",
+          "bytes": 7851,
+          "sha256": "c7e1bf7a1157980de19e81ee5038f41c934968531a3421ce2cb5663e04da8c76"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/uv.exe",
+          "bytes": 32095024,
+          "sha256": "4075a09490327d2bedfacc807fa48252fb93647c5bd7ef28f00e579160ea3fb5"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/fuente_uv.json",
+          "bytes": 874,
+          "sha256": "b422df20f3c8c979478f06a55a9d09222ce404f82e55caf7131d79b20d6c5a4d"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-APACHE",
+          "bytes": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-MIT",
+          "bytes": 1077,
+          "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
+        },
+        {
+          "path": "Walmart_Vision/modelos/YOLO11-1.pt",
+          "bytes": 6000413,
+          "sha256": "8aa80b5a23385b93c84652b5e83a2bb9bfed96491d0a88c87ff324ac895dbab6"
+        },
+        {
+          "path": "Walmart_Vision/modelos/YOLO26-1.pt",
+          "bytes": 6530774,
+          "sha256": "770441daf7f3dc0189ac4673a43c5ccb3da8d7d6a33cad88c51f1a676297d659"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO11.pt",
+          "bytes": 5988445,
+          "sha256": "802cc6f72187eec3059e64ec239e70c0fbcb253cc436f9ab320e642bad5dc088"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO26.pt",
+          "bytes": 6526038,
+          "sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67"
+        },
+        {
+          "path": "Walmart_Vision/ocupacion_paulo.py",
+          "bytes": 8522,
+          "sha256": "2f913c3dc6060fcfdb045cf8b4c1372aa77cc3675f76464f89e178265a7603f5"
+        },
+        {
+          "path": "Walmart_Vision/gondola_bordes.py",
+          "bytes": 16969,
+          "sha256": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+        },
+        {
+          "path": "Walmart_Vision/modelos.json",
+          "bytes": 2183,
+          "sha256": "025a9d1685b44c17a95cc2a7036024bec3463bad12cb3ef9c771f81241900757"
+        },
+        {
+          "path": "Walmart_Vision/Probar_en_Colab.ipynb",
+          "bytes": 8303,
+          "sha256": "51be528e2950ef1d05b2c47eac5d4fc9ecafdfb46046ed06576316bd6349cd32"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION.md",
+          "bytes": 1619,
+          "sha256": "f42445be81d1ab3cf96d772d0b225f4f90cce9683aa7b583b753cf1efd81e603"
+        }
+      ],
+      "destination": "Entregables",
+      "url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-20/Walmart_Vision_20261020.zip"
+    }
+  }
+}
