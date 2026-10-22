@@ -1,0 +1,217 @@
+{
+  "date": "2026-10-22",
+  "package": "Walmart_Vision_Ocupacion_20261022.zip",
+  "bytes": 37493269,
+  "sha256": "4419accccdbf36073cb32785a3c18ff43543228f234a90b7b0814d35fb74917e",
+  "automated_tests": {
+    "vision": 27,
+    "borders": 18,
+    "lab_interface": 35,
+    "status": "ok"
+  },
+  "docker_http_offline": [
+    {
+      "status": "ok",
+      "arch": "x86_64",
+      "uid": 10001,
+      "network": "none",
+      "torch": "2.5.1+cpu",
+      "torchvision": "0.20.1+cpu",
+      "ultralytics": "8.4.174",
+      "records": [
+        {
+          "model": "YOLO11-1",
+          "method": "yolo",
+          "detections": 8,
+          "seconds": 2.91,
+          "images_verified": 1
+        },
+        {
+          "model": "YOLO11-1",
+          "method": "yolo_paulo",
+          "detections": 8,
+          "seconds": 0.9,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO11-1",
+          "method": "yolo_paulo_v2",
+          "detections": 8,
+          "seconds": 0.58,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo",
+          "detections": 7,
+          "seconds": 0.37,
+          "images_verified": 1
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo_paulo",
+          "detections": 7,
+          "seconds": 0.5,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo_paulo_v2",
+          "detections": 7,
+          "seconds": 0.61,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo",
+          "detections": 6,
+          "seconds": 0.17,
+          "images_verified": 1
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo_paulo",
+          "detections": 6,
+          "seconds": 0.34,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo_paulo_v2",
+          "detections": 6,
+          "seconds": 0.37,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo",
+          "detections": 6,
+          "seconds": 0.3,
+          "images_verified": 1
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo_paulo",
+          "detections": 6,
+          "seconds": 0.41,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo_paulo_v2",
+          "detections": 6,
+          "seconds": 0.53,
+          "images_verified": 4
+        }
+      ]
+    },
+    {
+      "status": "ok",
+      "arch": "aarch64",
+      "uid": 10001,
+      "network": "none",
+      "torch": "2.5.1",
+      "torchvision": "0.20.1",
+      "ultralytics": "8.4.174",
+      "records": [
+        {
+          "model": "YOLO11-1",
+          "method": "yolo",
+          "detections": 8,
+          "seconds": 28.79,
+          "images_verified": 1
+        },
+        {
+          "model": "YOLO11-1",
+          "method": "yolo_paulo",
+          "detections": 8,
+          "seconds": 23.75,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO11-1",
+          "method": "yolo_paulo_v2",
+          "detections": 8,
+          "seconds": 24.32,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo",
+          "detections": 7,
+          "seconds": 14.63,
+          "images_verified": 1
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo_paulo",
+          "detections": 7,
+          "seconds": 22.6,
+          "images_verified": 4
+        },
+        {
+          "model": "YOLO26-1",
+          "method": "yolo_paulo_v2",
+          "detections": 7,
+          "seconds": 22.54,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo",
+          "detections": 6,
+          "seconds": 13.99,
+          "images_verified": 1
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo_paulo",
+          "detections": 6,
+          "seconds": 21.1,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO11",
+          "method": "yolo_paulo_v2",
+          "detections": 6,
+          "seconds": 21.8,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo",
+          "detections": 6,
+          "seconds": 14.67,
+          "images_verified": 1
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo_paulo",
+          "detections": 6,
+          "seconds": 21.25,
+          "images_verified": 4
+        },
+        {
+          "model": "V2-YOLO26",
+          "method": "yolo_paulo_v2",
+          "detections": 6,
+          "seconds": 22.0,
+          "images_verified": 4
+        }
+      ]
+    }
+  ],
+  "zip_integrity": "ok",
+  "manifest_hashes": "ok",
+  "visual_review": [
+    "desktop_light",
+    "mobile_390_light",
+    "mobile_390_dark"
+  ],
+  "test_image": "B09: variante sintética de diagnóstico del proyecto",
+  "test_host": "Windows, Docker Desktop con motor Linux; ARM64 emulado",
+  "physical_mac_test": "pending",
+  "other_physical_computer_install": "pending",
+  "occupancy_calibrated": false,
+  "note": "Verifica ejecución y presentación; no exactitud de ocupación real."
+}

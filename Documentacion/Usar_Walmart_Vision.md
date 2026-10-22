@@ -8,13 +8,13 @@ Walmart Visión permite cargar una fotografía de una góndola, localizar sus ni
 - Internet durante el primer inicio para descargar Python y las dependencias. Los siguientes arranques reutilizan el entorno instalado y permiten analizar fotos localmente sin conexión.
 - Una fotografía propia en JPG, PNG o WebP, sin animación, de hasta 15 MB y 24 megapíxeles.
 
-Descargar **Walmart_Vision_Docker_20261021.zip** desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21), junto con su archivo `.sha256`. El mismo paquete incluye el iniciador Windows, los archivos Docker para Mac y los cuatro modelos. Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los pesos necesarios para usar la aplicación.
+Descargar **Walmart_Vision_Ocupacion_20261022.zip** desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), junto con su archivo `.sha256`. El mismo paquete incluye el iniciador Windows, los archivos Docker para Mac y los cuatro modelos. Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los pesos necesarios para usar la aplicación.
 
 El iniciador de Windows prepara Python 3.12 y las bibliotecas dentro de la carpeta de la aplicación. No hace falta instalar previamente Python, Docker, CVAT ni disponer de una GPU NVIDIA. El análisis utiliza CPU; su duración depende del computador. La instalación ocupa más espacio que el ZIP descargado por sus dependencias.
 
 ## Usar en Mac con Docker
 
-Usar **Walmart_Vision_Docker_20261021.zip** de la [Release del 21 de octubre](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21). El ZIP anterior de Windows del 20 de octubre conserva su contenido y no incluye Docker.
+Usar **Walmart_Vision_Ocupacion_20261022.zip** de la [Release del 22 de octubre](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22). El ZIP anterior de Windows del 20 de octubre conserva su contenido y no incluye Docker.
 
 1. Instalar [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) según el procesador Intel o Apple Silicon y dejarlo abierto.
 2. Extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`, donde está `compose.yaml`.
@@ -39,7 +39,7 @@ Cambiar foto, versión, modelo, método o confianza descarta la predicción ante
 
 El conjunto **Walmart_Vision_Imagenes_Demo_20261020.zip** combina tres fotografías reales y tres variantes sintéticas del proyecto. Permite probar disponibilidad suficiente, reposición, espacios vacíos, baja disponibilidad y un caso con errores conocidos del modelo.
 
-**Descarga:** abrir la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y descargar **Walmart_Vision_Imagenes_Demo_20261020.zip**. Los ejemplos se distribuyen desde Drive; la aplicación se descarga desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21).
+**Descarga:** abrir la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y descargar **Walmart_Vision_Imagenes_Demo_20261020.zip**. Los ejemplos se distribuyen desde Drive; la aplicación se descarga desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22).
 
 El paquete preparado ocupa aproximadamente **19,4 MiB**. Su SHA-256 de referencia es `4ab1ce9975f2799378b2fd630739942f856e9c82e452751eb3bf70bc7f22c9bf`. Después de descargarlo, se puede comprobar en PowerShell con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Imagenes_Demo_20261020.zip`.
 
@@ -80,6 +80,10 @@ El [manifiesto de selección](Ejemplos/imagenes_demo_20261020.json) conserva has
 | Confianza | Puntuación de la predicción; no representa el porcentaje de productos en la repisa. |
 | Señal de bordes, color y textura | Análisis experimental dentro de las máscaras. No cambia el estado YOLO ni mide un porcentaje validado de ocupación. |
 
+La actualización del 22 de octubre simplifica la vista con bordes: **un porcentaje de ocupación estimada por nivel**, tanto sobre la imagen como en una tabla visible. Menos del **30 %** se muestra en **rojo · Reponer**; desde el **30 %**, en **verde · Suficiente**. Sin medición se muestra en gris, sin inventar un porcentaje. La imagen descargada conserva esos mismos porcentajes y colores.
+
+**YOLO + bordes V2** es el método inicial: usa la [combinación ponderada de Paulo](../Experimentos/Bordes/COMBINACION_PONDERADA_V2.md), 70 % de superficie y 30 % de ancho. Bordes V1 usa el área con señal. El desglose está en **Cómo se calcula**. La predicción original de YOLO se conserva en **Detalle del modelo YOLO**; la lectura de ocupación y sus colores usan el umbral del 30 %. **Solo YOLO** conserva la clasificación del modelo. La estimación continúa siendo experimental y pendiente de calibración. Los ZIP de entregas anteriores conservan sus funciones originales.
+
 Una predicción puede omitir un nivel, dibujarlo mal o asignarle un estado incorrecto. Revisar visualmente el resultado antes de usarlo como apoyo para decidir. La aplicación no cuenta SKU ni consulta inventario de bodega. Una foto propia sin anotaciones de referencia permite observar predicciones, pero no calcular precisión.
 
 Las fotografías se procesan en memoria en el computador: no se guardan ni se usan para entrenar. El ZIP no incluye las imágenes del dataset. El cuaderno opcional de Colab tiene un recorrido distinto y sube los archivos seleccionados al entorno de Google; sus instrucciones están en la [guía incluida en la aplicación](../Herramientas/Demo_lite/LEEME.md#colab).
@@ -100,7 +104,7 @@ Las fotografías se procesan en memoria en el computador: no se guardan ni se us
 
 Para cerrar esta comprobación, una persona debe seguir los pasos anteriores en otro computador físico, usando el ZIP descargado desde la Release y sin copiar el entorno Python preparado del equipo de desarrollo:
 
-1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de las [notas de la versión](Desarrollo/Notas_Release_Walmart_Vision_Docker_20261021.md), por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Docker_20261021.zip` en PowerShell.
+1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de las [notas de la versión](Desarrollo/Notas_Release_Walmart_Vision_20261022.md), por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Ocupacion_20261022.zip` en PowerShell.
 2. Extraer el ZIP e iniciar con Internet para comprobar la preparación automática y la apertura del visor.
 3. Analizar una fotografía propia autorizada con cada uno de los cuatro modelos, probando **Solo YOLO** y **YOLO + detección de bordes**. Registrar si cada combinación termina y muestra su resultado, incluso si no detecta niveles.
 4. Revisar las cuatro vistas cuando correspondan, cambiar la foto y comprobar que se limpia el resultado anterior.

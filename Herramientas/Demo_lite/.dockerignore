@@ -9,5 +9,6 @@
 !modelos.json
 !ocupacion_paulo.py
 !gondola_bordes.py
+!gondola_combinacion_ponderada.py
 !modelos/
 !modelos/*.pt

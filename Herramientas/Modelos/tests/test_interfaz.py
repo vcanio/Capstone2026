@@ -45,6 +45,13 @@ class InterfaceTests(unittest.TestCase):
         const rows=PredictionDemo.occupancyRows(detections);
         assert.match(PredictionDemo.occupancyRevision('paulo_mascara_v2_color_textura'),/Revisión 2/);
         assert.match(PredictionDemo.occupancyRevision('paulo_mascara_v1'),/Revisión 1/);
+        assert.match(PredictionDemo.occupancyRevision('paulo_mascara_v2_combinacion_ponderada'),/Bordes V2/);
+        assert.deepEqual(PredictionDemo.methodConfig('yolo_paulo_v2'),{occupancy:true,occupancy_version:'v2'});
+        assert.deepEqual(PredictionDemo.methodConfig('yolo_paulo'),{occupancy:true,occupancy_version:'v1'});
+        assert.deepEqual(PredictionDemo.methodConfig('yolo'),{occupancy:false,occupancy_version:'v1'});
+        assert.match(PredictionDemo.methodHelp('yolo_paulo_v2'),/70 %/);
+        assert.equal(PredictionDemo.occupancyRows([{occupancy:{combined_signal_pct:0}}])[0].combined,'0.0 %');
+        assert.equal(rows[1].combined,'Sin medición');
         assert.equal(rows[0].width,'100.0 %');assert.equal(rows[1].area,'Sin medición');
         assert.equal(rows[0].state,'Reponer');
         """)

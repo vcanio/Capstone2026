@@ -23,7 +23,7 @@ WORKDIR /app/Walmart_Vision
 ENV YOLO_CONFIG_DIR=/app/Walmart_Vision/.runtime/config \
     MPLCONFIGDIR=/app/Walmart_Vision/.runtime/config/matplotlib
 COPY --chown=10001:10001 app.py inferencia.py interfaz.html modelos.json \
-    ocupacion_paulo.py gondola_bordes.py ./
+    ocupacion_paulo.py gondola_bordes.py gondola_combinacion_ponderada.py ./
 COPY --chown=10001:10001 modelos/ ./modelos/
 RUN mkdir -p .runtime/config && chown -R 10001:10001 .runtime
 USER 10001:10001

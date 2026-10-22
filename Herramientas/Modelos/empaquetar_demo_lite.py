@@ -11,15 +11,16 @@ FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instal
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
          'Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt', 'DOCKER.md',
-         'VERIFICACION_DOCKER.md')
+         'VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md')
 EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Herramientas/Modelos/ocupacion_paulo.py',
-              'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py'}
+              'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py',
+              'gondola_combinacion_ponderada.py': ROOT / 'Experimentos/Bordes/gondola_combinacion_ponderada.py'}
 RUNS = {'YOLO11-1': 'YOLO11-1_20261015_013749_f709', 'YOLO26-1': 'YOLO26-1_20261015_021212_c452'}
 V2_RUNS = {**RUNS, 'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
            'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
 
 
-def notebook(package='Walmart_Vision_Docker_20261021.zip', default_model='V2-YOLO26'):
+def notebook(package='Walmart_Vision_Ocupacion_20261022.zip', default_model='V2-YOLO26'):
     cells = []
 
     def md(text):
@@ -107,7 +108,13 @@ prediccion = visor.analyze(contenido_foto, selector.value, confianza,
                           method='yolo_paulo' if usar_bordes else 'yolo')
 print(f"{prediccion['model']} · {prediccion['device']} · {prediccion['seconds']} s")
 print('Niveles detectados:', len(prediccion['detections']))
-print('Estados:', prediccion['counts'])
+print('Estados YOLO:', prediccion['counts'])
+if usar_bordes:
+    print('Ocupación estimada: rojo bajo el 30 %; verde desde el 30 %. Estimación experimental.')
+    for nivel in prediccion['detections']:
+        lectura = nivel['occupancy_estimate']
+        porcentaje = str(lectura['pct']) + ' %' if lectura['pct'] is not None else 'Sin medición'
+        print('Nivel', nivel['id'], porcentaje, lectura['label'])
 from inferencia import read_photo
 original = read_photo(contenido_foto)
 original_view, niveles_view, bordes_view, comparar_view = [widgets.Output() for _ in range(4)]
@@ -117,7 +124,7 @@ with niveles_view:
     display(prediccion['image'])
 with bordes_view:
     if usar_bordes:
-        print('Amarillo: señal experimental; no es porcentaje validado de producto. YOLO determina el estado.')
+        print('Amarillo: señal experimental. Los colores de Niveles usan la ocupación estimada y el umbral del 30 %.')
         display(prediccion['occupancy_image'])
         display(prediccion['filtered_edges_image'])
         display(prediccion['edges_image'])
@@ -169,11 +176,11 @@ def build(output, profile='v1'):
                        'sha256': hashlib.sha256(body).hexdigest(), 'bytes': len(body), 'source_run': run,
                        'classes': metadata['clases'], 'guide': 'v2 base' if model_id.startswith('V2-') else 'v1.3'})
         weights[f'modelos/{model_id}.pt'] = body
-    manifest = {'schema_version': 4, 'product': 'Walmart Visión', 'date': '2026-10-20',
+    manifest = {'schema_version': 4, 'product': 'Walmart Visión', 'date': '2026-10-22',
                 'guide': 'per_model', 'default_model': 'V2-YOLO26' if profile == 'v2' else 'YOLO26-1', 'ultralytics': '8.4.174',
                 'windows_setup': 'private_python_3.12_automatic',
                 'task': 'segment', 'purpose': 'inference_only', 'models': models,
-                'features': ['yolo', 'paulo_mascara_v2_color_textura'],
+                'features': ['yolo', 'paulo_mascara_v2_color_textura', 'paulo_mascara_v2_combinacion_ponderada'],
                 'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
     nb = json.dumps(notebook(output.name, manifest['default_model']), ensure_ascii=False, indent=2) + '\n'
     verify_name = 'VERIFICACION_VISION.md'
@@ -210,5 +217,5 @@ if __name__ == '__main__':
     parser.add_argument('--perfil', choices=('v1', 'v2'), default='v2')
     parser.add_argument('--output')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Vision_Docker_20261021.zip' if args.perfil == 'v2' else 'Walmart_Vision_V1_Docker_20261021.zip'))
+    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Vision_Ocupacion_20261022.zip' if args.perfil == 'v2' else 'Walmart_Vision_V1_20261022.zip'))
     print(json.dumps(build(output, args.perfil), ensure_ascii=False))

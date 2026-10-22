@@ -30,11 +30,28 @@ const fixtures=[{id:'YOLO11-1',name:'YOLO11-1'},{id:'YOLO26-1',name:'YOLO26-1'},
  {id:'V2-YOLO11',name:'V2-YOLO11',states:[{key:'reponer',label:'Reponer',color:'#f00'},{key:'suficiente',label:'Suficiente',color:'#080'}]},
  {id:'V2-YOLO26',name:'V2-YOLO26',states:[{key:'reponer',label:'Reponer',color:'#f00'},{key:'suficiente',label:'Suficiente',color:'#080'}]}];
 global.fetch=async()=>({ok:true,json:async()=>({models:fixtures})});
-function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detections:[{id:1,label:'Reponer',confidence:.9}],model:'V2-YOLO26',device:'cpu',seconds:1,image_url:'data:levels',...(edges?{occupancy:{},occupancy_image_url:'data:signal',edges_image_url:'data:edges',filtered_edges_image_url:'data:filtered'}:{})}}
+function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detections:[{id:1,label:'Reponer',confidence:.9,...(edges?{occupancy_estimate:{pct:15,state:'reponer'}}:{})}],model:'V2-YOLO26',device:'cpu',seconds:1,image_url:'data:levels',...(edges?{occupancy:{},occupancy_image_url:'data:signal',edges_image_url:'data:edges',filtered_edges_image_url:'data:filtered'}:{})}}
 """
 
 
 class VisionInterfaceTests(unittest.TestCase):
+    def test_v2_selection_shows_weighted_measurement_and_clears_old_results(self):
+        self.js("""
+        choose({name:'foto.jpg',size:100,type:'image/jpeg'});
+        $('method').value='yolo_paulo_v2';$('method').listeners.change();
+        assert.match($('method-help').textContent,/30 %/);
+        const data=prediction();data.occupancy.method='paulo_mascara_v2_combinacion_ponderada';
+        data.detections[0].occupancy={combined_signal_pct:44,area_signal_pct:20,width_signal_pct:100,status:'medido'};
+        data.detections[0].occupancy_estimate={pct:44,state:'suficiente'};
+        show(data);assert.match($('edge-summary').textContent,/Bordes V2/);
+        assert.match($('edge-columns').innerHTML,/Combinado/);assert.match($('edge-rows').innerHTML,/44 %/);
+        assert.match($('occupancy-rows').innerHTML,/44 %/);assert.match($('occupancy-rows').innerHTML,/occupancy-enough/);
+        $('method').value='yolo_paulo';$('method').listeners.change();
+        assert.equal($('edge-results').hidden,true);assert.equal($('view-edges').disabled,true);
+        assert.equal($('level-occupancy').hidden,true);assert.equal($('occupancy-rows').innerHTML,'');
+        show(prediction());assert.doesNotMatch($('edge-columns').innerHTML,/Combinado/);
+        """)
+
     def js(self, body):
         code = HARNESS + SCRIPT + '\nsetImmediate(async()=>{try{' + body + "\n}catch(error){console.error(error);process.exitCode=1}});"
         result = subprocess.run([shutil.which('node') or 'node', '-e', code], capture_output=True, text=True)
@@ -90,11 +107,62 @@ class VisionInterfaceTests(unittest.TestCase):
 
     def test_summary_attributes_predictions_to_the_model_without_claiming_accuracy(self):
         self.js("""
-        choose({name:'foto.jpg',size:100,type:'image/jpeg'});show(prediction());
+        choose({name:'foto.jpg',size:100,type:'image/jpeg'});show(prediction(false));
         assert.match($('summary').innerHTML,/El modelo V2-YOLO26 encontró 1 nivel/);
         assert.match($('summary').innerHTML,/no tiene anotaciones de referencia/);
         show({...prediction(false),detections:[],counts:{}});
         assert.match($('summary').innerHTML,/El modelo V2-YOLO26 no encontró niveles/);
+        """)
+
+    def test_simple_occupancy_handles_threshold_missing_values_and_yolo_disagreement(self):
+        self.js("""
+        choose({name:'foto.jpg',size:100,type:'image/jpeg'});
+        const data=prediction();data.counts={suficiente:5,reponer:0};
+        data.detections=[0,29.99,30,100,null].map((pct,i)=>({id:i+1,label:'Suficiente',confidence:.99,occupancy_estimate:{pct}}));
+        show(data);
+        assert.equal($('level-occupancy').hidden,false);
+        assert.match($('summary').innerHTML,/2 niveles necesitan reposición/);
+        assert.match($('summary').innerHTML,/1 sin medición/);
+        const rows=$('occupancy-rows').innerHTML.split('</tr>');
+        for(const i of [0,1]){assert.match(rows[i],/occupancy-low/);assert.match(rows[i],/Reponer/)}
+        for(const i of [2,3]){assert.match(rows[i],/occupancy-enough/);assert.match(rows[i],/Suficiente/)}
+        assert.match(rows[4],/occupancy-unknown/);assert.match(rows[4],/Sin medición/);
+        assert.match($('rows').innerHTML,/Suficiente/);
+        assert.match($('photo').alt,/Ocupación estimada/);
+        view('compare');assert.equal($('compare-caption').textContent,'Ocupación estimada');
+        data.detections=[{id:1,label:'Suficiente',confidence:.99}];show(data);
+        assert.match($('summary').innerHTML,/No se pudo estimar/);
+        assert.doesNotMatch($('occupancy-rows').innerHTML,/99 %/);
+        show(prediction(false));assert.equal($('level-occupancy').hidden,true);
+        assert.equal($('occupancy-rows').innerHTML,'');
+        """)
+
+    def test_version_cards_start_centered_and_transition_to_workspace(self):
+        self.assertIn('<main id="main" data-step="version">', HTML)
+        self.assertIn('<div id="version-cards" class="version-cards"', HTML)
+        self.js("""
+        assert.match($('version-cards').innerHTML,/data-version="v2" aria-pressed="true"/);
+        assert.match($('version-cards').innerHTML,/data-version="v1" aria-pressed="false"/);
+        assert.equal($('workspace-version-name').textContent,'V2');
+        $('version-cards').listeners.click({target:{closest:()=>({dataset:{version:'v1'},disabled:false})}});
+        assert.equal($('version').value,'v1');
+        assert.equal($('workspace-version-name').textContent,'V1');
+        assert.match($('version-cards').innerHTML,/data-version="v1" aria-pressed="true"/);
+        $('version-continue').listeners.click();
+        assert.equal($('main').attrs['data-step'],'workspace');
+        assert.equal($('version-step').hidden,true);
+        assert.equal($('workspace-step').hidden,false);assert.equal($('workspace-version').hidden,false);
+        $('change-version').listeners.click();
+        assert.equal($('main').attrs['data-step'],'version');
+        assert.equal($('version-step').hidden,false);
+        assert.equal($('workspace-step').hidden,true);assert.equal($('workspace-version').hidden,true);
+        assert.equal($('theme-toggle').attrs['aria-pressed'],'false');
+        $('theme-toggle').listeners.click();
+        assert.equal($('theme-toggle').attrs['aria-pressed'],'true');
+        assert.equal($('theme-toggle').attrs['aria-label'],'Modo claro');
+        $('theme-toggle').listeners.click();
+        assert.equal($('theme-toggle').attrs['aria-pressed'],'false');
+        assert.equal($('theme-toggle').attrs['aria-label'],'Modo oscuro');
         """)
 
 

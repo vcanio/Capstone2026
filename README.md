@@ -8,7 +8,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) | [**Ver video funcional**](https://youtu.be/sN_6XPdxtKk) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
+| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
 | Windows x64 · Mac con Docker · 4 modelos incluidos | Recorrido de la app y casos del informe | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
 
 ## Contenido
@@ -48,13 +48,15 @@ La solución incluye dos entornos con propósitos diferentes:
 
 ## Inicio rápido: Walmart Visión
 
+La release del 22 de octubre reúne Windows y macOS en un único ZIP. Muestra un porcentaje de **ocupación estimada por nivel**: rojo bajo el 30 %, verde desde el 30 % y gris sin medición. El desglose de área/ancho y la predicción original de YOLO quedan en los detalles. La estimación visual sigue pendiente de calibración.
+
 La versión descargable incluye los cuatro modelos y el visor. En Windows utiliza un iniciador automático; en Mac utiliza Docker Desktop. No requiere instalar CVAT ni Python previamente.
 
-[**Descargar Walmart_Vision_Docker_20261021.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-docker-2026-10-21/Walmart_Vision_Docker_20261021.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-docker-2026-10-21/Walmart_Vision_Docker_20261021.sha256)
+[**Descargar Walmart_Vision_Ocupacion_20261022.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.sha256)
 
 **Windows:**
 
-1. Descarga **`Walmart_Vision_Docker_20261021.zip`** desde la [Release del 21 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21).
+1. Descarga **`Walmart_Vision_Ocupacion_20261022.zip`** desde la [Release del 22 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22).
 2. Extrae el archivo ZIP completo.
 3. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
 4. Selecciona **V1 o V2**, escoge uno de los modelos incluidos y carga una fotografía.
@@ -76,7 +78,7 @@ Abre http://localhost:8095. Para detener la aplicación, ejecuta `docker compose
 | Procesamiento | Inferencia local mediante CPU; las fotografías no se guardan. |
 | Estado de verificación | Inferencia comprobada en Linux AMD64 y ARM64 emulado; falta comprobar la instalación en otro computador físico y en macOS. |
 
-> **Descarga correcta:** utiliza el archivo `Walmart_Vision_Docker_20261021.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
+> **Descarga correcta:** utiliza el archivo `Walmart_Vision_Ocupacion_20261022.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
 
 **Material para probar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) —3 fotografías reales y 3 variantes sintéticas—, con casos de reposición, disponibilidad suficiente y errores conocidos. Las imágenes se distribuyen fuera de Git.
 
