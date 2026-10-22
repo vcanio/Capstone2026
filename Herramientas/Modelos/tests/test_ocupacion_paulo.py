@@ -18,7 +18,81 @@ import panel_modelos as panel
 
 
 class SignalTests(unittest.TestCase):
+    def test_faint_horizontal_rails_cannot_reactivate_through_texture_or_closing(self):
+        import cv2
+        image = np.full((240, 720, 3), 60, np.uint8)
+        for y in (180, 190):
+            cv2.line(image, (20, y), (700, y), (80, 80, 80), 3)
+        for version in ('v1', 'v2'):
+            with self.subTest(version=version):
+                analyzer = Analyzer(image, version=version)
+                result = analyzer.analyze(np.ones(image.shape[:2], np.uint8))
+                self.assertTrue(analyzer.structures[174:198, 220:650].any())
+                self.assertFalse(analyzer.signal.any())
+                self.assertEqual(result['area_signal_pct'], 0)
+                self.assertEqual(result['width_signal_pct'], 0)
+                self.assertEqual(result['structure_policy'], 'rieles_horizontales_v1')
+
+    def test_rail_suppression_preserves_product_color_and_vertical_edges(self):
+        import cv2
+        image = np.full((240, 720, 3), 60, np.uint8)
+        for y in (180, 190):
+            cv2.line(image, (20, y), (700, y), (80, 80, 80), 3)
+        for x in (90, 250):
+            cv2.rectangle(image, (x, 40), (x+100, 170), (220, 30, 30), -1)
+            for y in range(50, 170, 14):
+                cv2.circle(image, (x+50, y), 8, (255, 255, 255), 2)
+        for version in ('v1', 'v2'):
+            with self.subTest(version=version):
+                analyzer = Analyzer(image, replace(Parameters(), opening=1), version=version)
+                analyzer.analyze(np.ones(image.shape[:2], np.uint8))
+                self.assertFalse(analyzer.signal[174:198, 420:650].any())
+                self.assertGreater(analyzer.signal[55:160, 110:170].mean(), .9)
+                self.assertFalse(analyzer.structures[55:160, 110:170].any())
+
+    def test_weighted_v2_combines_area_and_raw_column_coverage(self):
+        image = np.full((480, 960, 3), 255, dtype=np.uint8)
+        image[330:] = np.random.default_rng(42).integers(0, 230, (150, 960, 3), dtype=np.uint8)
+        mask = np.ones(image.shape[:2], np.uint8)
+        for weight in (0., .7, 1.):
+            analyzer = Analyzer(image, replace(Parameters(), opening=1, surface_weight=weight), version='v2')
+            result = analyzer.analyze(mask)
+            self.assertEqual(result['method'], 'paulo_mascara_v2_combinacion_ponderada')
+            self.assertGreater(result['width_signal_pct'], 90)
+            self.assertLess(result['area_signal_pct'], 60)
+            self.assertAlmostEqual(result['combined_signal_pct'],
+                weight*result['area_signal_pct']+(1-weight)*result['width_signal_pct'], delta=.02)
+        self.assertNotIn('combined_signal_pct', Analyzer(image).analyze(mask))
+        info = provenance('v2')
+        self.assertEqual(info['parameters']['opening'], 1)
+        self.assertEqual(info['parameters']['surface_weight'], .7)
+        self.assertFalse(info['changes_yolo_state'])
+        self.assertIn('Experimentos/Bordes/gondola_combinacion_ponderada.py', info['sources'])
+
+    def test_weighted_v2_respects_masks_and_preserves_missing_measurements(self):
+        image = np.full((480, 960, 3), (240, 10, 10), dtype=np.uint8)
+        image[50:430, 50:910] = 255
+        mask = np.zeros(image.shape[:2], np.uint8); mask[100:380, 100:860] = 1
+        analyzer = Analyzer(image, version='v2')
+        measured = analyzer.analyze(mask, state='reponer')
+        self.assertEqual(measured['combined_signal_pct'], 0)
+        self.assertFalse(analyzer.signal.any())
+        for bad_mask, state in ((mask, 'no_evaluable'), (None, None),
+                                 (np.zeros_like(mask), None), (np.ones((4, 4)), None)):
+            result = analyzer.analyze(bad_mask, state=state)
+            self.assertEqual(result['status'], 'sin_medicion')
+            self.assertIsNone(result['combined_signal_pct'])
+        for weight in (-.1, 1.1, float('nan')):
+            with self.assertRaises(ValueError):
+                Analyzer(image, replace(Parameters(), surface_weight=weight), version='v2')
+
     def test_worker_passes_original_pixels_even_while_rendering_red_yolo_mask(self):
+        self.check_worker_original_pixels('v1')
+
+    def test_worker_dispatches_weighted_v2_without_changing_yolo(self):
+        self.check_worker_original_pixels('v2')
+
+    def check_worker_original_pixels(self, version):
         import panel_worker as worker
         from PIL import Image
 
@@ -51,7 +125,7 @@ class SignalTests(unittest.TestCase):
             original = np.full((480, 720, 3), 255, np.uint8)
             Image.fromarray(original).save(root / 'original.png')
             (job / 'solicitud.json').write_text(json.dumps({'action':'predict','model':'fake.pt',
-                'image':'original.png','occupancy':True,'imgsz':640,'conf':.25,'nms':.7}))
+                'image':'original.png','occupancy':True,'occupancy_version':version,'imgsz':640,'conf':.25,'nms':.7}))
             with patch.object(worker.pilot, 'ROOT', root), patch.object(worker.pilot, 'font_path', return_value=font), \
                  patch.dict('sys.modules', {'torch':SimpleNamespace(cuda=SimpleNamespace(is_available=lambda:False)),
                                            'ultralytics':SimpleNamespace(YOLO=lambda path:Model())}):
@@ -61,6 +135,9 @@ class SignalTests(unittest.TestCase):
             self.assertEqual(output['occupancy']['input_rgb_sha256'], hashlib.sha256(original.tobytes()).hexdigest())
             self.assertEqual(output['detecciones'][0]['occupancy']['area_signal_pct'], 0)
             self.assertEqual(output['detecciones'][0]['occupancy']['width_signal_pct'], 0)
+            if version == 'v2':
+                self.assertEqual(output['detecciones'][0]['occupancy']['combined_signal_pct'], 0)
+                self.assertEqual(output['occupancy']['method'], 'paulo_mascara_v2_combinacion_ponderada')
             self.assertFalse(output['detecciones'][0]['contorno_valido'])
             self.assertEqual(output['detecciones'][0]['occupancy']['status'], 'medido')
             self.assertEqual(output['detecciones'][0]['occupancy']['mask_source'], 'yolo_raster')
@@ -199,6 +276,9 @@ class SignalTests(unittest.TestCase):
         config = {'action': 'predict', 'model': 'model.pt', 'image': 'photo.jpg', 'conf': .25, 'nms': .7, 'imgsz': 640}
         self.assertNotIn('occupancy', panel.validate(config, data))
         self.assertTrue(panel.validate({**config, 'occupancy': True}, data)['occupancy'])
+        self.assertEqual(panel.validate({**config, 'occupancy': True, 'occupancy_version': 'v2'}, data)['occupancy_version'], 'v2')
+        for change in ({'occupancy': True, 'occupancy_version': 'v3'}, {'occupancy_version': 'v2'}):
+            with self.assertRaises(ValueError): panel.validate({**config, **change}, data)
         with self.assertRaises(ValueError): panel.validate({**config, 'occupancy': 'true'}, data)
         data['runs'][0]['manifest']['criterion']['version'] = 'disponibilidad_visual_nivel_v1'
         with self.assertRaises(ValueError): panel.validate({**config, 'occupancy': True}, data)

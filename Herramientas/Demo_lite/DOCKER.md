@@ -1,12 +1,12 @@
 # Walmart Visión en macOS con Docker
 
-El paquete `Walmart_Vision_Docker_20261021.zip` incluye el visor, los cuatro modelos V1/V2 y los archivos de Docker. La construcción utiliza Linux y la arquitectura del equipo: ARM64 en Mac con Apple Silicon y AMD64 en Mac Intel. El análisis utiliza CPU. Las fotografías se procesan en memoria en el computador y no se guardan ni se suben a un servicio externo.
+El paquete `Walmart_Vision_Ocupacion_20261022.zip` incluye el visor, los cuatro modelos V1/V2 y los archivos de Docker. La construcción utiliza Linux y la arquitectura del equipo: ARM64 en Mac con Apple Silicon y AMD64 en Mac Intel. El análisis utiliza CPU. Las fotografías se procesan en memoria en el computador y no se guardan ni se suben a un servicio externo.
 
 ## Preparar el equipo
 
 1. Instalar [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/), eligiendo Apple Silicon o Intel según **Acerca de este Mac**.
 2. Abrir Docker Desktop y esperar a que el motor esté listo. Se recomienda disponer de al menos 8 GB de RAM en el equipo y varios GB libres para la imagen y la caché de construcción; el consumo depende de la fotografía.
-3. Extraer **todo** el ZIP en una carpeta local. El ZIP publicado el 20 de octubre para Windows no incluye estos archivos Docker; usar el paquete con `Docker` en el nombre.
+3. Extraer **todo** el ZIP en una carpeta local. El mismo ZIP sirve para Windows y Mac; en Mac se utilizan los archivos Docker incluidos.
 4. Abrir Terminal, escribir `cd `, arrastrar la carpeta **Walmart_Vision** extraída a la ventana y pulsar Intro. Dentro deben estar `compose.yaml`, `Dockerfile` y `modelos.json`.
 
 No hace falta instalar Python ni copiar el repositorio o los datos de entrenamiento. La primera construcción requiere Internet para descargar la imagen base y las bibliotecas. Puede tardar varios minutos.
@@ -62,7 +62,7 @@ Abrir entonces [Walmart Visión en el puerto 8096](http://localhost:8096). Mante
 El paquete completo se genera desde la raíz del proyecto, con los pesos originales disponibles:
 
 ```bash
-python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Docker_20261021.zip
+python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Ocupacion_20261022.zip
 ```
 
 El empaquetador agrega los modelos, su manifiesto SHA-256, los dos módulos de bordes, las instrucciones y los archivos Docker. No incluye fotografías, entornos Python ni datos del laboratorio. Genera un `.sha256` junto al ZIP. Compartir ambos archivos y conservar el nombre y el hash de cada versión distribuida.

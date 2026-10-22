@@ -4,7 +4,7 @@ Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuari
 
 La [guía conceptual](../Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
 
-La aplicación descargable es `walmart-vision-docker-2026-10-21`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
+La aplicación descargable es `walmart-vision-2026-10-22`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
 en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y
 bordes. Los paquetes del laboratorio se transfieren por separado para desarrollo
 y se instalan con --assets; no se publican como adjuntos de esa Release.
@@ -24,7 +24,7 @@ Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Tr
 
 | Necesidad | Archivos y entorno |
 |---|---|
-| Probar fotografías propias | Walmart_Vision_Docker_20261021.zip. Iniciador Windows x64 o Docker Desktop en Mac Intel/Apple Silicon; Internet en la preparación inicial; sin CVAT. |
+| Probar fotografías propias | Walmart_Vision_Ocupacion_20261022.zip. Iniciador Windows x64 o Docker Desktop en Mac Intel/Apple Silicon; Internet en la preparación inicial; sin CVAT. |
 | Comprender la anotación y el entrenamiento | Guía conceptual, arquitectura, guías de anotación y mapa del código; no requiere instalar el laboratorio. |
 | Desarrollar, evaluar o entrenar | Clon + datos_fuentes + datos_exportados + modelos_resultados; Python 3.11/3.12 para preparar y Docker para ejecutar. |
 | Revisar el informe | Paquete informe; no requiere modelos ni datos de entrenamiento. |
@@ -32,7 +32,7 @@ Los comandos se ejecutan desde la carpeta del repositorio. Las rutas como `D:/Tr
 
 ## Demo portátil
 
-El recorrido para el usuario, incluida la comprobación pendiente en otro computador, está en [Usar Walmart Visión](../Usar_Walmart_Vision.md). Como resumen, descargar Walmart_Vision_Docker_20261021.zip de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21), extraer todo y, en Windows, ejecutar
+El recorrido para el usuario, incluida la comprobación pendiente en otro computador, está en [Usar Walmart Visión](../Usar_Walmart_Vision.md). Como resumen, descargar Walmart_Vision_Ocupacion_20261022.zip de la [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), extraer todo y, en Windows, ejecutar
 `Walmart_Vision/iniciar.cmd`. El primer inicio prepara un Python privado con sus
 dependencias. Seleccionar V1 o V2 en el paso 0, después un modelo, elegir
 YOLO + detección de bordes o Solo YOLO y subir una foto. El modo con bordes añade

@@ -1,10 +1,10 @@
 # Walmart Visión — probar modelos con fotos propias
 
-La entrega [**Walmart_Vision_Docker_20261021.zip**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-docker-2026-10-21) contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. Incluye iniciador Windows y archivos Docker para Mac. No necesita el proyecto completo, CVAT, las imágenes de entrenamiento ni acceso al computador original.
+La entrega [**Walmart_Vision_Ocupacion_20261022.zip**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22) contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. Incluye iniciador Windows y archivos Docker para Mac. No necesita el proyecto completo, CVAT, las imágenes de entrenamiento ni acceso al computador original.
 
 ## Mac con Docker
 
-El paquete **Walmart_Vision_Docker_20261021.zip** agrega ejecución con Docker para Mac Intel y Apple Silicon. Instalar y abrir Docker Desktop, extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`. Ejecutar:
+El paquete **Walmart_Vision_Ocupacion_20261022.zip** agrega ejecución con Docker para Mac Intel y Apple Silicon. Instalar y abrir Docker Desktop, extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`. Ejecutar:
 
 ```bash
 docker compose up --build -d --wait
@@ -20,7 +20,9 @@ Abrir http://localhost:8095. Para detener, ejecutar `docker compose down`. La pr
 
 Las pestañas **Original**, **Niveles**, **Bordes** y **Comparar** comparten el visor principal. En **Bordes**, el mapa de señal aparece directamente; el selector permite ver también los bordes de la foto y los bordes dentro de los niveles. **Comparar** muestra la foto junto a la predicción del modelo elegido. Cambiar versión, modelo, método, confianza o foto descarta el resultado anterior para volver a analizar.
 
-El amarillo representa señal experimental por bordes, color y textura; todavía no equivale al porcentaje real de producto y no cambia el estado de YOLO. La tabla **Mediciones de señal por nivel** muestra área y ancho con señal. Los niveles sin máscara o no evaluables se comunican como sin medición. **Solo YOLO** deja la pestaña Bordes desactivada.
+En la pestaña Bordes, el amarillo representa la señal experimental por bordes, color y textura. Los niveles sin máscara o no evaluables se comunican como sin medición. **Solo YOLO** deja la pestaña Bordes desactivada.
+
+La actualización del 22 de octubre muestra un solo porcentaje de **ocupación estimada por nivel** en la vista Niveles, en Comparar y en la imagen descargada: **rojo bajo el 30 %** con «Reponer» y **verde desde el 30 %** con «Suficiente». Si no hay medición, se muestra gris y «Sin medición». V2 es la opción inicial y combina **70 % de superficie y 30 % de ancho**; V1 usa el área con señal. El desglose queda plegado en **Cómo se calcula** y la predicción original se conserva en **Detalle del modelo YOLO**. Solo YOLO sigue mostrando los estados del modelo. Esta estimación es experimental y está pendiente de calibración; no mide inventario ni ocupación real validada. Los ZIP publicados anteriormente conservan su interfaz original.
 
 **No necesitas instalar Python, desinstalar el que tienes ni cambiar de versión.** Puedes conservar Python 3.13 u otra versión para tus propios proyectos. Walmart Visión utiliza su propio Python 3.12 en `.runtime/python` y sus paquetes en `.entorno-py312`. No cambia PATH, el registro de Python de Windows ni paquetes globales. El instalador incluido es para Windows x64.
 

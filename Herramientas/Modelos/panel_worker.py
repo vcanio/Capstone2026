@@ -113,7 +113,8 @@ def execute(job):
     occupancy = None
     if config.get('occupancy'):
         from ocupacion_paulo import Analyzer, provenance
-        analyzer = Analyzer(occupancy_rgb)
+        version = config.get('occupancy_version', 'v1')
+        analyzer = Analyzer(occupancy_rgb, version=version)
         for index, detection in enumerate(detections):
             detection['occupancy'] = analyzer.analyze(masks[index] if index < len(masks) else None,
                 state=detection['clase'].removeprefix('Nivel_'), valid_contour=detection['contorno_valido'] is True)
@@ -129,6 +130,9 @@ def execute(job):
             if measurement['status'] == 'medido':
                 label = (f"Nivel {detection['id']} · Ancho: {percent(measurement['width_signal_pct'])}\n"
                          f"Área: {percent(measurement['area_signal_pct'])} · señal experimental")
+                if version == 'v2':
+                    label = (f"Nivel {detection['id']} · Combinado: {percent(measurement['combined_signal_pct'])}\n"
+                             f"Área: {percent(measurement['area_signal_pct'])} · Ancho: {percent(measurement['width_signal_pct'])}")
             else:
                 label = f"Nivel {detection['id']} · Sin medición\nSeñal experimental"
             if index < len(masks) and np.any(masks[index]):
@@ -154,7 +158,7 @@ def execute(job):
         signal_image.save(job / 'paulo_senal.jpg', quality=90)
         Image.fromarray(analyzer.edges).save(job / 'paulo_bordes.png')
         Image.fromarray(analyzer.filtered_edges).save(job / 'paulo_bordes_niveles.png')
-        occupancy = provenance()
+        occupancy = provenance(version, analyzer.p)
         import hashlib
         occupancy.update(input_kind='original_rgb_before_inference',
                          input_rgb_sha256=hashlib.sha256(occupancy_rgb.tobytes()).hexdigest())

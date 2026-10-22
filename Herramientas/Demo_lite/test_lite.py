@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 from PIL import Image
 import app
 import preparar
-from inferencia import BusyError, ModelRunner, analyze_edges, draw_result, read_photo
+from inferencia import BusyError, ModelRunner, analyze_edges, draw_result, occupancy_estimate, read_photo
 
 
 def photo(format='PNG', size=(120, 80), exif=None):
@@ -85,13 +85,13 @@ class LiteTests(unittest.TestCase):
     def test_portable_edge_sources_are_checked_at_startup(self):
         manifest = json.loads((self.root / 'modelos.json').read_text())
         manifest['edge_sources'] = {}
-        for name in ('ocupacion_paulo.py', 'gondola_bordes.py'):
+        for name in ('ocupacion_paulo.py', 'gondola_bordes.py', 'gondola_combinacion_ponderada.py'):
             body = b'fixture source'
             (self.root / name).write_bytes(body)
             manifest['edge_sources'][name] = hashlib.sha256(body).hexdigest()
         (self.root / 'modelos.json').write_text(json.dumps(manifest))
         ModelRunner(self.root)
-        (self.root / 'gondola_bordes.py').write_text('changed')
+        (self.root / 'gondola_combinacion_ponderada.py').write_text('changed')
         with self.assertRaisesRegex(ValueError, 'bordes.*modificado'):
             ModelRunner(self.root)
 
@@ -117,6 +117,42 @@ class LiteTests(unittest.TestCase):
         with patch('inferencia.MAX_BYTES', 1), self.assertRaises(ValueError):
             read_photo(photo())
 
+    def test_weighted_edges_select_v2_and_keep_yolo_states(self):
+        import numpy as np
+        original = np.full((240, 720, 3), 255, np.uint8)
+        masks = np.ones((1, 240, 720), np.uint8)
+        result = SimpleNamespace(masks=SimpleNamespace(data=SimpleNamespace(cpu=lambda: SimpleNamespace(numpy=lambda: masks))))
+        detections = [{'id': 1, 'state': 'reponer'}]
+        output = analyze_edges(original, result, detections, version='v2')
+        self.assertEqual(output['occupancy']['method'], 'paulo_mascara_v2_combinacion_ponderada')
+        self.assertEqual(detections[0]['occupancy']['combined_signal_pct'], 0)
+        self.assertEqual(detections[0]['state'], 'reponer')
+        self.assertTrue(np.array_equal(np.asarray(output['occupancy_image']), original))
+
+    def test_occupancy_threshold_and_missing_measurements(self):
+        for value, state, color in ((0, 'reponer', '#dc2626'), (29.99, 'reponer', '#dc2626'),
+                                    (30, 'suficiente', '#16a34a'), (100, 'suficiente', '#16a34a')):
+            with self.subTest(value=value):
+                reading = occupancy_estimate({'status': 'medido', 'combined_signal_pct': value,
+                                              'area_signal_pct': 99}, 'v2')
+                self.assertEqual((reading['pct'], reading['state'], reading['color']), (value, state, color))
+        self.assertEqual(occupancy_estimate({'status': 'medido', 'area_signal_pct': 12})['pct'], 12)
+        for value in (None, float('nan'), float('inf'), -1, 101, True, '20'):
+            self.assertIsNone(occupancy_estimate({'status': 'medido', 'area_signal_pct': value})['pct'])
+        self.assertEqual(occupancy_estimate({'status': 'sin_medicion', 'area_signal_pct': 20})['state'], 'sin_medicion')
+
+    def test_occupancy_image_uses_threshold_instead_of_yolo_class(self):
+        def tensor(values):
+            return SimpleNamespace(cpu=lambda: SimpleNamespace(tolist=lambda: values))
+        result = SimpleNamespace(names={0: 'Nivel_suficiente'}, masks=None,
+            boxes=SimpleNamespace(xyxy=tensor([[10, 10, 350, 100]]), conf=tensor([.99]), cls=tensor([0])))
+        image = Image.new('RGB', (400, 200), 'white')
+        for pct, color in ((29.99, (220, 38, 38)), (30, (22, 163, 74)), (None, (100, 116, 139))):
+            reading = occupancy_estimate({'status': 'medido', 'area_signal_pct': pct})
+            output, detections = draw_result(image, result, measurements=[{'occupancy_estimate': reading}])
+            self.assertEqual(output.getpixel((10, 95)), color)
+            self.assertEqual(detections[0]['state'], 'suficiente')
+
     def test_exif_is_applied_and_alpha_is_composited(self):
         exif = Image.Exif()
         exif[274] = 6
@@ -140,6 +176,10 @@ class LiteTests(unittest.TestCase):
         self.assertEqual(detections[0]['state'], 'vacio')
         self.assertEqual(detections[0]['id'], 1)
         self.assertNotEqual(output.getpixel((10, 50)), (255, 255, 255))
+        stacked = SimpleNamespace(names={0: 'Nivel_vacio', 1: 'Nivel_suficiente'}, masks=None,
+                                  boxes=SimpleNamespace(xyxy=tensor([[10, 20, 350, 90], [10, 200, 350, 270]]), conf=tensor([.8, .9]), cls=tensor([0, 1])))
+        _, ordered = draw_result(image, stacked)
+        self.assertEqual([(d['id'], d['state']) for d in ordered], [(1, 'suficiente'), (2, 'vacio')])
 
     def test_v2_base_exposes_only_its_two_states_and_renders_reponer(self):
         manifest = json.loads((self.root / 'modelos.json').read_text())

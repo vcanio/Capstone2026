@@ -304,6 +304,9 @@ def validate(config, data):
         occupancy = config.get('occupancy', False)
         if not isinstance(occupancy, bool):
             raise ValueError('El modo de bordes debe ser verdadero o falso.')
+        occupancy_version = config.get('occupancy_version', 'v1')
+        if occupancy_version not in ('v1', 'v2') or (not occupancy and occupancy_version != 'v1'):
+            raise ValueError('Elige V1 o V2 con la detección de bordes activada.')
         upload = uploaded_photo(config.get('image'))
         if not upload and config.get('image') not in {item['id'] for item in data['images']}:
             raise ValueError('Imagen desconocida o reservada para evaluación final.')
@@ -318,6 +321,7 @@ def validate(config, data):
             if not source or source['manifest'].get('criterion', {}).get('version') != 'disponibilidad_visual_nivel_v2_reponer':
                 raise ValueError('El experimento con Paulo requiere un modelo de niveles V2.')
             clean['occupancy'] = True
+            clean['occupancy_version'] = occupancy_version
         if upload:
             clean.update(image_source='upload', image_name=upload['name'])
         if source and not upload:

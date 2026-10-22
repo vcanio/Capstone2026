@@ -58,7 +58,32 @@ def font_for(size):
     return ImageFont.load_default(size=size)
 
 
-def draw_result(image, result):
+def spatial_order(boxes):
+    """Ordenar niveles de abajo hacia arriba (nivel 1 abajo) y de izquierda a derecha en cada fila."""
+    centers = [(index, (box[1] + box[3]) / 2, max(1, box[3] - box[1]), box[0])
+               for index, box in enumerate(boxes)]
+    rows = []
+    for index, center, height, left in sorted(centers, key=lambda item: (item[1], item[3])):
+        if rows and abs(center - rows[-1][0]) <= .5 * min(height, rows[-1][1]):
+            rows[-1][2].append((left, center, index))
+        else:
+            rows.append((center, height, [(left, center, index)]))
+    return [index for _, _, items in reversed(rows) for _, _, index in sorted(items)]
+
+
+def occupancy_estimate(measurement, version='v1'):
+    """Lectura de presentación; conserva la predicción YOLO por separado."""
+    field = 'combined_signal_pct' if version == 'v2' else 'area_signal_pct'
+    value = measurement.get(field)
+    if (measurement.get('status') != 'medido' or isinstance(value, bool) or
+            not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 100):
+        return {'pct': None, 'state': 'sin_medicion', 'label': 'Sin medición', 'color': '#64748b'}
+    low = value < 30
+    return {'pct': value, 'state': 'reponer' if low else 'suficiente',
+            'label': 'Reponer' if low else 'Suficiente', 'color': '#dc2626' if low else '#16a34a'}
+
+
+def draw_result(image, result, measurements=None):
     overlay = Image.new('RGBA', image.size)
     draw = ImageDraw.Draw(overlay)
     font = font_for(max(16, round(max(image.size) / 54)))
@@ -67,24 +92,33 @@ def draw_result(image, result):
     boxes = result.boxes
     if boxes is not None:
         polygons = result.masks.xy if result.masks is not None else None
-        for index, (box, confidence, cls) in enumerate(zip(boxes.xyxy.cpu().tolist(), boxes.conf.cpu().tolist(), boxes.cls.cpu().tolist())):
+        xyxy, confs, clss = boxes.xyxy.cpu().tolist(), boxes.conf.cpu().tolist(), boxes.cls.cpu().tolist()
+        for level_id, index in enumerate(spatial_order(xyxy), 1):
+            box, confidence, cls = xyxy[index], confs[index], clss[index]
             name = result.names[int(cls)]
             if name not in STATES:
                 raise ValueError('El modelo no contiene los estados de disponibilidad de este paquete.')
             state, label, hex_color = STATES[name]
+            reading = measurements[level_id - 1].get('occupancy_estimate') if measurements is not None else None
+            if reading:
+                hex_color = reading['color']
             color = ImageColor.getrgb(hex_color)
             points = [tuple(map(float, point)) for point in polygons[index]] if polygons is not None else [
                 (box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3])]
-            detections.append({'id': index + 1, 'state': state, 'label': label, 'confidence': float(confidence)})
+            detections.append({'id': level_id, 'state': state, 'label': label, 'confidence': float(confidence)})
             if len(points) < 3:
                 continue
             draw.polygon(points, fill=(*color, 35), outline=(*color, 255), width=line_width)
             title = label
+            if reading:
+                pct = (f"{reading['pct']:.2f}".rstrip('0').rstrip('.').replace('.', ',')
+                       if reading['pct'] is not None else None)
+                title = f"{pct} % · {reading['label']}" if pct is not None else reading['label']
             bounds = draw.textbbox((0, 0), title, font=font)
             text_height = font.getbbox('Ágj')[3] - font.getbbox('Ágj')[1]
             padding = max(5, round(font.size * .35))
             h = text_height + padding * 2
-            number = str(index + 1)
+            number = str(level_id)
             number_width = max(h - padding, round(draw.textlength(number, font=font)) + padding * 2)
             w = round(draw.textlength(title, font=font)) + number_width + padding * 4
             x = max(0, min(min(p[0] for p in points) + 5, image.width - w))
@@ -100,7 +134,8 @@ def draw_result(image, result):
         draw.text((x + inset + number_width / 2, y + h / 2), number, font=font,
                   anchor='mm', fill=(24, 51, 59, 255))
         draw.text((x + number_width + padding * 2, y + (h - (bounds[3] - bounds[1])) / 2 - bounds[1]),
-                  title, font=font, fill=(24, 51, 59, 255))
+                  title, font=font, fill=(*tuple(round(channel * .65) for channel in color), 255)
+                  if measurements is not None else (24, 51, 59, 255))
     return Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB'), detections
 
 
@@ -118,7 +153,8 @@ class ModelRunner:
         self.entries = {item['id']: item for item in self.manifest['models']}
         if 'edge_sources' in self.manifest:
             sources = self.manifest['edge_sources']
-            if set(sources) != {'ocupacion_paulo.py', 'gondola_bordes.py'}:
+            legacy_sources = {'ocupacion_paulo.py', 'gondola_bordes.py'}
+            if set(sources) not in (legacy_sources, legacy_sources | {'gondola_combinacion_ponderada.py'}):
                 raise ValueError('El manifiesto de bordes no corresponde a este paquete.')
             for name, expected in sources.items():
                 path = self.root / name
@@ -152,13 +188,13 @@ class ModelRunner:
             raise ValueError('Elige uno de los modelos incluidos.')
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:
             raise ValueError('La confianza debe estar entre 0,01 y 0,99.')
-        if method not in ('yolo', 'yolo_paulo'):
+        if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
             image = read_photo(body)
-            if method == 'yolo_paulo':
+            if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
             # No external experiment trackers or downloads are required to predict.
@@ -178,8 +214,9 @@ class ModelRunner:
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
             extra = {}
-            if method == 'yolo_paulo':
-                extra = analyze_edges(original_rgb, result, detections)
+            if method in ('yolo_paulo', 'yolo_paulo_v2'):
+                extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
+                annotated, _ = draw_result(image, result, measurements=detections)
             counts = Counter(d['state'] for d in detections)
             return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
                     'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
@@ -189,7 +226,7 @@ class ModelRunner:
             self.lock.release()
 
 
-def analyze_edges(original_rgb, result, detections):
+def analyze_edges(original_rgb, result, detections, version='v1'):
     """Reutiliza el algoritmo de detección de bordes sin dibujar sobre la entrada ni guardar fotos."""
     # En el ZIP ambos archivos se copian junto a inferencia.py. En el laboratorio
     # se usa el mismo módulo de Modelos; no se mantiene otra implementación.
@@ -206,11 +243,15 @@ def analyze_edges(original_rgb, result, detections):
         sys.modules[spec.name] = module
         spec.loader.exec_module(module)
         Analyzer, provenance = module.Analyzer, module.provenance
-    analyzer = Analyzer(original_rgb)
+    analyzer = Analyzer(original_rgb, version=version)
     masks = result.masks.data.cpu().numpy() if result.masks is not None else []
+    if getattr(result, 'boxes', None) is not None and len(masks):
+        order = spatial_order(result.boxes.xyxy.cpu().tolist())
+        masks = [masks[i] for i in order if i < len(masks)]
     for index, detection in enumerate(detections):
         mask = (masks[index] > .5).astype('uint8') if index < len(masks) else None
         detection['occupancy'] = analyzer.analyze(mask, state=detection['state'])
-    return {'occupancy': provenance(), 'occupancy_image': Image.fromarray(analyzer.overlay()),
+        detection['occupancy_estimate'] = occupancy_estimate(detection['occupancy'], version)
+    return {'occupancy': provenance(version, analyzer.p), 'occupancy_image': Image.fromarray(analyzer.overlay()),
             'edges_image': Image.fromarray(analyzer.edges),
             'filtered_edges_image': Image.fromarray(analyzer.filtered_edges)}

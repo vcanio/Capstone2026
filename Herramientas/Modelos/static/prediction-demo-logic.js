@@ -12,8 +12,11 @@ const PredictionDemo=(()=>{
   function occupancyRows(detections){
     const value=x=>Number.isFinite(x)?x.toFixed(1)+' %':'Sin medición';
     return detections.map((d,i)=>({id:d.id||i+1,state:stateOf(d)?.label||d.clase,
-      area:value(d.occupancy?.area_signal_pct),width:value(d.occupancy?.width_signal_pct),reason:d.occupancy?.reason||''}));
+      area:value(d.occupancy?.area_signal_pct),width:value(d.occupancy?.width_signal_pct),
+      combined:value(d.occupancy?.combined_signal_pct),reason:d.occupancy?.reason||''}));
   }
-  function occupancyRevision(method){return method==='paulo_mascara_v2_color_textura'?'Revisión 2 · color y textura':method==='paulo_mascara_v1'?'Revisión 1 · color y oscuridad':'Revisión sin registrar'}
-  return {states,stateOf,summary,occupancyRows,occupancyRevision};
+  function occupancyRevision(method){return method==='paulo_mascara_v2_combinacion_ponderada'?'Bordes V2 · combinación ponderada':method==='paulo_mascara_v2_color_textura'?'Bordes V1 · Revisión 2 · color y textura':method==='paulo_mascara_v1'?'Revisión 1 · color y oscuridad':'Revisión sin registrar'}
+  function methodHelp(method){return method==='yolo_paulo_v2'?'V2 combina 70 % de superficie y 30 % de ancho, con umbral adaptativo por nivel. Señal experimental; YOLO determina el estado.':method==='yolo_paulo'?'Analiza bordes, color y textura en la foto original, dentro de cada nivel. El estado lo determina YOLO.':'YOLO localiza cada nivel y determina su estado.'}
+  function methodConfig(method){return {occupancy:method==='yolo_paulo'||method==='yolo_paulo_v2',occupancy_version:method==='yolo_paulo_v2'?'v2':'v1'}}
+  return {states,stateOf,summary,occupancyRows,occupancyRevision,methodHelp,methodConfig};
 })();
