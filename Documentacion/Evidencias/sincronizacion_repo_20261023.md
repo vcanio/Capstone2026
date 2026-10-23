@@ -13,6 +13,8 @@ Se incorporó primero la actualización remota de `main` hasta `2c68440`. Los ca
 - **Auditoría de publicación:** comprueba sintaxis, enlaces disponibles o activos declarados, ausencia de credenciales en JSON y exclusión de temporales, fotos de datos, pesos y ZIP grandes.
 - **CI:** se añadió la suite de mantenimiento de datos a las comprobaciones existentes de reproducción y visor.
 
+La primera ejecución de GitHub detectó que el paso nuevo necesitaba Shapely y que la comprobación de metadatos todavía exigía fotos locales incluso con `verify_images=False`. Se añadió la dependencia de geometría y se separó ese modo de la verificación completa. El modo predeterminado sigue exigiendo imágenes y hashes, con una prueba nueva que comprueba el rechazo si falta una foto. La suite de datos pasa a 15 casos; no se descargan ni publican fotos privadas para ejecutar CI.
+
 ## Activos separados del código
 
 El [manifiesto complementario](../../reproducibilidad/activos_locales_20261023.json) declara 401 recursos locales y los ZIP de Visión conservados, con archivos, tamaños y SHA-256 reales. Los recursos se prepararon en `Walmart_Recursos_V3_20261023.zip`, para distribución al equipo mediante `--assets`. No se añadieron URLs ficticias ni se sustituyó el manifiesto de la release anterior. Publicar estas fuentes no publica una release ni los activos privados.

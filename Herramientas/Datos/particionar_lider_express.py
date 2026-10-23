@@ -109,8 +109,8 @@ def make_records(config, verify_images=True):
         for row in rows:
             path = (base / row['archivo']).resolve()
             require(path.is_relative_to(base.resolve()), 'Ruta fuera del lote.')
-            require(path.is_file(), 'Imagen ausente: ' + row['archivo'])
             if verify_images:
+                require(path.is_file(), 'Imagen ausente: ' + row['archivo'])
                 require(digest(path) == row['sha256'], 'Imagen modificada: ' + row['imagen_id'])
             family = row['imagen_origen_id']
             group = groups[family]

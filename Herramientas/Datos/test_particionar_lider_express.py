@@ -1,6 +1,7 @@
 """Detectar filtracion y referencias invalidas antes de usar la particion fijada."""
 import copy
 import unittest
+from unittest.mock import patch
 
 from particionar_lider_express import PARTITION, annotation_counts, make_records, read, scene_map, validate
 
@@ -16,6 +17,11 @@ class PartitionTests(unittest.TestCase):
         self.assertEqual(sum(s['total'] for s in summary.values()), 296)
         self.assertEqual([summary[s]['base'] for s in ('train', 'val', 'test')], [160, 40, 36])
         self.assertEqual([summary[s]['estados_base_reales']['reponer'] for s in ('train', 'val', 'test')], [2, 1, 1])
+
+    def test_default_verification_still_rejects_missing_image_files(self):
+        with patch('pathlib.Path.is_file', return_value=False):
+            with self.assertRaisesRegex(ValueError, 'Imagen ausente'):
+                make_records(self.config)
 
     def test_obstacle_variant_cannot_cross_original(self):
         records = copy.deepcopy(self.records)
