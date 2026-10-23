@@ -135,11 +135,14 @@ def verify_files(package, root):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assets', type=Path, help='Carpeta local de activos; no usa Internet.')
+    parser.add_argument('--manifest', default=MANIFEST,
+                        choices=[MANIFEST, 'reproducibilidad/activos_locales_20261023.json'],
+                        help='Registro publicado o complemento de activos locales, sin inventar URLs.')
     parser.add_argument('--paquetes', nargs='+', default=['datos_fuentes', 'datos_exportados', 'modelos_resultados', 'informe'])
     parser.add_argument('--verificar', action='store_true', help='Comprobar archivos instalados sin descargar ni escribir.')
     args = parser.parse_args(argv)
     try:
-        manifest = json.loads((ROOT / MANIFEST).read_text(encoding='utf-8'))
+        manifest = json.loads((ROOT / args.manifest).read_text(encoding='utf-8'))
         for name in dict.fromkeys(args.paquetes):
             if name not in manifest['packages']:
                 raise ValueError(f'Paquete desconocido: {name}')

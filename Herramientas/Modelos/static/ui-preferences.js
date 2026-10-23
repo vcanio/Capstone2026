@@ -3,7 +3,7 @@ const UiPreferences=(()=>{
   const choices=['project-version','import-project','participant','dataset-version','source','train-model','model','image','run','baseline','comparison-photo','monitor-job'];
   const selects=['train-size','predict-size','chart-metric','split','analysis-method'];
   const numbers=['epochs','batch','lr','seed','conf','nms','import-task'];
-  const texts=['name','validation-ids'];
+  const texts=['name','validation-ids','purpose'];
   const views=['version','datasets','train','results','predict','glossary'];
   function sanitize(value){
     if(!value||typeof value!=='object'||value.version!==1)return {version:1,fields:{},sources:[]};

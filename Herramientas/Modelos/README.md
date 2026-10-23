@@ -2,6 +2,8 @@
 
 # Panel de niveles y disponibilidad
 
+**Estado al 23/10/2026:** este panel mantiene los ensayos V1/V2. El trabajo de anotación actual es V3, con 458 imágenes y partición 327/68/63, pero su exportación y entrenamiento siguen bloqueados hasta implementar y revisar ese flujo. [Estado de datos](../../Datos/Registros/README.md). Las instrucciones de tres estados de abajo corresponden a V2, no al objetivo geométrico único de V3.
+
 Esta carpeta contiene el código del laboratorio. Los modelos generales están en [Modelos](../../Modelos/README.md) desde la raíz, y los resultados de entrenamiento en [Experimentos](../../Experimentos/README.md).
 
 | Archivo o carpeta | Función |
@@ -56,7 +58,7 @@ Panel: http://localhost:8090. Para iniciar el contenedor directamente, usar `ini
 
 Para desarrollo, `iniciar_panel.ps1 -Dev` monta el código local: los cambios de interfaz se ven con F5. Los cambios de Python requieren reiniciar el servicio sin entrenamientos activos; las dependencias requieren reconstrucción. Véase la [guía de desarrollo](../../Infraestructura/Docker/README.md#desarrollo-del-panel).
 
-0. **Seleccionar versión:** el panel abre en este paso y recuerda la versión elegida. Seleccionar V1, V2 o el piloto cuando esté disponible y pulsar **Continuar a Preparar datos**. La elección ajusta datos, modelos, resultados, fotos y actividad. En las demás secciones se muestra un indicador compacto de la versión activa con **Cambiar versión** para volver al paso 0.
+0. **Resumen de trabajo:** el panel recuerda la versión, copia y ensayo válidos y consulta su estado actual. El inicio separa datos, ensayo, evaluación y ocupación/alertas, y ofrece una siguiente acción con su motivo. V1, V2 y el piloto conservan su flujo; V3 muestra sus dependencias de preparación y no habilita entrenamiento por seleccionar la tarjeta. **Cambiar versión** vuelve al inicio. Una copia nueva pendiente conserva el acceso a modelos históricos utilizables.
 1. **Preparar datos:** actualizar CVAT manualmente, seleccionar la tarea completa, traer sus anotaciones, revisar incidencias, balance y partición y registrar quién revisó niveles y estados. Importar no cambia dibujos de CVAT ni inicia entrenamientos.
 2. **Entrenar:** elegir la copia revisada, el modelo general y los ajustes. Un solo trabajo usa la GPU a la vez. Cada ejecución crea su carpeta y conserva configuración, snapshot, partición, pesos y resultados; reutiliza el dataset de su versión si coincide por SHA-256.
 3. **Comparar resultados:** revisar alertas, métricas por estado, fotos, curvas y omisiones. Las diferencias automáticas requieren fotos, etiquetas y partición coincidentes.
@@ -69,6 +71,8 @@ En **Fotos del proyecto**, el selector y las miniaturas excluyen las imágenes u
 **Probar una foto** es la evaluación de desarrollo: permite revisar errores con validación y fotos nuevas para decidir ajustes de YOLO, confianza y el método de Paulo. Analizar una foto no reentrena el modelo. La reserva final queda fuera del selector y las miniaturas; se utiliza después de fijar los modelos y parámetros que se quieren evaluar. En v2 base, la evaluación final principal usa 9 originales reales y las 27 variantes sintéticas se informan como diagnóstico aparte. La subida manual admite cualquier foto válida, por lo que para estas pruebas habituales deben elegirse fotos nuevas o de desarrollo, conservando la reserva para el cierre.
 
 La interfaz conserva selecciones y ajustes en el navegador. Las imágenes permiten zoom y arrastre. El seguimiento del trabajo local actualiza progreso y resultados; la consulta de anotaciones de CVAT sigue siendo manual.
+
+Una copia aprobada muestra su comprobante de revisión. **Configurar entrenamiento con esta copia**, **Ver resultados de este ensayo** y **Probar este modelo** conservan los identificadores correspondientes. Entrenamiento admite un propósito opcional. Resultados permite registrar una decisión con motivo y autor, conservando historial; terminar un entrenamiento no equivale a validar el modelo. Las diferencias automáticas requieren un protocolo de evaluación registrado y compatible; los históricos sin él conservan comparación visual. [Implementación y comprobaciones del flujo](../../Documentacion/Desarrollo/Implementacion_laboratorio_modelos_20261022.md).
 
 Las nuevas predicciones numeran los niveles de abajo hacia arriba y, en una misma fila, de izquierda a derecha, tolerando pequeñas diferencias de altura por perspectiva. La imagen y la tabla comparten el mismo orden. Los números identifican detecciones dentro de esa foto; no corresponden al `nivel_id` de CVAT ni se mantienen entre fotografías.
 
@@ -91,6 +95,8 @@ El panel exporta fotos completas una vez por versión en Datos/Registros/Version
 Los modelos generales locales son `yolo11n-seg.pt` y `yolo26n-seg.pt`. El entorno Docker usa Ultralytics 8.4.174, PyTorch 2.5.1 y CUDA 12.1. Los módulos piloto_modulos.py y comparar_niveles.py participan en el entrenamiento y evaluación; conjuntos.py resuelve y verifica la exportación compartida.
 
 ## Evaluación y siguiente trabajo
+
+El código local incorpora un [ajuste visual de contornos a cuatro vértices](../../Documentacion/Desarrollo/Posprocesamiento_contornos_niveles.md), con lados rectos y perspectiva. No requiere reentrenar: conserva máscaras, clases y confianza de YOLO. Las métricas y la ocupación siguen usando las máscaras originales. El registro del 22 de octubre documenta 21 pruebas técnicas y una comprobación visual en una foto conocida; no acredita una mejora de precisión. Volver a analizar la foto genera el nuevo dibujo; los resultados históricos no se sobrescriben.
 
 La validación histórica v1 tiene 34 niveles suficientes y 2 no evaluables; no contiene vacíos ni bajos. La validación principal v2 base contiene 50 suficientes y un nivel reponer. La cobertura real de faltantes sigue siendo escasa. Consultar el [registro de división](../../Datos/Registros/Particiones/lider_express_v2_20261019/README.md).
 

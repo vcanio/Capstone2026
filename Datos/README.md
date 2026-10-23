@@ -1,27 +1,40 @@
 # Datos del proyecto
 
-**Estructura simétrica por tanda (`V1/` y `V2/`) más catálogo centralizado (`Registros/`).**
+**Trabajo actual: V3, 458 imágenes para localizar áreas útiles de niveles.** Partición fijada en 327 entrenamiento, 68 validación y 63 prueba; revisión de anotaciones y exportación V3 pendientes.
 
-| Carpeta | Propósito | Contenido actual |
-|---|---|---|
-| [V1](V1/README.md) | **Primera tanda** · Criterio v1 (4 estados, tarea 16). | `Lider/`: 30 reales de desarrollo. `Sinteticas/`: 72 generadas. `Reservadas/`: 7 reales de reserva final. (91 activas en la copia revisada). |
-| [V2](V2/README.md) | **Segunda tanda** · Criterio v2 (reposición y visibilidad, tareas 19 y 22). | [Líder Express · 236 imágenes](V2/lider_express_20261016/README.md) (59 reales + 177 variantes IA, tarea 19) y [Visibilidad limitada · 60 imágenes](V2/visibilidad_limitada_20261019/README.md) (60 sintéticas con obstáculos, tarea 22). |
-| [Registros](Registros/README.md) | Catálogo de procedencia, inventarios, particiones y copias congeladas de anotaciones. | [lotes.json](Registros/lotes.json), [dataset_activo.json](Registros/dataset_activo.json), [Particiones](Registros/Particiones/lider_express_v2_20261019/README.md) y `Versiones_modelos/`. |
+| Carpeta | Qué contiene |
+|---|---|
+| [V3](V3/README.md) | Nuevos lotes: 122 originales de Líder 2 y 40 variantes de superior vacío. |
+| [V2](V2/README.md) | Fuentes de Líder Express: 236 originales/A/B/C y 60 ediciones con obstáculos. Sus mismos archivos se usan en V3, tareas 27 y 24. |
+| [V1](V1/README.md) | Primera etapa: 30 reales de desarrollo, 72 sintéticas y siete reservas. La copia revisada usada por los primeros ensayos tiene 91 activas. |
+| [Registros](Registros/README.md) | Entrada a lotes, tareas CVAT, revisiones, particiones, versiones de datos e historial. |
 
-## Reglas de orden y trazabilidad
+La ruta física de una imagen conserva su procedencia. Reutilizarla con otro criterio no crea otra foto ni exige copiarla de V2 a V3. Las 458 de V3 suman 296 fuentes reutilizadas + 40 variantes D + 122 originales nuevos.
 
-1. **Separación por etapa:** los datos de la primera iteración permanecen congelados en `V1/`; cada lote de la segunda etapa vive en `V2/<lote>_<AAAAMMDD>/` con sus imágenes, prompts, `inventario.csv`, `manifest.json` y `README.md`.
-2. **Sin duplicados ni archivos intermedios:** cada lote conserva únicamente sus imágenes activas y registros definitivos. Los borradores, muestras previas y carpetas intermedias se resguardan en `.resguardo/orden_v1_v2_20261019` (archivo local histórico, fuera de la distribución).
-3. **Partición sin fuga de escenas:** todas las vistas de un mismo tramo físico, sus variantes A/B/C y sus ediciones con obstáculos comparten grupo de escena y partición (`train`, `val` o `test`).
-4. **Inferencia manual aislada:** las fotografías subidas desde **Probar una foto** en el panel se almacenan en `Experimentos/panel_pruebas/Subidas_panel/`, fuera de `Datos/` y de cualquier inventario de entrenamiento.
+## Dónde consultar
 
-## Verificación automática
+- [Estado actual](Registros/estado_actual.json): alcance y referencias por tarea.
+- [Lotes y procedencia](Registros/Lotes/README.md): inventarios, manifests, imágenes y prompts.
+- [Partición de las 458 imágenes](Registros/Particiones/v3_458_20261023/README.md): familias, escenas, catálogo visual y listas.
+- [Anotaciones y correcciones](Registros/CVAT/README.md).
+- [Versiones de datos de ensayos anteriores](Registros/Versiones_modelos/README.md).
 
-Desde la raíz del proyecto:
+## Reglas de conservación
+
+1. Cada lote conserva sus fotos y su inventario; los registros centrales los enlazan sin duplicarlos.
+2. Las vistas de un tramo y sus variantes comparten escena y partición. El test queda reservado para evaluación final.
+3. Los datos usados por un ensayo se conservan con su versión e integridad; una corrección requiere otra versión.
+4. Borradores y vistas retiradas se archivan en `.resguardo/`, con recibo cuando se retiran de los registros operativos.
+5. Las fotos de inferencia manual viven en `Experimentos/panel_pruebas/Subidas_panel/`, fuera de inventarios de entrenamiento.
+
+## Verificar
+
+Desde la raíz:
 
 ```powershell
-& ./.venv-modelo/Scripts/python.exe ./Herramientas/Datos/verificar_datos.py
-& ./.venv-modelo/Scripts/python.exe ./Herramientas/Datos/particionar_lider_express.py --verify
+.venv-cvat/Scripts/python.exe Herramientas/Datos/verificar_datos.py
+.venv-modelo/Scripts/python.exe Herramientas/Datos/particionar_lider_express.py --verify
+.venv-cvat/Scripts/python.exe Herramientas/Datos/particionar_v3_458.py --verify
 ```
 
-Ambos comandos comprueban rutas, conteos, hashes SHA-256 y aislamiento de escenas sin modificar archivos.
+Comprueban rutas, cantidades, hashes e aislamiento de escenas. No escriben anotaciones en CVAT ni inician entrenamiento.

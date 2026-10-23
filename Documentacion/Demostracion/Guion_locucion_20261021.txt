@@ -1,0 +1,39 @@
+01 · Qué problema abordamos
+
+Walmart Visión es un prototipo que ayuda a revisar la disponibilidad visible en las repisas de una góndola a partir de una fotografía. Su objetivo es apoyar la identificación de niveles que podrían necesitar reposición y facilitar su revisión por una persona. En esta demostración veremos cómo cargar una imagen, ejecutar el análisis e interpretar lo que devuelve la aplicación. También revisaremos dos casos favorables y dos casos con dificultades del informe, porque conocer los errores permite entender hasta dónde llega actualmente la solución.
+
+02 · Qué está implementado
+
+El flujo combina dos componentes. Primero, YOLO localiza los niveles de la góndola, dibuja sus contornos y asigna un estado. Después, si activamos detección de bordes, un análisis adicional estudia bordes, color y textura dentro de esas regiones. En la versión dos, los estados disponibles son reponer y suficiente. Reponer reúne los ejemplos de vacío y baja disponibilidad. La aplicación también permite elegir la versión uno y comparar modelos, pero aquí nos concentraremos en V2 con YOLO26. Esta versión base todavía no reconoce un estado específico para las zonas que no se pueden evaluar.
+
+03 · Cargar y analizar una fotografía
+
+Para comenzar, seleccionamos una fotografía desde el computador. En el visor podemos revisar la entrada antes de ejecutar el modelo. Elegimos la versión, el modelo y el método de análisis; luego pulsamos Analizar foto. La aplicación procesa la imagen y muestra los niveles encontrados sobre la fotografía. También presenta un resumen de los estados y un detalle por nivel. La confianza que aparece junto a una predicción es un puntaje del modelo: no indica qué porcentaje de productos queda en la repisa. La pestaña Comparar permite observar la imagen original junto al resultado y revisar si los contornos siguen los niveles visibles.
+
+04 · Caso favorable: vinos con faltantes
+
+El primer caso favorable del informe es una góndola de vinos con dos repisas casi vacías. En la evidencia documentada, YOLO distingue esos niveles y los clasifica como reponer. Al mirar la fotografía original podemos comprobar que hay faltantes visibles en ambas repisas. Los contornos permiten ubicar dónde revisar, mientras que el mapa de bordes presenta mucha menos señal en esas zonas que en los niveles abastecidos. Consideramos favorable este caso porque la alerta, la ubicación y la evidencia visual son coherentes. Esa coincidencia respalda este ejemplo concreto; para conocer el rendimiento general necesitamos evaluar un conjunto de imágenes con referencias revisadas.
+
+05 · Cómo interpretar el análisis de bordes
+
+En la aplicación, el método YOLO más detección de bordes habilita vistas adicionales. El mapa amarillo muestra la señal que activa el algoritmo dentro de los niveles detectados. También podemos consultar los bordes de toda la foto y los bordes limitados a esas regiones. La tabla presenta mediciones de área y ancho con señal. Estos valores describen la respuesta del procesamiento; todavía no equivalen al porcentaje real de mercadería. El estado reponer o suficiente sigue dependiendo de YOLO. Por eso, una zona con mucha señal requiere interpretación y una zona con poca señal no demuestra, por sí sola, que esté vacía.
+
+06 · Caso favorable: bebidas en un exhibidor
+
+El segundo caso favorable es un exhibidor central con bebidas. En el resultado conservado en el informe se distinguen sus cuatro repisas y la señal se concentra principalmente en las botellas. Los contornos separan esos niveles sin abarcar todo el pasillo. Este ejemplo permite revisar una situación distinta a los faltantes: un mueble abastecido donde esperamos localizar las repisas y mantener la señal sobre los productos. La revisión es visual. No estamos contando botellas ni comprobando el inventario de la tienda; estamos observando si el resultado corresponde al sector que queremos analizar.
+
+07 · Dificultad: señal sobre un fondo vacío
+
+El primer caso con errores muestra una repisa vacía con fondo metálico. En la evidencia del informe, el análisis de bordes activa parte de ese fondo aunque allí no haya productos. Una posible explicación es que las perforaciones y la textura del metal generan una respuesta parecida a la de algunos envases. Esto muestra por qué no podemos interpretar el amarillo directamente como mercadería disponible. La mejora propuesta es comparar ejemplos de repisas vacías y ocupadas, revisar qué señales produce el fondo y ajustar el procesamiento. Ese ajuste debe comprobarse también con productos oscuros para evitar que, al quitar falsas activaciones, perdamos información útil.
+
+08 · Dificultad: una repisa que YOLO no delimita
+
+El segundo caso con dificultades corresponde a alimento para mascotas. En la fotografía se observan cuatro niveles físicos, pero la salida documentada dibuja tres contornos y deja una repisa intermedia sin delimitar. Como el análisis de bordes trabaja dentro de las regiones que entrega YOLO, ese nivel queda fuera de su revisión. Este caso permite distinguir un error de localización de un problema en la señal de bordes. Entre las posibles causas están la sombra o la similitud entre filas, pero falta comprobarlas. La acción prioritaria es revisar la anotación de referencia y repetir el análisis con el registro original antes de atribuir una causa o informar una mejora.
+
+09 · Avances y límites actuales
+
+Actualmente están implementados la carga de fotografías, la selección de versiones y modelos, la predicción por nivel, la comparación visual y las vistas experimentales de bordes. El informe reúne veinte casos seleccionados con sus entradas y resultados, y documenta tanto aciertos como dificultades. Estos ejemplos ayudan a explicar el comportamiento observado, pero no representan una precisión global nueva del método combinado. Tampoco sustituyen la evaluación final con datos reservados. Las prioridades son ampliar los casos con faltantes reales, revisar las oclusiones y los contornos, y contrastar la señal con referencias que permitan medirla. Cada mejora deberá comprobarse antes de incorporarla a las conclusiones.
+
+10 · Cómo probarlo y cierre
+
+Para probar la solución, el repositorio incluye las instrucciones y una entrega descargable de Walmart Visión con la interfaz y los modelos. El paquete permite analizar fotografías propias sin volver a entrenar. En Windows tiene un iniciador y también hay instrucciones de ejecución con Docker para Mac. Las pruebas realizadas y las pendientes se detallan en la documentación. El informe, las evidencias y el guion permiten seguir los avances; el enlace al video quedará en el README cuando esté publicado. Con esta demostración mostramos el flujo disponible y ejemplos concretos de sus resultados. El siguiente paso es mejorar y validar los puntos donde todavía presenta dificultades.

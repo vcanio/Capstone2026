@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "estado": "verificado",
+  "alcance": "Organizacion local, documentacion, enlaces y limpieza. No publica ni entrena.",
+  "verificacion_general": {
+    "estado": "correcto",
+    "documentos": 102,
+    "enlaces_locales": 812,
+    "exportaciones_compartidas": 2,
+    "python_sintaxis": 62,
+    "datos": {
+      "lotes": {
+        "fuentes_iniciales": 37,
+        "Equilibrado_v1_20261013": 102,
+        "lider_express_20261016": 236,
+        "visibilidad_limitada_20261019": 60,
+        "superior_vacio_D_20261021": 40,
+        "lider_2_originales_20261017": 122
+      },
+      "registros_verificados": 597,
+      "archivos_imagen_unicos": 567,
+      "fotos_pendientes": 0,
+      "imagenes_activas": 91
+    }
+  },
+  "particiones": {
+    "v3": {
+      "imagenes": 458,
+      "grupos": 43,
+      "train": 327,
+      "val": 68,
+      "test": 63,
+      "asignaciones_anteriores_conservadas": 336
+    },
+    "v2": {
+      "imagenes": 296,
+      "estado": "verificado"
+    }
+  },
+  "conservacion": {
+    "estado": "verificado",
+    "archivos_protegidos_sin_cambios": 452,
+    "archivos_auxiliares_archivados": 1592,
+    "bytes_archivados": 1166110896,
+    "archivos_regenerables_eliminados": 3801,
+    "bytes_regenerables_eliminados": 278648974,
+    "git_head_y_cambios_previos_conservados": true,
+    "git_cambios_previos": 33,
+    "cvat_writes": 0,
+    "reentrenamientos": 0
+  },
+  "pruebas_datos": {
+    "suite": "Herramientas/Datos/test_*.py",
+    "ejecutadas": 14,
+    "correctas": 14,
+    "fallidas": 0
+  },
+  "enlaces_sin_destino": 0,
+  "paquete": {
+    "path": "Entregables/Walmart_Vision_Actual_20261023.zip",
+    "bytes": 26253180,
+    "sha256": "4cedb001f3410c1fe82fd4dbc56084cc8e207d50db7f2f56f97d0f36d6bfa7a6",
+    "modelos": 2,
+    "pesos_interfaz_e_inferencia_identicos_al_paquete_anterior": true,
+    "ejecucion_remota_colab": false
+  },
+  "limites": [
+    "No es una evaluacion nueva del modelo.",
+    "No confirma instalacion en otro computador, Mac fisico ni Colab.",
+    "El checkout Git mantiene sus 33 entradas de cambios previos.",
+    "Los bytes archivados dentro del mismo disco no equivalen a espacio liberado."
+  ]
+}

@@ -26,10 +26,9 @@ global.window={addEventListener(){}};
 global.matchMedia=()=>({matches:false});
 global.URL.createObjectURL=()=> 'blob:original';global.URL.revokeObjectURL=()=>{};
 document.getElementById('edge-view').innerHTML='<option value="occupancy_image_url">Mapa de señal</option><option value="filtered_edges_image_url">Bordes dentro de los niveles</option><option value="edges_image_url">Bordes de la foto</option>';
-const fixtures=[{id:'YOLO11-1',name:'YOLO11-1'},{id:'YOLO26-1',name:'YOLO26-1'},
- {id:'V2-YOLO11',name:'V2-YOLO11',states:[{key:'reponer',label:'Reponer',color:'#f00'},{key:'suficiente',label:'Suficiente',color:'#080'}]},
+const fixtures=[{id:'V2-YOLO11',name:'V2-YOLO11',states:[{key:'reponer',label:'Reponer',color:'#f00'},{key:'suficiente',label:'Suficiente',color:'#080'}]},
  {id:'V2-YOLO26',name:'V2-YOLO26',states:[{key:'reponer',label:'Reponer',color:'#f00'},{key:'suficiente',label:'Suficiente',color:'#080'}]}];
-global.fetch=async()=>({ok:true,json:async()=>({models:fixtures})});
+global.fetch=async()=>({ok:true,json:async()=>({models:fixtures,default_model:'V2-YOLO26'})});
 function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detections:[{id:1,label:'Reponer',confidence:.9,...(edges?{occupancy_estimate:{pct:15,state:'reponer'}}:{})}],model:'V2-YOLO26',device:'cpu',seconds:1,image_url:'data:levels',...(edges?{occupancy:{},occupancy_image_url:'data:signal',edges_image_url:'data:edges',filtered_edges_image_url:'data:filtered'}:{})}}
 """
 
@@ -46,10 +45,10 @@ class VisionInterfaceTests(unittest.TestCase):
         show(data);assert.match($('edge-summary').textContent,/Bordes V2/);
         assert.match($('edge-columns').innerHTML,/Combinado/);assert.match($('edge-rows').innerHTML,/44 %/);
         assert.match($('occupancy-rows').innerHTML,/44 %/);assert.match($('occupancy-rows').innerHTML,/occupancy-enough/);
-        $('method').value='yolo_paulo';$('method').listeners.change();
+        $('method').value='yolo';$('method').listeners.change();
         assert.equal($('edge-results').hidden,true);assert.equal($('view-edges').disabled,true);
         assert.equal($('level-occupancy').hidden,true);assert.equal($('occupancy-rows').innerHTML,'');
-        show(prediction());assert.doesNotMatch($('edge-columns').innerHTML,/Combinado/);
+        show(prediction(false));assert.equal($('edge-results').hidden,true);
         """)
 
     def js(self, body):
@@ -57,14 +56,12 @@ class VisionInterfaceTests(unittest.TestCase):
         result = subprocess.run([shutil.which('node') or 'node', '-e', code], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
-    def test_version_filters_models_and_changes_the_states(self):
+    def test_current_models_and_default_load_directly(self):
         self.js("""
-        assert.equal($('version').value,'v2');assert.equal($('model').value,'V2-YOLO26');
+        assert.equal($('model').value,'V2-YOLO26');
         assert.deepEqual($('model').options.map(o=>o.value),['V2-YOLO11','V2-YOLO26']);
         assert.deepEqual(states.map(s=>s[0]),['reponer','suficiente']);
-        $('version').value='v1';$('version').listeners.change();
-        assert.deepEqual($('model').options.map(o=>o.value),['YOLO11-1','YOLO26-1']);
-        assert.equal(states.length,4);assert.equal($('view-result').disabled,true);
+        assert.equal($('fields').disabled,false);assert.equal($('analyze').disabled,true);
         """)
 
     def test_compare_and_edge_maps_use_the_same_current_photo(self):
@@ -81,7 +78,7 @@ class VisionInterfaceTests(unittest.TestCase):
     def test_parameter_changes_clear_old_results_and_pure_yolo_has_no_edges(self):
         self.js("""
         choose({name:'foto.jpg',size:100,type:'image/jpeg'});
-        for(const control of ['model','method','confidence','version']){
+        for(const control of ['model','method','confidence']){
           show(prediction());view('compare');
           if(control==='confidence'){$('confidence').value='.5';$('confidence').listeners.input()}
           else $(''+control).listeners.change();
@@ -137,25 +134,12 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal($('occupancy-rows').innerHTML,'');
         """)
 
-    def test_version_cards_start_centered_and_transition_to_workspace(self):
-        self.assertIn('<main id="main" data-step="version">', HTML)
-        self.assertIn('<div id="version-cards" class="version-cards"', HTML)
+    def test_workspace_has_no_version_controls_and_keeps_theme_toggle(self):
+        for removed in ('version-step', 'version-cards', 'change-version', 'version-continue', 'version-group'):
+            self.assertNotIn(removed, HTML)
+        self.assertIn('<div id="workspace-step">', HTML)
+        self.assertNotIn('value="yolo_paulo"', HTML)
         self.js("""
-        assert.match($('version-cards').innerHTML,/data-version="v2" aria-pressed="true"/);
-        assert.match($('version-cards').innerHTML,/data-version="v1" aria-pressed="false"/);
-        assert.equal($('workspace-version-name').textContent,'V2');
-        $('version-cards').listeners.click({target:{closest:()=>({dataset:{version:'v1'},disabled:false})}});
-        assert.equal($('version').value,'v1');
-        assert.equal($('workspace-version-name').textContent,'V1');
-        assert.match($('version-cards').innerHTML,/data-version="v1" aria-pressed="true"/);
-        $('version-continue').listeners.click();
-        assert.equal($('main').attrs['data-step'],'workspace');
-        assert.equal($('version-step').hidden,true);
-        assert.equal($('workspace-step').hidden,false);assert.equal($('workspace-version').hidden,false);
-        $('change-version').listeners.click();
-        assert.equal($('main').attrs['data-step'],'version');
-        assert.equal($('version-step').hidden,false);
-        assert.equal($('workspace-step').hidden,true);assert.equal($('workspace-version').hidden,true);
         assert.equal($('theme-toggle').attrs['aria-pressed'],'false');
         $('theme-toggle').listeners.click();
         assert.equal($('theme-toggle').attrs['aria-pressed'],'true');

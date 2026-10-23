@@ -1,23 +1,25 @@
+> Estado local del 23/10/2026: la preparacion actual contiene dos modelos V2. Los parrafos sobre cuatro modelos y releases del 20-22/10 son antecedentes de distribuciones anteriores. Consultar [Entregables](../../Entregables/README.md). Preparar un ZIP no publica archivos.
+
 # Publicar Walmart Visión
 
-La [Release vigente](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), `walmart-vision-2026-10-22`, contiene **Walmart_Vision_Ocupacion_20261022.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. El [informe en PDF](../../Entregables/Informe_Intermedio_Avance_20261020.pdf) se versiona directamente en Git, junto con su fuente y evidencias. Los datos y las copias Word y HTML se comparten por separado.
+La [Release documentada el 22/10/2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), `walmart-vision-2026-10-22`, contiene **Walmart_Vision_Ocupacion_20261022.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. El [informe en PDF](../../Entregables/Informe_Intermedio_Avance_20261020.pdf) se versiona directamente en Git, junto con su fuente y evidencias. Los datos y las copias Word y HTML se comparten por separado.
 
 La actualización del 22 de octubre unifica la descarga para Windows y macOS y simplifica la ocupación por nivel. Sus notas están en [Notas de la release](Notas_Release_Walmart_Vision_20261022.md). La publicación conserva las releases anteriores.
 
 ## Preparar y comprobar
 
 ```powershell
-python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2
+python Herramientas/Modelos/empaquetar_demo_lite.py --output Entregables/Walmart_Vision_Actual_20261023.zip
 python Herramientas/Reproducibilidad/empaquetar_publicacion.py --solo-codigo --git "C:/Program Files/Git/cmd/git.exe"
 ```
 
-El empaquetador de Visión genera ahora `Entregables/Walmart_Vision_Ocupacion_20261022.zip`, con su SHA-256 al lado. El activo publicado `Walmart_Vision_20261020.zip` se conserva aparte. El checkout revisable está en `.publicacion/repositorio/`. Los empaquetadores no hacen commit, push ni publicación y no modifican credenciales.
+El empaquetador local genera ahora `Entregables/Walmart_Vision_Actual_20261023.zip`, con su SHA-256 al lado. El activo publicado `Walmart_Vision_20261020.zip` se conserva aparte. El checkout revisable está en `.publicacion/repositorio/`. Los empaquetadores no hacen commit, push ni publicación y no modifican credenciales.
 
 Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bordes y del preparador. Extraer el ZIP en una carpeta nueva, comprobar sus hashes y ejecutar inferencia con ambos métodos. Verificar el visor y el cuaderno incluido. Actualizar la entrada demo de `reproducibilidad/artefactos.json` con el nombre, URL, tamaño, hash y archivos del ZIP final; conservar las entradas históricas de los paquetes del laboratorio.
 
 ## Publicar una nueva versión
 
-El paquete unificado del 22 de octubre se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Ocupacion_20261022.zip`. Contiene los iniciadores Windows y los archivos Docker para macOS, además del visor y los cuatro modelos. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Para cada entrega usar un nombre y tag nuevos, actualizar los enlaces y el manifiesto, y comprobar la descarga pública contra los archivos locales. La creación local del ZIP no publica nada en GitHub.
+El paquete local actual se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --output Entregables/Walmart_Vision_Actual_20261023.zip`. Contiene los iniciadores Windows y los archivos Docker para macOS, además del visor y los dos modelos V2. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Para cada entrega usar un nombre y tag nuevos, actualizar los enlaces y el manifiesto, y comprobar la descarga pública contra los archivos locales. La creación local del ZIP no publica nada en GitHub.
 
 1. Revisar el diff del checkout, hacer commit de código y documentación y push a main, sin forzar.
 2. Preparar las notas, el tag y el título de la nueva versión con el alcance real de [verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md). Las [notas del 20 de octubre](Notas_Release_Walmart_Vision_20261020.md) corresponden a la entrega Windows anterior.

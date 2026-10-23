@@ -1,0 +1,114 @@
+[
+  {
+    "file": "lider_express_002_0_original.jpg",
+    "frame": 5,
+    "job_id": 64,
+    "tag_id": 344,
+    "family": "lider_express_002",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_002_A_vacios.png",
+    "frame": 6,
+    "job_id": 64,
+    "tag_id": 345,
+    "family": "lider_express_002",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_002_B_baja.png",
+    "frame": 7,
+    "job_id": 64,
+    "tag_id": 346,
+    "family": "lider_express_002",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_002_C_mixta.png",
+    "frame": 8,
+    "job_id": 64,
+    "tag_id": 347,
+    "family": "lider_express_002",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_002_D_superior_vacio.png",
+    "frame": 9,
+    "job_id": 64,
+    "tag_id": 348,
+    "family": "lider_express_002",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_022_0_original.jpg",
+    "frame": 97,
+    "job_id": 65,
+    "tag_id": 349,
+    "family": "lider_express_022",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_022_A_vacios.png",
+    "frame": 98,
+    "job_id": 65,
+    "tag_id": 350,
+    "family": "lider_express_022",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_022_B_baja.png",
+    "frame": 99,
+    "job_id": 65,
+    "tag_id": 351,
+    "family": "lider_express_022",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_022_C_mixta.png",
+    "frame": 100,
+    "job_id": 65,
+    "tag_id": 352,
+    "family": "lider_express_022",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_022_D_superior_vacio.png",
+    "frame": 101,
+    "job_id": 65,
+    "tag_id": 353,
+    "family": "lider_express_022",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_054_0_original.jpg",
+    "frame": 247,
+    "job_id": 66,
+    "tag_id": 354,
+    "family": "lider_express_054",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_054_A_vacios.png",
+    "frame": 248,
+    "job_id": 66,
+    "tag_id": 355,
+    "family": "lider_express_054",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_054_B_baja.png",
+    "frame": 249,
+    "job_id": 66,
+    "tag_id": 356,
+    "family": "lider_express_054",
+    "motivo": "nivel_no_delimitable"
+  },
+  {
+    "file": "lider_express_054_C_mixta.png",
+    "frame": 250,
+    "job_id": 66,
+    "tag_id": 357,
+    "family": "lider_express_054",
+    "motivo": "nivel_no_delimitable"
+  }
+]

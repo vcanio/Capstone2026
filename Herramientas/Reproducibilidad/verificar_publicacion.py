@@ -46,11 +46,27 @@ def verify(root=ROOT):
     root = Path(root).resolve()
     manifest = json.loads((root / 'reproducibilidad/artefactos.json').read_text(encoding='utf-8'))
     declared = set()
-    for package in manifest['packages'].values():
+    packages = dict(manifest['packages'])
+    local_manifest = root / 'reproducibilidad/activos_locales_20261023.json'
+    if local_manifest.is_file():
+        additional = json.loads(local_manifest.read_text(encoding='utf-8'))['packages']
+        if set(packages).intersection(additional):
+            raise ValueError('El manifiesto local repite nombres de paquetes publicados.')
+        packages.update(additional)
+    for package in packages.values():
         if Path(package['file']).name != package['file']:
             raise ValueError('Nombre inválido de activo.')
         if not re.fullmatch(r'[a-f0-9]{64}', package['sha256']):
             raise ValueError('Activo sin SHA-256 válido.')
+        # Los enlaces al ZIP y su comprobante identifican un activo real declarado.
+        # La ausencia de URL sigue indicando distribucion local, no publicacion.
+        if package.get('destination'):
+            outer = package['destination'].rstrip('/') + '/' + package['file']
+            safe_path(root, outer)
+            if local_only(outer):
+                raise ValueError('Destino privado de un activo: ' + outer)
+            declared.add(outer)
+            declared.add(str(PurePosixPath(outer).with_suffix('.sha256')))
         for item in package['files']:
             name = (package.get('destination', '').rstrip('/') + '/' + item['path']).lstrip('/')
             safe_path(root, name)
@@ -90,7 +106,7 @@ def verify(root=ROOT):
                 else:
                     raise ValueError(f'Enlace sin destino ni activo declarado: {rel} -> {value}')
     return dict(estado='correcto', archivos_git=len(paths), python_sintaxis=python,
-                enlaces_disponibles=links, enlaces_a_activos_descargables=pending, paquetes=len(manifest['packages']))
+                enlaces_disponibles=links, enlaces_a_activos_descargables=pending, paquetes=len(packages))
 
 
 if __name__ == '__main__':

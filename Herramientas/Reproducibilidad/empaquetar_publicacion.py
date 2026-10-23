@@ -48,7 +48,8 @@ def archive(output, files, *, prefix_root=ROOT):
 
 def copy_code(git, checkout):
     shutil.copy2(ROOT / '.gitignore', checkout / '.gitignore')
-    candidates = [ROOT / n for n in ('README.md', '.gitignore', '.gitattributes', '.dockerignore')]
+    candidates = [ROOT / n for n in ('README.md', 'AGENTS.md', '.gitignore', '.gitattributes', '.dockerignore')
+                  if (ROOT / n).is_file()]
     for base in ('Herramientas', 'Infraestructura', 'Documentacion', 'Datos', 'Modelos', 'Experimentos', 'Entregables', 'reproducibilidad', '.github'):
         candidates.extend(files_under(ROOT / base))
     names = [f.relative_to(ROOT).as_posix() for f in candidates]

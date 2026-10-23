@@ -1,40 +1,34 @@
-# Registro de CVAT
+# CVAT: tareas y anotaciones
 
-Proyecto [Walmart Stock · Estados por nivel](https://pcvicen.tailca514b.ts.net/projects/7).
+Esta carpeta relaciona imágenes locales con tareas, trabajos y anotaciones. Guarda recibos de carga y verificaciones fechadas. La aplicación y su configuración de acceso están en `Infraestructura/CVAT`.
 
-## Líder Express: originales y variantes en una tarea
+## Trabajo actual: V3
 
-[Abrir tarea 19](https://pcvicen.tailca514b.ts.net/tasks/19). Contiene 236 imágenes: 59 originales reales y 177 variantes IA, en orden original/A/B/C. Una familia completa por trabajo; reparto 80/80/76.
+Proyecto [Walmart Stock · V3](https://pcvicen.tailca514b.ts.net/projects/8), clase geométrica única `Nivel`. **458 imágenes y 2.313 polígonos según la lectura de referencia del 23/10/2026.** Esta organización no aprueba anotaciones ni habilita entrenamiento.
 
-| Responsable | Fotos base | Originales | Variantes | Total | Trabajo |
-|---|---|---:|---:|---:|---|
-| Vicente Canio · `vi.canio` | 001–020 | 20 | 60 | 80 | [45](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/45) |
-| Paulo Guerra · `pau.guera` | 021–040 | 20 | 60 | 80 | [46](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/46) |
-| Vicente Vilches · `vi.vilches` | 041–059 | 19 | 57 | 76 | [47](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/47) |
+| Tarea | Contenido | Imágenes | Polígonos | Registro |
+|---|---|---:|---:|---|
+| [27](https://pcvicen.tailca514b.ts.net/tasks/27) | Líder Express: originales + A/B/C/D | 276 | 1.416 | [tarea_27.json](tarea_27.json) |
+| [24](https://pcvicen.tailca514b.ts.net/tasks/24) | Variantes con personas, carros y cajas | 60 | 308 | [tarea_24.json](tarea_24.json) |
+| [28](https://pcvicen.tailca514b.ts.net/tasks/28) | Originales de Líder 2 | 122 | 589 | [tarea_28.json](tarea_28.json) |
 
-[tarea_19.json](tarea_19.json) registra la carga, la recuperación de cinco polígonos originales y la verificación de anotaciones. La tarea 17 ya estaba ausente al iniciar la unificación; la 18 se eliminó tras validar la nueva. Los seis trabajos anteriores ya no existen. Los registros de esas tareas y sus respaldos están archivados en `.resguardo/unificacion_cvat_lider_express_20261017`.
+- [criterio_v3.json](criterio_v3.json): procedencia de las 458 imágenes, hashes, tareas, familias y particiones. Sus campos de importación antiguos conservan el estado de aquella carga; para recuentos actuales usar `live_task_counts` y la [lectura de referencia](../Particiones/v3_458_20261023/estado_anotaciones_referencia.json).
+- [Partición V3 vigente](../Particiones/v3_458_20261023/README.md): **327 / 68 / 63**, fijada por escenas. Líder 2 tiene **86 / 18 / 18**; no sigue pendiente de reparto.
+- [Revisiones](revisiones/README.md): apoyos sobre portaprecio, medianas, superiores y conservación de niveles manuales. Consultar antes de intervenir para evitar duplicados.
+- [Criterio de anotación](../../../Documentacion/Desarrollo/Criterio_V3_niveles.md) y [regla de mediana](../../../Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md): instrucciones geométricas vigentes, también publicadas en el proyecto.
 
-Se usa la etiqueta `Nivel` de tipo polígono y únicamente `estado`: `reponer`, `suficiente` y `no_evaluable`. El umbral es 30 %. Consultar la [guía](../../../Documentacion/Desarrollo/Guia_anotacion.md) y el [plan de partición](../../../Documentacion/Desarrollo/Plan_particion_lider_express_20261016.md). Se anotan todas; no se ha asignado partición ni habilitado entrenamiento.
+`delimitacion` y `Occluded` son atributos administrativos. `Revision_foto` es una etiqueta de revisión. No se convierten en clases adicionales de YOLO.
 
-Los originales y variantes están en `Datos/V2/lider_express_20261016/imagenes_ordenadas`. El [inventario](../../V2/lider_express_20261016/inventario.csv) relaciona las 236 imágenes con sus trabajos actuales.
+## Registros de criterios anteriores
 
-## Visibilidad limitada: lote único de 60
+| Archivo | Alcance histórico |
+|---|---|
+| [organizacion.json](organizacion.json) | Proyecto V2, responsables, trabajos y etiquetas de disponibilidad. Sigue consultado por el panel heredado. |
+| [tarea_16.json](tarea_16.json) | V1: 102 imágenes de procedencia, 91 activas en la copia revisada. |
+| [tarea_19.json](tarea_19.json) | V2: 236 imágenes de Líder Express, trabajos 45–47. Sus fotos se reutilizan en V3, tarea 27, con otro criterio. |
+| [tarea_22.json](tarea_22.json) | V2: 60 variantes de visibilidad, trabajos 54–56. Sus fotos se reutilizan en V3, tarea 24. |
+| [Tareas 20 y 21 sustituidas](../Historico/CVAT/README.md) | Recibos archivados de las tandas reunidas en tarea 22. |
 
-**Cierre técnico actualizado:** criterio amodal aplicado por Codex a solicitud del usuario. 308 niveles: 299 suficiente, 9 no_evaluable y 0 reponer; 176 ocluidos. Las cinco incidencias técnicas quedaron resueltas y los trabajos pasaron a validación del equipo. [Revisión actual](revisiones/visibilidad_20261019T222744Z/cierre_criterio/revision_final.html) y [296 candidatos para selección](../Seleccion/lider_express_20261019/README.md). La revisión humana independiente no se certifica por este cierre. Los párrafos de recuentos anteriores conservan la historia de las correcciones.
+Los estados `reponer`, `suficiente` y `no_evaluable` pertenecen al criterio V2. No describen el objetivo de entrenamiento geométrico de V3. Cambiar de criterio no borra los registros previos ni aprueba las anotaciones para el modelo nuevo.
 
-
-[Tarea 22](https://pcvicen.tailca514b.ts.net/tasks/22), proyecto 7: **60 variantes IA de 59 familias**, con 24 carros de plástico azul, 24 personas y 12 escenas con cajas. Tres trabajos de veinte imágenes, sin asignación personal: [54](https://pcvicen.tailca514b.ts.net/tasks/22/jobs/54), [55](https://pcvicen.tailca514b.ts.net/tasks/22/jobs/55), [56](https://pcvicen.tailca514b.ts.net/tasks/22/jobs/56).
-
-Las tareas 20 y 21 se sustituyen por esta tarea única tras respaldar y verificar sus imágenes, anotaciones y metadatos. No contenían anotaciones ni incidencias al unificar. La tarea 19 conserva sus 236 imágenes. El respaldo está en `.resguardo/unificacion_visibilidad_20261019`.
-
-Las 30 imágenes de la primera tanda fueron aprobadas por el usuario; las 30 de la segunda requieren revisión independiente. Las tandas se conservan como procedencia. Se importaron 308 polígonos de los originales de la tarea 19, escalados a las ediciones, inicialmente sin estado mediante la opción nativa `__undefined__`. Después de la primera pasada y las correcciones autorizadas, los 308 niveles tienen estado: 286 `suficiente`, 22 `no_evaluable` y 0 `reponer`, con 176 ocluidos. Estos recuentos son provisionales hasta la validación del equipo.
-
-Se aplicaron 30 cambios de estado, una oclusión y un ajuste de contorno en 31 polígonos. La foto 002 ya tenía la corrección propuesta antes de comenzar y se respetó. Se conservaron todos los niveles y se dejaron cinco incidencias abiertas. [Comparativas y validación de las correcciones](revisiones/visibilidad_20261019T222744Z/correcciones/validacion.html), con respaldo en `.resguardo/correcciones_visibilidad_20261019T223458Z`. Los trabajos permanecen en progreso.
-
-Revisar cada contorno y Occluded sobre la edición antes de asignar estados; se incluyeron todos los niveles del original, también el inferior. Registrar una incidencia si sus límites no pueden localizarse. No forzar `no_evaluable` por la presencia de un obstáculo. La tarea 19 conserva sus anotaciones sin cambios. Registro del traspaso (archivo local histórico, fuera de la distribución), con respaldo previo en `.resguardo/traspaso_niveles_visibilidad_20261019`.
-
-Partición `sin_asignar`, familias y escenas juntas, entrenamiento sin habilitar e incorporación al panel pendiente del cierre revisado. Archivos: [lote](../../V2/visibilidad_limitada_20261019/README.md), [galería de 60](../../V2/visibilidad_limitada_20261019/revision_tanda.html), [inventario único](../../V2/visibilidad_limitada_20261019/inventario.csv) y [registro verificado](tarea_22.json).
-
-## Histórico de modelos
-
-La [tarea 16](tarea_16.json) conserva el lote anterior en el proyecto histórico 6, con sus anotaciones y criterio anteriores. No se modificó durante esta unificación. La configuración de acceso está en `Infraestructura/CVAT`.
+[Volver al índice de Registros](../README.md).

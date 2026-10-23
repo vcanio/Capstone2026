@@ -1,10 +1,10 @@
 # Walmart Visión — probar modelos con fotos propias
 
-La entrega [**Walmart_Vision_Ocupacion_20261022.zip**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22) contiene **YOLO11-1**, **YOLO26-1**, **V2-YOLO11** y **V2-YOLO26**, y una interfaz local para probar fotos con YOLO o YOLO + detección de bordes. Incluye iniciador Windows y archivos Docker para Mac. No necesita el proyecto completo, CVAT, las imágenes de entrenamiento ni acceso al computador original.
+La entrega local **Walmart_Vision_Actual_20261023.zip** contiene **V2-YOLO11** y **V2-YOLO26**, con una interfaz para probar fotos mediante YOLO o YOLO + detección de bordes. Incluye iniciador Windows y archivos Docker para Mac. Los cuatro ensayos V1/V2 del laboratorio y sus paquetes anteriores conservan su historial. No necesita el proyecto completo, CVAT, las imágenes de entrenamiento ni acceso al computador original.
 
 ## Mac con Docker
 
-El paquete **Walmart_Vision_Ocupacion_20261022.zip** agrega ejecución con Docker para Mac Intel y Apple Silicon. Instalar y abrir Docker Desktop, extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`. Ejecutar:
+El paquete **Walmart_Vision_Actual_20261023.zip** incluye ejecución con Docker para Mac Intel y Apple Silicon. Instalar y abrir Docker Desktop, extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`. Ejecutar:
 
 ```bash
 docker compose up --build -d --wait
@@ -16,13 +16,13 @@ Abrir http://localhost:8095. Para detener, ejecutar `docker compose down`. La pr
 
 1. **Extraer todo el ZIP** a una carpeta local donde puedas guardar archivos. No ejecutar los archivos desde dentro del ZIP.
 2. Abrir **iniciar.cmd**. La primera vez necesita Internet: descarga automáticamente un Python compatible y las dependencias dentro de esa misma carpeta. Después abre el navegador en **http://127.0.0.1:8095**.
-3. En **0. Seleccionar versión**, elegir V1 o V2. Después seleccionar o arrastrar una foto JPG, PNG o WebP, elegir un modelo y el método **YOLO + detección de bordes** o **Solo YOLO**, y pulsar **Analizar foto**. Mantener la consola abierta mientras usas el visor; Ctrl+C la detiene.
+3. El visor abre directamente con la versión actual (V2). Seleccionar o arrastrar una foto JPG, PNG o WebP, elegir un modelo y el método **YOLO + detección de bordes** o **Solo YOLO**, y pulsar **Analizar foto**. Mantener la consola abierta mientras usas el visor; Ctrl+C la detiene.
 
-Las pestañas **Original**, **Niveles**, **Bordes** y **Comparar** comparten el visor principal. En **Bordes**, el mapa de señal aparece directamente; el selector permite ver también los bordes de la foto y los bordes dentro de los niveles. **Comparar** muestra la foto junto a la predicción del modelo elegido. Cambiar versión, modelo, método, confianza o foto descarta el resultado anterior para volver a analizar.
+Las pestañas **Original**, **Niveles**, **Bordes** y **Comparar** comparten el visor principal. En **Bordes**, el mapa de señal aparece directamente; el selector permite ver también los bordes de la foto y los bordes dentro de los niveles. **Comparar** muestra la foto junto a la predicción del modelo elegido. Cambiar modelo, método, confianza o foto descarta el resultado anterior para volver a analizar.
 
 En la pestaña Bordes, el amarillo representa la señal experimental por bordes, color y textura. Los niveles sin máscara o no evaluables se comunican como sin medición. **Solo YOLO** deja la pestaña Bordes desactivada.
 
-La actualización del 22 de octubre muestra un solo porcentaje de **ocupación estimada por nivel** en la vista Niveles, en Comparar y en la imagen descargada: **rojo bajo el 30 %** con «Reponer» y **verde desde el 30 %** con «Suficiente». Si no hay medición, se muestra gris y «Sin medición». V2 es la opción inicial y combina **70 % de superficie y 30 % de ancho**; V1 usa el área con señal. El desglose queda plegado en **Cómo se calcula** y la predicción original se conserva en **Detalle del modelo YOLO**. Solo YOLO sigue mostrando los estados del modelo. Esta estimación es experimental y está pendiente de calibración; no mide inventario ni ocupación real validada. Los ZIP publicados anteriormente conservan su interfaz original.
+La actualización del 22 de octubre muestra un solo porcentaje de **ocupación estimada por nivel** en la vista Niveles, en Comparar y en la imagen descargada: **rojo bajo el 30 %** con «Reponer» y **verde desde el 30 %** con «Suficiente». Si no hay medición, se muestra gris y «Sin medición». El método de bordes combina **70 % de superficie y 30 % de ancho**. El desglose queda plegado en **Cómo se calcula** y la predicción original se conserva en **Detalle del modelo YOLO**. Solo YOLO sigue mostrando los estados del modelo. Esta estimación es experimental y está pendiente de calibración; no mide inventario ni ocupación real validada. Los ZIP publicados anteriormente conservan su interfaz original.
 
 **No necesitas instalar Python, desinstalar el que tienes ni cambiar de versión.** Puedes conservar Python 3.13 u otra versión para tus propios proyectos. Walmart Visión utiliza su propio Python 3.12 en `.runtime/python` y sus paquetes en `.entorno-py312`. No cambia PATH, el registro de Python de Windows ni paquetes globales. El instalador incluido es para Windows x64.
 
@@ -31,6 +31,8 @@ La primera preparación puede tardar varios minutos y ocupar bastante más espac
 Después de instalar las dependencias, las predicciones locales no requieren conexión a Internet. La aplicación escucha únicamente en este equipo. Las fotos se procesan en memoria: no se guardan ni se agregan a ningún entrenamiento. No se incluyen fotos del dataset en el ZIP.
 
 Si el puerto 8095 está ocupado, cerrar otra instancia o ejecutar `iniciar.cmd --port 8096` desde esta carpeta. La primera predicción puede tardar más porque carga los pesos. La velocidad depende del equipo; el entorno automático usa CPU y no requiere tarjeta NVIDIA.
+
+La aplicación incluye solo la versión actual. Para probar versiones anteriores, descargar sus paquetes desde las [Releases antiguas](https://github.com/vcanio/Capstone2026/releases).
 
 ## Colab
 
@@ -45,7 +47,7 @@ El cuaderno usa el mismo módulo de inferencia que la interfaz local, pero muest
 
 ## Qué incluye y cómo interpretar el resultado
 
-- `modelos/*.pt`: copias exactas de los cuatro `best.pt` conservados, con clases y procedencia por modelo.
+- `modelos/*.pt`: copias exactas de los dos `best.pt` de V2 (YOLO11 y YOLO26), con clases y procedencia por modelo.
 - `modelos.json`: procedencia y SHA-256 de cada modelo; se comprueban al iniciar.
 - `app.py`, `inferencia.py`, `interfaz.html`: visor independiente de inferencia.
 - `ocupacion_paulo.py`, `gondola_bordes.py`: revisión 2 de detección de bordes, con procedencia y hashes en el manifiesto; se ejecuta sobre la foto original, sin colores dibujados por YOLO.
@@ -53,9 +55,9 @@ El cuaderno usa el mismo módulo de inferencia que la interfaz local, pero muest
 - `herramientas/uv.exe`, su procedencia y sus licencias: gestor oficial de Astral que prepara el Python privado; no se instala globalmente.
 - `Probar_en_Colab.ipynb`: prueba de los mismos pesos en un cuaderno de Colab.
 
-El criterio depende del modelo. V1 devuelve vacío, baja disponibilidad, suficiente o no evaluable. V2 base devuelve reponer y suficiente; no reconoce no evaluable. La leyenda y el resumen se adaptan al modelo seleccionado. Vacío y baja señalan posibles faltantes; no evaluable no equivale a vacío. La confianza es un puntaje del modelo, no un porcentaje de ocupación.
+V2 base devuelve reponer y suficiente; no reconoce no evaluable. La leyenda y el resumen se adaptan al modelo seleccionado. La confianza es un puntaje del modelo, no un porcentaje de ocupación.
 
-Una foto sin anotaciones permite observar predicciones; no mide precisión. La validación original V1 no contiene vacíos ni bajos y la validación original V2 contiene una sola referencia real reponer. El laboratorio amplió la evaluación de desarrollo con fotos y variantes revisadas que no se usaron para entrenar; esa evaluación sirve para ajustar ensayos. La reserva final se conserva aparte. Estos conjuntos y sus resultados no se incluyen en la aplicación de fotos propias.
+Una foto sin anotaciones permite observar predicciones; no mide precisión. La validación original V2 contiene una sola referencia real reponer. El laboratorio amplió la evaluación de desarrollo con fotos y variantes revisadas que no se usaron para entrenar; esa evaluación sirve para ajustar ensayos. La reserva final se conserva aparte. Estos conjuntos y sus resultados no se incluyen en la aplicación de fotos propias.
 
 Límites de imagen: 15 MB, 24 megapíxeles, JPG/PNG/WebP sin animación. Se corrige la orientación y se limita el lado mayor a 4096 píxeles para acotar la memoria. La inferencia usa entrada de 640 px y NMS 0,7, como la demostración del panel.
 
@@ -63,7 +65,7 @@ Límites de imagen: 15 MB, 24 megapíxeles, JPG/PNG/WebP sin animación. Se corr
 
 La ejecución Docker utiliza Python 3.12, PyTorch 2.5.1 y torchvision 0.20.1 en CPU para Linux AMD64 y ARM64. El constructor selecciona la arquitectura del equipo. Consultar [Docker en macOS](DOCKER.md) y el registro `VERIFICACION_DOCKER.md` del código fuente para el alcance de las comprobaciones.
 
-El entorno automático Windows fija Python 3.12, PyTorch 2.5.1 para CPU, torchvision 0.20.1, Ultralytics 8.4.174, NumPy 1.26.4 y Pillow 12.3.0. La verificación de esta entrega está en VERIFICACION_VISION.md del código y en VERIFICACION.md dentro del ZIP; el documento histórico VERIFICACION.md del código conserva las pruebas V1. El ZIP incluye el preparador, pero descarga Python y las bibliotecas durante el primer inicio; no es una entrega con instalación inicial sin Internet.
+El entorno automático Windows fija Python 3.12, PyTorch 2.5.1 para CPU, torchvision 0.20.1, Ultralytics 8.4.174, NumPy 1.26.4 y Pillow 12.3.0. La verificación de esta entrega está en VERIFICACION_ACTUAL.md del código y en VERIFICACION.md dentro del ZIP. Los registros históricos del código conservan las pruebas de entregas anteriores. El ZIP incluye el preparador, pero descarga Python y las bibliotecas durante el primer inicio; no es una entrega con instalación inicial sin Internet.
 
 En Linux, usar Python 3.11/3.12, crear un entorno virtual, instalar PyTorch/torchvision para CPU con el mismo índice oficial y luego `pip install -r requirements.txt`. Iniciar con `python app.py --open`. Algunas distribuciones pueden requerir bibliotecas del sistema para OpenCV.
 

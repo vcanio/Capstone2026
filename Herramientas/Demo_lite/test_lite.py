@@ -195,6 +195,22 @@ class LiteTests(unittest.TestCase):
         _, detections = draw_result(Image.new('RGB', (300, 200)), result)
         self.assertEqual(detections[0]['state'], 'reponer')
 
+    def test_rendering_straightens_mask_without_mutating_prediction(self):
+        import numpy as np
+        def tensor(values):
+            return SimpleNamespace(cpu=lambda: SimpleNamespace(tolist=lambda: values))
+        points = np.array([[20, 20], [350, 30], [340, 160], [20, 160],
+                           [20, 120], [5, 110], [20, 100]], dtype=np.float32)
+        original = points.copy()
+        result = SimpleNamespace(names={0: 'Nivel_suficiente'},
+            masks=SimpleNamespace(xy=[points]),
+            boxes=SimpleNamespace(xyxy=tensor([[5, 20, 350, 160]]), conf=tensor([.9]), cls=tensor([0])))
+        _, detections = draw_result(Image.new('RGB', (400, 200), 'white'), result)
+        self.assertTrue(detections[0]['contour_adjusted'])
+        self.assertEqual(len(detections[0]['display_polygon']), 4)
+        self.assertEqual((detections[0]['state'], detections[0]['confidence']), ('suficiente', .9))
+        np.testing.assert_array_equal(points, original)
+
 
 class HttpTests(unittest.TestCase):
     def setUp(self):

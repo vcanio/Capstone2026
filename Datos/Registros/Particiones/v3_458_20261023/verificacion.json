@@ -1,0 +1,48 @@
+{
+  "estado": "verificado",
+  "imagenes": 458,
+  "hashes_verificados": 458,
+  "familias": 181,
+  "grupos_conservadores": 43,
+  "resumen": {
+    "train": {
+      "imagenes": 327,
+      "reales": 126,
+      "sinteticas": 201,
+      "grupos": 27,
+      "por_tarea": {
+        "24": 41,
+        "27": 200,
+        "28": 86
+      }
+    },
+    "val": {
+      "imagenes": 68,
+      "reales": 28,
+      "sinteticas": 40,
+      "grupos": 7,
+      "por_tarea": {
+        "24": 10,
+        "27": 40,
+        "28": 18
+      }
+    },
+    "test": {
+      "imagenes": 63,
+      "reales": 27,
+      "sinteticas": 36,
+      "grupos": 9,
+      "por_tarea": {
+        "24": 9,
+        "27": 36,
+        "28": 18
+      }
+    }
+  },
+  "asignaciones_anteriores_conservadas": 336,
+  "fugas_familia_escena_hash": 0,
+  "archivos_historicos_verificados": 23,
+  "escrituras_cvat": 0,
+  "training_enabled": false,
+  "checked_at": "2026-10-23T06:34:06.775531+00:00"
+}

@@ -7,6 +7,7 @@ const Lab = (() => {
   function profile(item){
     const report=item?.report||item?.manifest||item||{},criterion=report.criterion||item?.criterion||{},classes=report.clases||item?.classes||[];
     const known=classes.filter(name=>typeof name==='string'&&name.startsWith('Nivel_')).map(name=>name.slice(6));
+    if(classes.length===1&&classes[0]==='Nivel'||criterion.version==='geometria_nivel_v3')return {id:'v3',label:'V3 · localización de niveles',states:[]};
     const legacy=['vacio','baja_disponibilidad','suficiente','no_evaluable'];
     if(known.includes('vacio')||known.includes('baja_disponibilidad')||criterion.version==='disponibilidad_visual_nivel_v1')return {id:'v1',label:'v1 · 4 estados',states:known.length?known:legacy};
     if(known.includes('reponer')||criterion.version==='disponibilidad_visual_nivel_v2_reponer'){
@@ -17,6 +18,7 @@ const Lab = (() => {
   }
   function versionOf(item,catalog={runs:[]}){
     if(item?.run){const run=catalog.runs.find(r=>r.id===item.run);if(run)return versionOf(run,catalog)}
+    if(profile(item).id==='v3'||item?.criterion_version==='geometria_nivel_v3')return 'v3';
     const id=profile(item).id,criterion=item?.criterion_version;
     if(id.startsWith('v2')||criterion==='disponibilidad_visual_nivel_v2_reponer'||[19,22].includes(item?.task_id))return 'v2';
     if(id==='v1'||criterion==='disponibilidad_visual_nivel_v1'||item?.task_id===16)return 'v1';
@@ -38,6 +40,7 @@ const Lab = (() => {
     return catalog.images.filter(image=>!trained.has(image.id));
   }
   function versionStatus(catalog,version,activeJobs=[]){
+    if(version==='v3')return 'En preparación · integración de localización pendiente';
     const scoped=versionCatalog(catalog,version),running=activeJobs.some(j=>j.state==='running'&&j.config?.action==='train'&&versionOf(catalog.runs.find(r=>r.id===j.config.run||r.id===j.config.source)||catalog.datasets.find(v=>v.id===j.config.source),catalog)===version);
     if(running)return 'Entrenando · puedes seguir el avance en Entrenar';
     const count=new Set(scoped.models.filter(m=>m.run&&scoped.runs.some(r=>r.id===m.run&&r.ready)&&!technical(m.run)).map(m=>m.run)).size;
@@ -149,12 +152,51 @@ const Lab = (() => {
     const found=rows.reduce((n,c)=>n+c.aciertos,0),total=rows.reduce((n,c)=>n+c.anotados,0);
     return {kind:'neutral',title:`${subject} localizó ${found} de ${total} módulos en validación.`,detail:'Este ensayo aprende módulos. No evalúa estados ni alertas de disponibilidad. Revisa también omisiones, detecciones extra y la forma de los contornos.'};
   }
-  function comparable(a,b){return Boolean(a&&b&&a.id!==b.id&&a.ready&&b.ready&&typeof a.signature==='string'&&a.signature.length&&a.signature===b.signature&&profile(a).id===profile(b).id);}
+  function comparisonReason(a,b){
+    if(!a||!b)return 'Selecciona dos ensayos para comparar.';
+    if(a.id===b.id)return 'Elige otro ensayo para comparar.';
+    if(!a.ready||!b.ready)return 'Falta terminar la evaluación de uno de los ensayos.';
+    if(profile(a).id!==profile(b).id)return 'Los criterios o clases son diferentes.';
+    if(!a.signature||a.signature!==b.signature)return 'Las fotos, referencias o particiones son diferentes.';
+    const x=a.evaluation_protocol,y=b.evaluation_protocol;
+    if(!x||!y)return 'Falta registrar los parámetros de evaluación; comparación solo visual.';
+    if(JSON.stringify(x)!==JSON.stringify(y))return 'Los parámetros de evaluación son diferentes.';
+    return '';
+  }
+  function comparable(a,b){return comparisonReason(a,b)==='';}
+  function workspaceState(catalog,selectedId,runId,jobs,connection,version){
+    const home=homeState(catalog,selectedId,[],connection),copy=home.copy;
+    // La selección recordada prevalece; la fecha solo ordena el historial, no la calidad.
+    const runs=catalog.runs.filter(r=>!technical(r.id));
+    const run=runs.find(r=>r.id===runId)||runs.find(r=>r.config?.source===copy?.id)||runs[0]||null;
+    const model=catalog.models.find(m=>m.run===run?.id&&m.id.endsWith('/best.pt'))||catalog.models.find(m=>m.run===run?.id)||null;
+    const trainJobs=jobs.filter(j=>j.config?.action==='train');
+    const job=trainJobs.find(j=>j.state==='running')||trainJobs.find(j=>j.config.run===run?.id)||trainJobs.find(j=>j.config.source===copy?.id)||null;
+    const failed=job&&['error','interrupted'].includes(job.state);
+    const stage={preparing:'preparando',training:'entrenando',evaluating:'evaluando',comparing:'evaluando'}[job?.progress?.stage]||'en curso';
+    const dataState=!copy?'sin importar':blocked(copy.report)?'requieren corrección':readyCopy(copy)?'aprobados':'pendientes de revisión';
+    const evaluation=run?.ready&&(run.availability?.val||run.comparisons?.some(c=>c.split==='val'))?'disponible':'pendiente';
+    const context={copy,run,model,job,dataState,trialState:job?.state==='running'?stage:failed?(job.state==='error'?'fallido':'interrumpido'):run?.ready?'terminado':run?'sin terminar':'sin iniciar',evaluation,
+      occupancy:version==='v3'?'pendiente de validación separada':'sin validación independiente registrada'};
+    const state=(kind,title,action,target,reason='')=>({...context,kind,title,action,target,reason});
+    if(home.kind==='error')return state('error','No se pudo verificar el estado actual','Reintentar consulta','retry',home.reason);
+    if(home.kind==='loading')return state('loading','Consultando el estado actual…','Consultar estado','retry');
+    if(version==='v3')return state('v3','V3 está en preparación','Ver dependencias de V3','v3','Faltan exportador, validaciones, partición y evaluación compatibles con una clase Nivel.');
+    if(job?.state==='running')return state('active','El ensayo sigue en curso','Ver seguimiento','train',job.config.run);
+    if(failed)return state('failed','El ensayo no terminó','Revisar y recuperar','train',`${job.config.run} · etapa ${job.progress?.stage||'sin registrar'} · ${job.error||'Consulta el registro técnico para conocer la causa.'}`);
+    if(!copy)return state('empty','Faltan anotaciones para este criterio','Traer anotaciones','datasets');
+    if(blocked(copy.report))return state('blocked','Esta copia tiene incidencias por resolver','Revisar incidencias','datasets',copy.id);
+    if(!readyCopy(copy))return state('review','Falta registrar la revisión de esta copia','Revisar y aprobar','datasets',copy.id);
+    if(!runs.some(r=>r.config?.source===copy.id))return state('ready','Datos listos para crear un ensayo','Configurar entrenamiento','train',copy.id);
+    if(evaluation==='disponible')return state('results','Resultados listos para revisar','Revisar resultados','results',run.id);
+    if(model)return state('evaluation','Falta evaluar este modelo','Ver requisito de evaluación','results','La evaluación se genera al terminar el ensayo. Si falta, revisa su registro; el panel aún no ofrece regenerarla.');
+    return state('ready','Datos listos para crear un ensayo','Configurar entrenamiento','train',copy.id);
+  }
   function evaluationContext(run){
     const count=run.development_evaluation?.metrics?.fotos??run.manifest.imagenes.filter(i=>i.split==='val').length;
     if(!run.ready)return `Este ensayo todavía no tiene una evaluación terminada. Se separaron ${count} ${count===1?'foto':'fotos'} para validación de desarrollo. Puedes seguir la curva mientras aprende.`;
     if(technical(run.id))return 'Este ensayo comprueba que el panel funciona. Su entrenamiento corto es una prueba técnica, no un candidato de mejora.';
-    return `Esta versión se evaluó en ${count} ${count===1?'foto':'fotos'} de validación. ${count===1?'Una sola escena da una primera señal; falta evaluar más escenas.':'Estos resultados orientan las decisiones del proyecto.'} Los puntajes no equivalen a porcentaje de exactitud en la tienda.`;
+    return `Esta versión se evaluó en ${count} ${count===1?'foto':'fotos'} ${run.development_evaluation?'del conjunto de desarrollo, con originales reales y variantes sintéticas; el agregado es mixto':'de validación original del entrenamiento'}. ${count===1?'Una sola escena da una primera señal; falta evaluar más escenas.':'Estos resultados orientan las decisiones del proyecto.'} Los puntajes no equivalen a porcentaje de exactitud en la tienda.`;
   }
   function copiesByPerson(copies){
     const groups=new Map(),people={27:'Vicente',28:'Vilches',29:'Paulo'},accounts={'vi.canio':'Vicente','vi.vilches':'Vilches','pau.guera':'Paulo'};
@@ -188,5 +230,5 @@ const Lab = (() => {
     const elapsed=Number.isFinite(started)?Math.max(0, ((terminal&&Number.isFinite(ended)?ended:now)-started)/1000):null;
     return {history,latest,completed,total,stage,best,elapsed,terminal,percent:total?Math.min(100,Math.round(completed/total*100)):null};
   }
-  return {readyCopy,blocked,levelsCopy,profile,versionOf,versionCatalog,predictionImages,versionStatus,technical,currentCopy,homeState,groupIssues,issueCounts,reportGroups,issueAdvice,defaultRun,modelChoices,defaultModel,resultDecision,comparable,evaluationContext,copiesByPerson,copiesByLot,trainingState};
+    return {readyCopy,blocked,levelsCopy,profile,versionOf,versionCatalog,predictionImages,versionStatus,technical,currentCopy,homeState,workspaceState,comparisonReason,groupIssues,issueCounts,reportGroups,issueAdvice,defaultRun,modelChoices,defaultModel,resultDecision,comparable,evaluationContext,copiesByPerson,copiesByLot,trainingState};
 })();

@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-10-23T05:30:02.796658+00:00",
+  "tasks": [
+    {
+      "task_id": 24,
+      "images": 60,
+      "polygons": 308,
+      "annotated_images": 60,
+      "delimitacion": {
+        "pendiente": 248,
+        "completa": 59,
+        "parcial": 1
+      },
+      "occluded": 176
+    },
+    {
+      "task_id": 27,
+      "images": 276,
+      "polygons": 1416,
+      "annotated_images": 276,
+      "delimitacion": {
+        "pendiente": 1412,
+        "parcial": 4
+      },
+      "occluded": 0
+    },
+    {
+      "task_id": 28,
+      "images": 122,
+      "polygons": 589,
+      "annotated_images": 122,
+      "delimitacion": {
+        "pendiente": 466,
+        "completa": 115,
+        "parcial": 8
+      },
+      "occluded": 26
+    }
+  ],
+  "annotation_writes": 0,
+  "images": 458,
+  "polygons": 2313,
+  "splits": {
+    "train": 241,
+    "test": 45,
+    "val": 50,
+    "sin_asignar": 122
+  },
+  "training_pipeline_supported": false,
+  "inference_quality_gate": "pendiente"
+}

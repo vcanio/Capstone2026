@@ -11,12 +11,16 @@ Experimentos/**/dataset_modulos/images/
 Experimentos/niveles_v2/**/dataset/
 .resguardo/
 .tmp/
+/tmp/
 Datos/Para_probar/Subidas_panel/
 Herramientas/CVAT/cvat-v2.77.0/
 Infraestructura/CVAT/*
 !Infraestructura/CVAT/README.md
 __pycache__/
 *.pyc
+desktop.ini
+Thumbs.db
+/Documentacion/Caso Bueno/
 Datos/Publicos/**/*.7z
 Datos/Publicos/**/*.zip
 Datos/Publicos/**/Imagenes/
@@ -48,6 +52,7 @@ Datos/Publicos/comparacion.jpg
 /Datos/**/*.xlsx
 /Experimentos/**/*.jpg
 /Experimentos/**/*.png
+/Experimentos/**/*.zip
 /Entregables/*.zip
 /Entregables/*.sha256
 /Entregables/*.pdf

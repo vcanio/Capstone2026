@@ -1,0 +1,2331 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "publication": "Complemento local; no publicado. El manifiesto de la release anterior se conserva sin cambios.",
+  "packages": {
+    "recursos_v3_20261023": {
+      "file": "Walmart_Recursos_V3_20261023.zip",
+      "bytes": 739750363,
+      "sha256": "65ef6c7544062e8e01e5085f7870c0a22360419df88c9c4cf9a2ada8fa467773",
+      "files": [
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_01.jpg",
+          "bytes": 652518,
+          "sha256": "0f8793fbab3456638a2d80e6ad92f15171bd3c2504e2cf16a6804d9739fa81c0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_02.jpg",
+          "bytes": 626187,
+          "sha256": "1e8ebb801655bf647883b7bdcd74b5355a4b46e197bf306d041cabcdea545801"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_03.jpg",
+          "bytes": 625239,
+          "sha256": "3defe871d83cc42578a1be7e1a6094af741ad16af8683c79e1279f6f7be09b4c"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_04.jpg",
+          "bytes": 675550,
+          "sha256": "a78999ff1016f81da8b085e121e3f8854e6ca334585eaf355a0a47ced072744b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_05.jpg",
+          "bytes": 664200,
+          "sha256": "79e0f5d06e35a1b1d99fbc66b5800fca2ee02a70d438139b80ac56798db40fd6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_06.jpg",
+          "bytes": 642833,
+          "sha256": "3cd384d17ff4a76a1367a97619adc0e14d6612e7408b077554db7a992586f250"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_07.jpg",
+          "bytes": 585131,
+          "sha256": "295117f923872f11c5f2e81e06167ed4d8bfc50d3669ca1133d82ec743925933"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_08.jpg",
+          "bytes": 619298,
+          "sha256": "3f54d3c3a303b11fe48946ee421654cd19005f14eabb50ee7c0ebcb30b021948"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_09.jpg",
+          "bytes": 671934,
+          "sha256": "d767a628eb57f53b9d9289228de2e91331a9b4b90f513671f0e5478122298c24"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_10.jpg",
+          "bytes": 678390,
+          "sha256": "5eab88db9c800300e1e9303006c60ba3c69fd9a9b23093f5137b01f27512d98e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/apoyos_sobre_portaprecio_t27_20261022/revision_11.jpg",
+          "bytes": 34363,
+          "sha256": "26dfbf0256d8d21d74ddd0cf21dab531b3ed26239a199b0cf8b61f0f12e7ee9a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/correccion_046b_portaprecio_20261022/comparacion.png",
+          "bytes": 936946,
+          "sha256": "96d595ab76c828407f5dd8522080deed56858627324124823fd7ffc5b13aa53e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/correccion_046b_portaprecio_20261022/corregido.png",
+          "bytes": 2331604,
+          "sha256": "51f424756c00254e44e95b6f45e6e40d89f8ce7ccbd0bbd50b10d363ff2f1475"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/mediana_superior_t27_20261022/comparacion.png",
+          "bytes": 1403519,
+          "sha256": "032c815ecd63775a578957187fb3630ce834d8c96effa46f589b3b1686581567"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_01.jpg",
+          "bytes": 1087482,
+          "sha256": "11bb9bc1cab9a8fc82c8976ae23e8941f3d5e2a1380603aefe157f063bc56c09"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_02.jpg",
+          "bytes": 963547,
+          "sha256": "2d437679f79bb5bcdbbaed544c0f68a36c1d8fc5e2a7f7e3c4fc78c047b7bdda"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_03.jpg",
+          "bytes": 1023855,
+          "sha256": "7e9fd21f92fbd2c76a9988bf11c7012cdedbe042240d1e90ded6f232895710f6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_04.jpg",
+          "bytes": 990354,
+          "sha256": "fa14f7d8a60efd5eb5090a7ceee379d4ed4d49c4fddf3965dd22e49a99da9a97"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_05.jpg",
+          "bytes": 958898,
+          "sha256": "28eca22d8c9b43d0ccb1013694564f836013e070b4c40fd40d7bf153c4732ee6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_06.jpg",
+          "bytes": 992425,
+          "sha256": "bb7da186a447944fb42b5afdf5229ccb8aed6668da08cabf74d25fb79893c401"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/contacto_07.jpg",
+          "bytes": 867587,
+          "sha256": "e2fd63fe4554d85a7af278347ac27d059c8d7df7e7b5a2e4050b7b31c35bc2f8"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_001_superior.jpg",
+          "bytes": 613693,
+          "sha256": "424d5b4382d952772aa105b5d26cdd0eb9996eaaf66905b23452ec6b9df5eb41"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_002_superior.jpg",
+          "bytes": 683421,
+          "sha256": "c9451111a0141caab18b655b65f70d16b13f28e890a3bd7de58a30a99ea42f3e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_003_superior.jpg",
+          "bytes": 645466,
+          "sha256": "efaf983d3e3dff6aeaf09035a85877302263b50eb0dee0188197b3b2dad5efbb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_004_superior.jpg",
+          "bytes": 616004,
+          "sha256": "bb35b698c9f26161c513263dbccb16f923dbf472ecf98e72f8513c3358b42afd"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_005_superior.jpg",
+          "bytes": 634272,
+          "sha256": "b505759ba81844db86b2357559a36c10a26cc2d01d9ec550f1fcb98d816e1d03"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_006_superior.jpg",
+          "bytes": 553684,
+          "sha256": "c960476a303d03754844a00384cda8a26e9b844d7f3fa81d4aaf19cdee0e4a45"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_007_superior.jpg",
+          "bytes": 486835,
+          "sha256": "a822f8e81df2a2e62dad1869826b47a92f5b925fc1534b4f22008fa49aba941e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_008_superior.jpg",
+          "bytes": 593874,
+          "sha256": "b8eddf363c10baa7ae050b62c7d6b98a0e1db017a3f6da29c958572d77b50b61"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_009_superior.jpg",
+          "bytes": 665712,
+          "sha256": "743477e6a238d7ce64fca6b456635e212ed27b1edf50b87c838461a4b98cd302"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_010_superior.jpg",
+          "bytes": 587143,
+          "sha256": "a83b5c9ff2b85c4986bcb382bea6c024f8bd81fc149a9d6447daf01a5c3c0484"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_011_superior.jpg",
+          "bytes": 437131,
+          "sha256": "5e33fa0b6a5544fabb7fd7de54618350fed777e4c36f490e8a0b0f2dd8048b59"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_012_superior.jpg",
+          "bytes": 460557,
+          "sha256": "6dd2efb186ecc3605386169e6337156985a432645775c9a50ea528092607565d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_013_superior.jpg",
+          "bytes": 480365,
+          "sha256": "75c6d3a4e2119543405abe14ed27ef5fc54d2309e290ad98e5f588fa3fc3d9fb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_014_superior.jpg",
+          "bytes": 590477,
+          "sha256": "67d93b80efd978d34b41ae9ef59168b1b7253ba1369d93d54b8074fb42ee39fb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_015_superior.jpg",
+          "bytes": 546356,
+          "sha256": "c280ea7686a39d9ed15035b33f9f17147b480fca9a7b9d4c7524206ec78b3645"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_016_superior.jpg",
+          "bytes": 629281,
+          "sha256": "9859b067633f0c59a87ffddee5d69c82e5b2c1d0ef789afe968d16f1aad29881"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_017_superior.jpg",
+          "bytes": 619353,
+          "sha256": "03f7857c88f25f91340392c48e2bdc82ba35af4ab3a0c0faff5c991f7e572acc"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_018_superior.jpg",
+          "bytes": 569531,
+          "sha256": "ab1633fc98a8b0d8ecd3e3438f0887f500a9241e47bcd5e5ed346984ba348fa5"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_019_superior.jpg",
+          "bytes": 568904,
+          "sha256": "63aba276d8604c8f7a9614dcbc65045b068cf3d6c84c8047241e9097055dbf9e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_020_superior.jpg",
+          "bytes": 630238,
+          "sha256": "868bf21ef516de5e91c6b7bcc4f49d7942cf9eeeacc99a414209d4675d689b45"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_021_superior.jpg",
+          "bytes": 509024,
+          "sha256": "10d6696f04127634b9cc08304a252acc3257ec3ca389c3a070782cbb1889ca81"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_022_superior.jpg",
+          "bytes": 541178,
+          "sha256": "9d220a739f8c96d24e23f450c982306532a7bfe2fc2f33b76b5a81de29a266f8"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_023_superior.jpg",
+          "bytes": 567210,
+          "sha256": "295f3ed0181ce045be8d32a1213f1ea2d7e2a21369a93ec8e3b38a0eaf4c38f6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_024_superior.jpg",
+          "bytes": 586960,
+          "sha256": "d92aae32057be967b65263e03282bc01889ba3a01a3208929aeb2e8ad870f412"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_025_superior.jpg",
+          "bytes": 549137,
+          "sha256": "cd891c23f7a89e86788b736f840242fadfe227af69835e387a692dbdafa7136a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_026_superior.jpg",
+          "bytes": 572980,
+          "sha256": "0269edc6dc04b00a568d39394c525dd002a1d35affa3765ed203d219e0573a29"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_027_superior.jpg",
+          "bytes": 587809,
+          "sha256": "9cb6067d09da3f39b6c0efcba1b3596674e27e28ce0d7fb62344cfcb7d06bf95"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_028_superior.jpg",
+          "bytes": 499293,
+          "sha256": "e34c4fa785bafd03f1a4857b588775e823b5cfb87abe1c85ac8062fcdd7e8380"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_029_superior.jpg",
+          "bytes": 487169,
+          "sha256": "352461da72ac37c497227130b0523546e450a4316a993813b145b5bfc2ca6bf4"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_030_superior.jpg",
+          "bytes": 616742,
+          "sha256": "b3a774094e23ca3b6bcb2e96bbd4e13c6cd0dce85d473c528ea4eb0e9493cae1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_031_superior.jpg",
+          "bytes": 517208,
+          "sha256": "86ede144afb06225d69a1e873a78ec083a17163fb60f928d63b854c31c8cadd3"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_032_superior.jpg",
+          "bytes": 542506,
+          "sha256": "75d53af807ceb898f3aed3020ac4d44de384fd9ad3ce4e18045bc67e76bd90aa"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_033_superior.jpg",
+          "bytes": 626755,
+          "sha256": "7130c5acec2f1dc5b348fcf61af5109ff7311450887abe5e2a37057732034fa0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_034_superior.jpg",
+          "bytes": 597932,
+          "sha256": "1fd9691738ad7b38bc559ba3301a20ccbe64c0e2f2fce8a2319ae96d84df9014"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_035_superior.jpg",
+          "bytes": 498428,
+          "sha256": "7ab6ebcdf90a9364de4843efe214bfd959f6acbd578bdbe9a6dedac6b9a9aad1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_036_superior.jpg",
+          "bytes": 628968,
+          "sha256": "3b4f5fa14e4ccb2d8d001af573de17beb6c336beb5e1115227a69437a9a9e930"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_037_superior.jpg",
+          "bytes": 594990,
+          "sha256": "8c7105b5636f3d63b078feba560faaf15c6319d1faee06ed7f99363ef1541edf"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_038_superior.jpg",
+          "bytes": 608073,
+          "sha256": "9a29bf338ff1b743d4ee164e0570d78370235ed03319db5983ae960c67fd33e4"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_039_superior.jpg",
+          "bytes": 591437,
+          "sha256": "0968ac45a9abb575dfb39da0f07bf22c62772b95b0709dbe05b83898a12aa88d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_040_superior.jpg",
+          "bytes": 479471,
+          "sha256": "05a8610311c11e16caf7a2961b99b3a46157ad86acc88dd4dc769878a33e8a8d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job67_20261022/foto_041_superior.jpg",
+          "bytes": 609823,
+          "sha256": "d30466809fbb681c80f6ece0b4813a65babc38c860ce216732fdf6ddda0e0c18"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_01.jpg",
+          "bytes": 1083436,
+          "sha256": "5c19fac0589cc8ad24220494e6b69e35933c7b3981dd0de11770d19eda8ca64a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_02.jpg",
+          "bytes": 1006091,
+          "sha256": "81337096772a4e2d3f99080b48c326a5e82e73f0de53e614261b8472f96e8139"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_03.jpg",
+          "bytes": 887973,
+          "sha256": "5b7d35f40f42674df1f20d701ee31540384f4d82243c7a2d3290b358ecebf5f9"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_04.jpg",
+          "bytes": 894376,
+          "sha256": "c15bef18ea3c0e3fcd904adfa8fa295eec2f89c31e01c3d34a80fd7ee1cfeaef"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_05.jpg",
+          "bytes": 1047092,
+          "sha256": "e85f0c3450ccb61b437b66ff4bfc7050b84f991f42a84809ee657bd880c5273d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_06.jpg",
+          "bytes": 986226,
+          "sha256": "2e054c351fa1b1479e4ef996c9bfa01878ee23047cf0ce6af4d169daf3176e01"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/contacto_07.jpg",
+          "bytes": 912332,
+          "sha256": "f31a363ca118f9c09f0cd5339223dfd50c32ad78cf661f6a49af4d16cc88f6c7"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_042_superior.jpg",
+          "bytes": 631515,
+          "sha256": "d4ed27a95f9d978b0e9467351840030d5d578308d0e31dfef6092ea393595b4b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_043_superior.jpg",
+          "bytes": 632564,
+          "sha256": "fdd3204601e869a4715601a35f3fea76d2bb78e8a220a34a81a6eb26215f9df0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_044_superior.jpg",
+          "bytes": 650310,
+          "sha256": "a34409eccd3247fc212f808d92bfc9772e0bdbf6e5068ea8ef827972e5a81db0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_045_superior.jpg",
+          "bytes": 590955,
+          "sha256": "274f9a4caa50be779b366fed64aeb1d02a22a27bbb65d74de87084a2c6c5cf6f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_046_superior.jpg",
+          "bytes": 647028,
+          "sha256": "5e35b98c98ddca0a2dfcf78c2878bd56d2014532b5ac629990773d7849af79eb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_047_superior.jpg",
+          "bytes": 628713,
+          "sha256": "15739647818878870cc3f2caf40d6af4b536efdf46e2e45d58fc261fa441f50a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_048_superior.jpg",
+          "bytes": 611938,
+          "sha256": "26f77af7fdde3c6765d241e417cba89adb2678b68b2c5b1aa7982cfaeffc9688"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_049_superior.jpg",
+          "bytes": 632697,
+          "sha256": "fac491838124c929daf779ed974a7865e010e17fd68ae0738f548facada67925"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_050_superior.jpg",
+          "bytes": 627414,
+          "sha256": "a5b60a96451d1bd62c32712a474318dd2c8d57e1efa243c2df908f67cc18cbea"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_051_superior.jpg",
+          "bytes": 608010,
+          "sha256": "15a5c5616182cc2cac47fc4944cbdd50459c043249ba51dbf8c1cadcf9a21fbf"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_052_superior.jpg",
+          "bytes": 549626,
+          "sha256": "ed20f367a88e6135d7bbc6158741c7b41f09b6303dcc71f3ef501adeac115938"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_053_superior.jpg",
+          "bytes": 468562,
+          "sha256": "dcb1c4381108997df38df447ab3e4d961543d648790a398f26ca01cc2045da5c"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_054_superior.jpg",
+          "bytes": 488190,
+          "sha256": "9097fc6bc20269f30ddc46df3475b18fe081733986c38d0e6a6c57aa0b8f74c6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_055_superior.jpg",
+          "bytes": 509402,
+          "sha256": "d591a4a5912d2e84b8e3f3d906dcf1fa9e2dc8b768e68ee02ea5b8a59a46dadb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_056_superior.jpg",
+          "bytes": 528926,
+          "sha256": "19de70489a1166505759f9df7293eeba0d2bc7b2a36c15afdd7968f9841864f9"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_057_superior.jpg",
+          "bytes": 515675,
+          "sha256": "3cfea87490cb5ed4d83a201f0d925d46a265ab89613a47b88cce873166ce4519"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_058_superior.jpg",
+          "bytes": 533069,
+          "sha256": "1628dc83b1d3ea9d2dc83e3add246d96a2c10c4838bde0f641fe2507dd256dbd"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_059_superior.jpg",
+          "bytes": 510796,
+          "sha256": "c7bebefc82b0758398c1b53d01c1c126f510d382ef8bf4c57e86a1fca7467b89"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_060_superior.jpg",
+          "bytes": 532362,
+          "sha256": "e196a76770c6e2c7d1d272698e36d3cf10a50602a67244f864a67db9b06788bf"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_061_superior.jpg",
+          "bytes": 503932,
+          "sha256": "0c0986ccd7fbbc5dde4843856a4415cd29d47542556df7a6132368547adcecd4"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_062_superior.jpg",
+          "bytes": 488886,
+          "sha256": "b6b7db4d461a812d0529b4c6c62bb055fa68082f824b1919a8af5c4f9a38b40a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_063_superior.jpg",
+          "bytes": 521990,
+          "sha256": "7cfa991dd4389bb04d51065b2ea28910e95dc120fff1f9455fc1105871e71c4e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_064_superior.jpg",
+          "bytes": 553635,
+          "sha256": "c2ed942e35fe504bc129044fff3865213c6561b402d02977e0e1c285e30f0fc9"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_065_superior.jpg",
+          "bytes": 554098,
+          "sha256": "591dd1e8e4d11a4dfcc8b98dbcbb9c9fd57b467d21c42f6e05a4c9fb0e4b26f8"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_066_superior.jpg",
+          "bytes": 474772,
+          "sha256": "c6bf62c3397b7312ae6c0380aa95e778c109c38f8b8b796e20883bec4dc89edf"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_067_superior.jpg",
+          "bytes": 643183,
+          "sha256": "dd29847d584e6703870b634337321cc6f38649a5d436759248570f025da52135"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_068_superior.jpg",
+          "bytes": 599312,
+          "sha256": "98682094b42b224edcfb38f55cb6b40abfc2f190aee988eb6644b4ee0f9e16b6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_069_superior.jpg",
+          "bytes": 650210,
+          "sha256": "7095b4c72621f2efd89427f9e6fbbd4ca64418aa294f137dfab8c351e52c8a38"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_070_superior.jpg",
+          "bytes": 621794,
+          "sha256": "69eed3e7e08ada177e9f6161b0fc939a0e3c217ce2ac61883dec3df83134fb9b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_071_superior.jpg",
+          "bytes": 638975,
+          "sha256": "b3718396d03a904f906bc00e790f109ae4f118b07d71fabc5cf6b5841f861370"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_072_superior.jpg",
+          "bytes": 522346,
+          "sha256": "97870bc3839b1381e2759bf0a9d13443ff06805eb128f6efbb9139a8a20e3251"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_073_superior.jpg",
+          "bytes": 563024,
+          "sha256": "719528996b118e18aeaa6d78b4e4aed614b10fd57f9118acffe9ccdbdd7517ba"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_074_superior.jpg",
+          "bytes": 649139,
+          "sha256": "13b586db4511d908886aaefe93dae31ca60e8f2976a6164317d826add283db14"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_075_superior.jpg",
+          "bytes": 507896,
+          "sha256": "13e87c796b9af49e6213149431e301c62a8fa1085ca674320722ad843ce32f68"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_076_superior.jpg",
+          "bytes": 572640,
+          "sha256": "13c019c82a2328d2ecbaf968a01a76fac598a3be0e48b1bf70653cd020f08513"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_077_superior.jpg",
+          "bytes": 558317,
+          "sha256": "8900f752f75c143a4b4057f25c3d0d9f796cb75e9e5f08bc01c111c20ac2926b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_078_superior.jpg",
+          "bytes": 643405,
+          "sha256": "94efc94af0b66f60888473e190dad44ba484c4ea88ab342d413a025ab1535e42"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_079_superior.jpg",
+          "bytes": 709287,
+          "sha256": "2d4f9ab73267308b379962053f650ca57d58881c4dd477c2ca4437b94bcb1548"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_080_superior.jpg",
+          "bytes": 599936,
+          "sha256": "0161bc015c52482fd249b74aab7c61af7cdd92b71e8e156046ecd77e2ec46e99"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_081_superior.jpg",
+          "bytes": 596549,
+          "sha256": "5475f0c3ebae3be5104a23680acc302a80dd76625c5bbfee4c0daef722ddd7b5"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job68_20261022/foto_082_superior.jpg",
+          "bytes": 631813,
+          "sha256": "188753aaf0c11855d90dc8fdfb12af4277503dbfd66451ec5ce9d7f8cb35efbc"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_01.jpg",
+          "bytes": 950073,
+          "sha256": "8e30c30d86a2985bf5ca34c27b138642612cf0e8912096b30b987731ac889fb6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_02.jpg",
+          "bytes": 925188,
+          "sha256": "97324c924bf1ec1b96728c0d1d91a99683c33a20ed072d2f5e73d68355839103"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_03.jpg",
+          "bytes": 1044692,
+          "sha256": "435ba16160a3491f0590228c56cbc81717c4cfe22264dee82641f3175ee333b2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_04.jpg",
+          "bytes": 1089236,
+          "sha256": "34849801c952f439703a6d3e6b9c97398d83837eac445b91fa77b3b5401d5c55"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_05.jpg",
+          "bytes": 995458,
+          "sha256": "ba816e8e2c0534fda86d4d501ea7502bab3e8f3e9bc00e9183f6607953b84885"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_06.jpg",
+          "bytes": 970320,
+          "sha256": "22270ec6d97c5efcce3dd4fa30782ab46e2b04e33cbdcd19cd7088d8436b9d23"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/contacto_07.jpg",
+          "bytes": 717220,
+          "sha256": "958c75c2acf9f47e978c04c10106fcc3f2916e54ff75373561c0fad9cb56bc0a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_083_superior.jpg",
+          "bytes": 531732,
+          "sha256": "3a8724743efdedbc6433d9535d7df69561c17d85283c0cdcf7e8d83580f86b75"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_084_superior.jpg",
+          "bytes": 601882,
+          "sha256": "ea1c21642049935228c49b36a6b5ac9511ae2706942f8138e15b548010d72bc1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_085_superior.jpg",
+          "bytes": 525054,
+          "sha256": "c0e5be4dcd1b0e7d5e17c100d24e1c81ac4b6b3dcfdb4d392908b8f90876934f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_086_superior.jpg",
+          "bytes": 451381,
+          "sha256": "73a4dfcf3bc774d404f7ad19eff5630c09be22cc02053e5eda608fceab227e4f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_087_superior.jpg",
+          "bytes": 562814,
+          "sha256": "c5d1f9ca542103c3f5f0dcc1988640581354cf8ef78728f3556240d9ea3916b6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_088_superior.jpg",
+          "bytes": 575345,
+          "sha256": "c169da988c4ae4b5d05910a2d17e92134c21cf2294b3e951d97d73e90cb23566"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_089_superior.jpg",
+          "bytes": 492972,
+          "sha256": "83a8059838b0065348691b22c9ad3440bf83d0523c7b83f45f8096a61fbd83f1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_090_superior.jpg",
+          "bytes": 577533,
+          "sha256": "1dd05f0c3c9b4af2cbd7f51f9f1d2fcdc541c223eab6cd710439770d6c3a801a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_091_superior.jpg",
+          "bytes": 535146,
+          "sha256": "6b311872cca6b487234310d8c2f83dc424bece1034144ea47667b2cbd4d91915"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_092_superior.jpg",
+          "bytes": 462270,
+          "sha256": "081c2917ddaac4fa10242180b8c24ff09869b1e0627f8225ebeb1d0b70781946"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_093_superior.jpg",
+          "bytes": 526929,
+          "sha256": "488400815026aefb729f0c47cbc5627bc7d60a77eddbe5d48ef2f305d01f316f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_094_superior.jpg",
+          "bytes": 535124,
+          "sha256": "4548e5038b74d3a486accf38c54d9e88b20764054540eb5fb0f6809d2722ca26"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_095_superior.jpg",
+          "bytes": 574347,
+          "sha256": "5fb9e15fe689c322afd7a55dc965656578bc4a7e02e5dd36aa50616f4ca6c6fc"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_096_superior.jpg",
+          "bytes": 635307,
+          "sha256": "cc96fb4f612cbdc1d5bc35d2610eae4e834b0aec17430dfc2d9c370857268ec3"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_097_superior.jpg",
+          "bytes": 650444,
+          "sha256": "0c939bcccd931abfe1b55c02dd63b19ce7b3e4cf79ba8c5bd1b459669bc6d1ca"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_098_superior.jpg",
+          "bytes": 638158,
+          "sha256": "fa00b73da70a6c1d50e0248126f338848d57833ef03bb397b6e2e987418dd215"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_099_superior.jpg",
+          "bytes": 633478,
+          "sha256": "2e40a2507bfc8218c2dcd7e9e418f10ce391fa0adaa81fcfe0d3b413315b7919"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_100_superior.jpg",
+          "bytes": 544935,
+          "sha256": "fb11af909c44bba494188354e7b738c3612c70544e83cc398b6b29d3a73e58de"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_101_superior.jpg",
+          "bytes": 606034,
+          "sha256": "d0f7cad326c0819a847af5dfc951e1de76033ad9f7dac68b65b5dd36707781d1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_102_superior.jpg",
+          "bytes": 611682,
+          "sha256": "616ee5549ea9635d5edab6b4aa071a68b3eeebfb1c9b5f21b8d310ca595f90f0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_103_superior.jpg",
+          "bytes": 634576,
+          "sha256": "59675f174910bd89940faa58959f5ae1e46d3ce96da328ba9f6a76628834c781"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_104_superior.jpg",
+          "bytes": 646844,
+          "sha256": "ff94e7ab0fb7a2c5e29160f4531748f286cdc48831c6934d431f1caf9d0e5655"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_105_superior.jpg",
+          "bytes": 621526,
+          "sha256": "6307b53813722d8f2e54093ea306797238ed3b5853f17b6400c0f06ec1220f7c"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_106_superior.jpg",
+          "bytes": 680473,
+          "sha256": "1a5f3c83bc4af46cdba48768f42cb672f2f1d1ff0b32845040439905b1769497"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_107_superior.jpg",
+          "bytes": 598566,
+          "sha256": "1016f0413006203194b5de128fbb54d2ed297203a0aeb2cf2d2fdcbe5575a30f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_108_superior.jpg",
+          "bytes": 667293,
+          "sha256": "3fe0366fec9048ca0d3a9e583a4d93e83f87ef26b0d6fbd00f1f9cc31899c0eb"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_109_superior.jpg",
+          "bytes": 532026,
+          "sha256": "e07d2d9c81f4550fd5ef715462e1745e3c7597ab0f71d6e97b686140049eb44e"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_110_superior.jpg",
+          "bytes": 591265,
+          "sha256": "676b4efc0e19d6b643eeedd253c824615618a7886e102bb15a22e0a279d3e764"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_111_superior.jpg",
+          "bytes": 520955,
+          "sha256": "ecbe415855e0eea4b3b618162f9bb906adb2552c56a72c86871e2a87c132b22b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_112_superior.jpg",
+          "bytes": 555935,
+          "sha256": "99df5400b75b8eb859231f7d48c550823d80bb77390e3287099e381909d26426"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_113_superior.jpg",
+          "bytes": 564510,
+          "sha256": "c0bb77ef58e8b2e0fa654cec6c387db521082618f7a92922161be369ef4bf739"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_114_superior.jpg",
+          "bytes": 554423,
+          "sha256": "07075c8f8a6294fc426823345447ac4336891123625425e99b5e77ccb3a3146d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_115_superior.jpg",
+          "bytes": 552951,
+          "sha256": "a4bd03d12d01e897499100dcffffb45cbd828fc6656867389ffa67d769466a12"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_116_superior.jpg",
+          "bytes": 516932,
+          "sha256": "6cedd927c7759116f75b6fc8e27182b634e11b5ac82170d0c0ef89969c9c9c7b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_117_superior.jpg",
+          "bytes": 462949,
+          "sha256": "d0efc48452b5d95639ce9aaf8424147102a530d81199854edbf797e927086e08"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_118_superior.jpg",
+          "bytes": 643038,
+          "sha256": "af7eec44b114b5919b0ea08492abe684be66b73b1dc0b8944e3c472d405c6a76"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_119_superior.jpg",
+          "bytes": 600331,
+          "sha256": "151a109a2e4b143d2a1392beb489d866942f4a16ac4f158f654f94e17a881598"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_120_superior.jpg",
+          "bytes": 631679,
+          "sha256": "ff9db502f79ac98a033f2514f81bd38b057672b9cb607faab5cdc594ee71a6e6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_121_superior.jpg",
+          "bytes": 555229,
+          "sha256": "838908d5d85b1244a932eaa2d4290dd304353664e0789db6da59ffbd05d9af66"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_job69_20261022/foto_122_superior.jpg",
+          "bytes": 615222,
+          "sha256": "8ab67802c8efe408e6fa80e1cd4e2f71549cf18d2e4fe71011086c1936eebd7a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_01.jpg",
+          "bytes": 984824,
+          "sha256": "2013d6d1832b560fa6c3706395503b692dab93923559b072d80fa73a22772a83"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_02.jpg",
+          "bytes": 980094,
+          "sha256": "b93dcd93cc5d2401ccd7911768faf32fd7bf84bf63fbf059473b3e15ca48e0d7"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_03.jpg",
+          "bytes": 1027177,
+          "sha256": "e54a925adcfe0eab2a6303e6ed5fb1aa77c77860f0f36d8215581030c40552d2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_04.jpg",
+          "bytes": 997277,
+          "sha256": "6dd0f3597803739ac7df9ee6882e06abde0a3f1d8819d595b773db7e73c1042b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_05.jpg",
+          "bytes": 972475,
+          "sha256": "e5842b8f75480aa3587556d0e7c577c1651c131c7bf549ef4149a38a1a950da8"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_06.jpg",
+          "bytes": 1012461,
+          "sha256": "112509b74fc73d96ec20dec01eda0c96f9c357f0165490556defd0c6ad2a5f57"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_07.jpg",
+          "bytes": 975151,
+          "sha256": "e9e431c7c92b8296df28ee6c9c736a002cd03b3f71012a05e16bc079ff3942c2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_08.jpg",
+          "bytes": 946247,
+          "sha256": "7ca4c920d966b41a6621fac1efda7946786490cfc9449f26c76618393201a223"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_09.jpg",
+          "bytes": 910740,
+          "sha256": "a5b17fc3aac47249c231ec51fd94291844ae4fcf23ad3fe7ce3c930e35c9af04"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/contacto_10.jpg",
+          "bytes": 958670,
+          "sha256": "f4588c7a376b6b8138d6243e8cb8b4130166d875f3817807607a9cabbe17d234"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_00_superior.jpg",
+          "bytes": 565694,
+          "sha256": "356f9ae801a0a8999922298be46a2faaf14327761df655a5dc939b6deb25f191"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_01_superior.jpg",
+          "bytes": 491291,
+          "sha256": "e9cddded93c8e8f578213d5f5a92df3c01b84063a86559119e1dd673b2925e5b"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_02_superior.jpg",
+          "bytes": 495403,
+          "sha256": "f0a42f8cfb77a697de70e74aa86d8c2b4a60ce7953b75ef204c53371122c1c17"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_03_superior.jpg",
+          "bytes": 537744,
+          "sha256": "81f7e5bc126b57bff832c80499d37741d765beb62074a8fd31e991f1d365cc95"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_04_superior.jpg",
+          "bytes": 464793,
+          "sha256": "fae44eb5a1028bb4f604546d19d575adc707b7a35d928a228fb49abc770407e1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_05_superior.jpg",
+          "bytes": 525426,
+          "sha256": "1783f11f048f243a6bd25a1af47bd418b43f295ce379195308353878ecb73491"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_06_superior.jpg",
+          "bytes": 529750,
+          "sha256": "c26b215ea89431ad90a43b5393060afb549ebb17a64b8202c2070858e89ba4e5"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_07_superior.jpg",
+          "bytes": 554373,
+          "sha256": "3f057d09471ffac9f6f82a54fd31b2470a36ca4d9d5e37a3b9862b5420c1beb4"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_08_superior.jpg",
+          "bytes": 473592,
+          "sha256": "7e70694e9b7bc0da989cce0554e0cd5d55911c1e46f4f4252867445218447df2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_09_superior.jpg",
+          "bytes": 534202,
+          "sha256": "4cc0d6b64cc10fbee57f6926557541714804ea269c7718fdafd3785ddaa239a6"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_10_superior.jpg",
+          "bytes": 428017,
+          "sha256": "652a32ed97023fa317d8746018d0f32b41ab30fa38ed79ab110dfbad0bf28fbe"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_11_superior.jpg",
+          "bytes": 542252,
+          "sha256": "6fb15f642a50b74a8a7033e303bb248f99ff75255121d34fad9439144e265b38"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_12_superior.jpg",
+          "bytes": 580301,
+          "sha256": "34a7477577c3d4c6ef3a36d68a82dcff77e763014088ad46af40c99f5b40e9b2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_13_superior.jpg",
+          "bytes": 594775,
+          "sha256": "70a97c29929706e9a61888ac367068b5c716e2157dfcd65b1a5eb1c0f7402ee1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_14_superior.jpg",
+          "bytes": 538585,
+          "sha256": "0d219f15406a69d681cd704e7d0ffc15dcf1a7fcf4546dda3c1a869a8856534c"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_15_superior.jpg",
+          "bytes": 513419,
+          "sha256": "fe3a8dbfc5e3b76f74cee59252d6e4a7b855a1b9dc4f66c44985e2e4424d4104"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_16_superior.jpg",
+          "bytes": 528312,
+          "sha256": "488d5704032944715b5bea164336e404dc96b76b300147bd1a87bc80a675e22f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_17_superior.jpg",
+          "bytes": 534738,
+          "sha256": "be8446fd9f021a441ef9cc87e83570d263d54e5fa306805d2a91e27efaa550cd"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_18_superior.jpg",
+          "bytes": 574802,
+          "sha256": "dd454590071dd93af3facd52712240a00f1435acbb09aa7f8c0aad79c17eaa86"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_19_superior.jpg",
+          "bytes": 506568,
+          "sha256": "65b84386aed0f7930985224065faa49069795b94ad8bd3627caffefc906f8f00"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_20_superior.jpg",
+          "bytes": 539953,
+          "sha256": "c3ebfe7d74765cb0b3fc44b85f9665714bab2fd46d7775376cc594557710afd7"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_21_superior.jpg",
+          "bytes": 521406,
+          "sha256": "7417b4dbbb562976c01e0b975bad0f0a827178c9548ad91d29b3fead0314d5e4"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_22_superior.jpg",
+          "bytes": 566385,
+          "sha256": "b18467427d71596213f0da3025c4f27105547e8a84cdf654c97e34109d2ec5ce"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_23_superior.jpg",
+          "bytes": 489989,
+          "sha256": "11c87dfbf5845b253ce92d49fdfb6c8c3167948ea75706ee7afe693df994075a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_24_superior.jpg",
+          "bytes": 457067,
+          "sha256": "1b02efe746705e5688050c806be20bf8577da8706ef71fb5b5a15b31ea6129e2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_25_superior.jpg",
+          "bytes": 557074,
+          "sha256": "153adb8df7929ad71e71228ea8894f3dff8c247137369f9afc50529efe196160"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_26_superior.jpg",
+          "bytes": 582704,
+          "sha256": "65a130d6b69746deb5613d4ecb6b3c96bcf13c832a05be4adf2b08db00b13d16"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_27_superior.jpg",
+          "bytes": 569732,
+          "sha256": "750dcb503f4b067149dedf0e4bc65b0b1bdd950f99699420da0f67657960f650"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_28_superior.jpg",
+          "bytes": 517796,
+          "sha256": "6c9ffedce78de23e9bf8aeb043699c174928384770b0e2cfadfbc30fa357a877"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_29_superior.jpg",
+          "bytes": 513113,
+          "sha256": "f690d3ff948d1d9656d86780f2b61fc2c0110e8a7ccbab6ac3370302590064fd"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_30_superior.jpg",
+          "bytes": 563385,
+          "sha256": "c39c0884988978fb8ae07f8107b41522de2e1161c761930cad8c6a0d79eb4f01"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_31_superior.jpg",
+          "bytes": 524483,
+          "sha256": "dfa3b640cc4bac6bbc80cb82e3202e4d61b3ce5dc7ec22b180802553d7df9af2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_32_superior.jpg",
+          "bytes": 563156,
+          "sha256": "5005396483f34f1060c1c847b4cfec5bf2a18b9f1592cdf0bbff56d5826bb1e2"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_33_superior.jpg",
+          "bytes": 551627,
+          "sha256": "8d92bcce45258341530bdb440a5445c913a2a0b8a17fb6f2c389bfeed6f40cf8"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_34_superior.jpg",
+          "bytes": 574286,
+          "sha256": "a78c5d39152e638202d9c265d09646f6a302d63d7709fc78540407a2525ce7e0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_35_superior.jpg",
+          "bytes": 519558,
+          "sha256": "8d358c19572388d56def3ab28f4207b7566884a8ae08601ef05055d8fa56e597"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_36_superior.jpg",
+          "bytes": 513942,
+          "sha256": "0ff3118e3844d39f14073e6d72f70375aaf480dcf78caf25731897b501ef1e99"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_37_superior.jpg",
+          "bytes": 506702,
+          "sha256": "19edffa363a4a68a6d7bb102d44ce30e422a6285a85f12a472e6fbf6e5012b16"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_38_superior.jpg",
+          "bytes": 550084,
+          "sha256": "81ce54058b77f35d4c5488a69e9755fa075f54210cadf4afcc4e6b95bbf47d09"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_39_superior.jpg",
+          "bytes": 492514,
+          "sha256": "44f94a34a16aaeb9fc7f34412b05218a15a061dd02d8986b1279e4b18bcc89c3"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_40_superior.jpg",
+          "bytes": 478690,
+          "sha256": "5010efc73daf532b8149d146f356cc25e9d7a0a8957c6f93e9d5538c07988d55"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_41_superior.jpg",
+          "bytes": 570250,
+          "sha256": "490edf6e01e0b90e3224a93ba9d1556f9ac18a8325f6a63e26afd17906355cd5"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_42_superior.jpg",
+          "bytes": 431081,
+          "sha256": "c4e2830f3da933b0928e1f75628e26740ced581aefdbdb4badd9f4f3f6949f22"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_43_superior.jpg",
+          "bytes": 554255,
+          "sha256": "0407cc7a49cbe3e2dec4a41468686bbfce4ca6e716987388998dc930255c14c5"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_44_superior.jpg",
+          "bytes": 505023,
+          "sha256": "d2394385925d273a83b2d78661d280d7f0bbd449a050b4cb91222e4875f20023"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_45_superior.jpg",
+          "bytes": 524573,
+          "sha256": "02a1138e1a8c062677772026751705edb956b382bd6430d2017d5ab016ee02bc"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_46_superior.jpg",
+          "bytes": 484736,
+          "sha256": "12daeedfac7dc9ed574a5ccb11389cf89a67a75be4aa81474b3afb3f8aeaf6c1"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_47_superior.jpg",
+          "bytes": 529715,
+          "sha256": "d7808900a7d339d1f9a0a3d9b51d120873454abd399ce2cb711cb7fdded2bbea"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_48_superior.jpg",
+          "bytes": 490406,
+          "sha256": "b8dbb69d9224491480e3d136c4198600fa072bfe466eebc0e02b1c0a62898a7d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_49_superior.jpg",
+          "bytes": 493441,
+          "sha256": "1dee16f0e6ed5f722a28cca2d912a9c74fa0d875d0e1f1ea5f42da8a1f57e69d"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_50_superior.jpg",
+          "bytes": 505758,
+          "sha256": "692681b4ac1314a6daf87899629663ce99e2585c583189de66e01e7970509865"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_51_superior.jpg",
+          "bytes": 419817,
+          "sha256": "0152406a8607e05e5d01a58055b8f4cf24828249a713d1f1fd5f0eccfe3a87b3"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_52_superior.jpg",
+          "bytes": 513332,
+          "sha256": "7ec3c276395c9cf124342431f94df73dd75008525c29017f59e8ff6bc74e7253"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_53_superior.jpg",
+          "bytes": 542584,
+          "sha256": "0d46aef44051dba82eccc3cee75630c4954877f684080562c26ae09a20ff130f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_54_superior.jpg",
+          "bytes": 560920,
+          "sha256": "4e3dad4b697686db76043902f45b44621f02551b0ac7a270e17ee6d0aa412d52"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_55_superior.jpg",
+          "bytes": 499269,
+          "sha256": "b2785e50c2cf1f0e8235f06689d9a7b1ad0c045cc5560a2ca0c9b0f9266a10d0"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_56_superior.jpg",
+          "bytes": 514593,
+          "sha256": "6aa4ca544c419daac5d7448a2b540eadf220a5aba3a2a282e5d951479858a45f"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_57_superior.jpg",
+          "bytes": 511054,
+          "sha256": "cae3598f77c2af6477e7644f6ba3b97dfdaab59b4e0a482db4d64df8cc232498"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_58_superior.jpg",
+          "bytes": 470749,
+          "sha256": "94101493ccff791b0a866dffd1276637bfa96585f933664b207b49fb4ae1830a"
+        },
+        {
+          "path": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/frame_59_superior.jpg",
+          "bytes": 535768,
+          "sha256": "663b4b4478835c3cdbc99c5cd92fdb58d355f22f1a8c7ea48e0a55d22e2f7414"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/001_012.jpg",
+          "bytes": 1067035,
+          "sha256": "04d2e6e3b5cae1f87c991d6cab19b585415291519cc0efcebaba1d0e551304b3"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/013_024.jpg",
+          "bytes": 1037846,
+          "sha256": "f33f4b3361bba17fa2387319c0e3a5721ed6c6a909a07f3f6490a585a318bd49"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/025_036.jpg",
+          "bytes": 999658,
+          "sha256": "2ca41710530410bf16957e4a2e592ab7d9abb04c9c9c4bfea28462529f3662f5"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/037_048.jpg",
+          "bytes": 1095844,
+          "sha256": "9327f554fbd8a5d76d2afe7c875487835a2f8785b142e061552173c40b0ead66"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/049_060.jpg",
+          "bytes": 957049,
+          "sha256": "b91ecacbdd0a168b941269896c8cfd438ff461e470bf31a22903079a5055f6be"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/061_072.jpg",
+          "bytes": 989168,
+          "sha256": "8e12e28a04887d8a4c1ba954aab2d1a62b0fc88454309b3db9e32399bb636f7a"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/073_084.jpg",
+          "bytes": 1066449,
+          "sha256": "2f219155b4754c21003a7ccd98071c47a4f85ffc32df8b00fd9efcc0f42f0efb"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/085_096.jpg",
+          "bytes": 977608,
+          "sha256": "d27eefc33fe67418c264ddf524252f06ff3628f87ca4eab050e7b3e5a127d3aa"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/097_108.jpg",
+          "bytes": 1116145,
+          "sha256": "3b0cd1a8b2d728528630257bc530bdd62d0715fb3a0bcdcb363c60b253ad8255"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/109_120.jpg",
+          "bytes": 1025730,
+          "sha256": "50b6a180bea28c4b77b8a2eb94a6d98546ad3c976c7da3c8080ffb85d2715ef3"
+        },
+        {
+          "path": "Datos/Registros/Particiones/v3_458_20261023/evidencia/121_122.jpg",
+          "bytes": 213805,
+          "sha256": "bb299dece323879abd65660466fdf16da7a8ecb5ce561e857c2e723930e6356d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_001_0_original.jpg",
+          "bytes": 4448230,
+          "sha256": "d42490a5c2739f8d9aaad5bc990e055a2c9d3837e083758b6795b34f1eb05ca5"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_002_0_original.jpg",
+          "bytes": 4811749,
+          "sha256": "2b8f302a94f90f9c7b8697ea34ff4cd8034a6d2c9fe745b5ff63b92ea604778a"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_003_0_original.jpg",
+          "bytes": 4606994,
+          "sha256": "a55394dc05739311f39f59009971e4c7d2611c8a4c8064660bd0965814a242cd"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_004_0_original.jpg",
+          "bytes": 4373030,
+          "sha256": "4eb293ae9d9dc03b80e5a6dd0be9e71968e3b1765489d6314ee0cb924673927d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_005_0_original.jpg",
+          "bytes": 4295135,
+          "sha256": "aa5b9c9167454a5e9a170c9990122274852a9e34e398d65b8fce0f020f17b9d7"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_006_0_original.jpg",
+          "bytes": 4041105,
+          "sha256": "ea9ac0f767d10e658a6f4f2d431ee71b51c09c90190a63e74866bd8117a9cdcb"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_007_0_original.jpg",
+          "bytes": 3544371,
+          "sha256": "19c81ffd77b881bb2a076acd8fae9fe87a5b90295a806e4798042f432b890e63"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_008_0_original.jpg",
+          "bytes": 4081823,
+          "sha256": "c50397eb44fe4c8a882f527892001174270bf0b371173b1af7fd0d0e9fe800f0"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_009_0_original.jpg",
+          "bytes": 4565840,
+          "sha256": "a74107c3de0546e51aacdfbd85a2cfd751ce0fbf3dc2f463850b80cb433bdb3f"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_010_0_original.jpg",
+          "bytes": 3907017,
+          "sha256": "b6c14e68f3cbeb17f25ad8427a607d51d81d188b0fcd147b157651fde46bd4bb"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_011_0_original.jpg",
+          "bytes": 2866185,
+          "sha256": "3556073d9f01d969b7857800b6817094c60cef2f27d64f5bce8cca043957603e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_012_0_original.jpg",
+          "bytes": 3320851,
+          "sha256": "8ac4349ccd9fcca7bd39daa32ac2bfbb974096df13489714a52bbdf8249830ba"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_013_0_original.jpg",
+          "bytes": 3292589,
+          "sha256": "8e40da748dbaaeb1871060e8133257617836f1318e63d6b19cda155bc9bf497d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_014_0_original.jpg",
+          "bytes": 4157108,
+          "sha256": "be19c0045eac186caf76158f094cc3de3c6293bd2454d41246d6132351785bfc"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_015_0_original.jpg",
+          "bytes": 3830946,
+          "sha256": "3955c9ce12c8e7c773069bcb1c7433f1d739ff12bceb88545691134a7dae4b69"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_016_0_original.jpg",
+          "bytes": 4345824,
+          "sha256": "ec4eb65e5f5c6004934100400544b87d1f37f2c1f1305fc3bcb24659a6c4853b"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_017_0_original.jpg",
+          "bytes": 4429852,
+          "sha256": "680b0b2d81f2bf794ef8d40d78fc09f2a1a803641ab33dc372f26e01458a3989"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_018_0_original.jpg",
+          "bytes": 4099551,
+          "sha256": "7a2211ab873894dc6999a1a660b0d249b921d321d1624a52be4b097ca24c3098"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_019_0_original.jpg",
+          "bytes": 4101284,
+          "sha256": "e7a43833216bf00d6d0c5c502a312f7d975e00ae1f10d09c7bdaeb795484c57e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_020_0_original.jpg",
+          "bytes": 4342190,
+          "sha256": "7aff21fb5543fd53c66c398834c9fa6b4ccdabada052b19085a297eb32986e1f"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_021_0_original.jpg",
+          "bytes": 3707224,
+          "sha256": "2ab8cfa5bfdd11b601de6095378577690f68e0cec0bf49098776876f51adb40c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_022_0_original.jpg",
+          "bytes": 3991166,
+          "sha256": "6fdb220c83c851b73ec865275d2d5cad467e79801bc3757d429a008a49b79067"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_023_0_original.jpg",
+          "bytes": 4194668,
+          "sha256": "1ed7daed81b6ee01639f44df5a40f5640784e566185ffb50f025d6883495362c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_024_0_original.jpg",
+          "bytes": 4272972,
+          "sha256": "817ade8d8c486e2e257dd49df7f69da6aae0db9a5730fe113412acef23d2988e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_025_0_original.jpg",
+          "bytes": 4090859,
+          "sha256": "049164cec2b010f6a5c8b17728743938e5239420ce754e0d7c07122dcde7c3d6"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_026_0_original.jpg",
+          "bytes": 4347140,
+          "sha256": "ca59875089c078492bc048c939176c474e05cd298a6e92aecb90826178b8f04a"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_027_0_original.jpg",
+          "bytes": 3925082,
+          "sha256": "a6cb98e4cdf5a2a672f26f606015d239ebd4b7309e578796c32899f11e974c19"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_028_0_original.jpg",
+          "bytes": 3591281,
+          "sha256": "3674da3eb29fa1b36c64608540f09b8d52aa4772847063d0db636c45201f6729"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_029_0_original.jpg",
+          "bytes": 3301045,
+          "sha256": "d3c125495e5ac09bec9a3ace78916e7f285609bbc7edbf4cce6574c0909868f3"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_030_0_original.jpg",
+          "bytes": 4560502,
+          "sha256": "9e85859b63577c21ca673836bc1415a0747208fbf119a9491372980e38546820"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_031_0_original.jpg",
+          "bytes": 3594291,
+          "sha256": "dafb151326a68c876593c10fc7611f0cd5b118e01e41417c1615c00c1a91bb35"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_032_0_original.jpg",
+          "bytes": 3693338,
+          "sha256": "f210398252e87f597333486bc39f15facc8cabe8664e159ce1de60be12ccd120"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_033_0_original.jpg",
+          "bytes": 4469744,
+          "sha256": "9d76dafbfe4101bbe48ce3e4c26dde4982d340b20412d45ad85fee70edd1cffc"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_034_0_original.jpg",
+          "bytes": 4023224,
+          "sha256": "b539f07a9a843fcadef65349f0cc3bfe6edb17721df0f9b5a4903cfab3fe1530"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_035_0_original.jpg",
+          "bytes": 3310192,
+          "sha256": "43cb8651a91ac6376547454bd7ff8ffa8a223651662f8b0018dbc9a49a24a543"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_036_0_original.jpg",
+          "bytes": 4310564,
+          "sha256": "eea7e629272494faea0ca2220b2b00316f2504cff87d4b1facbb8c07927f7156"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_037_0_original.jpg",
+          "bytes": 3991153,
+          "sha256": "984a2cee12c5c714a4df174d0a3c60ff790488fbad34117332e1b4d6feae9043"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_038_0_original.jpg",
+          "bytes": 3993911,
+          "sha256": "91b04fc9ed910e7fe2402446bacbe6a103827a74ab13b3b8f756cb2e2f6a31d2"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_039_0_original.jpg",
+          "bytes": 3782362,
+          "sha256": "7ce45e2743d9010299884e83d798e4aa33ea7fc20ddb8539d23e0a9e028b7714"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_040_0_original.jpg",
+          "bytes": 3335164,
+          "sha256": "0c990aa6535673ac15991121893f93723c007ba2fcfa9e88f7024126da141b38"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_041_0_original.jpg",
+          "bytes": 4497095,
+          "sha256": "6932bceca9fe8f1ce94643114acf6eab6dafee1f3bfdb2fa38db8bf72d968f1d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_042_0_original.jpg",
+          "bytes": 4313636,
+          "sha256": "723bbbeca90e8ceb6f0a2257f08baf2141ee37ee98a120f8c7cce92b53a5af5a"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_043_0_original.jpg",
+          "bytes": 4457238,
+          "sha256": "8392b887be930223c4e0c6cd93dc3efcd9e2cd96ff125559ce6af78818899c97"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_044_0_original.jpg",
+          "bytes": 4263858,
+          "sha256": "11915a99f99d3b1cdab578ce896dd0bdeabd6f3cce9554c6febbf6178d8caf92"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_045_0_original.jpg",
+          "bytes": 3878315,
+          "sha256": "288a3f014c81dd3b0c08745bc80ce9ec447f1ebff18f6fad987fc375052b13c8"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_046_0_original.jpg",
+          "bytes": 4632456,
+          "sha256": "4f3113cabc3fd46e294172eecd2bdf59f3e177c1e6b8658cd115f77d47eba184"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_047_0_original.jpg",
+          "bytes": 4534477,
+          "sha256": "2464e7d3af5915dc8a4efed942d4b3cdbc581461941f9915267bf415196a57ac"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_048_0_original.jpg",
+          "bytes": 4419777,
+          "sha256": "9d59dd1d22696425b0f82bf7f3bbc207b97388f586435e8233262c1117adc08b"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_049_0_original.jpg",
+          "bytes": 4470880,
+          "sha256": "3700cd72422ed6ee9a618b57c0bb702822bcbd3f9dd69e0805e18646e3e3328d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_050_0_original.jpg",
+          "bytes": 4150066,
+          "sha256": "92c526e5d29ba809e7ef437ed514b6dd3354e88389425a78ca71e1d6fefbaa59"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_051_0_original.jpg",
+          "bytes": 4118843,
+          "sha256": "6c2cfdee8fa96c5112544c571b60c98aa0dd85f3b4312865a76eb342a0e5683e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_052_0_original.jpg",
+          "bytes": 3671584,
+          "sha256": "f7496ae42ab87aafac99bfece8439683eb3c02a312d065ccb04770b417c09ed0"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_053_0_original.jpg",
+          "bytes": 3610738,
+          "sha256": "0f908a2fdff7eabec0d41cf79ed590d8c2a6220a12540f29e273cf6bdb581872"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_054_0_original.jpg",
+          "bytes": 3769870,
+          "sha256": "4e2c470443dcfdda107dca92f2c0d104ed3b5b764791b92e7ad3be4fad9be838"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_055_0_original.jpg",
+          "bytes": 3800482,
+          "sha256": "b9a8af5212d0b0f760f594868305518b09ef70bb773555624dbd0f2d5a904c66"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_056_0_original.jpg",
+          "bytes": 4115605,
+          "sha256": "26b0f04f5053c8ea48d2c736863c5fba6e89f3a8ca654d49c90583ec7eb2cb06"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_057_0_original.jpg",
+          "bytes": 3373838,
+          "sha256": "9786bf246b9ab9292ca090606af496df4816c1fde7bfed79b9bf2bf20c618c54"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_058_0_original.jpg",
+          "bytes": 3976921,
+          "sha256": "9633b8a62d6cc587ec32a985f022924eea6e1a4b0aedbdbff4dfc3ca37b43243"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_059_0_original.jpg",
+          "bytes": 3702023,
+          "sha256": "f917e188db4f13193daf055396329f2fadf9b990f6b6c680a3fad46ea847b0c9"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_060_0_original.jpg",
+          "bytes": 3552377,
+          "sha256": "f722241ad7a0192cf376079b0009786e121d4bcd84ff9022b70792aafdbcdb97"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_061_0_original.jpg",
+          "bytes": 3687592,
+          "sha256": "a9bddd1de742299cd0694cea5c15f52608177851375ed2afbb9c1653aad5ba88"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_062_0_original.jpg",
+          "bytes": 3311971,
+          "sha256": "ac358a7198f07fb211191536df81d8925b475bff94999e290727a41536a4324b"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_063_0_original.jpg",
+          "bytes": 3558224,
+          "sha256": "24964d24c2f7c9731064c86cd0757fdb5d118367077f6d4690d9ada6dfeb0eda"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_064_0_original.jpg",
+          "bytes": 4214300,
+          "sha256": "b5e816c55debfdc4e63e4b9ba43714e90129851226151787dadeb67f268209c6"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_065_0_original.jpg",
+          "bytes": 3783439,
+          "sha256": "7ce19798923bc3ad65d2d8c47c82d20f8e54706a6a23d1f984487cb5a286027c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_066_0_original.jpg",
+          "bytes": 3331380,
+          "sha256": "2df8b18466ed77bd3dddad39d1b2c203320cc46cf133eeb79a34352c7f4dea5d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_067_0_original.jpg",
+          "bytes": 4319280,
+          "sha256": "4b82c9a8da228d5245834509e7c5656e720622485ac835f4a1a8d1b1386ff18e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_068_0_original.jpg",
+          "bytes": 3745587,
+          "sha256": "efeecd29770868f451cdbb9598f28a5f31041805378b76f0d2a488ffa769a694"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_069_0_original.jpg",
+          "bytes": 4231580,
+          "sha256": "8206fc3766d392946c9b3a27d80afc6a21d4573e6d4542ad443c1e3198df1a79"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_070_0_original.jpg",
+          "bytes": 4234988,
+          "sha256": "561d3829957829dbee11e35d2be5f46c6ad4df6a2808e5ccdacadfada3ef3942"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_071_0_original.jpg",
+          "bytes": 4303151,
+          "sha256": "125f2d0de6fbbd3a5284fb0bb45115aae8043112cd6db2ec5575c7cccf1fda41"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_072_0_original.jpg",
+          "bytes": 3620571,
+          "sha256": "92588007f85a67c8d6c9224467b40da851edd87de22dba765a4e76ccbbe5579c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_073_0_original.jpg",
+          "bytes": 3819732,
+          "sha256": "57c13f9391a4c0dc3ad9226f16ca482a1d01229a0c8e08e71ccac7302a6e3838"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_074_0_original.jpg",
+          "bytes": 4791315,
+          "sha256": "dab9161ab1e0bd9a5dfe3ac6b8213291cd7359f56588d85c2d7a772eed2e78d8"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_075_0_original.jpg",
+          "bytes": 3695535,
+          "sha256": "11c6dd327872e628fc65ed827b6ca269f2461ab44cf57ea849123ad16eabd437"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_076_0_original.jpg",
+          "bytes": 3936185,
+          "sha256": "7e33f3de02716435707e61233294598bce4799a25b12d85f614f792f27d01d65"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_077_0_original.jpg",
+          "bytes": 3889011,
+          "sha256": "f33e99ef8c731247d6950dbe27efbeccdfb416ea9a1f68055410f3ce2275ab6d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_078_0_original.jpg",
+          "bytes": 4244512,
+          "sha256": "29ed6e20fb4e5fcaf4d1992cf79144651ca80a8580a64f7c202600bb2ccbd492"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_079_0_original.jpg",
+          "bytes": 5137989,
+          "sha256": "4a82791cd91bd0646b1651d344300652fdc2e6929f801bc948d44296d3800811"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_080_0_original.jpg",
+          "bytes": 3953499,
+          "sha256": "c836ae1c64f01b1cc6afff835c5eea181bac1499c05a8b3699fe5a80eca1b36d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_081_0_original.jpg",
+          "bytes": 4071730,
+          "sha256": "d58c5785487b180b73002d5fe3ac3ccab7c63e4c8e17a9aef05f71aa7096ecae"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_082_0_original.jpg",
+          "bytes": 4589007,
+          "sha256": "ef4a3baca3f3692dce9b08f0e9e2b518184c7092c5d46a0b39fa32c87591eaed"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_083_0_original.jpg",
+          "bytes": 3670685,
+          "sha256": "643adc57851cb0d3faf632ff8025e90b7ed6730cd6310c2f519d2169008fd2f8"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_084_0_original.jpg",
+          "bytes": 4426880,
+          "sha256": "3a15d2f5bd94f3273bdfdeaa18152ca8be67074037e02a55bc9f92a5b4a56bb8"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_085_0_original.jpg",
+          "bytes": 3725276,
+          "sha256": "a338fe0759282d1e45ad482a2be1ce8b74f01156e2ebfc485f4938ef060bdb5e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_086_0_original.jpg",
+          "bytes": 3115334,
+          "sha256": "47a5abf0346fe200207341d61867782eebbcbe7d11ec0fac5f4ea2084ba0ec1a"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_087_0_original.jpg",
+          "bytes": 3875280,
+          "sha256": "5b5bf7805ac6193d615861a149758ee20c60e4630459531afdd19d1b3480343e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_088_0_original.jpg",
+          "bytes": 4255954,
+          "sha256": "3d48147e7d80b275c0956132262bfd406745c51eaf209eaa7a1872f399a81c3e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_089_0_original.jpg",
+          "bytes": 3540359,
+          "sha256": "12e5aa375a4a1b32f96cd7acc56474244acc83f678781558214d43f8f905a193"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_090_0_original.jpg",
+          "bytes": 4201830,
+          "sha256": "ced96adc46a311b1801fa55c58d9a4b6f2449becd44897b7d2ee27107f8561d2"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_091_0_original.jpg",
+          "bytes": 3994297,
+          "sha256": "74726efc3237df7dfed88cf8d68e6b0a6ba536386b232d106335048d0546b572"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_092_0_original.jpg",
+          "bytes": 3252340,
+          "sha256": "3b713c1d17d8f692fbb29cada553bc5625abc02ea8832f42e9832bddf4180731"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_093_0_original.jpg",
+          "bytes": 3748276,
+          "sha256": "37929028aea2bd15760e9c7232c0ed96c9df2067b8e5bd6fcf4820ce10a62c59"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_094_0_original.jpg",
+          "bytes": 3748791,
+          "sha256": "bb21bfc36d902aa4a8fdec3c9915f189396e9978fa078d9e4e106c88ec5fde32"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_095_0_original.jpg",
+          "bytes": 4235855,
+          "sha256": "5b05601bf7e0764db93323e38a164f83765e50016cbe2199c6c7c960392c4240"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_096_0_original.jpg",
+          "bytes": 4677483,
+          "sha256": "d1905cd0502f80ba79fbb39521c644283b7a402e9fc57ae263947abc60430ec7"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_097_0_original.jpg",
+          "bytes": 4780626,
+          "sha256": "dab9ca643932ac90e51629cf31ef8a28995b0b93b27bff70741a3df4a299f098"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_098_0_original.jpg",
+          "bytes": 4840588,
+          "sha256": "d7a07a4e50e03c5982e1ea7d4630edaeaefb014ca02f8d7b42172a4e38c236ca"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_099_0_original.jpg",
+          "bytes": 4795959,
+          "sha256": "faa0d03b5946c5fdc845f4c02939dec72e33df89d092b05714d6622fde4dc754"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_100_0_original.jpg",
+          "bytes": 3720459,
+          "sha256": "7528f7d2ba9bfc6fe691bb6d8cabaef0f82a7a0370b2c94dfed7ba71079b240a"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_101_0_original.jpg",
+          "bytes": 4459538,
+          "sha256": "dff152938a8b8d56c0a33b4c4b4aaaaaa9a5f0d3a2586b2ea2960a80389d13df"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_102_0_original.jpg",
+          "bytes": 4482774,
+          "sha256": "27ef4d0e2e04d9621e9e450c6b184871126005855b3c532dab63cac92e7e4ab8"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_103_0_original.jpg",
+          "bytes": 4722392,
+          "sha256": "01ad65f2aa8141149005c5c3b083e5d0e17e31b698b5d772db8c3733d5c6a400"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_104_0_original.jpg",
+          "bytes": 4757636,
+          "sha256": "57e9aa12f97280a4a77c18c133b679851a0b28888c92abf4b5d17dbe4cf41a19"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_105_0_original.jpg",
+          "bytes": 4481730,
+          "sha256": "11140cec4316430019848551e14c02873f4fa9b64c328de6cf1ce14b066f1bb0"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_106_0_original.jpg",
+          "bytes": 4929131,
+          "sha256": "04108d03036149dba94f207903f98b9c18acd79cf872b05349773ebd0fcb8018"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_107_0_original.jpg",
+          "bytes": 4269846,
+          "sha256": "dac2c39e126d2581d23cc148f3b037abb0e44350785658103724f3c0a298e86b"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_108_0_original.jpg",
+          "bytes": 4949522,
+          "sha256": "f44c7e2280fd03cb7bc055942b4b6e758592b411c9ca941e4edb0450386d2037"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_109_0_original.jpg",
+          "bytes": 3613338,
+          "sha256": "cb2b0c7ac49ceb207ec1bd6fbd56f2326b21de253aaf63242458241a8d07a90c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_110_0_original.jpg",
+          "bytes": 3792365,
+          "sha256": "9432164e360243c295bf2d96dd5cf38730a20a166a8e7c35d08988e422992dcd"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_111_0_original.jpg",
+          "bytes": 3792942,
+          "sha256": "ca35558959e2ba9ae30101cdbcb2fad48b0128d007423f6628be8217c4669dac"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_112_0_original.jpg",
+          "bytes": 3936089,
+          "sha256": "0b5da9d436fafba3e0c378835ee205910cd7f10a59c5e4efaf8f2f315b28106e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_113_0_original.jpg",
+          "bytes": 3883961,
+          "sha256": "ab70cd51976c5a96a01d390da85da5ffed3cf4748e02a5247d9b5cf4f1d04d7d"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_114_0_original.jpg",
+          "bytes": 3828297,
+          "sha256": "2c8ae6258fabd0b676026af29e10217863704d1ab3a1a9bc86bcc27e905992bf"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_115_0_original.jpg",
+          "bytes": 3872270,
+          "sha256": "afb743a740940a88662d9f54c294a3034f59e39ba70872eb65926b67ec085be2"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_116_0_original.jpg",
+          "bytes": 3698220,
+          "sha256": "181ab8fe5f9358aa45120fcd36d16238c94d2d7d8fd0a3d067b2cf2488e17ac1"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_117_0_original.jpg",
+          "bytes": 3089088,
+          "sha256": "8f01ac98e894345f0d81876ddaa4c56d843fd821f743b3cd788adda7cb3a952e"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_118_0_original.jpg",
+          "bytes": 4285576,
+          "sha256": "c7006f34a68b920659eadf5eca897565c9a6c900f3029e31e22d5b6140fb69be"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_119_0_original.jpg",
+          "bytes": 4153097,
+          "sha256": "c9e63e4f816ef5ff53fc650d6055008815c876b659bcb1555f7c6d8bcefc521f"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_120_0_original.jpg",
+          "bytes": 4268105,
+          "sha256": "0aacb8f86eb8ab4ebdcd972762e5b03aa6bbbb3cbfa42350843944a9b9356e7c"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_121_0_original.jpg",
+          "bytes": 4036279,
+          "sha256": "7eb4fa6615f29f9230387baf521490bd4c8b4e50d9fca1994d9462eb3a75983f"
+        },
+        {
+          "path": "Datos/V3/Lider 2/lider_2_122_0_original.jpg",
+          "bytes": 4440677,
+          "sha256": "2f9a74d0bb244195b7521ee2a3dcb20b5ef6c8985372fcb81bf4730ca89d9cc2"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_001_D_superior_vacio.png",
+          "bytes": 2390334,
+          "sha256": "5a3883f63e57551ce8a78663fd7a9e4ba1b513aa74565efc545b30d24c8cdf02"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_002_D_superior_vacio.png",
+          "bytes": 2597403,
+          "sha256": "3175e725f53963e59c144ceeeab7e51fbd2813c134ec4b53def67d51702387b8"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_003_D_superior_vacio.png",
+          "bytes": 2404381,
+          "sha256": "06f4cf7d4401731ced33fc045854674c80343eb8d75f589f24fe7897380c373e"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_004_D_superior_vacio.png",
+          "bytes": 2392433,
+          "sha256": "505209d68684e85e4197e53f2d0d174d4cd7407cda0bf4412c5b785243b566c7"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_005_D_superior_vacio.png",
+          "bytes": 2648340,
+          "sha256": "4ea073749ec335a36f2819314f9d34b0293e5529feda94f781e34414bcfff715"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_011_D_superior_vacio.png",
+          "bytes": 2446174,
+          "sha256": "9c825e07dfeedf2cfaf78b9ff5b6939864ba6c8f7f6e9ac5dc77893e0a07398e"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_012_D_superior_vacio.png",
+          "bytes": 2551102,
+          "sha256": "2e3d3c3cc7b3d4becb7f53776d22cdeb7cfd020a4a205a3bceb8cc3e6af15b78"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_013_D_superior_vacio.png",
+          "bytes": 2696351,
+          "sha256": "243779aed35feeb9d50679e455523d293675a089520d7c443e72b59cbeab25ec"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_017_D_superior_vacio.png",
+          "bytes": 2317710,
+          "sha256": "7781e33f476ad7c535f0a6242fb2c3851d1f74a0280668913e2fb72149ba672c"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_018_D_superior_vacio.png",
+          "bytes": 2403759,
+          "sha256": "c4b98510f20b94b3feff2b311cae0eb2fde8f12669990ae5bda4732ac0f47f34"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_019_D_superior_vacio.png",
+          "bytes": 2498236,
+          "sha256": "86c2deecca4495a7057747341c4c8858b5f042f6cac4efab80fab59202499263"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_020_D_superior_vacio.png",
+          "bytes": 2306996,
+          "sha256": "590529b469e969fb09f32f9204e9ff3dc6488c277640caddfa39fb4f82641ca7"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_021_D_superior_vacio.png",
+          "bytes": 2282134,
+          "sha256": "8830b17ba7717e72f63c0f43be702f7d22dd18eb1bde4a77f021b0d951bdf660"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_022_D_superior_vacio.png",
+          "bytes": 2249765,
+          "sha256": "c39032a91ddbefcbf093407b34d9c558d9b852f39331f7ee69a3a0c9f7e26b7c"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_023_D_superior_vacio.png",
+          "bytes": 2257168,
+          "sha256": "019943bd85dec963135bbcd1a9206708e8a3ac467fdecf2e0a4dc87999877d7f"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_024_D_superior_vacio.png",
+          "bytes": 2305414,
+          "sha256": "61fd22dd5a5c9ab8a587bebe9f9d5051fda2eab3298f25741ba9fd429f8c46c4"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_025_D_superior_vacio.png",
+          "bytes": 2544460,
+          "sha256": "68b00a7626e2a203bf1807c19cdfc9bf0a729af445c8a36ce8c573580eef71a9"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_029_D_superior_vacio.png",
+          "bytes": 2307402,
+          "sha256": "a2a7950509ec6183731b85502b51c32f2434c0ad8ccb7106d53c5d948a27849e"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_030_D_superior_vacio.png",
+          "bytes": 2336589,
+          "sha256": "3b80d2adfa8a6faab6c3692b5d1743bab665370fd06cd8439928c80b8e9fedba"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_031_D_superior_vacio.png",
+          "bytes": 2448391,
+          "sha256": "2fe44ec3c1a66d8cda8e2c1100d5dd02a08117cdaf7e155182711679663a4196"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_032_D_superior_vacio.png",
+          "bytes": 2428575,
+          "sha256": "6b008b6ef9c528ab0c1a0be4cbb63efa914c7d82f9521830d01ba218bd0e35b5"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_033_D_superior_vacio.png",
+          "bytes": 2476797,
+          "sha256": "82a31664df53ef09afc542882d996704faec39fe8b4fec4917ac4c884dc1d992"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_034_D_superior_vacio.png",
+          "bytes": 2518218,
+          "sha256": "8e78b334fde10981c483065e08459b759f2f77613628fc75fe9f0c7b6b83487f"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_035_D_superior_vacio.png",
+          "bytes": 2334288,
+          "sha256": "d1bc1f4f2c0d1fb67112f5184f4188d5f6aa8a6bd52eb9bebd577b3c28862326"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_036_D_superior_vacio.png",
+          "bytes": 2544814,
+          "sha256": "4410517d43e647edc17461221fc555f3370b384f4e135ce54de602be605957dc"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_037_D_superior_vacio.png",
+          "bytes": 2399204,
+          "sha256": "619f27a0939d8d322f92e296898822d5587b75a6dadb9218457240ff2a0aee90"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_038_D_superior_vacio.png",
+          "bytes": 2391113,
+          "sha256": "d7a5a4b0bffe425b8ca42b5f3940c8d6aa9207b1328d8418e142fcab47d2b06b"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_043_D_superior_vacio.png",
+          "bytes": 2371021,
+          "sha256": "0b2ac7dd63df506b90bda331d7e21f46982d13455e0c104d73ef17a148ecbe61"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_044_D_superior_vacio.png",
+          "bytes": 2531051,
+          "sha256": "e7385399ef5b1c6b52c248d2c371d1253d319157de5a603a84f6349ea687cafc"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_045_D_superior_vacio.png",
+          "bytes": 2537408,
+          "sha256": "98f2901f756dacb5acbf2e668829dd223507a2dca8c377176e575cc5b7f517e1"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_046_D_superior_vacio.png",
+          "bytes": 2124019,
+          "sha256": "9e45025d909f936649f21807564c55a2b5c2558a3be29d907b33dd94c75a14e4"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_047_D_superior_vacio.png",
+          "bytes": 2256826,
+          "sha256": "c7273fca1a1983a26c9fccd98af3e7d0b4ef04a83927d47e60e2db8b9fc0ac02"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_048_D_superior_vacio.png",
+          "bytes": 2364027,
+          "sha256": "7e17293241aea5a937b47a64de7544b809d73e227305b672a66d8a56b0473176"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_049_D_superior_vacio.png",
+          "bytes": 2432949,
+          "sha256": "ab4410fb3a92ddb4aecd8f15ded432788b9740880f14b9d7368a8626d60afb50"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_050_D_superior_vacio.png",
+          "bytes": 2414237,
+          "sha256": "0e5027755ff233ed42cbd5526d6790f876c116ba5679ba20ae4fe1378381986f"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_055_D_superior_vacio.png",
+          "bytes": 2384582,
+          "sha256": "1f19cb11e45ae209f1fde558b9f30d11c211a69a7f1891ed31b7d9e851495aa1"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_056_D_superior_vacio.png",
+          "bytes": 2936212,
+          "sha256": "16f943b12679d186dde5ac250a6c5bcc25ea65b4d83b9f33d024b16dbe1f1978"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_057_D_superior_vacio.png",
+          "bytes": 2381408,
+          "sha256": "5fb7b35e8f5a363fe87d09aaec1c02fce3f6d9e168f89b73b53812886cf6226d"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_058_D_superior_vacio.png",
+          "bytes": 2542973,
+          "sha256": "9913b64fda6843dbb493f26d47462a339b94a7df5c6fac41373d3e75787503a8"
+        },
+        {
+          "path": "Datos/V3/superior_vacio_D_20261021/imagenes/lider_express_059_D_superior_vacio.png",
+          "bytes": 2665356,
+          "sha256": "0d312bf2146d3406dabfdb4d7aa5d6458a5f260ca1c0680b9cda1dd566412df0"
+        },
+        {
+          "path": "Entregables/Probar_en_Colab.ipynb",
+          "bytes": 8318,
+          "sha256": "04c03d0b19c31c4383090bc2e1ac80783ff975c1e7f393b5dec1ac8104114195"
+        }
+      ],
+      "distribution": "local_team_assets_only",
+      "url": null
+    },
+    "demo_local_20261022": {
+      "file": "Walmart_Vision_Actual_20261022.zip",
+      "bytes": 26253007,
+      "sha256": "f8decc8a5c6ed418ac6f6623ba7ff372f178553da3f15f6f95ce481fd11c5e9e",
+      "destination": "Entregables",
+      "url": null,
+      "distribution": "local_not_published",
+      "files": [
+        {
+          "path": "Walmart_Vision/app.py",
+          "bytes": 6547,
+          "sha256": "63601e5e61cffe437de9a53091678716520276de10d920389075087cf286e131"
+        },
+        {
+          "path": "Walmart_Vision/inferencia.py",
+          "bytes": 16054,
+          "sha256": "7979d835f06b42506f56efc63f3b540f696b423e8c9aba03a927d813e6cebcf1"
+        },
+        {
+          "path": "Walmart_Vision/interfaz.html",
+          "bytes": 29663,
+          "sha256": "8930c426e2baf2d83ba1df02e8a176f3fe890cae7a7e5b2a740c3b182f3ed2ad"
+        },
+        {
+          "path": "Walmart_Vision/requirements.txt",
+          "bytes": 75,
+          "sha256": "4d6ffa96915b53fb10b462125c8a227c84f766fef88064fe883b06edfd5568ab"
+        },
+        {
+          "path": "Walmart_Vision/instalar.cmd",
+          "bytes": 402,
+          "sha256": "85983f77960a4b4cbb016540ce4a10ffb3074133bceebeaa22a4a45ea1ab6e57"
+        },
+        {
+          "path": "Walmart_Vision/iniciar.cmd",
+          "bytes": 602,
+          "sha256": "579002fa4f5f89aa22a27525ea54d14ffd73637e0c067e32b02a9e5e24e135b2"
+        },
+        {
+          "path": "Walmart_Vision/preparar.cmd",
+          "bytes": 1237,
+          "sha256": "604763150715034c6992ae1059e342eaf9278a681135b1c1187fb8b7df1ae1c5"
+        },
+        {
+          "path": "Walmart_Vision/preparar.py",
+          "bytes": 5184,
+          "sha256": "96e4bfbdeda7ac204d1891868376475c1da27fa809184e4508b84c64ac85f36c"
+        },
+        {
+          "path": "Walmart_Vision/LEEME.md",
+          "bytes": 9541,
+          "sha256": "cdc07f8983bb90471a78909a6b7a567415ea4a857cbcc67cd1981fec3b7a2cd7"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/uv.exe",
+          "bytes": 32095024,
+          "sha256": "4075a09490327d2bedfacc807fa48252fb93647c5bd7ef28f00e579160ea3fb5"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/fuente_uv.json",
+          "bytes": 874,
+          "sha256": "b422df20f3c8c979478f06a55a9d09222ce404f82e55caf7131d79b20d6c5a4d"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-APACHE",
+          "bytes": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-MIT",
+          "bytes": 1077,
+          "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
+        },
+        {
+          "path": "Walmart_Vision/Dockerfile",
+          "bytes": 1809,
+          "sha256": "854b852cfca6d73b6c68eba0e57a5b060538e59ab2c1fb3660994dcc4cf08838"
+        },
+        {
+          "path": "Walmart_Vision/.dockerignore",
+          "bytes": 287,
+          "sha256": "d102a22eb774ed66b6f5d9e5e20e3e979266a6040fd45a1337534c66431f6640"
+        },
+        {
+          "path": "Walmart_Vision/compose.yaml",
+          "bytes": 431,
+          "sha256": "fc194d00a841ac68922fb25f9aa0c48c2a7ce2f39ee525ad75cbbf2a802fc436"
+        },
+        {
+          "path": "Walmart_Vision/requirements-docker.txt",
+          "bytes": 161,
+          "sha256": "84f116def6fd6a8572fb92d597af9ab6bc82325b11c342b1513626caa6045489"
+        },
+        {
+          "path": "Walmart_Vision/DOCKER.md",
+          "bytes": 5994,
+          "sha256": "22c83eb950d47cd285d3ce32d21a89cac3eafe6f1e8ff5d348926221668867df"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION_DOCKER.md",
+          "bytes": 3544,
+          "sha256": "a72cd2b5de85754dde6f373a32bf5ffc9201e78651a3304342bf1e660505daee"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION_OCUPACION.md",
+          "bytes": 2175,
+          "sha256": "787b7938fdfa8a8646fafe11e0fc31cc71c4701bea845fb4c44b5d24f3b36131"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO11.pt",
+          "bytes": 5988445,
+          "sha256": "802cc6f72187eec3059e64ec239e70c0fbcb253cc436f9ab320e642bad5dc088"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO26.pt",
+          "bytes": 6526038,
+          "sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67"
+        },
+        {
+          "path": "Walmart_Vision/ocupacion_paulo.py",
+          "bytes": 13833,
+          "sha256": "0b2f89eaf675e5113aae6a2cc8994cb614cb61cc1d3c94519262a0002be7115a"
+        },
+        {
+          "path": "Walmart_Vision/gondola_bordes.py",
+          "bytes": 16969,
+          "sha256": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+        },
+        {
+          "path": "Walmart_Vision/gondola_combinacion_ponderada.py",
+          "bytes": 16622,
+          "sha256": "d958b12047e6fd0f03d372a0e4c8e87f934f08e1223ae9b65c5f9f0933ea33b1"
+        },
+        {
+          "path": "Walmart_Vision/geometria_niveles.py",
+          "bytes": 4905,
+          "sha256": "21bbd285f4a7093382d1256b771913eef68beda36b96f5e4fb749346c05a0be4"
+        },
+        {
+          "path": "Walmart_Vision/modelos.json",
+          "bytes": 1441,
+          "sha256": "ba7bb63af80a89608197d8710d5d9205f358efd0bdd552dfed08b077ca990ff4"
+        },
+        {
+          "path": "Walmart_Vision/Probar_en_Colab.ipynb",
+          "bytes": 8318,
+          "sha256": "b2f377caf8386a52c12bbc76a016b3fafd6156fd640d01c24a1213613bdabfcd"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION.md",
+          "bytes": 2236,
+          "sha256": "29978be0b5242eed9dfc3feb5edee611b048685812792e60de013d9aeded26c7"
+        }
+      ]
+    },
+    "demo_local_20261023": {
+      "file": "Walmart_Vision_Actual_20261023.zip",
+      "bytes": 26253180,
+      "sha256": "4cedb001f3410c1fe82fd4dbc56084cc8e207d50db7f2f56f97d0f36d6bfa7a6",
+      "destination": "Entregables",
+      "url": null,
+      "distribution": "local_not_published",
+      "files": [
+        {
+          "path": "Walmart_Vision/app.py",
+          "bytes": 6547,
+          "sha256": "63601e5e61cffe437de9a53091678716520276de10d920389075087cf286e131"
+        },
+        {
+          "path": "Walmart_Vision/inferencia.py",
+          "bytes": 16054,
+          "sha256": "7979d835f06b42506f56efc63f3b540f696b423e8c9aba03a927d813e6cebcf1"
+        },
+        {
+          "path": "Walmart_Vision/interfaz.html",
+          "bytes": 29663,
+          "sha256": "8930c426e2baf2d83ba1df02e8a176f3fe890cae7a7e5b2a740c3b182f3ed2ad"
+        },
+        {
+          "path": "Walmart_Vision/requirements.txt",
+          "bytes": 75,
+          "sha256": "4d6ffa96915b53fb10b462125c8a227c84f766fef88064fe883b06edfd5568ab"
+        },
+        {
+          "path": "Walmart_Vision/instalar.cmd",
+          "bytes": 402,
+          "sha256": "85983f77960a4b4cbb016540ce4a10ffb3074133bceebeaa22a4a45ea1ab6e57"
+        },
+        {
+          "path": "Walmart_Vision/iniciar.cmd",
+          "bytes": 602,
+          "sha256": "579002fa4f5f89aa22a27525ea54d14ffd73637e0c067e32b02a9e5e24e135b2"
+        },
+        {
+          "path": "Walmart_Vision/preparar.cmd",
+          "bytes": 1237,
+          "sha256": "604763150715034c6992ae1059e342eaf9278a681135b1c1187fb8b7df1ae1c5"
+        },
+        {
+          "path": "Walmart_Vision/preparar.py",
+          "bytes": 5184,
+          "sha256": "96e4bfbdeda7ac204d1891868376475c1da27fa809184e4508b84c64ac85f36c"
+        },
+        {
+          "path": "Walmart_Vision/LEEME.md",
+          "bytes": 9525,
+          "sha256": "fc0971f8661cedc3abfcfee82d7eb4fb9e836372cdf7228d9f8be99ec91466ad"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/uv.exe",
+          "bytes": 32095024,
+          "sha256": "4075a09490327d2bedfacc807fa48252fb93647c5bd7ef28f00e579160ea3fb5"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/fuente_uv.json",
+          "bytes": 874,
+          "sha256": "b422df20f3c8c979478f06a55a9d09222ce404f82e55caf7131d79b20d6c5a4d"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-APACHE",
+          "bytes": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "Walmart_Vision/herramientas/licencias/LICENSE-MIT",
+          "bytes": 1077,
+          "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
+        },
+        {
+          "path": "Walmart_Vision/Dockerfile",
+          "bytes": 1809,
+          "sha256": "854b852cfca6d73b6c68eba0e57a5b060538e59ab2c1fb3660994dcc4cf08838"
+        },
+        {
+          "path": "Walmart_Vision/.dockerignore",
+          "bytes": 287,
+          "sha256": "d102a22eb774ed66b6f5d9e5e20e3e979266a6040fd45a1337534c66431f6640"
+        },
+        {
+          "path": "Walmart_Vision/compose.yaml",
+          "bytes": 431,
+          "sha256": "fc194d00a841ac68922fb25f9aa0c48c2a7ce2f39ee525ad75cbbf2a802fc436"
+        },
+        {
+          "path": "Walmart_Vision/requirements-docker.txt",
+          "bytes": 161,
+          "sha256": "84f116def6fd6a8572fb92d597af9ab6bc82325b11c342b1513626caa6045489"
+        },
+        {
+          "path": "Walmart_Vision/DOCKER.md",
+          "bytes": 5971,
+          "sha256": "d8d23c6439cd1f3f75459a46aa1bf188c057bdf73351911aa16c0eff5878e026"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION_DOCKER.md",
+          "bytes": 3544,
+          "sha256": "a72cd2b5de85754dde6f373a32bf5ffc9201e78651a3304342bf1e660505daee"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION_OCUPACION.md",
+          "bytes": 2175,
+          "sha256": "787b7938fdfa8a8646fafe11e0fc31cc71c4701bea845fb4c44b5d24f3b36131"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO11.pt",
+          "bytes": 5988445,
+          "sha256": "802cc6f72187eec3059e64ec239e70c0fbcb253cc436f9ab320e642bad5dc088"
+        },
+        {
+          "path": "Walmart_Vision/modelos/V2-YOLO26.pt",
+          "bytes": 6526038,
+          "sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67"
+        },
+        {
+          "path": "Walmart_Vision/ocupacion_paulo.py",
+          "bytes": 13833,
+          "sha256": "0b2f89eaf675e5113aae6a2cc8994cb614cb61cc1d3c94519262a0002be7115a"
+        },
+        {
+          "path": "Walmart_Vision/gondola_bordes.py",
+          "bytes": 16969,
+          "sha256": "7addbd21578434c67dfc25d57324c258494c593240983201b61852b23fcda65a"
+        },
+        {
+          "path": "Walmart_Vision/gondola_combinacion_ponderada.py",
+          "bytes": 16622,
+          "sha256": "d958b12047e6fd0f03d372a0e4c8e87f934f08e1223ae9b65c5f9f0933ea33b1"
+        },
+        {
+          "path": "Walmart_Vision/geometria_niveles.py",
+          "bytes": 4905,
+          "sha256": "21bbd285f4a7093382d1256b771913eef68beda36b96f5e4fb749346c05a0be4"
+        },
+        {
+          "path": "Walmart_Vision/modelos.json",
+          "bytes": 1441,
+          "sha256": "6a0d9a98f2c969409db56ebc8b240eba78b37caff4e3b77ab49af30f56d1bf39"
+        },
+        {
+          "path": "Walmart_Vision/Probar_en_Colab.ipynb",
+          "bytes": 8318,
+          "sha256": "04c03d0b19c31c4383090bc2e1ac80783ff975c1e7f393b5dec1ac8104114195"
+        },
+        {
+          "path": "Walmart_Vision/VERIFICACION.md",
+          "bytes": 2727,
+          "sha256": "5638c5d7b171f7007701a2c34afb0a846b72838d14d9ba39dd8ab6e9de72666f"
+        }
+      ]
+    }
+  }
+}

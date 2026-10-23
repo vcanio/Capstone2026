@@ -1,25 +1,24 @@
-# Entregables del proyecto
+# Entregables
 
-La [Release vigente de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22) contiene **Walmart_Vision_Ocupacion_20261022.zip** y su archivo **Walmart_Vision_Ocupacion_20261022.sha256**. El ZIP permite probar fotografías propias con cuatro modelos YOLO y la revisión 2 de detección de bordes. Incluye pesos, interfaz, iniciador Windows y ejecución con Docker para Mac Intel y Apple Silicon; no necesita datos de entrenamiento ni CVAT.
+## Aplicación local actual
 
-El [informe actualizado en PDF](Informe_Intermedio_Avance_20261020.pdf), con revisión del 21 de octubre de 2026, está disponible directamente en el repositorio. Su [fuente editable en Markdown](../Documentacion/Informe_Intermedio_Avance_20261020.md) y las evidencias también están versionadas. Los ZIP y las copias Word y HTML se comparten por separado.
+[**Walmart_Vision_Actual_20261023.zip**](Walmart_Vision_Actual_20261023.zip) · [SHA-256](Walmart_Vision_Actual_20261023.sha256).
 
-## Organización local
+Incluye el visor, iniciador Windows, archivos Docker para Mac y **dos modelos V2: YOLO11 y YOLO26**. La revisión del 23/10 alinea las instrucciones y metadatos; conserva los pesos, la inferencia y la interfaz de la entrega anterior. No incorpora un modelo V3 ni un entrenamiento nuevo.
 
-El paquete publicado incluye las instrucciones de [Docker](../Herramientas/Demo_lite/DOCKER.md). La Release del 20 de octubre y su ZIP Windows se conservan como versión anterior.
+Para usar: extraer todo el ZIP y abrir `Walmart_Vision/iniciar.cmd` en Windows. En Mac, abrir Docker Desktop y ejecutar `docker compose up --build -d --wait` dentro de `Walmart_Vision`. [Manual completo](../Documentacion/Usar_Walmart_Vision.md).
 
-| Ubicación | Contenido |
-|---|---|
-| `Walmart_Vision_Ocupacion_20261022.zip` y su `.sha256` | Paquete vigente para Windows y Mac con Docker, con comprobación de integridad. |
-| `Walmart_Vision_20261020.zip` y su `.sha256` | Entrega Windows anterior, conservada con sus bytes originales. |
-| [Informe intermedio en PDF](Informe_Intermedio_Avance_20261020.pdf) | Informe de 23 páginas con avance y 20 casos de YOLO + detección de bordes. Disponible en GitHub. |
-| `Informe_Intermedio_Avance_20261020.docx` y `.html` | Copias editables y de consulta, incluidas en el paquete del informe que se comparte con el equipo. |
-| `Historico/` | ZIP de versiones anteriores y sus `.sha256`, conservados solo en el laboratorio. |
+El paquete es una preparación local. Este ordenamiento no publica ni reemplaza activos en GitHub. Los paquetes publicados anteriormente se identifican por sus fechas y manifiestos históricos.
 
-El código de la aplicación está en [Herramientas/Demo_lite](../Herramientas/Demo_lite/LEEME.md), que conserva su nombre de desarrollo. Para instalar y usar la entrega, consultar la [guía de usuario](../Documentacion/Usar_Walmart_Vision.md).
+[Cuaderno para Colab](Probar_en_Colab.ipynb): también está dentro del ZIP. La ejecución remota de Colab no se certifica mediante las comprobaciones locales.
 
-Los ZIP de datos, modelos/resultados e informe se conservan fuera de la Release,
-en `.publicacion/paquetes_desarrollo/` del laboratorio, para compartirlos con el
-equipo por un canal separado. No se borran los resultados ni el informe histórico.
-Ver la [guía de réplica](../Documentacion/Desarrollo/Replicar_proyecto.md) y el
-[manifiesto](../reproducibilidad/artefactos.json).
+## Antecedente conservado
+
+[Walmart_Vision_Actual_20261022.zip](Walmart_Vision_Actual_20261022.zip) y [su hash original](Walmart_Vision_Actual_20261022.sha256) mantienen sus bytes. La documentación antigua incluida en ese ZIP corresponde a su preparación original. No confundirlo con otras distribuciones históricas que incluían cuatro modelos V1/V2.
+
+## Informe intermedio
+
+- [PDF](Informe_Intermedio_Avance_20261020.pdf), [Word](Informe_Intermedio_Avance_20261020.docx) y [HTML](Informe_Intermedio_Avance_20261020.html): copias del informe fechado y sus revisiones documentadas. Se conservan como entrega académica, sin reescribir sus resultados durante esta limpieza.
+- [Fuente Markdown](../Documentacion/Informe_Intermedio_Avance_20261020.md) y [evidencias](../Documentacion/Evidencias/README.md).
+
+Los paquetes de datos y modelos del laboratorio se distribuyen por separado y no son necesarios para usar el visor. [Reproducir el laboratorio](../Documentacion/Desarrollo/Replicar_proyecto.md).

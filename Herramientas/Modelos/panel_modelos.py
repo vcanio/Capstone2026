@@ -107,6 +107,7 @@ def base_development_images():
     registered = datasets.lider_express_inventory()
     return [{'id': 'Datos/' + registered[name]['archivo'], 'name': name,
              'scene': row['grupo_escena'], 'project_version': 'v2',
+             'sha256': row.get('sha256'), 'origin': row.get('origen'),
              'url': file_url(ROOT / 'Datos' / registered[name]['archivo'])}
             for name, row in partition['records'].items()
             if row['effective_split'] in ('train', 'val', 'diagnostico')]
@@ -215,6 +216,8 @@ def catalog():
             jpg = path / 'comparaciones' / f"{Path(item['imagen']).stem}_{item['split']}.jpg"
             comparisons.append({**item, 'url': file_url(jpg) if jpg.exists() else None})
         runs.append({'id': path.name, 'manifest': manifest, 'signature': signature,
+                     'decision': read_json(path / 'decision_modelo.json', {}).get('current'),
+                     'evaluation_protocol': read_json(path / 'protocolo_evaluacion.json', None),
                      'metrics': read_json(path / 'metricas_validacion.json', {}),
                      'history': history, 'comparisons': comparisons,
                      'config': read_json(path / 'config_interfaz.json', {}),
@@ -249,6 +252,31 @@ def catalog():
     visible = [model for model in models if not model['run'] or model['id'] not in records]
     return {'runs': runs, 'models': visible, 'archived_models': archived, 'images': images, 'datasets': datasets.versions(),
             'archived_datasets': datasets.versions(archived=True)}
+
+
+def record_decision(config):
+    """Persist an explicit human decision, retaining prior records atomically."""
+    run_id = config.get('run')
+    if not isinstance(run_id, str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,100}', run_id):
+        raise ValueError('Identificador de ensayo inválido.')
+    folder = (ROOT / 'Experimentos' / run_id).resolve()
+    if folder.parent != (ROOT / 'Experimentos').resolve() or not (folder / 'manifest.json').is_file():
+        raise ValueError('El ensayo ya no está disponible.')
+    status, reason, author = (config.get(key) for key in ('status', 'reason', 'author'))
+    if status not in ('candidato', 'seguir_ajustando', 'descartado'):
+        raise ValueError('Elige candidato, seguir ajustando o descartado.')
+    if not isinstance(reason, str) or not 1 <= len(reason.strip()) <= 2000:
+        raise ValueError('Registra un motivo de hasta 2000 caracteres.')
+    if not isinstance(author, str) or not 2 <= len(author.strip()) <= 100:
+        raise ValueError('Registra el autor de la decisión (2–100 caracteres).')
+    current = dict(status=status, reason=reason.strip(), author=author.strip(), date=datetime.now(timezone.utc).isoformat())
+    path = folder / 'decision_modelo.json'
+    history = read_json(path, {}).get('history', [])
+    temporary = folder / f'.decision_{uuid.uuid4().hex}.tmp'
+    temporary.write_text(json.dumps({'current': current, 'history': [*history, current]}, ensure_ascii=False, indent=2), encoding='utf-8')
+    temporary.replace(path)
+    invalidate_catalog()
+    return {'run': run_id, **current}
 
 
 def change_model_visibility(config, *, archive):
@@ -350,10 +378,19 @@ def validate(config, data):
     version = next((item for item in data.get('datasets', []) if item['id'] == config.get('source') and item['state'] in ('lista_modulos', 'lista_niveles')), None)
     if not source and not version:
         raise ValueError('Elige un ensayo terminado o una copia de anotaciones revisada.')
+    source_report = (version or {}).get('report') or (source or {}).get('manifest', {})
+    if source_report.get('clases') == ['Nivel']:
+        raise ValueError('V3 requiere exportador, validaciones, partición y evaluación compatibles antes de entrenar desde el panel.')
+    purpose = config.get('purpose', '')
+    if not isinstance(purpose, str) or len(purpose) > 1000:
+        raise ValueError('El propósito del ensayo debe tener como máximo 1000 caracteres.')
+    reference = config.get('reference_run', '')
+    if reference and not any(run['id'] == reference for run in data['runs']):
+        raise ValueError('El ensayo de referencia ya no está disponible.')
     name = config.get('name', '')
     if not isinstance(name, str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,48}', name):
         raise ValueError('Usa un nombre de 1–48 letras, números, guiones o guiones bajos.')
-    clean.update(source=(version or source)['id'], source_kind='dataset' if version else 'run', epochs=number(config, 'epochs', 1, 500, True),
+    clean.update(purpose=purpose.strip(), reference_run=reference, source=(version or source)['id'], source_kind='dataset' if version else 'run', epochs=number(config, 'epochs', 1, 500, True),
                  scope=version.get('scope', 'Modulo') if version else source['manifest'].get('scope', 'Modulo'),
                  batch=number(config, 'batch', 1, 4, True), lr=number(config, 'lr', 0.000001, 0.1),
                  seed=number(config, 'seed', 0, 999999, True),
@@ -673,7 +710,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path not in ('/api/jobs', '/api/datasets/import', '/api/datasets/approve',
                              '/api/datasets/archive', '/api/datasets/restore',
                              '/api/datasets/sync',
-                             '/api/models/archive', '/api/models/restore'):
+                             '/api/models/archive', '/api/models/restore', '/api/runs/decision'):
             return self.reply({'error': 'Ruta no disponible.'}, 404)
         try:
             length = int(self.headers.get('Content-Length', '0'))
@@ -682,6 +719,10 @@ class Handler(BaseHTTPRequestHandler):
             config = json.loads(self.rfile.read(length))
             if not isinstance(config, dict):
                 raise ValueError('Se requiere una solicitud de objeto JSON.')
+            if self.path == '/api/runs/decision':
+                with LOCK:
+                    result = record_decision(config)
+                return self.reply(result)
             if self.path.startswith('/api/models/'):
                 with LOCK:
                     result = change_model_visibility(config, archive=self.path.endswith('/archive'))

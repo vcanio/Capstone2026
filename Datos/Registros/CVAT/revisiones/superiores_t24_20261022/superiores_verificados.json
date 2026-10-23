@@ -1,0 +1,1802 @@
+[
+  {
+    "id": 7971,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 0,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      141.5296,
+      443.89026666666666,
+      942.266,
+      436.2115666666667,
+      942.266,
+      245.07684166666678,
+      141.5296,
+      252.75554166666672
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 7976,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 1,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      141.5296,
+      443.89026666666666,
+      942.266,
+      436.2115666666667,
+      942.266,
+      245.07684166666678,
+      141.5296,
+      252.75554166666672
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 7980,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 2,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      152.6795,
+      369.29200000000003,
+      1033.8728,
+      380.6682,
+      1033.8728,
+      179.68612500000003,
+      152.6795,
+      168.30992500000005
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 7988,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 3,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      118.1206,
+      415.033,
+      990.4091,
+      410.4121,
+      990.4091,
+      206.55542499999999,
+      118.1206,
+      211.176325
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 7991,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 4,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      47.22619999999999,
+      368.8634333333334,
+      961.2263,
+      360.2601333333333,
+      961.2263,
+      146.30390833333328,
+      47.22619999999999,
+      154.9072083333334
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 7994,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 5,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      142.2513,
+      417.9124666666667,
+      937.6479,
+      398.0038666666667,
+      937.6479,
+      208.99061666666663,
+      142.2513,
+      228.89921666666666
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8003,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 6,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      58.4941,
+      332.3351666666666,
+      1007.3122,
+      327.39916666666664,
+      1007.3122,
+      113.50371666666663,
+      58.4941,
+      118.43971666666661
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8004,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 7,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      118.6593,
+      365.07786666666664,
+      1052.6689,
+      376.59536666666673,
+      1052.6689,
+      165.16804166666677,
+      118.6593,
+      153.65054166666667
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8010,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 8,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      116.25570000000002,
+      371.04813333333334,
+      1013.8269999999999,
+      387.2673333333333,
+      1013.8269999999999,
+      95.36353333333318,
+      116.25570000000002,
+      79.14433333333324
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8015,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 9,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      82.66500000000002,
+      351.0601,
+      974.5978,
+      353.2341,
+      974.5978,
+      59.232149999999876,
+      82.66500000000002,
+      57.05814999999984
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8017,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 10,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      57.7425,
+      0.0,
+      57.7425,
+      283.2756,
+      970.0217,
+      295.0196,
+      970.0217,
+      0.0
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "parcial"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8023,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 11,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      149.1051,
+      326.7206,
+      1076.112,
+      326.7207,
+      1076.112,
+      164.09415000000007,
+      149.1051,
+      164.09405000000004
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8027,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 12,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      113.92999999999999,
+      310.4677666666667,
+      1050.0093,
+      298.5412666666667,
+      1050.0093,
+      132.38811666666663,
+      113.92999999999999,
+      144.31461666666667
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8033,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 13,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      68.6646,
+      242.11486666666667,
+      1031.7601,
+      239.96156666666667,
+      1031.7601,
+      68.4777166666666,
+      68.6646,
+      70.6310166666666
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8043,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 14,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      89.2874,
+      212.2179,
+      1052.2013,
+      254.37380000000002,
+      1052.2013,
+      87.54630000000003,
+      89.2874,
+      45.3904
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8048,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 15,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      65.3855,
+      292.6165,
+      1020.2853,
+      282.6561,
+      1030.508,
+      19.4885,
+      54.6387,
+      30.2354
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8052,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 16,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      28.1766,
+      230.8888,
+      1001.4019,
+      270.6187,
+      1020.2052,
+      4.9455,
+      23.3242,
+      0.3963
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8057,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 17,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      140.9831,
+      417.26346666666666,
+      1042.8071,
+      415.15826666666663,
+      1042.8071,
+      154.3011166666667,
+      140.9831,
+      156.40631666666673
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8063,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 18,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      88.179,
+      378.89806666666664,
+      998.7438999999999,
+      399.58126666666664,
+      998.7438999999999,
+      136.98261666666667,
+      88.179,
+      116.29941666666667
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8067,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 19,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      83.319,
+      323.2027,
+      989.8221,
+      367.81690000000003,
+      989.8221,
+      151.56200000000004,
+      83.319,
+      106.9478
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8070,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 20,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      101.9599,
+      259.1648666666666,
+      1030.0807,
+      291.8719666666667,
+      1030.0807,
+      72.69616666666658,
+      101.9599,
+      39.9890666666665
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8079,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 21,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      58.6016,
+      294.21986666666663,
+      1019.9802,
+      331.65956666666665,
+      1019.9802,
+      108.76574166666657,
+      58.6016,
+      71.32604166666655
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8083,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 22,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      75.0344,
+      261.434,
+      1047.2755,
+      303.0841,
+      1047.2755,
+      81.60512500000004,
+      75.0344,
+      39.95502500000009
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8086,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 23,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      74.1831,
+      319.1690333333333,
+      1018.295,
+      325.92883333333333,
+      1018.295,
+      108.0813833333334,
+      74.1831,
+      101.32158333333336
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8092,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 24,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      71.5941,
+      233.61999999999998,
+      1030.6395,
+      242.62,
+      1030.6395,
+      26.861074999999914,
+      71.5941,
+      17.861074999999886
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8096,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 25,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      41.9973,
+      218.37393333333333,
+      1075.3491,
+      238.75653333333332,
+      1075.3491,
+      57.35503333333338,
+      41.9973,
+      36.972433333333385
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8104,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 26,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      100.771,
+      335.737,
+      1008.1349,
+      335.4309,
+      1020.3759,
+      12.5747,
+      69.5565,
+      5.2301
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8107,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 27,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      123.355,
+      331.2357,
+      1028.3843,
+      341.858,
+      1053.1699,
+      27.0806,
+      104.9428,
+      3.0031
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8112,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 28,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      7.836,
+      269.66186666666664,
+      1013.6345,
+      254.43196666666665,
+      1013.6345,
+      17.89469166666666,
+      7.836,
+      33.124591666666646
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8121,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 29,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      52.893,
+      255.7102,
+      1028.7384,
+      283.6826,
+      1028.8446,
+      97.1531,
+      41.0313,
+      82.4233
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8126,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 30,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      98.4679,
+      252.9044,
+      1052.4887,
+      290.4621,
+      1064.4966,
+      126.6625,
+      98.4677,
+      91.5909
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8129,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 31,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      1007.0981,
+      293.6478,
+      37.4704,
+      263.8227,
+      43.078,
+      147.7322,
+      1009.9438,
+      171.8414
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8139,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 32,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      71.7669,
+      274.0351,
+      1046.9102,
+      286.1009,
+      1047.99,
+      120.4374,
+      71.2183,
+      110.0485
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8140,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 33,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      94.4725,
+      311.11,
+      1007.6412,
+      346.7594,
+      1024.0399,
+      121.7853,
+      83.5035,
+      74.0702
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8145,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 34,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      77.1329,
+      341.2136,
+      986.2169,
+      354.7333,
+      1000.1461,
+      121.2146,
+      63.6133,
+      99.5014
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8151,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 35,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      91.7302,
+      366.3938,
+      979.1218,
+      389.4288,
+      1005.4474,
+      68.5857,
+      88.4396,
+      44.4539
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8157,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 36,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      6.3127,
+      256.0811,
+      992.4397,
+      307.4814,
+      1017.8227,
+      7.3282,
+      8.8512,
+      0.3479
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8162,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 37,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      128.6408,
+      363.1581,
+      980.3833,
+      380.7084,
+      1000.6759,
+      75.7704,
+      106.1545,
+      28.0553
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8166,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 38,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      81.2549,
+      355.6441,
+      953.8383,
+      350.7082,
+      971.9372,
+      32.059,
+      65.8983,
+      34.2528
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8174,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 39,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      120.2186,
+      352.9804,
+      1003.5448,
+      361.8643,
+      1018.7745,
+      42.0394,
+      105.6236,
+      23.0022
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8177,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 40,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      90.3939,
+      316.3873,
+      1003.7649,
+      327.4006,
+      993.4858,
+      71.1574,
+      91.8625,
+      71.1574
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8180,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 41,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      981.6365,
+      255.3984,
+      7.7733,
+      271.7521,
+      1.8955,
+      144.0051,
+      988.6518,
+      104.3301
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8185,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 42,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      141.4748,
+      564.1098,
+      1017.8972,
+      546.5596,
+      1043.3453,
+      6.8303,
+      110.926,
+      9.7371
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8191,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 43,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      235.6694,
+      480.59203333333335,
+      856.3721,
+      482.3626333333333,
+      856.3721,
+      289.03483333333344,
+      235.6694,
+      287.2642333333335
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8196,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 44,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      89.7099,
+      362.2715,
+      960.6118,
+      381.7723,
+      979.8259,
+      73.5686,
+      76.5183,
+      42.8424
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8200,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 45,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      1001.2241,
+      362.1707,
+      107.2514,
+      336.9421,
+      90.2495,
+      8.4208,
+      1032.486,
+      36.9402
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8206,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 46,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      84.1371,
+      284.0466,
+      998.9854,
+      282.1505,
+      998.9854,
+      59.008024999999975,
+      84.1371,
+      60.904124999999965
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8211,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 47,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      77.264,
+      323.3897,
+      985.4759,
+      315.3315,
+      985.4759,
+      96.21822500000002,
+      77.264,
+      104.27642500000002
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8213,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 48,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      69.5764,
+      306.3606,
+      972.4405,
+      319.4853,
+      972.4405,
+      96.81695000000005,
+      69.5764,
+      83.69225000000003
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8219,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 49,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      78.4027,
+      328.36836666666665,
+      973.9674,
+      307.4745666666667,
+      973.9674,
+      86.3488916666667,
+      78.4027,
+      107.24269166666664
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8224,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 50,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      125.8028,
+      309.47943333333336,
+      983.7695,
+      332.23223333333334,
+      983.7695,
+      116.29150833333335,
+      125.8028,
+      93.53870833333337
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8231,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 51,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      38.5855,
+      271.4572,
+      1053.2174,
+      281.3293,
+      1051.0236,
+      128.8603,
+      33.101,
+      120.6336
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8234,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 52,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      988.5004,
+      397.3265,
+      73.1379,
+      396.2295,
+      46.2638,
+      40.2857,
+      997.824,
+      60.5784
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8240,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 53,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      38.4222,
+      363.8948,
+      980.129,
+      349.9343,
+      976.9561,
+      117.6805,
+      18.7505,
+      130.372
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8249,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 54,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      23.9418,
+      354.0537,
+      989.2133,
+      307.984,
+      1000.7308,
+      15.8249,
+      12.8632,
+      49.2254
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8256,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 55,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      185.7396,
+      412.24893333333335,
+      937.9153999999999,
+      417.1650333333334,
+      937.9153999999999,
+      241.41148333333348,
+      185.7396,
+      236.49538333333345
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8259,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 56,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": true,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      144.2797,
+      420.21896666666663,
+      915.301,
+      423.0867666666667,
+      915.301,
+      242.2345416666667,
+      144.2797,
+      239.36674166666666
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8264,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 57,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      149.1246,
+      420.0673333333333,
+      929.3526,
+      415.32693333333333,
+      929.3526,
+      235.08285833333338,
+      149.1246,
+      239.82325833333334
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8269,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 58,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      185.8212,
+      413.3957333333333,
+      906.8615,
+      419.13143333333335,
+      906.8615,
+      246.04083333333335,
+      185.8212,
+      240.3051333333333
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  },
+  {
+    "id": 8275,
+    "label_id": 22,
+    "type": "polygon",
+    "frame": 59,
+    "group": 0,
+    "source": "manual",
+    "score": 1.0,
+    "occluded": false,
+    "outside": false,
+    "z_order": 0,
+    "rotation": 0.0,
+    "points": [
+      87.7026,
+      412.0029333333333,
+      987.7737,
+      435.7645333333333,
+      987.7737,
+      195.57858333333337,
+      87.7026,
+      171.81698333333338
+    ],
+    "attributes": [
+      {
+        "spec_id": 83,
+        "value": "completa"
+      }
+    ],
+    "elements": []
+  }
+]

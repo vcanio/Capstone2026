@@ -12,8 +12,10 @@ La entrega para el usuario es Walmart Visión. Este índice y las cuatro guías 
 ## Material de consulta
 
 - [Desarrollo](Desarrollo/README.md): arquitectura y mapa del código, anotación, entrenamiento, laboratorio y trabajo en equipo.
+- [Posprocesamiento de contornos](Desarrollo/Posprocesamiento_contornos_niveles.md): ajuste visual a cuatro vértices, fundamento metodológico y distinción entre presentación y precisión del modelo.
 - [Histórico](Historico/README.md): guías V1, primeras revisiones y notas de versiones anteriores.
 - [Evidencias](Evidencias/README.md): resúmenes de comprobaciones y figuras que respaldan el informe.
 - [Ejemplos](Ejemplos/README.md): recursos didácticos y fuentes del ZIP de imágenes; su uso está integrado en la guía de usuario.
+- [Demostración funcional](Demostracion/README.md): guion, subtítulos sincronizados, plan de escenas y verificación del video de 7 minutos (`Demostracion_Funcional_Walmart_Vision_20261021.mp4`).
 
-Los datos y accesos del laboratorio se gestionan por separado. Los respaldos y logs extensos quedan en local. El material obligatorio de `Fase 1/` se conserva en el repositorio.
+El [mapa del proyecto](Desarrollo/Mapa_del_proyecto.md) distingue la aplicación V2 disponible, el conjunto V3 en preparación y los antecedentes. Los datos y accesos se gestionan por separado; respaldos y logs extensos quedan en local. El material académico `Fase 1/` pertenece al checkout de publicación y debe conservarse allí; su ausencia en una copia del laboratorio no autoriza reconstruirlo ni eliminarlo del repositorio.

@@ -13,11 +13,12 @@ HERE = Path(__file__).resolve().parent
 TRAINING_SCENARIOS = {'preparing':'preparing', 'active':'training', 'evaluating':'evaluating',
                       'comparing':'comparing', 'training_done':'done', 'training_error':'training',
                       'training_interrupted':'training'}
-SCENARIOS = ('mixed', 'empty', 'review', 'ready', 'error', 'recover', 'loading', 'technical', 'activity_error', 'prediction', 'archive', 'model_archive', 'import_loading', 'import_error', *TRAINING_SCENARIOS)
+SCENARIOS = ('mixed', 'empty', 'review', 'ready', 'approved', 'incompatible', 'v3', 'error', 'recover', 'loading', 'technical', 'activity_error', 'prediction', 'archive', 'model_archive', 'import_loading', 'import_error', *TRAINING_SCENARIOS)
 COUNTS = {}
 SIMULATED_PREDICTION = None
 ARCHIVED = set()
 ARCHIVED_MODELS = set()
+DECISIONS = {}
 LOCK = threading.Lock()
 
 
@@ -29,11 +30,12 @@ def fixture(scenario):
            'sources':[{'task_id':9000,'job_id':9001}],
            'report':{'imagenes':photo_rows,'incidencias':issues,'bloqueos_modulos':2,'avisos_niveles':0}}
     old=deepcopy(fresh);old.update(id='datos_sinteticos_anterior',created_at='2026-10-01T15:00:00Z',state='lista_modulos',
-                                 review={'reviewer':'Revisor de prueba'})
+                                 review={'reviewer':'Revisor de prueba','date':'2026-10-01T15:30:00Z','scope':'Modulo'})
     old['report'].update(incidencias=[],bloqueos_modulos=0)
     run={'id':'piloto_01_sintetico','ready':True,'signature':'fixture',
          'manifest':{'imagenes':photo_rows},'metrics':{'metrics/mAP50-95(M)':0.5,'metrics/mAP50(M)':0.6},
-         'history':[{'epoch':1,'metrics/mAP50-95(M)':0.5}], 'config':{},
+         'history':[{'epoch':1,'metrics/mAP50-95(M)':0.5}], 'config':{'source':old['id']},
+         'evaluation_protocol':{'confidence':0.25,'iou':0.5},
          'comparisons':[{'imagen':'28.jpg','split':'val','url':'/fixture.svg','anotados':3,'aciertos':2,'omitidos':1,
                          'falsos_positivos':1,'parejas':[{'iou_mascara':0.7}], 'conf':0.25,'contornos_xy_invalidos':1}]}
     models=[{'id':'synthetic/best.pt','name':'Sintético','run':run['id'],'imgsz':640},
@@ -54,6 +56,12 @@ def fixture(scenario):
     if scenario=='review':
         fresh['report'].update(incidencias=[],bloqueos_modulos=0);data['datasets']=[fresh]
     if scenario=='ready':data['datasets']=[old]
+    if scenario=='approved':data.update(datasets=[old],runs=[],models=models[1:])
+    if scenario=='incompatible':
+        other=deepcopy(run);other.update(id='otro_ensayo_sintetico',signature='otra_referencia')
+        data.update(datasets=[old],runs=[run,other])
+    for item in data['runs']:
+        item['decision']=DECISIONS.get(item['id'])
     if scenario=='technical':
         run['id']='verificacion_panel_sintetica';models[0]['run']=run['id'];data['models']=models[:1]
     if scenario=='archive':
@@ -122,6 +130,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         global SIMULATED_PREDICTION
         scenario=parse_qs(urlparse(self.headers.get('Referer','')).query).get('scenario',['mixed'])[0]
+        if self.path=='/api/runs/decision':
+            config=json.loads(self.rfile.read(int(self.headers.get('Content-Length','0'))))
+            if (not any(r['id']==config.get('run') for r in fixture(scenario)['runs']) or
+                    config.get('status') not in ('candidato','seguir_ajustando','descartado') or
+                    not str(config.get('reason','')).strip() or len(str(config.get('author','')).strip())<2):
+                self.send({'error':'Completa ensayo, decisión, motivo y autor.'},400);return
+            decision={key:config[key] for key in ('status','reason','author')}
+            decision['date']=datetime.now(timezone.utc).isoformat();DECISIONS[config['run']]=decision
+            self.send(decision);return
         if scenario in ('import_loading','import_error') and self.path=='/api/datasets/import':
             time.sleep(6)
             if scenario=='import_error':
@@ -166,6 +183,6 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8091);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8091);parser.add_argument('--host',default='127.0.0.1');args=parser.parse_args()
     print(f'Pruebas aisladas: http://localhost:{args.port}/?scenario=mixed',flush=True)
-    ThreadingHTTPServer(('127.0.0.1',args.port),Handler).serve_forever()
+    ThreadingHTTPServer((args.host,args.port),Handler).serve_forever()

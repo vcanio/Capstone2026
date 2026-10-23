@@ -1,0 +1,76 @@
+{
+  "fecha": "2026-10-22",
+  "alcance": "posprocesamiento_geometrico_solo_visualizacion",
+  "estado": "implementado_localmente_y_verificado_en_un_caso_conocido",
+  "reentrenamiento": false,
+  "release_publicada_modificada": false,
+  "mascaras_originales_conservadas": true,
+  "metricas_y_ocupacion": "usan_mascaras_originales_yolo",
+  "fuentes_sha256": {
+    "Herramientas/Modelos/geometria_niveles.py": "21bbd285f4a7093382d1256b771913eef68beda36b96f5e4fb749346c05a0be4",
+    "Herramientas/Modelos/panel_worker.py": "2abeacbb99a4d27fe8624ee6e773e0d61f56df67490e0df95324d8877d309605",
+    "Herramientas/Demo_lite/inferencia.py": "263636a95f0e8165f5e484ba44f051e4446547adb8581a7515f65371679a2955",
+    "Herramientas/Modelos/tests/test_geometria_niveles.py": "17f19c0949fb8a44b1e03833c9e8fbba4c5d846acaa4ca0eefcb753dd35d701b",
+    "Herramientas/Demo_lite/test_lite.py": "c462d735125bda4652a26d30e5956a0f86b40d3386193fd4702e543c4fb93f04"
+  },
+  "caso": {
+    "imagen": "Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_014_0_original.jpg",
+    "imagen_sha256": "1bb438a2286b7d775358cd55bc91267808702c97e176bc1480bff417f1162f2d",
+    "uso": "validacion_conocida_para_desarrollo_no_test_independiente",
+    "modelo": "Experimentos/v2_base_yolo26n_01_20261020_004933_b105/entrenamiento/weights/best.pt",
+    "modelo_sha256": "ddf329308904ee6b3dbe5e9a335b6a621806900722731b9534500b4ed0e4ab67",
+    "confianza": 0.6,
+    "iou_nms": 0.7,
+    "imgsz": 640,
+    "retina_masks": true,
+    "detecciones": 6,
+    "ajustes_aceptados": 6,
+    "vertices_por_ajuste": 4,
+    "comparacion": "misma_prediccion_antes_y_despues_con_clase_confianza_e_ids_iguales",
+    "referencia_detallada_local": "Experimentos/Contornos/cuatro_vertices_20261022/verificacion.json"
+  },
+  "comprobaciones_tecnicas": {
+    "total_correctas": 21,
+    "geometria": 4,
+    "inferencia_aplicacion": 15,
+    "integracion_panel": 2,
+    "no_equivalen_a_evaluacion_de_precision": true
+  },
+  "paquete_prueba": {
+    "archivo_local": "Experimentos/Contornos/cuatro_vertices_20261022/Walmart_Vision_Cuatro_Vertices.zip",
+    "sha256": "73b8f23635d8269497b92899ee4d4869293d75c87f650ecc1054999012d4b148",
+    "extraido_y_dependencias_comprobadas": true,
+    "modelos_disponibles": 4,
+    "modelo_probado": "V2-YOLO26",
+    "inferencia_real_cpu": true,
+    "detecciones": 6,
+    "ajustes_aceptados": 6,
+    "instalacion_en_otro_computador": "pendiente",
+    "ejecucion_docker_del_ajuste": "no_verificada"
+  },
+  "umbrales_geometricos": {
+    "razon_area_candidato_original_min": 0.5,
+    "razon_area_candidato_original_max": 1.8,
+    "iou_interna_estrictamente_mayor_que": 0.55,
+    "iou_interna_compara": "contorno_predicho_y_candidato_no_anotacion_CVAT",
+    "lienzo_comparacion_px": [
+      384,
+      384
+    ],
+    "calibracion_en_conjunto_amplio": "pendiente",
+    "sin_candidato_aceptable": "conservar_contorno_original"
+  },
+  "evaluacion_pendiente": [
+    "comparar_mascara_original_y_cuadrilatero_con_las_mismas_anotaciones",
+    "incluir_oclusiones_recortes_geometria_ambigua_y_casos_que_empeoran",
+    "fijar_parametros_con_desarrollo_antes_de_usar_reserva_final",
+    "evaluar_por_separado_si_el_ajuste_se_utiliza_para_medir_ocupacion"
+  ],
+  "afirmaciones_no_demostradas": [
+    "mejora_de_mAP",
+    "mejora_de_IoU_contra_CVAT",
+    "mejora_de_clasificacion",
+    "mejora_de_ocupacion",
+    "generalizacion_a_nuevas_fotos"
+  ]
+}

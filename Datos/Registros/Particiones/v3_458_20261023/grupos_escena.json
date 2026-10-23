@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "unidad": "familia_y_grupo_escena_conservador",
+  "alcance": "Grupos operativos para reducir filtracion. No equivalen a 24 escenas fisicas independientes certificadas. Una misma categoria puede aparecer en grupos distintos cuando son exhibiciones diferentes.",
+  "metodo_lider2": "Revision visual de las 122 fotos en 11 hojas de contacto. Agrupacion conservadora por vistas repetidas, solapamiento y tramos vecinos; sin predicciones de modelos. La hora EXIF solo apoya la revision.",
+  "grupos": [
+    {
+      "id": "le_g01",
+      "familias": [
+        "lider_express_001",
+        "lider_express_002",
+        "lider_express_003",
+        "lider_express_004",
+        "lider_express_005"
+      ],
+      "split": "train",
+      "motivo": "Banco promocional inicial: cerveza, snacks y conservas; tramos vecinos visibles en los bordes.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g02",
+      "familias": [
+        "lider_express_006",
+        "lider_express_007",
+        "lider_express_008",
+        "lider_express_009",
+        "lider_express_010"
+      ],
+      "split": "test",
+      "motivo": "Bloque de higiene infantil: panales y toallitas; vistas vecinas y productos compartidos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g03",
+      "familias": [
+        "lider_express_011",
+        "lider_express_012",
+        "lider_express_013"
+      ],
+      "split": "train",
+      "motivo": "Higiene femenina: tramos contiguos con disposicion y productos compartidos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g04",
+      "familias": [
+        "lider_express_014",
+        "lider_express_015",
+        "lider_express_016"
+      ],
+      "split": "val",
+      "motivo": "Tinturas e higiene capilar; se mantiene junto el bloque vecino por precaucion.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g05",
+      "familias": [
+        "lider_express_017",
+        "lider_express_018"
+      ],
+      "split": "train",
+      "motivo": "Papel/tolllas: vistas vecinas del mismo banco, paquetes compartidos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g06",
+      "familias": [
+        "lider_express_019"
+      ],
+      "split": "train",
+      "motivo": "Cabecera de salsas, vista unica en el lote.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g07",
+      "familias": [
+        "lider_express_020",
+        "lider_express_021",
+        "lider_express_022",
+        "lider_express_023",
+        "lider_express_024"
+      ],
+      "split": "train",
+      "motivo": "Banco de vinos y espumantes: mantener juntas las vistas consecutivas y vecinos visibles.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g08",
+      "familias": [
+        "lider_express_025"
+      ],
+      "split": "train",
+      "motivo": "Pan envasado, vista unica en el lote.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g09",
+      "familias": [
+        "lider_express_026",
+        "lider_express_027",
+        "lider_express_028"
+      ],
+      "split": "val",
+      "motivo": "Bebidas en caja: 26/27 contiguas; 28 conservada junto al bloque vecino con una gran zona despejada.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g10",
+      "familias": [
+        "lider_express_029",
+        "lider_express_030"
+      ],
+      "split": "train",
+      "motivo": "Productos especiales/sin gluten; cabecera y tramos contiguos compartidos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g11",
+      "familias": [
+        "lider_express_031",
+        "lider_express_032"
+      ],
+      "split": "train",
+      "motivo": "Confites, galletas y snacks: vistas vecinas con productos compartidos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g12",
+      "familias": [
+        "lider_express_033",
+        "lider_express_034",
+        "lider_express_035"
+      ],
+      "split": "train",
+      "motivo": "Agua embotellada: repeticion visible entre 33/34 y tramo vecino 35.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g13",
+      "familias": [
+        "lider_express_036",
+        "lider_express_037",
+        "lider_express_038"
+      ],
+      "split": "train",
+      "motivo": "Limpieza: bloque contiguo agrupado de forma conservadora.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g14",
+      "familias": [
+        "lider_express_039",
+        "lider_express_040",
+        "lider_express_041",
+        "lider_express_042"
+      ],
+      "split": "val",
+      "motivo": "Papeles: 39/40 comparten disposicion; se incorporan los tramos vecinos 41/42. Contiene un reponer real.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g15",
+      "familias": [
+        "lider_express_043",
+        "lider_express_059"
+      ],
+      "split": "train",
+      "motivo": "Exhibidor promocional de bebidas con carteleria y estructura similares; union conservadora pese a la distancia temporal.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g16",
+      "familias": [
+        "lider_express_044",
+        "lider_express_045"
+      ],
+      "split": "train",
+      "motivo": "Alimentos de mascotas: tramos vecinos y bolsas compartidas en los extremos.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g17",
+      "familias": [
+        "lider_express_046",
+        "lider_express_047",
+        "lider_express_048",
+        "lider_express_049",
+        "lider_express_050"
+      ],
+      "split": "train",
+      "motivo": "Banco de bebidas cola: varias vistas repetidas y tramos contiguos. Contiene dos reponer reales.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g18",
+      "familias": [
+        "lider_express_051",
+        "lider_express_052",
+        "lider_express_053",
+        "lider_express_054"
+      ],
+      "split": "test",
+      "motivo": "Abarrotes: tramos vecinos mantenidos juntos. Contiene un reponer real.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "le_g19",
+      "familias": [
+        "lider_express_055",
+        "lider_express_056",
+        "lider_express_057",
+        "lider_express_058"
+      ],
+      "split": "train",
+      "motivo": "Exhibicion promocional de aseo/higiene: caras vecinas con misma estructura y carteleria.",
+      "local_id": "lider_express",
+      "procedencia": "particion_20261019_conservada"
+    },
+    {
+      "id": "l2_g01",
+      "fotos": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "split": "train",
+      "motivo": "Banco promocional inicial con fondo azul. Productos y bordes de los modulos vecinos enlazan las vistas; se conserva completa la secuencia de galletas, snacks, abarrotes y aseo.",
+      "familias": [
+        "lider_2_001",
+        "lider_2_002",
+        "lider_2_003",
+        "lider_2_004",
+        "lider_2_005",
+        "lider_2_006",
+        "lider_2_007",
+        "lider_2_008",
+        "lider_2_009",
+        "lider_2_010",
+        "lider_2_011",
+        "lider_2_012"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g02",
+      "fotos": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "split": "train",
+      "motivo": "Banco de limpieza y cabeceras cercanas. Solapamientos entre cloros, suavizantes y lavalozas; 25/26 repiten claramente el mismo tramo. Se agrupa conservadoramente todo el recorrido vecino.",
+      "familias": [
+        "lider_2_013",
+        "lider_2_014",
+        "lider_2_015",
+        "lider_2_016",
+        "lider_2_017",
+        "lider_2_018",
+        "lider_2_019",
+        "lider_2_020",
+        "lider_2_021",
+        "lider_2_022",
+        "lider_2_023",
+        "lider_2_024",
+        "lider_2_025",
+        "lider_2_026",
+        "lider_2_027",
+        "lider_2_028",
+        "lider_2_029"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g03",
+      "fotos": [
+        30
+      ],
+      "split": "train",
+      "motivo": "Cabecera promocional de aceite y cajas amarillas, con laterales y cartel propios. Es otra exhibicion respecto del aceite del pasillo en 041.",
+      "familias": [
+        "lider_2_030"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g04",
+      "fotos": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "split": "val",
+      "motivo": "Bloque conservador de papeles y abarrotes vecinos. 033 y 049 repiten el mismo tramo de arroz con papel arriba; 046-048 son vistas vecinas y solapadas. 037/038 comparten rollos. Se mantienen tambien los bancos cercanos de papel y sal para no dividir el recorrido ante incertidumbre.",
+      "familias": [
+        "lider_2_031",
+        "lider_2_032",
+        "lider_2_033",
+        "lider_2_034",
+        "lider_2_035",
+        "lider_2_036",
+        "lider_2_037",
+        "lider_2_038",
+        "lider_2_039",
+        "lider_2_040",
+        "lider_2_045",
+        "lider_2_046",
+        "lider_2_047",
+        "lider_2_048",
+        "lider_2_049"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g05",
+      "fotos": [
+        41,
+        42,
+        43,
+        44
+      ],
+      "split": "test",
+      "motivo": "Aceite y mayonesas del pasillo: los extremos enlazan las vistas 042-044. Se conserva el aceite vecino por precaucion.",
+      "familias": [
+        "lider_2_041",
+        "lider_2_042",
+        "lider_2_043",
+        "lider_2_044"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g06",
+      "fotos": [
+        50,
+        51
+      ],
+      "split": "test",
+      "motivo": "Pures y mezclas instantaneas: modulos contiguos con paquetes y cajas compartidos en los bordes.",
+      "familias": [
+        "lider_2_050",
+        "lider_2_051"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g07",
+      "fotos": [
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "split": "train",
+      "motivo": "Banco de cocteles y vinos con estantes negros y pared roja. Multiples solapamientos y tomas repetidas; se conserva todo el banco, incluida su exhibicion promocional vecina 052.",
+      "familias": [
+        "lider_2_052",
+        "lider_2_053",
+        "lider_2_054",
+        "lider_2_055",
+        "lider_2_056",
+        "lider_2_057",
+        "lider_2_058",
+        "lider_2_059",
+        "lider_2_060",
+        "lider_2_061",
+        "lider_2_062",
+        "lider_2_063",
+        "lider_2_064",
+        "lider_2_065",
+        "lider_2_066"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g08",
+      "fotos": [
+        67,
+        68,
+        69
+      ],
+      "split": "train",
+      "motivo": "Cabecera de azucar/snacks y banco vecino de azucar en bolsas. 068/069 comparten estructura y productos; se incorpora la cabecera cercana de forma conservadora.",
+      "familias": [
+        "lider_2_067",
+        "lider_2_068",
+        "lider_2_069"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g09",
+      "fotos": [
+        70,
+        71
+      ],
+      "split": "train",
+      "motivo": "Conservas y vegetales en lata: modulos contiguos, productos compartidos en los extremos.",
+      "familias": [
+        "lider_2_070",
+        "lider_2_071"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g10",
+      "fotos": [
+        72
+      ],
+      "split": "val",
+      "motivo": "Jugos en bolsas con amplias zonas vacias, en exhibicion propia; no se observa el mismo tramo en los jugos en caja posteriores.",
+      "familias": [
+        "lider_2_072"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g11",
+      "fotos": [
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "split": "test",
+      "motivo": "Te y banco cercano de vitrinas de conservas/cafe. 074/075 muestran el mismo tipo de vitrina contigua y 076/077 comparten el modulo de cafe en sus bordes. Se mantiene junto el recorrido cercano completo por precaucion.",
+      "familias": [
+        "lider_2_073",
+        "lider_2_074",
+        "lider_2_075",
+        "lider_2_076",
+        "lider_2_077"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g12",
+      "fotos": [
+        78,
+        79
+      ],
+      "split": "train",
+      "motivo": "Banco vecino de galletas dulces: distintas marcas en estanteria clara, agrupadas conservadoramente.",
+      "familias": [
+        "lider_2_078",
+        "lider_2_079"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g13",
+      "fotos": [
+        80
+      ],
+      "split": "test",
+      "motivo": "Harina en bolsas, vista unica de este tramo.",
+      "familias": [
+        "lider_2_080"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g14",
+      "fotos": [
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ],
+      "split": "train",
+      "motivo": "Banco de cervezas en estanteria negra. 081/082 solapan claramente; otros modulos comparten exhibicion y marcas en los extremos. Se conserva todo el recorrido.",
+      "familias": [
+        "lider_2_081",
+        "lider_2_082",
+        "lider_2_083",
+        "lider_2_084",
+        "lider_2_085",
+        "lider_2_086",
+        "lider_2_087"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g15",
+      "fotos": [
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "split": "train",
+      "motivo": "Banco de bebidas, agua, colas y jugos con fondo azul. 089/090, 092-094 y 097/098 repiten tramos; 095-099 se enlazan por los bordes. Se mantiene junto el banco vecino completo.",
+      "familias": [
+        "lider_2_088",
+        "lider_2_089",
+        "lider_2_090",
+        "lider_2_091",
+        "lider_2_092",
+        "lider_2_093",
+        "lider_2_094",
+        "lider_2_095",
+        "lider_2_096",
+        "lider_2_097",
+        "lider_2_098",
+        "lider_2_099"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g16",
+      "fotos": [
+        100
+      ],
+      "split": "test",
+      "motivo": "Jugos en polvo Zuko/Sprim, exhibicion diferente de los jugos en caja, con cartel Liquidos y distribucion propia.",
+      "familias": [
+        "lider_2_100"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g17",
+      "fotos": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106
+      ],
+      "split": "train",
+      "motivo": "Banco de huevos con carteleria negra y naranja. Solapamientos sucesivos, incluida 105/106; todas las vistas del banco quedan juntas.",
+      "familias": [
+        "lider_2_101",
+        "lider_2_102",
+        "lider_2_103",
+        "lider_2_104",
+        "lider_2_105",
+        "lider_2_106"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g18",
+      "fotos": [
+        107
+      ],
+      "split": "val",
+      "motivo": "Cabecera promocional de cafe y chocolates, con estructura y cartel propios; distinta del banco de cereales/barritas.",
+      "familias": [
+        "lider_2_107"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g19",
+      "fotos": [
+        108
+      ],
+      "split": "val",
+      "motivo": "Exhibidor promocional de conservas lacteas y cajas azules, con dos modulos en una foto. Ambos modulos y sus futuras variantes pertenecen a una sola escena de particion.",
+      "familias": [
+        "lider_2_108"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g20",
+      "fotos": [
+        109,
+        110
+      ],
+      "split": "train",
+      "motivo": "Bebidas vegetales y cajas Not/Orasi: vistas solapadas del mismo banco.",
+      "familias": [
+        "lider_2_109",
+        "lider_2_110"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g21",
+      "fotos": [
+        111,
+        112
+      ],
+      "split": "train",
+      "motivo": "Barritas y productos proteicos: modulos vecinos con productos compartidos en los bordes.",
+      "familias": [
+        "lider_2_111",
+        "lider_2_112"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g22",
+      "fotos": [
+        113,
+        114,
+        115,
+        116,
+        117
+      ],
+      "split": "train",
+      "motivo": "Banco de leche en polvo con estanteria y vitrinas. 113/114 y 116/117 repiten vistas; 115 enlaza las marcas vecinas. Se conserva completo.",
+      "familias": [
+        "lider_2_113",
+        "lider_2_114",
+        "lider_2_115",
+        "lider_2_116",
+        "lider_2_117"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g23",
+      "fotos": [
+        118,
+        119,
+        120
+      ],
+      "split": "test",
+      "motivo": "Cereales: vistas contiguas con cajas compartidas en los bordes, misma disposicion y carteles.",
+      "familias": [
+        "lider_2_118",
+        "lider_2_119",
+        "lider_2_120"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    },
+    {
+      "id": "l2_g24",
+      "fotos": [
+        121,
+        122
+      ],
+      "split": "test",
+      "motivo": "Pan envasado: modulos vecinos con estructura y contexto compartidos; se mantiene junto el banco por precaucion.",
+      "familias": [
+        "lider_2_121",
+        "lider_2_122"
+      ],
+      "local_id": "lider_2",
+      "procedencia": "revision_visual_20261023"
+    }
+  ]
+}

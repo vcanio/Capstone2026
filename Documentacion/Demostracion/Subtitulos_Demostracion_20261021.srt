@@ -1,0 +1,375 @@
+1
+00:00:03,000 --> 00:00:07,620
+Walmart Visión es un prototipo que ayuda a revisar la disponibilidad visible en
+
+2
+00:00:07,620 --> 00:00:10,760
+las repisas de una góndola a partir de una fotografía.
+
+3
+00:00:11,300 --> 00:00:15,100
+Su objetivo es apoyar la identificación de niveles que podrían necesitar
+
+4
+00:00:15,100 --> 00:00:18,300
+reposición y facilitar su revisión por una persona.
+
+5
+00:00:18,860 --> 00:00:23,600
+En esta demostración veremos cómo cargar una imagen, ejecutar el análisis e
+
+6
+00:00:23,600 --> 00:00:25,660
+interpretar lo que devuelve la aplicación.
+
+7
+00:00:26,280 --> 00:00:31,040
+También revisaremos dos casos favorables y dos casos con dificultades del informe,
+
+8
+00:00:31,040 --> 00:00:35,500
+porque conocer los errores permite entender hasta dónde llega actualmente la
+
+9
+00:00:35,500 --> 00:00:38,840
+solución. El flujo combina dos componentes.
+
+10
+00:00:39,260 --> 00:00:44,640
+Primero, YOLO localiza los niveles de la góndola, dibuja sus contornos y asigna un
+
+11
+00:00:44,640 --> 00:00:50,260
+estado. Después, si activamos detección de bordes, un análisis adicional estudia
+
+12
+00:00:50,260 --> 00:00:53,660
+bordes, color y textura dentro de esas regiones.
+
+13
+00:00:53,660 --> 00:00:58,700
+En la versión dos, los estados disponibles son reponer y suficiente.
+
+14
+00:00:59,320 --> 00:01:03,000
+Reponer reúne los ejemplos de vacío y baja disponibilidad.
+
+15
+00:01:03,560 --> 00:01:08,520
+La aplicación también permite elegir la versión uno y comparar modelos, pero aquí
+
+16
+00:01:08,520 --> 00:01:11,420
+nos concentraremos en V2 con YOLO26.
+
+17
+00:01:12,160 --> 00:01:16,780
+Esta versión base todavía no reconoce un estado específico para las zonas que no
+
+18
+00:01:16,780 --> 00:01:21,420
+se pueden evaluar. Para comenzar, seleccionamos una fotografía desde el
+
+19
+00:01:21,420 --> 00:01:26,480
+computador. En el visor podemos revisar la entrada antes de ejecutar el modelo.
+
+20
+00:01:27,100 --> 00:01:33,020
+Elegimos la versión, el modelo y el método de análisis; luego pulsamos Analizar
+
+21
+00:01:33,020 --> 00:01:38,160
+foto. La aplicación procesa la imagen y muestra los niveles encontrados sobre la
+
+22
+00:01:38,160 --> 00:01:42,800
+fotografía. También presenta un resumen de los estados y un detalle por nivel.
+
+23
+00:01:43,460 --> 00:01:47,980
+La confianza que aparece junto a una predicción es un puntaje del modelo: no
+
+24
+00:01:47,980 --> 00:01:50,920
+indica qué porcentaje de productos queda en la repisa.
+
+25
+00:01:50,920 --> 00:01:56,400
+La pestaña Comparar permite observar la imagen original junto al resultado y
+
+26
+00:01:56,400 --> 00:01:59,200
+revisar si los contornos siguen los niveles visibles.
+
+27
+00:01:59,920 --> 00:02:04,880
+El primer caso favorable del informe es una góndola de vinos con dos repisas casi
+
+28
+00:02:04,880 --> 00:02:10,300
+vacías. En la evidencia documentada, YOLO distingue esos niveles y los clasifica
+
+29
+00:02:10,300 --> 00:02:15,840
+como reponer. Al mirar la fotografía original podemos comprobar que hay faltantes
+
+30
+00:02:15,840 --> 00:02:21,400
+visibles en ambas repisas. Los contornos permiten ubicar dónde revisar, mientras
+
+31
+00:02:21,400 --> 00:02:25,900
+que el mapa de bordes presenta mucha menos señal en esas zonas que en los niveles
+
+32
+00:02:25,900 --> 00:02:31,680
+abastecidos. Consideramos favorable este caso porque la alerta, la ubicación y la
+
+33
+00:02:31,680 --> 00:02:33,580
+evidencia visual son coherentes.
+
+34
+00:02:34,160 --> 00:02:38,620
+Esa coincidencia respalda este ejemplo concreto; para conocer el rendimiento
+
+35
+00:02:38,620 --> 00:02:43,380
+general necesitamos evaluar un conjunto de imágenes con referencias revisadas.
+
+36
+00:02:43,380 --> 00:02:48,700
+En la aplicación, el método YOLO más detección de bordes habilita vistas
+
+37
+00:02:48,700 --> 00:02:53,780
+adicionales. El mapa amarillo muestra la señal que activa el algoritmo dentro de
+
+38
+00:02:53,780 --> 00:02:58,820
+los niveles detectados. También podemos consultar los bordes de toda la foto y los
+
+39
+00:02:58,820 --> 00:03:00,690
+bordes limitados a esas regiones.
+
+40
+00:03:01,500 --> 00:03:04,740
+La tabla presenta mediciones de área y ancho con señal.
+
+41
+00:03:05,160 --> 00:03:09,720
+Estos valores describen la respuesta del procesamiento; todavía no equivalen al
+
+42
+00:03:09,720 --> 00:03:11,560
+porcentaje real de mercadería.
+
+43
+00:03:11,560 --> 00:03:16,060
+El estado reponer o suficiente sigue dependiendo de YOLO.
+
+44
+00:03:16,400 --> 00:03:21,340
+Por eso, una zona con mucha señal requiere interpretación y una zona con poca
+
+45
+00:03:21,340 --> 00:03:24,520
+señal no demuestra, por sí sola, que esté vacía.
+
+46
+00:03:25,160 --> 00:03:28,600
+El segundo caso favorable es un exhibidor central con bebidas.
+
+47
+00:03:29,120 --> 00:03:33,700
+En el resultado conservado en el informe se distinguen sus cuatro repisas y la
+
+48
+00:03:33,700 --> 00:03:36,580
+señal se concentra principalmente en las botellas.
+
+49
+00:03:37,000 --> 00:03:40,720
+Los contornos separan esos niveles sin abarcar todo el pasillo.
+
+50
+00:03:40,720 --> 00:03:45,840
+Este ejemplo permite revisar una situación distinta a los faltantes: un mueble
+
+51
+00:03:45,840 --> 00:03:50,300
+abastecido donde esperamos localizar las repisas y mantener la señal sobre los
+
+52
+00:03:50,300 --> 00:03:52,760
+productos. La revisión es visual.
+
+53
+00:03:53,260 --> 00:03:57,540
+No estamos contando botellas ni comprobando el inventario de la tienda; estamos
+
+54
+00:03:57,540 --> 00:04:01,400
+observando si el resultado corresponde al sector que queremos analizar.
+
+55
+00:04:02,040 --> 00:04:05,980
+El primer caso con errores muestra una repisa vacía con fondo metálico.
+
+56
+00:04:05,980 --> 00:04:11,080
+En la evidencia del informe, el análisis de bordes activa parte de ese fondo
+
+57
+00:04:11,080 --> 00:04:12,800
+aunque allí no haya productos.
+
+58
+00:04:13,380 --> 00:04:18,020
+Una posible explicación es que las perforaciones y la textura del metal generan
+
+59
+00:04:18,020 --> 00:04:20,320
+una respuesta parecida a la de algunos envases.
+
+60
+00:04:20,980 --> 00:04:24,980
+Esto muestra por qué no podemos interpretar el amarillo directamente como
+
+61
+00:04:24,980 --> 00:04:30,080
+mercadería disponible. La mejora propuesta es comparar ejemplos de repisas vacías
+
+62
+00:04:30,080 --> 00:04:35,200
+y ocupadas, revisar qué señales produce el fondo y ajustar el procesamiento.
+
+63
+00:04:35,200 --> 00:04:40,280
+Ese ajuste debe comprobarse también con productos oscuros para evitar que, al
+
+64
+00:04:40,280 --> 00:04:43,580
+quitar falsas activaciones, perdamos información útil.
+
+65
+00:04:44,260 --> 00:04:48,220
+El segundo caso con dificultades corresponde a alimento para mascotas.
+
+66
+00:04:48,620 --> 00:04:53,280
+En la fotografía se observan cuatro niveles físicos, pero la salida documentada
+
+67
+00:04:53,280 --> 00:04:57,460
+dibuja tres contornos y deja una repisa intermedia sin delimitar.
+
+68
+00:04:57,900 --> 00:05:02,380
+Como el análisis de bordes trabaja dentro de las regiones que entrega YOLO, ese
+
+69
+00:05:02,380 --> 00:05:04,160
+nivel queda fuera de su revisión.
+
+70
+00:05:04,160 --> 00:05:08,900
+Este caso permite distinguir un error de localización de un problema en la señal
+
+71
+00:05:08,900 --> 00:05:13,860
+de bordes. Entre las posibles causas están la sombra o la similitud entre filas,
+
+72
+00:05:13,860 --> 00:05:18,440
+pero falta comprobarlas. La acción prioritaria es revisar la anotación de
+
+73
+00:05:18,440 --> 00:05:23,440
+referencia y repetir el análisis con el registro original antes de atribuir una
+
+74
+00:05:23,440 --> 00:05:28,060
+causa o informar una mejora. Actualmente están implementados la carga de
+
+75
+00:05:28,060 --> 00:05:33,240
+fotografías, la selección de versiones y modelos, la predicción por nivel, la
+
+76
+00:05:33,240 --> 00:05:36,800
+comparación visual y las vistas experimentales de bordes.
+
+77
+00:05:37,200 --> 00:05:41,880
+El informe reúne veinte casos seleccionados con sus entradas y resultados, y
+
+78
+00:05:41,880 --> 00:05:44,400
+documenta tanto aciertos como dificultades.
+
+79
+00:05:44,920 --> 00:05:49,500
+Estos ejemplos ayudan a explicar el comportamiento observado, pero no representan
+
+80
+00:05:49,500 --> 00:05:52,240
+una precisión global nueva del método combinado.
+
+81
+00:05:52,240 --> 00:05:56,080
+Tampoco sustituyen la evaluación final con datos reservados.
+
+82
+00:05:56,620 --> 00:06:02,020
+Las prioridades son ampliar los casos con faltantes reales, revisar las oclusiones
+
+83
+00:06:02,020 --> 00:06:06,640
+y los contornos, y contrastar la señal con referencias que permitan medirla.
+
+84
+00:06:07,080 --> 00:06:10,960
+Cada mejora deberá comprobarse antes de incorporarla a las conclusiones.
+
+85
+00:06:11,540 --> 00:06:15,920
+Para probar la solución, el repositorio incluye las instrucciones y una entrega
+
+86
+00:06:15,920 --> 00:06:19,520
+descargable de Walmart Visión con la interfaz y los modelos.
+
+87
+00:06:19,520 --> 00:06:23,820
+El paquete permite analizar fotografías propias sin volver a entrenar.
+
+88
+00:06:24,180 --> 00:06:28,660
+En Windows tiene un iniciador y también hay instrucciones de ejecución con Docker
+
+89
+00:06:28,660 --> 00:06:33,540
+para Mac. Las pruebas realizadas y las pendientes se detallan en la documentación.
+
+90
+00:06:34,060 --> 00:06:39,320
+El informe, las evidencias y el guion permiten seguir los avances; el enlace al
+
+91
+00:06:39,320 --> 00:06:42,000
+video quedará en el README cuando esté publicado.
+
+92
+00:06:42,440 --> 00:06:46,840
+Con esta demostración mostramos el flujo disponible y ejemplos concretos de sus
+
+93
+00:06:46,840 --> 00:06:51,960
+resultados. El siguiente paso es mejorar y validar los puntos donde todavía
+
+94
+00:06:51,960 --> 00:06:53,340
+presenta dificultades.

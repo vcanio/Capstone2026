@@ -1,0 +1,4312 @@
+{
+  "status": "verified",
+  "verified_at": "2026-10-23T00:23:09.710682+00:00",
+  "task_id": 24,
+  "images_reviewed": 60,
+  "final_polygons": 308,
+  "upper_geometry_changed": 36,
+  "median_projections": 36,
+  "physical_roof_geometries_preserved": 24,
+  "upper_attributes_reviewed": 60,
+  "complete_uppers": 59,
+  "partial_uppers": 1,
+  "clipped_frames": [
+    10
+  ],
+  "lower_polygons_preserved": 248,
+  "all_ids_preserved": true,
+  "all_occluded_flags_preserved": true,
+  "tags_tracks_preserved": true,
+  "jobs_states_stages_preserved": true,
+  "geometry_verified_against_server": true,
+  "write_scope_task_id": 24,
+  "created_polygons": 0,
+  "deleted_polygons": 0,
+  "lower_before_sha256": "4e3cfbd59ea0cc533e4c8357caf8d18867444b1c3fbf002cd9c7c62e048de9ed",
+  "lower_after_sha256": "4e3cfbd59ea0cc533e4c8357caf8d18867444b1c3fbf002cd9c7c62e048de9ed",
+  "backup": ".resguardo/superiores_t24_20261022",
+  "training_enabled": false,
+  "human_review": "pendiente",
+  "upper_delimitacion": {
+    "completa": 59,
+    "parcial": 1
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "job_id": 60,
+      "name": "lider_express_001_D_carro.png",
+      "family": 1,
+      "shape_id": 7971,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7973,
+        7969,
+        7970,
+        7972
+      ],
+      "reference_heights_px": [
+        207.58809999999997,
+        194.42534999999998,
+        187.8440999999999,
+        177.97179999999992
+      ],
+      "median_height_px": 191.13472499999995,
+      "support_points": [
+        [
+          141.5296,
+          443.89026666666666
+        ],
+        [
+          942.266,
+          436.2115666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        141.5296,
+        442.6836,
+        942.266,
+        435.0049,
+        946.1052,
+        274.3092,
+        130.5605,
+        284.7297
+      ],
+      "after_points": [
+        141.5296,
+        443.89026666666666,
+        942.266,
+        436.2115666666667,
+        942.266,
+        245.07684166666678,
+        141.5296,
+        252.75554166666672
+      ],
+      "unclipped_points": [
+        141.5296,
+        443.89026666666666,
+        942.266,
+        436.2115666666667,
+        942.266,
+        245.07684166666678,
+        141.5296,
+        252.75554166666672
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=0"
+    },
+    {
+      "frame": 1,
+      "job_id": 60,
+      "name": "lider_express_001_E_cajas.png",
+      "family": 1,
+      "shape_id": 7976,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7978,
+        7977,
+        7974,
+        7975
+      ],
+      "reference_heights_px": [
+        207.58809999999997,
+        194.42534999999998,
+        187.8440999999999,
+        177.97179999999992
+      ],
+      "median_height_px": 191.13472499999995,
+      "support_points": [
+        [
+          141.5296,
+          443.89026666666666
+        ],
+        [
+          942.266,
+          436.2115666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        141.5296,
+        442.6836,
+        942.266,
+        435.0049,
+        946.1052,
+        274.3092,
+        130.5605,
+        284.7297
+      ],
+      "after_points": [
+        141.5296,
+        443.89026666666666,
+        942.266,
+        436.2115666666667,
+        942.266,
+        245.07684166666678,
+        141.5296,
+        252.75554166666672
+      ],
+      "unclipped_points": [
+        141.5296,
+        443.89026666666666,
+        942.266,
+        436.2115666666667,
+        942.266,
+        245.07684166666678,
+        141.5296,
+        252.75554166666672
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=1"
+    },
+    {
+      "frame": 2,
+      "job_id": 60,
+      "name": "lider_express_002_D_persona.png",
+      "family": 2,
+      "shape_id": 7980,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7982,
+        7981,
+        7979,
+        7983
+      ],
+      "reference_heights_px": [
+        226.34190000000012,
+        207.38129999999995,
+        194.58285,
+        179.41460000000006
+      ],
+      "median_height_px": 200.98207499999998,
+      "support_points": [
+        [
+          152.6795,
+          369.29200000000003
+        ],
+        [
+          1033.8728,
+          380.6682
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 6,
+      "before_points": [
+        152.6795,
+        362.052,
+        1033.8728,
+        373.4282,
+        1049.9893,
+        181.9263,
+        137.0371,
+        172.92
+      ],
+      "after_points": [
+        152.6795,
+        369.29200000000003,
+        1033.8728,
+        380.6682,
+        1033.8728,
+        179.68612500000003,
+        152.6795,
+        168.30992500000005
+      ],
+      "unclipped_points": [
+        152.6795,
+        369.29200000000003,
+        1033.8728,
+        380.6682,
+        1033.8728,
+        179.68612500000003,
+        152.6795,
+        168.30992500000005
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=2"
+    },
+    {
+      "frame": 3,
+      "job_id": 60,
+      "name": "lider_express_003_D_carro.png",
+      "family": 3,
+      "shape_id": 7988,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7984,
+        7985,
+        7987,
+        7986
+      ],
+      "reference_heights_px": [
+        223.68724999999998,
+        208.13994999999994,
+        199.5734000000001,
+        186.8818500000001
+      ],
+      "median_height_px": 203.85667500000002,
+      "support_points": [
+        [
+          118.1206,
+          415.033
+        ],
+        [
+          990.4091,
+          410.4121
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        118.1206,
+        411.413,
+        990.4091,
+        406.7921,
+        1005.7808,
+        167.4612,
+        105.2334,
+        177.5248
+      ],
+      "after_points": [
+        118.1206,
+        415.033,
+        990.4091,
+        410.4121,
+        990.4091,
+        206.55542499999999,
+        118.1206,
+        211.176325
+      ],
+      "unclipped_points": [
+        118.1206,
+        415.033,
+        990.4091,
+        410.4121,
+        990.4091,
+        206.55542499999999,
+        118.1206,
+        211.176325
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=3"
+    },
+    {
+      "frame": 4,
+      "job_id": 60,
+      "name": "lider_express_004_D_persona.png",
+      "family": 4,
+      "shape_id": 7991,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7993,
+        7990,
+        7989,
+        7992
+      ],
+      "reference_heights_px": [
+        236.86344999999994,
+        218.15549999999996,
+        209.75695000000002,
+        196.03265
+      ],
+      "median_height_px": 213.956225,
+      "support_points": [
+        [
+          47.22619999999999,
+          368.8634333333334
+        ],
+        [
+          961.2263,
+          360.2601333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        47.2262,
+        366.4501,
+        961.2263,
+        357.8468,
+        968.1909,
+        170.6222,
+        35.7549,
+        180.8643
+      ],
+      "after_points": [
+        47.22619999999999,
+        368.8634333333334,
+        961.2263,
+        360.2601333333333,
+        961.2263,
+        146.30390833333328,
+        47.22619999999999,
+        154.9072083333334
+      ],
+      "unclipped_points": [
+        47.22619999999999,
+        368.8634333333334,
+        961.2263,
+        360.2601333333333,
+        961.2263,
+        146.30390833333328,
+        47.22619999999999,
+        154.9072083333334
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=4"
+    },
+    {
+      "frame": 5,
+      "job_id": 60,
+      "name": "lider_express_005_D_cajas.png",
+      "family": 5,
+      "shape_id": 7994,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7998,
+        7996,
+        7997,
+        7995
+      ],
+      "reference_heights_px": [
+        205.95945000000003,
+        193.16084999999998,
+        184.86565000000013,
+        168.74909999999988
+      ],
+      "median_height_px": 189.01325000000006,
+      "support_points": [
+        [
+          142.2513,
+          417.9124666666667
+        ],
+        [
+          937.6479,
+          398.0038666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        937.6479,
+        396.7972,
+        142.2513,
+        416.7058,
+        128.5048,
+        225.6778,
+        948.0762,
+        212.4054
+      ],
+      "after_points": [
+        142.2513,
+        417.9124666666667,
+        937.6479,
+        398.0038666666667,
+        937.6479,
+        208.99061666666663,
+        142.2513,
+        228.89921666666666
+      ],
+      "unclipped_points": [
+        142.2513,
+        417.9124666666667,
+        937.6479,
+        398.0038666666667,
+        937.6479,
+        208.99061666666663,
+        142.2513,
+        228.89921666666666
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=5"
+    },
+    {
+      "frame": 6,
+      "job_id": 60,
+      "name": "lider_express_006_D_carro.png",
+      "family": 6,
+      "shape_id": 8003,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        7999,
+        8001,
+        8002,
+        8000
+      ],
+      "reference_heights_px": [
+        245.43119999999996,
+        225.96125,
+        201.82965000000002,
+        193.60260000000005
+      ],
+      "median_height_px": 213.89545,
+      "support_points": [
+        [
+          58.4941,
+          332.3351666666666
+        ],
+        [
+          1007.3122,
+          327.39916666666664
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        58.4941,
+        331.1285,
+        1007.3122,
+        326.1925,
+        1006.7637,
+        172.0782,
+        41.4923,
+        176.4658
+      ],
+      "after_points": [
+        58.4941,
+        332.3351666666666,
+        1007.3122,
+        327.39916666666664,
+        1007.3122,
+        113.50371666666663,
+        58.4941,
+        118.43971666666661
+      ],
+      "unclipped_points": [
+        58.4941,
+        332.3351666666666,
+        1007.3122,
+        327.39916666666664,
+        1007.3122,
+        113.50371666666663,
+        58.4941,
+        118.43971666666661
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=6"
+    },
+    {
+      "frame": 7,
+      "job_id": 60,
+      "name": "lider_express_007_E_carro.png",
+      "family": 7,
+      "shape_id": 8004,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8005,
+        8006,
+        8007,
+        8008
+      ],
+      "reference_heights_px": [
+        239.67235,
+        217.46029999999996,
+        205.39434999999997,
+        188.39234999999985
+      ],
+      "median_height_px": 211.42732499999997,
+      "support_points": [
+        [
+          118.6593,
+          365.07786666666664
+        ],
+        [
+          1052.6689,
+          376.59536666666673
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 4,
+      "before_points": [
+        118.6593,
+        360.2512,
+        1052.6689,
+        371.7687,
+        1055.9596,
+        183.6505,
+        113.1747,
+        192.9741
+      ],
+      "after_points": [
+        118.6593,
+        365.07786666666664,
+        1052.6689,
+        376.59536666666673,
+        1052.6689,
+        165.16804166666677,
+        118.6593,
+        153.65054166666667
+      ],
+      "unclipped_points": [
+        118.6593,
+        365.07786666666664,
+        1052.6689,
+        376.59536666666673,
+        1052.6689,
+        165.16804166666677,
+        118.6593,
+        153.65054166666667
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=7"
+    },
+    {
+      "frame": 8,
+      "job_id": 60,
+      "name": "lider_express_008_D_persona.png",
+      "family": 8,
+      "shape_id": 8010,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8012,
+        8011,
+        8009
+      ],
+      "reference_heights_px": [
+        319.79600000000005,
+        291.9038000000001,
+        279.21204999999986
+      ],
+      "median_height_px": 291.9038000000001,
+      "support_points": [
+        [
+          116.25570000000002,
+          371.04813333333334
+        ],
+        [
+          1013.8269999999999,
+          387.2673333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        116.2557,
+        368.6348,
+        1013.827,
+        384.854,
+        1025.2926,
+        116.1658,
+        107.2968,
+        109.9032
+      ],
+      "after_points": [
+        116.25570000000002,
+        371.04813333333334,
+        1013.8269999999999,
+        387.2673333333333,
+        1013.8269999999999,
+        95.36353333333318,
+        116.25570000000002,
+        79.14433333333324
+      ],
+      "unclipped_points": [
+        116.25570000000002,
+        371.04813333333334,
+        1013.8269999999999,
+        387.2673333333333,
+        1013.8269999999999,
+        95.36353333333318,
+        116.25570000000002,
+        79.14433333333324
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=8"
+    },
+    {
+      "frame": 9,
+      "job_id": 60,
+      "name": "lider_express_009_D_carro.png",
+      "family": 9,
+      "shape_id": 8015,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8014,
+        8013,
+        8016
+      ],
+      "reference_heights_px": [
+        316.6064,
+        294.00195000000014,
+        285.8263999999999
+      ],
+      "median_height_px": 294.00195000000014,
+      "support_points": [
+        [
+          82.66500000000002,
+          351.0601
+        ],
+        [
+          974.5978,
+          353.2341
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 0,
+      "before_points": [
+        82.665,
+        351.0601,
+        974.5978,
+        353.2341,
+        986.0119,
+        4.2878,
+        67.9895,
+        14.0714
+      ],
+      "after_points": [
+        82.66500000000002,
+        351.0601,
+        974.5978,
+        353.2341,
+        974.5978,
+        59.232149999999876,
+        82.66500000000002,
+        57.05814999999984
+      ],
+      "unclipped_points": [
+        82.66500000000002,
+        351.0601,
+        974.5978,
+        353.2341,
+        974.5978,
+        59.232149999999876,
+        82.66500000000002,
+        57.05814999999984
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=9"
+    },
+    {
+      "frame": 10,
+      "job_id": 60,
+      "name": "lider_express_010_D_persona.png",
+      "family": 10,
+      "shape_id": 8017,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8018,
+        8019,
+        8020
+      ],
+      "reference_heights_px": [
+        327.1896499999999,
+        298.71850000000006,
+        282.68224999999995
+      ],
+      "median_height_px": 298.71850000000006,
+      "support_points": [
+        [
+          57.7425,
+          283.2756
+        ],
+        [
+          970.0217,
+          295.0196
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 0,
+      "before_points": [
+        57.7425,
+        283.2756,
+        970.0217,
+        295.0196,
+        978.9566,
+        17.8466,
+        44.589,
+        20.6781
+      ],
+      "after_points": [
+        57.7425,
+        0.0,
+        57.7425,
+        283.2756,
+        970.0217,
+        295.0196,
+        970.0217,
+        0.0
+      ],
+      "unclipped_points": [
+        57.7425,
+        283.2756,
+        970.0217,
+        295.0196,
+        970.0217,
+        -3.6989000000000374,
+        57.7425,
+        -15.442900000000066
+      ],
+      "clipped_to_image": true,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "parcial",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=10"
+    },
+    {
+      "frame": 11,
+      "job_id": 60,
+      "name": "lider_express_011_E_persona.png",
+      "family": 11,
+      "shape_id": 8023,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8024,
+        8025,
+        8022,
+        8026,
+        8021
+      ],
+      "reference_heights_px": [
+        187.72994999999997,
+        178.27055000000001,
+        162.62654999999995,
+        151.34814999999998,
+        150.2568
+      ],
+      "median_height_px": 162.62654999999995,
+      "support_points": [
+        [
+          149.1051,
+          326.7206
+        ],
+        [
+          1076.112,
+          326.7207
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 0,
+      "before_points": [
+        149.1051,
+        326.7206,
+        1076.112,
+        326.7207,
+        1079.7502,
+        165.9133,
+        144.0115,
+        160.0922
+      ],
+      "after_points": [
+        149.1051,
+        326.7206,
+        1076.112,
+        326.7207,
+        1076.112,
+        164.09415000000007,
+        149.1051,
+        164.09405000000004
+      ],
+      "unclipped_points": [
+        149.1051,
+        326.7206,
+        1076.112,
+        326.7207,
+        1076.112,
+        164.09415000000007,
+        149.1051,
+        164.09405000000004
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=11"
+    },
+    {
+      "frame": 12,
+      "job_id": 60,
+      "name": "lider_express_012_E_carro.png",
+      "family": 12,
+      "shape_id": 8027,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8032,
+        8031,
+        8030,
+        8029,
+        8028
+      ],
+      "reference_heights_px": [
+        192.52645,
+        177.57985000000002,
+        166.15315000000004,
+        156.32785000000007,
+        153.87149999999997
+      ],
+      "median_height_px": 166.15315000000004,
+      "support_points": [
+        [
+          113.92999999999999,
+          310.4677666666667
+        ],
+        [
+          1050.0093,
+          298.5412666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        1050.0093,
+        297.3346,
+        113.93,
+        309.2611,
+        104.3284,
+        151.0264,
+        1051.2416,
+        144.1786
+      ],
+      "after_points": [
+        113.92999999999999,
+        310.4677666666667,
+        1050.0093,
+        298.5412666666667,
+        1050.0093,
+        132.38811666666663,
+        113.92999999999999,
+        144.31461666666667
+      ],
+      "unclipped_points": [
+        113.92999999999999,
+        310.4677666666667,
+        1050.0093,
+        298.5412666666667,
+        1050.0093,
+        132.38811666666663,
+        113.92999999999999,
+        144.31461666666667
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=12"
+    },
+    {
+      "frame": 13,
+      "job_id": 60,
+      "name": "lider_express_013_D_carro.png",
+      "family": 13,
+      "shape_id": 8033,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8038,
+        8034,
+        8035,
+        8036,
+        8037
+      ],
+      "reference_heights_px": [
+        198.95169999999996,
+        186.5602,
+        171.48385000000007,
+        163.60254999999995,
+        151.91669999999988
+      ],
+      "median_height_px": 171.48385000000007,
+      "support_points": [
+        [
+          68.6646,
+          242.11486666666667
+        ],
+        [
+          1031.7601,
+          239.96156666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 4,
+      "before_points": [
+        1031.7601,
+        235.1349,
+        68.6646,
+        237.2882,
+        60.6712,
+        94.482,
+        1030.2741,
+        88.8327
+      ],
+      "after_points": [
+        68.6646,
+        242.11486666666667,
+        1031.7601,
+        239.96156666666667,
+        1031.7601,
+        68.4777166666666,
+        68.6646,
+        70.6310166666666
+      ],
+      "unclipped_points": [
+        68.6646,
+        242.11486666666667,
+        1031.7601,
+        239.96156666666667,
+        1031.7601,
+        68.4777166666666,
+        68.6646,
+        70.6310166666666
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=13"
+    },
+    {
+      "frame": 14,
+      "job_id": 60,
+      "name": "lider_express_014_D_persona.png",
+      "family": 14,
+      "shape_id": 8043,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8039,
+        8044,
+        8042,
+        8040,
+        8041
+      ],
+      "reference_heights_px": [
+        200.16474999999997,
+        182.76849999999993,
+        166.8275,
+        157.56410000000022,
+        149.66060000000004
+      ],
+      "median_height_px": 166.8275,
+      "support_points": [
+        [
+          89.2874,
+          212.2179
+        ],
+        [
+          1052.2013,
+          254.37380000000002
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        89.2874,
+        208.5979,
+        1052.2013,
+        250.7538,
+        1055.411,
+        54.1552,
+        79.9769,
+        14.2562
+      ],
+      "after_points": [
+        89.2874,
+        212.2179,
+        1052.2013,
+        254.37380000000002,
+        1052.2013,
+        87.54630000000003,
+        89.2874,
+        45.3904
+      ],
+      "unclipped_points": [
+        89.2874,
+        212.2179,
+        1052.2013,
+        254.37380000000002,
+        1052.2013,
+        87.54630000000003,
+        89.2874,
+        45.3904
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=14"
+    },
+    {
+      "frame": 15,
+      "job_id": 60,
+      "name": "lider_express_015_D_cajas.png",
+      "family": 15,
+      "shape_id": 8048,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8049,
+        8045,
+        8050,
+        8046,
+        8047
+      ],
+      "reference_heights_px": [
+        195.27885000000003,
+        180.38889999999992,
+        165.5915,
+        159.96130000000016,
+        146.3310499999999
+      ],
+      "median_height_px": 165.5915,
+      "support_points": [
+        [
+          65.3855,
+          292.6165
+        ],
+        [
+          1020.2853,
+          282.6561
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        65.3855,
+        292.6165,
+        1020.2853,
+        282.6561,
+        1030.508,
+        19.4885,
+        54.6387,
+        30.2354
+      ],
+      "after_points": [
+        65.3855,
+        292.6165,
+        1020.2853,
+        282.6561,
+        1030.508,
+        19.4885,
+        54.6387,
+        30.2354
+      ],
+      "unclipped_points": [
+        65.3855,
+        292.6165,
+        1020.2853,
+        282.6561,
+        1030.508,
+        19.4885,
+        54.6387,
+        30.2354
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=15"
+    },
+    {
+      "frame": 16,
+      "job_id": 60,
+      "name": "lider_express_016_D_carro.png",
+      "family": 16,
+      "shape_id": 8052,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8053,
+        8054,
+        8055,
+        8051,
+        8056
+      ],
+      "reference_heights_px": [
+        199.55814999999996,
+        184.5456499999999,
+        173.8123999999999,
+        159.95404999999994,
+        149.8542500000001
+      ],
+      "median_height_px": 173.8123999999999,
+      "support_points": [
+        [
+          28.1766,
+          230.8888
+        ],
+        [
+          1001.4019,
+          270.6187
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        28.1766,
+        230.8888,
+        1001.4019,
+        270.6187,
+        1020.2052,
+        4.9455,
+        23.3242,
+        0.3963
+      ],
+      "after_points": [
+        28.1766,
+        230.8888,
+        1001.4019,
+        270.6187,
+        1020.2052,
+        4.9455,
+        23.3242,
+        0.3963
+      ],
+      "unclipped_points": [
+        28.1766,
+        230.8888,
+        1001.4019,
+        270.6187,
+        1020.2052,
+        4.9455,
+        23.3242,
+        0.3963
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=16"
+    },
+    {
+      "frame": 17,
+      "job_id": 60,
+      "name": "lider_express_017_E_persona.png",
+      "family": 17,
+      "shape_id": 8057,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8058,
+        8059,
+        8060
+      ],
+      "reference_heights_px": [
+        300.8770500000001,
+        260.85714999999993,
+        246.30450000000008
+      ],
+      "median_height_px": 260.85714999999993,
+      "support_points": [
+        [
+          140.9831,
+          417.26346666666666
+        ],
+        [
+          1042.8071,
+          415.15826666666663
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        140.9831,
+        416.0568,
+        1042.8071,
+        413.9516,
+        1050.5602,
+        147.0082,
+        139.7682,
+        153.4518
+      ],
+      "after_points": [
+        140.9831,
+        417.26346666666666,
+        1042.8071,
+        415.15826666666663,
+        1042.8071,
+        154.3011166666667,
+        140.9831,
+        156.40631666666673
+      ],
+      "unclipped_points": [
+        140.9831,
+        417.26346666666666,
+        1042.8071,
+        415.15826666666663,
+        1042.8071,
+        154.3011166666667,
+        140.9831,
+        156.40631666666673
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=17"
+    },
+    {
+      "frame": 18,
+      "job_id": 60,
+      "name": "lider_express_018_E_carro.png",
+      "family": 18,
+      "shape_id": 8063,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8064,
+        8061,
+        8062
+      ],
+      "reference_heights_px": [
+        304.2974500000001,
+        262.59864999999996,
+        254.82225000000005
+      ],
+      "median_height_px": 262.59864999999996,
+      "support_points": [
+        [
+          88.179,
+          378.89806666666664
+        ],
+        [
+          998.7438999999999,
+          399.58126666666664
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        998.7439,
+        398.3746,
+        88.179,
+        377.6914,
+        101.3507,
+        83.1801,
+        1001.5454,
+        108.962
+      ],
+      "after_points": [
+        88.179,
+        378.89806666666664,
+        998.7438999999999,
+        399.58126666666664,
+        998.7438999999999,
+        136.98261666666667,
+        88.179,
+        116.29941666666667
+      ],
+      "unclipped_points": [
+        88.179,
+        378.89806666666664,
+        998.7438999999999,
+        399.58126666666664,
+        998.7438999999999,
+        136.98261666666667,
+        88.179,
+        116.29941666666667
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=18"
+    },
+    {
+      "frame": 19,
+      "job_id": 60,
+      "name": "lider_express_019_D_persona.png",
+      "family": 19,
+      "shape_id": 8067,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8068,
+        8069,
+        8065,
+        8066
+      ],
+      "reference_heights_px": [
+        237.1533,
+        219.88495000000006,
+        212.62484999999992,
+        197.67144999999994
+      ],
+      "median_height_px": 216.2549,
+      "support_points": [
+        [
+          83.319,
+          323.2027
+        ],
+        [
+          989.8221,
+          367.81690000000003
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        83.319,
+        319.5827,
+        989.8221,
+        364.1969,
+        996.3688,
+        241.2006,
+        83.441,
+        180.6018
+      ],
+      "after_points": [
+        83.319,
+        323.2027,
+        989.8221,
+        367.81690000000003,
+        989.8221,
+        151.56200000000004,
+        83.319,
+        106.9478
+      ],
+      "unclipped_points": [
+        83.319,
+        323.2027,
+        989.8221,
+        367.81690000000003,
+        989.8221,
+        151.56200000000004,
+        83.319,
+        106.9478
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/60?frame=19"
+    },
+    {
+      "frame": 20,
+      "job_id": 61,
+      "name": "lider_express_020_D_carro.png",
+      "family": 20,
+      "shape_id": 8070,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8074,
+        8073,
+        8072,
+        8071
+      ],
+      "reference_heights_px": [
+        245.53949999999998,
+        227.85070000000007,
+        210.50090000000017,
+        194.03615000000002
+      ],
+      "median_height_px": 219.17580000000012,
+      "support_points": [
+        [
+          101.9599,
+          259.1648666666666
+        ],
+        [
+          1030.0807,
+          291.8719666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        101.9599,
+        257.9582,
+        1030.0807,
+        290.6653,
+        1044.7752,
+        86.3649,
+        92.9537,
+        49.3918
+      ],
+      "after_points": [
+        101.9599,
+        259.1648666666666,
+        1030.0807,
+        291.8719666666667,
+        1030.0807,
+        72.69616666666658,
+        101.9599,
+        39.9890666666665
+      ],
+      "unclipped_points": [
+        101.9599,
+        259.1648666666666,
+        1030.0807,
+        291.8719666666667,
+        1030.0807,
+        72.69616666666658,
+        101.9599,
+        39.9890666666665
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=20"
+    },
+    {
+      "frame": 21,
+      "job_id": 61,
+      "name": "lider_express_021_E_persona.png",
+      "family": 21,
+      "shape_id": 8079,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8078,
+        8077,
+        8075,
+        8076
+      ],
+      "reference_heights_px": [
+        249.7046,
+        233.52290000000005,
+        212.2647500000001,
+        193.54485
+      ],
+      "median_height_px": 222.89382500000008,
+      "support_points": [
+        [
+          58.6016,
+          294.21986666666663
+        ],
+        [
+          1019.9802,
+          331.65956666666665
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        58.6016,
+        293.0132,
+        1019.9802,
+        330.4529,
+        1033.9408,
+        119.7746,
+        47.1794,
+        74.7199
+      ],
+      "after_points": [
+        58.6016,
+        294.21986666666663,
+        1019.9802,
+        331.65956666666665,
+        1019.9802,
+        108.76574166666657,
+        58.6016,
+        71.32604166666655
+      ],
+      "unclipped_points": [
+        58.6016,
+        294.21986666666663,
+        1019.9802,
+        331.65956666666665,
+        1019.9802,
+        108.76574166666657,
+        58.6016,
+        71.32604166666655
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=21"
+    },
+    {
+      "frame": 22,
+      "job_id": 61,
+      "name": "lider_express_022_E_carro.png",
+      "family": 22,
+      "shape_id": 8083,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8080,
+        8084,
+        8082,
+        8081
+      ],
+      "reference_heights_px": [
+        255.68364999999994,
+        230.7426999999999,
+        212.21524999999997,
+        198.49074999999993
+      ],
+      "median_height_px": 221.47897499999993,
+      "support_points": [
+        [
+          75.0344,
+          261.434
+        ],
+        [
+          1047.2755,
+          303.0841
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 0,
+      "before_points": [
+        75.0344,
+        261.434,
+        1047.2755,
+        303.0841,
+        1066.7693,
+        76.136,
+        66.129,
+        32.5581
+      ],
+      "after_points": [
+        75.0344,
+        261.434,
+        1047.2755,
+        303.0841,
+        1047.2755,
+        81.60512500000004,
+        75.0344,
+        39.95502500000009
+      ],
+      "unclipped_points": [
+        75.0344,
+        261.434,
+        1047.2755,
+        303.0841,
+        1047.2755,
+        81.60512500000004,
+        75.0344,
+        39.95502500000009
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=22"
+    },
+    {
+      "frame": 23,
+      "job_id": 61,
+      "name": "lider_express_023_E_persona.png",
+      "family": 23,
+      "shape_id": 8086,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8087,
+        8088,
+        8085,
+        8089
+      ],
+      "reference_heights_px": [
+        245.18370000000004,
+        227.07064999999994,
+        208.6242499999999,
+        191.95844999999997
+      ],
+      "median_height_px": 217.84744999999992,
+      "support_points": [
+        [
+          74.1831,
+          319.1690333333333
+        ],
+        [
+          1018.295,
+          325.92883333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        74.1831,
+        316.7557,
+        1018.295,
+        323.5155,
+        1029.6432,
+        129.6131,
+        61.8926,
+        121.1736
+      ],
+      "after_points": [
+        74.1831,
+        319.1690333333333,
+        1018.295,
+        325.92883333333333,
+        1018.295,
+        108.0813833333334,
+        74.1831,
+        101.32158333333336
+      ],
+      "unclipped_points": [
+        74.1831,
+        319.1690333333333,
+        1018.295,
+        325.92883333333333,
+        1018.295,
+        108.0813833333334,
+        74.1831,
+        101.32158333333336
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=23"
+    },
+    {
+      "frame": 24,
+      "job_id": 61,
+      "name": "lider_express_024_D_persona.png",
+      "family": 24,
+      "shape_id": 8092,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8091,
+        8093,
+        8094,
+        8090
+      ],
+      "reference_heights_px": [
+        250.2089499999999,
+        225.08215000000007,
+        206.4357000000001,
+        187.84394999999995
+      ],
+      "median_height_px": 215.7589250000001,
+      "support_points": [
+        [
+          71.5941,
+          233.61999999999998
+        ],
+        [
+          1030.6395,
+          242.62
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        71.5941,
+        230.0,
+        1030.6395,
+        239.0,
+        1046.0352,
+        55.386,
+        57.6038,
+        41.7607
+      ],
+      "after_points": [
+        71.5941,
+        233.61999999999998,
+        1030.6395,
+        242.62,
+        1030.6395,
+        26.861074999999914,
+        71.5941,
+        17.861074999999886
+      ],
+      "unclipped_points": [
+        71.5941,
+        233.61999999999998,
+        1030.6395,
+        242.62,
+        1030.6395,
+        26.861074999999914,
+        71.5941,
+        17.861074999999886
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=24"
+    },
+    {
+      "frame": 25,
+      "job_id": 61,
+      "name": "lider_express_025_E_carro.png",
+      "family": 25,
+      "shape_id": 8096,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8097,
+        8098,
+        8095,
+        8099,
+        8100
+      ],
+      "reference_heights_px": [
+        193.47525000000002,
+        194.85054999999997,
+        181.40149999999994,
+        178.9403499999999,
+        149.42510000000004
+      ],
+      "median_height_px": 181.40149999999994,
+      "support_points": [
+        [
+          41.9973,
+          218.37393333333333
+        ],
+        [
+          1075.3491,
+          238.75653333333332
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        41.9973,
+        215.9606,
+        1075.3491,
+        236.3432,
+        1076.2984,
+        22.2268,
+        38.205,
+        9.2901
+      ],
+      "after_points": [
+        41.9973,
+        218.37393333333333,
+        1075.3491,
+        238.75653333333332,
+        1075.3491,
+        57.35503333333338,
+        41.9973,
+        36.972433333333385
+      ],
+      "unclipped_points": [
+        41.9973,
+        218.37393333333333,
+        1075.3491,
+        238.75653333333332,
+        1075.3491,
+        57.35503333333338,
+        41.9973,
+        36.972433333333385
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=25"
+    },
+    {
+      "frame": 26,
+      "job_id": 61,
+      "name": "lider_express_026_D_carro.png",
+      "family": 26,
+      "shape_id": 8104,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8102,
+        8103,
+        8105,
+        8101
+      ],
+      "reference_heights_px": [
+        236.4044000000001,
+        216.97175000000004,
+        199.55099999999993,
+        181.07365000000016
+      ],
+      "median_height_px": 208.261375,
+      "support_points": [
+        [
+          100.771,
+          335.737
+        ],
+        [
+          1008.1349,
+          335.4309
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        100.771,
+        335.737,
+        1008.1349,
+        335.4309,
+        1020.3759,
+        12.5747,
+        69.5565,
+        5.2301
+      ],
+      "after_points": [
+        100.771,
+        335.737,
+        1008.1349,
+        335.4309,
+        1020.3759,
+        12.5747,
+        69.5565,
+        5.2301
+      ],
+      "unclipped_points": [
+        100.771,
+        335.737,
+        1008.1349,
+        335.4309,
+        1020.3759,
+        12.5747,
+        69.5565,
+        5.2301
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=26"
+    },
+    {
+      "frame": 27,
+      "job_id": 61,
+      "name": "lider_express_027_E_persona.png",
+      "family": 27,
+      "shape_id": 8107,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8108,
+        8109,
+        8106,
+        8110
+      ],
+      "reference_heights_px": [
+        235.46345,
+        214.5727,
+        210.74045000000007,
+        185.58584999999994
+      ],
+      "median_height_px": 212.65657500000003,
+      "support_points": [
+        [
+          123.355,
+          331.2357
+        ],
+        [
+          1028.3843,
+          341.858
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        123.355,
+        331.2357,
+        1028.3843,
+        341.858,
+        1053.1699,
+        27.0806,
+        104.9428,
+        3.0031
+      ],
+      "after_points": [
+        123.355,
+        331.2357,
+        1028.3843,
+        341.858,
+        1053.1699,
+        27.0806,
+        104.9428,
+        3.0031
+      ],
+      "unclipped_points": [
+        123.355,
+        331.2357,
+        1028.3843,
+        341.858,
+        1053.1699,
+        27.0806,
+        104.9428,
+        3.0031
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=27"
+    },
+    {
+      "frame": 28,
+      "job_id": 61,
+      "name": "lider_express_028_D_cajas.png",
+      "family": 28,
+      "shape_id": 8112,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8113,
+        8111,
+        8114,
+        8115
+      ],
+      "reference_heights_px": [
+        264.93444999999997,
+        233.84035,
+        239.2342,
+        222.4180500000001
+      ],
+      "median_height_px": 236.537275,
+      "support_points": [
+        [
+          7.836,
+          269.66186666666664
+        ],
+        [
+          1013.6345,
+          254.43196666666665
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        7.836,
+        268.4552,
+        1013.6345,
+        253.2253,
+        1013.6345,
+        51.431,
+        11.0087,
+        57.7768
+      ],
+      "after_points": [
+        7.836,
+        269.66186666666664,
+        1013.6345,
+        254.43196666666665,
+        1013.6345,
+        17.89469166666666,
+        7.836,
+        33.124591666666646
+      ],
+      "unclipped_points": [
+        7.836,
+        269.66186666666664,
+        1013.6345,
+        254.43196666666665,
+        1013.6345,
+        17.89469166666666,
+        7.836,
+        33.124591666666646
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=28"
+    },
+    {
+      "frame": 29,
+      "job_id": 61,
+      "name": "lider_express_029_D_persona.png",
+      "family": 29,
+      "shape_id": 8121,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8117,
+        8118,
+        8119,
+        8120,
+        8116
+      ],
+      "reference_heights_px": [
+        197.8909,
+        185.57659999999998,
+        175.1486,
+        168.99385,
+        158.75159999999994
+      ],
+      "median_height_px": 175.1486,
+      "support_points": [
+        [
+          52.893,
+          255.7102
+        ],
+        [
+          1028.7384,
+          283.6826
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        52.893,
+        255.7102,
+        1028.7384,
+        283.6826,
+        1028.8446,
+        97.1531,
+        41.0313,
+        82.4233
+      ],
+      "after_points": [
+        52.893,
+        255.7102,
+        1028.7384,
+        283.6826,
+        1028.8446,
+        97.1531,
+        41.0313,
+        82.4233
+      ],
+      "unclipped_points": [
+        52.893,
+        255.7102,
+        1028.7384,
+        283.6826,
+        1028.8446,
+        97.1531,
+        41.0313,
+        82.4233
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=29"
+    },
+    {
+      "frame": 30,
+      "job_id": 61,
+      "name": "lider_express_030_E_carro.png",
+      "family": 30,
+      "shape_id": 8126,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8125,
+        8127,
+        8122,
+        8124,
+        8123
+      ],
+      "reference_heights_px": [
+        196.23759999999996,
+        182.46749999999997,
+        169.8132,
+        164.11639999999989,
+        150.3071
+      ],
+      "median_height_px": 169.8132,
+      "support_points": [
+        [
+          98.4679,
+          252.9044
+        ],
+        [
+          1052.4887,
+          290.4621
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        98.4679,
+        252.9044,
+        1052.4887,
+        290.4621,
+        1064.4966,
+        126.6625,
+        98.4677,
+        91.5909
+      ],
+      "after_points": [
+        98.4679,
+        252.9044,
+        1052.4887,
+        290.4621,
+        1064.4966,
+        126.6625,
+        98.4677,
+        91.5909
+      ],
+      "unclipped_points": [
+        98.4679,
+        252.9044,
+        1052.4887,
+        290.4621,
+        1064.4966,
+        126.6625,
+        98.4677,
+        91.5909
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=30"
+    },
+    {
+      "frame": 31,
+      "job_id": 61,
+      "name": "lider_express_031_D_cajas.png",
+      "family": 31,
+      "shape_id": 8129,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8130,
+        8131,
+        8132,
+        8133,
+        8128
+      ],
+      "reference_heights_px": [
+        199.96699999999996,
+        183.59964999999988,
+        169.07585,
+        156.81604999999996,
+        145.43695000000002
+      ],
+      "median_height_px": 169.07585,
+      "support_points": [
+        [
+          1007.0981,
+          293.6478
+        ],
+        [
+          37.4704,
+          263.8227
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        1007.0981,
+        293.6478,
+        37.4704,
+        263.8227,
+        43.078,
+        147.7322,
+        1009.9438,
+        171.8414
+      ],
+      "after_points": [
+        1007.0981,
+        293.6478,
+        37.4704,
+        263.8227,
+        43.078,
+        147.7322,
+        1009.9438,
+        171.8414
+      ],
+      "unclipped_points": [
+        1007.0981,
+        293.6478,
+        37.4704,
+        263.8227,
+        43.078,
+        147.7322,
+        1009.9438,
+        171.8414
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=31"
+    },
+    {
+      "frame": 32,
+      "job_id": 61,
+      "name": "lider_express_032_E_persona.png",
+      "family": 32,
+      "shape_id": 8139,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8134,
+        8138,
+        8135,
+        8136,
+        8137
+      ],
+      "reference_heights_px": [
+        196.61915000000005,
+        177.6976499999999,
+        163.43815,
+        150.66100000000012,
+        141.1010500000001
+      ],
+      "median_height_px": 163.43815,
+      "support_points": [
+        [
+          71.7669,
+          274.0351
+        ],
+        [
+          1046.9102,
+          286.1009
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        71.7669,
+        274.0351,
+        1046.9102,
+        286.1009,
+        1047.99,
+        120.4374,
+        71.2183,
+        110.0485
+      ],
+      "after_points": [
+        71.7669,
+        274.0351,
+        1046.9102,
+        286.1009,
+        1047.99,
+        120.4374,
+        71.2183,
+        110.0485
+      ],
+      "unclipped_points": [
+        71.7669,
+        274.0351,
+        1046.9102,
+        286.1009,
+        1047.99,
+        120.4374,
+        71.2183,
+        110.0485
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=32"
+    },
+    {
+      "frame": 33,
+      "job_id": 61,
+      "name": "lider_express_033_D_carro.png",
+      "family": 33,
+      "shape_id": 8140,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8144,
+        8141,
+        8142,
+        8143
+      ],
+      "reference_heights_px": [
+        236.65595000000005,
+        220.47669999999994,
+        206.7653499999999,
+        186.4728
+      ],
+      "median_height_px": 213.62102499999992,
+      "support_points": [
+        [
+          94.4725,
+          311.11
+        ],
+        [
+          1007.6412,
+          346.7594
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        94.4725,
+        311.11,
+        1007.6412,
+        346.7594,
+        1024.0399,
+        121.7853,
+        83.5035,
+        74.0702
+      ],
+      "after_points": [
+        94.4725,
+        311.11,
+        1007.6412,
+        346.7594,
+        1024.0399,
+        121.7853,
+        83.5035,
+        74.0702
+      ],
+      "unclipped_points": [
+        94.4725,
+        311.11,
+        1007.6412,
+        346.7594,
+        1024.0399,
+        121.7853,
+        83.5035,
+        74.0702
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=33"
+    },
+    {
+      "frame": 34,
+      "job_id": 61,
+      "name": "lider_express_034_E_carro.png",
+      "family": 34,
+      "shape_id": 8145,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8149,
+        8148,
+        8147,
+        8146
+      ],
+      "reference_heights_px": [
+        236.59124999999997,
+        219.3847,
+        203.0121499999998,
+        183.188
+      ],
+      "median_height_px": 211.1984249999999,
+      "support_points": [
+        [
+          77.1329,
+          341.2136
+        ],
+        [
+          986.2169,
+          354.7333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        77.1329,
+        341.2136,
+        986.2169,
+        354.7333,
+        1000.1461,
+        121.2146,
+        63.6133,
+        99.5014
+      ],
+      "after_points": [
+        77.1329,
+        341.2136,
+        986.2169,
+        354.7333,
+        1000.1461,
+        121.2146,
+        63.6133,
+        99.5014
+      ],
+      "unclipped_points": [
+        77.1329,
+        341.2136,
+        986.2169,
+        354.7333,
+        1000.1461,
+        121.2146,
+        63.6133,
+        99.5014
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=34"
+    },
+    {
+      "frame": 35,
+      "job_id": 61,
+      "name": "lider_express_035_E_persona.png",
+      "family": 35,
+      "shape_id": 8151,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8154,
+        8150,
+        8152,
+        8153
+      ],
+      "reference_heights_px": [
+        230.07465000000005,
+        213.32130000000006,
+        200.0752999999999,
+        180.98559999999986
+      ],
+      "median_height_px": 206.6983,
+      "support_points": [
+        [
+          91.7302,
+          366.3938
+        ],
+        [
+          979.1218,
+          389.4288
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        91.7302,
+        366.3938,
+        979.1218,
+        389.4288,
+        1005.4474,
+        68.5857,
+        88.4396,
+        44.4539
+      ],
+      "after_points": [
+        91.7302,
+        366.3938,
+        979.1218,
+        389.4288,
+        1005.4474,
+        68.5857,
+        88.4396,
+        44.4539
+      ],
+      "unclipped_points": [
+        91.7302,
+        366.3938,
+        979.1218,
+        389.4288,
+        1005.4474,
+        68.5857,
+        88.4396,
+        44.4539
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=35"
+    },
+    {
+      "frame": 36,
+      "job_id": 61,
+      "name": "lider_express_036_D_persona.png",
+      "family": 36,
+      "shape_id": 8157,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8158,
+        8159,
+        8155,
+        8156
+      ],
+      "reference_heights_px": [
+        260.64830000000006,
+        229.07679999999993,
+        205.23795000000007,
+        183.07444999999984
+      ],
+      "median_height_px": 217.157375,
+      "support_points": [
+        [
+          6.3127,
+          256.0811
+        ],
+        [
+          992.4397,
+          307.4814
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        6.3127,
+        256.0811,
+        992.4397,
+        307.4814,
+        1017.8227,
+        7.3282,
+        8.8512,
+        0.3479
+      ],
+      "after_points": [
+        6.3127,
+        256.0811,
+        992.4397,
+        307.4814,
+        1017.8227,
+        7.3282,
+        8.8512,
+        0.3479
+      ],
+      "unclipped_points": [
+        6.3127,
+        256.0811,
+        992.4397,
+        307.4814,
+        1017.8227,
+        7.3282,
+        8.8512,
+        0.3479
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=36"
+    },
+    {
+      "frame": 37,
+      "job_id": 61,
+      "name": "lider_express_037_E_persona.png",
+      "family": 37,
+      "shape_id": 8162,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8163,
+        8160,
+        8164,
+        8161
+      ],
+      "reference_heights_px": [
+        222.9446499999999,
+        205.39445,
+        184.82760000000007,
+        175.22944999999993
+      ],
+      "median_height_px": 195.11102500000004,
+      "support_points": [
+        [
+          128.6408,
+          363.1581
+        ],
+        [
+          980.3833,
+          380.7084
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        128.6408,
+        363.1581,
+        980.3833,
+        380.7084,
+        1000.6759,
+        75.7704,
+        106.1545,
+        28.0553
+      ],
+      "after_points": [
+        128.6408,
+        363.1581,
+        980.3833,
+        380.7084,
+        1000.6759,
+        75.7704,
+        106.1545,
+        28.0553
+      ],
+      "unclipped_points": [
+        128.6408,
+        363.1581,
+        980.3833,
+        380.7084,
+        1000.6759,
+        75.7704,
+        106.1545,
+        28.0553
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=37"
+    },
+    {
+      "frame": 38,
+      "job_id": 61,
+      "name": "lider_express_038_E_carro.png",
+      "family": 38,
+      "shape_id": 8166,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8167,
+        8168,
+        8169,
+        8165
+      ],
+      "reference_heights_px": [
+        227.60674999999995,
+        211.97575,
+        199.91005,
+        185.37590000000012
+      ],
+      "median_height_px": 205.9429,
+      "support_points": [
+        [
+          81.2549,
+          355.6441
+        ],
+        [
+          953.8383,
+          350.7082
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        81.2549,
+        355.6441,
+        953.8383,
+        350.7082,
+        971.9372,
+        32.059,
+        65.8983,
+        34.2528
+      ],
+      "after_points": [
+        81.2549,
+        355.6441,
+        953.8383,
+        350.7082,
+        971.9372,
+        32.059,
+        65.8983,
+        34.2528
+      ],
+      "unclipped_points": [
+        81.2549,
+        355.6441,
+        953.8383,
+        350.7082,
+        971.9372,
+        32.059,
+        65.8983,
+        34.2528
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=38"
+    },
+    {
+      "frame": 39,
+      "job_id": 61,
+      "name": "lider_express_039_D_carro.png",
+      "family": 39,
+      "shape_id": 8174,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8173,
+        8172,
+        8171,
+        8170
+      ],
+      "reference_heights_px": [
+        226.54279999999994,
+        213.21660000000003,
+        199.89050000000015,
+        194.07685000000004
+      ],
+      "median_height_px": 206.5535500000001,
+      "support_points": [
+        [
+          120.2186,
+          352.9804
+        ],
+        [
+          1003.5448,
+          361.8643
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        120.2186,
+        352.9804,
+        1003.5448,
+        361.8643,
+        1018.7745,
+        42.0394,
+        105.6236,
+        23.0022
+      ],
+      "after_points": [
+        120.2186,
+        352.9804,
+        1003.5448,
+        361.8643,
+        1018.7745,
+        42.0394,
+        105.6236,
+        23.0022
+      ],
+      "unclipped_points": [
+        120.2186,
+        352.9804,
+        1003.5448,
+        361.8643,
+        1018.7745,
+        42.0394,
+        105.6236,
+        23.0022
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/61?frame=39"
+    },
+    {
+      "frame": 40,
+      "job_id": 62,
+      "name": "lider_express_040_E_persona.png",
+      "family": 40,
+      "shape_id": 8177,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8176,
+        8178,
+        8175,
+        8179
+      ],
+      "reference_heights_px": [
+        241.1915999999999,
+        215.86094999999995,
+        198.60660000000007,
+        186.12514999999985
+      ],
+      "median_height_px": 207.233775,
+      "support_points": [
+        [
+          90.3939,
+          316.3873
+        ],
+        [
+          1003.7649,
+          327.4006
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        90.3939,
+        316.3873,
+        1003.7649,
+        327.4006,
+        993.4858,
+        71.1574,
+        91.8625,
+        71.1574
+      ],
+      "after_points": [
+        90.3939,
+        316.3873,
+        1003.7649,
+        327.4006,
+        993.4858,
+        71.1574,
+        91.8625,
+        71.1574
+      ],
+      "unclipped_points": [
+        90.3939,
+        316.3873,
+        1003.7649,
+        327.4006,
+        993.4858,
+        71.1574,
+        91.8625,
+        71.1574
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=40"
+    },
+    {
+      "frame": 41,
+      "job_id": 62,
+      "name": "lider_express_041_E_carro.png",
+      "family": 41,
+      "shape_id": 8180,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8184,
+        8183,
+        8182,
+        8181
+      ],
+      "reference_heights_px": [
+        252.88684999999998,
+        226.7985,
+        210.21480000000003,
+        185.55545000000018
+      ],
+      "median_height_px": 218.50665,
+      "support_points": [
+        [
+          981.6365,
+          255.3984
+        ],
+        [
+          7.7733,
+          271.7521
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        981.6365,
+        255.3984,
+        7.7733,
+        271.7521,
+        1.8955,
+        144.0051,
+        988.6518,
+        104.3301
+      ],
+      "after_points": [
+        981.6365,
+        255.3984,
+        7.7733,
+        271.7521,
+        1.8955,
+        144.0051,
+        988.6518,
+        104.3301
+      ],
+      "unclipped_points": [
+        981.6365,
+        255.3984,
+        7.7733,
+        271.7521,
+        1.8955,
+        144.0051,
+        988.6518,
+        104.3301
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=41"
+    },
+    {
+      "frame": 42,
+      "job_id": 62,
+      "name": "lider_express_042_D_persona.png",
+      "family": 42,
+      "shape_id": 8185,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8187,
+        8186
+      ],
+      "reference_heights_px": [
+        352.6533000000001,
+        316.4178000000001
+      ],
+      "median_height_px": 334.5355500000001,
+      "support_points": [
+        [
+          141.4748,
+          564.1098
+        ],
+        [
+          1017.8972,
+          546.5596
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        141.4748,
+        564.1098,
+        1017.8972,
+        546.5596,
+        1043.3453,
+        6.8303,
+        110.926,
+        9.7371
+      ],
+      "after_points": [
+        141.4748,
+        564.1098,
+        1017.8972,
+        546.5596,
+        1043.3453,
+        6.8303,
+        110.926,
+        9.7371
+      ],
+      "unclipped_points": [
+        141.4748,
+        564.1098,
+        1017.8972,
+        546.5596,
+        1043.3453,
+        6.8303,
+        110.926,
+        9.7371
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=42"
+    },
+    {
+      "frame": 43,
+      "job_id": 62,
+      "name": "lider_express_043_D_carro.png",
+      "family": 43,
+      "shape_id": 8191,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8190,
+        8189,
+        8188
+      ],
+      "reference_heights_px": [
+        235.99440000000004,
+        193.32779999999985,
+        182.52825000000013
+      ],
+      "median_height_px": 193.32779999999985,
+      "support_points": [
+        [
+          235.6694,
+          480.59203333333335
+        ],
+        [
+          856.3721,
+          482.3626333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        235.6694,
+        478.1787,
+        856.3721,
+        479.9493,
+        866.3022,
+        270.414,
+        234.253,
+        270.6878
+      ],
+      "after_points": [
+        235.6694,
+        480.59203333333335,
+        856.3721,
+        482.3626333333333,
+        856.3721,
+        289.03483333333344,
+        235.6694,
+        287.2642333333335
+      ],
+      "unclipped_points": [
+        235.6694,
+        480.59203333333335,
+        856.3721,
+        482.3626333333333,
+        856.3721,
+        289.03483333333344,
+        235.6694,
+        287.2642333333335
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=43"
+    },
+    {
+      "frame": 44,
+      "job_id": 62,
+      "name": "lider_express_044_D_cajas.png",
+      "family": 44,
+      "shape_id": 8196,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8195,
+        8193,
+        8194,
+        8192
+      ],
+      "reference_heights_px": [
+        226.75899999999996,
+        213.07260000000002,
+        204.84604999999993,
+        193.6027499999999
+      ],
+      "median_height_px": 208.95932499999998,
+      "support_points": [
+        [
+          89.7099,
+          362.2715
+        ],
+        [
+          960.6118,
+          381.7723
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        89.7099,
+        362.2715,
+        960.6118,
+        381.7723,
+        979.8259,
+        73.5686,
+        76.5183,
+        42.8424
+      ],
+      "after_points": [
+        89.7099,
+        362.2715,
+        960.6118,
+        381.7723,
+        979.8259,
+        73.5686,
+        76.5183,
+        42.8424
+      ],
+      "unclipped_points": [
+        89.7099,
+        362.2715,
+        960.6118,
+        381.7723,
+        979.8259,
+        73.5686,
+        76.5183,
+        42.8424
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=44"
+    },
+    {
+      "frame": 45,
+      "job_id": 62,
+      "name": "lider_express_045_E_persona.png",
+      "family": 45,
+      "shape_id": 8200,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8201,
+        8197,
+        8198,
+        8199
+      ],
+      "reference_heights_px": [
+        234.46230000000003,
+        217.18605000000008,
+        206.76920000000007,
+        192.78015000000005
+      ],
+      "median_height_px": 211.97762500000007,
+      "support_points": [
+        [
+          1001.2241,
+          362.1707
+        ],
+        [
+          107.2514,
+          336.9421
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        1001.2241,
+        362.1707,
+        107.2514,
+        336.9421,
+        90.2495,
+        8.4208,
+        1032.486,
+        36.9402
+      ],
+      "after_points": [
+        1001.2241,
+        362.1707,
+        107.2514,
+        336.9421,
+        90.2495,
+        8.4208,
+        1032.486,
+        36.9402
+      ],
+      "unclipped_points": [
+        1001.2241,
+        362.1707,
+        107.2514,
+        336.9421,
+        90.2495,
+        8.4208,
+        1032.486,
+        36.9402
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=45"
+    },
+    {
+      "frame": 46,
+      "job_id": 62,
+      "name": "lider_express_046_E_cajas.png",
+      "family": 46,
+      "shape_id": 8206,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8203,
+        8202,
+        8204,
+        8205
+      ],
+      "reference_heights_px": [
+        223.97200000000004,
+        222.31295000000006,
+        220.89085,
+        228.0010000000001
+      ],
+      "median_height_px": 223.14247500000005,
+      "support_points": [
+        [
+          84.1371,
+          284.0466
+        ],
+        [
+          998.9854,
+          282.1505
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        84.1371,
+        280.4266,
+        998.9854,
+        278.5305,
+        1015.1019,
+        21.1405,
+        60.9103,
+        21.1405
+      ],
+      "after_points": [
+        84.1371,
+        284.0466,
+        998.9854,
+        282.1505,
+        998.9854,
+        59.008024999999975,
+        84.1371,
+        60.904124999999965
+      ],
+      "unclipped_points": [
+        84.1371,
+        284.0466,
+        998.9854,
+        282.1505,
+        998.9854,
+        59.008024999999975,
+        84.1371,
+        60.904124999999965
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=46"
+    },
+    {
+      "frame": 47,
+      "job_id": 62,
+      "name": "lider_express_047_E_carro.png",
+      "family": 47,
+      "shape_id": 8211,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8207,
+        8208,
+        8209,
+        8210
+      ],
+      "reference_heights_px": [
+        219.23185000000004,
+        218.99469999999997,
+        217.09869999999995,
+        224.28849999999989
+      ],
+      "median_height_px": 219.113275,
+      "support_points": [
+        [
+          77.264,
+          323.3897
+        ],
+        [
+          985.4759,
+          315.3315
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 3,
+      "before_points": [
+        77.264,
+        319.7697,
+        985.4759,
+        311.7115,
+        998.2743,
+        47.2113,
+        47.4009,
+        49.5814
+      ],
+      "after_points": [
+        77.264,
+        323.3897,
+        985.4759,
+        315.3315,
+        985.4759,
+        96.21822500000002,
+        77.264,
+        104.27642500000002
+      ],
+      "unclipped_points": [
+        77.264,
+        323.3897,
+        985.4759,
+        315.3315,
+        985.4759,
+        96.21822500000002,
+        77.264,
+        104.27642500000002
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=47"
+    },
+    {
+      "frame": 48,
+      "job_id": 62,
+      "name": "lider_express_048_E_cajas.png",
+      "family": 48,
+      "shape_id": 8213,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8215,
+        8216,
+        8212,
+        8214
+      ],
+      "reference_heights_px": [
+        219.94280000000003,
+        218.99475,
+        225.39389999999986,
+        230.83894999999995
+      ],
+      "median_height_px": 222.66834999999995,
+      "support_points": [
+        [
+          69.5764,
+          306.3606
+        ],
+        [
+          972.4405,
+          319.4853
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 0,
+      "before_points": [
+        69.5764,
+        306.3606,
+        972.4405,
+        319.4853,
+        986.661,
+        85.7961,
+        54.9516,
+        70.228
+      ],
+      "after_points": [
+        69.5764,
+        306.3606,
+        972.4405,
+        319.4853,
+        972.4405,
+        96.81695000000005,
+        69.5764,
+        83.69225000000003
+      ],
+      "unclipped_points": [
+        69.5764,
+        306.3606,
+        972.4405,
+        319.4853,
+        972.4405,
+        96.81695000000005,
+        69.5764,
+        83.69225000000003
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=48"
+    },
+    {
+      "frame": 49,
+      "job_id": 62,
+      "name": "lider_express_049_E_cajas.png",
+      "family": 49,
+      "shape_id": 8219,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8220,
+        8217,
+        8218,
+        8221
+      ],
+      "reference_heights_px": [
+        221.4328999999999,
+        220.8184500000001,
+        219.5893000000001,
+        241.0977999999999
+      ],
+      "median_height_px": 221.125675,
+      "support_points": [
+        [
+          78.4027,
+          328.36836666666665
+        ],
+        [
+          973.9674,
+          307.4745666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        78.4027,
+        327.1617,
+        973.9674,
+        306.2679,
+        981.3417,
+        58.4103,
+        67.7511,
+        76.846
+      ],
+      "after_points": [
+        78.4027,
+        328.36836666666665,
+        973.9674,
+        307.4745666666667,
+        973.9674,
+        86.3488916666667,
+        78.4027,
+        107.24269166666664
+      ],
+      "unclipped_points": [
+        78.4027,
+        328.36836666666665,
+        973.9674,
+        307.4745666666667,
+        973.9674,
+        86.3488916666667,
+        78.4027,
+        107.24269166666664
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=49"
+    },
+    {
+      "frame": 50,
+      "job_id": 62,
+      "name": "lider_express_050_E_carro.png",
+      "family": 50,
+      "shape_id": 8224,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8225,
+        8226,
+        8222,
+        8223
+      ],
+      "reference_heights_px": [
+        213.06945,
+        216.3875999999999,
+        215.49385000000007,
+        238.25480000000005
+      ],
+      "median_height_px": 215.940725,
+      "support_points": [
+        [
+          125.8028,
+          309.47943333333336
+        ],
+        [
+          983.7695,
+          332.23223333333334
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        125.8028,
+        307.0661,
+        983.7695,
+        329.8189,
+        993.2556,
+        84.165,
+        121.5234,
+        74.3548
+      ],
+      "after_points": [
+        125.8028,
+        309.47943333333336,
+        983.7695,
+        332.23223333333334,
+        983.7695,
+        116.29150833333335,
+        125.8028,
+        93.53870833333337
+      ],
+      "unclipped_points": [
+        125.8028,
+        309.47943333333336,
+        983.7695,
+        332.23223333333334,
+        983.7695,
+        116.29150833333335,
+        125.8028,
+        93.53870833333337
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=50"
+    },
+    {
+      "frame": 51,
+      "job_id": 62,
+      "name": "lider_express_051_D_persona.png",
+      "family": 51,
+      "shape_id": 8231,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8227,
+        8232,
+        8230,
+        8229,
+        8228
+      ],
+      "reference_heights_px": [
+        207.03965000000005,
+        205.39429999999993,
+        170.29370000000006,
+        159.0505500000001,
+        124.22394999999983
+      ],
+      "median_height_px": 170.29370000000006,
+      "support_points": [
+        [
+          38.5855,
+          271.4572
+        ],
+        [
+          1053.2174,
+          281.3293
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        38.5855,
+        271.4572,
+        1053.2174,
+        281.3293,
+        1051.0236,
+        128.8603,
+        33.101,
+        120.6336
+      ],
+      "after_points": [
+        38.5855,
+        271.4572,
+        1053.2174,
+        281.3293,
+        1051.0236,
+        128.8603,
+        33.101,
+        120.6336
+      ],
+      "unclipped_points": [
+        38.5855,
+        271.4572,
+        1053.2174,
+        281.3293,
+        1051.0236,
+        128.8603,
+        33.101,
+        120.6336
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=51"
+    },
+    {
+      "frame": 52,
+      "job_id": 62,
+      "name": "lider_express_052_E_persona.png",
+      "family": 52,
+      "shape_id": 8234,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8235,
+        8239,
+        8233,
+        8238,
+        8236,
+        8237
+      ],
+      "reference_heights_px": [
+        151.09775000000005,
+        137.66074999999995,
+        128.06284999999997,
+        122.30445000000009,
+        117.36829999999986,
+        108.59005000000002
+      ],
+      "median_height_px": 125.18365000000003,
+      "support_points": [
+        [
+          988.5004,
+          397.3265
+        ],
+        [
+          73.1379,
+          396.2295
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        988.5004,
+        397.3265,
+        73.1379,
+        396.2295,
+        46.2638,
+        40.2857,
+        997.824,
+        60.5784
+      ],
+      "after_points": [
+        988.5004,
+        397.3265,
+        73.1379,
+        396.2295,
+        46.2638,
+        40.2857,
+        997.824,
+        60.5784
+      ],
+      "unclipped_points": [
+        988.5004,
+        397.3265,
+        73.1379,
+        396.2295,
+        46.2638,
+        40.2857,
+        997.824,
+        60.5784
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=52"
+    },
+    {
+      "frame": 53,
+      "job_id": 62,
+      "name": "lider_express_053_E_cajas.png",
+      "family": 53,
+      "shape_id": 8240,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8241,
+        8245,
+        8242,
+        8243,
+        8244,
+        8246
+      ],
+      "reference_heights_px": [
+        153.5669,
+        140.5578999999999,
+        131.99119999999994,
+        120.25164999999987,
+        113.58855000000017,
+        108.19475000000011
+      ],
+      "median_height_px": 126.1214249999999,
+      "support_points": [
+        [
+          38.4222,
+          363.8948
+        ],
+        [
+          980.129,
+          349.9343
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        38.4222,
+        363.8948,
+        980.129,
+        349.9343,
+        976.9561,
+        117.6805,
+        18.7505,
+        130.372
+      ],
+      "after_points": [
+        38.4222,
+        363.8948,
+        980.129,
+        349.9343,
+        976.9561,
+        117.6805,
+        18.7505,
+        130.372
+      ],
+      "unclipped_points": [
+        38.4222,
+        363.8948,
+        980.129,
+        349.9343,
+        976.9561,
+        117.6805,
+        18.7505,
+        130.372
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=53"
+    },
+    {
+      "frame": 54,
+      "job_id": 62,
+      "name": "lider_express_054_D_carro.png",
+      "family": 54,
+      "shape_id": 8249,
+      "boundary_policy": "conservar_tope_fisico_claro",
+      "physical_roof": true,
+      "median_used": false,
+      "reference_ids": [
+        8251,
+        8250,
+        8248,
+        8252,
+        8247
+      ],
+      "reference_heights_px": [
+        198.81305000000006,
+        180.98825,
+        159.32475,
+        162.88939999999985,
+        152.74315000000013
+      ],
+      "median_height_px": 162.88939999999985,
+      "support_points": [
+        [
+          23.9418,
+          354.0537
+        ],
+        [
+          989.2133,
+          307.984
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": null,
+      "before_points": [
+        23.9418,
+        354.0537,
+        989.2133,
+        307.984,
+        1000.7308,
+        15.8249,
+        12.8632,
+        49.2254
+      ],
+      "after_points": [
+        23.9418,
+        354.0537,
+        989.2133,
+        307.984,
+        1000.7308,
+        15.8249,
+        12.8632,
+        49.2254
+      ],
+      "unclipped_points": [
+        23.9418,
+        354.0537,
+        989.2133,
+        307.984,
+        1000.7308,
+        15.8249,
+        12.8632,
+        49.2254
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=54"
+    },
+    {
+      "frame": 55,
+      "job_id": 62,
+      "name": "lider_express_055_D_persona.png",
+      "family": 55,
+      "shape_id": 8256,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8257,
+        8253,
+        8254,
+        8255
+      ],
+      "reference_heights_px": [
+        192.75529999999998,
+        182.51320000000004,
+        168.99389999999977,
+        161.0050000000001
+      ],
+      "median_height_px": 175.7535499999999,
+      "support_points": [
+        [
+          185.7396,
+          412.24893333333335
+        ],
+        [
+          937.9153999999999,
+          417.1650333333334
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        185.7396,
+        409.8356,
+        937.9154,
+        414.7517,
+        945.6888,
+        252.0968,
+        177.1362,
+        241.4562
+      ],
+      "after_points": [
+        185.7396,
+        412.24893333333335,
+        937.9153999999999,
+        417.1650333333334,
+        937.9153999999999,
+        241.41148333333348,
+        185.7396,
+        236.49538333333345
+      ],
+      "unclipped_points": [
+        185.7396,
+        412.24893333333335,
+        937.9153999999999,
+        417.1650333333334,
+        937.9153999999999,
+        241.41148333333348,
+        185.7396,
+        236.49538333333345
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=55"
+    },
+    {
+      "frame": 56,
+      "job_id": 62,
+      "name": "lider_express_056_E_persona.png",
+      "family": 56,
+      "shape_id": 8259,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8260,
+        8258,
+        8262,
+        8261
+      ],
+      "reference_heights_px": [
+        197.05705,
+        186.20045,
+        175.50399999999996,
+        169.74509999999987
+      ],
+      "median_height_px": 180.85222499999998,
+      "support_points": [
+        [
+          144.2797,
+          420.21896666666663
+        ],
+        [
+          915.301,
+          423.0867666666667
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 1,
+      "before_points": [
+        144.2797,
+        419.0123,
+        915.301,
+        421.8801,
+        915.7107,
+        276.443,
+        142.6409,
+        269.4785
+      ],
+      "after_points": [
+        144.2797,
+        420.21896666666663,
+        915.301,
+        423.0867666666667,
+        915.301,
+        242.2345416666667,
+        144.2797,
+        239.36674166666666
+      ],
+      "unclipped_points": [
+        144.2797,
+        420.21896666666663,
+        915.301,
+        423.0867666666667,
+        915.301,
+        242.2345416666667,
+        144.2797,
+        239.36674166666666
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=56"
+    },
+    {
+      "frame": 57,
+      "job_id": 62,
+      "name": "lider_express_057_E_carro.png",
+      "family": 57,
+      "shape_id": 8264,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8265,
+        8266,
+        8267,
+        8263
+      ],
+      "reference_heights_px": [
+        199.08624999999998,
+        186.05084999999997,
+        174.43729999999994,
+        166.45439999999985
+      ],
+      "median_height_px": 180.24407499999995,
+      "support_points": [
+        [
+          149.1246,
+          420.0673333333333
+        ],
+        [
+          929.3526,
+          415.32693333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        149.1246,
+        417.654,
+        929.3526,
+        412.9136,
+        931.7227,
+        276.3974,
+        144.8583,
+        279.2415
+      ],
+      "after_points": [
+        149.1246,
+        420.0673333333333,
+        929.3526,
+        415.32693333333333,
+        929.3526,
+        235.08285833333338,
+        149.1246,
+        239.82325833333334
+      ],
+      "unclipped_points": [
+        149.1246,
+        420.0673333333333,
+        929.3526,
+        415.32693333333333,
+        929.3526,
+        235.08285833333338,
+        149.1246,
+        239.82325833333334
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=57"
+    },
+    {
+      "frame": 58,
+      "job_id": 62,
+      "name": "lider_express_058_D_cajas.png",
+      "family": 58,
+      "shape_id": 8269,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8270,
+        8271,
+        8272,
+        8268
+      ],
+      "reference_heights_px": [
+        189.47790000000006,
+        179.23589999999996,
+        166.94530000000003,
+        157.52284999999995
+      ],
+      "median_height_px": 173.0906,
+      "support_points": [
+        [
+          185.8212,
+          413.3957333333333
+        ],
+        [
+          906.8615,
+          419.13143333333335
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        185.8212,
+        410.9824,
+        906.8615,
+        416.7181,
+        913.8261,
+        226.216,
+        175.1697,
+        229.4935
+      ],
+      "after_points": [
+        185.8212,
+        413.3957333333333,
+        906.8615,
+        419.13143333333335,
+        906.8615,
+        246.04083333333335,
+        185.8212,
+        240.3051333333333
+      ],
+      "unclipped_points": [
+        185.8212,
+        413.3957333333333,
+        906.8615,
+        419.13143333333335,
+        906.8615,
+        246.04083333333335,
+        185.8212,
+        240.3051333333333
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=58"
+    },
+    {
+      "frame": 59,
+      "job_id": 62,
+      "name": "lider_express_059_E_cajas.png",
+      "family": 59,
+      "shape_id": 8275,
+      "boundary_policy": "proyectar_mediana_desde_apoyo_sobre_portaprecio",
+      "physical_roof": false,
+      "median_used": true,
+      "reference_ids": [
+        8276,
+        8273,
+        8274
+      ],
+      "reference_heights_px": [
+        259.8785499999999,
+        240.18594999999993,
+        225.59064999999998
+      ],
+      "median_height_px": 240.18594999999993,
+      "support_points": [
+        [
+          87.7026,
+          412.0029333333333
+        ],
+        [
+          987.7737,
+          435.7645333333333
+        ]
+      ],
+      "support_review": "inspeccion_visual_individual; excluir_portaprecio_y_baranda",
+      "support_shift_in_900_view": 2,
+      "before_points": [
+        87.7026,
+        409.5896,
+        987.7737,
+        433.3512,
+        992.6899,
+        200.2422,
+        86.3097,
+        167.3448
+      ],
+      "after_points": [
+        87.7026,
+        412.0029333333333,
+        987.7737,
+        435.7645333333333,
+        987.7737,
+        195.57858333333337,
+        87.7026,
+        171.81698333333338
+      ],
+      "unclipped_points": [
+        87.7026,
+        412.0029333333333,
+        987.7737,
+        435.7645333333333,
+        987.7737,
+        195.57858333333337,
+        87.7026,
+        171.81698333333338
+      ],
+      "clipped_to_image": false,
+      "delimitacion_before": "pendiente",
+      "delimitacion_after": "completa",
+      "occluded_preserved": true,
+      "geometry_changed": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/24/jobs/62?frame=59"
+    }
+  ]
+}

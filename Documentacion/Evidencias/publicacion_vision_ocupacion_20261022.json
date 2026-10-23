@@ -1,0 +1,22 @@
+{
+  "release": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22",
+  "main": "6123db15532778333cdfee9d26d0447c17423f16",
+  "release_commit": "0cb7cc09e772c3db893e260ec59503a67a9d29c5",
+  "latest": true,
+  "public_download_hashes": "ok",
+  "previous_release_assets": "unchanged",
+  "assets": [
+    {
+      "name": "Walmart_Vision_Ocupacion_20261022.sha256",
+      "size": 105,
+      "digest": "sha256:849edbf36481e7feb17a5f859abf2603b0860fcf1c463396006a3c477aeddc49",
+      "url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.sha256"
+    },
+    {
+      "name": "Walmart_Vision_Ocupacion_20261022.zip",
+      "size": 37493269,
+      "digest": "sha256:4419accccdbf36073cb32785a3c18ff43543228f234a90b7b0814d35fb74917e",
+      "url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.zip"
+    }
+  ]
+}

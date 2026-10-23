@@ -10,6 +10,6 @@ Los **modelos ya entrenados con nuestras anotaciones** están en `Experimentos/<
 
 GitHub conserva este índice y los registros de procedencia; los pesos `.pt` se instalan desde los activos del equipo según la [guía del laboratorio](../Documentacion/Desarrollo/Replicar_proyecto.md).
 
-Para probar fotos en otro computador, la [entrega vigente de Walmart Visión](../Entregables/README.md) incluye cuatro modelos entrenados: YOLO11 y YOLO26 para V1 y V2 base.
+Para probar fotos en otro computador, la [entrega local actual de Walmart Visión](../Entregables/README.md) incluye los dos modelos V2 base: YOLO11 y YOLO26. Los dos ensayos V1 se conservan en el laboratorio y en sus distribuciones anteriores. V3 está en preparación y aún no tiene pesos entrenados.
 
 El código para entrenar está en [Herramientas/Modelos](../Herramientas/Modelos/README.md). Los resultados de cada entrenamiento están en [Experimentos](../Experimentos/README.md).

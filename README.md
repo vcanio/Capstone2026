@@ -6,10 +6,12 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 > **Estado del proyecto:** prototipo funcional en desarrollo. La aplicación de prueba está disponible para Windows x64 y con Docker para Mac Intel y Apple Silicon; la evaluación final y el manejo completo de obstáculos siguen pendientes.
 
+**Estado local al 23 de octubre de 2026:** Walmart Visión utiliza los dos modelos V2 ya entrenados. En paralelo se prepara **V3**, con una sola clase `Nivel`, **458 imágenes** y reparto **327/68/63**; todavía no tiene entrenamiento aprobado. [Estado de datos](Datos/Registros/README.md) · [Mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md) · [Entrega local actual](Entregables/README.md).
+
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
-| Windows x64 · Mac con Docker · 4 modelos incluidos | Recorrido de la app y casos del informe | Conceptos, arquitectura y código | YOLO11/YOLO26 · V1/V2 |
+| [**Entrega local actual e instrucciones**](Entregables/README.md) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [Guía conceptual](Documentacion/Guia_para_entender_el_proyecto.md) | [Experimentos y métricas](Experimentos/README.md) |
+| Windows x64 · Mac con Docker · 2 modelos V2 en la entrega local | Recorrido de la app y casos del informe | Conceptos, arquitectura y código | Cuatro ensayos históricos YOLO11/YOLO26 · V1/V2 |
 
 ## Contenido
 
@@ -50,16 +52,18 @@ La solución incluye dos entornos con propósitos diferentes:
 
 La release del 22 de octubre reúne Windows y macOS en un único ZIP. Muestra un porcentaje de **ocupación estimada por nivel**: rojo bajo el 30 %, verde desde el 30 % y gris sin medición. El desglose de área/ancho y la predicción original de YOLO quedan en los detalles. La estimación visual sigue pendiente de calibración.
 
-La versión descargable incluye los cuatro modelos y el visor. En Windows utiliza un iniciador automático; en Mac utiliza Docker Desktop. No requiere instalar CVAT ni Python previamente.
+La actualización local de Walmart Visión incluye solo los dos modelos V2 y abre directamente para analizar una foto. El paquete [Walmart_Vision_Actual_20261023.zip](Entregables/Walmart_Vision_Actual_20261023.zip) está preparado localmente; su publicación en GitHub está pendiente. Las versiones anteriores se conservan en [Releases](https://github.com/vcanio/Capstone2026/releases).
 
-[**Descargar Walmart_Vision_Ocupacion_20261022.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-2026-10-22/Walmart_Vision_Ocupacion_20261022.sha256)
+En Windows utiliza un iniciador automático; en Mac utiliza Docker Desktop. No requiere instalar CVAT ni Python previamente.
+
+[**Paquete local actualizado**](Entregables/Walmart_Vision_Actual_20261023.zip) · [SHA-256](Entregables/Walmart_Vision_Actual_20261023.sha256) · [Release anterior con cuatro modelos](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22)
 
 **Windows:**
 
-1. Descarga **`Walmart_Vision_Ocupacion_20261022.zip`** desde la [Release del 22 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22).
+1. Obtén el paquete actualizado **`Walmart_Vision_Actual_20261023.zip`** indicado arriba.
 2. Extrae el archivo ZIP completo.
 3. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
-4. Selecciona **V1 o V2**, escoge uno de los modelos incluidos y carga una fotografía.
+4. El visor abre directamente con **V2-YOLO26**. Carga una fotografía y pulsa **Analizar foto**; también puedes probar V2-YOLO11.
 5. Revisa las pestañas **Original**, **Niveles**, **Bordes** y **Comparar**.
 
 **Mac Intel y Apple Silicon:** instala y abre Docker Desktop, extrae el mismo ZIP y abre Terminal en la carpeta `Walmart_Vision`. Ejecuta:
@@ -73,12 +77,12 @@ Abre http://localhost:8095. Para detener la aplicación, ejecuta `docker compose
 | Requisito | Detalle |
 |---|---|
 | Sistema | Windows x64 o Mac Intel/Apple Silicon con Docker Desktop. |
-| Descarga | ZIP de aproximadamente **36 MiB**, con cuatro modelos y visor local. |
+| Descarga | ZIP de aproximadamente **25 MiB**, con dos modelos V2 y visor local. |
 | Primer inicio | Requiere Internet para preparar Python y las dependencias en Windows, o construir la imagen Docker en Mac. |
 | Procesamiento | Inferencia local mediante CPU; las fotografías no se guardan. |
-| Estado de verificación | Inferencia comprobada en Linux AMD64 y ARM64 emulado; falta comprobar la instalación en otro computador físico y en macOS. |
+| Estado de verificación | Paquete actual comprobado en CPU local. Las pruebas Docker anteriores fueron en Linux AMD64 y ARM64 emulado; falta comprobar la instalación en otro computador físico y en macOS. |
 
-> **Descarga correcta:** utiliza el archivo `Walmart_Vision_Ocupacion_20261022.zip` de los activos de la Release. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
+> **Descarga correcta:** utiliza un paquete de Visión con sus pesos. El botón automático **“Source code (zip)”** de GitHub solo descarga el código fuente.
 
 **Material para probar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) —3 fotografías reales y 3 variantes sintéticas—, con casos de reposición, disponibilidad suficiente y errores conocidos. Las imágenes se distribuyen fuera de Git.
 
@@ -92,7 +96,8 @@ Las categorías cambian entre versiones para estudiar un problema de etiquetado 
 |---|---|---|
 | **V1** | `vacio`, `baja_disponibilidad`, `suficiente`, `no_evaluable` | Operativa. Distingue vacío, baja disponibilidad y niveles no evaluables. |
 | **V2 base** | `reponer`, `suficiente` | Operativa. Agrupa los casos vacíos y de baja disponibilidad en una sola acción. |
-| **V2 completa** | `reponer`, `suficiente`, `no_evaluable` | **Pendiente**: necesita integrar y validar las oclusiones. |
+| **V2 completa** | `reponer`, `suficiente`, `no_evaluable` | Antecedente de trabajo con obstáculos; no hay ensayo completo aprobado. |
+| **V3 en preparación** | Una clase geométrica `Nivel`; ocupación después de localizar | **458 imágenes** en tareas 24, 27 y 28. Partición fijada; revisión y exportación compatibles pendientes. |
 
 En el criterio inicial de anotación, `baja_disponibilidad` corresponde a producto visible que ocupa **menos del 30 % del ancho del nivel**; `suficiente` comienza en el 30 %. Ese umbral **aún requiere calibración** y no es una medición automática de ocupación.
 
@@ -157,7 +162,9 @@ El proyecto combina capturas reales, variantes sintéticas y anotaciones manuale
 | [V2 Líder Express](Datos/V2/lider_express_20261016/README.md) | 59 originales reales y 177 variantes IA (**236 imágenes**). | 59 familias, 19 grupos y **1.212 polígonos**. Incluye 160 `train`, 10 originales `val`, 30 variantes de diagnóstico y 36 imágenes `test`. |
 | [V2 visibilidad limitada](Datos/V2/visibilidad_limitada_20261019/README.md) | 60 imágenes sintéticas con carros, personas o cajas. | 308 contornos etiquetados; estados pendientes de aprobación final. Destinos previstos: 41 `train`, 10 `val`, 9 `test`. |
 
-**Inventario global:** 405 imágenes únicas (**96 reales y 309 sintéticas**). Los 435 registros de inventario incluyen referencias repetidas y no equivalen a 435 fotografías independientes. Se conserva procedencia, ruta, dimensiones, familia y hash SHA-256. Las variantes IA requieren revisión humana.
+**Inventario global verificado:** 567 archivos de imagen únicos (**218 reales y 349 sintéticos**), incluidos V1, V2 y los lotes nuevos de V3. Los 597 registros de los seis lotes incluyen 30 referencias reutilizadas. **El conjunto V3 es un subconjunto de 458**, con 181 reales y 277 sintéticas; no se suma de nuevo a los conjuntos anteriores. [Catálogo de procedencia](Datos/Registros/Lotes/README.md).
+
+**Trabajo actual V3:** las 296 fotos de Líder Express y visibilidad se reutilizan con otro criterio; se añaden 40 variantes de superior vacío y 122 originales de Líder 2. Sus polígonos están en tareas 27, 24 y 28, respectivamente. La [partición vigente](Datos/Registros/Particiones/v3_458_20261023/README.md) conserva juntas las familias y escenas: **327 entrenamiento, 68 validación y 63 prueba**. Las métricas de la tabla anterior pertenecen a los ensayos V1/V2, no a V3.
 
 La copia usada en los ensayos V2 base es `datos_20261019_234626_3df2e643` (`lista_niveles`). Los registros anteriores pueden tener otros conteos: no deben mezclarse. [Ver registro de partición](Datos/Registros/Particiones/lider_express_v2_20261019/README.md).
 
@@ -273,7 +280,7 @@ La [evidencia de los nuevos casos](Documentacion/Evidencias/casos_yolo_bordes_20
 
 **Pendientes principales:**
 
-- Aprobar los estados de las etiquetas con obstáculos (tarea 22) y entrenar **V2 con tres estados**, incluido `no_evaluable`.
+- Cerrar la revisión de anotaciones de **V3**, definir el tratamiento de parciales y preparar su exportación y evaluación con una clase `Nivel`. Los modelos V1/V2 y sus métricas se conservan como antecedentes.
 - Capturar más casos reales de reposición y evaluar en nuevas condiciones, sin depender de un único positivo.
 - Comparar la eliminación de detecciones duplicadas y fijar ajustes antes de usar el conjunto `test` final.
 - Calibrar y evaluar independientemente las señales de bordes, color y textura.

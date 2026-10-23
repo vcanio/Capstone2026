@@ -8,18 +8,18 @@ Walmart Visión permite cargar una fotografía de una góndola, localizar sus ni
 - Internet durante el primer inicio para descargar Python y las dependencias. Los siguientes arranques reutilizan el entorno instalado y permiten analizar fotos localmente sin conexión.
 - Una fotografía propia en JPG, PNG o WebP, sin animación, de hasta 15 MB y 24 megapíxeles.
 
-Descargar **Walmart_Vision_Ocupacion_20261022.zip** desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), junto con su archivo `.sha256`. El mismo paquete incluye el iniciador Windows, los archivos Docker para Mac y los cuatro modelos. Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los pesos necesarios para usar la aplicación.
+El paquete local actualizado es [Walmart_Vision_Actual_20261023.zip](../Entregables/Walmart_Vision_Actual_20261023.zip), junto con su archivo `.sha256`. Incluye el iniciador Windows, los archivos Docker para Mac y solo los dos modelos V2. Esta actualización está preparada localmente y aún no está publicada en GitHub. Las versiones anteriores se pueden descargar desde sus [Releases](https://github.com/vcanio/Capstone2026/releases). Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los pesos necesarios para usar la aplicación.
 
 El iniciador de Windows prepara Python 3.12 y las bibliotecas dentro de la carpeta de la aplicación. No hace falta instalar previamente Python, Docker, CVAT ni disponer de una GPU NVIDIA. El análisis utiliza CPU; su duración depende del computador. La instalación ocupa más espacio que el ZIP descargado por sus dependencias.
 
 ## Usar en Mac con Docker
 
-Usar **Walmart_Vision_Ocupacion_20261022.zip** de la [Release del 22 de octubre](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22). El ZIP anterior de Windows del 20 de octubre conserva su contenido y no incluye Docker.
+Usar el paquete actualizado **Walmart_Vision_Actual_20261023.zip** indicado arriba. El ZIP anterior de Windows del 20 de octubre conserva su contenido y no incluye Docker.
 
 1. Instalar [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) según el procesador Intel o Apple Silicon y dejarlo abierto.
 2. Extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`, donde está `compose.yaml`.
 3. Ejecutar `docker compose up --build -d --wait`. La primera construcción descarga las dependencias y puede tardar varios minutos.
-4. Abrir http://localhost:8095 y seguir el recorrido de análisis desde la selección de versión y modelo.
+4. Abrir http://localhost:8095 y cargar una foto directamente en el visor de la versión actual.
 5. Al terminar, ejecutar `docker compose down` desde esa misma carpeta.
 
 El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. No hace falta instalar Python. La [guía Docker incluida](../Herramientas/Demo_lite/DOCKER.md) detalla cómo volver a iniciar sin Internet, cambiar el puerto y resolver problemas. Las pruebas en contenedores Linux y la comprobación en un Mac físico se distinguen en el [registro Docker](../Herramientas/Demo_lite/VERIFICACION_DOCKER.md).
@@ -29,11 +29,11 @@ El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. 
 1. Extraer **todo** el ZIP. No ejecutar la aplicación desde dentro del archivo comprimido.
 2. Abrir `Walmart_Vision/iniciar.cmd` y mantener la consola abierta. El primer inicio puede tardar varios minutos mientras prepara las dependencias.
 3. Esperar a que abra el navegador en http://127.0.0.1:8095. Si no se abre automáticamente, entrar a esa dirección.
-4. En **0. Seleccionar versión**, elegir V1 o V2 y seleccionar un modelo.
+4. El visor abre directamente con V2-YOLO26. Se puede elegir también V2-YOLO11, de la misma versión.
 5. Cargar o arrastrar una foto, elegir **Solo YOLO** o **YOLO + detección de bordes** y pulsar **Analizar foto**.
 6. Revisar **Original**, **Niveles** y **Comparar**. Con el método de bordes también se habilita **Bordes**, con el mapa de señal y las vistas de contornos.
 
-Cambiar foto, versión, modelo, método o confianza descarta la predicción anterior y requiere analizar de nuevo. Para terminar, pulsar Ctrl+C en la consola.
+Cambiar foto, modelo, método o confianza descarta la predicción anterior y requiere analizar de nuevo. Para terminar, pulsar Ctrl+C en la consola.
 
 ## Probar con imágenes de ejemplo
 
@@ -75,16 +75,17 @@ El [manifiesto de selección](Ejemplos/imagenes_demo_20261020.json) conserva has
 | Resultado | Qué significa |
 |---|---|
 | Región o máscara sobre una repisa | El modelo localizó un nivel y dibujó su contorno. |
-| V1: vacío o baja disponibilidad | Señala una posible necesidad de reposición. También distingue suficiente y no evaluable. |
 | V2 base: reponer o suficiente | Son sus dos estados disponibles. No reconoce no evaluable; hay que revisar especialmente las fotos con obstáculos. |
 | Confianza | Puntuación de la predicción; no representa el porcentaje de productos en la repisa. |
 | Señal de bordes, color y textura | Análisis experimental dentro de las máscaras. No cambia el estado YOLO ni mide un porcentaje validado de ocupación. |
 
 La actualización del 22 de octubre simplifica la vista con bordes: **un porcentaje de ocupación estimada por nivel**, tanto sobre la imagen como en una tabla visible. Menos del **30 %** se muestra en **rojo · Reponer**; desde el **30 %**, en **verde · Suficiente**. Sin medición se muestra en gris, sin inventar un porcentaje. La imagen descargada conserva esos mismos porcentajes y colores.
 
-**YOLO + bordes V2** es el método inicial: usa la [combinación ponderada de Paulo](../Experimentos/Bordes/COMBINACION_PONDERADA_V2.md), 70 % de superficie y 30 % de ancho. Bordes V1 usa el área con señal. El desglose está en **Cómo se calcula**. La predicción original de YOLO se conserva en **Detalle del modelo YOLO**; la lectura de ocupación y sus colores usan el umbral del 30 %. **Solo YOLO** conserva la clasificación del modelo. La estimación continúa siendo experimental y pendiente de calibración. Los ZIP de entregas anteriores conservan sus funciones originales.
+**YOLO + detección de bordes** es el método inicial: usa la [combinación ponderada de Paulo](../Experimentos/Bordes/COMBINACION_PONDERADA_V2.md), 70 % de superficie y 30 % de ancho. El desglose está en **Cómo se calcula**. La predicción original de YOLO se conserva en **Detalle del modelo YOLO**; la lectura de ocupación y sus colores usan el umbral del 30 %. **Solo YOLO** conserva la clasificación del modelo. La estimación continúa siendo experimental y pendiente de calibración. Los ZIP de entregas anteriores conservan sus funciones originales.
 
 Una predicción puede omitir un nivel, dibujarlo mal o asignarle un estado incorrecto. Revisar visualmente el resultado antes de usarlo como apoyo para decidir. La aplicación no cuenta SKU ni consulta inventario de bodega. Una foto propia sin anotaciones de referencia permite observar predicciones, pero no calcular precisión.
+
+El código local y el paquete de prueba `Walmart_Vision_Cuatro_Vertices.zip` incorporan un [ajuste visual a cuatro vértices](Desarrollo/Posprocesamiento_contornos_niveles.md), con lados rectos y perspectiva. Si el ajuste no supera las comprobaciones geométricas, se conserva el contorno original. El cálculo de ocupación sigue usando la máscara original: sus mapas pueden diferir del borde ajustado. Un borde más limpio no demuestra mayor precisión. Este cambio no modifica el ZIP de la release publicada anteriormente.
 
 Las fotografías se procesan en memoria en el computador: no se guardan ni se usan para entrenar. El ZIP no incluye las imágenes del dataset. El cuaderno opcional de Colab tiene un recorrido distinto y sube los archivos seleccionados al entorno de Google; sus instrucciones están en la [guía incluida en la aplicación](../Herramientas/Demo_lite/LEEME.md#colab).
 
@@ -104,9 +105,9 @@ Las fotografías se procesan en memoria en el computador: no se guardan ni se us
 
 Para cerrar esta comprobación, una persona debe seguir los pasos anteriores en otro computador físico, usando el ZIP descargado desde la Release y sin copiar el entorno Python preparado del equipo de desarrollo:
 
-1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de las [notas de la versión](Desarrollo/Notas_Release_Walmart_Vision_20261022.md), por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Ocupacion_20261022.zip` en PowerShell.
+1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de el archivo `.sha256` incluido, por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Actual_20261023.zip` en PowerShell.
 2. Extraer el ZIP e iniciar con Internet para comprobar la preparación automática y la apertura del visor.
-3. Analizar una fotografía propia autorizada con cada uno de los cuatro modelos, probando **Solo YOLO** y **YOLO + detección de bordes**. Registrar si cada combinación termina y muestra su resultado, incluso si no detecta niveles.
+3. Analizar una fotografía propia autorizada con cada uno de los dos modelos V2, probando **Solo YOLO** y **YOLO + detección de bordes**. Registrar si cada combinación termina y muestra su resultado, incluso si no detecta niveles.
 4. Revisar las cuatro vistas cuando correspondan, cambiar la foto y comprobar que se limpia el resultado anterior.
 5. Cerrar y volver a abrir la aplicación con el entorno ya preparado y sin conexión; analizar otra vez para comprobar el uso local.
 6. Registrar incidencias y adjuntar capturas autorizadas o mensajes de error. Completar el registro de verificación solo con lo que realmente se ejecutó.
@@ -119,7 +120,7 @@ Plantilla para registrar el resultado:
 | Windows, CPU y RAM | Pendiente |
 | Nombre y SHA-256 del ZIP | Pendiente |
 | Preparación inicial y apertura | Pendiente |
-| Cuatro modelos con ambos métodos | Pendiente |
+| Dos modelos V2 con ambos métodos | Pendiente |
 | Vistas y cambio de foto | Pendiente |
 | Reinicio e inferencia sin conexión | Pendiente |
 | Incidencias y evidencias | Pendiente |

@@ -1,0 +1,20 @@
+[
+  {
+    "family": 2,
+    "side": "R",
+    "level_top_to_bottom": 1,
+    "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+  },
+  {
+    "family": 22,
+    "side": "R",
+    "level_top_to_bottom": 1,
+    "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+  },
+  {
+    "family": 54,
+    "side": "L",
+    "level_top_to_bottom": 1,
+    "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+  }
+]

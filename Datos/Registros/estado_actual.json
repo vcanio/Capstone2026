@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "actualizado": "2026-10-23",
+  "proyecto_en_preparacion": {
+    "criterio": "area_util_nivel_v3",
+    "project_id": 8,
+    "imagenes": 458,
+    "poligonos_segun_lectura_de_referencia": 2313,
+    "originales_reales": 181,
+    "sinteticas": 277,
+    "registro_imagenes_y_tareas": "Datos/Registros/CVAT/criterio_v3.json",
+    "tareas": [
+      {
+        "id": 24,
+        "imagenes": 60,
+        "poligonos": 308,
+        "registro": "Datos/Registros/CVAT/tarea_24.json"
+      },
+      {
+        "id": 27,
+        "imagenes": 276,
+        "poligonos": 1416,
+        "registro": "Datos/Registros/CVAT/tarea_27.json"
+      },
+      {
+        "id": 28,
+        "imagenes": 122,
+        "poligonos": 589,
+        "registro": "Datos/Registros/CVAT/tarea_28.json"
+      }
+    ],
+    "particion": "Datos/Registros/Particiones/v3_458_20261023/particion.json",
+    "resumen_particion": {
+      "train": {
+        "imagenes": 327,
+        "reales": 126,
+        "sinteticas": 201,
+        "grupos": 27,
+        "por_tarea": {
+          "24": 41,
+          "27": 200,
+          "28": 86
+        }
+      },
+      "val": {
+        "imagenes": 68,
+        "reales": 28,
+        "sinteticas": 40,
+        "grupos": 7,
+        "por_tarea": {
+          "24": 10,
+          "27": 40,
+          "28": 18
+        }
+      },
+      "test": {
+        "imagenes": 63,
+        "reales": 27,
+        "sinteticas": 36,
+        "grupos": 9,
+        "por_tarea": {
+          "24": 9,
+          "27": 36,
+          "28": 18
+        }
+      }
+    },
+    "lotes": [
+      "lider_express_20261016",
+      "visibilidad_limitada_20261019",
+      "superior_vacio_D_20261021",
+      "lider_2_originales_20261017"
+    ],
+    "fuente_conteo_anotaciones": "Datos/Registros/Particiones/v3_458_20261023/estado_anotaciones_referencia.json",
+    "fecha_lectura_anotaciones": "2026-10-23T05:30:02.796658+00:00",
+    "training_enabled": false,
+    "pendiente": "Cerrar revision de anotaciones y preparar exportacion/evaluacion V3; la particion no aprueba entrenamiento."
+  },
+  "compatibilidad_modelos_anteriores": {
+    "registro": "Datos/Registros/dataset_activo.json",
+    "criterio": "disponibilidad_visual_nivel_v1",
+    "imagenes_activas": 91,
+    "version": "datos_20261015_012453_4ba1d339",
+    "alcance": "Configuracion historica de ensayos existentes; no identifica el V3 actual ni se debe cambiar para simular un entrenamiento nuevo."
+  },
+  "catalogo_procedencia": "Datos/Registros/lotes.json",
+  "historial_y_archivo": "Datos/Registros/Historico/README.md",
+  "regla": "Las fotos y las anotaciones se conservan. Toda futura variante hereda familia, escena y particion del original."
+}

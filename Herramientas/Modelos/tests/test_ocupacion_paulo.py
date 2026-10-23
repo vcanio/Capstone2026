@@ -239,6 +239,7 @@ class SignalTests(unittest.TestCase):
 
     def test_standalone_rejects_empty_image_file(self):
         directory = panel.ROOT / '.tmp/pruebas_modelos'
+        directory.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=directory) as temporary:
             file = Path(temporary) / 'empty.png'; file.write_bytes(b'')
             self.assertIsNone(paulo().leer_imagen(str(file)))
@@ -246,6 +247,7 @@ class SignalTests(unittest.TestCase):
     def test_standalone_cli_writes_reproducible_json_without_opening_editor(self):
         from PIL import Image
         directory = panel.ROOT / '.tmp/pruebas_modelos'
+        directory.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=directory) as temporary:
             root = Path(temporary)
             Image.fromarray(np.full((240, 720, 3), 40, np.uint8)).save(root/'frame.png')

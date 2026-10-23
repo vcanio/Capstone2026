@@ -12,6 +12,20 @@ import warnings
 
 from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps, UnidentifiedImageError
 
+try:
+    from geometria_niveles import level_quadrilateral
+except ModuleNotFoundError as error:
+    if error.name != 'geometria_niveles':
+        raise
+    # En el paquete el módulo queda junto a inferencia.py; en el repositorio
+    # se comparte la implementación del panel.
+    import importlib.util
+    _spec = importlib.util.spec_from_file_location('geometria_niveles',
+        Path(__file__).resolve().parents[1] / 'Modelos/geometria_niveles.py')
+    _geometry = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(_geometry)
+    level_quadrilateral = _geometry.level_quadrilateral
+
 MAX_BYTES = 15 * 1024 * 1024
 MAX_PIXELS = 24_000_000
 STATES = {
@@ -105,7 +119,11 @@ def draw_result(image, result, measurements=None):
             color = ImageColor.getrgb(hex_color)
             points = [tuple(map(float, point)) for point in polygons[index]] if polygons is not None else [
                 (box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3])]
-            detections.append({'id': level_id, 'state': state, 'label': label, 'confidence': float(confidence)})
+            quad = level_quadrilateral(points, image.size) if polygons is not None else None
+            if quad is not None:
+                points = [tuple(point) for point in quad]
+            detections.append({'id': level_id, 'state': state, 'label': label, 'confidence': float(confidence),
+                               'display_polygon': points, 'contour_adjusted': quad is not None})
             if len(points) < 3:
                 continue
             draw.polygon(points, fill=(*color, 35), outline=(*color, 255), width=line_width)
@@ -183,7 +201,9 @@ class ModelRunner:
             models.append(value)
         return models
 
-    def analyze(self, body, model_id='YOLO26-1', confidence=0.25, method='yolo'):
+    def analyze(self, body, model_id=None, confidence=0.25, method='yolo'):
+        if model_id is None:
+            model_id = self.manifest['default_model']
         if model_id not in self.entries:
             raise ValueError('Elige uno de los modelos incluidos.')
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:

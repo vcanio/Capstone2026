@@ -1,6 +1,6 @@
 # Walmart Visión en macOS con Docker
 
-El paquete `Walmart_Vision_Ocupacion_20261022.zip` incluye el visor, los cuatro modelos V1/V2 y los archivos de Docker. La construcción utiliza Linux y la arquitectura del equipo: ARM64 en Mac con Apple Silicon y AMD64 en Mac Intel. El análisis utiliza CPU. Las fotografías se procesan en memoria en el computador y no se guardan ni se suben a un servicio externo.
+El paquete `Walmart_Vision_Actual_20261023.zip` incluye el visor, los dos modelos V2 y los archivos de Docker. La construcción utiliza Linux y la arquitectura del equipo: ARM64 en Mac con Apple Silicon y AMD64 en Mac Intel. El análisis utiliza CPU. Las fotografías se procesan en memoria en el computador y no se guardan ni se suben a un servicio externo.
 
 ## Preparar el equipo
 
@@ -19,7 +19,7 @@ En esa Terminal, ejecutar:
 docker compose up --build -d --wait
 ```
 
-Cuando termine, abrir [Walmart Visión](http://localhost:8095). El navegador se abre manualmente. Elegir versión y modelo, cargar una foto JPG/PNG/WebP, seleccionar **Solo YOLO** o **YOLO + detección de bordes** y pulsar **Analizar foto**. Las vistas y los límites de imagen son los mismos que en Windows: 15 MB y 24 megapíxeles.
+Cuando termine, abrir [Walmart Visión](http://localhost:8095). El navegador se abre manualmente. El visor abre directamente para analizar una foto. Elegir un modelo, cargar una foto JPG/PNG/WebP, seleccionar **Solo YOLO** o **YOLO + detección de bordes** y pulsar **Analizar foto**. Las vistas y los límites de imagen son los mismos que en Windows: 15 MB y 24 megapíxeles.
 
 Para detener la aplicación:
 
@@ -62,10 +62,10 @@ Abrir entonces [Walmart Visión en el puerto 8096](http://localhost:8096). Mante
 El paquete completo se genera desde la raíz del proyecto, con los pesos originales disponibles:
 
 ```bash
-python Herramientas/Modelos/empaquetar_demo_lite.py --perfil v2 --output Entregables/Walmart_Vision_Ocupacion_20261022.zip
+python Herramientas/Modelos/empaquetar_demo_lite.py --output Entregables/Walmart_Vision_Actual_20261023.zip
 ```
 
-El empaquetador agrega los modelos, su manifiesto SHA-256, los dos módulos de bordes, las instrucciones y los archivos Docker. No incluye fotografías, entornos Python ni datos del laboratorio. Genera un `.sha256` junto al ZIP. Compartir ambos archivos y conservar el nombre y el hash de cada versión distribuida.
+El empaquetador agrega los modelos, su manifiesto SHA-256, los módulos de bordes, las instrucciones y los archivos Docker. No incluye fotografías, entornos Python ni datos del laboratorio. Genera un `.sha256` junto al ZIP. Compartir ambos archivos y conservar el nombre y el hash de cada versión distribuida.
 
 El Dockerfile se construye desde la carpeta **extraída del paquete**, no desde `Herramientas/Demo_lite` del repositorio: esa carpeta fuente no contiene los pesos ni el manifiesto generado. El `.dockerignore` limita el contexto a los archivos necesarios. El proceso corre con un usuario sin privilegios y verifica los hashes de los modelos y los módulos de bordes al construir y al iniciar.
 

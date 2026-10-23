@@ -11,7 +11,7 @@ Las imágenes se produjeron en dos tandas, conservadas como procedencia en el re
 - [Inventario](inventario.csv) y [manifest](manifest.json): archivos, origen, familia, SHA-256, prompt, revisión, frame y trabajo actuales.
 - [Guía de CVAT](guia_cvat.md): anotar todos los niveles delimitables, incluido el último.
 - [Revisión actual de las 60 imágenes, con criterio aplicado](../../Registros/CVAT/revisiones/visibilidad_20261019T222744Z/cierre_criterio/revision_final.html).
-- [296 candidatos para seleccionar entrenamiento, validación y reserva](../../Registros/Seleccion/lider_express_20261019/README.md), combinando las tareas 19 y 22.
+- [296 candidatos para seleccionar entrenamiento, validación y reserva](../../Registros/Historico/V2/Seleccion/lider_express_20261019/README.md), combinando las tareas 19 y 22.
 - [Comparativas históricas de la primera corrección](../../Registros/CVAT/revisiones/visibilidad_20261019T222744Z/correcciones/validacion.html).
 
 Los tres trabajos de veinte imágenes permanecen sin asignación personal. Las tareas anteriores 20 y 21 tienen respaldo en `.resguardo/unificacion_visibilidad_20261019`, y los borradores intermedios, descartes e historiales de tandas están en `.resguardo/orden_v1_v2_20261019/visibilidad_limitada_intermedios`.

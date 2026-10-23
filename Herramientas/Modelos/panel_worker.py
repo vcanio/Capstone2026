@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import piloto_modulos as pilot
 from rutas_datos import current_image_path
+from geometria_niveles import level_quadrilateral
 
 
 def spatial_order(boxes):
@@ -95,14 +96,18 @@ def execute(job):
         for points, confidence, cls, mask in zip(result.masks.xy, result.boxes.conf.cpu().tolist(),
                                                 result.boxes.cls.cpu().tolist(), result.masks.data.cpu().numpy()):
             polygon = Polygon(points) if len(points) >= 3 else None
+            quad = level_quadrilateral(points, image.size) if levels else None
+            display_points = quad if quad is not None else points
             detections.append({'id': len(detections) + 1, 'clase': result.names[int(cls)], 'confianza': confidence,
                                'contorno_valido': bool(polygon is not None and polygon.is_valid),
+                               'display_polygon': np.asarray(display_points).tolist(),
+                               'contour_adjusted': quad is not None,
                                'alerta': states[int(cls)] in ALERT_STATES if levels else None})
             masks.append(mask)
             if len(points) >= 3:
                 color = ImageColor.getrgb(colors[int(cls)]) if levels else (0, 83, 226)
-                draw.polygon([tuple(p) for p in points], fill=(*color, 35), outline=(*color, 255), width=line_width)
-                badge(points, int(cls), len(detections))
+                draw.polygon([tuple(p) for p in display_points], fill=(*color, 35), outline=(*color, 255), width=line_width)
+                badge(display_points, int(cls), len(detections))
     else:
         for box, confidence, cls in zip(result.boxes.xyxy.cpu().tolist(), result.boxes.conf.cpu().tolist(), result.boxes.cls.cpu().tolist()):
             detections.append({'id': len(detections) + 1, 'clase': result.names[int(cls)], 'confianza': confidence,

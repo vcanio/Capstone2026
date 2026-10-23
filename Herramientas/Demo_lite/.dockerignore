@@ -5,6 +5,7 @@
 !requirements-docker.txt
 !app.py
 !inferencia.py
+!geometria_niveles.py
 !interfaz.html
 !modelos.json
 !ocupacion_paulo.py

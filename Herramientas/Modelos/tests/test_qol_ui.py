@@ -152,5 +152,44 @@ class QolUiTests(unittest.TestCase):
         """)
 
 
+    def test_home_preserves_navigation_and_syncs_shell_view(self):
+        self.assertIn('<div class="shell" data-view="version">', self.html)
+        self.assertIn('<div id="version-cards" class="version-cards"', self.html)
+        self.assertIn('class="version-card" data-version="v2"', self.html)
+        self.assertIn('class="version-card" data-version="v1"', self.html)
+        nav = re.search(r'<nav id="sections-nav"[^>]*>(.*?)</nav>', self.html, re.S)[1]
+        self.assertNotIn('data-tab="version"', nav)
+        self.assertIn('id="work-summary"', self.html)
+        start = self.html.index('function switchTab(id){')
+        switch_tab = self.html[start:self.html.index('async function retryQueries(', start)]
+        self.js("""
+        let currentView='version',glossaryReturn='version';const fullCatalog=null;
+        const shell={dataset:{view:'version'}},heading={tabIndex:0,focus:()=>{}};
+        const views=['version','datasets','train','results','predict','glossary'].map(id=>({
+          id,classList:{contains:c=>c==='view',toggle(c,on){this.active=on}},querySelector:()=>heading}));
+        const navButtons=['datasets','train','results','predict','glossary'].map(tab=>({
+          dataset:{tab},attributes:{},classList:{toggle(c,on){this.active=on}},
+          setAttribute(k,v){this.attributes[k]=v},removeAttribute(k){delete this.attributes[k]}}));
+        const nodes=new Map(views.map(v=>[v.id,v]));
+        nodes.set('workspace-version',{hidden:true});
+        nodes.set('mobile-section',{textContent:''});
+        nodes.set('sections-nav',{classList:{remove:()=>{}}});
+        nodes.set('sections-toggle',{setAttribute:()=>{}});
+        const $=id=>nodes.get(id);
+        const document={querySelector:s=>s==='.shell'?shell:null,
+          querySelectorAll:s=>s==='.view'?views:navButtons};
+        const window={scrollTo:()=>{}},closeHelp=()=>{},renderGlossary=()=>{},renderTraining=()=>{},renderResults=()=>{},renderWorkspace=()=>{};
+        """ + switch_tab + """
+        switchTab('datasets');
+        assert.equal(shell.dataset.view,'datasets');
+        assert.equal($('workspace-version').hidden,false);
+        assert.equal(navButtons.find(b=>b.dataset.tab==='datasets').attributes['aria-current'],'page');
+        switchTab('version');
+        assert.equal(shell.dataset.view,'version');
+        assert.equal($('workspace-version').hidden,false);
+        assert.equal(navButtons.every(b=>!b.attributes['aria-current']),true);
+        """)
+
+
 if __name__ == '__main__':
     unittest.main()

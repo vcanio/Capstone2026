@@ -101,6 +101,7 @@ def evaluate(run, *, device=None):
                     raise ValueError('La máscara no coincide con la foto completa.')
                 predicted.append((int(cls), mask.astype(bool)))
         summaries.append({'imagen': photo['imagen'], 'sha256': photo['sha256'],
+                          'origen': photo.get('origen'), 'split': photo['split'],
                           **evaluate_masks(truth, predicted, states=states)})
         print(f'{run.name}: {index}/{len(records)} {photo["imagen"]}', flush=True)
     value = {'schema_version': 1, 'created_at': datetime.now(timezone.utc).isoformat(),

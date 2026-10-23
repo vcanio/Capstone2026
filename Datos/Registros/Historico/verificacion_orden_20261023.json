@@ -1,0 +1,17 @@
+{
+  "estado": "verificado",
+  "archivos_previos": 1113,
+  "archivos_conservados_o_trasladados_verificados": 1104,
+  "vistas_historicas_archivadas": 113,
+  "bytes_archivados": 152017274,
+  "caches_eliminadas": 4,
+  "bytes_cache_eliminados": 251269,
+  "registros_historicos_reubicados": 6,
+  "enlaces_documentales_verificados": 137,
+  "lotes_catalogados": 6,
+  "informes_regenerables": [
+    "Particiones/v3_458_20261023/verificacion.json"
+  ],
+  "imagenes_originales_modificadas": 0,
+  "escrituras_cvat": 0
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "actualizado": "2026-10-19",
-  "entrada_nuevas_fotos": "Datos/V2",
+  "actualizado": "2026-10-23",
+  "entrada_nuevas_fotos": "Datos/V3",
   "lotes": [
     {
       "id": "fuentes_iniciales",
@@ -28,13 +28,13 @@
     },
     {
       "id": "lider_express_20261016",
-      "estado": "asignado_a_anotacion",
+      "estado": "anotado_particionado_pendiente_revision_v3",
       "imagenes": 236,
       "inventario": "Datos/V2/lider_express_20261016/inventario.csv",
       "base_archivos": "Datos/V2/lider_express_20261016",
       "id_columna": "imagen_id",
       "manifest": "Datos/V2/lider_express_20261016/manifest.json",
-      "nota": "236 imágenes, 59 reales y 177 variantes IA, en una tarea CVAT única. Reparto por familias completas: 80 vi.canio, 80 pau.guera, 76 vi.vilches. Partición de modelos por escenas y cobertura pendiente; entrenamiento sin habilitar. Particion de modelos fijada por familias y grupos de escena el 19/10; consultar registro de particion. No habilita entrenamiento.",
+      "nota": "236 fuentes: 59 reales y 177 variantes A/B/C. Tarea 19 en V2; reutilizadas en tarea 27 de V3 junto a 40 variantes D registradas como lote separado. Particiones fijadas por escenas; revision de anotaciones V3 y soporte de exportacion pendientes.",
       "cvat_task_id": 19,
       "imagenes_reales": 59,
       "imagenes_sinteticas": 177,
@@ -42,11 +42,16 @@
         19
       ],
       "particion": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
-      "aprobado_entrenamiento": false
+      "aprobado_entrenamiento": false,
+      "cvat_por_criterio": {
+        "v2": 19,
+        "v3": 27
+      },
+      "particion_v3": "Datos/Registros/Particiones/v3_458_20261023/particion.json"
     },
     {
       "id": "visibilidad_limitada_20261019",
-      "estado": "asignado_a_anotacion",
+      "estado": "anotado_particionado_pendiente_revision_v3",
       "imagenes": 60,
       "imagenes_reales": 0,
       "imagenes_sinteticas": 60,
@@ -60,7 +65,7 @@
         22
       ],
       "aprobado_entrenamiento": false,
-      "nota": "Criterio amodal aplicado a los 308 niveles de 60 ediciones; incidencias técnicas resueltas. Listo para selección por familias y escenas. Validación humana independiente no certificada por este cierre. Partición sin asignar, entrenamiento sin habilitar e incorporación al panel pendiente. Particion de modelos fijada por familias y grupos de escena el 19/10; consultar registro de particion. No habilita entrenamiento.",
+      "nota": "60 ediciones con personas, carros o cajas. Tarea 22 y sus estados son historicos V2; las mismas fotos se reutilizan en tarea 24 con clase geometrica unica Nivel de V3. Revision superior verificada; aprobacion humana y exportacion V3 pendientes. Particion fijada.",
       "poligonos_preanotados": 308,
       "estados_sin_asignar": 0,
       "anotacion_actual": "anotacion_lista_para_seleccion_y_validacion",
@@ -69,7 +74,55 @@
         "suficiente": 299,
         "no_evaluable": 9
       },
-      "particion": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json"
+      "particion": "Datos/Registros/Particiones/lider_express_v2_20261019/particion.json",
+      "cvat_por_criterio": {
+        "v2": 22,
+        "v3": 24
+      },
+      "particion_v3": "Datos/Registros/Particiones/v3_458_20261023/particion.json"
+    },
+    {
+      "id": "superior_vacio_D_20261021",
+      "nombre": "Lider Express V3 - superior vacio D",
+      "estado": "anotado_particionado_pendiente_revision_v3",
+      "imagenes": 40,
+      "imagenes_reales": 0,
+      "imagenes_sinteticas": 40,
+      "inventario": "Datos/V3/superior_vacio_D_20261021/inventario.csv",
+      "base_archivos": "Datos/V3/superior_vacio_D_20261021",
+      "id_columna": "imagen_id",
+      "archivo_columna": "path",
+      "rutas_inventario_desde_raiz": true,
+      "manifest": "Datos/V3/superior_vacio_D_20261021/manifest.json",
+      "manifest_id_columna": "imagen_id",
+      "manifest_archivo_columna": "path",
+      "rutas_manifest_desde_raiz": true,
+      "cvat_task_id": 27,
+      "particion": "Datos/Registros/Particiones/v3_458_20261023/particion.json",
+      "aprobado_entrenamiento": false,
+      "nota": "40 variantes adicionales de familias train de Lider Express; se cuentan aparte de las 236 fuentes A/B/C."
+    },
+    {
+      "id": "lider_2_originales_20261017",
+      "nombre": "Lider 2 - originales V3",
+      "estado": "anotado_particionado_pendiente_revision_v3",
+      "imagenes": 122,
+      "imagenes_reales": 122,
+      "imagenes_sinteticas": 0,
+      "inventario": "Datos/V3/Lider 2/inventario.csv",
+      "base_archivos": "Datos/V3/Lider 2",
+      "id_columna": "imagen_id",
+      "manifest": "Datos/V3/Lider 2/manifest.json",
+      "manifest_imagenes_clave": "images",
+      "manifest_id_columna": "imagen_id",
+      "manifest_archivo_columna": "path",
+      "rutas_manifest_desde_raiz": true,
+      "cvat_task_id": 28,
+      "particion": "Datos/Registros/Particiones/v3_458_20261023/particion.json",
+      "aprobado_entrenamiento": false,
+      "nota": "122 originales. Inferiores manuales y superiores del asistente conservados; 86 train, 18 val, 18 test. Los campos de carga inicial del manifest no son una lectura actual de anotaciones; consultar estado_actual.json y tarea_28.json."
     }
-  ]
+  ],
+  "estado_vigente": "Datos/Registros/estado_actual.json",
+  "nota_conteos": "Catalogo de procedencia: algunos lotes reutilizan fuentes. No sumar sus cantidades como imagenes independientes. El V3 vigente tiene 458 imagenes verificadas."
 }

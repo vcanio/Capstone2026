@@ -1,0 +1,63 @@
+{
+  "fecha": "2026-10-21",
+  "estado": "montaje_local_verificado; publicacion_youtube_pendiente",
+  "preferencias_confirmadas": {
+    "audiencia": "Profesores y cliente",
+    "tono": "Practico y entendible",
+    "duracion_objetivo_segundos": [420, 480],
+    "duracion_requisito_segundos": [300, 600],
+    "produccion": "Nueva desde cero",
+    "presentacion_personal": false,
+    "musica": false,
+    "subtitulos": true,
+    "rotulos_y_zooms": true,
+    "narracion": "Persona facilitada por el usuario; audio recibido y alineado",
+    "publicacion": "YouTube no listado y enlace desde README",
+    "url_video": null
+  },
+  "guion": {
+    "markdown": "Documentacion/Demostracion/Guion_locucion_20261021.md",
+    "texto": "Documentacion/Demostracion/Guion_locucion_20261021.txt",
+    "plan": "Documentacion/Demostracion/Plan_de_grabacion_20261021.md",
+    "subtitulos": "Documentacion/Demostracion/Subtitulos_Demostracion_20261021.srt",
+    "generador": "Herramientas/Informes/generar_demostracion_video.py",
+    "verificacion": "Documentacion/Evidencias/verificacion_demo_video_20261021.json",
+    "bloques": 10,
+    "palabras_por_bloque": [84, 94, 102, 102, 101, 92, 104, 109, 103, 106],
+    "palabras_locucion": 997,
+    "estimacion": {
+      "metodo": "Conteo de palabras de los parrafos, sin titulos; lectura a 140-145 palabras/minuto mas 30 segundos de pausas en total",
+      "segundos_estimados": [443, 457],
+      "duracion_medida_audio": 410.59,
+      "duracion_total_video": 421.59
+    }
+  },
+  "casos_del_informe": {
+    "fuente": "Documentacion/Evidencias/casos_yolo_bordes_20261021.json",
+    "favorables": ["B06", "B08"],
+    "con_dificultades": ["F01", "F03"],
+    "criterio_seleccion": "Claridad visual: faltantes, exhibidor abastecido, falsa activacion del fondo y omision de un nivel",
+    "presentacion": "Figuras existentes identificadas como evidencia del informe; no se presentan como inferencias nuevas",
+    "prueba_final_consultada": false
+  },
+  "prueba_captura": {
+    "aplicacion": "Entrega Docker extraida del 21 de octubre, ejecutada en Windows con CPU",
+    "acceso_ui": "Inicio del visor, V1/V2, modelos V2, metodos, pestanas, secuencia temporizada de 30 capturas y mediciones verificadas",
+    "inferencia_nueva_comprobada": true,
+    "obs_instalado": true,
+    "escena_creada": "Walmart Vision - prueba 20261021",
+    "fuentes_en_escena_nueva": 0,
+    "grabacion_iniciada": false,
+    "clip_nuevo_verificado": true,
+    "montaje_final": "Entregables/Demostracion_Funcional_Walmart_Vision_20261021.mp4 (1920x1080, 25 fps, 421.59 s, 32 escenas)",
+    "pendiente": "Publicar el MP4 en YouTube como no listado e incorporar la URL real en la documentacion"
+  },
+  "limites": [
+    "No se reutiliza el video anterior como prueba de la entrega actual",
+    "Los cuatro casos seleccionados no estiman precision global",
+    "La senal de bordes no representa ocupacion real ni sustituye el estado YOLO",
+    "Las causas de errores se explican como hipotesis",
+    "El recorrido en vivo se presenta mediante secuencia temporizada de capturas verificadas de la interfaz",
+    "La publicacion en YouTube y su URL publica siguen pendientes del usuario"
+  ]
+}

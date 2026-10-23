@@ -4,7 +4,7 @@
 |---|---|---|
 | `Modelos/` | Código del laboratorio: panel, importación de CVAT, preparación de datos, entrenamiento, inferencia y pruebas automatizadas. | [Uso del panel](Modelos/README.md) y [script de entrenamiento](Modelos/entrenar_niveles.py). |
 | `Datos/` | Comprobación de inventarios, integridad y estado de los lotes. | [Mantenimiento de Datos](Datos/README.md). |
-| `Demo_lite/` | Código de Walmart Visión, la aplicación para probar los cuatro modelos V1/V2 con fotos propias. La carpeta conserva su nombre de desarrollo. | [Cómo usar Walmart Visión](Demo_lite/LEEME.md). |
+| `Demo_lite/` | Código de Walmart Visión para probar los dos modelos V2 con fotos propias. Los cuatro ensayos V1/V2 se conservan en el laboratorio. La carpeta mantiene su nombre de desarrollo. | [Cómo usar Walmart Visión](Demo_lite/LEEME.md). |
 | `CVAT/` | Scripts para iniciar CVAT y el acceso privado del equipo; incluye la instalación de CVAT. | `CVAT/iniciar_acceso_privado_equipo.ps1`, desde la raíz del proyecto. |
 | `Informes/` | Generación del informe intermedio, la planificación visual y la guía de trabajo en equipo. | [Documentación del proyecto](../Documentacion/README.md). |
 | `Reproducibilidad/` | Scripts para instalar activos, repetir ensayos, empaquetar y verificar la publicación. | [Preparación y reproducción](Reproducibilidad/README.md). |

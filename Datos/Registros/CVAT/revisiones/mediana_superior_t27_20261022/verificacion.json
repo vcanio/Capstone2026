@@ -1,0 +1,35 @@
+{
+  "status": "verified",
+  "task_id": 27,
+  "project_id": 8,
+  "url": "https://pcvicen.tailca514b.ts.net/tasks/27",
+  "verified_at": "2026-10-22T04:12:12.107030+00:00",
+  "images_reviewed": 276,
+  "superior_polygons_updated": 168,
+  "clear_roof_images_preserved": 108,
+  "lower_polygons_preserved": 1140,
+  "total_polygons_preserved": 1416,
+  "review_tags_added": 0,
+  "clipped_projections": 0,
+  "labels_ids_attributes_occlusion_preserved": true,
+  "ids_created_or_deleted": 0,
+  "geometry_verified_against_server": true,
+  "criterion": "mediana_de_inferiores_disponibles_solo_si_no_hay_tope_claro",
+  "reference_count_distribution": {
+    "3": 32,
+    "4": 112,
+    "5": 24
+  },
+  "minimum_total_visible_levels": 4,
+  "precision": "sin_redondeo_a_entero",
+  "backup": ".resguardo/mediana_superior_t27_20261022T040248Z",
+  "plan": "Datos/Registros/CVAT/revisiones/mediana_superior_t27_20261022/plan.json",
+  "source_annotations_sha256": "936df71f941a30cf779b597ef611368ea06173b5d51a05f428803664833b47fd",
+  "after_annotations_sha256": "3570e723ad1365d12adc8666baab1708f7abceae3d34f133460a4bb04e880c30",
+  "training_enabled": false,
+  "guides_verified": [
+    10,
+    11
+  ],
+  "guide_updated_at": "2026-10-22T04:15:04.549823+00:00"
+}

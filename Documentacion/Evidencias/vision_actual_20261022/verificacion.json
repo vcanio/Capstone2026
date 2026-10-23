@@ -1,0 +1,45 @@
+{
+  "zip": "Walmart_Vision_Actual_20261022.zip",
+  "bytes": 26253007,
+  "sha256": "f8decc8a5c6ed418ac6f6623ba7ff372f178553da3f15f6f95ce481fd11c5e9e",
+  "previous_bytes": 37493269,
+  "bytes_saved": 11240262,
+  "tests": 28,
+  "integrity": true,
+  "notebook_syntax": true,
+  "predictions": [
+    {
+      "model": "V2-YOLO11",
+      "method": "yolo",
+      "levels": 6,
+      "seconds": 4.76
+    },
+    {
+      "model": "V2-YOLO11",
+      "method": "yolo_paulo_v2",
+      "levels": 6,
+      "seconds": 0.68
+    },
+    {
+      "model": "V2-YOLO26",
+      "method": "yolo",
+      "levels": 6,
+      "seconds": 0.3
+    },
+    {
+      "model": "V2-YOLO26",
+      "method": "yolo_paulo_v2",
+      "levels": 6,
+      "seconds": 0.61
+    }
+  ],
+  "published": false,
+  "visual_review": {
+    "desktop": "escritorio.jpg",
+    "mobile": "movil.jpg",
+    "mobile_viewport": 390,
+    "horizontal_overflow": false,
+    "version_controls": 0,
+    "completed": "2026-10-23"
+  }
+}

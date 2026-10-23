@@ -19,6 +19,12 @@ en [reproducibilidad/artefactos.json](../../reproducibilidad/artefactos.json).
 El flujo diario de ramas, revisión y actualización está en
 [Trabajo en equipo](../../Documentacion/Desarrollo/Trabajo_en_equipo.md).
 
+El complemento [activos locales del 23/10/2026](../../reproducibilidad/activos_locales_20261023.json)
+declara recursos nuevos de V3 y las preparaciones locales de Visión sin añadir URLs ficticias ni
+reemplazar el manifiesto de la release anterior. Para instalar esos recursos desde los ZIP entregados
+por el equipo, usar `--manifest reproducibilidad/activos_locales_20261023.json --assets RUTA_A_LOS_ZIP
+--paquetes recursos_v3_20261023`. Los ZIP y las imágenes siguen fuera de Git.
+
 El [criterio de publicación](../../Documentacion/Desarrollo/Publicar_GitHub.md#mantener-limpio-el-repositorio) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
 
 Pruebas del preparador y de CVAT opcional:

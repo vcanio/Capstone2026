@@ -2,6 +2,10 @@
 
 Esta carpeta conserva los registros que permiten identificar la entrega y comprobar qué se verificó.
 
+**Alcance fechado:** `artefactos.json` identifica distribuciones anteriores. La entrega local revisada del 23/10/2026 se consulta en [Entregables](../Entregables/README.md). No se ha reemplazado el manifiesto histórico ni publicado un paquete durante esta limpieza. El trabajo de datos V3 se identifica por separado en [Registros](../Datos/Registros/README.md).
+
+[activos_locales_20261023.json](activos_locales_20261023.json) complementa ese registro con los recursos V3 y los dos ZIP locales conservados. Incluye archivos, tamaños y hashes reales. No contiene URLs de descarga pública: se suministran al equipo mediante `--assets`. Actualizar el código en GitHub no publica esos activos.
+
 | Archivo o carpeta | Contenido |
 |---|---|
 | [artefactos.json](artefactos.json) | Paquetes de la aplicación y del laboratorio, archivos incluidos, tamaños y hashes SHA-256. |

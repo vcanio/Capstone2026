@@ -232,14 +232,19 @@ def evaluate(progress=None):
     run = RUN / 'entrenamiento'
     model = YOLO(str(run / 'weights/best.pt'))
     config = json.loads((RUN / 'config_interfaz.json').read_text(encoding='utf-8')) if (RUN / 'config_interfaz.json').exists() else {}
-    metrics = model.val(data=str(dataset_directory() / 'data.yaml'), device=compute_device(), imgsz=config.get('imgsz', 640),
-                        batch=1, workers=0, overlap_mask=False, mask_ratio=2,
+    validation_args = dict(imgsz=config.get('imgsz', 640), conf=0.001, iou=0.7, max_det=300,
+                           batch=1, workers=0, overlap_mask=False, mask_ratio=2, augment=False, agnostic_nms=False)
+    metrics = model.val(data=str(dataset_directory() / 'data.yaml'), device=compute_device(), **validation_args,
                         plots=True, project=str(RUN), name='validacion', exist_ok=False)
     save_json(RUN / 'metricas_validacion.json', {k: float(v) for k, v in metrics.results_dict.items()})
     if progress:
         progress('comparing')
     # Añade diagnóstico por imagen para revisar omisiones y falsas detecciones.
     compare()
+    import ultralytics
+    save_json(RUN / 'protocolo_evaluacion.json', {'set': 'validacion_original',
+              'validation': validation_args, 'ultralytics': ultralytics.__version__,
+              'comparisons': {'confidence': 0.25, 'nms_iou': 0.7, 'minimum_mask_iou': 0.5}})
 
 
 def compare():

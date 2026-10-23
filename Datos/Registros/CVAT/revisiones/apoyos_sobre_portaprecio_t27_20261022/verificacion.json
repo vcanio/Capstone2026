@@ -1,0 +1,60 @@
+{
+  "status": "verified",
+  "task_id": 27,
+  "verified_at": "2026-10-22T21:09:04.711348+00:00",
+  "images_reviewed": 276,
+  "originals_reviewed": 59,
+  "variants_reviewed": 217,
+  "superior_polygons_updated": 161,
+  "originals_updated": 33,
+  "variants_updated": 128,
+  "superior_polygons_preserved": 115,
+  "clear_roof_images_preserved": 108,
+  "open_top_supports_already_correct": 7,
+  "lower_polygons_preserved": 1140,
+  "total_polygons": 1416,
+  "ids_created_or_deleted": 0,
+  "tags_tracks_preserved": true,
+  "occlusion_labels_and_other_attributes_preserved": true,
+  "partial_attribute_updates": 4,
+  "clipped_frames": [
+    41,
+    42,
+    43,
+    44
+  ],
+  "geometry_verified_against_server": true,
+  "exact_expected_content_verified": true,
+  "previous_046B_correction_preserved": true,
+  "guides_verified": [
+    10,
+    11
+  ],
+  "criterion": "apoyo_sobre_portaprecio; mediana_solo_sin_tope_claro",
+  "backup": ".resguardo/apoyos_t27_20261022",
+  "training_enabled": false,
+  "per_job": [
+    {
+      "job_id": 64,
+      "updated_shapes": 84,
+      "polygons": 465,
+      "expected_sha256": "8ce2a383fc7428830418d6a3417b407beb980339786dbd4c19f789c79bcebe2f",
+      "actual_sha256": "8ce2a383fc7428830418d6a3417b407beb980339786dbd4c19f789c79bcebe2f"
+    },
+    {
+      "job_id": 65,
+      "updated_shapes": 29,
+      "polygons": 500,
+      "expected_sha256": "a45b4cda05f246c77a418ac0e0ec0ff144952daf33e9c51f651da913799021b3",
+      "actual_sha256": "a45b4cda05f246c77a418ac0e0ec0ff144952daf33e9c51f651da913799021b3"
+    },
+    {
+      "job_id": 66,
+      "updated_shapes": 48,
+      "polygons": 451,
+      "expected_sha256": "f923ebfb39b55a2a56f510f6e042f7bae7e47bc5085bb4f4b294a98ecbefde83",
+      "actual_sha256": "f923ebfb39b55a2a56f510f6e042f7bae7e47bc5085bb4f4b294a98ecbefde83"
+    }
+  ],
+  "hash_numeric_canonicalization": "enteros_y_floats_integrales_equivalentes; decimales_sin_redondear"
+}

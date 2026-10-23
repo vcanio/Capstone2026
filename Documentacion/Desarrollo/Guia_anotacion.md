@@ -4,6 +4,8 @@
 
 Esta guía corresponde a la tarea unificada 19, con 59 originales reales y 177 variantes IA (236 imágenes), y establece los valores válidos para su entrega.
 
+Para el proyecto nuevo de localización de áreas de nivel se aplica el [criterio V3](Criterio_V3_niveles.md). El límite superior abierto debe mantenerse entre variantes llenas y vacías; no se recalcula según los envases de cada foto.
+
 ## Qué marcar
 
 Dibuja **un polígono de imagen (Shape) por nivel de góndola**, con la etiqueta **`Nivel`**. Incluye todo el espacio donde van los productos, también los huecos. Marca todos los niveles de los tramos cuyos dos límites laterales puedan identificarse.

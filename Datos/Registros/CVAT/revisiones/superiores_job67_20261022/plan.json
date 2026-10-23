@@ -1,0 +1,3325 @@
+{
+  "task_id": 28,
+  "job_id": 67,
+  "frames_reviewed": 41,
+  "manual_shapes_preserved": 134,
+  "criterion": "superficie_de_apoyo_sobre_portaprecio; mediana_de_inferiores_del_mismo_tramo",
+  "two_reference_exception": {
+    "authorized_by": "usuario_en_este_chat",
+    "frames": [
+      30,
+      31,
+      36,
+      37,
+      38
+    ],
+    "scope": "solo_las_cinco_fotos_consultadas_del_job_67"
+  },
+  "backup": ".resguardo/superiores_job67_20261022",
+  "frames": [
+    {
+      "frame": 0,
+      "name": "lider_2_001_0_original.jpg",
+      "reference_ids": [
+        9740,
+        9739,
+        9738
+      ],
+      "reference_heights_px": [
+        804.8377768031369,
+        912.5583697669736,
+        741.3380454709841
+      ],
+      "median_height_px": 804.8377768031369,
+      "support_points": [
+        [
+          343.26399336303075,
+          1023.9200166716279
+        ],
+        [
+          2784.707978235605,
+          1002.3066669471907
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        343.26399336303075,
+        1023.9200166716279,
+        2784.707978235605,
+        1002.3066669471907,
+        2784.707978235605,
+        197.46889014405383,
+        343.26399336303075,
+        219.082239868491
+      ],
+      "points": [
+        343.26399336303075,
+        1023.9200166716279,
+        2784.707978235605,
+        1002.3066669471907,
+        2784.707978235605,
+        197.46889014405383,
+        343.26399336303075,
+        219.082239868491
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=0"
+    },
+    {
+      "frame": 1,
+      "name": "lider_2_002_0_original.jpg",
+      "reference_ids": [
+        9743,
+        9742,
+        9741
+      ],
+      "reference_heights_px": [
+        758.7718539706093,
+        900.2134580582588,
+        718.6606251406156
+      ],
+      "median_height_px": 758.7718539706093,
+      "support_points": [
+        [
+          441.8109193607961,
+          982.6867080717275
+        ],
+        [
+          2792.4986228245616,
+          1073.7133382909633
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        441.8109193607961,
+        982.6867080717275,
+        2792.4986228245616,
+        1073.7133382909633,
+        2792.4986228245616,
+        314.941484320354,
+        441.8109193607961,
+        223.91485410111818
+      ],
+      "points": [
+        441.8109193607961,
+        982.6867080717275,
+        2792.4986228245616,
+        1073.7133382909633,
+        2792.4986228245616,
+        314.941484320354,
+        441.8109193607961,
+        223.91485410111818
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=1"
+    },
+    {
+      "frame": 2,
+      "name": "lider_2_003_0_original.jpg",
+      "reference_ids": [
+        9746,
+        9745,
+        9744
+      ],
+      "reference_heights_px": [
+        792.0327213493947,
+        876.1620842266602,
+        740.8232244599767
+      ],
+      "median_height_px": 792.0327213493947,
+      "support_points": [
+        [
+          398.42433467244336,
+          942.31165793915
+        ],
+        [
+          2743.1390345127365,
+          1005.8236877308735
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        398.42433467244336,
+        942.31165793915,
+        2743.1390345127365,
+        1005.8236877308735,
+        2743.1390345127365,
+        213.79096638147882,
+        398.42433467244336,
+        150.2789365897553
+      ],
+      "points": [
+        398.42433467244336,
+        942.31165793915,
+        2743.1390345127365,
+        1005.8236877308735,
+        2743.1390345127365,
+        213.79096638147882,
+        398.42433467244336,
+        150.2789365897553
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=2"
+    },
+    {
+      "frame": 3,
+      "name": "lider_2_004_0_original.jpg",
+      "reference_ids": [
+        9749,
+        9748,
+        9747
+      ],
+      "reference_heights_px": [
+        807.7360006387535,
+        835.1233229180816,
+        737.7159197796154
+      ],
+      "median_height_px": 807.7360006387535,
+      "support_points": [
+        [
+          303.2703887524003,
+          958.0118474914501
+        ],
+        [
+          2614.9466792650637,
+          989.0209193243766
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        303.2703887524003,
+        958.0118474914501,
+        2614.9466792650637,
+        989.0209193243766,
+        2614.9466792650637,
+        181.2849186856231,
+        303.2703887524003,
+        150.27584685269665
+      ],
+      "points": [
+        303.2703887524003,
+        958.0118474914501,
+        2614.9466792650637,
+        989.0209193243766,
+        2614.9466792650637,
+        181.2849186856231,
+        303.2703887524003,
+        150.27584685269665
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Tira de vasos delante del margen derecho del nivel.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=3"
+    },
+    {
+      "frame": 4,
+      "name": "lider_2_005_0_original.jpg",
+      "reference_ids": [
+        9752,
+        9751,
+        9750
+      ],
+      "reference_heights_px": [
+        770.7984183463959,
+        845.5894767043574,
+        701.828882957454
+      ],
+      "median_height_px": 770.7984183463959,
+      "support_points": [
+        [
+          445.87851138982666,
+          1113.0949064529523
+        ],
+        [
+          2658.3655075222996,
+          1152.1650602696209
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        445.87851138982666,
+        1113.0949064529523,
+        2658.3655075222996,
+        1152.1650602696209,
+        2658.3655075222996,
+        381.36664192322496,
+        445.87851138982666,
+        342.29648810655635
+      ],
+      "points": [
+        445.87851138982666,
+        1113.0949064529523,
+        2658.3655075222996,
+        1152.1650602696209,
+        2658.3655075222996,
+        381.36664192322496,
+        445.87851138982666,
+        342.29648810655635
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Tira de vasos delante del margen izquierdo del nivel.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=4"
+    },
+    {
+      "frame": 5,
+      "name": "lider_2_006_0_original.jpg",
+      "reference_ids": [
+        9755,
+        9754,
+        9753
+      ],
+      "reference_heights_px": [
+        746.8263283692577,
+        796.7723801493266,
+        703.7040753480978
+      ],
+      "median_height_px": 746.8263283692577,
+      "support_points": [
+        [
+          459.8442034827931,
+          1125.6455557057282
+        ],
+        [
+          2566.2019915165,
+          1188.4103851469602
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        459.8442034827931,
+        1125.6455557057282,
+        2566.2019915165,
+        1188.4103851469602,
+        2566.2019915165,
+        441.5840567777025,
+        459.8442034827931,
+        378.8192273364705
+      ],
+      "points": [
+        459.8442034827931,
+        1125.6455557057282,
+        2566.2019915165,
+        1188.4103851469602,
+        2566.2019915165,
+        441.5840567777025,
+        459.8442034827931,
+        378.8192273364705
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=5"
+    },
+    {
+      "frame": 6,
+      "name": "lider_2_007_0_original.jpg",
+      "reference_ids": [
+        9758,
+        9757,
+        9756
+      ],
+      "reference_heights_px": [
+        930.6828508068465,
+        921.3097142706938,
+        747.2249478140202
+      ],
+      "median_height_px": 921.3097142706938,
+      "support_points": [
+        [
+          301.06280714572495,
+          843.9312664463505
+        ],
+        [
+          2799.8467810572547,
+          876.0699670754402
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        301.06280714572495,
+        843.9312664463505,
+        2799.8467810572547,
+        876.0699670754402,
+        2799.8467810572547,
+        -45.239747195253585,
+        301.06280714572495,
+        -77.37844782434331
+      ],
+      "points": [
+        301.06280714572495,
+        0.0,
+        301.06280714572495,
+        843.9312664463505,
+        2799.8467810572547,
+        876.0699670754402,
+        2799.8467810572547,
+        0.0
+      ],
+      "clipped_to_image": true,
+      "delimitacion": "parcial",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=6"
+    },
+    {
+      "frame": 7,
+      "name": "lider_2_008_0_original.jpg",
+      "reference_ids": [
+        9761,
+        9760,
+        9759
+      ],
+      "reference_heights_px": [
+        738.4258735149651,
+        768.493102614164,
+        647.5478592126419
+      ],
+      "median_height_px": 738.4258735149651,
+      "support_points": [
+        [
+          488.79986608271065,
+          1240.320904896768
+        ],
+        [
+          2456.261183279221,
+          1209.6229268979575
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        488.79986608271065,
+        1240.320904896768,
+        2456.261183279221,
+        1209.6229268979575,
+        2456.261183279221,
+        471.1970533829924,
+        488.79986608271065,
+        501.89503138180294
+      ],
+      "points": [
+        488.79986608271065,
+        1240.320904896768,
+        2456.261183279221,
+        1209.6229268979575,
+        2456.261183279221,
+        471.1970533829924,
+        488.79986608271065,
+        501.89503138180294
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=7"
+    },
+    {
+      "frame": 8,
+      "name": "lider_2_009_0_original.jpg",
+      "reference_ids": [
+        9764,
+        9763,
+        9762
+      ],
+      "reference_heights_px": [
+        843.2469591833033,
+        890.2604322024508,
+        709.0032381574838
+      ],
+      "median_height_px": 843.2469591833033,
+      "support_points": [
+        [
+          315.07384190170706,
+          1011.8923267553474
+        ],
+        [
+          2599.7422311405353,
+          997.8882297985401
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        315.07384190170706,
+        1011.8923267553474,
+        2599.7422311405353,
+        997.8882297985401,
+        2599.7422311405353,
+        154.64127061523686,
+        315.07384190170706,
+        168.64536757204417
+      ],
+      "points": [
+        315.07384190170706,
+        1011.8923267553474,
+        2599.7422311405353,
+        997.8882297985401,
+        2599.7422311405353,
+        154.64127061523686,
+        315.07384190170706,
+        168.64536757204417
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=8"
+    },
+    {
+      "frame": 9,
+      "name": "lider_2_010_0_original.jpg",
+      "reference_ids": [
+        9767,
+        9766,
+        9765
+      ],
+      "reference_heights_px": [
+        825.2414241768747,
+        858.4824779479168,
+        680.820191169505
+      ],
+      "median_height_px": 825.2414241768747,
+      "support_points": [
+        [
+          393.2967263318642,
+          959.3093015254357
+        ],
+        [
+          2609.9452160662076,
+          1021.3274451912888
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        393.2967263318642,
+        959.3093015254357,
+        2609.9452160662076,
+        1021.3274451912888,
+        2609.9452160662076,
+        196.0860210144141,
+        393.2967263318642,
+        134.06787734856096
+      ],
+      "points": [
+        393.2967263318642,
+        959.3093015254357,
+        2609.9452160662076,
+        1021.3274451912888,
+        2609.9452160662076,
+        196.0860210144141,
+        393.2967263318642,
+        134.06787734856096
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=9"
+    },
+    {
+      "frame": 10,
+      "name": "lider_2_011_0_original.jpg",
+      "reference_ids": [
+        9770,
+        9769,
+        9768
+      ],
+      "reference_heights_px": [
+        879.4544083988421,
+        927.6454445474756,
+        749.0691432931253
+      ],
+      "median_height_px": 879.4544083988421,
+      "support_points": [
+        [
+          275.1362768414547,
+          904.4161154726862
+        ],
+        [
+          2674.3966022675777,
+          952.236937904101
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        275.1362768414547,
+        904.4161154726862,
+        2674.3966022675777,
+        952.236937904101,
+        2674.3966022675777,
+        72.78252950525882,
+        275.1362768414547,
+        24.96170707384408
+      ],
+      "points": [
+        275.1362768414547,
+        904.4161154726862,
+        2674.3966022675777,
+        952.236937904101,
+        2674.3966022675777,
+        72.78252950525882,
+        275.1362768414547,
+        24.96170707384408
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=10"
+    },
+    {
+      "frame": 11,
+      "name": "lider_2_012_0_original.jpg",
+      "reference_ids": [
+        9773,
+        9772,
+        9771
+      ],
+      "reference_heights_px": [
+        836.436592378248,
+        899.5479860237447,
+        710.2150283995288
+      ],
+      "median_height_px": 836.436592378248,
+      "support_points": [
+        [
+          364.1857158962848,
+          885.3735674622088
+        ],
+        [
+          2612.838621226867,
+          924.2775969661974
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        364.1857158962848,
+        885.3735674622088,
+        2612.838621226867,
+        924.2775969661974,
+        2612.838621226867,
+        87.84100458794944,
+        364.1857158962848,
+        48.936975083960874
+      ],
+      "points": [
+        364.1857158962848,
+        885.3735674622088,
+        2612.838621226867,
+        924.2775969661974,
+        2612.838621226867,
+        87.84100458794944,
+        364.1857158962848,
+        48.936975083960874
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=11"
+    },
+    {
+      "frame": 12,
+      "name": "lider_2_013_0_original.jpg",
+      "reference_ids": [
+        9777,
+        9776,
+        9775,
+        9774
+      ],
+      "reference_heights_px": [
+        552.2905689680592,
+        611.6888827299881,
+        543.1865268776892,
+        492.0313445441643
+      ],
+      "median_height_px": 547.7385479228742,
+      "support_points": [
+        [
+          344.08232845508974,
+          956.6666666666667
+        ],
+        [
+          2739.783200708589,
+          1013.3333333333334
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        344.08232845508974,
+        956.6666666666667,
+        2739.783200708589,
+        1013.3333333333334,
+        2739.783200708589,
+        465.59478541045917,
+        344.08232845508974,
+        408.92811874379254
+      ],
+      "points": [
+        344.08232845508974,
+        956.6666666666667,
+        2739.783200708589,
+        1013.3333333333334,
+        2739.783200708589,
+        465.59478541045917,
+        344.08232845508974,
+        408.92811874379254
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Cartel promocional delantero entra en el nivel por la izquierda.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=12"
+    },
+    {
+      "frame": 13,
+      "name": "lider_2_014_0_original.jpg",
+      "reference_ids": [
+        9781,
+        9780,
+        9779,
+        9778
+      ],
+      "reference_heights_px": [
+        592.9000000000015,
+        634.8172661131412,
+        570.0133658222239,
+        449.05905074149814
+      ],
+      "median_height_px": 581.4566829111127,
+      "support_points": [
+        [
+          221.55488498231716,
+          843.3333333333334
+        ],
+        [
+          2816.377515323271,
+          900.0
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        221.55488498231716,
+        843.3333333333334,
+        2816.377515323271,
+        900.0,
+        2816.377515323271,
+        318.5433170888873,
+        221.55488498231716,
+        261.8766504222207
+      ],
+      "points": [
+        221.55488498231716,
+        843.3333333333334,
+        2816.377515323271,
+        900.0,
+        2816.377515323271,
+        318.5433170888873,
+        221.55488498231716,
+        261.8766504222207
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderines promocionales delanteros ocultan parte de los productos.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=13"
+    },
+    {
+      "frame": 14,
+      "name": "lider_2_015_0_original.jpg",
+      "reference_ids": [
+        9784,
+        9783,
+        9782
+      ],
+      "reference_heights_px": [
+        740.5295328757711,
+        915.2837529508106,
+        778.6938631352732
+      ],
+      "median_height_px": 778.6938631352732,
+      "support_points": [
+        [
+          238.92798592949111,
+          884.6364078303451
+        ],
+        [
+          2712.2688218429903,
+          946.2355840360942
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        238.92798592949111,
+        884.6364078303451,
+        2712.2688218429903,
+        946.2355840360942,
+        2712.2688218429903,
+        167.54172090082102,
+        238.92798592949111,
+        105.94254469507189
+      ],
+      "points": [
+        238.92798592949111,
+        884.6364078303451,
+        2712.2688218429903,
+        946.2355840360942,
+        2712.2688218429903,
+        167.54172090082102,
+        238.92798592949111,
+        105.94254469507189
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderin promocional delantero en el sector derecho.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=14"
+    },
+    {
+      "frame": 15,
+      "name": "lider_2_016_0_original.jpg",
+      "reference_ids": [
+        9788,
+        9787,
+        9786,
+        9785
+      ],
+      "reference_heights_px": [
+        689.665808469108,
+        626.4158415605325,
+        590.288363116435,
+        471.55806615574147
+      ],
+      "median_height_px": 608.3521023384837,
+      "support_points": [
+        [
+          180.54071246931198,
+          839.6215485329667
+        ],
+        [
+          2784.533933929928,
+          814.2167366162794
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        180.54071246931198,
+        839.6215485329667,
+        2784.533933929928,
+        814.2167366162794,
+        2784.533933929928,
+        205.86463427779563,
+        180.54071246931198,
+        231.26944619448295
+      ],
+      "points": [
+        180.54071246931198,
+        839.6215485329667,
+        2784.533933929928,
+        814.2167366162794,
+        2784.533933929928,
+        205.86463427779563,
+        180.54071246931198,
+        231.26944619448295
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderines promocionales delanteros en el sector izquierdo y central.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=15"
+    },
+    {
+      "frame": 16,
+      "name": "lider_2_017_0_original.jpg",
+      "reference_ids": [
+        9792,
+        9791,
+        9790,
+        9789
+      ],
+      "reference_heights_px": [
+        665.3085015489814,
+        631.3842961647697,
+        539.4788045301666,
+        472.6043784085141
+      ],
+      "median_height_px": 585.4315503474681,
+      "support_points": [
+        [
+          256.16500735717636,
+          843.0338484480151
+        ],
+        [
+          2859.353541656332,
+          848.6152989932549
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        256.16500735717636,
+        843.0338484480151,
+        2859.353541656332,
+        848.6152989932549,
+        2859.353541656332,
+        263.18374864578675,
+        256.16500735717636,
+        257.60229810054693
+      ],
+      "points": [
+        256.16500735717636,
+        843.0338484480151,
+        2859.353541656332,
+        848.6152989932549,
+        2859.353541656332,
+        263.18374864578675,
+        256.16500735717636,
+        257.60229810054693
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=16"
+    },
+    {
+      "frame": 17,
+      "name": "lider_2_018_0_original.jpg",
+      "reference_ids": [
+        9795,
+        9794,
+        9793
+      ],
+      "reference_heights_px": [
+        815.6037987573145,
+        969.2766919665937,
+        808.075685557782
+      ],
+      "median_height_px": 815.6037987573145,
+      "support_points": [
+        [
+          231.20000000000073,
+          632.5
+        ],
+        [
+          2937.9000000000015,
+          713.6000000000022
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        231.20000000000073,
+        632.5,
+        2937.9000000000015,
+        713.6000000000022,
+        2937.9000000000015,
+        -102.00379875731232,
+        231.20000000000073,
+        -183.1037987573145
+      ],
+      "points": [
+        231.20000000000073,
+        0.0,
+        231.20000000000073,
+        632.5,
+        2937.9000000000015,
+        713.6000000000022,
+        2937.9000000000015,
+        0.0
+      ],
+      "clipped_to_image": true,
+      "delimitacion": "parcial",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=17"
+    },
+    {
+      "frame": 18,
+      "name": "lider_2_019_0_original.jpg",
+      "reference_ids": [
+        9798,
+        9797,
+        9796
+      ],
+      "reference_heights_px": [
+        857.7857139912303,
+        812.6349377503502,
+        672.9967103680046
+      ],
+      "median_height_px": 812.6349377503502,
+      "support_points": [
+        [
+          293.5174054635281,
+          865.7735608001457
+        ],
+        [
+          2789.9137764534607,
+          893.4199737683084
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        293.5174054635281,
+        865.7735608001457,
+        2789.9137764534607,
+        893.4199737683084,
+        2789.9137764534607,
+        80.78503601795819,
+        293.5174054635281,
+        53.138623049795456
+      ],
+      "points": [
+        293.5174054635281,
+        865.7735608001457,
+        2789.9137764534607,
+        893.4199737683084,
+        2789.9137764534607,
+        80.78503601795819,
+        293.5174054635281,
+        53.138623049795456
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Carteles promocionales delanteros ocultan parte del nivel.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=18"
+    },
+    {
+      "frame": 19,
+      "name": "lider_2_020_0_original.jpg",
+      "reference_ids": [
+        9802,
+        9801,
+        9800,
+        9799
+      ],
+      "reference_heights_px": [
+        616.3027592098388,
+        623.3867473852897,
+        562.4301039535221,
+        459.93206856974393
+      ],
+      "median_height_px": 589.3664315816804,
+      "support_points": [
+        [
+          290.00556381621936,
+          969.6178259710771
+        ],
+        [
+          2873.800000000003,
+          999.0333333333341
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        290.00556381621936,
+        969.6178259710771,
+        2873.800000000003,
+        999.0333333333341,
+        2873.800000000003,
+        409.66690175165365,
+        290.00556381621936,
+        380.25139438939664
+      ],
+      "points": [
+        290.00556381621936,
+        969.6178259710771,
+        2873.800000000003,
+        999.0333333333341,
+        2873.800000000003,
+        409.66690175165365,
+        290.00556381621936,
+        380.25139438939664
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderines promocionales delanteros delante de los productos.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=19"
+    },
+    {
+      "frame": 20,
+      "name": "lider_2_021_0_original.jpg",
+      "reference_ids": [
+        9805,
+        9804,
+        9803
+      ],
+      "reference_heights_px": [
+        868.5442918041517,
+        781.8028147208097,
+        704.259032218848
+      ],
+      "median_height_px": 781.8028147208097,
+      "support_points": [
+        [
+          233.79999999999924,
+          922.4000000000015
+        ],
+        [
+          2633.552122364821,
+          977.9970382556712
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        233.79999999999924,
+        922.4000000000015,
+        2633.552122364821,
+        977.9970382556712,
+        2633.552122364821,
+        196.19422353486152,
+        233.79999999999924,
+        140.59718527919176
+      ],
+      "points": [
+        233.79999999999924,
+        922.4000000000015,
+        2633.552122364821,
+        977.9970382556712,
+        2633.552122364821,
+        196.19422353486152,
+        233.79999999999924,
+        140.59718527919176
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=20"
+    },
+    {
+      "frame": 21,
+      "name": "lider_2_022_0_original.jpg",
+      "reference_ids": [
+        9808,
+        9807,
+        9806
+      ],
+      "reference_heights_px": [
+        814.2380918843228,
+        734.3512179537956,
+        624.1940280268136
+      ],
+      "median_height_px": 734.3512179537956,
+      "support_points": [
+        [
+          401.59915524196913,
+          1155.4165849291046
+        ],
+        [
+          2707.2736899160045,
+          1185.4253641222592
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        401.59915524196913,
+        1155.4165849291046,
+        2707.2736899160045,
+        1185.4253641222592,
+        2707.2736899160045,
+        451.0741461684636,
+        401.59915524196913,
+        421.06536697530896
+      ],
+      "points": [
+        401.59915524196913,
+        1155.4165849291046,
+        2707.2736899160045,
+        1185.4253641222592,
+        2707.2736899160045,
+        451.0741461684636,
+        401.59915524196913,
+        421.06536697530896
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=21"
+    },
+    {
+      "frame": 22,
+      "name": "lider_2_023_0_original.jpg",
+      "reference_ids": [
+        9811,
+        9810,
+        9809
+      ],
+      "reference_heights_px": [
+        928.82137750744,
+        846.5778925667437,
+        679.9555290990029
+      ],
+      "median_height_px": 846.5778925667437,
+      "support_points": [
+        [
+          154.72693174628512,
+          886.6673938467866
+        ],
+        [
+          2712.475211642817,
+          943.7841035777564
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        154.72693174628512,
+        886.6673938467866,
+        2712.475211642817,
+        943.7841035777564,
+        2712.475211642817,
+        97.20621101101267,
+        154.72693174628512,
+        40.089501280042896
+      ],
+      "points": [
+        154.72693174628512,
+        886.6673938467866,
+        2712.475211642817,
+        943.7841035777564,
+        2712.475211642817,
+        97.20621101101267,
+        154.72693174628512,
+        40.089501280042896
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=22"
+    },
+    {
+      "frame": 23,
+      "name": "lider_2_024_0_original.jpg",
+      "reference_ids": [
+        9814,
+        9813,
+        9812
+      ],
+      "reference_heights_px": [
+        841.4073095709246,
+        747.664108569541,
+        747.2913818596389
+      ],
+      "median_height_px": 747.664108569541,
+      "support_points": [
+        [
+          266.11361436150037,
+          970.4394053952407
+        ],
+        [
+          2737.097698116155,
+          994.7441668747949
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        266.11361436150037,
+        970.4394053952407,
+        2737.097698116155,
+        994.7441668747949,
+        2737.097698116155,
+        247.08005830525394,
+        266.11361436150037,
+        222.77529682569968
+      ],
+      "points": [
+        266.11361436150037,
+        970.4394053952407,
+        2737.097698116155,
+        994.7441668747949,
+        2737.097698116155,
+        247.08005830525394,
+        266.11361436150037,
+        222.77529682569968
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Cartel promocional delantero en el sector izquierdo.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=23"
+    },
+    {
+      "frame": 24,
+      "name": "lider_2_025_0_original.jpg",
+      "reference_ids": [
+        9817,
+        9816,
+        9815
+      ],
+      "reference_heights_px": [
+        759.2031138073526,
+        710.3974626102336,
+        721.2434173455622
+      ],
+      "median_height_px": 721.2434173455622,
+      "support_points": [
+        [
+          403.09364970865863,
+          1168.903940005193
+        ],
+        [
+          2626.4750260121727,
+          1164.2557559432328
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        403.09364970865863,
+        1168.903940005193,
+        2626.4750260121727,
+        1164.2557559432328,
+        2626.4750260121727,
+        443.0123385976706,
+        403.09364970865863,
+        447.6605226596307
+      ],
+      "points": [
+        403.09364970865863,
+        1168.903940005193,
+        2626.4750260121727,
+        1164.2557559432328,
+        2626.4750260121727,
+        443.0123385976706,
+        403.09364970865863,
+        447.6605226596307
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=24"
+    },
+    {
+      "frame": 25,
+      "name": "lider_2_026_0_original.jpg",
+      "reference_ids": [
+        9820,
+        9819,
+        9818
+      ],
+      "reference_heights_px": [
+        777.0211690567048,
+        732.0885348914653,
+        736.8885196988231
+      ],
+      "median_height_px": 736.8885196988231,
+      "support_points": [
+        [
+          383.8811555858956,
+          1156.4334475278654
+        ],
+        [
+          2656.9981013523648,
+          1237.0019712684796
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        383.8811555858956,
+        1156.4334475278654,
+        2656.9981013523648,
+        1237.0019712684796,
+        2656.9981013523648,
+        500.1134515696565,
+        383.8811555858956,
+        419.5449278290423
+      ],
+      "points": [
+        383.8811555858956,
+        1156.4334475278654,
+        2656.9981013523648,
+        1237.0019712684796,
+        2656.9981013523648,
+        500.1134515696565,
+        383.8811555858956,
+        419.5449278290423
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=25"
+    },
+    {
+      "frame": 26,
+      "name": "lider_2_027_0_original.jpg",
+      "reference_ids": [
+        9823,
+        9822,
+        9821
+      ],
+      "reference_heights_px": [
+        859.0634082934303,
+        764.4775137073048,
+        745.2332450548329
+      ],
+      "median_height_px": 764.4775137073048,
+      "support_points": [
+        [
+          352.83923855068497,
+          816.6634040147098
+        ],
+        [
+          2898.4921508796324,
+          905.0448307446992
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        352.83923855068497,
+        816.6634040147098,
+        2898.4921508796324,
+        905.0448307446992,
+        2898.4921508796324,
+        140.56731703739445,
+        352.83923855068497,
+        52.18589030740509
+      ],
+      "points": [
+        352.83923855068497,
+        816.6634040147098,
+        2898.4921508796324,
+        905.0448307446992,
+        2898.4921508796324,
+        140.56731703739445,
+        352.83923855068497,
+        52.18589030740509
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=26"
+    },
+    {
+      "frame": 27,
+      "name": "lider_2_028_0_original.jpg",
+      "reference_ids": [
+        9827,
+        9826,
+        9825,
+        9824
+      ],
+      "reference_heights_px": [
+        576.1687219302567,
+        542.6584670973953,
+        521.1526176420139,
+        542.659011380345
+      ],
+      "median_height_px": 542.6587392388701,
+      "support_points": [
+        [
+          211.5494064807608,
+          1096.8347302582806
+        ],
+        [
+          2630.257009449011,
+          1064.825365785582
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        211.5494064807608,
+        1096.8347302582806,
+        2630.257009449011,
+        1064.825365785582,
+        2630.257009449011,
+        522.166626546712,
+        211.5494064807608,
+        554.1759910194105
+      ],
+      "points": [
+        211.5494064807608,
+        1096.8347302582806,
+        2630.257009449011,
+        1064.825365785582,
+        2630.257009449011,
+        522.166626546712,
+        211.5494064807608,
+        554.1759910194105
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=27"
+    },
+    {
+      "frame": 28,
+      "name": "lider_2_029_0_original.jpg",
+      "reference_ids": [
+        9831,
+        9830,
+        9829,
+        9828
+      ],
+      "reference_heights_px": [
+        620.929122930549,
+        570.4621344365169,
+        551.714391801861,
+        568.4533764505322
+      ],
+      "median_height_px": 569.4577554435245,
+      "support_points": [
+        [
+          185.4674476220389,
+          948.0325122465802
+        ],
+        [
+          2747.7679923641626,
+          1022.1041662795033
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        185.4674476220389,
+        948.0325122465802,
+        2747.7679923641626,
+        1022.1041662795033,
+        2747.7679923641626,
+        452.6464108359787,
+        185.4674476220389,
+        378.5747568030556
+      ],
+      "points": [
+        185.4674476220389,
+        948.0325122465802,
+        2747.7679923641626,
+        1022.1041662795033,
+        2747.7679923641626,
+        452.6464108359787,
+        185.4674476220389,
+        378.5747568030556
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Cartel de precio delantero entra por el margen izquierdo.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=28"
+    },
+    {
+      "frame": 29,
+      "name": "lider_2_030_0_original.jpg",
+      "reference_ids": [
+        9835,
+        9834,
+        9833,
+        9832
+      ],
+      "reference_heights_px": [
+        587.5719600484808,
+        518.6351038182547,
+        522.5093081296418,
+        478.0635897611719
+      ],
+      "median_height_px": 520.5722059739483,
+      "support_points": [
+        [
+          348.78955665745525,
+          1220.5268565850954
+        ],
+        [
+          2571.9399485503127,
+          1294.3484534002553
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        348.78955665745525,
+        1220.5268565850954,
+        2571.9399485503127,
+        1294.3484534002553,
+        2571.9399485503127,
+        773.776247426307,
+        348.78955665745525,
+        699.9546506111471
+      ],
+      "points": [
+        348.78955665745525,
+        1220.5268565850954,
+        2571.9399485503127,
+        1294.3484534002553,
+        2571.9399485503127,
+        773.776247426307,
+        348.78955665745525,
+        699.9546506111471
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=29"
+    },
+    {
+      "frame": 30,
+      "name": "lider_2_031_0_original.jpg",
+      "reference_ids": [
+        9837,
+        9836
+      ],
+      "reference_heights_px": [
+        960.1364965558678,
+        1045.8570338570935
+      ],
+      "median_height_px": 1002.9967652064806,
+      "support_points": [
+        [
+          770.3745242235782,
+          1142.4733610549326
+        ],
+        [
+          2610.4000000000015,
+          1145.1666666666667
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        770.3745242235782,
+        1142.4733610549326,
+        2610.4000000000015,
+        1145.1666666666667,
+        2610.4000000000015,
+        142.1699014601861,
+        770.3745242235782,
+        139.476595848452
+      ],
+      "points": [
+        770.3745242235782,
+        1142.4733610549326,
+        2610.4000000000015,
+        1145.1666666666667,
+        2610.4000000000015,
+        142.1699014601861,
+        770.3745242235782,
+        139.476595848452
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=30"
+    },
+    {
+      "frame": 31,
+      "name": "lider_2_032_0_original.jpg",
+      "reference_ids": [
+        9839,
+        9838
+      ],
+      "reference_heights_px": [
+        1066.6035563597197,
+        1112.8025092821445
+      ],
+      "median_height_px": 1089.703032820932,
+      "support_points": [
+        [
+          386.8526967164689,
+          1253.3333333333335
+        ],
+        [
+          2582.9972397040947,
+          1266.6666666666667
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        386.8526967164689,
+        1253.3333333333335,
+        2582.9972397040947,
+        1266.6666666666667,
+        2582.9972397040947,
+        176.96363384573465,
+        386.8526967164689,
+        163.6303005124014
+      ],
+      "points": [
+        386.8526967164689,
+        1253.3333333333335,
+        2582.9972397040947,
+        1266.6666666666667,
+        2582.9972397040947,
+        176.96363384573465,
+        386.8526967164689,
+        163.6303005124014
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Cartel promocional delantero en el sector izquierdo.",
+      "two_reference_exception_authorized": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=31"
+    },
+    {
+      "frame": 32,
+      "name": "lider_2_033_0_original.jpg",
+      "reference_ids": [
+        9844,
+        9843,
+        9842,
+        9841,
+        9840
+      ],
+      "reference_heights_px": [
+        478.7322709158034,
+        450.61164481046217,
+        437.22004417693097,
+        359.55179267840685,
+        432.53357052085084
+      ],
+      "median_height_px": 437.22004417693097,
+      "support_points": [
+        [
+          370.7833464019277,
+          1093.9685916416688
+        ],
+        [
+          2439.712199399415,
+          1041.7432031194014
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        370.7833464019277,
+        1093.9685916416688,
+        2439.712199399415,
+        1041.7432031194014,
+        2439.712199399415,
+        604.5231589424704,
+        370.7833464019277,
+        656.7485474647378
+      ],
+      "points": [
+        370.7833464019277,
+        1093.9685916416688,
+        2439.712199399415,
+        1041.7432031194014,
+        2439.712199399415,
+        604.5231589424704,
+        370.7833464019277,
+        656.7485474647378
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=32"
+    },
+    {
+      "frame": 33,
+      "name": "lider_2_034_0_original.jpg",
+      "reference_ids": [
+        9848,
+        9847,
+        9846,
+        9845
+      ],
+      "reference_heights_px": [
+        583.2504607916198,
+        544.3491977120811,
+        598.5835592640087,
+        527.6543899798253
+      ],
+      "median_height_px": 563.7998292518505,
+      "support_points": [
+        [
+          339.3142020359446,
+          1058.3770944088233
+        ],
+        [
+          2538.2708813286154,
+          1068.9560833658968
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        339.3142020359446,
+        1058.3770944088233,
+        2538.2708813286154,
+        1068.9560833658968,
+        2538.2708813286154,
+        505.1562541140463,
+        339.3142020359446,
+        494.57726515697277
+      ],
+      "points": [
+        339.3142020359446,
+        1058.3770944088233,
+        2538.2708813286154,
+        1068.9560833658968,
+        2538.2708813286154,
+        505.1562541140463,
+        339.3142020359446,
+        494.57726515697277
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=33"
+    },
+    {
+      "frame": 34,
+      "name": "lider_2_035_0_original.jpg",
+      "reference_ids": [
+        9852,
+        9851,
+        9850,
+        9849
+      ],
+      "reference_heights_px": [
+        584.4198393122024,
+        550.907803327771,
+        571.7405795666509,
+        540.4912033151904
+      ],
+      "median_height_px": 561.324191447211,
+      "support_points": [
+        [
+          353.045181427864,
+          986.253077004824
+        ],
+        [
+          2574.197502218085,
+          984.4603794093515
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        353.045181427864,
+        986.253077004824,
+        2574.197502218085,
+        984.4603794093515,
+        2574.197502218085,
+        423.1361879621405,
+        353.045181427864,
+        424.92888555761306
+      ],
+      "points": [
+        353.045181427864,
+        986.253077004824,
+        2574.197502218085,
+        984.4603794093515,
+        2574.197502218085,
+        423.1361879621405,
+        353.045181427864,
+        424.92888555761306
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderin promocional delantero en el sector izquierdo.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=34"
+    },
+    {
+      "frame": 35,
+      "name": "lider_2_036_0_original.jpg",
+      "reference_ids": [
+        9857,
+        9856,
+        9855,
+        9854,
+        9853
+      ],
+      "reference_heights_px": [
+        472.7275868323213,
+        447.3229518883418,
+        437.4858956957378,
+        360.5246444735185,
+        377.3359232343628
+      ],
+      "median_height_px": 437.4858956957378,
+      "support_points": [
+        [
+          464.3935198397776,
+          1106.6146406415864
+        ],
+        [
+          2617.100965171703,
+          1069.4630766656956
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        464.3935198397776,
+        1106.6146406415864,
+        2617.100965171703,
+        1069.4630766656956,
+        2617.100965171703,
+        631.9771809699578,
+        464.3935198397776,
+        669.1287449458487
+      ],
+      "points": [
+        464.3935198397776,
+        1106.6146406415864,
+        2617.100965171703,
+        1069.4630766656956,
+        2617.100965171703,
+        631.9771809699578,
+        464.3935198397776,
+        669.1287449458487
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=35"
+    },
+    {
+      "frame": 36,
+      "name": "lider_2_037_0_original.jpg",
+      "reference_ids": [
+        12039,
+        12038
+      ],
+      "reference_heights_px": [
+        1124.921433451278,
+        1203.1927215427604
+      ],
+      "median_height_px": 1164.0570774970192,
+      "support_points": [
+        [
+          431.4923671987708,
+          1169.7951360025097
+        ],
+        [
+          2476.1832834718225,
+          1167.1169109500868
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        431.4923671987708,
+        1169.7951360025097,
+        2476.1832834718225,
+        1167.1169109500868,
+        2476.1832834718225,
+        3.05983345306754,
+        431.4923671987708,
+        5.738058505490471
+      ],
+      "points": [
+        431.4923671987708,
+        1169.7951360025097,
+        2476.1832834718225,
+        1167.1169109500868,
+        2476.1832834718225,
+        3.05983345306754,
+        431.4923671987708,
+        5.738058505490471
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=36"
+    },
+    {
+      "frame": 37,
+      "name": "lider_2_038_0_original.jpg",
+      "reference_ids": [
+        12041,
+        12040
+      ],
+      "reference_heights_px": [
+        1083.0272341171876,
+        1152.306718681035
+      ],
+      "median_height_px": 1117.6669763991113,
+      "support_points": [
+        [
+          453.3068461113871,
+          1225.708468095819
+        ],
+        [
+          2411.741730883263,
+          1160.6338912283986
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        453.3068461113871,
+        1225.708468095819,
+        2411.741730883263,
+        1160.6338912283986,
+        2411.741730883263,
+        42.96691482928736,
+        453.3068461113871,
+        108.04149169670768
+      ],
+      "points": [
+        453.3068461113871,
+        1225.708468095819,
+        2411.741730883263,
+        1160.6338912283986,
+        2411.741730883263,
+        42.96691482928736,
+        453.3068461113871,
+        108.04149169670768
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=37"
+    },
+    {
+      "frame": 38,
+      "name": "lider_2_039_0_original.jpg",
+      "reference_ids": [
+        12043,
+        12042
+      ],
+      "reference_heights_px": [
+        1189.4549388115938,
+        1246.714188433065
+      ],
+      "median_height_px": 1218.0845636223294,
+      "support_points": [
+        [
+          393.302664256702,
+          989.653781464994
+        ],
+        [
+          2560.6740571827504,
+          1007.5807574197182
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        393.302664256702,
+        989.653781464994,
+        2560.6740571827504,
+        1007.5807574197182,
+        2560.6740571827504,
+        -210.50380620261114,
+        393.302664256702,
+        -228.43078215733533
+      ],
+      "points": [
+        393.302664256702,
+        0.0,
+        393.302664256702,
+        989.653781464994,
+        2560.6740571827504,
+        1007.5807574197182,
+        2560.6740571827504,
+        0.0
+      ],
+      "clipped_to_image": true,
+      "delimitacion": "parcial",
+      "occluded": true,
+      "occlusion_reason": "Hoja de papel inclinada y banderin delante de los productos.",
+      "two_reference_exception_authorized": true,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=38"
+    },
+    {
+      "frame": 39,
+      "name": "lider_2_040_0_original.jpg",
+      "reference_ids": [
+        12047,
+        12046,
+        12045,
+        12044
+      ],
+      "reference_heights_px": [
+        578.6850777456493,
+        550.3577842506111,
+        597.8650891748403,
+        548.5656668471092
+      ],
+      "median_height_px": 564.5214309981302,
+      "support_points": [
+        [
+          423.74735310031974,
+          1000.9243027044649
+        ],
+        [
+          2644.739604493847,
+          990.507976356086
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        423.74735310031974,
+        1000.9243027044649,
+        2644.739604493847,
+        990.507976356086,
+        2644.739604493847,
+        425.98654535795583,
+        423.74735310031974,
+        436.40287170633474
+      ],
+      "points": [
+        423.74735310031974,
+        1000.9243027044649,
+        2644.739604493847,
+        990.507976356086,
+        2644.739604493847,
+        425.98654535795583,
+        423.74735310031974,
+        436.40287170633474
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": true,
+      "occlusion_reason": "Banderin promocional delantero delante de los paquetes Elite.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=39"
+    },
+    {
+      "frame": 40,
+      "name": "lider_2_041_0_original.jpg",
+      "reference_ids": [
+        12051,
+        12050,
+        12049,
+        12048
+      ],
+      "reference_heights_px": [
+        605.3039113369941,
+        596.6244014295644,
+        606.4618161379422,
+        524.8668208154486
+      ],
+      "median_height_px": 600.9641563832793,
+      "support_points": [
+        [
+          306.9687610390356,
+          858.1279332622642
+        ],
+        [
+          2790.6839103305974,
+          819.9347366515345
+        ]
+      ],
+      "support_review": "identificado_visualmente_sobre_portaprecio_en_esta_imagen",
+      "upper_boundary": "mediana_sin_tope_fisico_claro",
+      "unclipped_points": [
+        306.9687610390356,
+        858.1279332622642,
+        2790.6839103305974,
+        819.9347366515345,
+        2790.6839103305974,
+        218.97058026825528,
+        306.9687610390356,
+        257.1637768789849
+      ],
+      "points": [
+        306.9687610390356,
+        858.1279332622642,
+        2790.6839103305974,
+        819.9347366515345,
+        2790.6839103305974,
+        218.97058026825528,
+        306.9687610390356,
+        257.1637768789849
+      ],
+      "clipped_to_image": false,
+      "delimitacion": "completa",
+      "occluded": false,
+      "occlusion_reason": "Sin obstaculo delantero identificable dentro de la nueva region.",
+      "two_reference_exception_authorized": false,
+      "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=40"
+    }
+  ],
+  "shapes": [
+    {
+      "type": "polygon",
+      "frame": 0,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        343.26399336303075,
+        1023.9200166716279,
+        2784.707978235605,
+        1002.3066669471907,
+        2784.707978235605,
+        197.46889014405383,
+        343.26399336303075,
+        219.082239868491
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 1,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        441.8109193607961,
+        982.6867080717275,
+        2792.4986228245616,
+        1073.7133382909633,
+        2792.4986228245616,
+        314.941484320354,
+        441.8109193607961,
+        223.91485410111818
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 2,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        398.42433467244336,
+        942.31165793915,
+        2743.1390345127365,
+        1005.8236877308735,
+        2743.1390345127365,
+        213.79096638147882,
+        398.42433467244336,
+        150.2789365897553
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 3,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        303.2703887524003,
+        958.0118474914501,
+        2614.9466792650637,
+        989.0209193243766,
+        2614.9466792650637,
+        181.2849186856231,
+        303.2703887524003,
+        150.27584685269665
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 4,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        445.87851138982666,
+        1113.0949064529523,
+        2658.3655075222996,
+        1152.1650602696209,
+        2658.3655075222996,
+        381.36664192322496,
+        445.87851138982666,
+        342.29648810655635
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 5,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        459.8442034827931,
+        1125.6455557057282,
+        2566.2019915165,
+        1188.4103851469602,
+        2566.2019915165,
+        441.5840567777025,
+        459.8442034827931,
+        378.8192273364705
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 6,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        301.06280714572495,
+        0.0,
+        301.06280714572495,
+        843.9312664463505,
+        2799.8467810572547,
+        876.0699670754402,
+        2799.8467810572547,
+        0.0
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "parcial"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 7,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        488.79986608271065,
+        1240.320904896768,
+        2456.261183279221,
+        1209.6229268979575,
+        2456.261183279221,
+        471.1970533829924,
+        488.79986608271065,
+        501.89503138180294
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 8,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        315.07384190170706,
+        1011.8923267553474,
+        2599.7422311405353,
+        997.8882297985401,
+        2599.7422311405353,
+        154.64127061523686,
+        315.07384190170706,
+        168.64536757204417
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 9,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        393.2967263318642,
+        959.3093015254357,
+        2609.9452160662076,
+        1021.3274451912888,
+        2609.9452160662076,
+        196.0860210144141,
+        393.2967263318642,
+        134.06787734856096
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 10,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        275.1362768414547,
+        904.4161154726862,
+        2674.3966022675777,
+        952.236937904101,
+        2674.3966022675777,
+        72.78252950525882,
+        275.1362768414547,
+        24.96170707384408
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 11,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        364.1857158962848,
+        885.3735674622088,
+        2612.838621226867,
+        924.2775969661974,
+        2612.838621226867,
+        87.84100458794944,
+        364.1857158962848,
+        48.936975083960874
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 12,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        344.08232845508974,
+        956.6666666666667,
+        2739.783200708589,
+        1013.3333333333334,
+        2739.783200708589,
+        465.59478541045917,
+        344.08232845508974,
+        408.92811874379254
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 13,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        221.55488498231716,
+        843.3333333333334,
+        2816.377515323271,
+        900.0,
+        2816.377515323271,
+        318.5433170888873,
+        221.55488498231716,
+        261.8766504222207
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 14,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        238.92798592949111,
+        884.6364078303451,
+        2712.2688218429903,
+        946.2355840360942,
+        2712.2688218429903,
+        167.54172090082102,
+        238.92798592949111,
+        105.94254469507189
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 15,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        180.54071246931198,
+        839.6215485329667,
+        2784.533933929928,
+        814.2167366162794,
+        2784.533933929928,
+        205.86463427779563,
+        180.54071246931198,
+        231.26944619448295
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 16,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        256.16500735717636,
+        843.0338484480151,
+        2859.353541656332,
+        848.6152989932549,
+        2859.353541656332,
+        263.18374864578675,
+        256.16500735717636,
+        257.60229810054693
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 17,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        231.20000000000073,
+        0.0,
+        231.20000000000073,
+        632.5,
+        2937.9000000000015,
+        713.6000000000022,
+        2937.9000000000015,
+        0.0
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "parcial"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 18,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        293.5174054635281,
+        865.7735608001457,
+        2789.9137764534607,
+        893.4199737683084,
+        2789.9137764534607,
+        80.78503601795819,
+        293.5174054635281,
+        53.138623049795456
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 19,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        290.00556381621936,
+        969.6178259710771,
+        2873.800000000003,
+        999.0333333333341,
+        2873.800000000003,
+        409.66690175165365,
+        290.00556381621936,
+        380.25139438939664
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 20,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        233.79999999999924,
+        922.4000000000015,
+        2633.552122364821,
+        977.9970382556712,
+        2633.552122364821,
+        196.19422353486152,
+        233.79999999999924,
+        140.59718527919176
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 21,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        401.59915524196913,
+        1155.4165849291046,
+        2707.2736899160045,
+        1185.4253641222592,
+        2707.2736899160045,
+        451.0741461684636,
+        401.59915524196913,
+        421.06536697530896
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 22,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        154.72693174628512,
+        886.6673938467866,
+        2712.475211642817,
+        943.7841035777564,
+        2712.475211642817,
+        97.20621101101267,
+        154.72693174628512,
+        40.089501280042896
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 23,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        266.11361436150037,
+        970.4394053952407,
+        2737.097698116155,
+        994.7441668747949,
+        2737.097698116155,
+        247.08005830525394,
+        266.11361436150037,
+        222.77529682569968
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 24,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        403.09364970865863,
+        1168.903940005193,
+        2626.4750260121727,
+        1164.2557559432328,
+        2626.4750260121727,
+        443.0123385976706,
+        403.09364970865863,
+        447.6605226596307
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 25,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        383.8811555858956,
+        1156.4334475278654,
+        2656.9981013523648,
+        1237.0019712684796,
+        2656.9981013523648,
+        500.1134515696565,
+        383.8811555858956,
+        419.5449278290423
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 26,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        352.83923855068497,
+        816.6634040147098,
+        2898.4921508796324,
+        905.0448307446992,
+        2898.4921508796324,
+        140.56731703739445,
+        352.83923855068497,
+        52.18589030740509
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 27,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        211.5494064807608,
+        1096.8347302582806,
+        2630.257009449011,
+        1064.825365785582,
+        2630.257009449011,
+        522.166626546712,
+        211.5494064807608,
+        554.1759910194105
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 28,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        185.4674476220389,
+        948.0325122465802,
+        2747.7679923641626,
+        1022.1041662795033,
+        2747.7679923641626,
+        452.6464108359787,
+        185.4674476220389,
+        378.5747568030556
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 29,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        348.78955665745525,
+        1220.5268565850954,
+        2571.9399485503127,
+        1294.3484534002553,
+        2571.9399485503127,
+        773.776247426307,
+        348.78955665745525,
+        699.9546506111471
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 30,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        770.3745242235782,
+        1142.4733610549326,
+        2610.4000000000015,
+        1145.1666666666667,
+        2610.4000000000015,
+        142.1699014601861,
+        770.3745242235782,
+        139.476595848452
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 31,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        386.8526967164689,
+        1253.3333333333335,
+        2582.9972397040947,
+        1266.6666666666667,
+        2582.9972397040947,
+        176.96363384573465,
+        386.8526967164689,
+        163.6303005124014
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 32,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        370.7833464019277,
+        1093.9685916416688,
+        2439.712199399415,
+        1041.7432031194014,
+        2439.712199399415,
+        604.5231589424704,
+        370.7833464019277,
+        656.7485474647378
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 33,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        339.3142020359446,
+        1058.3770944088233,
+        2538.2708813286154,
+        1068.9560833658968,
+        2538.2708813286154,
+        505.1562541140463,
+        339.3142020359446,
+        494.57726515697277
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 34,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        353.045181427864,
+        986.253077004824,
+        2574.197502218085,
+        984.4603794093515,
+        2574.197502218085,
+        423.1361879621405,
+        353.045181427864,
+        424.92888555761306
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 35,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        464.3935198397776,
+        1106.6146406415864,
+        2617.100965171703,
+        1069.4630766656956,
+        2617.100965171703,
+        631.9771809699578,
+        464.3935198397776,
+        669.1287449458487
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 36,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        431.4923671987708,
+        1169.7951360025097,
+        2476.1832834718225,
+        1167.1169109500868,
+        2476.1832834718225,
+        3.05983345306754,
+        431.4923671987708,
+        5.738058505490471
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 37,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        453.3068461113871,
+        1225.708468095819,
+        2411.741730883263,
+        1160.6338912283986,
+        2411.741730883263,
+        42.96691482928736,
+        453.3068461113871,
+        108.04149169670768
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 38,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        393.302664256702,
+        0.0,
+        393.302664256702,
+        989.653781464994,
+        2560.6740571827504,
+        1007.5807574197182,
+        2560.6740571827504,
+        0.0
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "parcial"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 39,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": true,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        423.74735310031974,
+        1000.9243027044649,
+        2644.739604493847,
+        990.507976356086,
+        2644.739604493847,
+        425.98654535795583,
+        423.74735310031974,
+        436.40287170633474
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    },
+    {
+      "type": "polygon",
+      "frame": 40,
+      "label_id": 22,
+      "group": 0,
+      "source": "manual",
+      "occluded": false,
+      "outside": false,
+      "z_order": 0,
+      "rotation": 0.0,
+      "points": [
+        306.9687610390356,
+        858.1279332622642,
+        2790.6839103305974,
+        819.9347366515345,
+        2790.6839103305974,
+        218.97058026825528,
+        306.9687610390356,
+        257.1637768789849
+      ],
+      "attributes": [
+        {
+          "spec_id": 83,
+          "value": "completa"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,879 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23T05:58:50.268069+00:00",
+  "backup": ".resguardo/orden_registros_20261023",
+  "inventario_previo": ".resguardo/orden_registros_20261023/inventario_antes.json",
+  "actions": [
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/000_revision.jpg",
+      "bytes": 586251,
+      "sha256": "413de07d838c4d947cd7eb0e30cc7a7444c38848edcdaaa94414cf4e249f7085",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/000_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/001_revision.jpg",
+      "bytes": 667403,
+      "sha256": "52bb5dd1aa6ec3399d8758c60bb17ec540bc4652cc2d6beb4ea9e1f46d786f03",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/001_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/002_revision.jpg",
+      "bytes": 618397,
+      "sha256": "d09c4b3187af4ca340b3d56ade792b371920c0a446f37b8da84a8d3307580a4a",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/002_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/003_revision.jpg",
+      "bytes": 589994,
+      "sha256": "cc0d0e486d8755f8cd751af2d6ff99572f1ab68b0a4ee9ec3349b3d8081c1ec7",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/003_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/004_revision.jpg",
+      "bytes": 602543,
+      "sha256": "b1ee14118a21b5c8ae2af3160fb3a9f892f7837dad55a885b5368d0073e29cb2",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/004_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/005_revision.jpg",
+      "bytes": 526864,
+      "sha256": "772ac5f2cf3e21c098f8bfbfe753538a23492f365456c76868218d73ecab0cf9",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/005_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/006_revision.jpg",
+      "bytes": 453048,
+      "sha256": "c44af6283ab65db57b1164bc94f557012c001acd6372476cdc2e0a809f84a365",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/006_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/007_revision.jpg",
+      "bytes": 566078,
+      "sha256": "803e219bdd1903a9c4749a22407ccabd232c46511e08ef4ac3ca5f91839ca6fc",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/007_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/008_revision.jpg",
+      "bytes": 639894,
+      "sha256": "d4ca94d305d242a7a8a24dc331ad7ac764347e47df602a21e6e4a361a71b47a3",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/008_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/009_revision.jpg",
+      "bytes": 557644,
+      "sha256": "ef46cf7a2bef5774aae353724c467a114cb7f78d9e2c0d3b4e1bc5ef3d95d439",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/009_revision.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/contactos_1.jpg",
+      "bytes": 372938,
+      "sha256": "bb0cf3ebb5dd6946628621436a58f58152c4867e9524f0b084fb025c75464077",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/contactos_1.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/contactos_2.jpg",
+      "bytes": 351889,
+      "sha256": "127074cc26d571c9c9b5a13654b310f1b8ef0736d66d06d71dd729d6fec086b1",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/job67_primeras10_20261022/contactos_2.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_01.jpg",
+      "bytes": 1311077,
+      "sha256": "ad3a94b8d3ae992f5022c8452786106b2193cd6e21566192b2a24b515e7e09d2",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_01.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_02.jpg",
+      "bytes": 958203,
+      "sha256": "69275e396f299d38c5dde08a611dab1ef2cc5a92fdcd43bef9bd78b36832abea",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_02.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_03.jpg",
+      "bytes": 1235504,
+      "sha256": "8a8bbb15dd1a3cf87cc91ebd195fed097e7736f3a197fcc86714e6363b239970",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_03.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_04.jpg",
+      "bytes": 1186490,
+      "sha256": "19ae80191c26265a5e171358022fcad3d925d23a27484469d7a85669c63a4811",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_04.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_05.jpg",
+      "bytes": 1255117,
+      "sha256": "492b8f39c1d224cdb11ac2d45858b00dfa00d9b3cc2bd1d08b88a86cb7cbf133",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_05.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_06.jpg",
+      "bytes": 1091050,
+      "sha256": "d653c312a8513f277ee5aff4b65b9cedf47fb6151f9d8a956220e0d68b4b09b2",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_06.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_07.jpg",
+      "bytes": 1268402,
+      "sha256": "f5c54bb21ff375a23aa23d0df3e85745627a312d2d01323072310fb0fec1805d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_07.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_08.jpg",
+      "bytes": 1138142,
+      "sha256": "50e13f1fe64f3c8ec1faf02c8372aa3949902b91c37f802ea3bdc4f744f5161b",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_08.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_09.jpg",
+      "bytes": 1128755,
+      "sha256": "b34a1355df9f4c411adbde233d77312967bdb30c5dc3c200db6e7c50abb1b453",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_09.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_10.jpg",
+      "bytes": 1141989,
+      "sha256": "479b97c23c7e3fc099d6d5dd600bef411398c15559eea2f1080f5a4d64ddcac6",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_10.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_11.jpg",
+      "bytes": 1079000,
+      "sha256": "151e01a3b65bdb5a5b153cf6f3d405ae4685f1da791bd84b585dfbb33743e7d0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_11.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/familias_variantes_12.jpg",
+      "bytes": 955309,
+      "sha256": "e8fb824ef6db031cb2414a5b931e5152957efaf45a5a884a5114dd21d24848ad",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/familias_variantes_12.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_001_parciales.jpg",
+      "bytes": 259236,
+      "sha256": "1bf060607905042be60a02b16ff26829626d3e4846b9150a8195539c6dec7507",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_001_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_002_parciales.jpg",
+      "bytes": 285666,
+      "sha256": "ca2514d0d86d1b9db35348a242ad4dedbce090cf990a7832137973f68f0825ab",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_002_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_003_parciales.jpg",
+      "bytes": 264801,
+      "sha256": "4abb9458025652c022be2841bd379ea07f4729a4fbcc32a266c5f609aa503c6d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_003_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_004_parciales.jpg",
+      "bytes": 268389,
+      "sha256": "b3d785aa5ca046c40c8443bc065310ad8c0bb4244919297d94b7934fc374b3a0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_004_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_005_parciales.jpg",
+      "bytes": 259558,
+      "sha256": "1ae4e3a4b7128e04f9d258562d6f2f476acc42332369185854c63646dfdde8a5",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_005_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_006_parciales.jpg",
+      "bytes": 256303,
+      "sha256": "637d20e4bf472c35e23218cbab7816ecc7de3b3b0f6e49165dceb0584795cc9c",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_006_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_007_parciales.jpg",
+      "bytes": 260839,
+      "sha256": "4fea0e5f4245aa70c188640b069db8c5eed71da0d69b415c8b0c95091314f4ac",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_007_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_008_parciales.jpg",
+      "bytes": 257775,
+      "sha256": "763ce2ab19d826bfccc1e306ac42a8bd8b11f522de048d36173dc9d8acddf02f",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_008_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_009_parciales.jpg",
+      "bytes": 252498,
+      "sha256": "60dd8c6a0feae062d2840a6db41d5852d3702755296b5540a31df801c1c1156d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_009_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_010_parciales.jpg",
+      "bytes": 220309,
+      "sha256": "2eb6dbfbd08830c003706bebdd763fc510b7438f53f3a64ccb627c032d9a57ae",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_010_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_011_parciales.jpg",
+      "bytes": 274516,
+      "sha256": "0e1686b98f9b4e336f89623cae55488e5140e11fb54ecccd8f8d5e852232c078",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_011_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_012_parciales.jpg",
+      "bytes": 281539,
+      "sha256": "8a9ae8c2ec4f8d1b17bc74a124e5f3e171f319b076adf9ff71994989cee7cda0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_012_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_013_parciales.jpg",
+      "bytes": 288362,
+      "sha256": "14764057faa48e0d0d7e36cc39ce5b51b72f3becf09459bb94af8d99460fc5e7",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_013_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_014_parciales.jpg",
+      "bytes": 274866,
+      "sha256": "8f396ff9f6df1bbdcdcaadde1a3b9ed11263f3987e045e2dce0b7370a7aa580e",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_014_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_015_parciales.jpg",
+      "bytes": 260578,
+      "sha256": "9a7634fc92d3ef2f92c7d9f2c5c3fa499e3d454a229a73e797b317cfe1b0d992",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_015_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_016_parciales.jpg",
+      "bytes": 250779,
+      "sha256": "3fff4dc867c3dcdebc650ec859ce648e47d6b3003035ce5360f69542af7c5c00",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_016_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_017_parciales.jpg",
+      "bytes": 258903,
+      "sha256": "2fd13b2047386bef76ef6e7bde5c7da34a64d3ae54aa1d599dc88ca48c3c2e92",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_017_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_018_parciales.jpg",
+      "bytes": 268062,
+      "sha256": "4997fe04cac90a610a9b0ea87c063e5811470b64d2d7dedc0c7acedae4bb6a04",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_018_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_019_parciales.jpg",
+      "bytes": 252443,
+      "sha256": "951272da4dec67421c9f8b95f6d53f2c133fd3abef3826ace2cc15c1a0c30384",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_019_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_020_parciales.jpg",
+      "bytes": 248960,
+      "sha256": "f5ee5f02db3ad92d9b31f136126c2abd003bd902fc892eca7824868ca130c22c",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_020_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_021_parciales.jpg",
+      "bytes": 254734,
+      "sha256": "08bfb96ffca05c74c1b2a7fdb9966b0e531a38567fde6c2f5bbba6842f8f3cb9",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_021_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_022_parciales.jpg",
+      "bytes": 263803,
+      "sha256": "fc2bd2851eb65762fa2ef4d43b77c6f268fc5ae63a0071347f1959255edfcfda",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_022_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_023_parciales.jpg",
+      "bytes": 235260,
+      "sha256": "dc3c810957b4f627745f1178a993b4c962e8509f15f4a79b0290a7669b5e7cb4",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_023_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_024_parciales.jpg",
+      "bytes": 237791,
+      "sha256": "6f1caa0603243b348042a4726e2aa3f4b4ab389384b81cf3e5b11f8bbf6cab24",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_024_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_025_parciales.jpg",
+      "bytes": 250610,
+      "sha256": "e0d93f111c70cb44b77ee8227d34c909f1f2c7907567ca8afd19e7b26a8b8b69",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_025_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_026_parciales.jpg",
+      "bytes": 277795,
+      "sha256": "f3d9ed8a20c0e91826dfb8fc47777f9d6bb0392454881d283f00be2615f88a67",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_026_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_027_parciales.jpg",
+      "bytes": 287539,
+      "sha256": "c0906cc25f2acdcfa7c02048b2e18a2f9254396f4c31655d17dde5f0a7bea29a",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_027_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_028_parciales.jpg",
+      "bytes": 254743,
+      "sha256": "4e7686ee040e8f70acfa489e691fdedcc51aeb7bbababea171813b6c949e5d59",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_028_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_029_parciales.jpg",
+      "bytes": 255742,
+      "sha256": "c9f7debd9e4c5abd52e02ab43b0a86c7963f9ad616be1690a08c713c399ddbb0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_029_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_030_parciales.jpg",
+      "bytes": 262250,
+      "sha256": "7e26ac74bd91aa794ab99657258632b5cf6a2369f959be9964dc3b9cee47ac4e",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_030_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_031_parciales.jpg",
+      "bytes": 268484,
+      "sha256": "2b14539c9ca90a13cda06caa59b51e7438f711cb21945147187e501e2b0f66b3",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_031_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_032_parciales.jpg",
+      "bytes": 275076,
+      "sha256": "adf2b9ceaec5dbf21ad524b9f8b65eee68dca5b342191bf9308b27afc6c62bc2",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_032_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_033_parciales.jpg",
+      "bytes": 263157,
+      "sha256": "8eb7c8bc647267e63c9ec5d123e7251d7c42cbd958549d21a60012c704fb7699",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_033_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_034_parciales.jpg",
+      "bytes": 274736,
+      "sha256": "2f34509870e10234484cc49541b19fd71229a78887d465b947827ada0c0f1cd0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_034_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_035_parciales.jpg",
+      "bytes": 266757,
+      "sha256": "82f5c27523f6eedf4f7e7c745c5c6a70d67c0cb00cf5c3f0a5095403045c309f",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_035_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_036_parciales.jpg",
+      "bytes": 255968,
+      "sha256": "e7cd33513b20e86f06954d447e1ddd178ca111ce2e83832abac46f1b40e6f221",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_036_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_037_parciales.jpg",
+      "bytes": 258508,
+      "sha256": "e140dc1a3e9306cae5ecd8095256b4807be5be252093fee8a15102ca460874a0",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_037_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_038_parciales.jpg",
+      "bytes": 261939,
+      "sha256": "f0b343d6963d32fca4ca9a21e631d35bd0a7358d1f397b44a5a156285ab4865a",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_038_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_039_parciales.jpg",
+      "bytes": 237741,
+      "sha256": "ecff7e0237236ab50213714d0a487cb8253dd10c1992bddcd65495bd8fa3c0ac",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_039_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_040_parciales.jpg",
+      "bytes": 238700,
+      "sha256": "75a15d9877bad43aa8bedf15d6bcdf0b930186cd859422e68551b12a2f500a95",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_040_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_041_parciales.jpg",
+      "bytes": 262763,
+      "sha256": "03c3ac5de2f879f17edf415ed6bcb56f00fbf04a6db8d3ff2bf537922f8c55bc",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_041_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_042_parciales.jpg",
+      "bytes": 247173,
+      "sha256": "94661400cf6f4ceb81fa3104bc6017fa8d457968731dd8cffb2f5aa6503f2e99",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_042_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_043_parciales.jpg",
+      "bytes": 233313,
+      "sha256": "39d247dbf60425d463dba505107c6919a71d214b7febfa4a14aea18b89fc9b12",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_043_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_044_parciales.jpg",
+      "bytes": 256206,
+      "sha256": "80f95d098f3fe239c2546baf93100b065c32026b81cf16c400a44d88190f892f",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_044_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_045_parciales.jpg",
+      "bytes": 262706,
+      "sha256": "c64ba30de127b0b4ed54325ade02eda993cc9424065208de472860cd4eaafc42",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_045_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_046_parciales.jpg",
+      "bytes": 242430,
+      "sha256": "544c6ff4a006ab35625956cf4c66b8766fdf1fb83e8c76a20badcb25efe38dda",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_046_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_047_parciales.jpg",
+      "bytes": 242177,
+      "sha256": "8129e3af54d510f79bccd8a11de517bd566a96f8ab9f31bf762af9b8ad6541cb",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_047_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_048_parciales.jpg",
+      "bytes": 244291,
+      "sha256": "8527db149d38e01432414a9a684bc14a8b72ac6b7411838e40bfcd316ea6afac",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_048_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_049_parciales.jpg",
+      "bytes": 231652,
+      "sha256": "2483f1be7c3ff7f15cdc61a863c405eeaa1de2da35e9e6f9e86dfc66730f1def",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_049_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_050_parciales.jpg",
+      "bytes": 231365,
+      "sha256": "82e2cf55599089b6b99d260edde0e559c3a91b3c927890ccbb502052529b6e7e",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_050_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_051_parciales.jpg",
+      "bytes": 225774,
+      "sha256": "994a38870e4c5363272b7473c3c56a42e2ff3fadc727c93aa871949436ef974b",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_051_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_052_parciales.jpg",
+      "bytes": 267621,
+      "sha256": "f949b06b1eaf609304d0d900dd426fff25ce852ca4e01aa1a664c4dc082ca184",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_052_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_053_parciales.jpg",
+      "bytes": 269653,
+      "sha256": "a5af135738b0486f977fe1220740ae6f3e3c9edf6c40c2c8d5e5929f92dfb7c8",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_053_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_054_parciales.jpg",
+      "bytes": 271385,
+      "sha256": "066bc90b0ed3c64ef6a114d3551f62bc737c853e43c7f755b9fbd2d1652181f3",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_054_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_055_parciales.jpg",
+      "bytes": 250897,
+      "sha256": "daa79afefdca31c85138055949e187b41050c6d352e7658394240b2ab6176bc9",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_055_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_056_parciales.jpg",
+      "bytes": 270328,
+      "sha256": "88d2078d854ba180b9a41dc330283d555e8de10fc4935f7defea44a8201be642",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_056_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_057_parciales.jpg",
+      "bytes": 224492,
+      "sha256": "2b3487cac86827eaa11019a19ac31d0a598d019c9a0477afa3d4e591ab48ceda",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_057_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_058_parciales.jpg",
+      "bytes": 236661,
+      "sha256": "b61dae195e8446f3e632b771c311903ccf6ba33f8d3ba1b05be040cfcd47d3c8",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_058_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/original_059_parciales.jpg",
+      "bytes": 259273,
+      "sha256": "1a8093419526d4bd5ab3d8634d5c7c75711bb10f40ba241a5f11cfcc298274d7",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/original_059_parciales.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_01.jpg",
+      "bytes": 802960,
+      "sha256": "6a6e0a1da7ba137ff98a165ea7ac724a3a61a01ec0cf7b68cb23a6ab660136a6",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_01.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_02.jpg",
+      "bytes": 788064,
+      "sha256": "876337fec20e6ef84aeee5b4a55d883bb560f66f6471bdfed8cf9576289c7d0b",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_02.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_03.jpg",
+      "bytes": 798692,
+      "sha256": "94ece01f1ad0bd1415564de1fd20799a3359789cc86acd85905a845bcae9d934",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_03.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_04.jpg",
+      "bytes": 763380,
+      "sha256": "9f4d0f413c23173359ac4ad8ac1e330c3136e298fb74f8de19ff137ddadbfacb",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_04.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_05.jpg",
+      "bytes": 782574,
+      "sha256": "012cbed0edbcb1751dd1a006b866586f3c58f1bf93f26f8dfbe6c893f6960e90",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_05.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_06.jpg",
+      "bytes": 794200,
+      "sha256": "4fe9c2c32134f122fdba63af75f8123af2d5c2044ff195a56e459f1642bb14db",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_06.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_07.jpg",
+      "bytes": 763057,
+      "sha256": "b3eaf0b2de7f5aecd9f94795ca8c70b9a4bad9662578bdac597b81279e1e9945",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_07.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_08.jpg",
+      "bytes": 743333,
+      "sha256": "09705d2ed6a3a02418590e49383d53e052c48d7759f4c05fe642f4173c7fd85a",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_08.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_09.jpg",
+      "bytes": 746997,
+      "sha256": "fd4f5bca0b48e02213cc0175f00f2be912c1a85d1bdf84bd75fa05a7218ac3a1",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_09.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/originales_10.jpg",
+      "bytes": 622618,
+      "sha256": "e1d28587681128144241c3f51c233e5e1ae99bcbea5ac29f4c10516294f3319d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/parciales_lider_express_t27_20261022/originales_10.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/comparacion_001_005.jpg",
+      "bytes": 946781,
+      "sha256": "0351ccc65484272d81ff918f503726413efeac80cf1b6858aaaf3595cdf38939",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/comparacion_001_005.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_001_recorte.png",
+      "bytes": 13442679,
+      "sha256": "0f7f68b1f275a3f0fce699eca5f1df2338808aef3adc29c4afca8f363cc4f104",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_001_recorte.png"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_001_recorte_anotaciones.jpg",
+      "bytes": 3253812,
+      "sha256": "5ce6b6a0cf11577be368f619377741f25ccadd02c6390884cd9dd7d387b7d8e8",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_001_recorte_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_002_recorte.png",
+      "bytes": 14075831,
+      "sha256": "7cc2205aba85b4f295c9bc7e6511a760c9ec234751597c0edf6bcbe02802cf85",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_002_recorte.png"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_002_recorte_anotaciones.jpg",
+      "bytes": 3470089,
+      "sha256": "470afce978c1ee22ee1c149cbbf02efe992c60604bef783da69564e382ae1c85",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_002_recorte_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_003_recorte.png",
+      "bytes": 13205332,
+      "sha256": "b7a26a487a4601316559cbc36310957978ecb9a7d467c48e3d83a9bca9026e1d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_003_recorte.png"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_003_recorte_anotaciones.jpg",
+      "bytes": 3225420,
+      "sha256": "bf93d87f3e1c271a6840b39438f97cb80bb10a19fa5e260a0a8c4dfca904e576",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_003_recorte_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_004_recorte.png",
+      "bytes": 12938079,
+      "sha256": "71cc8914e927fdd0a1e715593211ec76101b6b2164293d095c118f5b5e6a8eb2",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_004_recorte.png"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_004_recorte_anotaciones.jpg",
+      "bytes": 3071791,
+      "sha256": "54bd6a0a2ddd067ea662389c1031e6639d851227e960a2ccf62a12e6288bb076",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_004_recorte_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_005_recorte.png",
+      "bytes": 11956610,
+      "sha256": "5cc160c5d0e6f133f5cc33517c565567df41c7cbd34cdeee28789bb3317021bc",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_005_recorte.png"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/lider_2_005_recorte_anotaciones.jpg",
+      "bytes": 2855823,
+      "sha256": "56c0b7c2b0becde2d01b21bf6992b53a73efaf78a840990c46fd58cac3788424",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/lider_2_005_recorte_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/originales_contacto.jpg",
+      "bytes": 904063,
+      "sha256": "dafc19b1d546c7c52e74955519ef52fc5f0b86f987cc8223a957f81f2089afb1",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/originales_contacto.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/recortes_001_005.jpg",
+      "bytes": 751212,
+      "sha256": "a22632311a5cba97aefa4fa05d67010887a1ca847065979ab665b14cf8eb79ee",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/recortes_001_005.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/recortes_001_005_anotaciones.jpg",
+      "bytes": 725621,
+      "sha256": "37aaff0306eb4523abed07cd70e9df2920be654756f6948020e5c0ee1ce43e6a",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/recortes_lider2_001_005_20261022/recortes_001_005_anotaciones.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/contacto_todos_niveles.jpg",
+      "bytes": 1054206,
+      "sha256": "ff546439b107df264172d1655eba5a8a53c566ebb2249b6cb96ce3c8e88b746d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/contacto_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/lider_2_001_todos_niveles.jpg",
+      "bytes": 4541299,
+      "sha256": "3737e238b9a82a0b41f61aeb9ad099e17f2b4a3b0a2fcf6d62e5ce45a7e697e3",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/lider_2_001_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/lider_2_002_todos_niveles.jpg",
+      "bytes": 4949633,
+      "sha256": "71001f7af9f5abf43ce501ff5923b1658fe74d54ca616fe1470a6f6d96a9d4e8",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/lider_2_002_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/lider_2_003_todos_niveles.jpg",
+      "bytes": 4715407,
+      "sha256": "957cbf6904be475e3c0df7dce95d360a1edc677967149f572b350cf5ce23709d",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/lider_2_003_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/lider_2_004_todos_niveles.jpg",
+      "bytes": 4460612,
+      "sha256": "65947846917d0f99f15d549cd6853989edaf91cf903e81dd4efe94e9994e9138",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/lider_2_004_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/lider_2_005_todos_niveles.jpg",
+      "bytes": 4429243,
+      "sha256": "dd54e80c95b669ac530b7a6bedc93a94b89fbbd3367617593b35886fdd6abdb3",
+      "action": "archivar_vista",
+      "destination": ".resguardo/orden_registros_20261023/vistas_pruebas_retiradas/todos_niveles_job67_001_005_20261022/lider_2_005_todos_niveles.jpg"
+    },
+    {
+      "path": "Datos/Registros/CVAT/tarea_20.json",
+      "bytes": 244,
+      "sha256": "883233e3cf695ee1f0db84d32e62d66ed9f437a08d3f45c0c9a9457788fa527f",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/CVAT/tarea_20.json"
+    },
+    {
+      "path": "Datos/Registros/CVAT/tarea_21.json",
+      "bytes": 244,
+      "sha256": "69b2813882a39228c2741a4700d9a4481e330142c40a55cd1dcc7409777d02df",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/CVAT/tarea_21.json"
+    },
+    {
+      "path": "Datos/Registros/Seleccion/lider_express_20261019/candidatos_296.csv",
+      "bytes": 106468,
+      "sha256": "5c41003cef446a444f361555981176052d13fce6d9db1f8e6dd87ede6cc5fde2",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/V2/Seleccion/lider_express_20261019/candidatos_296.csv"
+    },
+    {
+      "path": "Datos/Registros/Seleccion/lider_express_20261019/cobertura.json",
+      "bytes": 1109,
+      "sha256": "a2c7a62e74e1caa90c89b46341271119706c9e2b742e1fd89963e80b896d0394",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/V2/Seleccion/lider_express_20261019/cobertura.json"
+    },
+    {
+      "path": "Datos/Registros/Seleccion/lider_express_20261019/README.md",
+      "bytes": 1320,
+      "sha256": "80371b7b19935faececb93d24b1f854e072b3346031c74914dabfd08b10e113f",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/V2/Seleccion/lider_express_20261019/README.md"
+    },
+    {
+      "path": "Datos/Registros/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/labels/train.cache",
+      "bytes": 98840,
+      "sha256": "2d1f4420261fa76857e3c2a1bd7bb7b9c4544fb878f9312d518c3c6092142efc",
+      "action": "eliminar_cache_regenerable"
+    },
+    {
+      "path": "Datos/Registros/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/labels/val.cache",
+      "bytes": 5713,
+      "sha256": "8f2440892a8eaad1b4eaa4e244bd565b1c42d375bffa9a9da1f3bd6914ea9c44",
+      "action": "eliminar_cache_regenerable"
+    },
+    {
+      "path": "Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/labels/train.cache",
+      "bytes": 138123,
+      "sha256": "10885bfc34ee63560fbbb223126a667ac5114296456b14bef0d52b5bdc7dbbcd",
+      "action": "eliminar_cache_regenerable"
+    },
+    {
+      "path": "Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/labels/val.cache",
+      "bytes": 8593,
+      "sha256": "392611070614220f5dc1622f7904cdac59a7d39e34d10c565535b2e061ea294a",
+      "action": "eliminar_cache_regenerable"
+    },
+    {
+      "path": "Datos/Registros/visibilidad_limitada_20261019.json",
+      "bytes": 2167,
+      "sha256": "15fe9eccf1dee6f98c9f3399bbaa86b75cacea9180866868721706aace251352",
+      "action": "mover_historico",
+      "destination": "Datos/Registros/Historico/V2/visibilidad_limitada_20261019.json"
+    }
+  ],
+  "editable_documents": [
+    "Datos/README.md",
+    "Datos/Registros/CVAT/README.md",
+    "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/README.md",
+    "Datos/Registros/CVAT/revisiones/parciales_lider_express_t27_20261022/README.md",
+    "Datos/Registros/CVAT/revisiones/recortes_lider2_001_005_20261022/README.md",
+    "Datos/Registros/CVAT/revisiones/todos_niveles_job67_001_005_20261022/README.md",
+    "Datos/Registros/CVAT/revisiones/visibilidad_20261019T222744Z/cierre_criterio/revision_final.html",
+    "Datos/Registros/README.md",
+    "Datos/Registros/lotes.json",
+    "Datos/V2/visibilidad_limitada_20261019/README.md"
+  ],
+  "image_writes": 0,
+  "cvat_writes": 0
+}

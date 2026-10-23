@@ -6,11 +6,11 @@ const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&
 const fmt=value=>Number.isFinite(value)?value.toFixed(3):'—';
 
 let uiPreferences;try{uiPreferences=UiPreferences.read(localStorage)}catch{uiPreferences=UiPreferences.sanitize(null)}
-if(['v1','v2','otros'].includes(uiPreferences.fields['project-version']))projectVersion=uiPreferences.fields['project-version'];
+if(['v1','v2','v3','otros'].includes(uiPreferences.fields['project-version']))projectVersion=uiPreferences.fields['project-version'];
 $('project-version').value=projectVersion;
 const pendingChoices=new Set(UiPreferences.choices);
 pendingChoices.delete('project-version');
-const versionNames={v1:'V1 · Versión original',v2:'V2 · Disponibilidad visual',otros:'Piloto y otros ensayos'};
+const versionNames={v1:'V1',v2:'V2',v3:'V3',otros:'Piloto y otros ensayos'};
 function scopedSources(){return importSources.filter(s=>Lab.versionOf(s)===projectVersion)}
 function jobInVersion(job){
   if(!fullCatalog)return false;
@@ -20,18 +20,19 @@ function jobInVersion(job){
 function renderVersionContext(){
   if(!fullCatalog)return;
   const other=[...fullCatalog.runs,...fullCatalog.datasets].some(item=>Lab.versionOf(item,fullCatalog)==='otros');
-  const versions=other?['v1','v2','otros']:['v1','v2'];
-  const key=JSON.stringify([projectVersion,versions,versions.map(id=>Lab.versionStatus(fullCatalog,id,jobs)),fullCatalog.datasets.map(v=>[v.id,v.created_at])]);
-  if(key===versionContextKey)return;versionContextKey=key;
-  options('project-version',versions.map(id=>({id,name:versionNames[id]})),false,projectVersion);$('project-version').value=projectVersion;
-  $('version-title').textContent=versionNames[projectVersion];
-  $('workspace-version-name').textContent=versionNames[projectVersion];
-  $('version-description').textContent=projectVersion==='v1'?'Criterio original: vacío, baja disponibilidad, suficiente y no evaluable.':projectVersion==='v2'?'Etapa base: suficiente y reponer. La siguiente etapa incorpora no evaluable con el lote de visibilidad limitada.':'Experimentos previos de módulos y ensayos con criterio sin registrar.';
-  $('version-status').textContent=Lab.versionStatus(fullCatalog,projectVersion,jobs);
-  setHTML($('version-history'),['v1','v2'].map(id=>{const scoped=Lab.versionCatalog(fullCatalog,id),dates=[...scoped.datasets,...scoped.runs].map(i=>i.created_at).filter(Boolean).sort();return `<li><div><button class="text-button" type="button" data-version="${id}" aria-pressed="${projectVersion===id}">${versionNames[id]}</button>${dates.length?`<p>Primer registro: ${esc(localDate(dates[0]))}</p>`:''}</div><div><strong>${esc(Lab.versionStatus(fullCatalog,id,jobs))}</strong><p>${id==='v1'?'Cuatro estados · historial de entrenamientos y resultados.':'Etapa base · dos estados. Después: visibilidad limitada, tres estados.'}</p></div></li>`}).join(''));
+  const versions=other||projectVersion==='otros'?['v2','v1','v3','otros']:['v2','v1','v3'];
+  const key=JSON.stringify([projectVersion,connection.phase==='ready'&&!importing,connection.activityKnown,connection.activityError,versions,versions.map(id=>Lab.versionStatus(fullCatalog,id,jobs)),fullCatalog.datasets.map(v=>[v.id,v.created_at])]);
+  renderWorkspace();if(key===versionContextKey)return;versionContextKey=key;
+  $('project-version').value=projectVersion;$('workspace-version-name').textContent=versionNames[projectVersion];
+  $('workspace-version').hidden=false;
+
+
+  const cards=$('version-cards'),hadFocus=cards?.contains?.(document.activeElement);
+  setHTML(cards,versions.map(id=>{const active=projectVersion===id,scoped=Lab.versionCatalog(fullCatalog,id),dates=[...scoped.datasets,...scoped.runs].map(i=>i.created_at).filter(Boolean).sort(),desc=id==='v3'?'Una clase Nivel. Exportación y entrenamiento desde el panel pendientes; ocupación y alertas requieren validaciones separadas.':id==='v1'?'Criterio original: vacío, baja disponibilidad, suficiente y no evaluable.':id==='v2'?'Etapa base: suficiente y reponer, además agrega la detección de bordes. La siguiente etapa incorpora no evaluable con el lote de visibilidad limitada.':'Experimentos previos de módulos y ensayos con criterio sin registrar.';return `<button type="button" class="version-card" data-version="${id}" aria-pressed="${active}"${connection.phase!=='ready'||importing?' disabled':''}><div class="version-card-head"><strong class="version-card-title">${esc(versionNames[id])}</strong><span class="version-card-badge">${active?'Seleccionada':'Elegir'}</span></div><p class="version-card-desc">${esc(desc)}</p><div class="version-card-foot"><strong>${esc(connection.phase==='ready'&&connection.activityKnown&&!connection.activityError?Lab.versionStatus(fullCatalog,id,jobs):'Estado sin verificar · reintenta la consulta')}</strong>${dates.length?`<span>Primer registro: ${esc(localDate(dates[0]))}</span>`:''}</div></button>`}).join(''));
+  if(hadFocus)cards.querySelector(`[data-version="${projectVersion}"]`)?.focus({preventScroll:true});
 }
 function selectProjectVersion(version){
-  if(!fullCatalog||importing||!['v1','v2','otros'].includes(version)||version===projectVersion)return;
+  if(!fullCatalog||importing||!['v1','v2','v3','otros'].includes(version)||version===projectVersion)return;
   saveUiPreferences();projectVersion=version;$('project-version').value=version;
   for(const id of ['dataset-version','source','train-model','model','run','baseline','participant','import-project','monitor-job','archived-version']){pendingChoices.delete(id);$(id).value=''}
   $('reviewed').checked=false;$('import-task').value='';$('validation-ids').value='';
@@ -101,12 +102,12 @@ const glossary=[
 const localDate=value=>value&&!Number.isNaN(new Date(value).getTime())?new Date(value).toLocaleString('es-CL',{timeZone:'America/Santiago',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'}):'fecha no registrada';
 const renderedHTML=new WeakMap();
 const setHTML=(node,html)=>{if(renderedHTML.get(node)!==html){ImageNavigation.release(node);node.innerHTML=html;renderedHTML.set(node,html)}};
-function copyOrigin(v){const tasks=[...new Set(v.sources.map(s=>s.task_id).filter(Boolean))];return `${tasks.length?'tarea '+tasks.join(', ')+'; ':''}${v.sources.map(s=>({'vi.canio':'Vicente','vi.vilches':'Vilches','pau.guera':'Paulo'}[s.assignee?.username]||({27:'Vicente',28:'Vilches',29:'Paulo'}[s.job_id])||'Trabajo '+s.job_id)).join(' + ')}; trabajos ${v.sources.map(s=>s.job_id).join(', ')}; guardada ${localDate(v.created_at)}`;}
+function copyOrigin(v){const tasks=[...new Set(v.sources.map(s=>s.task_id).filter(Boolean))];return `${[...new Set(v.sources.map(source=>source.task_name).filter(Boolean))].join(' / ')}; ${tasks.length?'tarea '+tasks.join(', ')+'; ':''}${v.sources.map(s=>({'vi.canio':'Vicente','vi.vilches':'Vilches','pau.guera':'Paulo'}[s.assignee?.username]||({27:'Vicente',28:'Vilches',29:'Paulo'}[s.job_id])||'Trabajo '+s.job_id)).join(' + ')}; trabajos ${v.sources.map(s=>s.job_id).join(', ')}; guardada ${localDate(v.created_at)}`;}
 function copyStatus(v){return Lab.blocked(v.report)>0?`${Lab.blocked(v.report)} observaciones de ${Lab.levelsCopy(v)?'niveles y estados':'módulos'} por corregir`:Lab.readyCopy(v)?'Anotaciones revisadas; copia lista para entrenar':'Sin bloqueos técnicos; falta revisión visual'}
 function runName(id){if(id.startsWith('piloto_01_'))return 'Piloto · módulos de Vicente';if(id.startsWith('verificacion_panel'))return 'Prueba técnica del panel';const stamp=id.match(/_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})_[a-f0-9]{4}$/),name=id.replace(/_\d{8}_\d{6}_[a-f0-9]{4}$/,'').replaceAll('_',' ');return stamp?name+' · '+localDate(`${stamp[1]}-${stamp[2]}-${stamp[3]}T${stamp[4]}:${stamp[5]}:${stamp[6]}Z`):name}
 function shortRunName(id){return id.startsWith('piloto_01_')?'Piloto histórico · módulos':id.startsWith('verificacion_panel')?'Prueba técnica':id.replace(/_\d{8}_\d{6}_[a-f0-9]{4}$/,'').replaceAll('_',' ')}
-function datasetName(v){const lot=Lab.copiesByLot([v])[0].person,date=v.created_at?new Date(v.created_at).toLocaleDateString('es-CL',{timeZone:'America/Santiago',day:'2-digit',month:'short'}):'sin fecha',photos=v.report?.imagenes?.length;return `${Lab.profile(v).label} · ${lot} · ${date}${photos?' · '+photos+' fotos':''} · ${Lab.readyCopy(v)?'revisada':'por revisar'}`}
-function lotCopyStatus(v){const completed=v.cvat_status?.completed_jobs??v.sources.filter(source=>source.state==='completed').length,excluded=v.sources.reduce((total,source)=>total+(source.excluded_frames?.length||0),0);return `<p class="field-help">Última consulta de CVAT: ${completed}/${v.sources.length} trabajos completados · ${v.report.imagenes.length} fotos${excluded?' · '+excluded+' excluidas en CVAT':''}.</p>`}
+function datasetName(v){const lot=Lab.copiesByLot([v])[0].person.split(' - ')[0],date=v.created_at?new Date(v.created_at).toLocaleDateString('es-CL',{timeZone:'America/Santiago',day:'2-digit',month:'short'}):'sin fecha',photos=v.report?.imagenes?.length;return `${lot} · ${date} · ${Lab.readyCopy(v)?'revisada':'por revisar'}`}
+function lotCopyStatus(v){const completed=v.cvat_status?.completed_jobs??v.sources.filter(source=>source.state==='completed').length,excluded=v.sources.reduce((total,source)=>total+(source.excluded_frames?.length||0),0);return `<p class="field-help">Última consulta de CVAT: ${esc(localDate(v.cvat_status?.checked_at))} · ${completed}/${v.sources.length} trabajos completados · ${v.report.imagenes.length} fotos${excluded?' · '+excluded+' excluidas en CVAT':''}.</p>`}
 
 function modelProfile(m){return Lab.profile(data.runs.find(run=>run.id===m?.run)||m)}
 function profileDescription(item){const p=Lab.profile(item);return p.label+(p.states.length?' · '+p.states.map(key=>PredictionDemo.states.find(s=>s.key===key)?.label||key).join(' / '):'')}
@@ -132,18 +133,18 @@ function renderConnectionStatus(){
   setHTML(node,`<p>No pudimos consultar el panel. ${esc(connection.error)}</p><button type="button" class="text-button" data-retry>Reintentar</button>`);
 }
 function updateAvailability(){
-  const ready=connection.phase==='ready';
+  renderWorkspace();const ready=connection.phase==='ready';
   $('analysis-method').disabled=!ready||busy;
-  $('project-version').disabled=!ready||importing;
-  $('version-continue').disabled=!ready||importing;
+  $('project-version').disabled=!ready||importing;document.querySelectorAll('.version-card').forEach(b=>b.disabled=!ready||importing);
+  $('version-continue').disabled=!ready||importing||projectVersion==='v3';
   $('analyze-photo').textContent=uploadingPhoto?'Preparando foto…':predictJob&&jobs.some(j=>j.id===predictJob&&j.state==='running')?'Analizando…':'Analizar foto';
-  for(const id of ['predict-form','import-form','review-form','train-form'])$(id+'-fields').disabled=!ready;
+  for(const id of ['predict-form','import-form','review-form','train-form'])$(id+'-fields').disabled=!ready||projectVersion==='v3';
   for(const id of ['run','baseline','model','image','source','dataset-version','train-model'])$(id).disabled=!ready||!$(id).options.length||[...$(id).options].every(o=>!o.value);
   document.querySelector('#predict-form button.primary').disabled=!ready||!connection.activityKnown||busy||uploadingPhoto||!$('model').value||!currentPredictionImage();
   document.querySelector('#train-form button.primary').disabled=!ready||!connection.activityKnown||busy||!$('source').value||!$('train-model').value;
-  $('import-form-fields').disabled=!ready||importing;
+  $('import-form-fields').disabled=!ready||importing||projectVersion==='v3';
   for(const id of ['import-project','participant','import-task'])$(id).disabled=sourcesLoading;
-  $('import-button').disabled=!ready||importing||sourcesLoading;
+  $('import-button').disabled=!ready||importing||sourcesLoading||projectVersion==='v3';
   const v=data.datasets.find(v=>v.id===$('dataset-version').value);
   $('archive-copy').disabled=!ready||importing||archiving||!v||Boolean(v.archive_uses?.length);
   $('restore-copy').disabled=!ready||archiving||!$('archived-version').value;
@@ -156,6 +157,77 @@ function updateAvailability(){
     $('archived-model-'+mode).disabled=!ready||modelListBusy;
     $('model-list-hint-'+mode).textContent=!model?'Elige un modelo para organizar la lista.':!model.run?'Los modelos generales se conservan como punto de partida.':inUse?'Disponible cuando termine el trabajo en curso.':'Conserva los pesos y resultados.';
   }
+}
+
+function workspaceStatus(){return Lab.workspaceState(data,$('dataset-version').value,$('run').value,jobs.filter(jobInVersion),connection,projectVersion)}
+function renderWorkspace(){
+  const state=workspaceStatus(),copy=state.copy,run=state.run;
+  $('next-title').textContent=state.title;
+  const reasons={blocked:`Copia ${copy?.id}: resuelve las incidencias antes de aprobarla.`,review:`Copia ${copy?.id}: comprueba las fotos y registra quién las revisó.`,ready:`Copia ${copy?.id}: está aprobada y permite configurar un nuevo ensayo.`,results:`Ensayo ${run?.id}: la evaluación permite revisar sus errores.`,active:`Ensayo ${state.job?.config.run}: ${state.trialState}.`};
+  $('next-reason').textContent=reasons[state.kind]||state.reason||'';
+  const label=copy?datasetName(copy):'Sin copia seleccionada';
+  $('work-context').textContent=`${versionNames[projectVersion]} / ${label}${run?' / ensayo '+shortRunName(run.id):''}`;
+  setHTML($('work-states'),[['Datos',state.dataState],['Ensayo',state.trialState],['Evaluación',state.evaluation],['Ocupación y alertas',state.occupancy]].map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(['loading','error'].includes(state.kind)?'sin verificar':v)}</dd></div>`).join(''));
+  const button=$('next-action');button.textContent=state.action;button.disabled=state.kind==='loading'||importing;
+  button.dataset.contextAction=state.target==='train'?(state.kind==='active'||state.kind==='failed'?'monitor':'trainCopy'):state.target;
+  button.dataset.objectId=state.target==='train'?(state.job&&['active','failed'].includes(state.kind)?state.job.id:copy?.id||''):state.target==='results'?run?.id||'':copy?.id||'';
+  setHTML($('work-alternatives'),state.model?`<button type="button" class="text-button" data-context-action="predict" data-object-id="${esc(state.model.id)}">Probar ${esc(shortRunName(state.model.run))}</button>${state.target!=='results'?` <button type="button" class="text-button" data-context-action="results" data-object-id="${esc(state.model.run)}">Ver sus resultados</button>`:''}`:'');
+  $('state-checked').textContent=state.kind==='error'?'La información anterior requiere una nueva consulta.':state.kind==='loading'?'Esperando catálogo y actividad del servidor.':`Estado consultado: ${connection.checkedAt?localDate(connection.checkedAt):'ahora'}. CVAT se consulta manualmente.`;
+  $('v3-dependencies').hidden=projectVersion!=='v3';
+  $('version-continue').hidden=projectVersion==='v3';
+  const screenRun=currentView==='results'?selectedRun():currentView==='predict'?data.runs.find(r=>r.id===data.models.find(m=>m.id===$('model').value)?.run):null;
+  const trainingSource=currentView==='train'?(data.datasets.find(v=>v.id===$('source').value)||data.runs.find(r=>r.id===$('source').value)):null;
+  const context=$('active-context');context.hidden=currentView==='version'||currentView==='glossary';
+  context.textContent=`${versionNames[projectVersion]} / ${screenRun?shortRunName(screenRun.id)+' / '+(currentView==='predict'?$('model').value:'ensayo '+screenRun.id):label}`;
+  if(trainingSource)context.textContent=`${versionNames[projectVersion]} / ${trainingSource.report?datasetName(trainingSource):shortRunName(trainingSource.id)} / datos ${trainingSource.id}`;
+  if(projectVersion==='v3'&&!context.hidden)context.textContent+=' · Flujo pendiente de integración. Consulta las dependencias en el inicio.';
+  const statuses={datasets:state.dataState,train:state.trialState,results:state.evaluation,predict:state.model?'modelo disponible':'sin modelo entrenado'};
+  for(const [id,text] of Object.entries(statuses)){
+    const nav=document.querySelector(`nav [data-tab="${id}"] .nav-label`);if(!nav)continue;
+    let status=nav.querySelector('.nav-status');if(!status){status=document.createElement('small');status.className='nav-status';nav.append(status)}
+    const label=['loading','error'].includes(state.kind)?'Sin verificar':projectVersion==='v3'?'Integración pendiente':text;
+    const path=['aprobados','terminado','disponible','modelo disponible'].includes(label)?'m7 12 3 3 7-7':label==='requieren corrección'||label==='Sin verificar'?'M12 7v6m0 3v1':label==='entrenando'||label==='evaluando'||label==='preparando'?'m10 8 6 4-6 4Z':'M12 7v5l3 2';
+    setHTML(status,`<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="${path}"/></svg><span>${esc(label)}</span>`);
+  }
+}
+function contextAction(action,id){
+  if(action==='retry'){retryQueries();return}
+  if(action==='v3'){switchTab('version');$('v3-dependencies').scrollIntoView({block:'center'});const heading=$('v3-dependencies').querySelector('h3');heading.tabIndex=-1;heading.focus({preventScroll:true});return}
+  if(action==='datasets'){if(id&&!data.datasets.some(v=>v.id===id)){error('La copia ya no está disponible. Reintenta la consulta.');return}if(id)selectCopy(id);switchTab('datasets');$('module-issues')?.setAttribute('open','');}
+  if(action==='trainCopy'){
+    const copy=data.datasets.find(v=>v.id===id);if(!copy||!Lab.readyCopy(copy)||Lab.blocked(copy.report)){error('Esta copia no está disponible o requiere revisión antes de entrenar.','train');return}
+    pendingChoices.delete('source');$('source').value=id;if($('source').value!==id){error('La copia no está disponible en los datos de entrenamiento.');return}sourceSummary();switchTab('train');
+  }
+  if(action==='results'){
+    if(!data.runs.some(r=>r.id===id)){error('Este ensayo ya no está disponible en la versión activa.');return}
+    pendingChoices.delete('run');$('run').value=id;switchTab('results');
+  }
+  if(action==='predict'){
+    const model=data.models.find(m=>m.id===id);if(!model?.run){error('Estos pesos ya no están disponibles. Revisa los modelos quitados de la lista.');return}
+    $('show-model-history-predict').checked=true;pendingChoices.delete('model');renderModelOptions('predict');$('model').value=id;
+    if($('model').value!==id){error('No se pudieron seleccionar estos pesos. Reintenta la consulta.');return}
+    $('predict-size').value=String(model.imgsz||640);resetPrediction();renderOriginal();modelHelp();switchTab('predict');
+  }
+  if(action==='monitor'){const job=jobs.find(j=>j.id===id&&jobInVersion(j));if(!job){error('El trabajo ya no está disponible. Reintenta la consulta.');return}monitorJob=id;switchTab('train');$('training-monitor').open=true;}
+  renderWorkspace();saveUiPreferences();
+}
+function renderReviewReceipt(copy){
+  const approved=Boolean(copy&&Lab.readyCopy(copy)&&!Lab.blocked(copy.report));$('review-form').hidden=approved;$('review-receipt').hidden=!approved;
+  if(!approved)return;
+  setHTML($('review-receipt'),`<h2>Revisión terminada</h2><p><strong>${esc(datasetName(copy))}</strong></p><dl><dt>Copia</dt><dd>${esc(copy.id)}</dd><dt>Persona</dt><dd>${esc(copy.review?.reviewer||'Sin registrar')}</dd><dt>Fecha</dt><dd>${esc(localDate(copy.review?.date))}</dd><dt>Alcance</dt><dd>${esc(copy.review?.scope||copy.scope||'Módulos')}. Esta revisión corresponde únicamente a esta copia.</dd></dl><button type="button" class="primary" data-context-action="trainCopy" data-object-id="${esc(copy.id)}">Configurar entrenamiento con esta copia</button><p class="field-help">El historial y la procedencia están en el detalle de la copia.</p>`);
+}
+function renderTrainingPreview(){
+  const copy=data.datasets.find(v=>v.id===$('source').value),source=copy||data.runs.find(r=>r.id===$('source').value),reference=selectedBaseline()||selectedRun();
+  const photos=(source?.report||source?.manifest)?.imagenes||[],model=data.models.find(m=>m.id===$('train-model').value);
+  const changes=reference?['source','model','epochs','batch','imgsz','lr','seed'].filter(key=>String(reference.config?.[key]??'')!==String(({source:source?.id,model:model?.id,epochs:$('epochs').value,batch:$('batch').value,imgsz:$('train-size').value,lr:$('lr').value,seed:$('seed').value})[key])).map(k=>({source:'datos',model:'modelo de partida',epochs:'épocas',batch:'batch',imgsz:'resolución',lr:'tasa',seed:'semilla'})[k]):[];
+  $('training-preview').textContent=source?`${profileDescription(source)} / ${source.id}. ${copy?'Copia aprobada':'Snapshot del ensayo'}. Partición: ${photos.filter(i=>i.split==='train').length} entrenamiento y ${photos.filter(i=>i.split==='val').length} validación. Partida: ${model?.id||'pendiente'}. ${reference?'Referencia: '+reference.id+'. Cambios de configuración: '+(changes.join(', ')||'ninguno')+'. Los valores ausentes en la referencia requieren revisión.':'Sin ensayo de referencia seleccionado.'}`:'Falta una copia revisada para configurar el ensayo.';
+}
+let renderedDecisionRun=null;
+function renderResultActions(run){
+  const model=data.models.find(m=>m.run===run?.id&&m.id.endsWith('/best.pt'))||data.models.find(m=>m.run===run?.id);
+  setHTML($('result-model-action'),(run?.config?.purpose?`<p class="field-help">Propósito registrado: ${esc(run.config.purpose)}</p>`:'')+(model?`<button type="button" class="secondary" data-context-action="predict" data-object-id="${esc(model.id)}">Probar este modelo</button><span class="field-help">Pesos: ${esc(model.id)}</span>`:run?'<p class="field-help">No hay pesos visibles para este ensayo. Revisa los modelos quitados de la lista.</p>':''));
+  if(renderedDecisionRun!==run?.id){renderedDecisionRun=run?.id;const d=run?.decision;$('decision-status').value=d?.status||'seguir_ajustando';$('decision-reason').value=d?.reason||'';$('decision-author').value=d?.author||'';$('decision-feedback').textContent='';}
+  const decision=run?.decision;$('saved-decision').textContent=decision?`${({candidato:'Candidato',seguir_ajustando:'Seguir ajustando',descartado:'Descartado'})[decision.status]} · ${decision.author} · ${localDate(decision.date)}. ${decision.reason}`:'Sin decisión registrada. Este registro no certifica validación ni modifica umbrales.';
 }
 function modelHelp(){
   for(const [id,help,mode] of [['model','model-help','predict'],['train-model','train-model-help','train']]){
@@ -176,7 +248,7 @@ function modelHelp(){
 function renderModelOptions(mode){
   const all=$('show-model-history-'+mode).checked,models=Lab.modelChoices(data,all).filter(m=>mode==='train'||m.run),id=mode==='predict'?'model':'train-model';
   const preferred=Lab.defaultModel({...data,models},mode,mode==='predict'?predictionScope():undefined);
-  const choices=models.map(model=>({...model,name:(model.id===preferred?'Sugerido · ':'')+modelName(model,all),group:Lab.technical(model.run)?'Pruebas técnicas':model.run?modelProfile(model).label:'Modelos generales'})).sort((a,b)=>Number(Lab.technical(a.run))-Number(Lab.technical(b.run))||(mode==='train'?Number(Boolean(a.run))-Number(Boolean(b.run)):Number(!a.run)-Number(!b.run)));
+  const choices=models.map(model=>({...model,name:modelName(model,all),group:Lab.technical(model.run)?'Pruebas técnicas':model.run?modelProfile(model).label:'Modelos generales'})).sort((a,b)=>Number(Lab.technical(a.run))-Number(Lab.technical(b.run))||(mode==='train'?Number(Boolean(a.run))-Number(Boolean(b.run)):Number(!a.run)-Number(!b.run)));
   const previous=pendingChoices.has(id)?uiPreferences.fields[id]:$(id).value,previousRun=data.models.find(model=>model.id===previous)?.run;
   const sameRun=!all&&previousRun?models.find(model=>model.run===previousRun):null;
   options(id,choices,false,sameRun?.id||preferred);
@@ -308,7 +380,7 @@ async function refreshImportSources(){
 }
 function selectedRun(){return data.runs.find(run=>run.id===$('run').value)}
 function selectedBaseline(){return data.runs.find(run=>run.id===$('baseline').value)}
-function renderResults(){const run=selectedRun(),base=selectedBaseline();renderDecision(run);renderAvailability(run);$('results-empty').hidden=Boolean(run);$('results-content').hidden=!run;if(!run){$('baseline-status').hidden=true;setHTML($('metric-cards'),'');$('results-context').textContent='Los resultados aparecerán cuando un ensayo tenga una evaluación disponible.';$('run-table').innerHTML='';$('comparison').innerHTML='';$('comparison-note').innerHTML='';$('chart').innerHTML='';$('legend').innerHTML='';return}const comparable=Lab.comparable(run,base);$('baseline-status').hidden=!base||comparable;$('baseline-status').textContent=base?.id===run.id?'Elige otro ensayo para comparar.':'Datos distintos o evaluación incompleta: comparación solo visual.';const comparisons=run.comparisons.filter(i=>i.split==='val'),truth=comparisons.reduce((sum,i)=>sum+i.anotados,0),found=comparisons.reduce((sum,i)=>sum+i.aciertos,0);const cards=[['Calidad de contornos',fmt(run.metrics['metrics/mAP50-95(M)']),'metrics/mAP50-95(M)','mAP50–95 · escala de 0 a 1','map'],[Lab.levelsCopy(run)?'Detección de niveles y estados':'Detección de módulos',fmt(run.metrics['metrics/mAP50(M)']),'metrics/mAP50(M)','mAP50 · escala de 0 a 1','map'],[Lab.levelsCopy(run)?'Niveles localizados':'Módulos encontrados',comparisons.length?`${found} / ${truth}`:'—',null,'En fotos de validación · revisa también sus límites','errores'],['Vueltas de aprendizaje',run.history.length,null,'Épocas completadas','epoca']];setHTML($('metric-cards'),cards.map(([label,value,key,note,term])=>{const delta=comparable&&key&&Number.isFinite(base.metrics[key])?run.metrics[key]-base.metrics[key]:null;return `<div class="metric"><span>${label}</span><strong>${value}</strong><small>${note}</small>${delta===null?'':`<small class="${delta>=0?'positive':'negative'}">${delta>=0?'+':''}${fmt(delta)} respecto a la referencia</small>`}<button type="button" class="help" data-term="${term}" aria-label="Explicar ${label}">?</button></div>`}).join(''));$('metrics-guide').textContent=Lab.levelsCopy(run)?'Encontrar un nivel, clasificar su estado y generar la alerta correcta son comprobaciones distintas. Las medidas de localización no sustituyen la evaluación de alertas.':'Estas medidas resumen la localización y la forma de los módulos. No evalúan estados ni alertas de disponibilidad.';$('results-context').textContent=runName(run.id)+'. '+profileDescription(run)+'. '+Lab.evaluationContext(run);$('comparison-help').textContent='Verde: anotaciones · azul: predicción.'+(run.development_evaluation?' Estas comparaciones se guardaron durante el entrenamiento. Puedes analizar cualquiera de las '+run.development_evaluation.metrics.fotos+' fotos disponibles en Probar una foto.':'');drawChart(run,base);const items=run.comparisons.filter(i=>$('split').value==='all'||i.split===$('split').value);options('comparison-photo',items.map(i=>({id:i.imagen,name:`Foto ${i.imagen} · ${i.split==='val'?'validación':'aprendizaje'}`})));renderComparison();$('run-table').innerHTML=data.runs.map(i=>`<tr><td>${esc(runName(i.id))}</td><td><span class="pill">${i.ready?'Evaluado':i.history.length?'En curso / incompleto':'Preparado'}</span></td><td>${i.history.length}</td><td>${fmt(i.metrics['metrics/mAP50-95(M)'])}</td><td>${fmt(i.metrics['metrics/mAP50(M)'])}</td><td>${i.manifest.imagenes.filter(j=>j.split==='train').length} para aprender / ${i.manifest.imagenes.filter(j=>j.split==='val').length} para validar</td></tr>`).join('');$('chart-caption').textContent=base?(base.id===run.id?'Selecciona otro ensayo para comparar.':base.signature!==run.signature?'Las fotos, anotaciones o su separación son diferentes. Puedes explorar las curvas, pero aquí no calculamos una mejora directa.':'Estos ensayos comparten fotos, anotaciones y separación. Las diferencias corresponden a su validación de desarrollo.'):'Cada punto corresponde a una vuelta de aprendizaje. En medidas de calidad, más alto suele ser mejor. En curvas de error, más bajo suele ser mejor.'}
+function renderResults(){const run=selectedRun(),base=selectedBaseline();renderResultActions(run);renderDecision(run);renderAvailability(run);$('results-empty').hidden=Boolean(run);$('results-content').hidden=!run;if(!run){$('baseline-status').hidden=true;setHTML($('metric-cards'),'');$('results-context').textContent='Los resultados aparecerán cuando un ensayo tenga una evaluación disponible.';$('run-table').innerHTML='';$('comparison').innerHTML='';$('comparison-note').innerHTML='';$('chart').innerHTML='';$('legend').innerHTML='';return}const comparable=Lab.comparable(run,base);$('baseline-status').hidden=!base||comparable;$('baseline-status').textContent=Lab.comparisonReason(run,base);const comparisons=run.comparisons.filter(i=>i.split==='val'),truth=comparisons.reduce((sum,i)=>sum+i.anotados,0),found=comparisons.reduce((sum,i)=>sum+i.aciertos,0);const cards=[['Calidad de contornos · validación original',fmt(run.metrics['metrics/mAP50-95(M)']),'metrics/mAP50-95(M)','mAP50–95 · escala de 0 a 1','map'],[Lab.levelsCopy(run)?'Detección de niveles y estados':'Detección de módulos',fmt(run.metrics['metrics/mAP50(M)']),'metrics/mAP50(M)','mAP50 · escala de 0 a 1','map'],[Lab.levelsCopy(run)?'Niveles localizados':'Módulos encontrados',comparisons.length?`${found} / ${truth}`:'—',null,'Validación original · revisa también sus límites','errores'],['Vueltas de aprendizaje',run.history.length,null,'Épocas completadas','epoca']];setHTML($('metric-cards'),cards.map(([label,value,key,note,term])=>{const delta=comparable&&key&&Number.isFinite(base.metrics[key])?run.metrics[key]-base.metrics[key]:null;return `<div class="metric"><span>${label}</span><strong>${value}</strong><small>${note}</small>${delta===null?'':`<small class="${delta>=0?'positive':'negative'}">${delta>=0?'+':''}${fmt(delta)} respecto a la referencia</small>`}<button type="button" class="help" data-term="${term}" aria-label="Explicar ${label}">?</button></div>`}).join(''));$('metrics-guide').textContent=Lab.levelsCopy(run)?'Encontrar un nivel, clasificar su estado y generar la alerta correcta son comprobaciones distintas. Las medidas de localización no sustituyen la evaluación de alertas.':'Estas medidas resumen la localización y la forma de los módulos. No evalúan estados ni alertas de disponibilidad.';$('results-context').textContent=runName(run.id)+'. '+profileDescription(run)+'. '+Lab.evaluationContext(run);$('comparison-help').textContent='Conjunto: validación original del entrenamiento. Verde: anotaciones · azul: predicción.'+(run.development_evaluation?' Estas comparaciones se guardaron durante el entrenamiento. Puedes analizar cualquiera de las '+run.development_evaluation.metrics.fotos+' fotos disponibles en Probar una foto.':'');drawChart(run,base);const items=run.comparisons.filter(i=>$('split').value==='all'||i.split===$('split').value);options('comparison-photo',items.map(i=>({id:i.imagen,name:`Foto ${i.imagen} · ${i.split==='val'?'validación':'aprendizaje'}`})));renderComparison();$('run-table').innerHTML=data.runs.map(i=>`<tr><td>${esc(runName(i.id))}</td><td><span class="pill">${i.ready?'Evaluado':i.history.length?'En curso / incompleto':'Preparado'}</span></td><td>${i.history.length}</td><td>${fmt(i.metrics['metrics/mAP50-95(M)'])}</td><td>${fmt(i.metrics['metrics/mAP50(M)'])}</td><td>${i.manifest.imagenes.filter(j=>j.split==='train').length} para aprender / ${i.manifest.imagenes.filter(j=>j.split==='val').length} para validar</td></tr>`).join('');$('chart-caption').textContent=base?(base.id===run.id?'Selecciona otro ensayo para comparar.':!comparable?Lab.comparisonReason(run,base)+' Puedes explorar las curvas.':'Estos ensayos comparten criterio, fotos, referencias, partición y parámetros. Las diferencias corresponden a la validación original.'):'Cada punto corresponde a una vuelta de aprendizaje. En medidas de calidad, más alto suele ser mejor. En curvas de error, más bajo suele ser mejor.'}
 function renderDecision(run){const node=$('result-decision');node.hidden=!run;if(!run){setHTML(node,'');return}const d=Lab.resultDecision(run,`El modelo «${shortRunName(run.id)}»`);node.dataset.kind=d.kind;setHTML(node,`<h2>${esc(d.title)}</h2><p>${esc(d.detail)}</p>`)}
 function drawChart(run,base){
   const key=$('chart-metric').value,label=$('chart-metric').selectedOptions[0].textContent;
@@ -415,11 +487,11 @@ function renderThumbnails(){
 }
 function sourceSummary(){
   const source=data.runs.find(i=>i.id===$('source').value)||data.datasets.find(i=>i.id===$('source').value);
-  if(!source){$('train-data-help').textContent='Prepara una copia revisada para entrenar.';setHTML($('source-summary'),'<p>No hay datos seleccionados.</p>');modelHelp();return}
+  if(!source){$('train-data-help').textContent='Prepara una copia revisada para entrenar.';setHTML($('source-summary'),'<p>No hay datos seleccionados.</p>');modelHelp();renderTrainingPreview();return}
   const images=source.report?.imagenes||source.manifest.imagenes,isCopy=Boolean(source.report);
   setHTML($('train-data-help'),`<p><strong>${esc(profileDescription(source))}</strong><br><strong>${images.filter(i=>i.split==='train').length}</strong> fotos para entrenar · <strong>${images.filter(i=>i.split==='val').length}</strong> para validar.</p>`);
   setHTML($('source-summary'),`<p><strong>Origen:</strong> ${esc(isCopy?copyOrigin(source):runName(source.id))}</p><p>${source.review?'Revisado por '+esc(source.review.reviewer):'Copia conservada del ensayo anterior.'}</p>${isCopy?'':'<p>Usa las anotaciones guardadas en ese ensayo, aunque CVAT haya cambiado.</p>'}<p>Fotos: ${images.filter(i=>['train','val'].includes(i.split)).map(i=>esc(i.imagen)).join(', ')}.</p>`);
-  modelHelp();
+  modelHelp();renderTrainingPreview();
 }
 function duration(seconds){if(seconds==null)return '—';const mins=Math.floor(seconds/60),secs=Math.floor(seconds%60);return mins>=60?`${Math.floor(mins/60)} h ${mins%60} min`:mins?`${mins} min ${secs} s`:`${secs} s`}
 function liveChart(history, series, label){
@@ -486,7 +558,7 @@ $('monitor-log').addEventListener('click',()=>{$('activity-panel').open=true;con
 let catalogKey=null,lastCatalogRefresh=0,shownPredictionJob=null,pollTimer=null;
 async function refresh(){
   try{
-    const catalog=await api('/api/catalog');lastCatalogRefresh=Date.now();connection.phase='ready';connection.error='';if(catalog===catalogKey&&!pendingRun){renderVersionContext();renderConnectionStatus();updateAvailability();return}catalogKey=catalog;fullCatalog={...catalog,datasets:catalog.datasets||[],archived_datasets:catalog.archived_datasets||[],archived_models:catalog.archived_models||[]};data=Lab.versionCatalog(fullCatalog,projectVersion);connection.phase='ready';connection.error='';
+    const catalog=await api('/api/catalog');connection.checkedAt=new Date().toISOString();lastCatalogRefresh=Date.now();connection.phase='ready';connection.error='';if(catalog===catalogKey&&!pendingRun){renderVersionContext();renderConnectionStatus();updateAvailability();return}catalogKey=catalog;fullCatalog={...catalog,datasets:catalog.datasets||[],archived_datasets:catalog.archived_datasets||[],archived_models:catalog.archived_models||[]};data=Lab.versionCatalog(fullCatalog,projectVersion);connection.phase='ready';connection.error='';
     renderScopedCatalog();renderImportSources();selectImportSource();renderVersionContext();
   }catch(err){connection.phase='error';connection.error='Comprueba que el servidor local esté abierto. '+err.message;renderConnectionStatus();updateAvailability();throw err}
 }
@@ -531,7 +603,7 @@ async function poll(){
   clearTimeout(pollTimer);polling=true;
   try{
     const previousJobs=jobs; jobs=await api('/api/jobs');
-    connection.activityKnown=true;connection.activityError='';
+    connection.activityKnown=true;connection.activityError='';connection.checkedAt=new Date().toISOString();
     let finishedTraining=false;
     const active=jobs.find(job=>job.state==='running');busy=Boolean(active);updateAvailability();
 
@@ -567,16 +639,18 @@ async function poll(){
 }
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll();else schedulePoll()});
 function switchTab(id){
-  if(!$(id)?.classList.contains('view'))return;if(id==='glossary'&&currentView!=='glossary')glossaryReturn=currentView;closeHelp(false);currentView=id;
+  if(!$(id)?.classList.contains('view'))return;if(id==='glossary'&&currentView!=='glossary')glossaryReturn=currentView;closeHelp(false);currentView=id;const shell=document.querySelector('.shell');if(shell)shell.dataset.view=id;
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('nav [data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===id);if(b.dataset.tab===id)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
-  $('workspace-version').hidden=id==='version';
-  $('mobile-section').textContent={version:'Seleccionar versión',datasets:'Preparar datos',train:'Entrenar',predict:'Probar una foto',results:'Comparar resultados',glossary:'Glosario'}[id];$('sections-nav').classList.remove('is-open');$('sections-toggle').setAttribute('aria-expanded','false');
-  if(id==='glossary')renderGlossary();if(id==='train')renderTraining();if(id==='results')renderResults();const heading=$(id).querySelector('h2');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}window.scrollTo({top:0,behavior:'instant'});
+  $('workspace-version').hidden=false;renderWorkspace();
+  $('mobile-section').textContent={version:'Inicio',datasets:'Preparar datos',train:'Entrenar',predict:'Probar una foto',results:'Comparar resultados',glossary:'Glosario'}[id];$('sections-nav').classList.remove('is-open');$('sections-toggle').setAttribute('aria-expanded','false');
+  if(id==='version'&&fullCatalog&&Date.now()-lastCatalogRefresh>15000)retryQueries();if(id==='glossary')renderGlossary();if(id==='train')renderTraining();if(id==='results')renderResults();const heading=$(id).querySelector('h2');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}window.scrollTo({top:0,behavior:'instant'});
 }
 async function retryQueries(){connection.phase='loading';connection.activityKnown=false;connection.error='';connection.activityError='';renderConnectionStatus();updateAvailability();try{await refresh();await poll();if(connection.activityKnown)$('message').style.display='none';if(!$('original').getAttribute('src'))renderOriginal()}catch(err){error(err.message)}}
 function selectCopy(id){if(!data.datasets.some(v=>v.id===id))return;if(!Lab.copiesByLot(data.datasets).some(g=>g.latest.id===id))$('show-copy-history').checked=true;renderCopyOptions(id);$('dataset-version').value=id;$('reviewed').checked=false;renderDataset();renderConnectionStatus();saveUiPreferences()}
 document.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button)return;
+  if(button.dataset.evalPhoto){contextAction('predict',button.dataset.evalModel);if($('model').value!==button.dataset.evalModel)return;const photo=availablePredictionImages().find(i=>i.id===button.dataset.evalPhoto);if(!photo){error('Esta foto ya no está disponible para estos pesos.');return}$('image').value=photo.id;selectPhotoMode('project');saveUiPreferences();return}
+  if(button.dataset.contextAction){contextAction(button.dataset.contextAction,button.dataset.objectId);return}
   if(button.dataset.version){selectProjectVersion(button.dataset.version);if(button.dataset.tab)switchTab(button.dataset.tab);return}
   if(button.dataset.undoModel){manageModel('restore',button.dataset.modelMode,button.dataset.undoModel);return}
   if(button.hasAttribute('data-close-help')){closeHelp();return}
@@ -617,10 +691,11 @@ for(const eventName of ['dragleave','drop'])$('upload-zone').addEventListener(ev
 $('upload-zone').addEventListener('drop',event=>{if(event.dataTransfer.files.length!==1){error('Arrastra una sola foto para analizarla.','predict');return}uploadPhoto(event.dataTransfer.files[0])});
 
 $('predict-form').addEventListener('submit',async event=>{event.preventDefault();clearOperationError('predict');$('prediction-occupancy').hidden=true;try{await submit({action:'predict',model:$('model').value,image:currentPredictionImage()?.id,conf:Number($('conf').value),nms:Number($('nms').value),imgsz:Number($('predict-size').value),...PredictionDemo.methodConfig($('analysis-method').value)})}catch(err){error(err.message,'predict')}});
-$('train-form').addEventListener('submit',async event=>{event.preventDefault();clearOperationError('train');try{await submit({action:'train',name:$('name').value,source:$('source').value,model:$('train-model').value,epochs:Number($('epochs').value),batch:Number($('batch').value),lr:Number($('lr').value),seed:Number($('seed').value),imgsz:Number($('train-size').value)})}catch(err){error(err.message,'train')}});
+$('train-form').addEventListener('submit',async event=>{event.preventDefault();clearOperationError('train');try{await submit({action:'train',name:$('name').value,source:$('source').value,model:$('train-model').value,purpose:$('purpose').value,reference_run:$('baseline').value||$('run').value,epochs:Number($('epochs').value),batch:Number($('batch').value),lr:Number($('lr').value),seed:Number($('seed').value),imgsz:Number($('train-size').value)})}catch(err){error(err.message,'train')}});
 
 let archiving=false;
 function updateReviewLabels(v){
+  renderReviewReceipt(v);
   const levels=Lab.levelsCopy(v),packaged=Boolean(v?.report?.package),v2=v?.report?.criterion?.version==='disponibilidad_visual_nivel_v2_reponer';
   $('review-title').textContent=levels?'3. Revisar niveles y estados':'3. Dejar los módulos listos';
   $('review-description').textContent=v2?'Criterio v2: reponer bajo el 30% de ocupación, suficiente desde el 30% y no evaluable cuando no se puede decidir. La etapa base aprende reponer y suficiente. La partición se aplica al traer una copia nueva.':packaged?'Seguimiento de la tarea 16 con la guía v1.3 y fotos completas. La aprobación para entrenar requiere revisión del paquete.':levels?'Comprueba los contornos y los estados con el criterio v1: presencia por ancho útil, umbral inicial del 30%. No evaluable no significa vacío.':'Una persona debe comprobar que los límites siguen la estructura y están todos los módulos visibles.';
@@ -639,14 +714,25 @@ function renderAvailability(run){
   const element=$('availability-results'),evaluation=run?.development_evaluation,v=evaluation?.metrics||run?.availability?.val;element.hidden=!v;
   if(!v){setHTML(element,'');return;}
   const percent=n=>Number.isFinite(n)?(100*n).toFixed(1)+'%':'No calculable';
-  setHTML(element,`<h2>${evaluation?'Evaluación de desarrollo · '+v.fotos+' fotos':'Alertas de validación'}</h2>${evaluation?'<p class="field-help">Evaluación de los pesos existentes sobre las fotos disponibles. Las curvas y mAP conservan la validación original del entrenamiento.</p>':''}<p>${v.alertas.acertadas} de ${v.alertas.reales} casos de reposición detectados · ${v.alertas.omitidas} omitidos. Recall ${percent(v.alertas.recall)} · precisión ${percent(v.alertas.precision)} · ${v.alertas.falsas} falsas alertas (${fmt(v.alertas.falsas_por_foto)} por foto).</p><details class="secondary-section"><summary>Detalle por estado y criterios</summary><p class="reading-guide"><strong>Recall:</strong> qué proporción de casos críticos detecta. <strong>Precisión:</strong> qué proporción de sus alertas era correcta. Los estados de reposición son los casos críticos; se interpretan según las clases de cada modelo.</p><div class="table-wrap"><table><thead><tr><th>Estado</th><th>Referencias</th><th>Aciertos</th><th>Precisión</th><th>Recall</th></tr></thead><tbody>${Object.entries(v.por_estado).map(([state,m])=>`<tr><td>${esc(({reponer:'Reponer',vacio:'Vacío',baja_disponibilidad:'Baja disponibilidad',suficiente:'Suficiente',no_evaluable:'No evaluable'})[state]||state.replaceAll('_',' '))}</td><td>${m.referencias}</td><td>${m.aciertos}</td><td>${percent(m.precision)}</td><td>${percent(m.recall)}</td></tr>`).join('')}</tbody></table></div><p class="field-help">${v.alertas.precision==null?'La precisión no se calcula cuando el modelo no predice ninguna alerta. ':''}${v.no_evaluables_predichos} salidas no evaluables. Los niveles críticos no detectados o predichos no evaluables cuentan como alertas omitidas. Localización por IoU ≥ 0.5 y confianza ≥ 0.25. La confianza no es porcentaje de stock.</p></details>`);
+  setHTML(element,`<h2>${evaluation?'Evaluación de desarrollo · '+v.fotos+' fotos':'Alertas de validación'}</h2>${evaluation?'<p class="reading-guide"><strong>Conjunto mixto de desarrollo: originales reales y variantes sintéticas.</strong> Este agregado no es evidencia exclusivamente real. Las curvas y mAP conservan la validación original del entrenamiento.</p>':'<p class="field-help">Conjunto: validación original del entrenamiento.</p>'}<p>${v.alertas.acertadas} de ${v.alertas.reales} casos de reposición detectados · ${v.alertas.omitidas} omitidos. Recall ${percent(v.alertas.recall)} · precisión ${percent(v.alertas.precision)} · ${v.alertas.falsas} falsas alertas (${fmt(v.alertas.falsas_por_foto)} por foto).</p><details class="secondary-section"><summary>Detalle por estado y criterios</summary><p class="reading-guide"><strong>Recall:</strong> qué proporción de casos críticos detecta. <strong>Precisión:</strong> qué proporción de sus alertas era correcta. Los estados de reposición son los casos críticos; se interpretan según las clases de cada modelo.</p><div class="table-wrap"><table><thead><tr><th>Estado</th><th>Referencias</th><th>Aciertos</th><th>Precisión</th><th>Recall</th></tr></thead><tbody>${Object.entries(v.por_estado).map(([state,m])=>`<tr><td>${esc(({reponer:'Reponer',vacio:'Vacío',baja_disponibilidad:'Baja disponibilidad',suficiente:'Suficiente',no_evaluable:'No evaluable'})[state]||state.replaceAll('_',' '))}</td><td>${m.referencias}</td><td>${m.aciertos}</td><td>${percent(m.precision)}</td><td>${percent(m.recall)}</td></tr>`).join('')}</tbody></table></div><p class="field-help">${v.alertas.precision==null?'La precisión no se calcula cuando el modelo no predice ninguna alerta. ':''}${v.no_evaluables_predichos} salidas no evaluables. Los niveles críticos no detectados o predichos no evaluables cuentan como alertas omitidas. Localización por IoU ≥ 0.5 y confianza ≥ 0.25. La confianza no es porcentaje de stock.</p></details>${evaluationCases(run)}`);
+}
+function evaluationCases(run){
+  const evaluation=run.development_evaluation,rows=evaluation?.images||run.comparisons?.filter(r=>r.split==='val')||[];
+  const model=data.models.find(m=>m.id===evaluation?.model)||(!evaluation?data.models.find(m=>m.run===run.id&&m.id.endsWith('/best.pt')):null);
+  if(!rows.length)return '<p class="field-help">No hay detalle por foto para relacionar omisiones y falsas alertas con sus casos.</p>';
+  return `<details class="evaluation-cases"><summary>Revisar casos por foto · ${evaluation?'conjunto mixto de desarrollo':'validación original'}</summary><p>Las cifras de alertas y las omisiones de localización se muestran por separado. La reserva final queda fuera de este conjunto.</p><ol>${[...rows].sort((a,b)=>(b.alertas_omitidas||0)+(b.falsas_alertas||0)-(a.alertas_omitidas||0)-(a.falsas_alertas||0)).map(row=>{
+    const image=row.sha256?data.images.find(i=>i.sha256===row.sha256&&i.id.split('/').at(-1)===row.imagen):null;
+    const origin=row.origen||image?.origin,group=origin==='real'?'original real de desarrollo':origin==='sintetica'||origin==='sintetico'?'variante sintética':'procedencia no desglosada';
+    const available=image&&model&&!model.training_images?.includes(image.id);
+    return `<li><strong>${esc(row.imagen)}</strong> · ${evaluation?esc(group):'validación original'}<br>${Number.isFinite(row.alertas_omitidas)?`${row.alertas_omitidas} ${row.alertas_omitidas===1?'alerta omitida':'alertas omitidas'} · ${row.falsas_alertas} ${row.falsas_alertas===1?'falsa alerta':'falsas alertas'}`:'Sin detalle de alertas por foto'} · ${row.omitidos??'—'} ${row.omitidos===1?'omisión':'omisiones'} de localización.${available?` <button type="button" class="text-button" data-eval-photo="${esc(image.id)}" data-eval-model="${esc(model.id)}">Abrir esta foto con estos pesos</button>`:' <span class="field-help">Sin correspondencia verificada con una foto disponible para probar.</span>'}</li>`;
+  }).join('')}</ol></details>`;
 }
 function renderDataset(){
   const v=data.datasets.find(i=>i.id===$('dataset-version').value),previous=reportVersion,expanded=new Set([...document.querySelectorAll('#dataset-report details[open]')].map(d=>d.id));reportVersion=v?.id;
   $('copy-review-title').textContent=v?'2. Revisar anotaciones de '+Lab.copiesByLot([v])[0].person:'2. Revisar qué falta';
   $('archive-help').textContent=v?.archive_uses?.length?`Se conserva porque la usan estos ensayos: ${v.archive_uses.map(runName).join(', ')}.`:'Archivar oculta la copia; conserva sus archivos y los dibujos de CVAT.';
-  if(!v){updateReviewLabels(null);setHTML($('dataset-report'),'<p class="muted">Trae un trabajo para ver las fotos y las observaciones.</p>');$('review-guidance').textContent='Primero trae las anotaciones del paso 1.';updateAvailability();return}
-  const r=v.report,{blocks,attributes,levels}=Lab.reportGroups(r),count=Lab.issueCounts(blocks);updateReviewLabels(v);if(Lab.levelsCopy(v)){renderLevelsDataset(v,blocks,previous,expanded);return;}
+  if(!v){updateReviewLabels(null);setHTML($('dataset-report'),'<p class="muted">Trae un trabajo para ver las fotos y las observaciones.</p>');$('review-guidance').textContent='Primero trae las anotaciones del paso 1.';$('preparation-summary').textContent=projectVersion==='v3'?'V3: consulta las dependencias en el inicio. El importador actual no admite este criterio.':'Sin copia importada para revisar.';updateAvailability();return}
+  const r=v.report,{blocks,attributes,levels}=Lab.reportGroups(r),count=Lab.issueCounts(blocks);updateReviewLabels(v);$('preparation-summary').textContent=`${r.imagenes.length} fotos · ${copyStatus(v)} · ${blocks.length} bloqueos · ${attributes.length+levels.length} advertencias. La copia conserva las anotaciones de su consulta de CVAT; no se comprueban cambios en vivo.`;if(Lab.levelsCopy(v)){renderLevelsDataset(v,blocks,previous,expanded);return;}
   $('review-guidance').textContent=Lab.readyCopy(v)?'Copia revisada. Puedes usarla para entrenar.':blocks.length?'Corrige en CVAT y trae una copia nueva antes de aprobarla.':'Comprueba que los contornos y todos los módulos visibles estén anotados.';
   function issues(items){return Lab.groupIssues(items).map(group=>`<section class="issue-photo"><h3>Foto ${esc(group.photo)}</h3>${group.drawings.map(d=>{const source=v.sources.find(s=>s.job_id===d.jobId)||(d.jobId==null&&v.sources.length===1?v.sources[0]:null);return `<div class="issue-drawing"><h4>${d.shapeId!=null?'Dibujo '+esc(d.shapeId):'Revisión de la foto'}${d.jobId!=null?' / trabajo '+esc(d.jobId):''}</h4><ol>${d.issues.map(i=>`<li>${esc(Lab.issueAdvice(i,v))}${Lab.issueAdvice(i,v)===i.problema?'':`<details class="issue-technical"><summary>Detalle técnico</summary>${esc(i.problema)}</details>`}</li>`).join('')}</ol>${d.shapeId!=null&&source?`<button type="button" class="secondary" data-drawing-photo="${esc(group.photo)}" data-drawing-id="${esc(d.shapeId)}" data-drawing-job="${esc(source.job_id)}" aria-expanded="false">Ver dibujo en la foto</button><div class="drawing-preview" hidden></div>`:''}${source?.task_id?`<a href="http://localhost:8082/tasks/${encodeURIComponent(source.task_id)}/jobs/${encodeURIComponent(source.job_id)}" target="_blank" rel="noopener">Abrir trabajo ${esc(source.job_id)} en CVAT</a><p class="locate">Busca la foto ${esc(group.photo)}${d.shapeId!=null?' y el dibujo '+esc(d.shapeId):''}.</p>`:'<p class="locate">Abre el trabajo correspondiente en CVAT y busca esta foto y su dibujo.</p>'}</div>`}).join('')}</section>`).join('')}
   const html=`<p><span class="pill">${Lab.readyCopy(v)?'Lista para entrenar módulos':'Pendiente de revisión'}</span></p>${lotCopyStatus(v)}${blocks.length?`<p class="issue-summary">${count.observations} observaciones · ${count.drawings} dibujos · ${count.photos} fotos.</p>`:''}<details class="report-group"><summary>Fotos y partición</summary><div class="table-wrap"><table><thead><tr><th>Foto</th><th>Uso</th><th>Módulos</th><th>Niveles</th></tr></thead><tbody>${r.imagenes.map(i=>`<tr><td>${esc(i.imagen)}</td><td>${i.split==='val'?'Validar el modelo':'Enseñar al modelo'}</td><td>${i.modulos}</td><td>${i.niveles_solo_revision}</td></tr>`).join('')}</tbody></table></div></details>${blocks.length?`<details id="module-issues" class="report-group"><summary>Observaciones por corregir (${count.observations})</summary>${issues(blocks)}</details>`:''}${attributes.length?`<details id="attribute-advice" class="report-group"><summary>Atributos opcionales (${attributes.length})</summary><p class="field-help">No bloquean el entrenamiento. Los contornos requieren revisión humana.</p>${issues(attributes)}</details>`:''}${levels.length?`<details id="level-issues" class="report-group"><summary>Observaciones de niveles (${levels.length})</summary><p class="field-help">La revisión de módulos no aprueba los niveles.</p>${issues(levels)}</details>`:''}<details id="copy-provenance" class="report-group"><summary>Procedencia y revisión</summary><p class="field-help">${esc(copyOrigin(v))}${v.review?'; módulos revisados por '+esc(v.review.reviewer):''}.</p><p class="field-help" style="overflow-wrap:anywhere">Referencia: ${esc(v.id)}</p></details>`;
@@ -700,6 +786,13 @@ $('import-form').addEventListener('submit',async event=>{
   finally{importing=false;updateAvailability()}
 });
 $('review-form').addEventListener('submit',async event=>{event.preventDefault();clearOperationError('review');$('review-button').disabled=true;try{const result=await api('/api/datasets/approve',{id:$('dataset-version').value,reviewer:$('reviewer').value,reviewed:$('reviewed').checked});await refresh();$('source').value=result.id;sourceSummary();switchTab('train');saveUiPreferences()}catch(err){error(err.message,'review')}finally{renderDataset()}});
+
+$('decision-form').addEventListener('submit',async event=>{
+  event.preventDefault();const runId=$('run').value,button=event.submitter;button.disabled=true;
+  try{await api('/api/runs/decision',{run:runId,status:$('decision-status').value,reason:$('decision-reason').value,author:$('decision-author').value});await refresh();$('decision-feedback').textContent=`Decisión guardada para ${shortRunName(runId)}.`}catch(err){$('decision-feedback').textContent=err.message}finally{button.disabled=false}
+});
+for(const id of ['source','train-model','epochs','batch','train-size','lr','seed','baseline','run'])$(id).addEventListener('change',()=>{renderTrainingPreview();renderWorkspace()});
+for(const id of ['dataset-version','model'])$(id).addEventListener('change',renderWorkspace);
 
 for(const [control,description] of [['name','name-help'],['source','train-data-help'],['model','model-help'],['train-model','train-model-help'],['reviewer','review-guidance'],['import-task','import-source-help'],['participant','import-source-help']])$(control).setAttribute('aria-describedby',description);
 document.addEventListener('change',event=>{if([...UiPreferences.choices,...UiPreferences.selects,...UiPreferences.numbers,...UiPreferences.texts,'show-copy-history'].includes(event.target.id))saveUiPreferences()});

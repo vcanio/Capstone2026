@@ -1,0 +1,27 @@
+{
+  "originals_reviewed": 59,
+  "frames": 276,
+  "source_partial_polygons": 457,
+  "new_polygons_including_variants": 2135,
+  "per_job": {
+    "64": 766,
+    "65": 840,
+    "66": 529
+  },
+  "families_without_new_polygons": [
+    19,
+    28,
+    43,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "omitted_fragments": 3,
+  "baseline_polygons": 1416,
+  "existing_shapes_modified": 0,
+  "all_new_delimitacion": "parcial",
+  "new_tags": 0,
+  "variant_transfer": "same normalized coordinates from original; resolution scaling only"
+}

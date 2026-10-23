@@ -4,7 +4,7 @@ Aquí se conserva lo obtenido en cada entrenamiento. Los modelos generales para 
 
 ## Entrenamientos conservados
 
-Las fechas identifican la ejecución según el nombre de su carpeta. Los cuatro ensayos están incluidos en Walmart Visión; V1 conserva el criterio anterior y V2 base usa los estados reponer y suficiente.
+Las fechas identifican la ejecución según el nombre de su carpeta. Se conservan cuatro ensayos históricos V1/V2; la entrega local actual de Walmart Visión incluye solo los dos modelos V2. V3 todavía no tiene un ensayo aprobado. V1 conserva el criterio anterior y V2 base usa los estados reponer y suficiente.
 
 | Fecha | Modelo y etapa | Datos utilizados | Configuración y resultados |
 |---|---|---|---|
@@ -19,6 +19,7 @@ Cada carpeta conserva también `manifest.json`, que identifica los datos, y `met
 
 - `Bordes/`: prototipo experimental de análisis por bordes, color y textura ([`gondola_bordes.py`](Bordes/gondola_bordes.py)). La [revisión del 20 de octubre](Bordes/REVISION_20261020.md) documenta la integración actual; la [revisión del 18 de octubre](Bordes/REVISION_20261018.md), `Versiones/` y las carpetas de primera pasada conservan antecedentes. Sus porcentajes son señales experimentales, no ocupación real validada.
 - `panel_pruebas/`: historial operativo de trabajos e inferencias manuales del panel, incluyendo `Subidas_panel/` para las fotografías subidas desde **Probar una foto**.
+- `Contornos/cuatro_vertices_20261022/`: prueba local del ajuste visual a cuadriláteros, sin reentrenar. La [nota técnica](../Documentacion/Desarrollo/Posprocesamiento_contornos_niveles.md) documenta su alcance; seis ajustes aceptados en una foto conocida no representan una medición de precisión global.
 - Diagnóstico histórico REAL_03 (archivo local histórico, fuera de la distribución): evidencia archivada sobre omisiones, duplicados y pertenencia espacial en la primera pasada.
 
 ## Trazabilidad de exportaciones y ensayos

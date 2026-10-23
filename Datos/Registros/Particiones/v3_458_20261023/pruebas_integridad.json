@@ -1,0 +1,17 @@
+{
+  "pruebas_de_rechazo": [
+    {
+      "caso": "familia",
+      "bloqueo": "Fuga entre variantes de una familia."
+    },
+    {
+      "caso": "escena",
+      "bloqueo": "Fuga entre vistas de una escena."
+    },
+    {
+      "caso": "reserva_anterior",
+      "bloqueo": "No se permite mover una asignación anterior: lider_express_001_D_carro.png"
+    }
+  ],
+  "enlaces_locales_verificados": 472
+}

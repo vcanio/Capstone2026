@@ -1,0 +1,141 @@
+{
+  "state": "vista_previa_no_aprobada_para_entrenamiento",
+  "source_job": 67,
+  "source_task": 28,
+  "cvat_modified": false,
+  "original_files_modified": false,
+  "transform": "EXIF transpose, then rectangular crop; no resizing in PNG files",
+  "notes": [
+    "Recorte conservador: conserva contexto superior y estructura del tramo central.",
+    "La perspectiva deja fragmentos laterales; el recorte no demuestra anotacion exhaustiva.",
+    "Solo se trasladan las anotaciones manuales existentes. No se anota el nivel superior.",
+    "No asignar estos recortes a una particion diferente de su imagen y escena de origen."
+  ],
+  "images": [
+    {
+      "source": "Datos\\V3\\Lider 2\\lider_2_001_0_original.jpg",
+      "source_sha256": "d42490a5c2739f8d9aaad5bc990e055a2c9d3837e083758b6795b34f1eb05ca5",
+      "source_oriented_size": [
+        3000,
+        4000
+      ],
+      "crop_xyxy": [
+        245,
+        180,
+        2880,
+        3780
+      ],
+      "crop_file": "lider_2_001_recorte.png",
+      "crop_size": [
+        2635,
+        3600
+      ],
+      "crop_sha256": "0f7f68b1f275a3f0fce699eca5f1df2338808aef3adc29c4afca8f363cc4f104",
+      "copied_manual_shapes": 3,
+      "new_shapes": 0,
+      "source_polygons_contained": true,
+      "original_hash_preserved": true,
+      "saved_pixels_match_source_crop": true
+    },
+    {
+      "source": "Datos\\V3\\Lider 2\\lider_2_002_0_original.jpg",
+      "source_sha256": "2b8f302a94f90f9c7b8697ea34ff4cd8034a6d2c9fe745b5ff63b92ea604778a",
+      "source_oriented_size": [
+        3000,
+        4000
+      ],
+      "crop_xyxy": [
+        345,
+        200,
+        2860,
+        3780
+      ],
+      "crop_file": "lider_2_002_recorte.png",
+      "crop_size": [
+        2515,
+        3580
+      ],
+      "crop_sha256": "7cc2205aba85b4f295c9bc7e6511a760c9ec234751597c0edf6bcbe02802cf85",
+      "copied_manual_shapes": 3,
+      "new_shapes": 0,
+      "source_polygons_contained": true,
+      "original_hash_preserved": true,
+      "saved_pixels_match_source_crop": true
+    },
+    {
+      "source": "Datos\\V3\\Lider 2\\lider_2_003_0_original.jpg",
+      "source_sha256": "a55394dc05739311f39f59009971e4c7d2611c8a4c8064660bd0965814a242cd",
+      "source_oriented_size": [
+        3000,
+        4000
+      ],
+      "crop_xyxy": [
+        300,
+        160,
+        2820,
+        3740
+      ],
+      "crop_file": "lider_2_003_recorte.png",
+      "crop_size": [
+        2520,
+        3580
+      ],
+      "crop_sha256": "b7a26a487a4601316559cbc36310957978ecb9a7d467c48e3d83a9bca9026e1d",
+      "copied_manual_shapes": 3,
+      "new_shapes": 0,
+      "source_polygons_contained": true,
+      "original_hash_preserved": true,
+      "saved_pixels_match_source_crop": true
+    },
+    {
+      "source": "Datos\\V3\\Lider 2\\lider_2_004_0_original.jpg",
+      "source_sha256": "4eb293ae9d9dc03b80e5a6dd0be9e71968e3b1765489d6314ee0cb924673927d",
+      "source_oriented_size": [
+        3000,
+        4000
+      ],
+      "crop_xyxy": [
+        200,
+        160,
+        2730,
+        3740
+      ],
+      "crop_file": "lider_2_004_recorte.png",
+      "crop_size": [
+        2530,
+        3580
+      ],
+      "crop_sha256": "71cc8914e927fdd0a1e715593211ec76101b6b2164293d095c118f5b5e6a8eb2",
+      "copied_manual_shapes": 3,
+      "new_shapes": 0,
+      "source_polygons_contained": true,
+      "original_hash_preserved": true,
+      "saved_pixels_match_source_crop": true
+    },
+    {
+      "source": "Datos\\V3\\Lider 2\\lider_2_005_0_original.jpg",
+      "source_sha256": "aa5b9c9167454a5e9a170c9990122274852a9e34e398d65b8fce0f020f17b9d7",
+      "source_oriented_size": [
+        3000,
+        4000
+      ],
+      "crop_xyxy": [
+        280,
+        300,
+        2715,
+        3790
+      ],
+      "crop_file": "lider_2_005_recorte.png",
+      "crop_size": [
+        2435,
+        3490
+      ],
+      "crop_sha256": "5cc160c5d0e6f133f5cc33517c565567df41c7cbd34cdeee28789bb3317021bc",
+      "copied_manual_shapes": 3,
+      "new_shapes": 0,
+      "source_polygons_contained": true,
+      "original_hash_preserved": true,
+      "saved_pixels_match_source_crop": true
+    }
+  ]
+}

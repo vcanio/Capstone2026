@@ -1,0 +1,338 @@
+{
+  "case": "lider_express_055_C_mixta.png",
+  "fixed_yolo_masks": true,
+  "uses_final_reserve": false,
+  "structure_policy": "rieles_horizontales_v1",
+  "source_sha256": "0b2f89eaf675e5113aae6a2cc8994cb614cb61cc1d3c94519262a0002be7115a",
+  "versions": {
+    "v1": {
+      "levels": [
+        {
+          "level": 1,
+          "before": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 71.79,
+            "width_signal_pct": 96.3,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 172,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 64.27,
+            "width_signal_pct": 96.3,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 172,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 2,
+          "before": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 41.83,
+            "width_signal_pct": 67.86,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 195,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 41.83,
+            "width_signal_pct": 67.86,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 195,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 3,
+          "before": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 0.0,
+            "width_signal_pct": 0.0,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 221,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 0.0,
+            "width_signal_pct": 0.0,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 221,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 4,
+          "before": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 14.74,
+            "width_signal_pct": 62.07,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 232,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 1.86,
+            "width_signal_pct": 13.79,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 232,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 5,
+          "before": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 87.67,
+            "width_signal_pct": 100.0,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 216,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_color_textura",
+            "status": "medido",
+            "area_signal_pct": 77.88,
+            "width_signal_pct": 100.0,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 216,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        }
+      ],
+      "regression_regions": {
+        "barrera_sin_productos": {
+          "before": 90.7,
+          "after": 0.0
+        },
+        "tres_botellas": {
+          "before": 0.44,
+          "after": 5.55
+        }
+      }
+    },
+    "v2": {
+      "levels": [
+        {
+          "level": 1,
+          "before": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 83.39,
+            "combined_signal_pct": 87.26,
+            "adaptive_threshold": 0.384314,
+            "width_signal_pct": 96.3,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 172,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 74.84,
+            "combined_signal_pct": 81.28,
+            "adaptive_threshold": 0.372549,
+            "width_signal_pct": 96.3,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 172,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 2,
+          "before": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 62.53,
+            "combined_signal_pct": 65.2,
+            "adaptive_threshold": 0.356863,
+            "width_signal_pct": 71.43,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 195,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 62.53,
+            "combined_signal_pct": 65.2,
+            "adaptive_threshold": 0.356863,
+            "width_signal_pct": 71.43,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 195,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 3,
+          "before": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 16.55,
+            "combined_signal_pct": 15.87,
+            "adaptive_threshold": 0.35,
+            "width_signal_pct": 14.29,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 221,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 16.55,
+            "combined_signal_pct": 15.87,
+            "adaptive_threshold": 0.35,
+            "width_signal_pct": 14.29,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 221,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 4,
+          "before": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 33.24,
+            "combined_signal_pct": 33.62,
+            "adaptive_threshold": 0.4,
+            "width_signal_pct": 34.48,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 232,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 31.26,
+            "combined_signal_pct": 32.23,
+            "adaptive_threshold": 0.376471,
+            "width_signal_pct": 34.48,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 232,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        },
+        {
+          "level": 5,
+          "before": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 80.95,
+            "combined_signal_pct": 85.66,
+            "adaptive_threshold": 0.454902,
+            "width_signal_pct": 96.67,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 216,
+            "reason": null
+          },
+          "after": {
+            "method": "paulo_mascara_v2_combinacion_ponderada",
+            "status": "medido",
+            "area_signal_pct": 72.55,
+            "combined_signal_pct": 79.79,
+            "adaptive_threshold": 0.462745,
+            "width_signal_pct": 96.67,
+            "mask_source": "yolo_raster",
+            "contour_warning": false,
+            "calibrated": false,
+            "valid_cells": 216,
+            "structure_policy": "rieles_horizontales_v1",
+            "reason": null
+          }
+        }
+      ],
+      "regression_regions": {
+        "barrera_sin_productos": {
+          "before": 0.0,
+          "after": 0.0
+        },
+        "tres_botellas": {
+          "before": 99.42,
+          "after": 95.62
+        }
+      }
+    }
+  },
+  "note": "Regresion del caso recibido; no valida exactitud de ocupacion.",
+  "live_panel": {
+    "v1": {
+      "job_id": "1a79c434843b439a98c4f77283f35ab2",
+      "occupancy_version": "v1",
+      "structure_policy": "rieles_horizontales_v1",
+      "completed": true
+    },
+    "v2": {
+      "job_id": "cbb1766edc754e7daf27e3f3b1d889af",
+      "occupancy_version": "v2",
+      "structure_policy": "rieles_horizontales_v1",
+      "completed": true
+    }
+  },
+  "tests": {
+    "algorithm_panel_ui": 64,
+    "portable_viewer": 23,
+    "total": 87,
+    "passed": true
+  }
+}

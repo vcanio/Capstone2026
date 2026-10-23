@@ -13,6 +13,30 @@ import verificar_publicacion as publication
 
 
 class PrivateContextTests(unittest.TestCase):
+    def test_local_asset_manifest_resolves_zip_and_checksum_without_public_url(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'reproducibilidad').mkdir()
+            (root / 'reproducibilidad/artefactos.json').write_text('{"packages": {}}', encoding='utf-8')
+            (root / 'reproducibilidad/activos_locales_20261023.json').write_text(
+                '{"packages":{"demo_local":{"file":"Actual.zip","sha256":"' + '0' * 64 +
+                '","destination":"Entregables","url":null,"files":[]}}}', encoding='utf-8')
+            (root / 'README.md').write_text('[ZIP local](Entregables/Actual.zip) '
+                                           '[Hash](Entregables/Actual.sha256)', encoding='utf-8')
+            subprocess.run(['git', '-C', str(root), 'init', '--quiet'], check=True, capture_output=True)
+            result = publication.verify(root)
+            self.assertEqual(result['enlaces_a_activos_descargables'], 2)
+            self.assertEqual(result['paquetes'], 1)
+
+    def test_local_asset_manifest_cannot_replace_a_published_package(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'reproducibilidad').mkdir()
+            for filename in ('artefactos.json', 'activos_locales_20261023.json'):
+                (root / 'reproducibilidad' / filename).write_text('{"packages":{"duplicado":{}}}', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'repite nombres'):
+                publication.verify(root)
+
     def test_packaging_keeps_summaries_and_skips_local_generated_files(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / 'source'
@@ -20,6 +44,7 @@ class PrivateContextTests(unittest.TestCase):
             root.mkdir()
             checkout.mkdir()
             public = ['Documentacion/Evidencias/verificacion.json',
+                      'AGENTS.md',
                       'Documentacion/Historico/README.md',
                       'Datos/Registros/Particiones/lote/particion.json']
             local = ['Datos/Registros/Particiones/lote/respaldo_registros/manifest.json',

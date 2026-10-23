@@ -1,0 +1,68 @@
+{
+  "task_id": 27,
+  "frames_audited": 276,
+  "families_audited": 59,
+  "source_original_partial_polygons": 457,
+  "new_partial_polygons_total": 2135,
+  "copied_partial_polygons_in_variants": 1678,
+  "preexisting_polygons_preserved": 1416,
+  "final_polygon_count": 3551,
+  "all_existing_ids_coordinates_attributes_preserved": true,
+  "existing_sha256": {
+    "64": "a468e508301bc77372d584a3183affc5caab0aabf17d0a50c9f854322322577f",
+    "65": "95652ef25ac4978722927d5147768a4e5334b3023dd0107f7fe8bb61588b39f9",
+    "66": "95d8dc1b316df97230b9c333323ac77a55ccaf9749dd1ffe0a9aac83ebe65a72"
+  },
+  "preserved_sha256": {
+    "64": "a468e508301bc77372d584a3183affc5caab0aabf17d0a50c9f854322322577f",
+    "65": "95652ef25ac4978722927d5147768a4e5334b3023dd0107f7fe8bb61588b39f9",
+    "66": "95d8dc1b316df97230b9c333323ac77a55ccaf9749dd1ffe0a9aac83ebe65a72"
+  },
+  "variant_coordinates_verified_against_original": true,
+  "all_new_shapes_have_four_vertices": true,
+  "all_new_shapes_delimitacion_parcial": true,
+  "no_updates_or_deletions_sent": true,
+  "new_polygons_by_job": {
+    "64": 766,
+    "65": 840,
+    "66": 529
+  },
+  "frames_with_additions": 237,
+  "families_without_new_polygons": [
+    19,
+    28,
+    43,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "review_required_fragments": [
+    {
+      "family": 2,
+      "side": "R",
+      "level_top_to_bottom": 1,
+      "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+    },
+    {
+      "family": 22,
+      "side": "R",
+      "level_top_to_bottom": 1,
+      "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+    },
+    {
+      "family": 54,
+      "side": "L",
+      "level_top_to_bottom": 1,
+      "reason": "fragmento_demasiado_estrecho_o_sin_perimetro_recuperable"
+    }
+  ],
+  "visual_review": "59 originales y 217 variantes revisados por el asistente; revisión humana pendiente",
+  "training_was_not_enabled": true,
+  "timestamp_utc": "2026-10-22T19:53:35.300194+00:00",
+  "preexisting_tags_and_tracks_preserved": true,
+  "new_review_tags": 14,
+  "review_tags_do_not_modify_polygons": true,
+  "final_total_polygon_count_after_review_tags": 3551
+}

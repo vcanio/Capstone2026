@@ -124,7 +124,7 @@ class InterfaceTests(unittest.TestCase):
           {id:'v2',ready:true,manifest:{scope:'Nivel_estados',clases:['Nivel_reponer','Nivel_suficiente']},config:{model:'general.pt'}}],
           models:[{id:'v1/best.pt',run:'v1'},{id:'v2/best.pt',run:'v2'}]};
         assert.deepEqual(Lab.modelChoices(catalog).map(m=>m.run).sort(),['v1','v2']);
-        const [v1,v2]=catalog.runs.map(r=>({...r,signature:'same'}));
+        const [v1,v2]=catalog.runs.map(r=>({...r,signature:'same',evaluation_protocol:{confidence:0.25,iou:0.5}}));
         assert.equal(Lab.comparable(v1,v2),false);
         assert.equal(Lab.comparable(v1,{...v1,id:'v1b'}),true);
         """)
@@ -389,11 +389,11 @@ class InterfaceTests(unittest.TestCase):
 
     def test_delta_requires_same_dataset_and_finished_distinct_runs(self):
         self.js("""
-        const assert=require('node:assert/strict'),a={id:'a',ready:true,signature:'same'},b={id:'b',ready:true,signature:'same'};
+        const assert=require('node:assert/strict'),a={id:'a',ready:true,signature:'same',evaluation_protocol:{confidence:0.25,iou:0.5}},b={id:'b',ready:true,signature:'same',evaluation_protocol:{confidence:0.25,iou:0.5}};
         assert.equal(Lab.comparable(a,b),true);assert.equal(Lab.comparable(a,a),false);
         assert.equal(Lab.comparable(a,{...b,ready:false}),false);
         assert.equal(Lab.comparable(a,{...b,signature:'other'}),false);
-        assert.equal(Lab.comparable(a,null),false);
+        assert.equal(Lab.comparable(a,null),false);assert.equal(Lab.comparable(a,{...b,evaluation_protocol:null}),false);assert.equal(Lab.comparable(a,{...b,evaluation_protocol:{confidence:0.5,iou:0.5}}),false);
         assert.equal(Lab.comparable({...a,signature:undefined},{...b,signature:undefined}),false);
         """)
 

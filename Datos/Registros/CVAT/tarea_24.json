@@ -1,0 +1,47 @@
+{
+  "task_id": 24,
+  "project_id": 8,
+  "images": 60,
+  "polygons": 308,
+  "synthetic": 60,
+  "url": "https://pcvicen.tailca514b.ts.net/tasks/24",
+  "status": "superiores_corregidos_y_verificados",
+  "upper_geometry_changed": 36,
+  "physical_roof_preserved": 24,
+  "upper_delimitacion": {
+    "completa": 59,
+    "parcial": 1
+  },
+  "lower_polygons_preserved": 248,
+  "annotation_record": "Datos/Registros/CVAT/revisiones/superiores_t24_20261022/verificacion.json",
+  "verified_at": "2026-10-23T00:23:09.710682+00:00",
+  "training_enabled": false,
+  "human_review": "pendiente",
+  "lower_delimitacion": "pendiente_conservada",
+  "jobs": [
+    {
+      "id": 62,
+      "start_frame": 40,
+      "stop_frame": 59,
+      "state": "new",
+      "stage": "annotation"
+    },
+    {
+      "id": 61,
+      "start_frame": 20,
+      "stop_frame": 39,
+      "state": "in progress",
+      "stage": "annotation"
+    },
+    {
+      "id": 60,
+      "start_frame": 0,
+      "stop_frame": 19,
+      "state": "in progress",
+      "stage": "annotation"
+    }
+  ],
+  "project_guide_id": 10,
+  "project_guide_sha256": "4af0f6666e5220b74b8760114b70f7787a60ff392793403ed9fa57ea44a7a472",
+  "last_annotation_check": "2026-10-23T04:35:26.332567+00:00"
+}

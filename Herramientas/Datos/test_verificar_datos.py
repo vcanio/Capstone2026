@@ -77,6 +77,46 @@ class DataAuditTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'sin registrar o faltantes'):
             verify(self.root)
 
+    def v3_catalog(self):
+        catalog = json.loads((self.root / 'Datos/Registros/lotes.json').read_text(encoding='utf-8'))
+        lot = catalog['lotes'][0]
+        lot.update(estado='anotado_pendiente_revision', archivo_columna='path',
+                   rutas_inventario_desde_raiz=True, manifest_imagenes_clave='images',
+                   manifest_id_columna='imagen_id', manifest_archivo_columna='path',
+                   rutas_manifest_desde_raiz=True)
+        inventory = self.base / 'inventario.csv'
+        with inventory.open(encoding='utf-8-sig', newline='') as stream:
+            rows = list(csv.DictReader(stream))
+        for row in rows:
+            row['path'] = 'Datos/V2/local_20261016/' + row.pop('archivo')
+        with inventory.open('w', encoding='utf-8', newline='') as stream:
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
+        self.write('Datos/Registros/lotes.json', catalog)
+        images = [dict(imagen_id=r[lot['id_columna']], path=r['path'], sha256=r['sha256']) for r in rows]
+        self.write('Datos/V2/local_20261016/manifest.json', dict(images=images))
+        return images
+
+    def test_v3_manifest_accepts_root_relative_paths_without_renaming_images(self):
+        images = self.v3_catalog()
+        before = (self.root / images[0]['path']).read_bytes()
+        self.assertEqual(verify(self.root)['registros_verificados'], 1)
+        self.assertEqual((self.root / images[0]['path']).read_bytes(), before)
+
+    def test_v3_manifest_must_match_inventory_identity_and_path(self):
+        images = self.v3_catalog()
+        images[0]['path'] = 'Datos/V2/local_20261016/imagenes/otra.jpg'
+        self.write('Datos/V2/local_20261016/manifest.json', dict(images=images))
+        with self.assertRaisesRegex(ValueError, 'Manifest e inventario no coinciden'):
+            verify(self.root)
+
+    def test_v3_inventory_cannot_escape_its_lot_with_root_relative_paths(self):
+        self.v3_catalog()
+        path = self.base / 'inventario.csv'
+        content = path.read_text(encoding='utf-8').replace('Datos/V2/local_20261016/imagenes/', 'Datos/otro_lote/')
+        path.write_text(content, encoding='utf-8')
+        with self.assertRaisesRegex(ValueError, 'Ruta fuera del lote'):
+            verify(self.root)
+
 
 if __name__ == '__main__':
     unittest.main()

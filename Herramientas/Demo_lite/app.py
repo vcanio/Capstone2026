@@ -39,7 +39,9 @@ class Handler(BaseHTTPRequestHandler):
         if path == '/':
             return self.send((ROOT / 'interfaz.html').read_bytes(), content_type='text/html; charset=utf-8')
         if path == '/api/models':
-            return self.send({'models': self.server.runner.available()})
+            models = self.server.runner.available()
+            default = getattr(self.server.runner, 'manifest', {}).get('default_model')
+            return self.send({'models': models, 'default_model': default or (models[0]['id'] if models else None)})
         if path == '/api/health':
             return self.send({'status': 'ok', 'app': 'Walmart Visión'})
         return self.send({'error': 'Ruta no disponible.'}, 404)
@@ -59,7 +61,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.close_connection = True
                 return self.send({'error': 'Usa una foto JPG, PNG o WebP.'}, 415)
             params = parse_qs(route.query)
-            default_model = getattr(self.server.runner, 'manifest', {}).get('default_model', 'YOLO26-1')
+            default_model = getattr(self.server.runner, 'manifest', {}).get('default_model', 'V2-YOLO26')
             model = params.get('model', [default_model])[0]
             confidence = float(params.get('confidence', ['0.25'])[0])
             method = params.get('method', ['yolo'])[0]

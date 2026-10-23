@@ -1,0 +1,972 @@
+[
+  {
+    "frame": 0,
+    "side": "central",
+    "level_bottom_to_top": 4,
+    "points": [
+      343.26399336303075,
+      1077.2533500049612,
+      2784.707978235605,
+      1055.640000280524,
+      2784.707978235605,
+      250.8022234773871,
+      343.26399336303075,
+      272.4155732018244
+    ],
+    "delimitacion": "completa",
+    "occluded": false,
+    "reason_occluded": "Sin obstaculo delantero identificado; carteleria del fondo no cuenta como oclusion.",
+    "upper_boundary": "mediana_sin_tope_fisico",
+    "reference_shape_ids": [
+      9738,
+      9739,
+      9740
+    ],
+    "reference_heights_px": [
+      741.3380454709841,
+      912.5583697669736,
+      804.8377768031369
+    ],
+    "median_height_px": 804.8377768031369
+  },
+  {
+    "frame": 0,
+    "side": "izquierda",
+    "level_bottom_to_top": 1,
+    "points": [
+      0.0,
+      3713.3333333333335,
+      390.0,
+      3703.3333333333335,
+      360.0,
+      2946.666666666667,
+      0.0,
+      2950.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "izquierda",
+    "level_bottom_to_top": 2,
+    "points": [
+      0.0,
+      2863.3333333333335,
+      346.6666666666667,
+      2846.666666666667,
+      300.0,
+      1966.6666666666667,
+      0.0,
+      1963.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "izquierda",
+    "level_bottom_to_top": 3,
+    "points": [
+      0.0,
+      1826.6666666666667,
+      293.33333333333337,
+      1833.3333333333335,
+      250.0,
+      1130.0,
+      0.0,
+      1120.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "izquierda",
+    "level_bottom_to_top": 4,
+    "points": [
+      0.0,
+      1120.0,
+      250.0,
+      1130.0,
+      193.33333333333334,
+      370.0,
+      0.0,
+      360.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      760.0,
+      890.0,
+      705.0
+    ],
+    "median_height_px": 760.0,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 0,
+    "side": "derecha",
+    "level_bottom_to_top": 1,
+    "points": [
+      2730.0,
+      3623.3333333333335,
+      3000.0,
+      3616.666666666667,
+      3000.0,
+      2930.0,
+      2770.0,
+      2930.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "derecha",
+    "level_bottom_to_top": 2,
+    "points": [
+      2783.3333333333335,
+      2836.666666666667,
+      3000.0,
+      2830.0,
+      3000.0,
+      1966.6666666666667,
+      2833.3333333333335,
+      1963.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "derecha",
+    "level_bottom_to_top": 3,
+    "points": [
+      2843.3333333333335,
+      1843.3333333333335,
+      3000.0,
+      1846.6666666666667,
+      3000.0,
+      1100.0,
+      2896.666666666667,
+      1103.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 0,
+    "side": "derecha",
+    "level_bottom_to_top": 4,
+    "points": [
+      2896.666666666667,
+      1103.3333333333335,
+      3000.0,
+      1100.0,
+      3000.0,
+      356.6666666666667,
+      2943.3333333333335,
+      360.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      690.0,
+      868.3333333333334,
+      743.3333333333334
+    ],
+    "median_height_px": 743.3333333333334,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 1,
+    "side": "central",
+    "level_bottom_to_top": 4,
+    "points": [
+      441.8109193607961,
+      1042.6867080717275,
+      2792.4986228245616,
+      1133.7133382909633,
+      2792.4986228245616,
+      374.941484320354,
+      441.8109193607961,
+      283.9148541011182
+    ],
+    "delimitacion": "completa",
+    "occluded": false,
+    "reason_occluded": "Sin obstaculo delantero identificado; carteleria del fondo no cuenta como oclusion.",
+    "upper_boundary": "mediana_sin_tope_fisico",
+    "reference_shape_ids": [
+      9741,
+      9742,
+      9743
+    ],
+    "reference_heights_px": [
+      718.6606251406156,
+      900.2134580582588,
+      758.7718539706093
+    ],
+    "median_height_px": 758.7718539706093
+  },
+  {
+    "frame": 1,
+    "side": "izquierda",
+    "level_bottom_to_top": 1,
+    "points": [
+      0.0,
+      3616.666666666667,
+      360.0,
+      3620.0,
+      360.0,
+      2886.666666666667,
+      0.0,
+      2883.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "izquierda",
+    "level_bottom_to_top": 2,
+    "points": [
+      0.0,
+      2820.0,
+      360.0,
+      2820.0,
+      356.6666666666667,
+      1870.0,
+      0.0,
+      1863.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "izquierda",
+    "level_bottom_to_top": 3,
+    "points": [
+      0.0,
+      1793.3333333333335,
+      353.33333333333337,
+      1800.0,
+      353.33333333333337,
+      1100.0,
+      0.0,
+      1093.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "izquierda",
+    "level_bottom_to_top": 4,
+    "points": [
+      0.0,
+      1093.3333333333335,
+      353.33333333333337,
+      1100.0,
+      346.6666666666667,
+      366.6666666666667,
+      0.0,
+      360.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      733.3333333333334,
+      953.3333333333334,
+      700.0
+    ],
+    "median_height_px": 733.3333333333334,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 1,
+    "side": "derecha",
+    "level_bottom_to_top": 1,
+    "points": [
+      2713.3333333333335,
+      3630.0,
+      3000.0,
+      3626.666666666667,
+      3000.0,
+      2916.666666666667,
+      2756.666666666667,
+      2913.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "derecha",
+    "level_bottom_to_top": 2,
+    "points": [
+      2773.3333333333335,
+      2810.0,
+      3000.0,
+      2816.666666666667,
+      3000.0,
+      1953.3333333333335,
+      2833.3333333333335,
+      1950.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "derecha",
+    "level_bottom_to_top": 3,
+    "points": [
+      2846.666666666667,
+      1843.3333333333335,
+      3000.0,
+      1850.0,
+      3000.0,
+      1183.3333333333335,
+      2900.0,
+      1176.6666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 1,
+    "side": "derecha",
+    "level_bottom_to_top": 4,
+    "points": [
+      2900.0,
+      1176.6666666666667,
+      3000.0,
+      1183.3333333333335,
+      3000.0,
+      470.0,
+      2963.3333333333335,
+      463.33333333333337
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      713.3333333333334,
+      861.6666666666667,
+      666.6666666666667
+    ],
+    "median_height_px": 713.3333333333334,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 2,
+    "side": "central",
+    "level_bottom_to_top": 4,
+    "points": [
+      398.42433467244336,
+      1002.3116579391499,
+      2743.1390345127365,
+      1065.8236877308736,
+      2743.1390345127365,
+      273.79096638147894,
+      398.42433467244336,
+      210.27893658975518
+    ],
+    "delimitacion": "completa",
+    "occluded": false,
+    "reason_occluded": "Sin obstaculo delantero identificado; carteleria del fondo no cuenta como oclusion.",
+    "upper_boundary": "mediana_sin_tope_fisico",
+    "reference_shape_ids": [
+      9744,
+      9745,
+      9746
+    ],
+    "reference_heights_px": [
+      740.8232244599767,
+      876.1620842266602,
+      792.0327213493947
+    ],
+    "median_height_px": 792.0327213493947
+  },
+  {
+    "frame": 2,
+    "side": "izquierda",
+    "level_bottom_to_top": 1,
+    "points": [
+      0.0,
+      3583.3333333333335,
+      290.0,
+      3576.666666666667,
+      296.6666666666667,
+      2876.666666666667,
+      0.0,
+      2870.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "izquierda",
+    "level_bottom_to_top": 2,
+    "points": [
+      0.0,
+      2780.0,
+      296.6666666666667,
+      2780.0,
+      300.0,
+      1863.3333333333335,
+      0.0,
+      1863.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "izquierda",
+    "level_bottom_to_top": 3,
+    "points": [
+      0.0,
+      1783.3333333333335,
+      300.0,
+      1786.6666666666667,
+      300.0,
+      1166.6666666666667,
+      0.0,
+      1160.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "izquierda",
+    "level_bottom_to_top": 4,
+    "points": [
+      0.0,
+      1160.0,
+      300.0,
+      1166.6666666666667,
+      306.6666666666667,
+      460.0,
+      0.0,
+      453.33333333333337
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      706.6666666666667,
+      916.6666666666667,
+      621.6666666666667
+    ],
+    "median_height_px": 706.6666666666667,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 2,
+    "side": "derecha",
+    "level_bottom_to_top": 1,
+    "points": [
+      2653.3333333333335,
+      3546.666666666667,
+      3000.0,
+      3550.0,
+      3000.0,
+      2843.3333333333335,
+      2716.666666666667,
+      2843.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "derecha",
+    "level_bottom_to_top": 2,
+    "points": [
+      2723.3333333333335,
+      2766.666666666667,
+      3000.0,
+      2770.0,
+      3000.0,
+      1916.6666666666667,
+      2770.0,
+      1913.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "derecha",
+    "level_bottom_to_top": 3,
+    "points": [
+      2780.0,
+      1830.0,
+      3000.0,
+      1833.3333333333335,
+      3000.0,
+      1173.3333333333335,
+      2843.3333333333335,
+      1173.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 2,
+    "side": "derecha",
+    "level_bottom_to_top": 4,
+    "points": [
+      2843.3333333333335,
+      1173.3333333333335,
+      3000.0,
+      1173.3333333333335,
+      3000.0,
+      468.33333333333337,
+      2900.0,
+      468.33333333333337
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      705.0,
+      853.3333333333334,
+      658.3333333333334
+    ],
+    "median_height_px": 705.0,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 3,
+    "side": "central",
+    "level_bottom_to_top": 4,
+    "points": [
+      303.2703887524003,
+      1014.6785141581167,
+      2614.9466792650637,
+      1045.6875859910433,
+      2614.9466792650637,
+      237.95158535228984,
+      303.2703887524003,
+      206.94251351936327
+    ],
+    "delimitacion": "completa",
+    "occluded": true,
+    "reason_occluded": "Tiras de vasos colgantes alcanzan el margen de la zona util.",
+    "upper_boundary": "mediana_sin_tope_fisico",
+    "reference_shape_ids": [
+      9747,
+      9748,
+      9749
+    ],
+    "reference_heights_px": [
+      737.7159197796154,
+      835.1233229180816,
+      807.7360006387535
+    ],
+    "median_height_px": 807.7360006387535
+  },
+  {
+    "frame": 3,
+    "side": "izquierda",
+    "level_bottom_to_top": 1,
+    "points": [
+      0.0,
+      3546.666666666667,
+      263.33333333333337,
+      3540.0,
+      256.6666666666667,
+      2840.0,
+      0.0,
+      2836.666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "izquierda",
+    "level_bottom_to_top": 2,
+    "points": [
+      0.0,
+      2760.0,
+      253.33333333333334,
+      2756.666666666667,
+      230.0,
+      1913.3333333333335,
+      0.0,
+      1906.6666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "izquierda",
+    "level_bottom_to_top": 3,
+    "points": [
+      0.0,
+      1826.6666666666667,
+      226.66666666666669,
+      1830.0,
+      213.33333333333334,
+      1160.0,
+      0.0,
+      1163.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "izquierda",
+    "level_bottom_to_top": 4,
+    "points": [
+      0.0,
+      1163.3333333333335,
+      213.33333333333334,
+      1160.0,
+      180.0,
+      455.0,
+      0.0,
+      458.33333333333337
+    ],
+    "delimitacion": "parcial",
+    "occluded": false,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      705.0,
+      848.3333333333334,
+      666.6666666666667
+    ],
+    "median_height_px": 705.0,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 3,
+    "side": "derecha",
+    "level_bottom_to_top": 1,
+    "points": [
+      2593.3333333333335,
+      3540.0,
+      3000.0,
+      3546.666666666667,
+      3000.0,
+      2853.3333333333335,
+      2643.3333333333335,
+      2846.666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "derecha",
+    "level_bottom_to_top": 2,
+    "points": [
+      2650.0,
+      2763.3333333333335,
+      3000.0,
+      2766.666666666667,
+      3000.0,
+      1940.0,
+      2690.0,
+      1933.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "derecha",
+    "level_bottom_to_top": 3,
+    "points": [
+      2690.0,
+      1850.0,
+      3000.0,
+      1860.0,
+      3000.0,
+      1180.0,
+      2736.666666666667,
+      1156.6666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 3,
+    "side": "derecha",
+    "level_bottom_to_top": 4,
+    "points": [
+      2736.666666666667,
+      1156.6666666666667,
+      3000.0,
+      1180.0,
+      3000.0,
+      486.6666666666667,
+      2820.0,
+      463.33333333333337
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      693.3333333333334,
+      828.3333333333334,
+      686.6666666666667
+    ],
+    "median_height_px": 693.3333333333334,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 4,
+    "side": "central",
+    "level_bottom_to_top": 4,
+    "points": [
+      445.8785113898266,
+      1163.0949064529523,
+      2658.3655075222996,
+      1202.1650602696209,
+      2658.3655075222996,
+      431.36664192322496,
+      445.8785113898266,
+      392.29648810655635
+    ],
+    "delimitacion": "completa",
+    "occluded": true,
+    "reason_occluded": "Tiras de vasos colgantes alcanzan el margen de la zona util.",
+    "upper_boundary": "mediana_sin_tope_fisico",
+    "reference_shape_ids": [
+      9750,
+      9751,
+      9752
+    ],
+    "reference_heights_px": [
+      701.828882957454,
+      845.5894767043574,
+      770.7984183463959
+    ],
+    "median_height_px": 770.7984183463959
+  },
+  {
+    "frame": 4,
+    "side": "izquierda",
+    "level_bottom_to_top": 1,
+    "points": [
+      0.0,
+      3616.666666666667,
+      426.6666666666667,
+      3623.3333333333335,
+      386.6666666666667,
+      2906.666666666667,
+      0.0,
+      2910.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "izquierda",
+    "level_bottom_to_top": 2,
+    "points": [
+      0.0,
+      2830.0,
+      376.6666666666667,
+      2826.666666666667,
+      323.33333333333337,
+      2046.6666666666667,
+      0.0,
+      2050.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "izquierda",
+    "level_bottom_to_top": 3,
+    "points": [
+      0.0,
+      1973.3333333333335,
+      306.6666666666667,
+      1966.6666666666667,
+      280.0,
+      1313.3333333333335,
+      0.0,
+      1316.6666666666667
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "izquierda",
+    "level_bottom_to_top": 4,
+    "points": [
+      0.0,
+      1316.6666666666667,
+      280.0,
+      1313.3333333333335,
+      300.0,
+      601.6666666666667,
+      0.0,
+      605.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      711.6666666666667,
+      780.0,
+      655.0
+    ],
+    "median_height_px": 711.6666666666667,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  },
+  {
+    "frame": 4,
+    "side": "derecha",
+    "level_bottom_to_top": 1,
+    "points": [
+      2663.3333333333335,
+      3596.666666666667,
+      3000.0,
+      3600.0,
+      3000.0,
+      2926.666666666667,
+      2710.0,
+      2923.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "derecha",
+    "level_bottom_to_top": 2,
+    "points": [
+      2723.3333333333335,
+      2826.666666666667,
+      3000.0,
+      2830.0,
+      3000.0,
+      2013.3333333333335,
+      2776.666666666667,
+      2013.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "derecha",
+    "level_bottom_to_top": 3,
+    "points": [
+      2793.3333333333335,
+      1940.0,
+      3000.0,
+      1946.6666666666667,
+      3000.0,
+      1316.6666666666667,
+      2843.3333333333335,
+      1313.3333333333335
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "estructura_visible",
+    "reason": "Tramo lateral cortado por el encuadre; solo region visible."
+  },
+  {
+    "frame": 4,
+    "side": "derecha",
+    "level_bottom_to_top": 4,
+    "points": [
+      2843.3333333333335,
+      1313.3333333333335,
+      3000.0,
+      1316.6666666666667,
+      3000.0,
+      643.3333333333334,
+      2890.0,
+      640.0
+    ],
+    "delimitacion": "parcial",
+    "occluded": true,
+    "upper_boundary": "mediana_referencias_visibles_del_mismo_tramo",
+    "reference_heights_px": [
+      673.3333333333334,
+      815.0,
+      628.3333333333334
+    ],
+    "median_height_px": 673.3333333333334,
+    "reason": "Proyeccion de altura convencional, limitada al encuadre y al poste visible; no extrapola ancho oculto."
+  }
+]

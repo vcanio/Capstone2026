@@ -15,12 +15,12 @@ FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instal
 EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Herramientas/Modelos/ocupacion_paulo.py',
               'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py',
               'gondola_combinacion_ponderada.py': ROOT / 'Experimentos/Bordes/gondola_combinacion_ponderada.py'}
-RUNS = {'YOLO11-1': 'YOLO11-1_20261015_013749_f709', 'YOLO26-1': 'YOLO26-1_20261015_021212_c452'}
-V2_RUNS = {**RUNS, 'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
-           'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
+SUPPORT_FILES = {'geometria_niveles.py': ROOT / 'Herramientas/Modelos/geometria_niveles.py'}
+RUNS = {'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
+        'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
 
 
-def notebook(package='Walmart_Vision_Ocupacion_20261022.zip', default_model='V2-YOLO26'):
+def notebook(package='Walmart_Vision_Actual_20261023.zip'):
     cells = []
 
     def md(text):
@@ -31,7 +31,7 @@ def notebook(package='Walmart_Vision_Ocupacion_20261022.zip', default_model='V2-
 
     md('''# Probar Walmart Visión en Google Colab
 
-Usa los modelos entrenados YOLO11-1 y YOLO26-1 para analizar una foto, sin volver a entrenar. Ejecuta las celdas en orden.
+Usa los modelos entrenados V2-YOLO11 y V2-YOLO26 para analizar una foto, sin volver a entrenar. Ejecuta las celdas en orden.
 
 Opcional: selecciona una GPU en **Entorno de ejecución → Cambiar tipo de entorno de ejecución**. Si no hay GPU, se usará CPU.
 
@@ -69,22 +69,16 @@ from inferencia import ModelRunner
 visor = ModelRunner(carpeta)
 print('Paquete listo. Modelos:', ', '.join(m['id'] for m in visor.available()))
 ''')
-    md('''## 0. Seleccionar versión y modelo
+    md('''## Seleccionar modelo
 
 Selecciona el modelo antes de subir la foto. Para comparar, puedes repetir el análisis con el otro modelo sobre la misma imagen.
 ''')
     code('''import ipywidgets as widgets
 from IPython.display import display
 modelos = visor.available()
-versiones = [v for v in ('V2', 'V1') if any(('V2' if m['id'].startswith('V2-') else 'V1') == v for m in modelos)]
-version = widgets.Dropdown(options=versiones, description='Versión:')
-selector = widgets.Dropdown(description='Modelo:')
-def actualizar_modelos(change=None):
-    selector.options = [m['id'] for m in modelos if ('V2' if m['id'].startswith('V2-') else 'V1') == version.value]
-    selector.value = next((m for m in selector.options if '26' in m), selector.options[0])
-version.observe(actualizar_modelos, names='value')
-actualizar_modelos()
-display(version, selector)
+selector = widgets.Dropdown(options=[m['id'] for m in modelos],
+                            value=visor.manifest['default_model'], description='Modelo:')
+display(selector)
 ''')
     md('''## Subir una foto
 
@@ -98,14 +92,14 @@ print('Foto lista:', nombre_foto)
 ''')
     md('''## Analizar
 
-La confianza mínima predeterminada es 0,25. Puedes cambiarla en la siguiente celda; no representa el porcentaje de producto del nivel. No evaluable no significa vacío.
+La confianza mínima predeterminada es 0,25. Puedes cambiarla en la siguiente celda; no representa el porcentaje de producto del nivel. El modelo distingue reponer y suficiente; no reconoce no evaluable.
 
 Para probar el otro modelo, cambia el selector y vuelve a ejecutar esta celda. Para usar otra foto, repite la celda de carga y luego esta.
 ''')
     code('''confianza = 0.25
 usar_bordes = True  # False para ejecutar solo YOLO.
 prediccion = visor.analyze(contenido_foto, selector.value, confianza,
-                          method='yolo_paulo' if usar_bordes else 'yolo')
+                          method='yolo_paulo_v2' if usar_bordes else 'yolo')
 print(f"{prediccion['model']} · {prediccion['device']} · {prediccion['seconds']} s")
 print('Niveles detectados:', len(prediccion['detections']))
 print('Estados YOLO:', prediccion['counts'])
@@ -148,15 +142,13 @@ prediccion['image'].save(ruta_resultado, quality=92)
     code('''files.download(str(ruta_resultado))
 ''')
     for cell in cells:
-        cell['source'] = [line.replace('Walmart_Lite_Automatico_20261015.zip', package)
-                          .replace("value='YOLO26-1'", f"value='{default_model}'")
-                          .replace('YOLO11-1 y YOLO26-1', 'V1 y V2 base' if default_model.startswith('V2-') else 'YOLO11-1 y YOLO26-1') for line in cell['source']]
+        cell['source'] = [line.replace('Walmart_Lite_Automatico_20261015.zip', package) for line in cell['source']]
     return {'nbformat': 4, 'nbformat_minor': 5, 'metadata': {'colab': {'name': 'Probar_en_Colab.ipynb'},
             'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'},
             'language_info': {'name': 'python'}}, 'cells': cells}
 
 
-def build(output, profile='v1'):
+def build(output):
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     for name in FILES:
@@ -168,22 +160,22 @@ def build(output, profile='v1'):
             raise ValueError('La herramienta uv no coincide con su fuente verificada.')
     models = []
     weights = {}
-    for model_id, run in (V2_RUNS if profile == 'v2' else RUNS).items():
+    for model_id, run in RUNS.items():
         source = ROOT / 'Experimentos' / run / 'entrenamiento/weights/best.pt'
         body = source.read_bytes()
         metadata = json.loads((ROOT / 'Experimentos' / run / 'manifest.json').read_text(encoding='utf-8-sig'))
         models.append({'id': model_id, 'name': model_id, 'file': f'modelos/{model_id}.pt',
                        'sha256': hashlib.sha256(body).hexdigest(), 'bytes': len(body), 'source_run': run,
-                       'classes': metadata['clases'], 'guide': 'v2 base' if model_id.startswith('V2-') else 'v1.3'})
+                       'classes': metadata['clases'], 'guide': 'v2 base'})
         weights[f'modelos/{model_id}.pt'] = body
-    manifest = {'schema_version': 4, 'product': 'Walmart Visión', 'date': '2026-10-22',
-                'guide': 'per_model', 'default_model': 'V2-YOLO26' if profile == 'v2' else 'YOLO26-1', 'ultralytics': '8.4.174',
+    manifest = {'schema_version': 5, 'product': 'Walmart Visión', 'date': '2026-10-23',
+                'guide': 'v2 base', 'default_model': 'V2-YOLO26', 'ultralytics': '8.4.174',
                 'windows_setup': 'private_python_3.12_automatic',
                 'task': 'segment', 'purpose': 'inference_only', 'models': models,
-                'features': ['yolo', 'paulo_mascara_v2_color_textura', 'paulo_mascara_v2_combinacion_ponderada'],
+                'features': ['yolo', 'paulo_mascara_v2_combinacion_ponderada'],
                 'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
-    nb = json.dumps(notebook(output.name, manifest['default_model']), ensure_ascii=False, indent=2) + '\n'
-    verify_name = 'VERIFICACION_VISION.md'
+    nb = json.dumps(notebook(output.name), ensure_ascii=False, indent=2) + '\n'
+    verify_name = 'VERIFICACION_ACTUAL.md'
     verify = (SOURCE / verify_name).read_text(encoding='utf-8') if (SOURCE / verify_name).exists() else 'Verificación de esta entrega pendiente.\n'
     with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         for name in FILES:
@@ -196,7 +188,7 @@ def build(output, profile='v1'):
             archive.writestr('Walmart_Vision/' + name, body)
         for name, body in weights.items():
             archive.writestr('Walmart_Vision/' + name, body)
-        for name, path in EDGE_FILES.items():
+        for name, path in (EDGE_FILES | SUPPORT_FILES).items():
             archive.writestr('Walmart_Vision/' + name, path.read_bytes())
         archive.writestr('Walmart_Vision/modelos.json', json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
         archive.writestr('Walmart_Vision/Probar_en_Colab.ipynb', nb)
@@ -214,8 +206,7 @@ def build(output, profile='v1'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--perfil', choices=('v1', 'v2'), default='v2')
     parser.add_argument('--output')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables' / ('Walmart_Vision_Ocupacion_20261022.zip' if args.perfil == 'v2' else 'Walmart_Vision_V1_20261022.zip'))
-    print(json.dumps(build(output, args.perfil), ensure_ascii=False))
+    output = args.output or str(ROOT / 'Entregables/Walmart_Vision_Actual_20261023.zip')
+    print(json.dumps(build(output), ensure_ascii=False))

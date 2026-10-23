@@ -51,8 +51,9 @@ def verify(root=ROOT):
             iid = entry[lot['id_columna']]
             require(bool(iid) and iid not in ids, f'ID vacio o repetido en {lot_id}: {iid}')
             ids.add(iid)
-            path = (base / entry['archivo']).resolve()
-            require(path.is_relative_to(base), f'Ruta fuera del lote {lot_id}: {entry["archivo"]}')
+            filename = entry[lot.get('archivo_columna', 'archivo')]
+            path = ((root if lot.get('rutas_inventario_desde_raiz') else base) / filename).resolve()
+            require(path.is_relative_to(base), f'Ruta fuera del lote {lot_id}: {filename}')
             require(path.suffix.lower() in IMAGE_SUFFIXES, f'Extension inesperada: {path.name}')
             require(path not in paths, f'Ruta repetida: {path.name}')
             paths.add(path)
@@ -66,13 +67,20 @@ def verify(root=ROOT):
         if lot.get('manifest'):
             manifest_path = registered_path(root, lot['manifest'])
             manifest = read(manifest_path)
-            if isinstance(manifest['imagenes'], list):
-                declared = {(item['id'], item['archivo'], item['sha256']) for item in manifest['imagenes']}
-                actual = {(item[lot['id_columna']], item['archivo'], item['sha256']) for item in entries}
+            manifest_images = manifest[lot.get('manifest_imagenes_clave', 'imagenes')]
+            if isinstance(manifest_images, list):
+                manifest_base = root if lot.get('rutas_manifest_desde_raiz') else base
+                declared = {(item[lot.get('manifest_id_columna', 'id')],
+                             (manifest_base / item[lot.get('manifest_archivo_columna', 'archivo')]).resolve(),
+                             item['sha256']) for item in manifest_images}
+                actual = {(item[lot['id_columna']],
+                           ((root if lot.get('rutas_inventario_desde_raiz') else base)
+                            / item[lot.get('archivo_columna', 'archivo')]).resolve(),
+                           item['sha256']) for item in entries}
                 require(len(declared) == len(entries) and declared == actual,
                         f'Manifest e inventario no coinciden: {lot_id}')
             else:
-                require(manifest['imagenes'] == len(entries), f'Manifest incompleto: {lot_id}')
+                require(manifest_images == len(entries), f'Manifest incompleto: {lot_id}')
             if lot['estado'] == 'pendiente_de_reparto':
                 require(manifest['estado'] == lot['estado'], f'Estado contradictorio: {lot_id}')
                 require(manifest.get('cvat') is None and manifest.get('aprobado_entrenamiento') is False,

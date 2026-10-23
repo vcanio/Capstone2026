@@ -1,0 +1,50 @@
+{
+  "status": "reverted",
+  "task_id": 27,
+  "jobs": [
+    64,
+    65,
+    66
+  ],
+  "removed_assistant_partial_shapes": 2135,
+  "removed_assistant_review_tags": 14,
+  "remaining_original_polygons": 1416,
+  "all_original_ids_coordinates_attributes_preserved": true,
+  "matches_state_before_partial_additions": true,
+  "no_existing_polygons_updated": true,
+  "scope": "task_27_only",
+  "backup": ".resguardo/retirar_parciales_t27_20261022T200534Z",
+  "verified_at": "2026-10-22T20:06:48.301257+00:00",
+  "per_job": [
+    {
+      "job_id": 64,
+      "deleted_shapes_this_run": 766,
+      "deleted_tags_this_run": 5,
+      "restored_original_shape_count": 465,
+      "all_remaining_shapes_tags_tracks_exactly_preserved": true,
+      "matches_original_before_additions": true,
+      "original_content_sha256": "3da1b49a4e18ac4853132e75a7e68600c55f095b877be1d28f10740c98cb4f4f",
+      "restored_content_sha256": "3da1b49a4e18ac4853132e75a7e68600c55f095b877be1d28f10740c98cb4f4f"
+    },
+    {
+      "job_id": 65,
+      "deleted_shapes_this_run": 840,
+      "deleted_tags_this_run": 5,
+      "restored_original_shape_count": 500,
+      "all_remaining_shapes_tags_tracks_exactly_preserved": true,
+      "matches_original_before_additions": true,
+      "original_content_sha256": "615f4fb335e8d1bf8fcb3a36bd841874fed12794ddf2e4e16bf4585954f94c35",
+      "restored_content_sha256": "615f4fb335e8d1bf8fcb3a36bd841874fed12794ddf2e4e16bf4585954f94c35"
+    },
+    {
+      "job_id": 66,
+      "deleted_shapes_this_run": 529,
+      "deleted_tags_this_run": 4,
+      "restored_original_shape_count": 451,
+      "all_remaining_shapes_tags_tracks_exactly_preserved": true,
+      "matches_original_before_additions": true,
+      "original_content_sha256": "ea810a97a4dd8ae1a8cf1c4739ba1603d7c555a4972bfd981dff964eb8299a9e",
+      "restored_content_sha256": "ea810a97a4dd8ae1a8cf1c4739ba1603d7c555a4972bfd981dff964eb8299a9e"
+    }
+  ]
+}

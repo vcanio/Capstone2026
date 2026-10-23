@@ -1,0 +1,835 @@
+{
+  "status": "verified",
+  "verified_at": "2026-10-22T04:34:00.901206+00:00",
+  "task_id": 28,
+  "job_id": 67,
+  "url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=0",
+  "frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "images_annotated": 10,
+  "polygons_created": 40,
+  "manual_lower_polygons": 30,
+  "median_top_polygons": 10,
+  "geometry_attribute": "completa",
+  "human_review": "pendiente",
+  "annotation_author": "asistente_codex",
+  "source": "manual",
+  "remaining_images_in_job": 31,
+  "other_frames_changed": false,
+  "existing_shapes_preserved": 0,
+  "prior_tags_tracks_preserved": true,
+  "jobs_68_69_untouched": true,
+  "training_enabled": false,
+  "split": "sin_asignar",
+  "backup": ".resguardo/job67_primeras10_20261022T042841Z",
+  "total_task_polygons": 40,
+  "total_job_polygons": 40,
+  "job_stage": "annotation",
+  "job_state": "in progress",
+  "images": [
+    {
+      "frame": 0,
+      "name": "lider_2_001_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        664.6661665416354,
+        891.2228057014254,
+        696.1740435108778
+      ],
+      "median_height_px": 696.1740435108778,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            489.0,
+            3618.904726181546,
+            2673.0,
+            3591.8979744936237,
+            2694.0,
+            2928.7321830457618,
+            465.0,
+            2952.738184546137
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            456.0,
+            2844.7111777944488,
+            2700.0,
+            2826.7066766691673,
+            2724.0,
+            1929.4823705926483,
+            426.0,
+            1959.4898724681173
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            420.0,
+            1866.4666166541638,
+            2733.0,
+            1845.4613653413355,
+            2769.0,
+            1152.2880720180046,
+            390.0,
+            1167.291822955739
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            390.0,
+            1167.291822955739,
+            2769.0,
+            1152.2880720180046,
+            2769.0,
+            456.1140285071268,
+            390.0,
+            471.11777944486124
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9698,
+        9699,
+        9700,
+        9701
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=0"
+    },
+    {
+      "frame": 1,
+      "name": "lider_2_002_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        700.6751687921981,
+        883.7209302325582,
+        711.1777944486122
+      ],
+      "median_height_px": 711.1777944486122,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            483.0,
+            3594.8987246811707,
+            2589.0,
+            3600.9002250562644,
+            2637.0,
+            2940.735183795949,
+            465.0,
+            2853.7134283570895
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            459.0,
+            2787.696924231058,
+            2643.0,
+            2856.7141785446365,
+            2700.0,
+            1959.4898724681173,
+            450.0,
+            1917.4793698424608
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            441.0,
+            1839.4598649662416,
+            2712.0,
+            1887.4718679669918,
+            2775.0,
+            1197.299324831208,
+            432.0,
+            1107.2768192048013
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            432.0,
+            1107.2768192048013,
+            2775.0,
+            1197.299324831208,
+            2775.0,
+            486.12153038259567,
+            432.0,
+            396.09902475618907
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9702,
+        9703,
+        9704,
+        9705
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=1"
+    },
+    {
+      "frame": 2,
+      "name": "lider_2_003_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        742.6856714178546,
+        856.7141785446362,
+        729.1822955738935
+      ],
+      "median_height_px": 742.6856714178546,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            429.0,
+            3582.895723930983,
+            2568.0,
+            3570.8927231807957,
+            2598.0,
+            2835.708927231808,
+            414.0,
+            2832.7081770442614
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            411.0,
+            2754.688672168042,
+            2601.0,
+            2757.689422355589,
+            2685.0,
+            1914.478619654914,
+            405.0,
+            1884.471117779445
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            405.0,
+            1803.450862715679,
+            2691.0,
+            1845.4613653413355,
+            2742.0,
+            1131.2828207051764,
+            402.0,
+            1059.2648162040512
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            402.0,
+            1059.2648162040512,
+            2742.0,
+            1131.2828207051764,
+            2742.0,
+            388.5971492873219,
+            402.0,
+            316.5791447861966
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9706,
+        9707,
+        9708,
+        9709
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=2"
+    },
+    {
+      "frame": 3,
+      "name": "lider_2_004_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        741.185296324081,
+        832.7081770442611,
+        741.185296324081
+      ],
+      "median_height_px": 741.185296324081,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            399.0,
+            3564.8912228057015,
+            2457.0,
+            3576.8942235558893,
+            2463.0,
+            2826.7066766691673,
+            378.0,
+            2832.7081770442614
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            372.0,
+            2748.6871717929484,
+            2469.0,
+            2745.6864216054014,
+            2499.0,
+            1923.4808702175546,
+            354.0,
+            1905.4763690922732
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            345.0,
+            1830.457614403601,
+            2520.0,
+            1845.4613653413355,
+            2577.0,
+            1125.2813203300825,
+            324.0,
+            1068.2670667666916
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            324.0,
+            1068.2670667666916,
+            2577.0,
+            1125.2813203300825,
+            2577.0,
+            384.0960240060015,
+            324.0,
+            327.08177044261066
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9710,
+        9711,
+        9712,
+        9713
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=3"
+    },
+    {
+      "frame": 4,
+      "name": "lider_2_005_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        667.6669167291824,
+        807.2018004501126,
+        697.6744186046512
+      ],
+      "median_height_px": 697.6744186046512,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            507.0,
+            3600.9002250562644,
+            2592.0,
+            3570.8927231807957,
+            2625.0,
+            2916.729182295574,
+            489.0,
+            2919.729932483121
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            486.0,
+            2838.709677419355,
+            2631.0,
+            2841.7104276069017,
+            2661.0,
+            2037.5093773443361,
+            465.0,
+            2028.5071267816957
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            456.0,
+            1953.4883720930234,
+            2673.0,
+            1962.490622655664,
+            2718.0,
+            1293.3233308327083,
+            435.0,
+            1227.3068267066767
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            435.0,
+            1227.3068267066767,
+            2718.0,
+            1293.3233308327083,
+            2718.0,
+            595.648912228057,
+            435.0,
+            529.6324081020256
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9714,
+        9715,
+        9716,
+        9717
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=4"
+    },
+    {
+      "frame": 5,
+      "name": "lider_2_006_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        658.6646661665417,
+        778.6946736684172,
+        696.1740435108778
+      ],
+      "median_height_px": 696.1740435108778,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            465.0,
+            3588.8972243060766,
+            2403.0,
+            3579.894973743436,
+            2445.0,
+            2922.730682670668,
+            513.0,
+            2928.7321830457618
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            522.0,
+            2841.7104276069017,
+            2454.0,
+            2838.709677419355,
+            2511.0,
+            2064.516129032258,
+            534.0,
+            2058.5146286571644
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            543.0,
+            1968.4921230307577,
+            2514.0,
+            1983.4958739684923,
+            2565.0,
+            1299.324831207802,
+            531.0,
+            1260.3150787696925
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            531.0,
+            1260.3150787696925,
+            2565.0,
+            1299.324831207802,
+            2565.0,
+            603.1507876969242,
+            531.0,
+            564.1410352588148
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9718,
+        9719,
+        9720,
+        9721
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=5"
+    },
+    {
+      "frame": 6,
+      "name": "lider_2_007_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        697.6744186046512,
+        919.7299324831208,
+        847.7119279819956
+      ],
+      "median_height_px": 847.7119279819956,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            411.0,
+            3678.9197299324833,
+            2631.0,
+            3600.9002250562644,
+            2685.0,
+            2937.7344336084025,
+            375.0,
+            2946.736684171043
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            366.0,
+            2853.7134283570895,
+            2691.0,
+            2850.7126781695424,
+            2754.0,
+            1932.4831207801951,
+            330.0,
+            1932.4831207801951
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            324.0,
+            1848.4621155288824,
+            2754.0,
+            1851.4628657164292,
+            2826.0,
+            1008.2520630157541,
+            297.0,
+            996.2490622655664
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            297.0,
+            996.2490622655664,
+            2826.0,
+            1008.2520630157541,
+            2826.0,
+            160.54013503375845,
+            297.0,
+            148.5371342835709
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9722,
+        9723,
+        9724,
+        9725
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=6"
+    },
+    {
+      "frame": 7,
+      "name": "lider_2_008_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        645.1612903225807,
+        741.185296324081,
+        696.1740435108778
+      ],
+      "median_height_px": 696.1740435108778,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            540.0,
+            3576.8942235558893,
+            2403.0,
+            3558.889722430608,
+            2421.0,
+            2916.729182295574,
+            522.0,
+            2928.7321830457618
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            519.0,
+            2844.7111777944488,
+            2424.0,
+            2826.7066766691673,
+            2451.0,
+            2085.5213803450865,
+            510.0,
+            2103.525881470368
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            507.0,
+            2028.5071267816957,
+            2451.0,
+            2007.5018754688674,
+            2466.0,
+            1299.324831207802,
+            495.0,
+            1344.3360840210053
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            495.0,
+            1344.3360840210053,
+            2466.0,
+            1299.324831207802,
+            2466.0,
+            603.1507876969242,
+            495.0,
+            648.1620405101276
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9726,
+        9727,
+        9728,
+        9729
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=7"
+    },
+    {
+      "frame": 8,
+      "name": "lider_2_009_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        663.165791447862,
+        874.7186796699175,
+        802.7006751687923
+      ],
+      "median_height_px": 802.7006751687923,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            417.0,
+            3591.8979744936237,
+            2550.0,
+            3606.901725431358,
+            2538.0,
+            2931.7329332333084,
+            399.0,
+            2940.735183795949
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            396.0,
+            2859.714928732183,
+            2538.0,
+            2838.709677419355,
+            2556.0,
+            1971.4928732183048,
+            351.0,
+            1977.4943735933984
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            345.0,
+            1896.4741185296325,
+            2559.0,
+            1887.4718679669918,
+            2604.0,
+            1083.2708177044262,
+            324.0,
+            1095.2738184546138
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            324.0,
+            1095.2738184546138,
+            2604.0,
+            1083.2708177044262,
+            2604.0,
+            280.5701425356339,
+            324.0,
+            292.57314328582146
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9730,
+        9731,
+        9732,
+        9733
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=8"
+    },
+    {
+      "frame": 9,
+      "name": "lider_2_010_0_original.jpg",
+      "levels": 4,
+      "reference_heights_px": [
+        711.1777944486122,
+        849.212303075769,
+        757.6894223555889
+      ],
+      "median_height_px": 757.6894223555889,
+      "top_boundary": "mediana_sin_cubierta_clara",
+      "geometry_attribute": "completa",
+      "human_review": "pendiente",
+      "polygons": [
+        {
+          "level_bottom_to_top": 1,
+          "points": [
+            417.0,
+            3570.8927231807957,
+            2493.0,
+            3564.8912228057015,
+            2529.0,
+            2871.717929482371,
+            408.0,
+            2841.7104276069017
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 2,
+          "points": [
+            405.0,
+            2772.6931732933235,
+            2532.0,
+            2793.6984246061515,
+            2568.0,
+            1938.484621155289,
+            405.0,
+            1929.4823705926483
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 3,
+          "points": [
+            402.0,
+            1854.4636159039762,
+            2577.0,
+            1875.4688672168043,
+            2619.0,
+            1146.2865716429108,
+            399.0,
+            1068.2670667666916
+          ],
+          "upper_boundary": "estante_real"
+        },
+        {
+          "level_bottom_to_top": 4,
+          "points": [
+            399.0,
+            1068.2670667666916,
+            2619.0,
+            1146.2865716429108,
+            2619.0,
+            388.5971492873219,
+            399.0,
+            310.5776444111028
+          ],
+          "upper_boundary": "mediana"
+        }
+      ],
+      "shape_ids_bottom_to_top": [
+        9734,
+        9735,
+        9736,
+        9737
+      ],
+      "cvat_url": "https://pcvicen.tailca514b.ts.net/tasks/28/jobs/67?frame=9"
+    }
+  ],
+  "guide_verified": 10,
+  "final_verified_at": "2026-10-22T04:37:38.283330+00:00",
+  "current_status": "reverted_by_user_request",
+  "reversion_record": "Datos/Registros/CVAT/revisiones/job67_primeras10_20261022/reversion.json"
+}
