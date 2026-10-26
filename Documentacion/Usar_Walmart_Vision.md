@@ -1,10 +1,10 @@
 # Usar Walmart Visión
 
-Esta guía corresponde a **V3, en pruebas locales al 26 de octubre de 2026**. La release V3 se prepara como borrador con el paquete y su comprobante SHA-256; todavía no es una descarga pública. Consulta el [estado de distribución](../Entregables/README.md) antes de descargar una entrega: las releases existentes pertenecen a versiones anteriores.
+Esta guía corresponde a **V3, publicada el 26 de octubre de 2026**. Descarga el paquete desde la [release actual](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26); incluye la aplicación y su modelo para Windows x64 y macOS con Docker.
 
 ## Abrir la aplicación
 
-Si el equipo te entregó el paquete V3, extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
+Descarga [`Walmart_Vision_V3_20261026.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) y extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
 
 **Windows:** abre `Walmart_Vision/iniciar.cmd`. El iniciador prepara las dependencias en el primer uso. Después se abre el visor en [http://127.0.0.1:8095](http://127.0.0.1:8095).
 

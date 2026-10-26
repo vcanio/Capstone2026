@@ -1,6 +1,6 @@
 # Modelo actual de Walmart Visión
 
-**V3-YOLO26**, integrado en la aplicación local y preparado en una release en borrador, pendiente de publicación. Estado al 26 de octubre de 2026.
+**V3-YOLO26**, integrado en la aplicación y disponible en la [release publicada el 26 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26).
 
 ## Identidad y función
 

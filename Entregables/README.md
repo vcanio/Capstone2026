@@ -1,19 +1,22 @@
 # Distribución de Walmart Visión
 
-## V3 · release preparada como borrador
+## V3 · descarga actual
 
-Se prepara **Walmart Visión V3 · niveles y ocupación experimental**, tag previsto `walmart-vision-v3-2026-10-26`. El borrador reúne:
+La [release V3 publicada el 26 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) reúne Windows x64 y macOS con Docker en un único paquete.
 
-- `Walmart_Vision_V3_20261026.zip`: app Windows x64, alternativa Docker y único best.pt V3 vigente.
-- `Walmart_Vision_V3_20261026.sha256`: comprobante de integridad del ZIP.
+**Descarga [`Walmart_Vision_V3_20261026.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip): incluye la aplicación y el modelo. Los archivos Source code contienen solamente el código fuente.**
 
-**El borrador todavía no es una descarga pública.** Las [Releases publicadas](https://github.com/vcanio/Capstone2026/releases) conservan sus versiones anteriores. No se reemplazan sus activos.
+El [archivo SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.sha256) permite comprobar opcionalmente la integridad de la descarga; no es necesario para abrir la aplicación.
 
 V3 usa una sola clase Nivel, confianza fija 0,60 y ocupación experimental por bordes, color y textura. Requiere fotos frontales o casi frontales y confirmación manual de visibilidad. Incluye la abstención por señal superior o periférica ambigua; no detecta automáticamente personas, carteles o vacío.
 
-El archivo automático Source code contiene fuentes, sin el modelo operativo incluido en el ZIP de la aplicación. La primera preparación requiere conexión; la inferencia posterior es local. El procedimiento Docker fue probado correctamente por Vicente en macOS con la release anterior; V3 conserva ese flujo y sus dependencias.
+La primera preparación requiere conexión; la inferencia posterior es local. El procedimiento Docker fue probado correctamente por Vicente en macOS con la release anterior; V3 conserva ese flujo y sus dependencias.
 
 [Manual](../Documentacion/Usar_Walmart_Vision.md) · [Criterios y cálculo](../Documentacion/Guia_para_entender_el_proyecto.md) · [Modelo y métricas](../Documentacion/Modelo_V3_actual.md)
+
+## Entregas anteriores
+
+Las [Releases de GitHub](https://github.com/vcanio/Capstone2026/releases) conservan las versiones anteriores como historial.
 
 ## Material académico
 

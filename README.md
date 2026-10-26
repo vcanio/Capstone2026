@@ -6,8 +6,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Cómo usar Walmart Visión**](Documentacion/Usar_Walmart_Vision.md) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Estado del paquete V3](Entregables/README.md) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
+| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
 ## Contenido
 
@@ -48,7 +48,7 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-La release **Walmart Visión V3 · niveles y ocupación experimental** se prepara como **borrador**, con el paquete `Walmart_Vision_V3_20261026.zip`, su SHA-256 y un único modelo vigente. **Todavía no es una descarga pública**. Consulta el [estado de distribución](Entregables/README.md) para distinguirlo de las entregas anteriores.
+**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261026.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales
 
@@ -58,7 +58,7 @@ La perspectiva oblicua cambia las alturas y anchuras aparentes, oculta huecos de
 
 ### Windows
 
-Si el equipo te entregó el paquete V3:
+Descarga el paquete V3 enlazado arriba y sigue estos pasos:
 
 1. Extrae **todo** el archivo ZIP.
 2. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
@@ -80,7 +80,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | V3 con visor y pesos; release preparada como borrador, pendiente de publicación. |
+| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip), con visor y modelo. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
@@ -181,7 +181,7 @@ La app local utiliza **V3-YOLO26**, el `best.pt` del afinado de papeles, huevos 
 
 | Modelo vigente | Entrenamiento del último afinado | Validación | Estado |
 |---|---|---|---|
-| **YOLO26n-seg V3** | **113 fotos**, 29 épocas completadas | **22 reales + 47 sintéticas**, evaluadas por separado | Integrado en local; release en borrador |
+| **YOLO26n-seg V3** | **113 fotos**, 29 épocas completadas | **22 reales + 47 sintéticas**, evaluadas por separado | [Disponible en la release V3](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) |
 
 | Segmentación de máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
@@ -288,7 +288,6 @@ Las sintéticas son variantes de fuentes existentes; no se consideran capturas i
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
 - **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.
 - **Mantener compatibilidad de instalación:** V3 conserva el procedimiento Docker que Vicente probó correctamente en macOS con la release anterior.
-- **Publicación de V3:** release preparada como borrador; las descargas públicas anteriores conservan sus versiones. Se conserva el procedimiento Docker ya probado por Vicente en macOS.
 
 El prototipo orienta la revisión visual. Sus porcentajes y avisos requieren comprobar la foto y no sustituyen una medición de inventario.
 

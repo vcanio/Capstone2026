@@ -1,6 +1,6 @@
 # Cómo funciona Walmart Visión
 
-V3 aprende una sola clase, **Nivel**, para localizar áreas útiles. Después, un algoritmo independiente estima señal visual y la interpreta como Reponer, Suficiente o Revisar. La release del 26 de octubre se prepara como borrador; la ocupación sigue sin calibración V3.
+V3 aprende una sola clase, **Nivel**, para localizar áreas útiles. Después, un algoritmo independiente estima señal visual y la interpreta como Reponer, Suficiente o Revisar. La [release V3 del 26 de octubre](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) ya está publicada; la ocupación sigue sin calibración V3.
 
 ## Fotografías frontales
 
