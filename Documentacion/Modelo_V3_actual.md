@@ -49,6 +49,6 @@ Estos resultados evalúan la delimitación de niveles, no el porcentaje de ocupa
 
 En la familia `le_g10`, a confianza 0,60, el superior vacío de la foto 029 se delimita demasiado alto y el de la 030 se omite. Faltan escenas independientes de papeles y huevos para evaluar generalización.
 
-La entrada prevista son fotografías frontales o casi frontales; no existe corrección automática de perspectiva. La ocupación sigue sin calibración V3. La última ampliación de abstención se comprobó en 151 fotos de desarrollo y 754 detecciones, conservando las métricas brutas y añadiendo 35 revisiones; no constituye una evaluación exhaustiva ni prueba final. La instalación en otro computador físico y en macOS sigue pendiente para esta versión.
+La entrada prevista son fotografías frontales o casi frontales; no existe corrección automática de perspectiva. La ocupación sigue sin calibración V3. La última ampliación de abstención se comprobó en 151 fotos de desarrollo y 754 detecciones, conservando las métricas brutas y añadiendo 35 revisiones; no constituye una evaluación exhaustiva ni prueba final. El procedimiento Docker ya fue probado correctamente por Vicente en macOS con la release anterior; esta entrega conserva ese flujo y sus dependencias.
 
 [Manual](Usar_Walmart_Vision.md) · [Funcionamiento](Guia_para_entender_el_proyecto.md) · [Distribución](../Entregables/README.md)

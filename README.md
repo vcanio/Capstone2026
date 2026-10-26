@@ -76,7 +76,7 @@ Con Docker Desktop abierto, entra en la carpeta `Walmart_Vision` extraída y eje
 docker compose up --build -d --wait
 ```
 
-Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación, ejecuta `docker compose down`. La instalación de V3 en macOS y en otro equipo físico sigue pendiente de comprobación.
+Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación, ejecuta `docker compose down`. El procedimiento Docker fue probado por Vicente en macOS con la release anterior y funcionó correctamente. V3 conserva ese mismo comando, las dependencias y la configuración de ejecución; incorpora los módulos del nuevo modelo.
 
 | Requisito | Detalle |
 |---|---|
@@ -287,8 +287,8 @@ Las sintéticas son variantes de fuentes existentes; no se consideran capturas i
 - **Automatizar y validar la visibilidad:** actualmente se confirma manualmente; no se detectan personas u obstáculos de forma automática.
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
 - **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.
-- **Comprobar instalación externa:** pendiente en otro computador físico y en macOS para V3.
-- **Publicación de V3:** release preparada como borrador; las descargas públicas anteriores conservan sus versiones. V3 sigue pendiente de comprobación en otro equipo y macOS.
+- **Mantener compatibilidad de instalación:** V3 conserva el procedimiento Docker que Vicente probó correctamente en macOS con la release anterior.
+- **Publicación de V3:** release preparada como borrador; las descargas públicas anteriores conservan sus versiones. Se conserva el procedimiento Docker ya probado por Vicente en macOS.
 
 El prototipo orienta la revisión visual. Sus porcentajes y avisos requieren comprobar la foto y no sustituyen una medición de inventario.
 

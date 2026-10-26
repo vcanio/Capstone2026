@@ -41,4 +41,4 @@ El laboratorio local en http://127.0.0.1:8090 conserva este best.pt como modelo 
 
 ## Alcance de esta entrega
 
-El manifiesto `modelos.json` conserva el ensayo fuente y el hash exacto de los pesos. La ejecución en el equipo de desarrollo no certifica instalación en otro computador ni calibración de ocupación. El cuaderno opcional de Colab informa antes de cargar que los archivos se subirán al entorno de Google.
+El manifiesto `modelos.json` conserva el ensayo fuente y el hash exacto de los pesos. Vicente probó correctamente el procedimiento Docker en macOS con la release anterior. V3 conserva el mismo flujo y dependencias, incorporando sus módulos actuales. La ocupación sigue pendiente de calibración. El cuaderno opcional de Colab informa antes de cargar que los archivos se subirán al entorno de Google.

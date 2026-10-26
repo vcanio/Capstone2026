@@ -14,7 +14,7 @@ Si el equipo te entregó el paquete V3, extrae todo el ZIP. El archivo automáti
 docker compose up --build -d --wait
 ```
 
-Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detenerlo, ejecuta `docker compose down`. La instalación en macOS y en otro computador físico sigue pendiente de verificación para V3.
+Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detenerlo, ejecuta `docker compose down`. Vicente confirmó que estos pasos funcionaron correctamente en su Mac con la release anterior. V3 mantiene el mismo flujo Docker y sus dependencias, incorporando los módulos del modelo actual.
 
 La preparación inicial requiere conexión para obtener dependencias. La inferencia es local. No necesitas instalar CVAT, preparar datasets ni iniciar el laboratorio.
 

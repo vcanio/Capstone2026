@@ -11,7 +11,7 @@ Se prepara **Walmart Visión V3 · niveles y ocupación experimental**, tag prev
 
 V3 usa una sola clase Nivel, confianza fija 0,60 y ocupación experimental por bordes, color y textura. Requiere fotos frontales o casi frontales y confirmación manual de visibilidad. Incluye la abstención por señal superior o periférica ambigua; no detecta automáticamente personas, carteles o vacío.
 
-El archivo automático Source code contiene fuentes, sin el modelo operativo incluido en el ZIP de la aplicación. La primera preparación requiere conexión; la inferencia posterior es local. La instalación V3 en macOS y en otro equipo físico sigue pendiente de comprobación.
+El archivo automático Source code contiene fuentes, sin el modelo operativo incluido en el ZIP de la aplicación. La primera preparación requiere conexión; la inferencia posterior es local. El procedimiento Docker fue probado correctamente por Vicente en macOS con la release anterior; V3 conserva ese flujo y sus dependencias.
 
 [Manual](../Documentacion/Usar_Walmart_Vision.md) · [Criterios y cálculo](../Documentacion/Guia_para_entender_el_proyecto.md) · [Modelo y métricas](../Documentacion/Modelo_V3_actual.md)
 
