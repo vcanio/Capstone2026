@@ -4,8 +4,6 @@
 
 Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. La aplicación **Walmart Visión** identifica los niveles, delimita sus áreas útiles y estima su ocupación visible para ayudar a revisar posibles faltantes.
 
-> **Estado del proyecto:** prototipo funcional en desarrollo. La versión **V3** está integrada y en pruebas locales al **26 de octubre de 2026**. Su nueva release aún no se ha publicado; las descargas existentes corresponden a versiones anteriores.
-
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
 | [**Cómo usar Walmart Visión**](Documentacion/Usar_Walmart_Vision.md) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
@@ -241,7 +239,3 @@ El prototipo orienta la revisión visual. Sus porcentajes y avisos requieren com
 |---|---|
 | Desarrollo | **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches** |
 | Docente | **Arturo Vargas** |
-
----
-
-<p align="center"><sub>Proyecto académico de visión por computador · Los resultados corresponden a un prototipo y deben interpretarse dentro de las limitaciones de su evaluación.</sub></p>
