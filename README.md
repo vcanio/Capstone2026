@@ -26,7 +26,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 ## ¿Qué hace el sistema?
 
-El objetivo es **facilitar la revisión de niveles con posibles faltantes visibles**, incluso cuando existe mercadería disponible en bodega. A partir de una fotografía, el sistema:
+El objetivo es **facilitar la revisión de niveles con posibles faltantes visibles**. A partir de una fotografía, el sistema:
 
 1. **Detecta** cada nivel y **segmenta** su área útil, incluidos los espacios sin producto.
 2. **Analiza** bordes, color y textura dentro de los niveles detectados.
