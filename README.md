@@ -13,6 +13,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 - [¿Qué hace el sistema?](#qué-hace-el-sistema)
 - [Inicio rápido: Walmart Visión](#inicio-rápido-walmart-visión)
+- [Qué consideramos un nivel](#qué-consideramos-un-nivel)
 - [Interpretar los resultados](#interpretar-los-resultados)
 - [Modelo actual y resultados](#modelo-actual-y-resultados)
 - [Arquitectura y funcionamiento](#arquitectura-y-funcionamiento)
@@ -47,7 +48,13 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-El equipo tiene preparado el paquete `Walmart_Vision_V3_20261026.zip`, con un único modelo vigente y una interfaz simplificada. **Todavía no está publicado en Releases**. Consulta el [estado de distribución](Entregables/README.md) para distinguirlo de las entregas anteriores.
+La release **Walmart Visión V3 · niveles y ocupación experimental** se prepara como **borrador**, con el paquete `Walmart_Vision_V3_20261026.zip`, su SHA-256 y un único modelo vigente. **Todavía no es una descarga pública**. Consulta el [estado de distribución](Entregables/README.md) para distinguirlo de las entregas anteriores.
+
+### Fotografías frontales
+
+**Para usar esta versión, toma fotos frontales o casi frontales de la góndola.** Sitúate frente al tramo, mantén la cámara nivelada y procura que se vean sus dos extremos y las superficies de apoyo. Evita tomas desde un costado, desde muy arriba o abajo, panorámicas deformadas, desenfoque y reflejos fuertes. Si el mueble es largo, utiliza varias tomas frontales de tramos completos.
+
+La perspectiva oblicua cambia las alturas y anchuras aparentes, oculta huecos detrás de los productos y puede desplazar las máscaras. El algoritmo estima una proporción de la imagen, sin reconstruir el volumen ni corregir automáticamente la perspectiva. Una foto frontal ayuda, pero no garantiza una detección correcta: revisa siempre los contornos y la visibilidad. No hay un ángulo máximo validado ni un detector automático que certifique que la toma sea frontal.
 
 ### Windows
 
@@ -73,7 +80,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | V3 preparado por el equipo, con visor y pesos. La nueva release sigue pendiente. |
+| Paquete | V3 con visor y pesos; release preparada como borrador, pendiente de publicación. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
@@ -85,6 +92,37 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 **Material para explorar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing), con tres fotografías reales y tres variantes sintéticas. Fueron seleccionadas para una demostración anterior; sirven para inspeccionar casos, no para acreditar precisión de la V3 ni como evaluación independiente.
 
 [**Guía completa de uso**](Documentacion/Usar_Walmart_Vision.md) · [**Estado de las descargas**](Entregables/README.md) · [**Video de demostración**](https://youtu.be/sN_6XPdxtKk)
+
+## ¿Qué consideramos un nivel?
+
+Un **nivel** es el área útil de una repisa donde pueden existir **productos y huecos**. Se dibuja un polígono para el espacio completo del mismo tramo de góndola, siguiendo su perspectiva; no se dibuja una máscara por envase ni solo la banda frontal del estante.
+
+| Límite | Criterio de anotación |
+|---|---|
+| Inferior | Superficie donde apoyan los productos, **por encima del portaprecio**. Se excluyen la franja del precio y el espesor frontal del estante. |
+| Superior, cuando existe | Cara inferior de la repisa o cubierta física que cierra el espacio. |
+| Laterales | Límites interiores del mismo tramo; no se amplía la zona hasta pilares, suelo u otras góndolas. |
+| Huecos | Forman parte del área útil, aunque no haya productos. Un nivel vacío sigue siendo un nivel. |
+
+La región se define por la estructura y la convención de anotación, sin ajustarla a la altura de los envases. Un cartel o panel sin una superficie de apoyo asociada no crea otro nivel. Las barandas que atraviesan un nivel pueden quedar dentro de su región y deben tratarse en el análisis de señal; su exclusión automática todavía es imperfecta.
+
+### Superior abierto: por qué acordamos usar la mediana
+
+En una repisa superior sin techo claro era difícil fijar un límite consistente: una persona podía seguir las tapas de los envases, otra un cartel y otra una altura elegida a ojo. Al retirar los productos, esas referencias desaparecían y el mismo nivel lleno o vacío podía terminar con áreas diferentes. Eso introduce una contradicción en los ejemplos usados para enseñar al modelo.
+
+La solución acordada fue una **convención de anotación reproducible**:
+
+1. Si hay una cubierta o un límite físico superior claro, se respeta.
+2. Si falta, se miden las alturas verticales de los niveles inferiores del **mismo tramo**. Con perspectiva se mide la altura en el centro de cada polígono.
+3. Se calcula la **mediana**, conservando decimales. Con cuatro referencias de 190, 195, 210 y 220 píxeles, la mediana es **202,5 píxeles**.
+4. Desde el apoyo del superior, situado **sobre el portaprecio**, se proyecta esa altura hacia arriba. No se utiliza como base, sin comprobarlo, el borde del polígono de abajo: puede representar la cara inferior del estante.
+5. Se mantiene el criterio en el original y sus variantes llenas o vacías. Si la proyección sale de la foto, se recorta al encuadre y se marca **parcial**; no se reduce la altura para hacerla caber.
+
+La mediana reduce la influencia de una altura inferior excepcional frente a un promedio simple. **No demuestra la altura física real de un espacio abierto:** fija una región comparable para anotar. Se utilizan habitualmente al menos tres inferiores medibles; las excepciones autorizadas con dos referencias son casos documentados, no una regla general.
+
+**La app no recalcula ni fuerza la mediana al analizar una foto.** YOLO predice sus propias máscaras a partir de lo aprendido; puede omitir un superior o delimitarlo mal. Esos errores se conservan como limitaciones y deben revisarse visualmente.
+
+[Criterio de anotación V3](Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla completa de mediana](Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md)
 
 ## Interpretar los resultados
 
@@ -100,13 +138,36 @@ Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando
 
 **Original** muestra la foto; **Niveles**, los contornos y avisos; **Bordes**, las señales utilizadas; y **Comparar**, ambas imágenes juntas. La descarga conserva la presentación del resultado.
 
-### ¿Qué es el mapa de señal?
+### Qué significan los bordes y cómo se calcula la ocupación
 
-El amarillo destaca zonas donde el algoritmo encuentra **bordes, cambios de color y textura** dentro de cada nivel. Los envases pueden activar esa señal, igual que un cartel o un fondo con dibujos.
+En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el amarillo de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
 
-La ocupación combina **70 % de superficie con señal y 30 % de cobertura horizontal**. El amarillo no confirma productos y una zona sin amarillo tampoco garantiza que esté vacía.
+El cálculo sigue estas etapas:
 
-Para evitar lecturas engañosas como un superior vacío con cartel, la app muestra **Revisar · señal ambigua**, sin porcentaje presentado, cuando casi toda la señal se concentra en la mitad superior. Es una abstención experimental; no identifica automáticamente carteles ni niveles vacíos.
+1. **YOLO delimita el nivel.** El algoritmo utiliza los píxeles originales dentro de esa máscara, sin analizar los rótulos o colores dibujados sobre el resultado.
+2. **Filtra y organiza la señal.** Excluye un margen del contorno y algunas estructuras largas, divide la región en una grilla y calcula bordes, gradiente, color y textura. Los filtros no eliminan de forma fiable todos los carteles, barandas o laterales.
+3. **Combina las señales por celda.** Normaliza sus intensidades dentro del nivel y aplica un umbral adaptativo. Después obtiene dos medidas: **A**, superficie con señal, ponderada por la cobertura válida de las celdas, y **W**, proporción de columnas con suficiente señal vertical.
+4. **Calcula la estimación:** `ocupación estimada = 0,70 × A + 0,30 × W`. Por ejemplo, A = 40 % y W = 80 % producen **52 %**.
+5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, siempre que la medición, la visibilidad y las reglas de abstención lo permitan.
+
+El ancho no pregunta solo si una columna tiene algún píxel activo: exige señal en al menos el **20 % de sus celdas utilizables**. El área y el ancho aportan información distinta: unos productos bajos extendidos a lo largo del estante pueden cubrir poco área y mucho ancho.
+
+<details>
+<summary>Detalle técnico de la señal actual</summary>
+
+La foto se limita a un lado máximo de 1.600 píxeles y la grilla usa celdas de aproximadamente 24 píxeles. Se combinan **35 % densidad de bordes Canny + 30 % gradiente de intensidad + 20 % color saturado + 15 % desviación local de textura**, después de normalizar cada característica por sus percentiles 10–90 dentro de las celdas utilizables. Canny usa 40/120; el umbral adaptativo de Otsu queda limitado a 0,35–0,62. El área se calcula tras un cierre morfológico 3×3 y el ancho usa las activaciones anteriores a ese cierre. Las exclusiones de estructura afectan a todas las señales y el denominador conserva la cobertura válida original.
+
+Estos pesos describen la **construcción del mapa por celda**. Son distintos de la combinación final **70/30 de área y ancho**. [Implementación](Herramientas/Modelos/ocupacion_paulo.py).
+
+</details>
+
+**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona amarilla no confirma producto y una zona sin amarillo no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
+
+### Cuándo se abstiene y pide revisión
+
+La app conserva la señal bruta, pero muestra **Revisar · señal ambigua**, sin porcentaje ni decisión de reposición, cuando la señal se concentra casi totalmente arriba o queda en la periferia sin suficiente respaldo central e inferior. Son comprobaciones experimentales, no detectores automáticos de carteles ni de niveles vacíos. Pueden solicitar revisión con productos escasos o de poco contraste.
+
+La última comparación utilizó **151 fotos de desarrollo y 754 detecciones**: las métricas brutas no cambiaron y se añadieron **35 revisiones**, sin nuevas transiciones a Reponer. No es una evaluación exhaustiva de precisión de ocupación. Los filtros agresivos probados no se integraron porque introdujeron nuevas alertas en los controles. La baranda del superior vacío 034 aún produce señal residual.
 
 ### ¿Por qué se pregunta por la visibilidad?
 
@@ -120,7 +181,7 @@ La app local utiliza **V3-YOLO26**, el `best.pt` del afinado de papeles, huevos 
 
 | Modelo vigente | Entrenamiento del último afinado | Validación | Estado |
 |---|---|---|---|
-| **YOLO26n-seg V3** | **113 fotos**, 29 épocas completadas | **22 reales + 47 sintéticas**, evaluadas por separado | Integrado en local; nueva release pendiente |
+| **YOLO26n-seg V3** | **113 fotos**, 29 épocas completadas | **22 reales + 47 sintéticas**, evaluadas por separado | Integrado en local; release en borrador |
 
 | Segmentación de máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
@@ -227,7 +288,7 @@ Las sintéticas son variantes de fuentes existentes; no se consideran capturas i
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
 - **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.
 - **Comprobar instalación externa:** pendiente en otro computador físico y en macOS para V3.
-- **Cerrar las pruebas antes de publicar:** el candidato local no se ha convertido todavía en una nueva release.
+- **Publicación de V3:** release preparada como borrador; las descargas públicas anteriores conservan sus versiones. V3 sigue pendiente de comprobación en otro equipo y macOS.
 
 El prototipo orienta la revisión visual. Sus porcentajes y avisos requieren comprobar la foto y no sustituyen una medición de inventario.
 

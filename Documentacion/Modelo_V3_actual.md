@@ -1,6 +1,6 @@
 # Modelo actual de Walmart Visión
 
-**V3-YOLO26**, integrado en la aplicación local y pendiente de prueba del usuario antes de publicar una nueva release. Estado al 26 de octubre de 2026.
+**V3-YOLO26**, integrado en la aplicación local y preparado en una release en borrador, pendiente de publicación. Estado al 26 de octubre de 2026.
 
 ## Identidad y función
 
@@ -42,13 +42,13 @@ Estos resultados evalúan la delimitación de niveles, no el porcentaje de ocupa
 - Ocupación experimental: combinación 70/30 de superficie y cobertura horizontal, con umbral 30 %.
 - Confirmación manual de visibilidad; sin detección automática de personas u obstáculos.
 - Recorte: solo zona visible y Revisar. Objeto delante: medición suspendida. Persona tapando: Góndola tapada, sin contornos ni ocupación.
-- Señal concentrada en la mitad superior: Revisar · señal ambigua, sin porcentaje presentado. Es una abstención experimental, no detección de carteles o vacío.
+- Señal concentrada en la mitad superior o periférica sin respaldo central e inferior: Revisar · señal ambigua, sin porcentaje presentado. Es una abstención experimental, no detección de carteles o vacío.
 - La mediana es un criterio de anotación; no se fuerza durante la predicción.
 
 ## Limitaciones que permanecen
 
 En la familia `le_g10`, a confianza 0,60, el superior vacío de la foto 029 se delimita demasiado alto y el de la 030 se omite. Faltan escenas independientes de papeles y huevos para evaluar generalización.
 
-La ocupación sigue sin calibración V3. La regla de señal ambigua se comprobó en seis fotos de desarrollo y pruebas de código; no constituye una evaluación exhaustiva ni prueba final. La instalación en otro computador físico y en macOS sigue pendiente para esta versión.
+La entrada prevista son fotografías frontales o casi frontales; no existe corrección automática de perspectiva. La ocupación sigue sin calibración V3. La última ampliación de abstención se comprobó en 151 fotos de desarrollo y 754 detecciones, conservando las métricas brutas y añadiendo 35 revisiones; no constituye una evaluación exhaustiva ni prueba final. La instalación en otro computador físico y en macOS sigue pendiente para esta versión.
 
 [Manual](Usar_Walmart_Vision.md) · [Funcionamiento](Guia_para_entender_el_proyecto.md) · [Distribución](../Entregables/README.md)

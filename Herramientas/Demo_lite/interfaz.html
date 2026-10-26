@@ -2,108 +2,1068 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Walmart Visión · Probar una foto</title>
+<title>Walmart Visión · Detección de quiebres de stock</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%232563eb'/%3E%3Cpath d='M7 10h18M7 16h18M7 22h18M11 10v12M21 10v12' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
-:root{font-family:"Segoe UI",Calibri,Arial,sans-serif;color:var(--ink);background:var(--bg);color-scheme:light;--bg:#f3f6fa;--card:#ffffff;--ink:#18333b;--blue:#0053e2;--blue-hover:#0044b9;--muted:#536975;--line:#d5e0e8;--surface:#edf3f7;--input-border:#afbdcf;--upload-bg:#f8fafc;--upload-hover:#edf4ff;--tab-hover:#e1ebf8;--error-bg:#fff0ed;--error-border:#e6bbb4;--error-ink:#8a251a;--card-shadow:0 3px 14px #172b4d04}:root[data-theme=dark]{color-scheme:dark;--bg:#0c141d;--card:#13202d;--ink:#e5edf5;--blue:#539bf5;--blue-hover:#6cb6ff;--muted:#9db1c2;--line:#24374a;--surface:#192a3a;--input-border:#324a62;--upload-bg:#162534;--upload-hover:#1c3147;--tab-hover:#21374d;--error-bg:#2d1619;--error-border:#6e2b2f;--error-ink:#ff9e96;--card-shadow:0 4px 18px #00000045}
-*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}::selection{background:#cfe0ff;color:#18333b}
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 5vw;background:var(--card);border-bottom:1px solid var(--line)}.brand{font-size:21px;font-weight:700;color:var(--blue)}.header-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}header p{font-size:14px;margin:0;color:var(--muted)}.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);flex-shrink:0}.theme-toggle:hover{border-color:var(--blue);color:var(--blue)}.theme-toggle svg{width:17px;height:17px;display:block}.theme-icon-sun{display:none}:root[data-theme=dark] .theme-icon-moon{display:none}:root[data-theme=dark] .theme-icon-sun{display:block}main{max-width:1440px;padding:28px 32px;margin:auto}h1{font-size:32px;letter-spacing:-.7px;line-height:1.2;margin:0 0 10px;font-weight:650}h2{font-size:19px;margin:0 0 18px}h3{font-size:21px;margin:0 0 8px;font-weight:650}p{line-height:1.6}.intro{color:var(--muted);font-size:16px;margin:0 0 24px;max-width:70ch}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:26px;align-items:start}.controls,.stage{background:var(--card);border:1px solid var(--line);border-radius:12px;min-width:0}.controls{padding:22px}.controls h1{font-size:19px;letter-spacing:normal;margin:0 0 18px}fieldset{border:0;margin:0;padding:0;min-width:0}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}label{display:block;font-size:14px;font-weight:600}select{width:100%;padding:12px;margin:9px 0 20px;min-height:46px;border:1px solid var(--input-border);border-radius:7px;background:var(--card);color:inherit}select:hover{border-color:#7e91af}
-.upload{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:26px 12px;border:1px dashed #839cab;border-radius:8px;text-align:center;background:var(--upload-bg);cursor:pointer;margin-bottom:10px}.upload:hover,.upload.drag{background:var(--upload-hover);border-color:var(--blue)}.upload:focus-within{outline:3px solid var(--blue);outline-offset:3px}.upload svg{height:34px;width:34px;color:var(--blue);margin-bottom:4px}.upload strong{font-size:15px}.upload span{font-size:13px;font-weight:400;color:var(--muted)}.upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.upload.selected{padding:15px 12px}.upload.selected svg{height:26px;width:26px;margin:0}.upload.selected span{display:none}.hint{font-size:13px;color:var(--muted);margin:0 0 24px}.filename{overflow-wrap:anywhere}.primary{display:block;width:100%;border:0;border-radius:7px;background:var(--blue);color:white;min-height:47px;padding:13px 16px;font-weight:650;font-size:14px}.primary:hover:not(:disabled){background:var(--blue-hover)}.local-note{font-size:12px;color:var(--muted);margin:12px 0 0}.settings{border-top:1px solid var(--line);margin-top:23px;padding-top:16px}.settings summary{cursor:pointer;font-size:13px;font-weight:600}.settings label{margin:18px 0 8px}.settings input{width:100%;accent-color:var(--blue);margin:8px 0 12px}.settings p{font-size:13px;color:var(--muted);margin:0}
-.stage{overflow:hidden;scroll-margin-top:20px}.stage-header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px 18px}.stage-header h2{margin:0 0 5px;overflow-wrap:anywhere;font-size:19px}.meta{margin:0;font-size:13px;color:var(--muted)}.view-switch{display:flex;gap:4px;background:var(--surface);padding:4px;border-radius:7px;flex-shrink:0}.view-switch button{border:0;background:transparent;color:var(--muted);min-height:38px;padding:8px 12px;font-size:13px;font-weight:600;border-radius:4px}.view-switch button[aria-pressed=true]{color:var(--blue);background:var(--card)}.view-switch button:hover:not(:disabled){background:var(--tab-hover)}.viewer{margin:0 24px;border-radius:6px;background:var(--surface);overflow:hidden;position:relative;min-width:0}.empty{min-height:390px;padding:45px 25px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.empty svg{width:80px;height:64px;color:#607c8c;margin-bottom:22px}.empty h3{font-size:22px}.empty p{max-width:40ch;margin:0;color:var(--muted);font-size:15px}#photo{width:100%;height:auto;max-height:650px;object-fit:contain;display:block}.progress{padding:18px 24px 0}.progress span{height:3px;background:var(--blue);display:block;transform-origin:left;animation:analyze 1.6s ease-in-out infinite}.progress p{font-size:14px;color:var(--muted);margin:10px 0 0}.summary{padding:22px 24px 20px}.summary:empty{display:none}.summary p{font-size:14px;color:var(--muted);margin:0}.counts{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:20px}.counts span{display:flex;align-items:center;gap:7px;font-size:14px}.counts b{font-size:21px;font-variant-numeric:tabular-nums}.counts i,.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;background:var(--color);flex-shrink:0}.legend{padding:0 24px 22px;display:flex;flex-wrap:wrap;gap:10px 20px;color:var(--muted);font-size:13px}.legend span{display:flex;align-items:center;gap:7px}.error{border:1px solid var(--error-border);border-radius:6px;padding:12px 14px;background:var(--error-bg);color:var(--error-ink);font-size:14px;margin:0 0 20px;line-height:1.55}.result-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 24px;padding:16px 0;border-top:1px solid var(--line)}.download{font-size:14px;color:var(--blue);text-underline-offset:3px}.result-tools details{flex:1}.result-tools summary{font-size:13px;cursor:pointer;font-weight:600}.table-wrap{overflow:auto;margin-top:16px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}td:last-child{font-variant-numeric:tabular-nums}th{font-weight:600;color:var(--muted)}footer{padding:24px 0;font-size:12px;color:var(--muted)}
-@keyframes analyze{0%,100%{transform:scaleX(.15)}50%{transform:scaleX(1)}}@media(prefers-reduced-motion:reduce){.progress span{animation:none;transform:none}}
-@media(max-width:1100px){.layout{grid-template-columns:255px minmax(0,1fr);gap:20px}.controls{padding:18px}.stage-header{align-items:flex-start;flex-direction:column;gap:14px}}
-@media(max-width:740px){header{padding:18px 20px}.brand{font-size:19px}header p{font-size:12px}main{padding:26px 18px}h1{font-size:27px}.intro{font-size:15px}.layout{grid-template-columns:1fr}.controls fieldset{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}.controls h2,.controls .primary,.controls .local-note,.controls .settings{grid-column:1/-1}.upload-group{grid-column:1}.model-group{grid-column:2}.model-group select{margin-bottom:0}.hint{margin-bottom:18px}.stage-header{padding:20px 18px 16px}.viewer{margin:0 14px}.empty{min-height:300px}.summary{padding:20px 18px}.legend{padding:0 18px 20px}.result-tools{margin:0 18px;align-items:flex-start;flex-direction:column}.result-tools details{width:100%}}
-@media(max-width:440px){.controls fieldset{display:block}.model-group{margin:20px 0}.empty h3{font-size:20px}.empty p{font-size:14px}.stage-header h2{font-size:18px}.summary h3{font-size:19px}}
-.edge-results{padding:22px;border-top:1px solid var(--line)}.edge-results h3{font-size:19px}.edge-results p{color:var(--muted);font-size:14px;max-width:72ch}.edge-results details{margin-top:18px}.edge-results summary{cursor:pointer;font-weight:600}.edge-results img{display:block;width:100%;max-height:720px;object-fit:contain;margin-top:12px;background:var(--surface)}.edge-results td:last-child{white-space:normal;min-width:170px}.edge-results td:not(:last-child){white-space:nowrap}.method-group{margin-bottom:20px}.method-group .hint{margin:8px 0 0}
-.occupancy-results{padding:0 24px 24px}.occupancy-results h3{font-size:19px;margin:0}.occupancy-results .hint{margin:8px 0 16px}.occupancy-results .table-wrap{margin:0}.occupancy-value{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.occupancy-state{display:inline-flex;align-items:center;gap:8px;font-weight:600;white-space:nowrap}.occupancy-state::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}.occupancy-low{color:#b91c1c}.occupancy-enough{color:#166534}.occupancy-unknown{color:var(--muted)}:root[data-theme=dark] .occupancy-low{color:#fca5a5}:root[data-theme=dark] .occupancy-enough{color:#86efac}@media(max-width:740px){.occupancy-results{padding:0 18px 20px}.occupancy-value{font-size:20px}}
-</style>
-<style>
-.view-switch button[aria-selected=true]{color:var(--blue);background:var(--card)}#edge-controls{padding:0 24px}#edge-controls select{max-width:330px;margin-bottom:10px}#edge-controls .hint{margin-bottom:16px}#comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}#comparison figure{margin:0;min-width:0}#comparison figcaption{font-size:13px;font-weight:600;padding:3px 0 10px}#comparison img{display:block;width:100%;height:auto;max-height:600px;object-fit:contain}#viewport:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}.view-switch{max-width:100%;flex-wrap:wrap}#edge-results>summary{cursor:pointer;font-size:14px;font-weight:600}select{caret-color:var(--blue)}*{scrollbar-color:#839cab var(--surface)}
-@media(max-width:740px){#edge-controls{padding:0 18px}#comparison{grid-template-columns:1fr}.view-switch button{padding:8px 10px}}
+:root{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --card-border:#e2e8f0;
+  --surface:#f1f5f9;
+  --surface-hover:#e2e8f0;
+  --input-bg:#ffffff;
+  --input-border:#cbd5e1;
+  --input-border-focus:#2563eb;
+  --upload-bg:#f8fafc;
+  --upload-border:#cbd5e1;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --faint:#94a3b8;
+  --blue:#2563eb;
+  --blue-hover:#1d4ed8;
+  --blue-bright:#2563eb;
+  --red:#dc2626;
+  --red-bg:rgba(220,38,38,0.08);
+  --red-border:rgba(220,38,38,0.25);
+  --green:#16a34a;
+  --green-bg:rgba(22,163,74,0.08);
+  --green-border:rgba(22,163,74,0.25);
+  --amber:#d97706;
+  --amber-bg:rgba(217,119,6,0.08);
+  --amber-border:rgba(217,119,6,0.25);
+  --bar-track:#e2e8f0;
+  --viewer-bg:#f1f5f9;
+}
+
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --bg:#08101a;
+  --card:#101a27;
+  --card-border:#1a2b3c;
+  --surface:#152232;
+  --surface-hover:#1b2d42;
+  --input-bg:#13202e;
+  --input-border:#24374a;
+  --input-border-focus:#3b82f6;
+  --upload-bg:#0d1724;
+  --upload-border:#2a3d52;
+  --ink:#f8fafc;
+  --muted:#8fa0b0;
+  --faint:#5e7387;
+  --blue:#2563eb;
+  --blue-hover:#1d4ed8;
+  --blue-bright:#3c97f4;
+  --red:#f4514f;
+  --red-bg:rgba(244,81,79,0.12);
+  --red-border:rgba(244,81,79,0.35);
+  --green:#47c981;
+  --green-bg:rgba(71,201,129,0.12);
+  --green-border:rgba(71,201,129,0.35);
+  --amber:#d2b340;
+  --amber-bg:rgba(210,179,64,0.12);
+  --amber-border:rgba(210,179,64,0.35);
+  --bar-track:#192738;
+  --viewer-bg:#08101a;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+img:not([src]){visibility:hidden}
+img[src=""]{visibility:hidden}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.55}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--blue-bright);outline-offset:2px}
+a{color:var(--blue-bright);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--card-border);flex-shrink:0}
+.brand-group{display:flex;align-items:center;gap:12px}
+.brand-icon{width:36px;height:36px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.brand-icon svg{width:19px;height:19px}
+.brand{font-size:17px;font-weight:700;margin:0;color:var(--ink);letter-spacing:-0.2px}
+.brand-text h1{font-size:17px;font-weight:700;margin:0;color:var(--ink);letter-spacing:-0.2px}
+.brand-text p{font-size:12.5px;margin:2px 0 0;color:var(--muted)}
+.header-meta{display:flex;align-items:center;gap:12px}
+.badge-version{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:9999px;border:1px solid var(--card-border);background:var(--surface);font-size:12.5px;color:var(--muted);font-weight:500}
+.badge-version .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.theme-toggle{width:32px;height:32px;border-radius:50%;border:1px solid var(--card-border);background:var(--card);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0}
+.theme-toggle:hover{color:var(--ink);border-color:var(--blue-bright)}
+.theme-toggle svg{width:15px;height:15px}
+.theme-icon-sun{display:none}
+:root[data-theme=dark] .theme-icon-moon{display:none}
+:root[data-theme=dark] .theme-icon-sun{display:block}
+
+/* Layout */
+main{max-width:1560px;width:100%;margin:0 auto;padding:12px 24px 16px;flex:1;min-height:0;display:flex;flex-direction:column}
+#workspace-step{flex:1;min-height:0;display:flex;flex-direction:column}
+.error{border:1px solid var(--red-border);border-radius:8px;padding:11px 15px;background:var(--red-bg);color:var(--red);font-size:13px;margin:0 0 10px;line-height:1.4;flex-shrink:0}
+.app-grid{display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px;align-items:stretch;flex:1;min-height:0}
+
+/* Left Sidebar */
+.sidebar{display:flex;flex-direction:column;gap:12px;min-height:0;overflow-y:auto}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:16px 18px;min-width:0}
+.card-title{font-size:16px;font-weight:700;margin:0 0 4px;color:var(--ink)}
+.card-sub{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.45}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+/* Dropzone */
+.upload-zone{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 12px;border:1px dashed var(--upload-border);border-radius:9px;background:var(--upload-bg);text-align:center;cursor:pointer;transition:all .15s}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue-bright);background:var(--surface-hover)}
+.upload-zone input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.upload-prompt{display:flex;flex-direction:column;align-items:center;gap:4px}
+.upload-icon{color:var(--blue-bright);margin-bottom:2px}
+.upload-icon svg{width:30px;height:30px}
+.upload-zone strong{font-size:13.5px;color:var(--ink)}
+.upload-zone span{font-size:12.5px;color:var(--muted)}
+.upload-selected{display:none;width:100%;align-items:center;gap:10px;text-align:left}
+.upload-thumbnail{width:40px;height:40px;border-radius:6px;object-fit:cover;background:var(--surface);flex-shrink:0}
+.upload-info{min-width:0;flex:1}
+.upload-filename{font-size:13px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0}
+.upload-change{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--blue-bright);margin-top:3px}
+.upload-zone.selected{padding:10px 12px;border-style:solid;border-color:var(--card-border)}
+.upload-zone.selected .upload-prompt{display:none}
+.upload-zone.selected .upload-selected{display:flex}
+.file-note{font-size:12px;color:var(--faint);margin:6px 0 0}
+
+/* Visibility Select - HIDDEN (AUTOMATIC VISIBILITY) */
+.visibility-group{display:none!important}
+
+/* Primary Button */
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px 16px;background:var(--blue);border:0;border-radius:7px;color:#fff;font-size:13.5px;font-weight:600;min-height:40px;margin-top:14px;transition:background .15s}
+.primary:hover:not(:disabled){background:var(--blue-hover)}
+.primary svg{width:16px;height:16px}
+.local-note{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--faint);margin:12px 0 0}
+.local-note svg{width:13px;height:13px;flex-shrink:0}
+
+/* Legend Card */
+.legend-card{padding:14px 16px}
+.legend-card .card-title{font-size:14.5px;margin-bottom:10px}
+.legend-list{display:flex;flex-direction:column;gap:8px}
+.legend-row{display:flex;align-items:baseline;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.4}
+.legend-row strong{color:var(--ink);font-weight:600}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-red{background:var(--red)}
+.dot-green{background:var(--green)}
+.dot-amber{background:var(--amber)}
+
+/* Main Workspace */
+.workspace{display:flex;flex-direction:column;min-width:0;flex:1;min-height:0}
+
+/* Alert Banner (Summary) - HIDDEN BY USER REQUEST */
+.summary{display:none!important}
+
+/* Content Split: Stage + Occupancy */
+.content-split{display:flex;gap:16px;align-items:stretch;flex:1;min-height:0}
+.content-split .stage{flex:1;min-width:0}
+.content-split .occupancy-results{width:310px;flex-shrink:0}
+
+/* Stage / Photo Viewer */
+.stage{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:14px 18px;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.stage-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-shrink:0}
+.filename{font-size:15px;font-weight:700;margin:0 0 2px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px}
+.meta{margin:0;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.meta .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.view-switch{display:flex;gap:4px;background:var(--surface);padding:4px;border-radius:8px;border:1px solid var(--card-border);flex-shrink:0}
+.view-switch button{border:0;background:transparent;color:var(--muted);min-height:30px;padding:5px 12px;font-size:12.5px;font-weight:600;border-radius:6px;transition:all .15s}
+.view-switch button[aria-selected=true]{color:var(--ink);background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,0.12)}
+.view-switch button:hover:not(:disabled){color:var(--ink)}
+
+/* Viewport and Viewer */
+#viewport{flex:1;min-height:0;display:flex;flex-direction:column}
+.viewer{flex:1;min-height:0;border-radius:8px;background:var(--viewer-bg);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.viewer img#photo{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block}
+.empty{padding:30px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted)}
+.empty svg{width:50px;height:50px;color:var(--faint);margin-bottom:10px}
+.empty h3{font-size:16px;font-weight:600;color:var(--ink);margin:0 0 5px}
+.empty p{font-size:13px;max-width:34ch;margin:0;color:var(--muted)}
+#comparison{flex:1;min-height:0;height:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px;width:100%}
+#comparison figure{margin:0;min-width:0;min-height:0;height:100%;display:flex;flex-direction:column}
+#comparison figcaption{font-size:12px;font-weight:600;color:var(--muted);padding:0 0 4px;flex-shrink:0}
+#comparison img{flex:1;min-height:0;max-height:100%;width:auto;object-fit:contain;display:block;border-radius:6px}
+
+/* Progress */
+.progress{padding:10px 14px 0;flex-shrink:0}
+.progress span{height:3px;background:var(--blue-bright);display:block;transform-origin:left;animation:analyze 1.6s ease-in-out infinite}
+.progress p{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+@keyframes analyze{0%,100%{transform:scaleX(.15)}50%{transform:scaleX(1)}}
+
+/* Edge Controls */
+#edge-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;background:var(--surface);border:1px solid var(--card-border);border-radius:7px;margin-bottom:10px;flex-shrink:0}
+#edge-controls[hidden]{display:none!important}
+#edge-controls label{font-size:12.5px;font-weight:600;color:var(--muted);white-space:nowrap}
+#edge-controls select{padding:6px 12px;background:var(--input-bg);border:1px solid var(--input-border);border-radius:5px;color:var(--ink);font-size:12.5px;cursor:pointer}
+#edge-controls select option{background:var(--card);color:var(--ink)}
+#edge-controls select:focus{border-color:var(--blue-bright)}
+#edge-controls .edge-note{font-size:12px;color:var(--muted);margin:0}
+
+/* Occupancy Sidebar Card */
+.occupancy-results{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:14px 16px;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.occupancy-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-shrink:0}
+.occupancy-header h3{font-size:15px;font-weight:700;margin:0;color:var(--ink)}
+#occupancy-help{display:none!important}
+.occupancy-avg-badge{display:flex;align-items:center;gap:6px;padding:4px 10px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:7px;flex-shrink:0}
+.avg-label{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:0.3px}
+.avg-val{font-size:16px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;line-height:1}
+.occupancy-table{flex:1;min-height:0;overflow-y:auto;display:block;width:100%}
+.occupancy-table tbody{display:flex;flex-direction:column-reverse;gap:11px;width:100%}
+
+/* Occupancy Item (TR) */
+.occupancy-item{display:block;width:100%;padding-bottom:10px;border-bottom:1px solid var(--card-border)}
+.occupancy-item:last-child{border-bottom:0;padding-bottom:0}
+.occupancy-cell{display:flex;flex-direction:column;gap:5px;width:100%;padding:0;border:0}
+.occupancy-item-header{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.occupancy-level-title{font-size:13.5px;font-weight:600;color:var(--ink)}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:11.5px;font-weight:600;line-height:1.35}
+.badge-low{background:var(--red-bg);color:var(--red)}
+.badge-enough{background:var(--green-bg);color:var(--green)}
+.badge-revisar,.badge-unknown{background:var(--amber-bg);color:var(--amber)}
+
+/* Progress Bar Row */
+.occupancy-bar-row{display:flex;align-items:center;gap:10px}
+.occupancy-track{flex:1;height:6px;background:var(--bar-track);border-radius:9999px;position:relative}
+.occupancy-threshold-marker{position:absolute;left:30%;top:-3px;bottom:-3px;width:1.5px;background:var(--faint);z-index:2;border-radius:1px}
+.occupancy-fill{height:100%;border-radius:9999px;transition:width .3s}
+.fill-low{background:var(--red)}
+.fill-enough{background:var(--green)}
+.fill-revisar,.fill-unknown{background:var(--amber)}
+.occupancy-pct{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
+.occupancy-low{color:var(--red)}
+.occupancy-enough{color:var(--green)}
+.occupancy-unknown,.occupancy-revisar{color:var(--amber)}
+
+/* Scope / Footer */
+.occupancy-item-footer{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
+.occupancy-item-footer svg{width:12px;height:12px;flex-shrink:0}
+
+/* Download Button */
+.result-tools{flex-shrink:0;margin-top:auto;padding-top:10px}
+.download{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px 14px;background:var(--surface);border:1px solid var(--card-border);border-radius:7px;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s}
+.download:hover{background:var(--surface-hover);border-color:var(--blue-bright);color:var(--blue-bright);text-decoration:none}
+.download svg{width:14px;height:14px}
+
+/* Technical / Edge Results */
+.edge-results{margin-top:10px;padding:9px 14px;background:var(--card);border:1px solid var(--card-border);border-radius:8px;flex-shrink:0}
+.edge-results summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+.edge-results summary:hover{color:var(--ink)}
+.edge-results p{font-size:12.5px;color:var(--muted);margin:6px 0}
+.table-wrap{overflow-x:auto}
+table.edge-table{border-collapse:collapse;width:100%;font-size:12.5px}
+table.edge-table td,table.edge-table th{padding:7px 6px;text-align:left;border-bottom:1px solid var(--card-border)}
+table.edge-table th{color:var(--muted);font-weight:600}
+
+/* Large Desktop Monitors (24"+ / 1400px+) */
+@media(min-width:1400px){
+  body{font-size:15px}
+  main{max-width:1680px;padding:14px 28px 18px}
+  .app-grid{grid-template-columns:290px minmax(0,1fr);gap:18px}
+  .content-split{gap:18px}
+  .content-split .occupancy-results{width:330px}
+  .card-title{font-size:17px}
+  .card-sub{font-size:13.5px}
+  .filename{font-size:16px}
+  .occupancy-header h3{font-size:16px}
+  .primary{font-size:14px;min-height:42px}
+  .custom-select select{font-size:13.5px}
+  .occupancy-level-title{font-size:14px}
+  .occupancy-pct{font-size:14px}
+  .badge{font-size:12px;padding:3px 8px}
+  .legend-row{font-size:13px}
+  .file-note,.local-note{font-size:12.5px}
+  .view-switch button{font-size:13px;min-height:32px;padding:6px 14px}
+}
+
+/* Mobile Steps Navigation */
+.mobile-steps-nav{display:none}
+.mobile-stage-actions{display:none}
+.mobile-occupancy-actions{display:none}
+
+/* Responsive */
+@media(max-width:860px){
+  html,body{height:auto;min-height:100%}
+  body{overflow-y:auto}
+  main{height:auto;padding:8px 12px 16px}
+
+  /* Show Mobile Stepper */
+  .mobile-steps-nav{
+    display:flex;
+    gap:6px;
+    padding:5px;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:10px;
+    margin-bottom:12px;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .mobile-step-btn{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:8px 4px;
+    background:transparent;
+    border:0;
+    border-radius:7px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:600;
+    transition:all .15s;
+    min-height:38px;
+    cursor:pointer;
+  }
+  .mobile-step-btn:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+  }
+  .mobile-step-btn.active{
+    background:var(--surface);
+    color:var(--ink);
+    box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  }
+  .mobile-step-btn .step-num{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:var(--card-border);
+    color:var(--muted);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10.5px;
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .mobile-step-btn.active .step-num{
+    background:var(--blue);
+    color:#fff;
+  }
+
+  /* App grid & workspace on mobile */
+  .app-grid{display:flex;flex-direction:column;gap:12px}
+  .workspace{width:100%;min-height:0}
+  .content-split{display:flex;flex-direction:column;gap:12px;width:100%}
+
+  /* Hide/show sections based on active mobile step */
+  #workspace-step:not([data-mobile-step="2"]):not([data-mobile-step="3"]) .sidebar{display:flex;width:100%}
+  #workspace-step:not([data-mobile-step="2"]):not([data-mobile-step="3"]) .workspace{display:none!important}
+
+  #workspace-step[data-mobile-step="2"] .sidebar{display:none!important}
+  #workspace-step[data-mobile-step="2"] .workspace{display:flex;width:100%}
+  #workspace-step[data-mobile-step="2"] .stage{display:flex;width:100%}
+  #workspace-step[data-mobile-step="2"] .occupancy-results{display:none!important}
+  #workspace-step[data-mobile-step="2"] .edge-results{display:none!important}
+
+  #workspace-step[data-mobile-step="3"] .sidebar{display:none!important}
+  #workspace-step[data-mobile-step="3"] .workspace{display:flex;width:100%}
+  #workspace-step[data-mobile-step="3"] .stage{display:none!important}
+  #workspace-step[data-mobile-step="3"] .occupancy-results{display:flex;width:100%}
+
+  /* Viewer height on mobile: comfortable fullscreen view */
+  .stage{width:100%;padding:10px 12px}
+  .viewer{
+    min-height:50vh;
+    max-height:65vh;
+  }
+  .viewer img#photo{
+    max-height:63vh;
+  }
+  #comparison{
+    max-height:63vh;
+  }
+
+  /* Mobile bottom actions */
+  .mobile-stage-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--card-border);
+    flex-shrink:0;
+  }
+  .mobile-occupancy-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid var(--card-border);
+    flex-shrink:0;
+  }
+  .btn-subtle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:8px 12px;
+    background:var(--surface);
+    border:1px solid var(--card-border);
+    border-radius:7px;
+    color:var(--ink);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    min-height:36px;
+    transition:all .15s;
+  }
+  .btn-subtle:hover{
+    background:var(--surface-hover);
+  }
+  .mobile-next-occupancy{
+    margin-top:0!important;
+    width:auto!important;
+    padding:8px 14px!important;
+    font-size:12px!important;
+    min-height:36px!important;
+  }
+}
 </style>
 </head>
 <body>
-<header><div class="brand">Walmart Visión</div><div class="header-meta"><p>Visor de niveles y disponibilidad</p><button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Modo oscuro" title="Cambiar a modo oscuro"><svg class="theme-icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 11.8A6.8 6.8 0 0 1 8.2 3.5a6.9 6.9 0 1 0 8.3 8.3Z"/></svg><svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.3v2.1M10 15.6v2.1M2.3 10h2.1M15.6 10h2.1M4.6 4.6l1.5 1.5M13.9 13.9l1.5 1.5M15.4 4.6l-1.5 1.5M6.1 13.9l-1.5 1.5"/></svg></button></div></header>
-<main id="main">
-<div id="error" class="error" role="alert" tabindex="-1" hidden></div>
-<div id="workspace-step">
 
-<div class="layout">
-<form id="form" class="controls"><fieldset id="fields" disabled><legend class="sr-only">Preparar el análisis de una foto</legend><h1 id="workspace-heading">Prueba tu foto</h1>
-<div class="upload-group"><label for="file" class="upload" id="drop"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="7" width="24" height="20" rx="3"/><path d="m7 23 6-7 5 5 4-4 6 6M16 3v10m-4-6 4-4 4 4"/></svg><strong id="upload-title">Seleccionar una foto</strong><span>o arrástrala aquí</span><input type="file" id="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="file-help"></label><p id="file-help" class="hint">JPG, PNG o WebP · hasta 15 MB</p></div>
-<div class="model-group"><label for="model">Analizar con</label><select id="model"></select></div>
-<div class="method-group"><label for="method">Método de análisis</label><select id="method" aria-describedby="method-help"><option value="yolo_paulo_v2">YOLO + detección de bordes</option><option value="yolo">Solo YOLO</option></select><p id="method-help" class="hint">Estima la ocupación de cada nivel. Rojo bajo el 30 %; verde desde el 30 %.</p></div>
-<button class="primary" id="analyze" disabled>Analizar foto</button><p class="local-note">Las fotos se procesan en este equipo y no se guardan.</p>
-<details class="settings"><summary>Ajustes de detección</summary><label for="confidence">Confianza mínima: <output id="confidence-value">0.25</output></label><input type="range" id="confidence" min="0.01" max="0.99" step="0.01" value="0.25"><p>Filtra detecciones según su puntaje. No representa el porcentaje de producto del nivel.</p></details>
-</fieldset></form>
-<section class="stage" id="stage" aria-labelledby="photo-name"><div class="stage-header"><div><h2 class="filename" id="photo-name">Tu foto de la góndola</h2><p id="photo-info" class="meta">Selecciona una imagen para empezar.</p></div><div class="view-switch" role="tablist" aria-label="Vista de la foto"><button type="button" role="tab" id="view-original" aria-controls="viewport" aria-selected="true" disabled>Original</button><button type="button" role="tab" id="view-result" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Niveles</button><button type="button" role="tab" id="view-edges" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Bordes</button><button type="button" role="tab" id="view-compare" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Comparar</button></div></div>
-<div id="viewport" role="tabpanel" aria-labelledby="view-original" tabindex="0"><div id="edge-controls" hidden><label for="edge-view">Vista de bordes</label><select id="edge-view"><option value="occupancy_image_url">Mapa de señal</option><option value="filtered_edges_image_url">Bordes dentro de los niveles</option><option value="edges_image_url">Bordes de la foto</option></select><p id="edge-note" class="hint">Amarillo: señal experimental dentro de los niveles. No equivale al porcentaje de producto ni modifica el estado de YOLO.</p></div>
-<div class="viewer"><div class="empty" id="empty"><svg viewBox="0 0 80 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="7" y="8" width="66" height="48" rx="4"/><path d="M15 22h50M15 34h50M15 46h50M25 15v36M55 15v36"/></svg><h3>Muéstrale una góndola al modelo</h3><p>La predicción aparecerá sobre la imagen, con cada nivel numerado y su estado en color.</p></div><img id="photo" alt="Foto original de la góndola" hidden><div id="comparison" hidden><figure><figcaption>Original</figcaption><img id="compare-original" alt="Foto original de la góndola"></figure><figure><figcaption id="compare-caption">Niveles detectados por YOLO</figcaption><img id="compare-result" alt="Predicción de niveles y estados del modelo seleccionado"></figure></div></div></div>
-<div class="progress" id="progress" role="status" aria-live="polite" hidden><span></span><p>Analizando los niveles de la foto…</p></div>
-<div class="summary" id="summary" role="status" aria-live="polite"><p>Reponer señala posibles faltantes. Este modelo no reconoce no evaluable.</p></div>
-<div class="legend" id="legend" aria-label="Colores de los estados"><span><i style="--color:#dc2626"></i>Reponer</span><span><i style="--color:#16a34a"></i>Suficiente</span></div>
-<section id="level-occupancy" class="occupancy-results" aria-labelledby="occupancy-heading" hidden><h3 id="occupancy-heading">Ocupación estimada por nivel</h3><p class="hint">Rojo: menos del 30 %. Verde: 30 % o más. Estimación visual experimental, pendiente de calibración.</p><div class="table-wrap"><table><thead><tr><th scope="col">Nivel</th><th scope="col">Ocupación</th><th scope="col">Estado</th></tr></thead><tbody id="occupancy-rows"></tbody></table></div></section>
-<div class="result-tools" id="result-tools" hidden><details><summary>Detalle del modelo YOLO</summary><div class="table-wrap"><table><thead><tr><th>Nivel</th><th>Estado YOLO</th><th>Confianza</th></tr></thead><tbody id="rows"></tbody></table></div></details><a class="download" id="download">Descargar resultado</a></div>
-<details class="edge-results" id="edge-results" hidden><summary id="edge-summary">Mediciones de señal por nivel</summary><p id="edge-description">Área y ancho indican señal activada, no porcentaje validado de producto. El estado de YOLO se conserva.</p><div class="table-wrap"><table><thead id="edge-columns"><tr><th>Nivel</th><th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr></thead><tbody id="edge-rows"></tbody></table></div></details>
-</section></div><footer>Modelos entrenados para disponibilidad visual por nivel · Criterio v2 base</footer></div></main>
+<header>
+  <div class="brand-group">
+    <div class="brand-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16M7 6v12M17 6v12"/></svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand">Walmart Visión</div>
+      <p>Detección de quiebres de stock</p>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="badge-version">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span>Modelo experimental · v0.4</span>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Modo oscuro" title="Cambiar a modo oscuro">
+      <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 11.8A6.8 6.8 0 0 1 8.2 3.5a6.9 6.9 0 1 0 8.3 8.3Z"/></svg>
+      <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.3v2.1M10 15.6v2.1M2.3 10h2.1M15.6 10h2.1M4.6 4.6l1.5 1.5M13.9 13.9l1.5 1.5M15.4 4.6l-1.5 1.5M6.1 13.9l-1.5 1.5"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
+
+  <div id="workspace-step">
+    <nav id="mobile-nav" class="mobile-steps-nav" aria-label="Pasos del análisis">
+      <button type="button" class="mobile-step-btn active" id="mobile-step-1" data-step="1" aria-selected="true">
+        <span class="step-num">1</span>
+        <span class="step-text">Subir</span>
+      </button>
+      <button type="button" class="mobile-step-btn" id="mobile-step-2" data-step="2" aria-selected="false" disabled>
+        <span class="step-num">2</span>
+        <span class="step-text">Visor</span>
+      </button>
+      <button type="button" class="mobile-step-btn" id="mobile-step-3" data-step="3" aria-selected="false" disabled>
+        <span class="step-num">3</span>
+        <span class="step-text">Ocupación</span>
+      </button>
+    </nav>
+    <div class="app-grid">
+      <!-- Left Sidebar -->
+      <div class="sidebar">
+        <form id="form" class="card">
+          <fieldset id="fields" disabled>
+            <legend class="sr-only">Preparar el análisis de una foto</legend>
+            <h1 class="card-title" id="workspace-heading">Analizar góndola</h1>
+            <p class="card-sub">Sube una foto frontal de la góndola completa.</p>
+
+            <div class="upload-group">
+              <label for="file" class="upload-zone upload" id="drop">
+                <div class="upload-prompt">
+                  <div class="upload-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="8.5" cy="10.5" r="1.5"/><polyline points="21 16 16 11 9 18"/></svg>
+                  </div>
+                  <strong id="upload-title">Seleccionar una foto</strong>
+                  <span>o arrástrala aquí</span>
+                </div>
+                <div class="upload-selected">
+                  <img id="upload-thumb" class="upload-thumbnail" src="" alt="Miniatura">
+                  <div class="upload-info">
+                    <p id="upload-filename" class="upload-filename"></p>
+                    <span class="upload-change">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                      Cambiar o arrastrar foto
+                    </span>
+                  </div>
+                </div>
+                <input type="file" id="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="file-help">
+              </label>
+              <p id="file-help" class="file-note hint">JPG, PNG o WebP · hasta 15 MB</p>
+            </div>
+
+            <div class="visibility-group form-group" id="visibility-group" hidden>
+              <select id="visibility" aria-hidden="true">
+                <option value="clear" selected>Completa y despejada</option>
+                <option value="partial">Recortada por la foto</option>
+                <option value="occluded">Con un objeto delante</option>
+                <option value="person">Con una persona tapándola</option>
+              </select>
+            </div>
+
+            <button class="primary" id="analyze" disabled>Analizar foto</button>
+            <p class="local-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Las fotos se procesan en este equipo y no se guardan.
+            </p>
+          </fieldset>
+        </form>
+
+        <!-- Legend Card -->
+        <div class="card legend-card">
+          <h2 class="card-title">Leyenda</h2>
+          <div class="legend-list">
+            <div class="legend-row">
+              <i class="dot dot-red"></i>
+              <span><strong>Reponer:</strong> menos de 30% de ocupación</span>
+            </div>
+            <div class="legend-row">
+              <i class="dot dot-green"></i>
+              <span><strong>Suficiente:</strong> 30% o más, visibilidad confirmada</span>
+            </div>
+            <div class="legend-row">
+              <i class="dot dot-amber"></i>
+              <span><strong>Revisar:</strong> nivel recortado o tapado</span>
+            </div>
+          </div>
+          <div id="legend" class="legend" hidden></div>
+        </div>
+      </div>
+
+      <!-- Main Workspace Area -->
+      <div class="workspace">
+        <!-- Alert Banner / Summary Container -->
+        <div class="summary" id="summary" role="status" aria-live="polite"></div>
+
+        <!-- Content Split: Center Stage & Right Occupancy -->
+        <div class="content-split">
+          <!-- Stage / Photo Viewer -->
+          <section class="stage" id="stage" aria-labelledby="photo-name">
+            <div class="stage-header">
+              <div class="photo-meta">
+                <h2 class="filename" id="photo-name">Tu foto de la góndola</h2>
+                <p id="photo-info" class="meta photo-status">Selecciona una imagen para empezar.</p>
+              </div>
+              <div class="view-switch" role="tablist" aria-label="Vista de la foto">
+                <button type="button" role="tab" id="view-original" aria-controls="viewport" aria-selected="true" disabled>Original</button>
+                <button type="button" role="tab" id="view-result" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Niveles</button>
+                <button type="button" role="tab" id="view-edges" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Bordes</button>
+                <button type="button" role="tab" id="view-compare" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Comparar</button>
+              </div>
+            </div>
+
+            <div id="viewport" role="tabpanel" aria-labelledby="view-original" tabindex="0">
+              <div id="edge-controls" hidden>
+                <label for="edge-view">Vista de bordes:</label>
+                <select id="edge-view">
+                  <option value="occupancy_image_url">Mapa de señal</option>
+                  <option value="filtered_edges_image_url">Bordes dentro de los niveles</option>
+                  <option value="edges_image_url">Bordes de la foto</option>
+                </select>
+                <p id="edge-note" class="edge-note hint">Amarillo: señal experimental dentro de los niveles.</p>
+              </div>
+
+              <div class="viewer">
+                <div class="empty" id="empty">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+                  <h3>Revisa tu góndola</h3>
+                  <p>Aquí verás los niveles y su ocupación estimada.</p>
+                </div>
+                <img id="photo" alt="Foto original de la góndola" hidden>
+                <div id="comparison" hidden>
+                  <figure>
+                    <figcaption>Original</figcaption>
+                    <img id="compare-original" alt="Foto original de la góndola">
+                  </figure>
+                  <figure>
+                    <figcaption id="compare-caption">Niveles detectados</figcaption>
+                    <img id="compare-result" alt="Niveles detectados y ocupación estimada">
+                  </figure>
+                </div>
+              </div>
+            </div>
+
+            <div class="progress" id="progress" role="status" aria-live="polite" hidden>
+              <span></span>
+              <p>Analizando los niveles de la foto…</p>
+            </div>
+
+            <div class="mobile-stage-actions">
+              <button type="button" class="btn-subtle" id="mobile-back-upload">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Cambiar foto
+              </button>
+              <button type="button" class="primary mobile-next-occupancy" id="mobile-go-occupancy" disabled>
+                Ver ocupación
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </section>
+
+          <!-- Right Occupancy Card -->
+          <section id="level-occupancy" class="occupancy-results" aria-labelledby="occupancy-heading" hidden>
+            <div class="occupancy-header">
+              <div>
+                <h3 id="occupancy-heading">Ocupación por nivel</h3>
+                <p class="hint" id="occupancy-help">Umbral de reposición: 30% (experimental)</p>
+              </div>
+              <div class="occupancy-avg-badge" id="occupancy-avg-badge" title="Ocupación media calculada">
+                <div class="avg-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <span>Media</span>
+                </div>
+                <span class="avg-val" id="kpi-ocupacion">—</span>
+              </div>
+            </div>
+            <table class="occupancy-table">
+              <thead id="occupancy-columns" class="sr-only"></thead>
+              <tbody id="occupancy-rows"></tbody>
+            </table>
+
+            <div class="result-tools" id="result-tools" hidden>
+              <a class="download" id="download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Descargar resultado
+              </a>
+            </div>
+
+            <div class="mobile-occupancy-actions">
+              <button type="button" class="btn-subtle" id="mobile-back-stage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Ver foto
+              </button>
+              <button type="button" class="btn-subtle" id="mobile-new-photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 4v16M4 12h16"/></svg>
+                Nueva foto
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <!-- Edge Analysis Details (technical, preserved) -->
+        <details class="edge-results" id="edge-results" hidden>
+          <summary id="edge-summary">Mediciones de señal por nivel</summary>
+          <p id="edge-description">Área y ancho indican señal visual, no porcentaje validado de producto.</p>
+          <div class="table-wrap">
+            <table class="edge-table">
+              <thead id="edge-columns"><tr><th>Nivel</th><th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr></thead>
+              <tbody id="edge-rows"></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</main>
+
 <script>
 const $=id=>document.getElementById(id),defaultStates=[['reponer','Reponer','#dc2626'],['suficiente','Suficiente','#16a34a']];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let file=null,originalUrl=null,result=null,running=false,ready=false,states=defaultStates,models=[];
+const ANALYSIS_METHOD='yolo_paulo_v2',DETECTION_CONFIDENCE=.60;
+let file=null,originalUrl=null,result=null,running=false,ready=false,states=defaultStates,currentModel=null;
 const viewModes=['original','result','edges','compare'];
-function modelContext(){const current=models.find(m=>m.id===$('model').value);states=current?.states?.map(s=>[s.key,s.label,s.color])||defaultStates;$('legend').innerHTML=states.map(([key,label,color])=>`<span><i style="--color:${esc(color)}"></i>${esc(label)}</span>`).join('');$('summary').textContent=current?.note||'Reponer señala posibles faltantes. Este modelo no reconoce no evaluable.';document.querySelector('footer').textContent='Disponibilidad visual por nivel · Criterio '+(current?.guide||'v2 base')}
-function error(message){$('error').textContent=message;$('error').hidden=false;$('error').focus()}
-function availability(){$('fields').disabled=!ready||running;$('analyze').disabled=!ready||running||!file;$('analyze').textContent=running?'Analizando…':'Analizar foto'}
-function resetResult(){result=null;$('summary').innerHTML='';$('legend').hidden=false;$('level-occupancy').hidden=true;$('occupancy-rows').innerHTML='';$('result-tools').hidden=true;$('edge-results').hidden=true;$('edge-results').open=false;$('edge-rows').innerHTML='';for(const id of ['compare-original','compare-result'])$(id).removeAttribute('src');for(const mode of viewModes.slice(1))$('view-'+mode).disabled=true;$('view-edges').title='Analiza con YOLO + detección de bordes para ver sus mapas.';$('edge-view').value='occupancy_image_url';$('download').removeAttribute('href');view('original')}
-function resultDescription(data){return data.occupancy?'Ocupación estimada por nivel. Rojo bajo el 30 %; verde desde el 30 %.':'Niveles detectados por '+data.model}
-function view(mode){if(mode!=='original'&&($('view-'+mode).disabled||!result))return;const comparing=mode==='compare';$('comparison').hidden=!comparing;$('photo').hidden=comparing||!originalUrl;$('edge-controls').hidden=mode!=='edges';if(originalUrl){$('photo').src=mode==='result'?result.image_url:mode==='edges'?result[$('edge-view').value]:originalUrl;$('photo').alt=mode==='result'?resultDescription(result):mode==='edges'?$('edge-view').selectedOptions[0].textContent:'Foto original de la góndola'}if(comparing){$('compare-original').src=originalUrl;$('compare-result').src=result.image_url;$('compare-result').alt=resultDescription(result);$('compare-caption').textContent=result.occupancy?'Ocupación estimada':'Niveles detectados por YOLO'}for(const name of viewModes){const selected=name===mode;$('view-'+name).setAttribute('aria-selected',String(selected));$('view-'+name).tabIndex=selected?0:-1}$('viewport').setAttribute('aria-labelledby','view-'+mode)}
+
+function isV3(){return Boolean(currentModel?.geometry_only)}
+
+function modelContext(){
+  states=currentModel?.states?.map(s=>[s.key,s.label,s.color])||defaultStates;
+  $('legend').innerHTML=states.map(([key,label,color])=>`<span><i style="--color:${esc(color)}"></i>${esc(label)}</span>`).join('');
+  $('visibility-group').hidden=!isV3();
+  availability();
+  updateMobileSteps();
+}
+
+function error(message){
+  $('error').textContent=message;
+  $('error').hidden=false;
+  $('error').focus();
+}
+
+function availability(){
+  $('fields').disabled=!ready||running;
+  $('analyze').disabled=!ready||running||!file;
+  $('analyze').textContent=running?'Analizando…':'Analizar foto';
+}
+
+let mobileStep='1';
+function setMobileStep(step){
+  mobileStep=String(step);
+  const ws=$('workspace-step');
+  if(ws)ws.setAttribute('data-mobile-step',mobileStep);
+  for(const s of ['1','2','3']){
+    const btn=$('mobile-step-'+s);
+    if(btn){
+      btn.classList.toggle('active',s===mobileStep);
+      btn.setAttribute('aria-selected',String(s===mobileStep));
+    }
+  }
+  if(matchMedia('(max-width:860px)').matches){
+    window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+  }
+}
+function updateMobileSteps(){
+  const hasFile=Boolean(file);
+  const hasOccupancy=Boolean(result?.occupancy);
+  if($('mobile-step-2'))$('mobile-step-2').disabled=!hasFile;
+  if($('mobile-step-3'))$('mobile-step-3').disabled=!hasOccupancy;
+  if($('mobile-go-occupancy'))$('mobile-go-occupancy').disabled=!hasOccupancy;
+}
+
+function resetResult(){
+  result=null;
+  if($('kpi-ocupacion'))$('kpi-ocupacion').textContent='—';
+  $('summary').innerHTML='';
+  $('legend').hidden=true;
+  $('level-occupancy').hidden=true;
+  $('occupancy-rows').innerHTML='';
+  $('result-tools').hidden=true;
+  $('edge-results').hidden=true;
+  $('edge-results').open=false;
+  $('edge-rows').innerHTML='';
+  for(const id of ['compare-original','compare-result'])$(id).removeAttribute('src');
+  for(const mode of viewModes.slice(1))$('view-'+mode).disabled=true;
+  $('view-edges').title='Analiza la foto para ver los bordes.';
+  $('edge-view').value='occupancy_image_url';
+  $('download').removeAttribute('href');
+  view('original');
+  updateMobileSteps();
+  if($('mobile-go-occupancy')){$('mobile-go-occupancy').textContent='Ver ocupación →';$('mobile-go-occupancy').disabled=true;}
+  if(matchMedia('(max-width:860px)').matches)setMobileStep('1');
+}
+
+function resultDescription(data){
+  return data.geometry_only?'Niveles detectados y alcance de la medición. Consulta los avisos por nivel.':data.occupancy?'Ocupación estimada por nivel. Rojo bajo el 30 %; verde desde el 30 %.':'Niveles detectados';
+}
+
+function view(mode){
+  if(mode!=='original'&&($('view-'+mode).disabled||!result))return;
+  const comparing=mode==='compare';
+  $('comparison').hidden=!comparing;
+  $('photo').hidden=comparing||!originalUrl;
+  $('edge-controls').hidden=mode!=='edges';
+  if(originalUrl){
+    $('photo').src=mode==='result'?result.image_url:mode==='edges'?result[$('edge-view').value]:originalUrl;
+    $('photo').alt=mode==='result'?resultDescription(result):mode==='edges'?$('edge-view').selectedOptions[0].textContent:'Foto original de la góndola';
+  }
+  if(comparing){
+    $('compare-original').src=originalUrl;
+    $('compare-result').src=result.image_url;
+    $('compare-result').alt=resultDescription(result);
+    $('compare-caption').textContent=result.occupancy?'Ocupación estimada':'Niveles detectados';
+  }
+  for(const name of viewModes){
+    const selected=name===mode;
+    $('view-'+name).setAttribute('aria-selected',String(selected));
+    $('view-'+name).tabIndex=selected?0:-1;
+  }
+  $('viewport').setAttribute('aria-labelledby','view-'+mode);
+}
+
 function choose(selected){
-  if(!selected||running)return;$('file').value='';$('error').hidden=true;
+  if(!selected||running)return;
+  $('file').value='';$('error').hidden=true;
   if(!selected.size||selected.size>15*1024*1024){error('Elige una foto de hasta 15 MB.');return}
   if(!['image/jpeg','image/png','image/webp'].includes(selected.type)&&!/^.*\.(jpe?g|png|webp)$/i.test(selected.name)){error('Usa una foto JPG, PNG o WebP.');return}
-  if(originalUrl)URL.revokeObjectURL(originalUrl);file=selected;originalUrl=URL.createObjectURL(file);resetResult();
-  $('photo-name').textContent=file.name;$('photo-info').textContent='Foto lista para analizar.';$('photo').hidden=false;$('empty').hidden=true;$('view-original').disabled=false;$('drop').classList.add('selected');$('upload-title').textContent='Cambiar foto';availability();
+  if(originalUrl)URL.revokeObjectURL(originalUrl);
+  file=selected;
+  $('visibility').value='clear';
+  originalUrl=URL.createObjectURL(file);
+  resetResult();
+
+  $('photo-name').textContent=file.name;
+  $('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Foto lista para analizar';
+  $('photo').hidden=false;
+  $('empty').hidden=true;
+  $('view-original').disabled=false;
+
+  $('drop').classList.add('selected');
+  $('upload-title').textContent='Cambiar foto';
+  if($('upload-thumb'))$('upload-thumb').src=originalUrl;
+  if($('upload-filename'))$('upload-filename').textContent=file.name;
+  availability();
+  updateMobileSteps();
 }
+
+function renderKPIs(total, low, review, avgPct){
+  if($('kpi-ocupacion'))$('kpi-ocupacion').textContent=Number.isFinite(avgPct)?`${Math.round(avgPct)}%`:'—';
+}
+
+function showV3(data){
+  if(!data.geometry_only){
+    $('occupancy-columns').innerHTML='<tr><th>Nivel</th><th>Ocupación</th><th>Estado</th></tr>';
+    $('occupancy-help').textContent='Rojo: menos del 30 %. Verde: 30 % o más. Estimación visual experimental, pendiente de calibración.';
+    return;
+  }
+  const total=data.detections.length;
+  const readings=data.detections.map(d=>d.occupancy_estimate);
+  const low=readings.filter(o=>o?.state==='reponer').length;
+  const enough=readings.filter(o=>o?.state==='suficiente').length;
+  const review=readings.filter(o=>o?.state==='revisar').length;
+  const measured=readings.filter(o=>Number.isFinite(o?.pct));
+  const avgPct=measured.length?measured.reduce((sum,m)=>sum+m.pct,0)/measured.length:null;
+  const reponerLevels=data.detections.filter(d=>d.occupancy_estimate?.state==='reponer').map(d=>d.id);
+
+  renderKPIs(total, low, review, avgPct);
+
+  if(data.photo_status==='gondola_tapada'){
+    $('summary').hidden=false;
+    $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>Góndola tapada.</strong> ${esc(data.message||'Toma otra foto despejada.')}</span></div>`;
+  }else if(low>0){
+    $('summary').hidden=false;
+    const lvlText=reponerLevels.length===1?`nivel ${reponerLevels[0]}`:`niveles ${reponerLevels.join(', ')}`;
+    $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>Quiebre detectado en ${lvlText}.</strong> Prioriza la reposición.</span></div>`;
+  }else{
+    $('summary').hidden=true;
+    $('summary').innerHTML='';
+  }
+
+  $('occupancy-columns').innerHTML='<tr><th>Nivel</th><th>Ocupación estimada</th><th>Alcance</th><th>Resultado</th><th>Aviso / acción</th></tr>';
+  $('occupancy-help').textContent=data.visibility==='partial'?'Porcentaje limitado a la zona visible. El nivel completo queda pendiente de revisión.':data.visibility==='occluded'?'Medición suspendida: toma otra foto sin el objeto delante.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':'Rojo bajo el 30 % y verde desde el 30 % solo en áreas con visibilidad confirmada. Los recortes requieren revisión. Estimación experimental.';
+  $('level-occupancy').hidden=!total;
+
+  $('occupancy-rows').innerHTML=data.detections.map(d=>{
+    const o=d.occupancy_estimate,valid=Number.isFinite(o?.pct);
+    const tone=o?.state==='reponer'?'low':o?.state==='suficiente'?'enough':o?.state==='revisar'?'revisar':'unknown';
+    const badgeLabel=o?.state==='reponer'?'Reponer':o?.state==='suficiente'?'Suficiente':'Revisar';
+    const fillWidth=valid?Math.max(2,Math.min(100,Math.round(o.pct))):0;
+    const pctText=valid?Math.round(o.pct)+' %':'—';
+    const scopeNotice=d.scope==='Solo zona visible'?'Solo zona visible - revisa la foto':(d.notice||(d.scope==='Completo'?'Visibilidad confirmada':d.scope||'Visibilidad confirmada'));
+
+    return `<tr class="occupancy-item occupancy-${tone}"><td class="occupancy-cell">
+      <div class="occupancy-item-header">
+        <span class="occupancy-level-title">Nivel ${d.id}</span>
+        <span class="badge badge-${tone} occupancy-state occupancy-${tone}">${badgeLabel}</span>
+      </div>
+      <div class="occupancy-bar-row">
+        <div class="occupancy-track">
+          <div class="occupancy-threshold-marker" title="Umbral 30%"></div>
+          <div class="occupancy-fill fill-${tone}" style="width:${fillWidth}%"></div>
+        </div>
+        <span class="occupancy-pct occupancy-value occupancy-${tone}">${pctText}</span>
+      </div>
+      <div class="occupancy-item-footer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>${esc(scopeNotice)}</span>
+      </div>
+    </td></tr>`;
+  }).join('');
+
+  if(data.occupancy)$('edge-description').textContent='Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
+  if(data.photo_status==='gondola_tapada'){
+    $('result-tools').hidden=true;
+    $('view-result').disabled=true;
+    $('view-compare').disabled=true;
+    view('original');
+  }
+}
+
 function show(data){
-  result=data;const c=data.counts,total=data.detections.length,alerts=(c.vacio||0)+(c.baja_disponibilidad||0)+(c.reponer||0),nonEvaluable=c.no_evaluable||0;
+  result=data;
+  const c=data.counts,total=data.detections.length;
+  const alerts=(c?.vacio||0)+(c?.baja_disponibilidad||0)+(c?.reponer||0);
+  const nonEvaluable=c?.no_evaluable||0;
   const title=!total?'No se detectaron niveles':alerts?`${alerts} ${alerts===1?'nivel con posible faltante':'niveles con posibles faltantes'}`:nonEvaluable===total?'Los niveles detectados no son evaluables':nonEvaluable?'Sin faltantes señalados; hay niveles no evaluables':'Los niveles detectados se ven suficientes';
-  const detail=!total?`El modelo ${data.model} no encontró niveles. Prueba otra toma con la góndola completa o revisa la confianza mínima.`:`El modelo ${data.model} encontró ${total} ${total===1?'nivel':'niveles'}. Son predicciones; esta foto no tiene anotaciones de referencia para medir aciertos.`;
-  $('summary').innerHTML=`<h3>${esc(title)}</h3><p>${esc(detail)}</p>${total?`<div class="counts">${states.map(([key,label,color])=>`<span><i style="--color:${color}"></i><b>${c[key]}</b> ${label}</span>`).join('')}</div>`:''}`;
+  const detail=!total?'No se encontraron niveles. Prueba otra toma con la góndola completa.':`Se detectaron ${total} ${total===1?'nivel':'niveles'}. Revisa sus contornos en la foto.`;
+  $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><h3>${esc(title)}</h3><p>${esc(detail)}</p></div></div>${total&&states?`<div class="counts" hidden>${states.map(([key,label,color])=>`<span><i style="--color:${color}"></i><b>${c?.[key]||0}</b> ${label}</span>`).join('')}</div>`:''}`;
+
   $('level-occupancy').hidden=!data.occupancy||!total;
   $('occupancy-rows').innerHTML='';
+
   if(data.occupancy&&total){
-    const readings=data.detections.map(d=>({...d.occupancy_estimate,id:d.id})),measured=readings.filter(o=>Number.isFinite(o.pct)),low=measured.filter(o=>o.pct<30).length,unknown=total-measured.length;
+    const readings=data.detections.map(d=>({...d.occupancy_estimate,id:d.id}));
+    const measured=readings.filter(o=>Number.isFinite(o.pct));
+    const low=measured.filter(o=>o.pct<30).length;
+    const unknown=total-measured.length;
     const heading=!measured.length?'No se pudo estimar la ocupación':low?`${low} ${low===1?'nivel necesita reposición':'niveles necesitan reposición'}`:'Ocupación suficiente en los niveles medidos';
-    $('summary').innerHTML=`<h3>${esc(heading)}</h3><p>${total} ${total===1?'nivel detectado':'niveles detectados'}.${unknown?` ${unknown} sin medición.`:''}</p>`;
-    $('occupancy-rows').innerHTML=readings.map(o=>{const valid=Number.isFinite(o.pct),tone=valid?(o.pct<30?'low':'enough'):'unknown';return `<tr><th scope="row">${esc(o.id)}</th><td class="occupancy-value occupancy-${tone}">${valid?o.pct.toLocaleString('es-CL',{maximumFractionDigits:2})+' %':'—'}</td><td><span class="occupancy-state occupancy-${tone}">${esc(valid?(o.pct<30?'Reponer':'Suficiente'):'Sin medición')}</span></td></tr>`}).join('');
+    const reponerLevels=readings.filter(o=>o.pct<30).map(o=>o.id);
+    const quiebreText=reponerLevels.length===1?`Quiebre detectado en nivel ${reponerLevels[0]}. Prioriza la reposición.`:`Quiebres detectados en niveles ${reponerLevels.join(', ')}. Prioriza la reposición.`;
+    const bannerMsg=low>0?quiebreText:heading;
+
+    renderKPIs(total, low, 0, measured.length?measured.reduce((s,m)=>s+m.pct,0)/measured.length:null);
+
+    $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>${esc(bannerMsg)}</strong> ${esc(heading)} · ${total} ${total===1?'nivel detectado':'niveles detectados'}.${unknown?` ${unknown} sin medición.`:''}</span></div>`;
+    $('summary').hidden=low===0;
+
+    $('occupancy-columns').innerHTML='<tr><th>Nivel</th><th>Ocupación</th><th>Estado</th></tr>';
+    $('occupancy-help').textContent='Rojo bajo el 30 %. Verde desde el 30 %. Estimación experimental.';
+    $('occupancy-rows').innerHTML=data.detections.map(d=>{
+      const o=d.occupancy_estimate||{};
+      const valid=Number.isFinite(o.pct);
+      const tone=valid?(o.pct<30?'low':'enough'):'unknown';
+      const label=valid?(o.pct<30?'Reponer':'Suficiente'):'Sin medición';
+      const fillWidth=valid?Math.max(2,Math.min(100,Math.round(o.pct))):0;
+      const pctText=valid?o.pct.toLocaleString('es-CL',{maximumFractionDigits:2})+' %':'—';
+      return `<tr class="occupancy-item occupancy-${tone}"><td class="occupancy-cell">
+        <div class="occupancy-item-header">
+          <span class="occupancy-level-title">Nivel ${d.id}</span>
+          <span class="badge badge-${tone} occupancy-state occupancy-${tone}">${label}</span>
+        </div>
+        <div class="occupancy-bar-row">
+          <div class="occupancy-track">
+            <div class="occupancy-threshold-marker" title="Umbral 30%"></div>
+            <div class="occupancy-fill fill-${tone}" style="width:${fillWidth}%"></div>
+          </div>
+          <span class="occupancy-pct occupancy-value occupancy-${tone}">${pctText}</span>
+        </div>
+        <div class="occupancy-item-footer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>${valid?'Visibilidad confirmada':'Sin medición'}</span>
+        </div>
+      </td></tr>`;
+    }).join('');
   }
-  $('legend').hidden=total>0;$('photo-info').textContent=`${data.model} · ${data.device} · ${data.seconds.toLocaleString('es-CL')} s`;
-  $('view-result').disabled=false;$('view-compare').disabled=false;$('view-edges').disabled=!data.occupancy_image_url;$('view-edges').title=data.occupancy_image_url?'':'Analiza con YOLO + detección de bordes para ver sus mapas.';view('result');$('result-tools').hidden=false;
-  $('rows').innerHTML=data.detections.map(d=>`<tr><td>${d.id}</td><td>${esc(d.label)}</td><td>${Math.round(d.confidence*100)} %</td></tr>`).join('');
-  $('download').href=data.image_url;$('download').download=`resultado_${data.model}.jpg`;
-  if(data.occupancy){const weighted=data.occupancy.method==='paulo_mascara_v2_combinacion_ponderada',pct=value=>value==null?'Sin medición':Number(value).toLocaleString('es-CL',{maximumFractionDigits:2})+' %';$('edge-summary').textContent='Cómo se calcula · '+(weighted?'Bordes V2':'Bordes V1');$('edge-description').textContent=(weighted?'Ocupación estimada = 70 % de superficie + 30 % de ancho. ':'Ocupación estimada = área con señal. ')+'La estimación usa bordes, color y textura. El estado original de YOLO se puede consultar en su detalle.';$('edge-columns').innerHTML=`<tr><th>Nivel</th>${weighted?'<th>Combinado</th>':''}<th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr>`;$('edge-rows').innerHTML=data.detections.map(d=>{const o=d.occupancy||{};return `<tr><td>${d.id}</td>${weighted?`<td>${pct(o.combined_signal_pct)}</td>`:''}<td>${pct(o.area_signal_pct)}</td><td>${pct(o.width_signal_pct)}</td><td>${esc(o.reason||(o.status==='medido'?'Señal experimental':'Sin medición'))}</td></tr>`}).join('');$('edge-results').hidden=false}else{$('edge-results').hidden=true}
-  if(matchMedia('(max-width:740px)').matches)$('stage').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+
+  $('legend').hidden=total>0;
+  $('photo-info').innerHTML='<span class="status-dot"></span> Análisis completado';
+  $('view-result').disabled=false;
+  $('view-compare').disabled=false;
+  $('view-edges').disabled=!data.occupancy_image_url;
+  $('view-edges').title=data.occupancy_image_url?'':'Analiza la foto para ver los bordes.';
+  view('result');
+  $('result-tools').hidden=false;
+  $('download').href=data.image_url;
+  $('download').download='resultado_gondola.jpg';
+
+  if(data.occupancy){
+    const weighted=data.occupancy.method==='paulo_mascara_v2_combinacion_ponderada',pct=value=>value==null?'Sin medición':Number(value).toLocaleString('es-CL',{maximumFractionDigits:2})+' %';
+    $('edge-summary').textContent='Cómo se estima la ocupación';
+    $('edge-description').textContent=(weighted?'Ocupación estimada = 70 % de superficie + 30 % de ancho. ':'Ocupación estimada = área con señal. ')+'La estimación usa bordes, color y textura. No mide el stock detrás de los productos.';
+    $('edge-columns').innerHTML=`<tr><th>Nivel</th>${weighted?'<th>Combinado</th>':''}<th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr>`;
+    $('edge-rows').innerHTML=data.detections.map(d=>{
+      const o=d.occupancy||{};
+      return `<tr><td>${d.id}</td>${weighted?`<td>${pct(o.combined_signal_pct)}</td>`:''}<td>${pct(o.area_signal_pct)}</td><td>${pct(o.width_signal_pct)}</td><td>${esc(o.reason||(o.status==='medido'?'Señal experimental':'Sin medición'))}</td></tr>`;
+    }).join('');
+    $('edge-results').hidden=false;
+  }else{
+    $('edge-results').hidden=true;
+  }
+
+  showV3(data);
+
+  updateMobileSteps();
+  if($('mobile-go-occupancy'))$('mobile-go-occupancy').textContent=`Ver ocupación (${data.detections.length} niveles) →`;
+  if(matchMedia('(max-width:860px)').matches){
+    setMobileStep('2');
+  }
 }
-const rootEl=document.documentElement||{dataset:{},setAttribute(k,v){if(k==='data-theme')this.dataset.theme=v},removeAttribute(k){if(k==='data-theme')delete this.dataset.theme}};
-function applyTheme(theme){const dark=theme==='dark';if(dark)rootEl.setAttribute('data-theme','dark');else rootEl.removeAttribute('data-theme');if($('theme-toggle')){$('theme-toggle').setAttribute('aria-pressed',String(dark));$('theme-toggle').setAttribute('aria-label',dark?'Modo claro':'Modo oscuro');$('theme-toggle').title=dark?'Cambiar a modo claro':'Cambiar a modo oscuro'}}
+
+const rootEl=document.documentElement||{
+  dataset:{},
+  attrs:{},
+  getAttribute(k){return this.attrs[k]},
+  setAttribute(k,v){this.attrs[k]=v;if(k==='data-theme')this.dataset.theme=v},
+  removeAttribute(k){delete this.attrs[k];if(k==='data-theme')delete this.dataset.theme}
+};
+function applyTheme(theme){
+  const dark=theme==='dark';
+  if(dark)rootEl.setAttribute('data-theme','dark');else rootEl.removeAttribute('data-theme');
+  if($('theme-toggle')){
+    $('theme-toggle').setAttribute('aria-pressed',String(dark));
+    $('theme-toggle').setAttribute('aria-label',dark?'Modo claro':'Modo oscuro');
+    $('theme-toggle').title=dark?'Cambiar a modo claro':'Cambiar a modo oscuro';
+  }
+}
 try{applyTheme(localStorage.getItem('walmart-vision-theme')||'light')}catch{applyTheme('light')}
-$('theme-toggle').addEventListener('click',()=>{const next=rootEl.dataset?.theme==='dark'?'light':'dark';applyTheme(next);try{localStorage.setItem('walmart-vision-theme',next)}catch{}});
+$('theme-toggle').addEventListener('click',()=>{
+  const isDark=(rootEl.getAttribute?rootEl.getAttribute('data-theme')==='dark':rootEl.dataset?.theme==='dark');
+  const next=isDark?'light':'dark';
+  applyTheme(next);
+  try{localStorage.setItem('walmart-vision-theme',next)}catch{}
+});
+
+for(const s of ['1','2','3']){
+  $('mobile-step-'+s)?.addEventListener('click',()=>setMobileStep(s));
+}
+$('mobile-back-upload')?.addEventListener('click',()=>setMobileStep('1'));
+$('mobile-go-occupancy')?.addEventListener('click',()=>setMobileStep('3'));
+$('mobile-back-stage')?.addEventListener('click',()=>setMobileStep('2'));
+$('mobile-new-photo')?.addEventListener('click',()=>{
+  setMobileStep('1');
+  $('file')?.click();
+});
+
 $('file').addEventListener('change',()=>choose($('file').files[0]));
-$('model').addEventListener('change',()=>{resetResult();modelContext();if(file)$('photo-info').textContent='Foto lista para analizar con '+$('model').value+'.'});
-$('method').addEventListener('change',()=>{resetResult();modelContext();$('method-help').textContent=$('method').value==='yolo'?'YOLO localiza cada nivel y determina su estado.':'Estima la ocupación de cada nivel. Rojo bajo el 30 %; verde desde el 30 %.';if(file)$('photo-info').textContent='Foto lista para analizar con el método seleccionado.'});
-$('confidence').addEventListener('input',()=>{$('confidence-value').value=Number($('confidence').value).toFixed(2);resetResult();modelContext();if(file)$('photo-info').textContent='Foto lista para analizar con la nueva confianza.'});
+$('visibility').addEventListener('change',()=>{
+  resetResult();
+  modelContext();
+  if(file)$('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Foto lista con visibilidad indicada';
+});
+
 for(const mode of viewModes)$('view-'+mode).addEventListener('click',()=>view(mode));
 $('edge-view').addEventListener('change',()=>view('edges'));
-document.querySelector('[role=tablist]').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;const tabs=viewModes.filter(mode=>!$('view-'+mode).disabled);if(!tabs.length)return;event.preventDefault();const current=tabs.findIndex(mode=>$('view-'+mode)===document.activeElement);const index=event.key==='Home'?0:event.key==='End'?tabs.length-1:(current+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;view(tabs[index]);$('view-'+tabs[index]).focus()});
+
+document.querySelector('[role=tablist]').addEventListener('keydown',event=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  const tabs=viewModes.filter(mode=>!$('view-'+mode).disabled);
+  if(!tabs.length)return;
+  event.preventDefault();
+  const current=tabs.findIndex(mode=>$('view-'+mode)===document.activeElement);
+  const index=event.key==='Home'?0:event.key==='End'?tabs.length-1:(current+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
+  view(tabs[index]);
+  $('view-'+tabs[index]).focus();
+});
+
 for(const name of ['dragenter','dragover'])$('drop').addEventListener(name,e=>{e.preventDefault();if(!running)$('drop').classList.add('drag')});
 for(const name of ['dragleave','drop'])$('drop').addEventListener(name,e=>{e.preventDefault();$('drop').classList.remove('drag')});
-$('drop').addEventListener('drop',e=>{if(e.dataTransfer.files.length!==1){error('Arrastra una sola foto.');return}choose(e.dataTransfer.files[0])});
-$('form').addEventListener('submit',async e=>{
-  e.preventDefault();if(!file||running)return;running=true;$('error').hidden=true;resetResult();$('progress').hidden=false;$('stage').setAttribute('aria-busy','true');availability();
-  try{const params=new URLSearchParams({model:$('model').value,confidence:$('confidence').value,method:$('method').value});const response=await fetch('/api/predict?'+params,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file,signal:AbortSignal.timeout(300000)});const data=await response.json();if(!response.ok)throw Error(data.error||'No se pudo analizar la foto.');show(data)}
-  catch(err){error(err.name==='TimeoutError'?'El análisis tardó demasiado. Prueba una imagen más pequeña.':err.message);$('photo-info').textContent='No se completó el análisis. Tu foto se conserva.'}
-  finally{running=false;$('progress').hidden=true;$('stage').setAttribute('aria-busy','false');availability()}
+$('drop').addEventListener('drop',e=>{
+  if(e.dataTransfer.files.length!==1){error('Arrastra una sola foto.');return}
+  choose(e.dataTransfer.files[0]);
 });
+
+$('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!ready||!file||running)return;
+  running=true;
+  $('error').hidden=true;
+  resetResult();
+  $('progress').hidden=false;
+  $('stage').setAttribute('aria-busy','true');
+  availability();
+  try{
+    const params=new URLSearchParams({model:currentModel.id,confidence:DETECTION_CONFIDENCE,method:ANALYSIS_METHOD,...(isV3()?{visibility:$('visibility').value||'clear'}:{})});
+    const response=await fetch('/api/predict?'+params,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file,signal:AbortSignal.timeout(300000)});
+    const data=await response.json();
+    if(!response.ok)throw Error(data.error||'No se pudo analizar la foto.');
+    show(data);
+  }catch(err){
+    error(err.name==='TimeoutError'?'El análisis tardó demasiado. Prueba una imagen más pequeña.':err.message);
+    $('photo-info').textContent='No se completó el análisis. Tu foto se conserva.';
+  }finally{
+    running=false;
+    $('progress').hidden=true;
+    $('stage').setAttribute('aria-busy','false');
+    availability();
+  }
+});
+
 window.addEventListener('pagehide',()=>{if(originalUrl)URL.revokeObjectURL(originalUrl)});
-(async()=>{try{const response=await fetch('/api/models');if(!response.ok)throw Error('No se pudo cargar la lista de modelos.');const data=await response.json();models=data.models;ready=models.length>0;if(!ready)throw Error('No se encontraron los modelos. Extrae el ZIP completo.');$('model').innerHTML=models.map(m=>`<option value="${esc(m.id)}">${esc(m.name)}</option>`).join('');$('model').value=data.default_model||models[0].id;resetResult();modelContext();availability()}catch(err){error(err.message+' Revisa la consola y vuelve a abrir el visor.')}})();
+
+(async()=>{
+  try{
+    const response=await fetch('/api/models');
+    if(!response.ok)throw Error('No se pudo preparar el análisis.');
+    const data=await response.json();
+    currentModel=data.models.find(m=>m.id===data.default_model)||data.models[0];
+    ready=Boolean(currentModel);
+    if(!ready)throw Error('Faltan archivos de la aplicación. Extrae el ZIP completo.');
+    resetResult();
+    modelContext();
+    availability();
+  }catch(err){
+    error(err.message+' Revisa la consola y vuelve a abrir el visor.');
+  }
+})();
 </script>
-</body></html>
+</body>
+</html>

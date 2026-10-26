@@ -34,18 +34,33 @@ function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detectio
 
 
 class VisionInterfaceTests(unittest.TestCase):
+    def test_v3_requires_visibility_uses_minimum_and_does_not_call_partial_sufficient(self):
+        self.js("""
+        currentModel={id:'V3',name:'V3',geometry_only:true,minimum_confidence:.6,guide:'V3'};modelContext();
+        assert.equal(DETECTION_CONFIDENCE,.6);
+        choose({name:'new.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
+        const data=prediction(true);data.geometry_only=true;data.visibility='partial';
+        data.detections[0].scope='Solo zona visible';data.detections[0].notice='Revisa el resto';
+        data.detections[0].occupancy_estimate={pct:80,state:'revisar',label:'Revisar · zona visible'};
+        show(data);assert.match($('occupancy-rows').innerHTML,/Solo zona visible/);
+        assert.match($('occupancy-help').textContent,/nivel completo queda pendiente/);
+        assert.doesNotMatch(resultDescription(data),/verde/);
+        assert.doesNotMatch($('occupancy-rows').innerHTML,/occupancy-enough/);
+        show({...data,photo_status:'gondola_tapada',detections:[],counts:{},message:'Góndola tapada'});
+        assert.match($('summary').innerHTML,/Góndola tapada/);assert.equal($('result-tools').hidden,true);
+        choose({name:'another.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
+        """)
     def test_v2_selection_shows_weighted_measurement_and_clears_old_results(self):
         self.js("""
         choose({name:'foto.jpg',size:100,type:'image/jpeg'});
-        $('method').value='yolo_paulo_v2';$('method').listeners.change();
-        assert.match($('method-help').textContent,/30 %/);
+
         const data=prediction();data.occupancy.method='paulo_mascara_v2_combinacion_ponderada';
         data.detections[0].occupancy={combined_signal_pct:44,area_signal_pct:20,width_signal_pct:100,status:'medido'};
         data.detections[0].occupancy_estimate={pct:44,state:'suficiente'};
-        show(data);assert.match($('edge-summary').textContent,/Bordes V2/);
+        show(data);assert.match($('edge-summary').textContent,/Cómo se estima la ocupación/);
         assert.match($('edge-columns').innerHTML,/Combinado/);assert.match($('edge-rows').innerHTML,/44 %/);
         assert.match($('occupancy-rows').innerHTML,/44 %/);assert.match($('occupancy-rows').innerHTML,/occupancy-enough/);
-        $('method').value='yolo';$('method').listeners.change();
+        resetResult();
         assert.equal($('edge-results').hidden,true);assert.equal($('view-edges').disabled,true);
         assert.equal($('level-occupancy').hidden,true);assert.equal($('occupancy-rows').innerHTML,'');
         show(prediction(false));assert.equal($('edge-results').hidden,true);
@@ -58,8 +73,7 @@ class VisionInterfaceTests(unittest.TestCase):
 
     def test_current_models_and_default_load_directly(self):
         self.js("""
-        assert.equal($('model').value,'V2-YOLO26');
-        assert.deepEqual($('model').options.map(o=>o.value),['V2-YOLO11','V2-YOLO26']);
+        assert.equal(currentModel.id,'V2-YOLO26');
         assert.deepEqual(states.map(s=>s[0]),['reponer','suficiente']);
         assert.equal($('fields').disabled,false);assert.equal($('analyze').disabled,true);
         """)
@@ -75,19 +89,25 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal($('viewport').attrs['aria-labelledby'],'view-edges');
         """)
 
-    def test_parameter_changes_clear_old_results_and_pure_yolo_has_no_edges(self):
+    def test_visibility_changes_clear_old_results_and_requests_keep_fixed_settings(self):
         self.js("""
+        currentModel={id:'V3',geometry_only:true};modelContext();
         choose({name:'foto.jpg',size:100,type:'image/jpeg'});
-        for(const control of ['model','method','confidence']){
-          show(prediction());view('compare');
-          if(control==='confidence'){$('confidence').value='.5';$('confidence').listeners.input()}
-          else $(''+control).listeners.change();
-          assert.equal(result,null);assert.equal($('view-edges').disabled,true);
-          assert.equal($('comparison').hidden,true);assert.equal($('compare-result').src,undefined);
-          assert.equal($('photo').src,'blob:original');assert.equal($('download').href,undefined);
-        }
-        show(prediction(false));assert.equal($('view-edges').disabled,true);
-        view('edges');assert.equal($('photo').src,'data:levels');
+        let requests=[];
+        global.fetch=async(url,options)=>{requests.push({url,options});return {ok:true,json:async()=>prediction()}};
+        await $('form').listeners.submit({preventDefault(){}});
+        assert.equal(requests.length,1);
+        const params=new URL(requests[0].url,'http://localhost').searchParams;
+        assert.equal(params.get('model'),'V3');
+        assert.equal(params.get('method'),'yolo_paulo_v2');
+        assert.equal(params.get('confidence'),'0.6');
+        assert.equal(params.get('visibility'),'clear');
+        assert.equal(requests[0].options.body,file);
+        show(prediction());view('compare');
+        $('visibility').value='partial';$('visibility').listeners.change();
+        assert.equal(result,null);assert.equal($('view-edges').disabled,true);
+        assert.equal($('comparison').hidden,true);assert.equal($('compare-result').src,undefined);
+        assert.equal($('photo').src,'blob:original');assert.equal($('download').href,undefined);
         choose({name:'otra.png',size:120,type:'image/png'});assert.equal(result,null);
         """)
 
@@ -105,10 +125,10 @@ class VisionInterfaceTests(unittest.TestCase):
     def test_summary_attributes_predictions_to_the_model_without_claiming_accuracy(self):
         self.js("""
         choose({name:'foto.jpg',size:100,type:'image/jpeg'});show(prediction(false));
-        assert.match($('summary').innerHTML,/El modelo V2-YOLO26 encontró 1 nivel/);
-        assert.match($('summary').innerHTML,/no tiene anotaciones de referencia/);
+        assert.match($('summary').innerHTML,/Se detectaron 1 nivel/);
+        assert.match($('summary').innerHTML,/Revisa sus contornos/);
         show({...prediction(false),detections:[],counts:{}});
-        assert.match($('summary').innerHTML,/El modelo V2-YOLO26 no encontró niveles/);
+        assert.match($('summary').innerHTML,/No se encontraron niveles/);
         """)
 
     def test_simple_occupancy_handles_threshold_missing_values_and_yolo_disagreement(self):
@@ -124,7 +144,6 @@ class VisionInterfaceTests(unittest.TestCase):
         for(const i of [0,1]){assert.match(rows[i],/occupancy-low/);assert.match(rows[i],/Reponer/)}
         for(const i of [2,3]){assert.match(rows[i],/occupancy-enough/);assert.match(rows[i],/Suficiente/)}
         assert.match(rows[4],/occupancy-unknown/);assert.match(rows[4],/Sin medición/);
-        assert.match($('rows').innerHTML,/Suficiente/);
         assert.match($('photo').alt,/Ocupación estimada/);
         view('compare');assert.equal($('compare-caption').textContent,'Ocupación estimada');
         data.detections=[{id:1,label:'Suficiente',confidence:.99}];show(data);
@@ -135,7 +154,7 @@ class VisionInterfaceTests(unittest.TestCase):
         """)
 
     def test_workspace_has_no_version_controls_and_keeps_theme_toggle(self):
-        for removed in ('version-step', 'version-cards', 'change-version', 'version-continue', 'version-group'):
+        for removed in ('version-step', 'version-cards', 'change-version', 'version-continue', 'version-group', 'id="model"', 'id="method"', 'id="confidence"', 'Ajustes de detección', 'Detalle del modelo YOLO'):
             self.assertNotIn(removed, HTML)
         self.assertIn('<div id="workspace-step">', HTML)
         self.assertNotIn('value="yolo_paulo"', HTML)

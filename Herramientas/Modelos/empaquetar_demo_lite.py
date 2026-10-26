@@ -11,13 +11,57 @@ FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instal
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
          'Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt', 'DOCKER.md',
-         'VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md')
+         'VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md', 'vision_v3.py')
 EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Herramientas/Modelos/ocupacion_paulo.py',
               'gondola_bordes.py': ROOT / 'Experimentos/Bordes/gondola_bordes.py',
               'gondola_combinacion_ponderada.py': ROOT / 'Experimentos/Bordes/gondola_combinacion_ponderada.py'}
-SUPPORT_FILES = {'geometria_niveles.py': ROOT / 'Herramientas/Modelos/geometria_niveles.py'}
+SUPPORT_FILES = {name: ROOT / 'Herramientas/Modelos' / name
+                 for name in ('geometria_niveles.py', 'presentacion_niveles.py')}
 RUNS = {'V2-YOLO11': 'v2_base_yolo11n_01_20261020_002800_ec8d',
         'V2-YOLO26': 'v2_base_yolo26n_01_20261020_004933_b105'}
+
+
+def notebook_v3(package):
+    content = [
+        ('markdown', '# Walmart Vision · V3\n\nCarga el paquete ' + package + '. Incluye solo el best.pt del afinado. Los archivos seleccionados se subirán al entorno de Google Colab. No se monta Drive ni se publica una web.'),
+        ('code', '%pip -q install ultralytics==8.4.174 pillow==12.3.0 "ipywidgets>=8,<9"'),
+        ('code', '''from google.colab import files
+from pathlib import Path
+from io import BytesIO
+import sys, zipfile
+uploaded = files.upload()
+if len(uploaded) != 1: raise ValueError('Selecciona un ZIP de Walmart Vision V3.')
+destination = Path('/content/walmart_vision_v3')
+destination.mkdir(exist_ok=True)
+with zipfile.ZipFile(BytesIO(next(iter(uploaded.values())))) as archive:
+    if sum(i.file_size for i in archive.infolist()) > 100*1024*1024: raise ValueError('Paquete demasiado grande.')
+    for item in archive.infolist():
+        if not (destination/item.filename).resolve().is_relative_to(destination.resolve()): raise ValueError('Ruta no válida.')
+    archive.extractall(destination)
+sys.path.insert(0, str(destination/'Walmart_Vision'))
+from inferencia import ModelRunner
+runner = ModelRunner(destination/'Walmart_Vision')'''),
+        ('markdown', '## Visibilidad\n\nYOLO localiza niveles, sin clasificar recorte ni oclusión. Confirma lo que ves antes de analizar. La ocupación es experimental y usa un umbral del 30 %; no mide stock detrás de los productos.'),
+        ('code', '''import ipywidgets as widgets
+from IPython.display import display
+visibility = widgets.Dropdown(options=[('Selecciona la visibilidad', None), ('Completa y despejada', 'clear'), ('Recortada', 'partial'), ('Objeto delante', 'occluded'), ('Persona tapando', 'person')], value=None, description='Visibilidad:')
+display(visibility)
+photos = files.upload()
+if len(photos) != 1: raise ValueError('Selecciona una sola foto JPG, PNG o WebP.')
+body = next(iter(photos.values()))'''),
+        ('code', '''result = runner.analyze(body, confidence=.60, method='yolo_paulo_v2', visibility=visibility.value)
+print(result.get('message', 'Ocupación estimada en el área detectada. Revisa sus contornos.'))
+display(result['image'])
+for level in result['detections']:
+    print('Nivel', level['id'], level.get('occupancy_estimate'), level['scope'], level['notice'])
+result['image'].save('/content/resultado_v3.jpg', quality=92)'''),
+        ('code', "files.download('/content/resultado_v3.jpg')"),
+    ]
+    return {'nbformat': 4, 'nbformat_minor': 5,
+            'metadata': {'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}},
+            'cells': [dict(cell_type=kind, id='v3-' + str(n), metadata={}, source=body.splitlines(keepends=True),
+                           **({'outputs': [], 'execution_count': None} if kind == 'code' else {}))
+                      for n, (kind, body) in enumerate(content)]}
 
 
 def notebook(package='Walmart_Vision_Actual_20261023.zip'):
@@ -148,7 +192,7 @@ prediccion['image'].save(ruta_resultado, quality=92)
             'language_info': {'name': 'python'}}, 'cells': cells}
 
 
-def build(output):
+def build(output, *, v3=False):
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     for name in FILES:
@@ -160,13 +204,14 @@ def build(output):
             raise ValueError('La herramienta uv no coincide con su fuente verificada.')
     models = []
     weights = {}
-    for model_id, run in RUNS.items():
+    selected_runs = {'V3-YOLO26': 'v3_afinado_papeles_huevos_20261026_011847_7021'} if v3 else RUNS
+    for model_id, run in selected_runs.items():
         source = ROOT / 'Experimentos' / run / 'entrenamiento/weights/best.pt'
         body = source.read_bytes()
         metadata = json.loads((ROOT / 'Experimentos' / run / 'manifest.json').read_text(encoding='utf-8-sig'))
         models.append({'id': model_id, 'name': model_id, 'file': f'modelos/{model_id}.pt',
                        'sha256': hashlib.sha256(body).hexdigest(), 'bytes': len(body), 'source_run': run,
-                       'classes': metadata['clases'], 'guide': 'v2 base'})
+                       'classes': metadata['clases'], 'guide': 'V3 · niveles y ocupación estimada' if v3 else 'v2 base'})
         weights[f'modelos/{model_id}.pt'] = body
     manifest = {'schema_version': 5, 'product': 'Walmart Visión', 'date': '2026-10-23',
                 'guide': 'v2 base', 'default_model': 'V2-YOLO26', 'ultralytics': '8.4.174',
@@ -174,12 +219,21 @@ def build(output):
                 'task': 'segment', 'purpose': 'inference_only', 'models': models,
                 'features': ['yolo', 'paulo_mascara_v2_combinacion_ponderada'],
                 'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
-    nb = json.dumps(notebook(output.name), ensure_ascii=False, indent=2) + '\n'
-    verify_name = 'VERIFICACION_ACTUAL.md'
+    if v3:
+        manifest.update(schema_version=6, date='2026-10-26', guide='V3', default_model='V3-YOLO26',
+                        minimum_confidence=.6, visibility_source='user', occupancy_calibrated=False,
+                        known_limitations=['le_g10: superior vacío 030 omitido; 029 contorno superior demasiado alto.',
+                                           'No detecta automáticamente personas, oclusión o completitud.',
+                                           'Ocupación experimental: umbral 30 % sin calibración V3; test final reservado.'])
+    nb_value = notebook_v3(output.name) if v3 else notebook(output.name)
+    nb = json.dumps(nb_value, ensure_ascii=False, indent=2) + '\n'
+    verify_name = 'VERIFICACION_V3.md' if v3 else 'VERIFICACION_ACTUAL.md'
     verify = (SOURCE / verify_name).read_text(encoding='utf-8') if (SOURCE / verify_name).exists() else 'Verificación de esta entrega pendiente.\n'
     with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         for name in FILES:
             body = (SOURCE / name).read_bytes()
+            if v3 and name == 'LEEME.md':
+                body = (SOURCE / 'LEEME_V3.md').read_bytes()
             if name.endswith('.cmd'):
                 body = body.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
             elif name in ('Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt',
@@ -207,6 +261,9 @@ def build(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--output')
+    parser.add_argument('--v3', action='store_true')
     args = parser.parse_args()
-    output = args.output or str(ROOT / 'Entregables/Walmart_Vision_Actual_20261023.zip')
-    print(json.dumps(build(output), ensure_ascii=False))
+    output = args.output or str(ROOT / ('Entregables/V3/Walmart_Vision_V3_20261025.zip' if args.v3 else 'Entregables/Walmart_Vision_Actual_20261023.zip'))
+    if Path(output).exists():
+        parser.error('La entrega ya existe. Usa --output con un nombre nuevo para conservar la versión anterior.')
+    print(json.dumps(build(output, v3=args.v3), ensure_ascii=False))

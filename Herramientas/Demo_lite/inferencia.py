@@ -10,34 +10,23 @@ import threading
 import time
 import warnings
 
-from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 try:
-    from geometria_niveles import level_quadrilateral
+    from presentacion_niveles import draw_result, occupancy_estimate, spatial_order, font_for, STATES
 except ModuleNotFoundError as error:
-    if error.name != 'geometria_niveles':
+    if error.name != 'presentacion_niveles':
         raise
-    # En el paquete el módulo queda junto a inferencia.py; en el repositorio
-    # se comparte la implementación del panel.
-    import importlib.util
-    _spec = importlib.util.spec_from_file_location('geometria_niveles',
-        Path(__file__).resolve().parents[1] / 'Modelos/geometria_niveles.py')
-    _geometry = importlib.util.module_from_spec(_spec)
-    _spec.loader.exec_module(_geometry)
-    level_quadrilateral = _geometry.level_quadrilateral
+    # En el ZIP va junto a inferencia.py; en desarrollo se comparte con el panel.
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'Modelos'))
+    from presentacion_niveles import draw_result, occupancy_estimate, spatial_order, font_for, STATES
 
 MAX_BYTES = 15 * 1024 * 1024
 MAX_PIXELS = 24_000_000
-STATES = {
-    'Nivel_reponer': ('reponer', 'Reponer', '#dc2626'),
-    'Nivel_vacio': ('vacio', 'Vacío', '#dc2626'),
-    'Nivel_baja_disponibilidad': ('baja_disponibilidad', 'Baja disponibilidad', '#f59e0b'),
-    'Nivel_suficiente': ('suficiente', 'Suficiente', '#16a34a'),
-    'Nivel_no_evaluable': ('no_evaluable', 'No evaluable', '#64748b'),
-}
 V1_CLASSES = ('Nivel_vacio', 'Nivel_baja_disponibilidad', 'Nivel_suficiente', 'Nivel_no_evaluable')
 V2_CLASSES = ('Nivel_reponer', 'Nivel_suficiente')
-CLASS_PROFILES = (set(V1_CLASSES), set(V2_CLASSES), set((*V2_CLASSES, 'Nivel_no_evaluable')))
+CLASS_PROFILES = (set(V1_CLASSES), set(V2_CLASSES), set((*V2_CLASSES, 'Nivel_no_evaluable')), {'Nivel'})
 
 
 class BusyError(ValueError):
@@ -63,98 +52,6 @@ def read_photo(body):
                 return image
     except (UnidentifiedImageError, OSError, Image.DecompressionBombError, Image.DecompressionBombWarning):
         raise ValueError('No pudimos abrir la imagen. Prueba con un JPG, PNG o WebP válido.') from None
-
-
-def font_for(size):
-    for path in ('C:/Windows/Fonts/arial.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'):
-        if Path(path).is_file():
-            return ImageFont.truetype(path, size)
-    return ImageFont.load_default(size=size)
-
-
-def spatial_order(boxes):
-    """Ordenar niveles de abajo hacia arriba (nivel 1 abajo) y de izquierda a derecha en cada fila."""
-    centers = [(index, (box[1] + box[3]) / 2, max(1, box[3] - box[1]), box[0])
-               for index, box in enumerate(boxes)]
-    rows = []
-    for index, center, height, left in sorted(centers, key=lambda item: (item[1], item[3])):
-        if rows and abs(center - rows[-1][0]) <= .5 * min(height, rows[-1][1]):
-            rows[-1][2].append((left, center, index))
-        else:
-            rows.append((center, height, [(left, center, index)]))
-    return [index for _, _, items in reversed(rows) for _, _, index in sorted(items)]
-
-
-def occupancy_estimate(measurement, version='v1'):
-    """Lectura de presentación; conserva la predicción YOLO por separado."""
-    field = 'combined_signal_pct' if version == 'v2' else 'area_signal_pct'
-    value = measurement.get(field)
-    if (measurement.get('status') != 'medido' or isinstance(value, bool) or
-            not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 100):
-        return {'pct': None, 'state': 'sin_medicion', 'label': 'Sin medición', 'color': '#64748b'}
-    low = value < 30
-    return {'pct': value, 'state': 'reponer' if low else 'suficiente',
-            'label': 'Reponer' if low else 'Suficiente', 'color': '#dc2626' if low else '#16a34a'}
-
-
-def draw_result(image, result, measurements=None):
-    overlay = Image.new('RGBA', image.size)
-    draw = ImageDraw.Draw(overlay)
-    font = font_for(max(16, round(max(image.size) / 54)))
-    line_width = max(2, round(max(image.size) / 650))
-    detections, badges = [], []
-    boxes = result.boxes
-    if boxes is not None:
-        polygons = result.masks.xy if result.masks is not None else None
-        xyxy, confs, clss = boxes.xyxy.cpu().tolist(), boxes.conf.cpu().tolist(), boxes.cls.cpu().tolist()
-        for level_id, index in enumerate(spatial_order(xyxy), 1):
-            box, confidence, cls = xyxy[index], confs[index], clss[index]
-            name = result.names[int(cls)]
-            if name not in STATES:
-                raise ValueError('El modelo no contiene los estados de disponibilidad de este paquete.')
-            state, label, hex_color = STATES[name]
-            reading = measurements[level_id - 1].get('occupancy_estimate') if measurements is not None else None
-            if reading:
-                hex_color = reading['color']
-            color = ImageColor.getrgb(hex_color)
-            points = [tuple(map(float, point)) for point in polygons[index]] if polygons is not None else [
-                (box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3])]
-            quad = level_quadrilateral(points, image.size) if polygons is not None else None
-            if quad is not None:
-                points = [tuple(point) for point in quad]
-            detections.append({'id': level_id, 'state': state, 'label': label, 'confidence': float(confidence),
-                               'display_polygon': points, 'contour_adjusted': quad is not None})
-            if len(points) < 3:
-                continue
-            draw.polygon(points, fill=(*color, 35), outline=(*color, 255), width=line_width)
-            title = label
-            if reading:
-                pct = (f"{reading['pct']:.2f}".rstrip('0').rstrip('.').replace('.', ',')
-                       if reading['pct'] is not None else None)
-                title = f"{pct} % · {reading['label']}" if pct is not None else reading['label']
-            bounds = draw.textbbox((0, 0), title, font=font)
-            text_height = font.getbbox('Ágj')[3] - font.getbbox('Ágj')[1]
-            padding = max(5, round(font.size * .35))
-            h = text_height + padding * 2
-            number = str(level_id)
-            number_width = max(h - padding, round(draw.textlength(number, font=font)) + padding * 2)
-            w = round(draw.textlength(title, font=font)) + number_width + padding * 4
-            x = max(0, min(min(p[0] for p in points) + 5, image.width - w))
-            y = max(0, min(min(p[1] for p in points) + 5, image.height - h))
-            badges.append((x, y, w, h, title, number, number_width, padding, color, bounds))
-    for x, y, w, h, title, number, number_width, padding, color, bounds in badges:
-        draw.rounded_rectangle((x, y, x + w, y + h), radius=h / 2,
-                               fill=(255, 255, 255, 252), outline=(218, 226, 228, 255))
-        inset = max(3, round(padding / 2))
-        tint = tuple(round(channel * .14 + 255 * .86) for channel in color)
-        draw.rounded_rectangle((x + inset, y + inset, x + inset + number_width, y + h - inset),
-                               radius=(h - inset * 2) / 2, fill=(*tint, 255))
-        draw.text((x + inset + number_width / 2, y + h / 2), number, font=font,
-                  anchor='mm', fill=(24, 51, 59, 255))
-        draw.text((x + number_width + padding * 2, y + (h - (bounds[3] - bounds[1])) / 2 - bounds[1]),
-                  title, font=font, fill=(*tuple(round(channel * .65) for channel in color), 255)
-                  if measurements is not None else (24, 51, 59, 255))
-    return Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB'), detections
 
 
 class ModelRunner:
@@ -198,22 +95,36 @@ class ModelRunner:
                              guide=item.get('guide', 'v1.3'),
                              note=('Este modelo base distingue reponer y suficiente; no reconoce no evaluable.'
                                    if set(classes) == set(V2_CLASSES) else 'No evaluable se comunica por separado y no significa vacío.'))
+                if classes == ['Nivel']:
+                    value.update(geometry_only=True, minimum_confidence=.6, default_confidence=.6,
+                                 note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; confirma la visibilidad de la foto.')
             models.append(value)
         return models
 
-    def analyze(self, body, model_id=None, confidence=0.25, method='yolo'):
+    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None):
         if model_id is None:
             model_id = self.manifest['default_model']
         if model_id not in self.entries:
             raise ValueError('Elige uno de los modelos incluidos.')
+        geometry = self.entries[model_id].get('classes') == ['Nivel']
+        if confidence is None:
+            confidence = .6 if geometry else .25
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:
             raise ValueError('La confianza debe estar entre 0,01 y 0,99.')
         if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
+        if geometry:
+            from vision_v3 import visibility_check
+            visibility_check(visibility)
+            if confidence < .6:
+                raise ValueError('La confianza mínima de V3 es 0,60.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
             image = read_photo(body)
+            if geometry and visibility == 'person':
+                from vision_v3 import person_result
+                return person_result(image, model_id, method)
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
@@ -234,14 +145,20 @@ class ModelRunner:
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
             extra = {}
-            if method in ('yolo_paulo', 'yolo_paulo_v2'):
+            if method in ('yolo_paulo', 'yolo_paulo_v2') and not (geometry and visibility == 'occluded'):
                 extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
+            if geometry:
+                from vision_v3 import apply_scope
+                apply_scope(detections, visibility, image.width, image.height)
+            if extra or (geometry and visibility == 'occluded'):
                 annotated, _ = draw_result(image, result, measurements=detections)
             counts = Counter(d['state'] for d in detections)
             return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
                     'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
                     'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
-                    'width': image.width, 'height': image.height, 'method': method, **extra}
+                    'width': image.width, 'height': image.height, 'method': method,
+                    'geometry_only': geometry, 'visibility': visibility,
+                    'visibility_source': 'user' if geometry else None, **extra}
         finally:
             self.lock.release()
 

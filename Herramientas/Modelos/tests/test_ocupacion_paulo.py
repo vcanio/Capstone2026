@@ -18,6 +18,46 @@ import panel_modelos as panel
 
 
 class SignalTests(unittest.TestCase):
+    def test_peripheral_signals_do_not_certify_stock_and_center_products_remain_measurable(self):
+        from presentacion_niveles import occupancy_estimate
+        image = np.full((480, 960, 3), 100, np.uint8)
+        # Cartelería con contraste arriba y una banda de color abajo: la
+        # señal no queda solo en la mitad superior y antes eludía la abstención.
+        image[20:180] = np.random.default_rng(21).integers(0, 240, (160, 960, 3), dtype=np.uint8)
+        image[360:470] = (240, 210, 10)
+        image[360:470, 420:540] = np.random.default_rng(23).integers(0, 240, (110, 120, 3), dtype=np.uint8)
+        mask = np.ones(image.shape[:2], np.uint8)
+        measured = Analyzer(image, version='v2').analyze(mask)
+        self.assertGreaterEqual(measured['combined_signal_pct'], 30)
+        self.assertLess(measured['upper_half_signal_share'], .95)
+        self.assertEqual(measured['signal_pattern'], 'peripheral_ambiguity')
+        self.assertEqual(occupancy_estimate(measured, 'v2')['state'], 'revisar')
+        self.assertIsNone(occupancy_estimate(measured, 'v2')['pct'])
+        # La misma periferia con producto contrastado en el centro es medible.
+        image[160:350, 200:760] = np.random.default_rng(22).integers(0, 240, (190, 560, 3), dtype=np.uint8)
+        measured = Analyzer(image, version='v2').analyze(mask)
+        self.assertFalse(measured['review_required'])
+        self.assertEqual(occupancy_estimate(measured, 'v2')['state'], 'suficiente')
+
+    def test_top_banner_signal_cannot_certify_stock_but_lower_products_remain_measurable(self):
+        from presentacion_niveles import occupancy_estimate
+        image = np.full((480, 960, 3), 100, dtype=np.uint8)
+        # Broad textured sign well above the support surface.
+        image[20:180] = np.random.default_rng(7).integers(0, 240, (160, 960, 3), dtype=np.uint8)
+        mask = np.ones(image.shape[:2], np.uint8)
+        measured = Analyzer(image, version='v2').analyze(mask)
+        self.assertGreaterEqual(measured['combined_signal_pct'], 30)
+        self.assertTrue(measured['review_required'])
+        self.assertEqual(measured['signal_pattern'], 'upper_band_only')
+        reading = occupancy_estimate(measured, 'v2')
+        self.assertEqual(reading['state'], 'revisar')
+        self.assertIsNone(reading['pct'])
+        # The same visual evidence near the support is not suppressed.
+        lower = np.flipud(image).copy()
+        measured = Analyzer(lower, version='v2').analyze(mask)
+        self.assertFalse(measured['review_required'])
+        self.assertIsNotNone(occupancy_estimate(measured, 'v2')['pct'])
+
     def test_faint_horizontal_rails_cannot_reactivate_through_texture_or_closing(self):
         import cv2
         image = np.full((240, 720, 3), 60, np.uint8)

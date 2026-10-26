@@ -79,6 +79,13 @@ def provenance(version='v1', parameters=None):
                              'Experimentos/Bordes/gondola_combinacion_ponderada.py'))
     return {'method': WEIGHTED_METHOD if version == 'v2' else METHOD,
             'parameters': asdict(parameters or Parameters(opening=1 if version == 'v2' else 3)),
+            'interpretation_policy': ({'name': 'spatial_signal_abstention_v2', 'upper_height_fraction': .5,
+                                       'minimum_signal_share': .95,
+                                       'central_window': [.15, .40, .85, .65],
+                                       'minimum_central_evidence': .10,
+                                       'minimum_lower_edge_fraction': .25,
+                                       'absolute_edge_density': .012,
+                                       'absolute_gradient': 16, 'absolute_deviation': 9} if version == 'v2' else None),
             'mask_policy': 'yolo_raster_v1',
             'structure_policy': STRUCTURE_POLICY,
             'sources': {p.relative_to(base).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
@@ -217,6 +224,41 @@ class Analyzer:
             width = 100 * float(covered_columns.sum()) / int(valid_columns.sum())
             extra = {'combined_signal_pct': round(self.p.surface_weight*area + (1-self.p.surface_weight)*width, 2),
                      'adaptive_threshold': round(threshold, 6)}
+            # A sign across the top can contribute substantial area and width
+            # while the useful space below is empty. Relative signal alone
+            # cannot certify stock in that pattern: preserve the raw metrics
+            # for inspection and abstain from interpreting them as occupancy.
+            signal_weights = active * observed_coverage * usable
+            upper_half = (np.arange(active.shape[0]) + .5) / active.shape[0] <= .5
+            total_signal = float(signal_weights.sum())
+            upper_share = float(signal_weights[upper_half].sum()) / total_signal if total_signal else 0.
+            review_required = total_signal > 0 and upper_share >= .95
+            # La normalización relativa puede amplificar fondo o estructura.
+            # Esta comprobación solo cambia la interpretación: mapas, métricas,
+            # denominadores y máscaras de YOLO se conservan exactamente.
+            yy, xx = np.indices(usable.shape)
+            central_columns = (xx >= .15*usable.shape[1]) & (xx < .85*usable.shape[1])
+            center = usable & central_columns & (yy >= .40*usable.shape[0]) & (yy < .65*usable.shape[0])
+            absolute_evidence = (density > .012) | ((gradient > 16) & (deviation > 9))
+            central_density = float((raw_active & center & absolute_evidence).sum()) / max(1, int(center.sum()))
+            lower = usable & central_columns & (yy >= .65*usable.shape[0])
+            lower_edges = float(((density > .012) & lower).sum()) / max(1, int(lower.sum()))
+            # Un producto bajo con bordes en la base continúa siendo medible.
+            # Falta de respaldo no certifica vacío ni detecta un cartel.
+            peripheral_ambiguity = (total_signal > 0 and central_density < .10 and lower_edges < .25
+                                    and extra['combined_signal_pct'] >= 30)
+            review_required |= peripheral_ambiguity
+            extra.update(review_required=review_required,
+                         signal_pattern=('upper_band_only' if upper_share >= .95 and total_signal > 0 else
+                                         'peripheral_ambiguity' if peripheral_ambiguity else None),
+                         upper_half_signal_share=round(upper_share, 6),
+                         central_evidence_fraction=round(central_density, 6),
+                         lower_edge_evidence_fraction=round(lower_edges, 6),
+                         review_reason=(('Señal concentrada en la franja superior: puede ser un cartel o el fondo. '
+                                         if upper_share >= .95 else
+                                         'Señal periférica sin respaldo central suficiente: puede ser estructura, cartel o fondo. ') +
+                                        'Revisa si hay productos; no se confirma ocupación.'
+                                        if review_required else None))
         self.signal[y:y+h, x:x+w] |= (cv2.resize(active.astype(np.uint8), (w, h), interpolation=cv2.INTER_NEAREST) > 0) & (observed > 0)
         return {'method': self.method, 'status': 'medido', 'area_signal_pct': round(area, 2), **extra,
                 'width_signal_pct': round(width, 2) if width is not None else None,

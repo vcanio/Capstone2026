@@ -1,20 +1,19 @@
 # Distribución de Walmart Visión
 
-## V3 actual: pruebas locales
+## V3 · release preparada como borrador
 
-El equipo tiene preparado `Walmart_Vision_V3_20261026.zip`, con el **best.pt V3 vigente**, interfaz simplificada y abstención ante señal ambigua en la franja superior.
+Se prepara **Walmart Visión V3 · niveles y ocupación experimental**, tag previsto `walmart-vision-v3-2026-10-26`. El borrador reúne:
 
-**Este paquete todavía no se ha publicado en GitHub.** Esta actualización del repositorio documenta su funcionamiento; no crea una release ni adjunta pesos, datasets o ZIP nuevos.
+- `Walmart_Vision_V3_20261026.zip`: app Windows x64, alternativa Docker y único best.pt V3 vigente.
+- `Walmart_Vision_V3_20261026.sha256`: comprobante de integridad del ZIP.
 
-La interfaz utiliza niveles y detección de bordes con confianza fija 0,60. Solo requiere elegir foto, indicar visibilidad y analizar. La ocupación sigue siendo experimental.
+**El borrador todavía no es una descarga pública.** Las [Releases publicadas](https://github.com/vcanio/Capstone2026/releases) conservan sus versiones anteriores. No se reemplazan sus activos.
 
-[Manual de V3](../Documentacion/Usar_Walmart_Vision.md) · [Funcionamiento](../Documentacion/Guia_para_entender_el_proyecto.md) · [Ficha del modelo](../Documentacion/Modelo_V3_actual.md)
+V3 usa una sola clase Nivel, confianza fija 0,60 y ocupación experimental por bordes, color y textura. Requiere fotos frontales o casi frontales y confirmación manual de visibilidad. Incluye la abstención por señal superior o periférica ambigua; no detecta automáticamente personas, carteles o vacío.
 
-## Descargas ya publicadas
+El archivo automático Source code contiene fuentes, sin el modelo operativo incluido en el ZIP de la aplicación. La primera preparación requiere conexión; la inferencia posterior es local. La instalación V3 en macOS y en otro equipo físico sigue pendiente de comprobación.
 
-Las [Releases de GitHub](https://github.com/vcanio/Capstone2026/releases) conservan entregas anteriores. No contienen esta actualización V3 y sus instrucciones deben interpretarse según la fecha de cada paquete.
-
-El archivo automático “Source code” contiene las fuentes del repositorio, sin el modelo operativo necesario para ejecutar el candidato V3.
+[Manual](../Documentacion/Usar_Walmart_Vision.md) · [Criterios y cálculo](../Documentacion/Guia_para_entender_el_proyecto.md) · [Modelo y métricas](../Documentacion/Modelo_V3_actual.md)
 
 ## Material académico
 

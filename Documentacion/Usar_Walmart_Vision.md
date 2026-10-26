@@ -1,6 +1,6 @@
 # Usar Walmart Visión
 
-Esta guía corresponde a **V3, en pruebas locales al 26 de octubre de 2026**. El nuevo paquete aún no se ha publicado en GitHub. Consulta el [estado de distribución](../Entregables/README.md) antes de descargar una entrega: las releases existentes pertenecen a versiones anteriores.
+Esta guía corresponde a **V3, en pruebas locales al 26 de octubre de 2026**. La release V3 se prepara como borrador con el paquete y su comprobante SHA-256; todavía no es una descarga pública. Consulta el [estado de distribución](../Entregables/README.md) antes de descargar una entrega: las releases existentes pertenecen a versiones anteriores.
 
 ## Abrir la aplicación
 
@@ -17,6 +17,12 @@ docker compose up --build -d --wait
 Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detenerlo, ejecuta `docker compose down`. La instalación en macOS y en otro computador físico sigue pendiente de verificación para V3.
 
 La preparación inicial requiere conexión para obtener dependencias. La inferencia es local. No necesitas instalar CVAT, preparar datasets ni iniciar el laboratorio.
+
+## Fotografías frontales
+
+**Para usar esta versión, toma fotos frontales o casi frontales de la góndola.** Sitúate frente al tramo, mantén la cámara nivelada y procura que se vean sus dos extremos y las superficies de apoyo. Evita tomas desde un costado, desde muy arriba o abajo, panorámicas deformadas, desenfoque y reflejos fuertes. Si el mueble es largo, utiliza varias tomas frontales de tramos completos.
+
+La perspectiva oblicua cambia las alturas y anchuras aparentes, oculta huecos detrás de los productos y puede desplazar las máscaras. El algoritmo estima una proporción de la imagen, sin reconstruir el volumen ni corregir automáticamente la perspectiva. Una foto frontal ayuda, pero no garantiza una detección correcta: revisa siempre los contornos y la visibilidad. No hay un ángulo máximo validado ni un detector automático que certifique que la toma sea frontal.
 
 ## Analizar una foto
 
@@ -52,7 +58,7 @@ Los niveles se numeran desde abajo hacia arriba. Utiliza:
 
 **Reponer** aparece bajo el 30 % y **Suficiente** desde el 30 %, solo cuando la medición y el alcance lo permiten. Son referencias experimentales; no certifican stock disponible.
 
-**Revisar** indica que no se puede confirmar el nivel completo o su ocupación. Si casi toda la señal aparece en la mitad superior, la app muestra **Revisar · señal ambigua**, sin porcentaje presentado: puede estar respondiendo a un cartel o al fondo.
+**Revisar** indica que no se puede confirmar el nivel completo o su ocupación. Si la señal se concentra arriba o en la periferia sin suficiente respaldo central e inferior, la app muestra **Revisar · señal ambigua**, sin porcentaje presentado: puede estar respondiendo a un cartel o al fondo.
 
 Sin niveles detectados, toma otra foto más frontal. La ausencia de detecciones no demuestra que la góndola esté vacía.
 

@@ -38,6 +38,9 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == '/':
             return self.send((ROOT / 'interfaz.html').read_bytes(), content_type='text/html; charset=utf-8')
+        if path in ('/favicon.ico', '/favicon.svg'):
+            svg = b'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2563eb"/><path d="M7 10h18M7 16h18M7 22h18M11 10v12M21 10v12" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/></svg>'''
+            return self.send(svg, content_type='image/svg+xml')
         if path == '/api/models':
             models = self.server.runner.available()
             default = getattr(self.server.runner, 'manifest', {}).get('default_model')
@@ -63,12 +66,16 @@ class Handler(BaseHTTPRequestHandler):
             params = parse_qs(route.query)
             default_model = getattr(self.server.runner, 'manifest', {}).get('default_model', 'V2-YOLO26')
             model = params.get('model', [default_model])[0]
-            confidence = float(params.get('confidence', ['0.25'])[0])
+            confidence = float(params['confidence'][0]) if 'confidence' in params else None
             method = params.get('method', ['yolo'])[0]
             body = self.rfile.read(length)
             if len(body) != length:
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
-            prediction = self.server.runner.analyze(body, model, confidence, method)
+            visibility = params.get('visibility', [None])[0]
+            if visibility is None:
+                prediction = self.server.runner.analyze(body, model, confidence, method)
+            else:
+                prediction = self.server.runner.analyze(body, model, confidence, method, visibility=visibility)
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=92)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
