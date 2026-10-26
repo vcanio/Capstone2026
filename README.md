@@ -19,7 +19,9 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 - [Arquitectura y funcionamiento](#arquitectura-y-funcionamiento)
 - [Datos y entrenamiento](#datos-y-entrenamiento)
 - [Tecnologías](#tecnologías)
+- [Decisiones técnicas y alternativas](#decisiones-técnicas-y-alternativas)
 - [Documentación y recursos](#documentación-y-recursos)
+- [Estado actual de la implementación](#estado-actual-de-la-implementación)
 - [Limitaciones y próximos pasos](#limitaciones-y-próximos-pasos)
 - [Equipo](#equipo)
 
@@ -221,6 +223,39 @@ En las anotaciones, el superior abierto se delimita por la mediana de las altura
 
 [Explicación del funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) · [Criterio de niveles V3](Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla de mediana](Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md)
 
+### Componentes de la aplicación
+
+El visor funciona en el equipo del usuario. El navegador presenta la interfaz y envía la fotografía al servidor HTTP local; Python coordina la lectura, el modelo, la señal visual y la presentación del resultado.
+
+```mermaid
+flowchart LR
+    subgraph Equipo["Equipo del usuario"]
+        UI["Interfaz de navegador<br/>interfaz.html"]
+        API["Servidor HTTP local<br/>app.py"]
+        RUN["Lectura y coordinación<br/>inferencia.py · ModelRunner"]
+        MODEL["Segmentación de niveles<br/>YOLO26n-seg · best.pt"]
+        SIGNAL["Bordes, color y textura<br/>ocupacion_paulo.py"]
+        SCOPE["Visibilidad declarada y alcance<br/>vision_v3.py"]
+        VIEW["Contornos, lecturas e imagen<br/>presentacion_niveles.py"]
+        UI -->|"Foto y visibilidad · POST /api/predict"| API
+        API --> RUN
+        RUN -->|"Foto validada"| MODEL
+        RUN -->|"Píxeles originales"| SIGNAL
+        MODEL -->|"Máscaras"| SIGNAL
+        MODEL -->|"Contornos"| VIEW
+        RUN -->|"Visibilidad indicada"| SCOPE
+        SIGNAL -->|"Señal y métricas"| VIEW
+        SCOPE -->|"Alcance de la lectura"| VIEW
+        VIEW -->|"Imagen y mediciones"| API
+        API -->|"Respuesta JSON"| UI
+    end
+    UI -->|"Descarga solicitada"| OUTPUT["Imagen de resultado"]
+```
+
+El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` decide qué etapas ejecutar: si la persona indica una góndola tapada por alguien, devuelve el aviso sin ejecutar YOLO ni ocupación; con un objeto delante conserva la localización de niveles y suspende la medición. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario; la app no archiva las fotografías cargadas.
+
+CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del primer diagrama. **No son dependencias del visor durante la inferencia**: la app distribuida incluye el modelo y los módulos que necesita para analizar fotos.
+
 ## Datos y entrenamiento
 
 El catálogo vigente reúne **469 imágenes: 192 reales y 277 sintéticas**. Las vistas de la misma escena y sus variantes se mantienen juntas para reducir la fuga de información entre aprendizaje, validación y prueba.
@@ -235,6 +270,32 @@ El último afinado seleccionó **113 fotos de train: 67 reales y 46 sintéticas*
 
 Las sintéticas son variantes de fuentes existentes; no se consideran capturas independientes. Las imágenes conservan sus ubicaciones de procedencia y no se suman de nuevo por reutilizarse con el criterio V3.
 
+### Origen y composición del conjunto V3
+
+Se utilizan fotografías de góndolas reunidas para el proyecto en locales Líder, junto con variantes sintéticas generadas a partir de esas capturas. Los registros distinguen **Líder Express**, el lote identificado localmente como **Líder 2** y un refuerzo de papeles/servilletas. El nombre Líder 2 es un identificador del lote; no se presenta como el nombre oficial de una sucursal. El corpus operativo V3 es propio del proyecto; los pesos generales preentrenados se utilizan como punto de partida del modelo, no como fotografías adicionales de este catálogo.
+
+| Procedencia | Reales | Sintéticas | Total | Aporte al conjunto |
+|---|---:|---:|---:|---|
+| Líder Express, captura del 16 de octubre | 59 | 177 | 236 | Originales y variantes A/B/C con distintos escenarios de disponibilidad. |
+| Visibilidad limitada, derivada de Líder Express | 0 | 60 | 60 | Ediciones con personas, carros y cajas delante de la góndola. |
+| Superiores vacíos D, derivados de Líder Express | 0 | 40 | 40 | Ejemplos para mantener la detección del superior aunque no tenga productos. |
+| Líder 2, captura del 17 de octubre | 122 | 0 | 122 | Otras estructuras y distribuciones de productos, incluidos los ejemplos de huevos. |
+| Refuerzo de papeles/servilletas del 25 de octubre | 11 | 0 | 11 | Nuevas tomas reales relacionadas con escenas de papeles ya registradas. |
+| **Total del catálogo V3** | **192** | **277** | **469** | Imágenes catalogadas; una permanece desactivada para entrenamiento. |
+
+Las variantes A/B/C, los obstáculos y los superiores vacíos son **ediciones generadas con IA**; no son nuevas capturas reales. Sus nombres y prompts describen la edición solicitada, sin asignar automáticamente una etiqueta verdadera de ocupación. Las seis fotos de huevos y las 32 superiores vacías de la selección final ya pertenecen al catálogo: no se suman otra vez a las 469 imágenes.
+
+### Limpieza, etiquetado y preparación
+
+1. **Inventario e integridad.** Se registran procedencia, nombres, dimensiones y SHA-256, se comprueba que las imágenes se puedan abrir y se contrastan hashes para detectar duplicados exactos. Las vistas distintas de una misma escena se conservan, pero se agrupan; un archivo distinto no se considera automáticamente un ejemplo independiente.
+2. **Revisión de variantes.** Se identifican las imágenes sintéticas y su original. Se revisa su geometría y no se copian polígonos sin comprobar que la edición conserve encuadre, dimensiones y perspectiva.
+3. **Etiquetado en CVAT.** Se utiliza una sola clase de segmentación, `Nivel`, con polígonos del área útil completa, incluidos los huecos. Los atributos `delimitacion` y `Occluded` registran revisión y oclusión; no son clases que YOLO prediga. Se aplica el criterio de apoyo sobre el portaprecio y la mediana del superior abierto descritos arriba.
+4. **Control de calidad antes de exportar.** Las anotaciones requieren revisión humana. Se aparta la foto completa ante límites pendientes o dudosos, desactivación o geometría incompatible. Una región parcial bien delimitada o un perímetro ocluido recuperable puede utilizarse para localizar niveles tras revisión explícita; eso no permite conocer el producto oculto. La exclusión de una foto no cambia su partición.
+5. **Separación por familias y escenas.** Originales, variantes y vistas relacionadas heredan grupo y partición, evitando que la misma góndola aparezca a ambos lados de una comparación como si fuera independiente. Las 11 fotos nuevas se agruparon conservadoramente con la escena de papeles relacionada. Se mantienen **337 train / 69 val / 63 test**, con una train desactivada, y las sintéticas se evalúan separadas de las reales.
+6. **Copias reproducibles para el ensayo.** Se exportan imágenes y polígonos revisados, se comprueba su correspondencia y se congelan selección, configuración y hashes. La orientación EXIF se resuelve en copias del ensayo para coincidir con la vista anotada; se conservan los originales. El afinado vigente seleccionó 113 fotos de train; la validación conserva 22 reales y 47 sintéticas. Los píxeles de test no entran en el dataset del ensayo ni en los ajustes de modelo u ocupación.
+
+Esta preparación controla la coherencia y la trazabilidad de los datos; no convierte una variante sintética en evidencia de generalización ni certifica la exactitud de la ocupación. El uso de fotos con obstáculos para aprender geometría tampoco constituye entrenamiento de un detector automático de visibilidad.
+
 [Datos actuales](Datos/README.md) · [Registros V3](Datos/Registros/README.md) · [Resumen numérico](Documentacion/Estado_V3_actual.json)
 
 ## Tecnologías
@@ -248,6 +309,21 @@ Las sintéticas son variantes de fuentes existentes; no se consideran capturas i
 | **Python + HTML/CSS/JavaScript** | Procesamiento local e interfaz de navegador. | Permiten cargar y revisar fotos sin ejecutar comandos para cada análisis. |
 | **Docker** | Alternativa de ejecución del paquete. | Agrupa las dependencias para preparar el entorno. |
 | **CVAT** | Anotación y revisión de datos durante el desarrollo. | Mantiene un criterio común de polígonos y atributos; no se necesita para usar la app. |
+
+### Decisiones técnicas y alternativas
+
+La selección técnica responde al objetivo de **revisar faltantes visibles por nivel con un conjunto acotado de imágenes y ejecución local**. Las ventajas siguientes explican el diseño; no sustituyen la evaluación de precisión ni justifican dar por resueltos los pendientes.
+
+| Decisión | Alternativa considerada | Justificación, ventaja y límite |
+|---|---|---|
+| **Segmentar el área útil del nivel** | Usar solo cajas rectangulares o delimitar únicamente el frente del estante. | Una máscara permite seguir la perspectiva y definir dónde medir, incluidos los huecos; una caja puede incorporar fondo o zonas ajenas. Una banda frontal exigiría reconstruir después el espacio de productos y no resuelve el superior abierto. La máscara predicha puede equivocarse y debe revisarse. |
+| **Una clase geométrica Nivel, separada de la reposición** | Aprender directamente estados como Reponer y Suficiente, como en V1/V2. | Permite mantener el mismo objetivo de localización en fotos llenas y vacías, e inspeccionar por separado un fallo de contorno y uno de ocupación. También permite modificar la interpretación de señal sin reentrenar el localizador. A cambio, la medición posterior necesita su propia validación: un buen mAP de niveles no acredita alertas correctas. |
+| **YOLO26n-seg y ajuste fino de pesos existentes** | Entrenar desde cero o partir siempre de una arquitectura mayor. | Se prioriza una variante pequeña para una aplicación local y se reutilizan características aprendidas para adaptarlas a las góndolas con los datos disponibles. El último afinado parte de pesos propios V3, con optimizador nuevo y repaso de escenas anteriores. Esto evita reiniciar el aprendizaje desde cero; no demuestra que YOLO26 sea universalmente superior ni que el afinado haya mejorado globalmente al padre. |
+| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y ajustar reglas sin entrenar otro modelo, antes de contar con una evaluación específica de ocupación suficientemente revisada. Combinar área y ancho recoge tanto extensión vertical como distribución horizontal. El coste es sensibilidad a carteles, fondos y envases lisos; el 70/30 y el umbral 30 % siguen siendo experimentales. |
+| **CVAT y revisión explícita de polígonos** | Exportar preanotaciones o aceptar etiquetas automáticas sin revisión. | Hace posible mantener una clase y un criterio comunes, registrar delimitaciones y oclusiones y verificar las correcciones sin confundir borrador con aprobación. La mediana aporta consistencia al superior abierto, conservando un techo físico real cuando existe. Requiere trabajo humano y no elimina la incertidumbre del contenido oculto. |
+| **Python con PyTorch/Ultralytics y una interfaz web local** | Usar un servicio remoto para cada fotografía o exigir comandos en cada análisis. | El entorno integra entrenamiento e inferencia y permite compartir funciones de geometría y presentación entre laboratorio y visor. La interfaz de navegador facilita revisar fotos y descargar resultados; Pillow resuelve lectura/orientación y composición. Tras instalar dependencias, el análisis permanece en el equipo y no necesita enviar las imágenes a un servicio externo. La velocidad depende del hardware disponible. |
+| **Docker como vía de ejecución en macOS** | Exigir la instalación manual de cada biblioteca y sus versiones. | Agrupa el entorno y conserva el mismo visor y modelo distribuido, reduciendo diferencias de dependencias entre equipos. Mantiene el procedimiento que el usuario probó en macOS con la release anterior. La primera construcción requiere conexión y los recursos del contenedor siguen dependiendo del computador. |
+| **Partición por escenas y evaluación separada de sintéticas** | Repartir cada imagen al azar y sumar todas las métricas. | Evita que variantes casi idénticas o vistas del mismo tramo inflen la evaluación al aparecer en train y val. Separar reales y sintéticas muestra qué evidencia sostiene cada resultado, mientras el test permanece reservado. Faltan escenas independientes de papeles y huevos para evaluar su generalización. |
 
 ## Documentación y recursos
 
@@ -281,6 +357,17 @@ Las sintéticas son variantes de fuentes existentes; no se consideran capturas i
 - 📅 [**Planificación y metodología**](Documentacion/Planificacion_y_metodologia.md): hitos y organización del trabajo.
 - 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) · [procedencia](Documentacion/Ejemplos/README.md): selección real y sintética de la demostración anterior.
 
+## Estado actual de la implementación
+
+| Componente | Estado actual | Alcance o pendiente |
+|---|---|---|
+| Visor, carga de fotos, comparación y descarga | **Implementado y distribuido en V3** | Ejecución local mediante Windows x64 o Docker; requiere que el usuario inicie la aplicación. |
+| Localización y segmentación de niveles | **Operativo** | Una clase Nivel, con máscaras originales. Permanecen las incidencias conocidas de superiores; no se fuerza la mediana durante la inferencia. |
+| Cálculo e interpretación de señal de ocupación | **Operativo, experimental** | Área/ancho 70/30, umbral 30 % y abstención por señal ambigua. Falta calibrar y evaluar su exactitud con referencias humanas de ocupación. |
+| Manejo de visibilidad | **Operativo con declaración manual** | Recorte, objeto delante y persona tapando tienen tratamientos distintos. La detección automática de esas situaciones está pendiente. |
+| Datos, anotación, preparación y afinado V3 | **Implementados; ensayo vigente terminado** | El modelo distribuido corresponde al último afinado cerrado. Nuevas incorporaciones requieren otra revisión y preparación; no se entrena al usar el visor. |
+| Evaluación final y generalización | **Pendientes** | Test de 63 fotos reservado y necesidad de nuevas escenas independientes. Las métricas actuales corresponden a validación de máscaras. |
+
 ## Limitaciones y próximos pasos
 
 - **Calibrar la ocupación en V3:** carteles, fondos y envases pueden confundir la señal. El 30 % sigue siendo experimental.
@@ -299,3 +386,4 @@ El prototipo orienta la revisión visual. Sus porcentajes y avisos requieren com
 |---|---|
 | Desarrollo | **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches** |
 | Docente | **Arturo Vargas** |
+
