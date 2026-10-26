@@ -1,3 +1,5 @@
+> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../../Modelos/Actual/README.md).
+
 # Verificación de fuentes para actualizar el repositorio, 23/10/2026
 
 La preparación incorpora el orden de carpetas y registros, las 458 imágenes V3 mediante sus metadatos, la partición 327/68/63, las correcciones de anotación documentadas y los cambios recientes del visor y laboratorio. V3 conserva su entrenamiento deshabilitado.
@@ -17,6 +19,6 @@ La primera ejecución de GitHub detectó que el paso nuevo necesitaba Shapely y 
 
 ## Activos separados del código
 
-El [manifiesto complementario](../../reproducibilidad/activos_locales_20261023.json) declara 401 recursos locales y los ZIP de Visión conservados, con archivos, tamaños y SHA-256 reales. Los recursos se prepararon en `Walmart_Recursos_V3_20261023.zip`, para distribución al equipo mediante `--assets`. No se añadieron URLs ficticias ni se sustituyó el manifiesto de la release anterior. Publicar estas fuentes no publica una release ni los activos privados.
+El [manifiesto complementario](../../Historico/Reproducibilidad/activos_locales_20261023.json) declara 401 recursos locales y los ZIP de Visión conservados, con archivos, tamaños y SHA-256 reales. Los recursos se prepararon en `Walmart_Recursos_V3_20261023.zip`, para distribución al equipo mediante `--assets`. No se añadieron URLs ficticias ni se sustituyó el manifiesto de la release anterior. Publicar estas fuentes no publica una release ni los activos privados.
 
 Los respaldos, logs completos y recibos de Git se conservan en `.resguardo/actualizacion_repo_20261023/` del laboratorio.

@@ -1,3 +1,5 @@
+> **Alcance de este registro de procedencia.** La V3 vigente reúne **469 imágenes (337 train / 69 val / 63 test)**. Los inventarios, tareas y particiones descritos aquí conservan su versión y fecha; las menciones de un conjunto actual de 458 imágenes corresponden a la etapa anterior a las 11 tomas de refuerzo. Los lotes se solapan y no deben sumarse como datasets independientes. [Estado vigente y límites](../../../../../../Documentacion/Modelo_V3_actual.md).
+
 # Candidatos para entrenamiento, validación y reserva
 
 El criterio de oclusión quedó aplicado técnicamente al lote 22. La selección dispone de [296 imágenes](candidatos_296.csv): 59 originales reales y 237 variantes sintéticas, de 59 familias, con [cobertura por estado y origen](cobertura.json). Las anotaciones de las tareas 19 y 22 están capturadas para esta selección; este cierre no certifica una revisión humana independiente de todas las imágenes.

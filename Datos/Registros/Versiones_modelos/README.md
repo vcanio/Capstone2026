@@ -1,3 +1,5 @@
+> **Alcance de este registro de procedencia.** La V3 vigente reúne **469 imágenes (337 train / 69 val / 63 test)**. Los inventarios, tareas y particiones descritos aquí conservan su versión y fecha; las menciones de un conjunto actual de 458 imágenes corresponden a la etapa anterior a las 11 tomas de refuerzo. Los lotes se solapan y no deben sumarse como datasets independientes. [Estado vigente y límites](../../../Documentacion/Modelo_V3_actual.md).
+
 # Versiones de datos para modelos
 
 Cada carpeta `datos_FECHA_HORA_ID/` identifica una copia concreta de anotaciones y particiones preparada para un ensayo. Sus fuentes y verificaciones permiten reconstruir los datos usados. Esta carpeta todavía no contiene una versión entrenable de V3.

@@ -1,6 +1,6 @@
 # Visibilidad limitada: lote único de 60 imágenes
 
-**60 ediciones de 59 familias en una sola [tarea de CVAT](https://pcvicen.tailca514b.ts.net/tasks/22), proyecto 7.** Distribución: 24 carros con plástico azul, 24 personas y 12 escenas con cajas de reposición. Iluminación y desenfoque excluidos.
+**60 ediciones de 59 familias en una sola tarea de CVAT, proyecto 7.** Distribución: 24 carros con plástico azul, 24 personas y 12 escenas con cajas de reposición. Iluminación y desenfoque excluidos.
 
 Las imágenes se produjeron en dos tandas, conservadas como procedencia en el registro: las 30 de la primera fueron aprobadas por el usuario; las 30 de la segunda mantienen pendiente la validación independiente. El criterio amodal quedó aplicado técnicamente a los 308 niveles por Codex, a solicitud del usuario. Recuento: 299 `suficiente`, 9 `no_evaluable` y 0 `reponer`; 176 ocluidos. Las cinco incidencias técnicas quedaron resueltas. La revisión técnica no certifica una validación humana independiente ni habilita entrenamiento automáticamente.
 
@@ -20,7 +20,7 @@ Los tres trabajos de veinte imágenes permanecen sin asignación personal. Las t
 
 Un polígono `Nivel` por nivel completo cuyo contorno pueda localizarse con claridad. El contorno incluye la parte tapada y se activa `Occluded`. Se asigna `estado` por la evidencia visible: `reponer`, `suficiente` o `no_evaluable`. No forzar una clase por el obstáculo, ni contar compras o productos sostenidos como stock del nivel.
 
-También se revisa el nivel inferior. Bajo oclusión parcial se conserva el contorno completo cuando la geometría tiene respaldo fiable en la escena o en el original verificado de la edición. Se conservaron los niveles inferiores de 001 con cajas, 028, 050 y 053 tras comparar su estructura con los originales y se resolvieron sus incidencias técnicas. Los trabajos están en etapa de validación del equipo. Consultar el [criterio de oclusiones](../../../Documentacion/Desarrollo/Guia_anotacion.md#oclusiones-y-geometría) y el [ejemplo didáctico](../../../Documentacion/Ejemplos/README.md).
+También se revisa el nivel inferior. Bajo oclusión parcial se conserva el contorno completo cuando la geometría tiene respaldo fiable en la escena o en el original verificado de la edición. Se conservaron los niveles inferiores de 001 con cajas, 028, 050 y 053 tras comparar su estructura con los originales y se resolvieron sus incidencias técnicas. Los trabajos están en etapa de validación del equipo. Consultar el [criterio de oclusiones](../../../Historico/Documentacion/Desarrollo/Guia_anotacion.md#oclusiones-y-geometría) y el [ejemplo didáctico](../../../Documentacion/Ejemplos/README.md).
 
 ## Procedencia y partición
 

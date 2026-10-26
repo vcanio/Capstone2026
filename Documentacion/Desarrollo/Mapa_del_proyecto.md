@@ -1,19 +1,20 @@
-# Mapa del proyecto
+# Mapa del proyecto · V3
 
-La entrada principal es **Walmart Visión V3**, integrada en local y pendiente de una nueva release. La documentación de uso describe ese candidato; las releases existentes corresponden a versiones anteriores.
+La estructura pública agrupa las fuentes vigentes y conserva la evolución del proyecto.
 
-| Necesidad | Entrada |
+| Carpeta | Contenido |
 |---|---|
-| Analizar una fotografía | [Manual](../Usar_Walmart_Vision.md) |
-| Entender el cálculo y sus límites | [Funcionamiento](../Guia_para_entender_el_proyecto.md) |
-| Identificar el modelo vigente | [Ficha V3](../Modelo_V3_actual.md) |
-| Consultar los datos actuales | [Datos](../../Datos/README.md) |
-| Revisar distribución | [Entregables](../../Entregables/README.md) |
-| Trabajar en el laboratorio | [Desarrollo](README.md) |
-| Consultar decisiones anteriores | [Archivo](../Historico/README.md) |
+| [Aplicacion](../../Aplicacion/README.md) | Fuentes del visor V3. La release incluye el modelo necesario para usarlo. |
+| [Laboratorio](../../Laboratorio/README.md) | Panel técnico, preparación, entrenamiento, evaluación y verificadores. |
+| [Datos](../../Datos/README.md) | Registros, procedencia y criterios. Las fotos y exportaciones se distribuyen por separado. |
+| [Modelos](../../Modelos/Actual/README.md) | Identidad del modelo vigente y recursos generales. |
+| [Entregables](../../Entregables/README.md) | Descarga de V3 e informe académico. |
+| [Documentacion](../README.md) | Uso, arquitectura, resultados y limitaciones. |
+| [Infraestructura](../../Infraestructura/README.md) | Docker y CVAT. |
+| [Historico](../../Historico/README.md) | Ensayos anteriores, guías fechadas, manifiestos. Fase 1 y Fase 2 permanecen en la raíz. |
 
-## Código y material técnico
+Las fuentes V1/V2 de Datos son procedencia compartida, no modelos activos. El último afinado V3 conserva una clase Nivel, ocupación experimental y visibilidad manual; las 63 imágenes de test siguen reservadas.
 
-`Herramientas/Demo_lite/` conserva el nombre de desarrollo del visor; `Herramientas/Modelos/` reúne el laboratorio. `Datos/` organiza procedencias y registros; `Experimentos/` conserva resultados; `Modelos/` distingue recursos generales y el modelo propio vigente.
+La copia pública usa directorios reales y traduce referencias históricas al leerlas. No necesita junctions de Windows. Los snapshots y manifiestos fechados conservan sus bytes.
 
-Los documentos fechados, informes y manifiestos anteriores se conservan para trazabilidad. Los activos privados y los pesos se distribuyen por separado. Esta actualización documental no sincroniza el código o los activos del laboratorio con el candidato local ni publica un paquete V3.
+Para usar la app, descargar el ZIP en [Entregables](../../Entregables/README.md). Source code contiene fuentes sin pesos. Para desarrollar, seguir [Replicar el proyecto](Replicar_proyecto.md) y suministrar los activos locales correspondientes.

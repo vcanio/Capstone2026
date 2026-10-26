@@ -8,6 +8,6 @@ Esta carpeta reúne la configuración para ejecutar y trasladar el laboratorio d
 | [CVAT](CVAT/README.md) | Conexión opcional al servicio de anotación mediante la cuenta personal de cada integrante. |
 | [Migracion.md](Migracion.md) | Respaldo y traslado de una instalación del laboratorio a otro computador. |
 
-Los iniciadores están en `Herramientas/Modelos` y `Herramientas/CVAT`. Las credenciales, archivos `.env` reales y volúmenes de CVAT se gestionan fuera de Git.
+Los iniciadores están en `Laboratorio/Modelos` y `Laboratorio/CVAT`. Las credenciales, archivos `.env` reales y volúmenes de CVAT se gestionan fuera de Git.
 
 Para preparar una copia nueva con los activos correspondientes, seguir [Replicar el proyecto](../Documentacion/Desarrollo/Replicar_proyecto.md).

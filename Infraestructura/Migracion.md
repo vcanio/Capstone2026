@@ -53,7 +53,7 @@ docker compose version
 nvidia-smi
 ```
 
-Si el usuario no tiene acceso a Docker, ejecutar los comandos Docker de esta guía con `sudo` o configurar ese acceso con el administrador. Usar una cuenta propietaria de `/srv/walmart`, con permiso de escritura en `Datos/Registros/Versiones_modelos`, `Experimentos` y `.config-modelo`.
+Si el usuario no tiene acceso a Docker, ejecutar los comandos Docker de esta guía con `sudo` o configurar ese acceso con el administrador. Usar una cuenta propietaria de `/srv/walmart`, con permiso de escritura en `Datos/Registros/Versiones_modelos`, `Laboratorio/Experimentos` y `.config-modelo`.
 
 El laboratorio usa PyTorch 2.5.1 con CUDA 12.1. La comprobación real del paso 8 determina si esa imagen funciona con la GPU del destino. Una GPU más nueva puede necesitar actualizar coordinadamente PyTorch, torchvision y CUDA; Docker no elimina esa compatibilidad.
 
@@ -94,7 +94,7 @@ Para la ruta B, avisar al equipo de la ventana de migración y ejecutar:
 $sourceCvatArgs = @(
     'compose', '--project-name', 'walmart-cvat',
     '--env-file', 'Infraestructura/CVAT/cvat.env',
-    '-f', 'Herramientas/CVAT/cvat-v2.77.0/docker-compose.yml',
+    '-f', 'Laboratorio/CVAT/cvat-v2.77.0/docker-compose.yml',
     '-f', 'Infraestructura/CVAT/compose.local.yml',
     '-f', 'Infraestructura/CVAT/compose.tailscale.yml'
 )
@@ -178,7 +178,7 @@ $migrationHashes | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $migrati
 
 **Resultado esperado:** ruta A tiene `walmart_proyecto.tar.gz`, `imagen_modelos.tar` y `SHA256.json`. Ruta B tiene además `imagenes_cvat.tar` y siete archivos `walmart-cvat_*.tar.gz`.
 
-En la ruta A, después de copiar se puede volver a levantar el panel original con `& .\Herramientas\Modelos\iniciar_panel.ps1`. Las copias de resultados de ambos equipos serán independientes; acordar cuál se conserva como referencia y no fusionar automáticamente carpetas de ensayos.
+En la ruta A, después de copiar se puede volver a levantar el panel original con `& .\Laboratorio\Modelos\iniciar_panel.ps1`. Las copias de resultados de ambos equipos serán independientes; acordar cuál se conserva como referencia y no fusionar automáticamente carpetas de ensayos.
 
 ## 4. Transferir y comprobar el paquete
 
@@ -259,7 +259,7 @@ test -z "$(ls -A /srv/walmart)" || { echo 'La carpeta no está vacía'; exit 1; 
 tar -xzf /srv/transferencias/migracion_walmart/walmart_proyecto.tar.gz -C /srv/walmart
 cd /srv/walmart
 docker image load -i /srv/transferencias/migracion_walmart/imagen_modelos.tar
-mkdir -p .config-modelo Experimentos Datos/Registros/Versiones_modelos
+mkdir -p .config-modelo Laboratorio/Experimentos Datos/Registros/Versiones_modelos
 ```
 
 Comprobar que están presentes:
@@ -268,14 +268,14 @@ Comprobar que están presentes:
 Infraestructura/Docker/compose.modelos.yml
 Infraestructura/Docker/compose.modelos.gpu.yml
 Infraestructura/Docker/compose.modelos.linux.yml
-Herramientas/Modelos/docker/Dockerfile
+Laboratorio/Modelos/docker/Dockerfile
 Datos/Registros/
 Datos/V2/
 Datos/V1/Lider/
 Datos/V1/Sinteticas/
-Experimentos/panel_pruebas/Subidas_panel/
+Laboratorio/Experimentos/panel_pruebas/Subidas_panel/
 Datos/V1/Reservadas/
-Experimentos/
+Laboratorio/Experimentos/
 Modelos/preentrenados/yolo11n-seg.pt
 Datos/Registros/CVAT/organizacion.json
 Datos/Registros/reserva_evaluacion.json
@@ -308,11 +308,11 @@ Usar otro editor si no está instalado Nano. Guardar en ese archivo los valores 
 
 1. Mantener el PC original encendido con Docker y Tailscale conectados.
 2. Instalar Tailscale en el destino y autorizar ese equipo para acceder al CVAT del proyecto en la política de la red.
-3. Comprobar desde el destino que se puede abrir `https://pcvicen.tailca514b.ts.net` e iniciar sesión con la cuenta autorizada.
+3. Comprobar desde el destino que se puede abrir `https://TU_HOST_CVAT` e iniciar sesión con la cuenta autorizada.
 4. Crear o editar `Infraestructura/Docker/.env.modelos` en la carpeta Infraestructura/Docker del proyecto destino:
 
 ```dotenv
-MODEL_CVAT_URL=https://pcvicen.tailca514b.ts.net/api
+MODEL_CVAT_URL=https://TU_HOST_CVAT
 MODEL_CVAT_HOST_HEADER=
 ```
 
@@ -375,7 +375,7 @@ Definir los argumentos de CVAT en el destino. **Windows, PowerShell:**
 $targetCvatArgs = @(
     'compose', '--project-name', 'walmart-cvat',
     '--env-file', 'Infraestructura/Docker/.env.cvat.migracion',
-    '-f', 'Herramientas/CVAT/cvat-v2.77.0/docker-compose.yml',
+    '-f', 'Laboratorio/CVAT/cvat-v2.77.0/docker-compose.yml',
     '-f', 'Infraestructura/CVAT/compose.local.yml',
     '-f', 'Infraestructura/Docker/compose.cvat.migracion.yml'
 )
@@ -390,7 +390,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Falló la carga de imágenes de CVAT.' }
 ```bash
 set -e
 target_cvat_args=(compose --project-name walmart-cvat --env-file Infraestructura/Docker/.env.cvat.migracion
-  -f Herramientas/CVAT/cvat-v2.77.0/docker-compose.yml
+  -f Laboratorio/CVAT/cvat-v2.77.0/docker-compose.yml
   -f Infraestructura/CVAT/compose.local.yml
   -f Infraestructura/Docker/compose.cvat.migracion.yml)
 docker "${target_cvat_args[@]}" config --quiet
@@ -660,10 +660,10 @@ No cambiar la publicación del panel a `0.0.0.0` ni agregarlo directamente a Ser
 3. En el origen, con sus fuentes CVAT, archivos privados y volúmenes originales conservados, ejecutar desde `C:\Proyectos\Walmart`:
 
 ```powershell
-& .\Herramientas\CVAT\iniciar_cvat.ps1
+& .\Laboratorio\CVAT\iniciar_cvat.ps1
 ```
 
-Ese script vuelve a levantar CVAT y el panel con la configuración local conservada; no configura el acceso privado de Tailscale. El administrador debe comprobar también el acceso privado con la configuración verificada del origen antes de reanudar el trabajo compartido. En la ruta A, basta `& .\Herramientas\Modelos\iniciar_panel.ps1`.
+Ese script vuelve a levantar CVAT y el panel con la configuración local conservada; no configura el acceso privado de Tailscale. El administrador debe comprobar también el acceso privado con la configuración verificada del origen antes de reanudar el trabajo compartido. En la ruta A, basta `& .\Laboratorio\Modelos\iniciar_panel.ps1`.
 
 Si ya se guardaron anotaciones o resultados nuevos en el destino, respaldarlos antes de volver: el origen conserva el estado del momento de la copia, no los cambios posteriores. No unir bases de datos ni carpetas de ensayos sobreescribiendo archivos.
 
@@ -681,6 +681,6 @@ Si ya se guardaron anotaciones o resultados nuevos en el destino, respaldarlos a
 | «Abrir trabajo en CVAT» abre el PC equivocado | En ruta A los enlaces aún son locales; abrir la URL privada del CVAT original. En servidor completo usar el túnel de ambos puertos. |
 | Guardar por HTTPS falla por origen/CSRF | Revisar el dominio del destino y los encabezados del proxy, especialmente el gateway autorizado. |
 | Puerto 8090 ocupado | Detener el panel manual o la instalación local anterior después de confirmar que no hay un trabajo activo. |
-| Faltan ensayos/modelos | Comprobar copia de `Experimentos` y `Modelos`; la imagen Docker no incluye esos datos. |
+| Faltan ensayos/modelos | Comprobar copia de `Laboratorio/Experimentos` y `Modelos`; la imagen Docker no incluye esos datos. |
 
 Los comandos de Compose de los ajustes de destino se validaron en el equipo actual. La restauración real y el funcionamiento del hardware de otro equipo se verifican durante la migración con los pasos 6 a 8.

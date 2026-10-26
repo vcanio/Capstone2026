@@ -88,4 +88,4 @@ Queda demostrado el flujo implementado: cargar una foto, elegir versión y model
 - La imagen del resultado 040 se comprobó a partir del enlace de descarga generado. El navegador no notificó la finalización de la descarga; el video solo indica que la imagen está preparada.
 - No se consultó la reserva final. No se acredita instalación en otro equipo ni calibración de ocupación.
 
-Fuentes locales: [guía de uso](Usar_Walmart_Vision.md), [imágenes y referencias](Historico/Uso_Walmart_Vision_V2.md#probar-con-imágenes-de-ejemplo), [informe](Informe_Intermedio_Avance_20261020.md).
+Fuentes locales: [guía de uso](Usar_Walmart_Vision.md), [imágenes y referencias](../Historico/Documentacion/Uso_Walmart_Vision_V2.md#probar-con-imágenes-de-ejemplo), [informe](Informe_Intermedio_Avance_20261020.md).

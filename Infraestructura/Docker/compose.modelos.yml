@@ -4,7 +4,7 @@ services:
     image: walmart-panel-modelos:local
     build:
       context: ../..
-      dockerfile: Herramientas/Modelos/docker/Dockerfile
+      dockerfile: Laboratorio/Modelos/docker/Dockerfile
     restart: always
     init: true
     ports:
@@ -34,8 +34,8 @@ services:
         bind:
           create_host_path: false
       - type: bind
-        source: ../../Experimentos
-        target: /app/Experimentos
+        source: ../../Laboratorio/Experimentos
+        target: /app/Laboratorio/Experimentos
         bind:
           create_host_path: false
       - type: bind

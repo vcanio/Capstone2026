@@ -14,6 +14,6 @@ La documentación principal explica la **V3 local en pruebas**, su uso y el alca
 
 El [índice de desarrollo](Desarrollo/README.md) reúne criterios de anotación, laboratorio y colaboración. La [planificación](Planificacion_y_metodologia.md) y el [informe intermedio](Informe_Intermedio_Avance_20261020.md) conservan su alcance académico y sus fechas.
 
-Los documentos de etapas anteriores se consultan en el [archivo histórico](Historico/README.md). Sus modelos, métricas e instrucciones no describen la app V3 actual.
+Los documentos de etapas anteriores se consultan en el [archivo histórico](../Historico/Documentacion/README.md). Sus modelos, métricas e instrucciones no describen la app V3 actual.
 
 [Volver al inicio](../README.md)

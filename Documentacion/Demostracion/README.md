@@ -6,7 +6,7 @@ La demostración de Walmart Visión, de **7 minutos y 1 segundo** (421,59 s), es
 |---|---|
 | Guion de locución | [Markdown](Guion_locucion_20261021.md) y [texto](Guion_locucion_20261021.txt), grabados y alineados con el audio recibido. |
 | Subtítulos sincronizados | [Subtítulos SRT](Subtitulos_Demostracion_20261021.srt) (94 bloques ordenados y también incrustados en el MP4). |
-| Plan de escenas y edición | [Plan de grabación](Plan_de_grabacion_20261021.md) y [generador reproducible](../../Herramientas/Informes/generar_demostracion_video.py). |
+| Plan de escenas y edición | [Plan de grabación](Plan_de_grabacion_20261021.md) y [generador reproducible](../../Laboratorio/Informes/generar_demostracion_video.py). |
 | Registros de verificación | [Plan del video](../Evidencias/plan_video_20261021.json) y [verificación técnica del MP4](../Evidencias/verificacion_demo_video_20261021.json). |
 | Entregable MP4 local | `Entregables/Demostracion_Funcional_Walmart_Vision_20261021.mp4` (1920 × 1080, 25 fps, H.264/AAC, 18,24 MB, SHA-256 `773414e8...`). |
 | Publicación en YouTube | Lista para subir como video no listado desde el archivo local `Entregables/Demostracion_Funcional_Walmart_Vision_20261021.mp4`. |

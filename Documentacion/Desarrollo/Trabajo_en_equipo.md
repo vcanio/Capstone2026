@@ -20,13 +20,13 @@ Merge integra los cambios. Pull descarga e integra las novedades de la rama actu
 
 | Si cambias... | Trabaja en... | Cómo se comparte |
 |---|---|---|
-| Script experimental de bordes | Experimentos/Bordes/gondola_bordes.py | Rama y PR con el archivo en su ruta actual. |
-| Detección de bordes | Herramientas/Modelos/ocupacion_paulo.py | Rama y PR; incluir pruebas pertinentes. |
-| Panel y lógica del laboratorio | Herramientas/Modelos/ | Rama y PR. |
-| Demo portátil | Herramientas/Demo_lite/ | Rama y PR del código; regenerar ZIP al publicar una demo. |
-| Instalación y reproducción | Herramientas/Reproducibilidad/ | Rama y PR. |
+| Script experimental de bordes | Laboratorio/Experimentos/Bordes/gondola_bordes.py | Rama y PR con el archivo en su ruta actual. |
+| Detección de bordes | Laboratorio/Modelos/ocupacion_paulo.py | Rama y PR; incluir pruebas pertinentes. |
+| Panel y lógica del laboratorio | Laboratorio/Modelos/ | Rama y PR. |
+| Demo portátil | Aplicacion/ | Rama y PR del código; regenerar ZIP al publicar una demo. |
+| Instalación y reproducción | Laboratorio/Reproducibilidad/ | Rama y PR. |
 | Manuales o acuerdos | Documentacion/ y README.md | Rama y PR. |
-| Datos, etiquetas o ensayo nuevo | Datos/ o Experimentos/ con versión nueva | Metadatos pequeños por Git; binarios compartidos aparte. |
+| Datos, etiquetas o ensayo nuevo | Datos/ o Laboratorio/Experimentos/ con versión nueva | Metadatos pequeños por Git; binarios compartidos aparte. |
 | Fotos, pesos .pt y ZIP | Paquetes compartidos aparte | Solo la demo portátil va en la Release pública. |
 
 No crear copias como `script_final_paulo_v3.py` para reemplazar un script existente.
@@ -70,7 +70,7 @@ pedir autenticación mediante Git Credential Manager o el navegador.
 Preparar datos y modelos e iniciar en CPU:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
+python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
 ```
 
@@ -79,7 +79,7 @@ Abrir **http://localhost:8090**. Para desarrollar, recibir los paquetes de
 Release pública contiene solo la demo Lite, sus cuatro modelos y bordes:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
+python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 ```
 
 La ubicación de la carpeta puede ser distinta en cada computador; las rutas
@@ -96,7 +96,7 @@ el laboratorio original y el clon sin trasladarlas explícitamente.
 ## 3. Ejemplo: Paulo mejora su script
 
 Supongamos que Paulo cambia el cálculo de ocupación. Trabaja desde la raíz de su
-clon, donde se encuentran README.md, Herramientas y Datos. Antes de empezar:
+clon, donde se encuentran README.md, Laboratorio y Datos. Antes de empezar:
 
 ```powershell
 git status
@@ -110,12 +110,12 @@ un commit en su propia rama antes de cambiar. Si pull falla, leer el mensaje y
 resolver la diferencia antes de seguir. El nombre de rama del ejemplo se crea
 una sola vez; para volver a ella usar `git switch paulo/mejora-ocupacion`.
 
-Paulo edita **Herramientas/Modelos/ocupacion_paulo.py**, guarda el archivo y ejecuta
+Paulo edita **Laboratorio/Modelos/ocupacion_paulo.py**, guarda el archivo y ejecuta
 las comprobaciones de la página 6. Luego revisa y guarda únicamente su cambio:
 
 ```powershell
-git diff -- Herramientas/Modelos/ocupacion_paulo.py
-git add Herramientas/Modelos/ocupacion_paulo.py
+git diff -- Laboratorio/Modelos/ocupacion_paulo.py
+git add Laboratorio/Modelos/ocupacion_paulo.py
 git diff --cached
 git commit -m "Corrige ocupacion de niveles con espacios laterales"
 git push -u origin paulo/mejora-ocupacion
@@ -265,11 +265,11 @@ dependencias instaladas; el Python usado solo para descargar ZIP puede no tenerl
 
 | Cambio | Comprobación desde la raíz del clon |
 |---|---|
-| Preparación o CVAT opcional | python -m unittest discover -s Herramientas/Reproducibilidad/tests -v |
-| Demo Lite | python -m unittest discover -s Herramientas/Demo_lite -v |
-| Datos y particiones | python -m unittest discover -s Herramientas/Datos -v |
-| Panel, ocupación o modelos | python -m unittest discover -s Herramientas/Modelos -v |
-| Antes de publicar código | python Herramientas/Reproducibilidad/verificar_publicacion.py |
+| Preparación o CVAT opcional | python -m unittest discover -s Laboratorio/Reproducibilidad/tests -v |
+| Demo Lite | python -m unittest discover -s Aplicacion -v |
+| Datos y particiones | python -m unittest discover -s Laboratorio/Datos -v |
+| Panel, ocupación o modelos | python -m unittest discover -s Laboratorio/Modelos -v |
+| Antes de publicar código | python Laboratorio/Reproducibilidad/verificar_publicacion.py |
 
 El workflow de GitHub ejecuta una comprobación ligera en push y PR; no entrena
 modelos ni valida toda la calidad de las anotaciones. Revisar la pestaña Checks
@@ -290,7 +290,7 @@ Volver a cargar el navegador. Si usan GPU o CVAT, conservar sus opciones de inic
 No reconstruir ni reiniciar el contenedor mientras otro proceso local esté
 entrenando o procesando una tarea que necesiten conservar.
 
-Para desarrollo existe `-Dev`: monta Herramientas/Modelos desde el clon. En ese
+Para desarrollo existe `-Dev`: monta Laboratorio/Modelos desde el clon. En ese
 modo, panel.html y los CSS/JavaScript de static/ se leen al recargar; un cambio Python requiere reiniciar
 el servicio cuando esté libre. Cambios de dependencias o de otros directorios
 copiados en la imagen requieren Build. Usar el arranque normal de arriba como
@@ -331,7 +331,7 @@ Guardar configuración, versión de datos, entorno, métricas y conclusiones. El
 archivo best.pt y los resultados visuales grandes se comparten en paquetes del laboratorio;
 no añadir pesos al historial. No sobrescribir los cuatro ensayos conservados.
 
-El script `Herramientas/Reproducibilidad/repetir_ensayo.py` permite repetir un
+El script `Laboratorio/Reproducibilidad/repetir_ensayo.py` permite repetir un
 ensayo congelado con otro nombre. Las opciones están en la guía de reproducción.
 Una ejecución con menos épocas sirve como prueba de funcionamiento, no como
 reproducción de las métricas del entrenamiento completo.
@@ -342,8 +342,8 @@ reproducción de las métricas del entrenamiento completo.
 2. Reciben los ZIP correspondientes, leen las instrucciones y ejecutan el preparador:
 
 ```powershell
-python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
-python Herramientas/Reproducibilidad/preparar.py --verificar
+python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
+python Laboratorio/Reproducibilidad/preparar.py --verificar
 ```
 
 Si solo cambió código y el manifiesto sigue igual, no hace falta descargar de
@@ -406,6 +406,6 @@ y usar `--assets`; no adjuntarlos a una Release pública.
 
 - [Instalación, CVAT opcional y repetición de ensayos](Replicar_proyecto.md).
 - [Primera publicación del código y los activos](Publicar_GitHub.md).
-- [Alcance de la verificación de esta entrega](../../reproducibilidad/VERIFICACION.md).
+- [Alcance de la verificación de esta entrega](../../Historico/Reproducibilidad/VERIFICACION.md).
 - [Fuente editable de esta guía](Trabajo_en_equipo.md).
 - [Versión PDF para compartir](Trabajo_en_equipo.pdf).

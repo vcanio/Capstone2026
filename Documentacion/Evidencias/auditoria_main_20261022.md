@@ -1,3 +1,5 @@
+> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../../Modelos/Actual/README.md).
+
 # Auditoría de main · 22 de octubre de 2026
 
 Resultado: **main contiene exactamente los archivos de la última release publicada y supera las comprobaciones ejecutadas, pero aún hay referencias operativas desactualizadas y no hay protección de la rama**. Esto valida el estado comprobado; no garantiza que futuras incorporaciones sean estables ni certifica la precisión de ocupación visual.
@@ -23,7 +25,7 @@ Se utilizó la copia limpia en `.publicacion/vision_ocupacion_20261022/source`, 
 | Sintaxis Python | 87 archivos correctos. |
 | Enlaces Markdown | 482 destinos disponibles y 16 destinos declarados en activos descargables. |
 | Restricciones de publicación del verificador | Sin rutas privadas, pesos/ZIP, archivos de 50 MiB o más ni campos JSON de credenciales rechazados por sus reglas. No es una auditoría exhaustiva de secretos o del historial Git. |
-| Suite de reproducibilidad | 15 pruebas, todas correctas. |
+| Suite de Historico/Reproducibilidad | 15 pruebas, todas correctas. |
 | Suite de la aplicación y transiciones de interfaz | 27 pruebas, todas correctas, sin omisiones informadas. |
 | Integridad del ZIP local vigente | SHA-256 coincide con el digest del activo publicado en GitHub. |
 
@@ -35,16 +37,16 @@ Las pruebas se ejecutaron con Python 3.12.14. El primer intento local encontró 
 
 ## Hallazgos que impiden dar todo por actualizado
 
-1. **Preparador general con la entrega anterior.** `Herramientas/Reproducibilidad/empaquetar_publicacion.py`, líneas 73 y 108, conserva el tag por defecto y el ZIP del 20 de octubre. Su ejecución completa reconstruye el manifiesto con esa selección. Cambiar solo `--tag` no cambia el nombre del ZIP. La guía `Documentacion/Desarrollo/Publicar_GitHub.md`, línea 24, ya reconoce esta limitación y explica el flujo explícito usado para la entrega nueva. La release vigente es correcta; queda deuda en la herramienta general.
-2. **Guías con referencias vigentes contradictorias.** `reproducibilidad/VERIFICACION.md`, líneas 4–7, y `Documentacion/Desarrollo/Trabajo_en_equipo.md`, líneas 367–370, todavía presentan la entrega del 20 de octubre como actual. Deben apuntar a la entrega del 22 de octubre o identificar esos párrafos como históricos. El README principal, la guía de usuario, el índice de entregables y la guía de publicación sí apuntan a la entrega nueva.
-3. **Estado de datos desactualizado.** `Datos/Registros/README.md`, línea 17, indica que la importación y el entrenamiento de la tarea 19 siguen sin habilitar. Esto contradice el README principal y `Experimentos/README.md`, que identifican los dos ensayos V2 ya ejecutados sobre esa tarea. La frase debe quedar como antecedente o actualizarse al estado registrado.
+1. **Preparador general con la entrega anterior.** `Laboratorio/Reproducibilidad/empaquetar_publicacion.py`, líneas 73 y 108, conserva el tag por defecto y el ZIP del 20 de octubre. Su ejecución completa reconstruye el manifiesto con esa selección. Cambiar solo `--tag` no cambia el nombre del ZIP. La guía `Documentacion/Desarrollo/Publicar_GitHub.md`, línea 24, ya reconoce esta limitación y explica el flujo explícito usado para la entrega nueva. La release vigente es correcta; queda deuda en la herramienta general.
+2. **Guías con referencias vigentes contradictorias.** `Historico/Reproducibilidad/VERIFICACION.md`, líneas 4–7, y `Documentacion/Desarrollo/Trabajo_en_equipo.md`, líneas 367–370, todavía presentan la entrega del 20 de octubre como actual. Deben apuntar a la entrega del 22 de octubre o identificar esos párrafos como históricos. El README principal, la guía de usuario, el índice de entregables y la guía de publicación sí apuntan a la entrega nueva.
+3. **Estado de datos desactualizado.** `Datos/Registros/README.md`, línea 17, indica que la importación y el entrenamiento de la tarea 19 siguen sin habilitar. Esto contradice el README principal y `Laboratorio/Experimentos/README.md`, que identifican los dos ensayos V2 ya ejecutados sobre esa tarea. La frase debe quedar como antecedente o actualizarse al estado registrado.
 4. **Protección de main pendiente.** Para sostener el criterio de estabilidad en futuras incorporaciones, configurar revisión mediante PR y checks obligatorios. Esta auditoría no cambió la configuración del repositorio.
 
 ## Material antiguo que conserva una función
 
-- `Documentacion/Historico/` tiene un índice que explica su condición histórica y enlaza la documentación vigente.
+- `Historico/Documentacion/` tiene un índice que explica su condición histórica y enlaza la documentación vigente.
 - `Datos/Registros/Versiones_modelos/`, las particiones, los snapshots y las métricas conservan las entradas y resultados de los ensayos reproducibles. El índice de registros pide conservar sus bytes.
-- Las fuentes congeladas de experimentos permiten comprobar cómo se obtuvieron los resultados. Además, `Herramientas/Modelos/ocupacion_paulo.py`, línea 76, todavía lee `Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py` para registrar su procedencia. Borrar esa carpeta por su fecha puede romper funciones vigentes.
+- Las fuentes congeladas de experimentos permiten comprobar cómo se obtuvieron los resultados. Además, `Laboratorio/Modelos/ocupacion_paulo.py`, línea 76, todavía lee `Laboratorio/Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py` para registrar su procedencia. Borrar esa carpeta por su fecha puede romper funciones vigentes.
 - El material académico de `Fase 1/` se conserva expresamente según la guía de publicación y las pruebas del publicador.
 - Los ZIP de versiones anteriores están en Releases; no aparecen como archivos ZIP versionados en el árbol revisado.
 

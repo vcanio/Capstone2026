@@ -9,6 +9,12 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 | [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
 | Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
+## Explorar las carpetas
+
+[**Aplicación V3**](Aplicacion/README.md) · [**Laboratorio**](Laboratorio/README.md) · [**Datos**](Datos/README.md) · [**Modelo vigente**](Modelos/Actual/README.md) · [**Entregables**](Entregables/README.md) · [**Histórico**](Historico/README.md)
+
+Las fuentes actuales se organizan por función y los antecedentes se reúnen en Histórico. Consulta el [mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md).
+
 ## Contenido
 
 - [¿Qué hace el sistema?](#qué-hace-el-sistema)
@@ -159,7 +165,7 @@ El ancho no pregunta solo si una columna tiene algún píxel activo: exige seña
 
 La foto se limita a un lado máximo de 1.600 píxeles y la grilla usa celdas de aproximadamente 24 píxeles. Se combinan **35 % densidad de bordes Canny + 30 % gradiente de intensidad + 20 % color saturado + 15 % desviación local de textura**, después de normalizar cada característica por sus percentiles 10–90 dentro de las celdas utilizables. Canny usa 40/120; el umbral adaptativo de Otsu queda limitado a 0,35–0,62. El área se calcula tras un cierre morfológico 3×3 y el ancho usa las activaciones anteriores a ese cierre. Las exclusiones de estructura afectan a todas las señales y el denominador conserva la cobertura válida original.
 
-Estos pesos describen la **construcción del mapa por celda**. Son distintos de la combinación final **70/30 de área y ancho**. [Implementación](Herramientas/Modelos/ocupacion_paulo.py).
+Estos pesos describen la **construcción del mapa por celda**. Son distintos de la combinación final **70/30 de área y ancho**. [Implementación](Laboratorio/Modelos/ocupacion_paulo.py).
 
 </details>
 
@@ -335,20 +341,20 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | Ubicar datos, herramientas y documentos | [Mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md) |
 | Consultar estado de distribución | [Entregables](Entregables/README.md) |
 | Continuar el desarrollo o preparar el laboratorio | [Referencia técnica](Documentacion/Desarrollo/README.md) |
-| Revisar decisiones y etapas anteriores | [Archivo documental](Documentacion/Historico/README.md) |
+| Revisar decisiones y etapas anteriores | [Archivo documental](Historico/Documentacion/README.md) |
 
 ### Carpetas principales
 
 | Ruta | Contenido |
 |---|---|
 | [`Datos/`](Datos/README.md) | Procedencias, anotaciones, particiones y selección del afinado. |
-| [`Herramientas/`](Herramientas/README.md) | Visor, laboratorio, procesamiento y verificadores. |
+| [`Laboratorio/`](Laboratorio/README.md) | Visor, laboratorio, procesamiento y verificadores. |
 | [`Modelos/`](Modelos/README.md) | Identidad del modelo vigente y recursos generales de desarrollo. |
-| [`Experimentos/`](Experimentos/README.md) | Resultados y trazabilidad de los ensayos. |
+| [`Laboratorio/Experimentos/`](Laboratorio/Experimentos/README.md) | Resultados y trazabilidad de los ensayos. |
 | [`Documentacion/`](Documentacion/README.md) | Guías, criterios, planificación y material académico. |
 | [`Entregables/`](Entregables/README.md) | Estado de distribución de la app y material académico. |
 | [`Infraestructura/`](Infraestructura/README.md) | Configuración técnica de servicios y entornos. |
-| [`reproducibilidad/`](reproducibilidad/README.md) | Manifiestos y comprobaciones de entregas fechadas. |
+| [`Historico/`](Historico/README.md) | Manifiestos y comprobaciones de entregas fechadas. |
 
 ### Material académico y demostración
 

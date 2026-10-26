@@ -22,14 +22,14 @@ YOLO26 V2 encontró 50 de los 51 niveles de validación y acertó esos 50 estado
 
 El alcance es disponibilidad visual por nivel en fotografías estáticas. El sistema asigna un estado aprendido; no mide inventario de bodega, profundidad, unidades por SKU ni un porcentaje continuo de ocupación. El umbral del 30 % sigue siendo un criterio inicial de anotación pendiente de calibración con el cliente.
 
-**Contenido:** estado y planificación; documentación técnica; resultados preliminares y 20 casos visuales; reproducibilidad y GitHub; conclusiones y plan de mejora.
+**Contenido:** estado y planificación; documentación técnica; resultados preliminares y 20 casos visuales; Historico/Reproducibilidad y GitHub; conclusiones y plan de mejora.
 
 
 <!-- page -->
 
 ## Guía de lectura del informe
 
-El informe sigue los cinco puntos del encargo: avance, solución técnica, resultados, reproducibilidad y próximos pasos. Mostramos lo que funciona y lo que falta. Los nombres de archivos permiten localizar la evidencia; no es necesario memorizarlos para comprender los resultados.
+El informe sigue los cinco puntos del encargo: avance, solución técnica, resultados, Historico/Reproducibilidad y próximos pasos. Mostramos lo que funciona y lo que falta. Los nombres de archivos permiten localizar la evidencia; no es necesario memorizarlos para comprender los resultados.
 
 | Concepto | Qué significa en nuestro proyecto |
 |---|---|
@@ -61,7 +61,7 @@ Para estimar el avance, dividimos cada módulo en cuatro hitos de igual peso. Ca
 | Etiquetado en equipo | Configuración, tareas, usuarios y acceso | 100 % implementado | Infraestructura/CVAT y tareas 16, 19, 22 |
 | Separación de datos | Familias, grupos, listas y comprobación | 100 % implementado | Particiones/lider_express_v2_20261019 |
 | Importación y exportación | Leer etiquetas, revisar y guardar para YOLO | 100 % implementado | datos_modelos.py y conjuntos.py |
-| Modelos base | V1 YOLO11/26, V2 base YOLO11/26 | 100 % para esta etapa | Cuatro ensayos en Experimentos |
+| Modelos base | V1 YOLO11/26, V2 base YOLO11/26 | 100 % para esta etapa | Cuatro ensayos en Laboratorio/Experimentos |
 | Panel | Carga, inferencia, comparación | 75 % en desarrollo | panel_modelos.py y panel_worker.py |
 | Distribución | Arranque Windows y Docker de Walmart Visión | 75 % en desarrollo | Infraestructura/Docker y Entregables |
 | Oclusiones V2 | Lote y partición preparados | 50 % en desarrollo | 60 imágenes y tarea 22 |
@@ -69,7 +69,7 @@ Para estimar el avance, dividimos cada módulo en cuatro hitos de igual peso. Ca
 
 **Hitos restantes:** datos: ampliar faltantes reales; panel: aceptación con tres estados; distribución: instalación de Walmart Visión en otro computador físico; oclusiones: revisión final de etiquetas y ensayo de tres estados; cierre: deduplicación, prueba final y aceptación del MVP.
 
-“Implementado” indica que existen código, configuración o artefactos comprobables. La preparación posterior de la entrega verificó el arranque Docker en CPU y la demo Lite con los cuatro modelos, sin requerir CVAT. Esto no equivale a disponibilidad garantizada del CVAT compartido ni a una prueba en otro computador físico; el registro actualizado está en reproducibilidad/VERIFICACION.md.
+“Implementado” indica que existen código, configuración o artefactos comprobables. La preparación posterior de la entrega verificó el arranque Docker en CPU y la demo Lite con los cuatro modelos, sin requerir CVAT. Esto no equivale a disponibilidad garantizada del CVAT compartido ni a una prueba en otro computador físico; el registro actualizado está en Historico/Reproducibilidad/VERIFICACION.md.
 
 Los cuatro entrenamientos guardan sus pesos, ajustes, resultados, grupos de datos y versiones de programas. V2 base utilizó la copia aprobada datos_20261019_234626_3df2e643. Esa copia permite comprobar con qué se entrenó, aunque algunos textos antiguos de los lotes sigan diciendo que falta exportar. La aprobación no incluye las etiquetas con obstáculos de la tarea 22.
 
@@ -479,7 +479,7 @@ El documento recibido incluye tiempos por foto, pero no identifica de forma sufi
 
 <!-- page -->
 
-## 4 Repositorio y reproducibilidad
+## 4 Repositorio y Historico/Reproducibilidad
 
 La carpeta local organiza código en Herramientas, datos y versiones en Datos, resultados en Experimentos, configuración en Infraestructura y documentación en Documentacion. El README local describe decisiones, arquitectura, datasets, estado e instrucciones.
 
@@ -491,11 +491,11 @@ Desde la raíz, con Python 3.11 o 3.12 y los datos/modelos necesarios disponible
 
 ```powershell
 python -m venv .venv-modelo
-& ./.venv-modelo/Scripts/python.exe -m pip install -r Herramientas/Modelos/requirements.txt
+& ./.venv-modelo/Scripts/python.exe -m pip install -r Laboratorio/Modelos/requirements.txt
 & ./Herramientas/Modelos/iniciar_panel.ps1 -Cpu -Build
 # GPU NVIDIA: omitir -Cpu con entorno Docker/GPU configurado
-& ./.venv-modelo/Scripts/python.exe Herramientas/verificar_proyecto.py
-& ./.venv-modelo/Scripts/python.exe Herramientas/Datos/particionar_lider_express.py --verify
+& ./.venv-modelo/Scripts/python.exe Laboratorio/verificar_proyecto.py
+& ./.venv-modelo/Scripts/python.exe Laboratorio/Datos/particionar_lider_express.py --verify
 ```
 
 Abrir http://localhost:8090, seleccionar V2 y v2_base_yolo26n_01, cargar la foto lider_express_040_0_original y analizar. La evaluación guardada a conf 0,25 contiene cinco niveles, cuatro suficientes y uno reponer. La demostración debe comparar contra esa configuración y referencia. Una foto propia sin etiqueta permite observar una predicción, no calcular precisión.

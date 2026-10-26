@@ -3,8 +3,8 @@ services:
   panel_modelos:
     volumes:
       - type: bind
-        source: ../../Herramientas/Modelos
-        target: /app/Herramientas/Modelos
+        source: ../../Laboratorio/Modelos
+        target: /app/Laboratorio/Modelos
         read_only: true
         bind:
           create_host_path: false

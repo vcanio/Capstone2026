@@ -4,6 +4,6 @@ services:
   panel_modelos:
     network_mode: host
     ports: !reset []
-    command: ["python", "-u", "Herramientas/Modelos/panel_modelos.py", "--host", "127.0.0.1"]
+    command: ["python", "-u", "Laboratorio/Modelos/panel_modelos.py", "--host", "127.0.0.1"]
     environment:
       CVAT_URL: ${MODEL_CVAT_URL:-http://127.0.0.1:8082/api}

@@ -13,7 +13,8 @@ Experimentos/niveles_v2/**/dataset/
 .tmp/
 /tmp/
 Datos/Para_probar/Subidas_panel/
-Herramientas/CVAT/cvat-v2.77.0/
+/Datos/Preparados/
+Laboratorio/CVAT/cvat-v2.77.0/
 Infraestructura/CVAT/*
 !Infraestructura/CVAT/README.md
 __pycache__/
@@ -62,12 +63,29 @@ Datos/Publicos/comparacion.jpg
 /Entregables/*.mp4
 /Entregables/Probar_en_Colab.ipynb
 /Entregables/Walmart_Lite/
-/Herramientas/Demo_lite/.runtime/
-/Herramientas/Demo_lite/.entorno-py312/
-/Herramientas/Demo_lite/herramientas/uv.exe
+/Aplicacion/.runtime/
+/Aplicacion/.entorno-py312/
+/Aplicacion/herramientas/uv.exe
 # Los iniciadores de acceso privado son específicos del equipo anfitrión.
-/Herramientas/CVAT/iniciar_acceso_privado_equipo.ps1
-/Herramientas/CVAT/detener_acceso_privado_equipo.ps1
+/Laboratorio/CVAT/iniciar_acceso_privado_equipo.ps1
+/Laboratorio/CVAT/detener_acceso_privado_equipo.ps1
 
 /Entregables/Walmart_Vision/
 /Entregables/Historico/
+
+# Estructura local reorganizada; datos privados y aliases de compatibilidad.
+/Herramientas
+/Experimentos
+/Contexto
+/reproducibilidad
+/Laboratorio/Demo_lite
+/Historico/Contexto/
+/Laboratorio/Experimentos/panel_pruebas/
+/Laboratorio/Experimentos/**/*.jpg
+/Laboratorio/Experimentos/**/*.png
+/Laboratorio/Experimentos/**/*.zip
+/Historico/Experimentos/**/*.jpg
+/Historico/Experimentos/**/*.png
+/Aplicacion/modelos/
+/Aplicacion/.runtime/
+/Aplicacion/.entorno-py312/

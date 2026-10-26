@@ -28,4 +28,4 @@ Las anotaciones se revisan por personas. Las marcas de oclusión y delimitación
 
 Las carpetas conservan la ubicación original de sus fuentes. Que una foto esté físicamente en una carpeta de una etapa anterior no significa que sea otro dataset que deba sumarse a V3.
 
-Las fotografías privadas y los pesos se distribuyen por separado; actualizar esta documentación no los publica. Los inventarios y ensayos anteriores se conservan como trazabilidad y se consultan desde el [archivo documental](../Documentacion/Historico/README.md).
+Las fotografías privadas y los pesos se distribuyen por separado; actualizar esta documentación no los publica. Los inventarios y ensayos anteriores se conservan como trazabilidad y se consultan desde el [archivo documental](../Historico/Documentacion/README.md).

@@ -1,3 +1,5 @@
+> **Alcance de este registro de procedencia.** La V3 vigente reúne **469 imágenes (337 train / 69 val / 63 test)**. Los inventarios, tareas y particiones descritos aquí conservan su versión y fecha; las menciones de un conjunto actual de 458 imágenes corresponden a la etapa anterior a las 11 tomas de refuerzo. Los lotes se solapan y no deben sumarse como datasets independientes. [Estado vigente y límites](../../../../Documentacion/Modelo_V3_actual.md).
+
 # Antecedentes V2
 
 - [Selección de 296 candidatas](Seleccion/lider_express_20261019/README.md): preparación anterior a fijar la partición. Las frases sobre reparto pendiente corresponden a ese momento. El reparto posterior está en [la partición V2 congelada](../../Particiones/lider_express_v2_20261019/README.md).

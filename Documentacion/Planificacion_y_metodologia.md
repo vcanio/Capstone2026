@@ -30,4 +30,4 @@ Esta descripción recoge prácticas de inspección y adaptación. Con la informa
 
 Referencia metodológica: Guía Scrum 2020 de Ken Schwaber y Jeff Sutherland, https://scrumguides.org/scrum-guide.html. Para reforzar la trazabilidad se propone registrar fecha, participantes, avances, acuerdos y pendientes de cada reunión.
 
-Los datos de la figura están en [planificacion_20261020.json](Evidencias/planificacion_20261020.json). El generador reproducible es [generar_gantt.py](../Herramientas/Informes/generar_gantt.py). El informe completo conserva los casos, métricas y limitaciones de evaluación.
+Los datos de la figura están en [planificacion_20261020.json](Evidencias/planificacion_20261020.json). El generador reproducible es [generar_gantt.py](../Laboratorio/Informes/generar_gantt.py). El informe completo conserva los casos, métricas y limitaciones de evaluación.

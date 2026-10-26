@@ -13,10 +13,10 @@ Esta carpeta conserva resultados compactos y figuras que respaldan la documentac
 | [Casos de YOLO + bordes](casos_yolo_bordes_20261021.json) | Selección actual de 10 casos favorables y 10 con errores; procedencia, imágenes y correcciones de consistencia. B09 reemplaza la fotografía repetida del documento recibido. |
 | [Revisión del informe con bordes](verificacion_informe_yolo_bordes_20261021.json) | Integridad de evidencias, comprobación de los veinte casos y revisión visual del documento actualizado. |
 | [Plan de la demostración](plan_video_20261021.json) y [verificación del video](verificacion_demo_video_20261021.json) | Guion de diez bloques, cuatro casos del informe (`B06`, `B08`, `F01`, `F03`), locución humana sincronizada (`410,59 s`), 94 bloques de subtítulos y montaje final verificado (`421,59 s`, `1920 × 1080`, SHA-256 `773414e8...`). |
-| [Verificación de Visión](../../Herramientas/Demo_lite/VERIFICACION_VISION.md) | Comprobaciones de la aplicación publicada; conserva pendiente la instalación en otro computador físico. |
+| [Verificación de Visión](../../Aplicacion/VERIFICACION_VISION.md) | Comprobaciones de la aplicación publicada; conserva pendiente la instalación en otro computador físico. |
 | [Posprocesamiento de contornos](posprocesamiento_contornos_20261022.json) | Ajuste visual a cuatro vértices: 21 pruebas técnicas y seis ajustes aceptados en una foto conocida. Conserva máscaras y métricas originales; no demuestra mejora de precisión. Paquete de prueba local, sin modificar la release publicada. |
-| [Verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md) y [publicación del 21 de octubre](publicacion_vision_docker_20261021.json) | Inferencia AMD64/ARM64 emulada, Release Docker, hashes y descargas públicas verificadas. La prueba en un Mac físico sigue pendiente. |
-| [Preparación del laboratorio y la demo](../../reproducibilidad/VERIFICACION.md) | Alcance de las comprobaciones de instalación, Docker e inferencia. |
+| [Verificación Docker](../../Aplicacion/VERIFICACION_DOCKER.md) y [publicación del 21 de octubre](publicacion_vision_docker_20261021.json) | Inferencia AMD64/ARM64 emulada, Release Docker, hashes y descargas públicas verificadas. La prueba en un Mac físico sigue pendiente. |
+| [Preparación del laboratorio y la demo](../../Historico/Reproducibilidad/VERIFICACION.md) | Alcance de las comprobaciones de instalación, Docker e inferencia. |
 
 ## Consulta histórica de GitHub
 

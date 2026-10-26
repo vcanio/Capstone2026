@@ -1,57 +1,21 @@
-> Estado local del 23/10/2026: la preparacion actual contiene dos modelos V2. Los parrafos sobre cuatro modelos y releases del 20-22/10 son antecedentes de distribuciones anteriores. Consultar [Entregables](../../Entregables/README.md). Preparar un ZIP no publica archivos.
+# Publicar fuentes y mantener la release V3
 
-# Publicar Walmart Visión
+Walmart Vision V3 está publicada en la [release del 26 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26), con el ZIP y su SHA-256. Una reorganización de fuentes actualiza main y sus enlaces; no crea otra release ni modifica los activos existentes.
 
-La [Release documentada el 22/10/2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22), `walmart-vision-2026-10-22`, contiene **Walmart_Vision_Ocupacion_20261022.zip** y su **.sha256**. Incluye el visor, cuatro pesos V1/V2, análisis de bordes, iniciadores Windows, archivos Docker para macOS y el cuaderno de Colab. La Release Windows del 20 de octubre se conserva. El [informe en PDF](../../Entregables/Informe_Intermedio_Avance_20261020.pdf) se versiona directamente en Git, junto con su fuente y evidencias. Los datos y las copias Word y HTML se comparten por separado.
+## Preparar una actualización
 
-La actualización del 22 de octubre unifica la descarga para Windows y macOS y simplifica la ocupación por nivel. Sus notas están en [Notas de la release](Notas_Release_Walmart_Vision_20261022.md). La publicación conserva las releases anteriores.
+1. Trabajar sobre una copia aislada del main remoto actual y conservar los cambios concurrentes. El checkout local de distribución puede contener trabajo previo y no debe sincronizarse automáticamente.
+2. Organizar fuentes en Aplicacion y Laboratorio, registros anteriores en Historico y material académico en sus carpetas originales Fase 1 y Fase 2. Los manifiestos y snapshots fechados conservan sus bytes; los lectores traducen prefijos anteriores.
+3. Revisar el diff completo. Mantener fuera de Git fotos, pesos, ZIP, entornos, .env, contexto privado y respaldos. Preservar todos los archivos académicos ya publicados.
+4. Ejecutar las pruebas de Aplicacion, Laboratorio/Datos y Laboratorio/Reproducibilidad/tests, más la auditoría `python Laboratorio/Reproducibilidad/verificar_publicacion.py` en el checkout preparado. La auditoría distingue archivos presentes de activos declarados distribuibles.
+5. Publicar un commit sobre el HEAD revisado, sin forzar la rama, y comprobar GitHub Actions, enlaces y hashes de los activos.
 
-## Preparar y comprobar
+## Distribución vigente
 
-```powershell
-python Herramientas/Modelos/empaquetar_demo_lite.py --output Entregables/Walmart_Vision_Actual_20261023.zip
-python Herramientas/Reproducibilidad/empaquetar_publicacion.py --solo-codigo --git "C:/Program Files/Git/cmd/git.exe"
-```
+El [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) incluye el modelo y funciona con el iniciador Windows o el procedimiento Docker del [manual](../Usar_Walmart_Vision.md). Los archivos automáticos Source code contienen fuentes sin pesos.
 
-El empaquetador local genera ahora `Entregables/Walmart_Vision_Actual_20261023.zip`, con su SHA-256 al lado. El activo publicado `Walmart_Vision_20261020.zip` se conserva aparte. El checkout revisable está en `.publicacion/repositorio/`. Los empaquetadores no hacen commit, push ni publicación y no modifican credenciales.
+Los empaquetadores conservan funciones históricas con nombres y manifiestos fechados. No deben usarse sus valores antiguos para reemplazar la release vigente. Una entrega futura necesita un paquete y tag nuevos, comprobaciones explícitas y autorización para publicarla.
 
-Revisar los cambios y ejecutar las pruebas de `Herramientas/Demo_lite/`, de bordes y del preparador. Extraer el ZIP en una carpeta nueva, comprobar sus hashes y ejecutar inferencia con ambos métodos. Verificar el visor y el cuaderno incluido. Actualizar la entrada demo de `reproducibilidad/artefactos.json` con el nombre, URL, tamaño, hash y archivos del ZIP final; conservar las entradas históricas de los paquetes del laboratorio.
+Las imágenes de demostración mantienen su [carpeta de Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). La reorganización no modifica ese contenido ni lo convierte en una evaluación V3.
 
-## Publicar una nueva versión
-
-El paquete local actual se genera con `python Herramientas/Modelos/empaquetar_demo_lite.py --output Entregables/Walmart_Vision_Actual_20261023.zip`. Contiene los iniciadores Windows y los archivos Docker para macOS, además del visor y los dos modelos V2. Consultar [preparación y comprobación Docker](../../Herramientas/Demo_lite/DOCKER.md#preparación-desde-el-laboratorio). Para cada entrega usar un nombre y tag nuevos, actualizar los enlaces y el manifiesto, y comprobar la descarga pública contra los archivos locales. La creación local del ZIP no publica nada en GitHub.
-
-1. Revisar el diff del checkout, hacer commit de código y documentación y push a main, sin forzar.
-2. Preparar las notas, el tag y el título de la nueva versión con el alcance real de [verificación Docker](../../Herramientas/Demo_lite/VERIFICACION_DOCKER.md). Las [notas del 20 de octubre](Notas_Release_Walmart_Vision_20261020.md) corresponden a la entrega Windows anterior.
-3. Adjuntar `Walmart_Vision_Ocupacion_20261022.zip` y su SHA-256 como archivos nuevos. Conservar la release anterior y sus activos históricos. El empaquetador general `empaquetar_publicacion.py`, fuera de `--solo-codigo`, todavía usa el activo del 20 de octubre: para esta nueva distribución preparar explícitamente el ZIP indicado y actualizar el manifiesto con la URL real de publicación.
-4. Descargar el activo publicado y comprobar su SHA-256 contra el ZIP verificado. Extraer todo y comprobar el recorrido Docker de `DOCKER.md`, además del iniciador Windows cuando corresponda.
-
-Los archivos Source code añadidos automáticamente por GitHub no contienen los pesos ni sustituyen el ZIP. No reutilizar el nombre de un activo publicado con contenido distinto. La aplicación mantiene su carácter de prototipo y sus límites se explican en las notas.
-
-## Compartir las imágenes de demostración desde Drive
-
-Se preparó una selección confirmada de **tres fotos reales y tres variantes sintéticas**, documentada en [Imágenes para probar Visión](../Historico/Uso_Walmart_Vision_V2.md#probar-con-imágenes-de-ejemplo). Es una excepción limitada a esas seis imágenes; el dataset completo sigue distribuyéndose por separado. El ZIP de la aplicación publicado conserva su contenido.
-
-Desde el laboratorio con las fuentes disponibles, ejecutar:
-
-```powershell
-python Herramientas/Reproducibilidad/empaquetar_imagenes_demo.py
-```
-
-El script comprueba las seis fuentes declaradas y crea `.publicacion/releases/Walmart_Vision_Imagenes_Demo_20261020.zip`, con su SHA-256 al lado. El ZIP contiene las carpetas `reales` y `sinteticas`, un LEEME y el manifiesto de procedencia. No incluye pesos, credenciales, el dataset completo ni imágenes de la reserva final. Una copia nueva del código necesita las fuentes de desarrollo para regenerarlo; el usuario solo necesita descargar el ZIP resultante.
-
-La ubicación de descarga es la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing). Mantener allí el ZIP con permiso de lectura para cualquier persona con el enlace y la descarga habilitada. El README y las guías enlazan esa carpeta; no hace falta adjuntar las imágenes a una Release de GitHub.
-
-Conservar el nombre, el contenido y el SHA-256 de la versión publicada. El LEEME incluido se conserva como fuente versionada en `Documentacion/Ejemplos/LEEME_imagenes_demo_20261020.txt`, separado de las guías de descarga que pueden actualizarse. Para un conjunto diferente, crear otra versión del ZIP y del manifiesto, actualizar los enlaces y comprobar la descarga sin iniciar sesión. El commit y push publican los cambios de documentación; la subida del ZIP a Drive es una operación separada.
-
-## Paquetes del laboratorio
-
-Los paquetes de datos, exportaciones, modelos/resultados e informe permanecen en `.publicacion/paquetes_desarrollo/`, con metadatos de integridad y copias históricas. Compartirlos por separado para desarrollar; el [preparador](Replicar_proyecto.md) los instala con `--assets RUTA_A_LOS_ZIP`. El PDF del informe y las figuras seleccionadas para documentar sus casos se incluyen en Git. Mantener fuera de Git los pesos, ZIP, entornos, el dataset fotográfico completo, archivos .env y accesos personales.
-
-## Mantener limpio el repositorio
-
-Publicar código, pruebas, guías vigentes y resúmenes de resultados que respalden el proyecto. El material obligatorio de `Fase 1/` se conserva en Git. Las guías de versiones anteriores se agrupan en `Documentacion/Historico/` y llevan un aviso con un enlace a la documentación vigente; consultar el [índice histórico](../Historico/README.md).
-
-Los respaldos `Datos/Registros/Particiones/**/respaldo_registros/`, los logs bajo `Documentacion/Evidencias/` y las respuestas completas `consulta_github_*.json` de esa carpeta quedan solo en local. Actualizar los [resúmenes públicos](../Evidencias/README.md) cuando haya comprobaciones nuevas, manteniendo la fecha y los límites de cada resultado. Las reglas se aplican también a futuras subcarpetas y fechas.
-
-El empaquetador excluye esos archivos y la auditoría rechaza su incorporación forzada a Git o a los activos declarados. Antes de hacer commit, comprobar lo preparado con `git diff --cached --stat` y ejecutar `python Herramientas/Reproducibilidad/verificar_publicacion.py` en el checkout. Añadir un patrón a `.gitignore` no retira archivos ya versionados: si corresponde, usar `git rm --cached` sobre las rutas concretas y conservar los originales locales.
+[Distribución actual](../../Entregables/README.md) · [Reorganización pública](Reorganizacion_GitHub_20261026.md) · [Mapa](Mapa_del_proyecto.md).

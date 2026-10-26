@@ -1,16 +1,16 @@
 # Líder Express · captura del 16 de octubre de 2026
 
-**236 imágenes en una sola [tarea de CVAT](https://pcvicen.tailca514b.ts.net/tasks/19): 59 originales reales y 177 variantes IA.** Cada foto aparece seguida de A, B y C. Las tres variantes y su original quedan en el mismo trabajo.
+**236 imágenes en una sola tarea de CVAT: 59 originales reales y 177 variantes IA.** Cada foto aparece seguida de A, B y C. Las tres variantes y su original quedan en el mismo trabajo.
 
 | Responsable | Fotos base | Originales | Variantes | Total | Trabajo |
 |---|---|---:|---:|---:|---|
-| Vicente Canio · `vi.canio` | 001–020 | 20 | 60 | 80 | [45](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/45) |
-| Paulo Guerra · `pau.guera` | 021–040 | 20 | 60 | 80 | [46](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/46) |
-| Vicente Vilches · `vi.vilches` | 041–059 | 19 | 57 | 76 | [47](https://pcvicen.tailca514b.ts.net/tasks/19/jobs/47) |
+| Vicente Canio · `vi.canio` | 001–020 | 20 | 60 | 80 | 45 |
+| Paulo Guerra · `pau.guera` | 021–040 | 20 | 60 | 80 | 46 |
+| Vicente Vilches · `vi.vilches` | 041–059 | 19 | 57 | 76 | 47 |
 
 Un polígono `Nivel` por nivel delimitable. El atributo `estado` admite `reponer` (vacío o menos del 30 % del ancho ocupado), `suficiente` (30 % o más) y `no_evaluable`. A/B/C describe la edición solicitada, no el estado verdadero.
 
-Consultar la [guía de anotación](../../../Documentacion/Desarrollo/Guia_anotacion.md), el [registro verificado](../../Registros/CVAT/tarea_19.json) y el [plan de partición](../../../Documentacion/Desarrollo/Plan_particion_lider_express_20261016.md).
+Consultar la [guía de anotación](../../../Historico/Documentacion/Desarrollo/Guia_anotacion.md), el [registro verificado](../../Registros/CVAT/tarea_19.json) y el [plan de partición](../../../Historico/Documentacion/Desarrollo/Plan_particion_lider_express_20261016.md).
 
 | Contenido | Uso |
 |---|---|

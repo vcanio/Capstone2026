@@ -8,7 +8,7 @@ La consulta conserva los nombres y estados actuales de CVAT. No importa anotacio
 ni aprueba copias automáticamente.
 
 La incorporación se mantiene manual en `PROJECT_SCOPES` y `project_scope()` de
-`Herramientas/Modelos/datos_modelos.py`. Los proyectos 4 y 6 conservan sus flujos
+`Laboratorio/Modelos/datos_modelos.py`. Los proyectos 4 y 6 conservan sus flujos
 históricos. El proyecto 7 incorpora exclusivamente la tarea 19 de Líder Express.
 Agregar otro proyecto también requiere comprobar su esquema, inventario y criterio;
 el número de proyecto por sí solo no habilita sus tareas.
@@ -36,12 +36,12 @@ el número de proyecto por sí solo no habilita sus tareas.
 La indicación anterior de que todo el entrenamiento V2 estaba bloqueado describía
 la etapa inicial de integración. La etapa base ya dispone de partición y ensayos
 conservados; consultar el [registro de partición](../../Datos/Registros/Particiones/lider_express_v2_20261019/README.md)
-y el [flujo vigente del panel](../../Herramientas/Modelos/README.md).
+y el [flujo vigente del panel](../../Laboratorio/Modelos/README.md).
 
 **V2 completo de tres estados sigue pendiente:** el lote con obstáculos de la tarea
 22 requiere aprobación final de sus estados antes de entrenar y validar esa etapa.
 La consulta de proyectos del panel admite la tarea 19 del proyecto 7; no incorpora
-automáticamente la tarea 22. El script de [entrenamiento de tres estados](Entrenamiento_niveles_v2.md)
+automáticamente la tarea 22. El script de [entrenamiento de tres estados](../../Historico/Documentacion/Desarrollo/Entrenamiento_niveles_v2.md)
 requiere un dataset preparado y aprobado con esas clases. La disponibilidad de ese
 script no acredita un modelo de tres estados entrenado.
 

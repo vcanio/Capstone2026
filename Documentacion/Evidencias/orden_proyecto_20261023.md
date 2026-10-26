@@ -1,3 +1,5 @@
+> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../../Modelos/Actual/README.md).
+
 # Orden y limpieza del proyecto, 23/10/2026
 
 Operación local solicitada por el usuario. El objetivo fue distinguir el visor V2 disponible, el trabajo de datos V3 y los antecedentes, corregir referencias y limpiar material regenerable sin alterar datos o ensayos.
