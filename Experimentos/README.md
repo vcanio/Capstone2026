@@ -1,29 +1,23 @@
-# Ensayos, modelos entrenados y resultados
+# Modelo vigente y resultados
 
-Aquí se conserva lo obtenido en cada entrenamiento. Los modelos generales para comenzar están en [Modelos](../Modelos/README.md); el código para entrenar está en [Herramientas/Modelos](../Herramientas/Modelos/README.md).
+La aplicación local utiliza únicamente el **best.pt del afinado V3** `v3_afinado_papeles_huevos_20261026_011847_7021`.
 
-## Entrenamientos conservados
+| Dato del último afinado | Resultado |
+|---|---|
+| Clase | Nivel |
+| Fotos para aprender | 113: 67 reales y 46 sintéticas |
+| Épocas completadas | 29 |
+| Mejor checkpoint elegido | Época 19 por fitness combinado |
+| mAP50–95 de máscaras, 22 reales | 88,96 % |
+| mAP50–95 de máscaras, 47 sintéticas | 85,33 % |
+| Test final | Reservado, sin utilizar |
 
-Las fechas identifican la ejecución según el nombre de su carpeta. Se conservan cuatro ensayos históricos V1/V2; la entrega local actual de Walmart Visión incluye solo los dos modelos V2. V3 todavía no tiene un ensayo aprobado. V1 conserva el criterio anterior y V2 base usa los estados reponer y suficiente.
+Estas cifras miden segmentación, no ocupación ni reposición. La validación común bajó respecto del padre; la adopción fue una decisión tras revisión visual, con limitaciones conocidas.
 
-| Fecha | Modelo y etapa | Datos utilizados | Configuración y resultados |
-|---|---|---|---|
-| 15-10-2026 | **YOLO11 · V1**, cuatro estados | Tarea 16; 86 train / 5 val; versión `datos_20261015_012453_4ba1d339` | [Configuración](YOLO11-1_20261015_013749_f709/config_interfaz.json) · [Métricas](YOLO11-1_20261015_013749_f709/metricas_validacion.json) · [Revisión](YOLO11-1_20261015_013749_f709/REVISION_MODELO.md) |
-| 15-10-2026 | **YOLO26 · V1**, cuatro estados | Tarea 16; 86 train / 5 val; versión `datos_20261015_012453_4ba1d339` | [Configuración](YOLO26-1_20261015_021212_c452/config_interfaz.json) · [Métricas](YOLO26-1_20261015_021212_c452/metricas_validacion.json) · [Comparación](YOLO26-1_20261015_021212_c452/REVISION_MODELO.md) |
-| 20-10-2026 | **YOLO11 · V2 base**, dos estados | Tarea 19; 160 train / 10 val; versión `datos_20261019_234626_3df2e643` | [Configuración](v2_base_yolo11n_01_20261020_002800_ec8d/config_interfaz.json) · [Métricas](v2_base_yolo11n_01_20261020_002800_ec8d/metricas_validacion.json) · [Alertas](v2_base_yolo11n_01_20261020_002800_ec8d/metricas_alertas.json) |
-| 20-10-2026 | **YOLO26 · V2 base**, dos estados | Tarea 19; 160 train / 10 val; versión `datos_20261019_234626_3df2e643` | [Configuración](v2_base_yolo26n_01_20261020_004933_b105/config_interfaz.json) · [Métricas](v2_base_yolo26n_01_20261020_004933_b105/metricas_validacion.json) · [Alertas](v2_base_yolo26n_01_20261020_004933_b105/metricas_alertas.json) |
+[Ficha completa del modelo](../Documentacion/Modelo_V3_actual.md) · [Resumen numérico](../Documentacion/Estado_V3_actual.json)
 
-Cada carpeta conserva también `manifest.json`, que identifica los datos, y `metricas_alertas.json`, con omisiones y falsas alertas. GitHub publica los registros; los pesos `.pt` y las imágenes de resultados se instalan desde los paquetes del equipo. Para probar los modelos, descargar la [entrega de Walmart Visión](../Entregables/README.md).
+## Trazabilidad
 
-## Otras carpetas en `Experimentos/`
+Cada ensayo conserva sus configuraciones, métricas y referencias de datos. Las etapas anteriores se consultan en el [archivo de ensayos](../Documentacion/Historico/Ensayos_V1_V2_20261020.md); no son alternativas ofrecidas por la app V3.
 
-- `Bordes/`: prototipo experimental de análisis por bordes, color y textura ([`gondola_bordes.py`](Bordes/gondola_bordes.py)). La [revisión del 20 de octubre](Bordes/REVISION_20261020.md) documenta la integración actual; la [revisión del 18 de octubre](Bordes/REVISION_20261018.md), `Versiones/` y las carpetas de primera pasada conservan antecedentes. Sus porcentajes son señales experimentales, no ocupación real validada.
-- `panel_pruebas/`: historial operativo de trabajos e inferencias manuales del panel, incluyendo `Subidas_panel/` para las fotografías subidas desde **Probar una foto**.
-- `Contornos/cuatro_vertices_20261022/`: prueba local del ajuste visual a cuadriláteros, sin reentrenar. La [nota técnica](../Documentacion/Desarrollo/Posprocesamiento_contornos_niveles.md) documenta su alcance; seis ajustes aceptados en una foto conocida no representan una medición de precisión global.
-- Diagnóstico histórico REAL_03 (archivo local histórico, fuera de la distribución): evidencia archivada sobre omisiones, duplicados y pertenencia espacial en la primera pasada.
-
-## Trazabilidad de exportaciones y ensayos
-
-- Cada versión aprobada en `Datos/Registros/Versiones_modelos/<id>/exportaciones/dataset_niveles/` genera una exportación verificada por SHA-256 (`integridad.json`) que los ensayos de esa misma versión comparten mediante `dataset_ref` en `manifest.json`.
-- Cada carpeta de ensayo conserva su `snapshot_cvat.json`, `particion.json`, `version_datos.json`, `config_interfaz.json`, pesos (`entrenamiento/weights/best.pt` y `last.pt`), métricas de validación y comparaciones por imagen.
-- Las copias iguales de snapshots, particiones y fuentes se conservan como evidencia del estado utilizado en cada ensayo. Las exportaciones de imágenes y etiquetas sí se comparten entre ensayos de la misma versión mediante `dataset_ref`.
+Las imágenes privadas, resultados extensos y pesos del laboratorio no se publican mediante esta actualización documental.

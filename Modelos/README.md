@@ -1,15 +1,13 @@
-# Modelos generales para empezar a entrenar
+# Modelo de la app
 
-Esta carpeta organiza los modelos generales que sirven de punto de partida para el laboratorio. `preentrenados/` recibe los pesos descargados para iniciar los entrenamientos:
+La versión local de Walmart Visión utiliza **V3-YOLO26**, el best.pt del afinado de papeles, huevos y superiores vacíos. Reconoce una clase geométrica: **Nivel**.
 
-- `yolo11n-seg.pt`: base de YOLO11 con segmentación.
-- `yolo26n-seg.pt`: base de YOLO26 con segmentación.
-- `fuente.json` y `fuente_yolo26.json`: registros de procedencia de esas descargas.
+Su identidad, hash, entrenamiento, validación y limitaciones están en la [ficha del modelo actual](../Documentacion/Modelo_V3_actual.md). Los resultados se resumen en [Experimentos](../Experimentos/README.md).
 
-Los **modelos ya entrenados con nuestras anotaciones** están en `Experimentos/<ensayo>/entrenamiento/weights/best.pt`. [Índice de ensayos](../Experimentos/README.md).
+Los pesos no se incluyen en esta actualización documental. El paquete V3 permanece en pruebas locales, pendiente de una nueva release.
 
-GitHub conserva este índice y los registros de procedencia; los pesos `.pt` se instalan desde los activos del equipo según la [guía del laboratorio](../Documentacion/Desarrollo/Replicar_proyecto.md).
+## Recursos del laboratorio
 
-Para probar fotos en otro computador, la [entrega local actual de Walmart Visión](../Entregables/README.md) incluye los dos modelos V2 base: YOLO11 y YOLO26. Los dos ensayos V1 se conservan en el laboratorio y en sus distribuciones anteriores. V3 está en preparación y aún no tiene pesos entrenados.
+`preentrenados/` conserva recursos generales y registros de procedencia para desarrollo. No son modelos adicionales que el usuario deba elegir en la app. Los registros de ensayos anteriores se mantienen como trazabilidad.
 
-El código para entrenar está en [Herramientas/Modelos](../Herramientas/Modelos/README.md). Los resultados de cada entrenamiento están en [Experimentos](../Experimentos/README.md).
+[Usar la app](../Documentacion/Usar_Walmart_Vision.md) · [Distribución](../Entregables/README.md)

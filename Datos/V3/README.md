@@ -1,16 +1,19 @@
-# V3: localización de áreas útiles
+# V3: áreas útiles de niveles
 
-El proyecto V3 usa una clase geométrica, **`Nivel`**, para localizar el área útil de cada nivel. La ocupación y las alertas se calculan después mediante un procesamiento validado.
+El modelo V3 aprende **Nivel**: el área útil sobre la superficie de apoyo de cada repisa. La ocupación se estima después, mediante un algoritmo separado que sigue siendo experimental.
 
-El conjunto actual tiene **458 imágenes**: 181 reales y 277 sintéticas. Sus registros y asignaciones están en [la partición V3](../Registros/Particiones/v3_458_20261023/README.md), con 327 entrenamiento, 68 validación y 63 prueba.
+El catálogo vigente contiene **469 imágenes**, con **337 train / 69 val / 63 test**. Una imagen train está desactivada. El último afinado utiliza una selección de **113 fotos**, con refuerzos de superiores vacíos, papeles y huevos, más repaso.
 
-| Procedencia | Fotos | Tarea V3 | Ubicación |
-|---|---:|---:|---|
-| Líder Express, originales y A/B/C | 236 | 27 | [Fuentes conservadas en V2](../V2/lider_express_20261016/README.md) |
-| Ediciones con personas, carros y cajas | 60 | 24 | [Fuentes conservadas en V2](../V2/visibilidad_limitada_20261019/README.md) |
-| Superior vacío D | 40 | 27 | [Lote nuevo V3](superior_vacio_D_20261021/README.md) |
-| Líder 2, originales | 122 | 28 | [Lote nuevo V3](Lider%202/README.md) |
+## Criterio geométrico
 
-Los archivos heredados conservan su ubicación; los polígonos y criterios se distinguen por tarea. Organizar las imágenes no certifica aprobación de anotaciones ni habilita el entrenamiento.
+La base de cada nivel se coloca en la superficie de apoyo, sobre el portaprecio. En superiores abiertos, sin techo físico claro, la anotación utiliza la mediana de las alturas de los inferiores del mismo tramo. Los recortes se marcan como parciales.
 
-[Criterio de anotación](../../Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Tareas y correcciones](../Registros/CVAT/README.md) · [Índice de registros](../Registros/README.md).
+Es un criterio de anotación: la app conserva las máscaras del modelo y no impone la mediana durante la predicción. Las marcas de oclusión tampoco producen una clasificación automática de visibilidad.
+
+[Criterio V3](../../Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla de mediana](../../Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md)
+
+## Referencias vigentes
+
+[Datos y partición](../README.md) · [Registros](../Registros/README.md) · [Modelo actual](../../Documentacion/Modelo_V3_actual.md) · [Resumen numérico](../../Documentacion/Estado_V3_actual.json)
+
+Las fuentes reutilizadas conservan sus rutas originales. Los inventarios históricos documentan su procedencia; no son conjuntos adicionales que deban sumarse al catálogo actual.

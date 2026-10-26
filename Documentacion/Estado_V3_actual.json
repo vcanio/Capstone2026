@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-26",
+  "scope": "Candidato V3 local; actualización documental sin release ni sincronización de fuentes del laboratorio",
+  "model": {
+    "id": "V3-YOLO26",
+    "architecture": "YOLO26n-seg",
+    "classes": [
+      "Nivel"
+    ],
+    "checkpoint": "best.pt",
+    "source_run": "v3_afinado_papeles_huevos_20261026_011847_7021",
+    "sha256": "6617f6dc7b20eac2e343b17813a1180c6df6c481f3fc8cb744bb3949ff18b2c9",
+    "completed_epochs": 29,
+    "best_epoch_combined_fitness": 19,
+    "maximum_mask_map_epoch": 14
+  },
+  "data": {
+    "partition": "v3_469_afinado_20261025",
+    "catalog": 469,
+    "real": 192,
+    "synthetic": 277,
+    "train_catalog": 337,
+    "train_exportable": 336,
+    "val": 69,
+    "test_reserved": 63,
+    "selection": "afinado_papeles_huevos_20261025",
+    "selected_train": 113,
+    "selected_real": 67,
+    "selected_synthetic": 46,
+    "val_real": 22,
+    "val_synthetic": 47
+  },
+  "validation": {
+    "criterion": "geometria_nivel_v3",
+    "mask_map50_real": 0.995,
+    "mask_map50_95_real": 0.8895874192447156,
+    "mask_map50_synthetic": 0.9946471496450918,
+    "mask_map50_95_synthetic": 0.8532638716895876,
+    "occupancy_evaluated": false,
+    "test_used": false,
+    "common_validation_regression_acknowledged": true
+  },
+  "app": {
+    "minimum_and_fixed_ui_confidence": 0.6,
+    "method": "yolo_paulo_v2",
+    "visibility": "user_confirmed_not_automatic",
+    "surface_weight": 0.7,
+    "width_weight": 0.3,
+    "experimental_replenishment_threshold_pct": 30,
+    "occupancy_calibrated": false,
+    "review_guard": {
+      "name": "upper_band_abstention_v1",
+      "upper_height_fraction": 0.5,
+      "minimum_signal_share": 0.95,
+      "display": "Revisar · señal ambigua",
+      "displayed_occupancy_pct": null
+    },
+    "median_enforced_during_inference": false
+  },
+  "known_incidents": [
+    "le_g10: superior de 029 sobredelimitado; superior de 030 omitido."
+  ],
+  "distribution": {
+    "candidate_package": "Walmart_Vision_V3_20261026.zip",
+    "remote_release_published": false,
+    "user_trial_pending": true
+  }
+}

@@ -1,22 +1,15 @@
-# Programas y herramientas del proyecto
+# Herramientas del proyecto
 
-| Carpeta | Para qué sirve | Dónde empezar |
-|---|---|---|
-| `Modelos/` | Código del laboratorio: panel, importación de CVAT, preparación de datos, entrenamiento, inferencia y pruebas automatizadas. | [Uso del panel](Modelos/README.md) y [script de entrenamiento](Modelos/entrenar_niveles.py). |
-| `Datos/` | Comprobación de inventarios, integridad y estado de los lotes. | [Mantenimiento de Datos](Datos/README.md). |
-| `Demo_lite/` | Código de Walmart Visión para probar los dos modelos V2 con fotos propias. Los cuatro ensayos V1/V2 se conservan en el laboratorio. La carpeta mantiene su nombre de desarrollo. | [Cómo usar Walmart Visión](Demo_lite/LEEME.md). |
-| `CVAT/` | Scripts para iniciar CVAT y el acceso privado del equipo; incluye la instalación de CVAT. | `CVAT/iniciar_acceso_privado_equipo.ps1`, desde la raíz del proyecto. |
-| `Informes/` | Generación del informe intermedio, la planificación visual y la guía de trabajo en equipo. | [Documentación del proyecto](../Documentacion/README.md). |
-| `Reproducibilidad/` | Scripts para instalar activos, repetir ensayos, empaquetar y verificar la publicación. | [Preparación y reproducción](Reproducibilidad/README.md). |
+Para usar la versión local V3 consulta el [manual de Walmart Visión](../Documentacion/Usar_Walmart_Vision.md). El paquete de la app permite analizar fotos sin instalar el laboratorio.
 
-`verificar_proyecto.py` comprueba datos, enlaces y exportaciones. Los modelos generales se organizan en `Modelos/` desde la raíz; esta carpeta `Herramientas/Modelos/` contiene el código que los utiliza. El manifiesto y las evidencias de verificación están en [reproducibilidad](../reproducibilidad/README.md).
+| Carpeta | Propósito |
+|---|---|
+| `Demo_lite/` | Fuentes del visor; conserva su nombre de desarrollo. |
+| `Modelos/` | Panel y herramientas técnicas para datos, entrenamiento y evaluación. |
+| `Datos/` | Verificación de inventarios y particiones. |
+| `CVAT/` | Soporte para anotación y revisión del equipo. |
+| `Reproducibilidad/` | Preparación y comprobación de activos fechados. |
 
-Los archivos `.py` son código y los `.ps1` son iniciadores de PowerShell. Los archivos `test_*.py` verifican el funcionamiento. Las carpetas `__pycache__` son cachés generadas por Python.
+La documentación principal describe el candidato V3 actual. Los procedimientos técnicos y ejemplos conservados pueden pertenecer a etapas anteriores; no equivalen a publicar o distribuir ese candidato.
 
-Las pruebas del panel se agrupan en Modelos/tests. Para comprobar datos, enlaces de documentación y las exportaciones compartidas desde la raíz:
-
-```powershell
-& ./.venv-modelo/Scripts/python.exe ./Herramientas/verificar_proyecto.py
-```
-
-Para **entregar la demo**, usar el ZIP preparado en [Entregables](../Entregables/README.md). Para **guardar fotografías**, usar [Datos](../Datos/README.md). Los pesos generales están en `Modelos/preentrenados/` desde la raíz; los entrenados están en cada ensayo de `Experimentos/`.
+[Funcionamiento actual](../Documentacion/Guia_para_entender_el_proyecto.md) · [Modelo V3](../Documentacion/Modelo_V3_actual.md) · [Referencia de desarrollo](../Documentacion/Desarrollo/README.md)

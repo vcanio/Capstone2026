@@ -228,7 +228,7 @@ Las 59 fotos de Lider Express se asignaron a anotación en la tarea 19: 20 para 
 
 Para una demostración breve: explicar el criterio, mostrar una anotación de CVAT, analizar una foto con cada modelo, revisar un acierto y una limitación y presentar qué se mejorará en la siguiente ronda. Aclarar si la foto fue usada para entrenar. Subirla al panel realiza inferencia y no cambia los pesos.
 
-El prototipo predice disponibilidad visual, sin consultar inventario ni contar unidades exactas. La validación histórica V1 carece de vacíos y bajos; la de V2 base tiene una sola referencia real de reposición. Mostrar una predicción no demuestra precisión sobre faltantes nuevos. La [explicación del criterio](../Guia_para_entender_el_proyecto.md#criterio-de-disponibilidad) contiene los fundamentos para presentar y la [revisión de la primera pasada](../Historico/Revision_primera_pasada_20261016.md) conserva el diagnóstico inicial de V1.
+El prototipo predice disponibilidad visual, sin consultar inventario ni contar unidades exactas. La validación histórica V1 carece de vacíos y bajos; la de V2 base tiene una sola referencia real de reposición. Mostrar una predicción no demuestra precisión sobre faltantes nuevos. La [explicación del criterio](../Historico/Guia_conceptual_V1_V2.md#criterio-de-disponibilidad) contiene los fundamentos para presentar y la [revisión de la primera pasada](../Historico/Revision_primera_pasada_20261016.md) conserva el diagnóstico inicial de V1.
 
 ## Referencias
 

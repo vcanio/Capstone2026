@@ -2,7 +2,7 @@
 
 Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuario es Walmart Visión: para descargarla, analizar fotos e interpretar resultados, seguir la [guía de uso](../Usar_Walmart_Vision.md). No requiere el panel de entrenamiento, CVAT ni los paquetes del laboratorio.
 
-La [guía conceptual](../Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
+La [guía conceptual](../Historico/Guia_conceptual_V1_V2.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
 
 La aplicación descargable es `walmart-vision-2026-10-22`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
 en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y

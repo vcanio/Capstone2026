@@ -30,7 +30,7 @@ Los archivos Source code añadidos automáticamente por GitHub no contienen los 
 
 ## Compartir las imágenes de demostración desde Drive
 
-Se preparó una selección confirmada de **tres fotos reales y tres variantes sintéticas**, documentada en [Imágenes para probar Visión](../Usar_Walmart_Vision.md#probar-con-imágenes-de-ejemplo). Es una excepción limitada a esas seis imágenes; el dataset completo sigue distribuyéndose por separado. El ZIP de la aplicación publicado conserva su contenido.
+Se preparó una selección confirmada de **tres fotos reales y tres variantes sintéticas**, documentada en [Imágenes para probar Visión](../Historico/Uso_Walmart_Vision_V2.md#probar-con-imágenes-de-ejemplo). Es una excepción limitada a esas seis imágenes; el dataset completo sigue distribuyéndose por separado. El ZIP de la aplicación publicado conserva su contenido.
 
 Desde el laboratorio con las fuentes disponibles, ejecutar:
 

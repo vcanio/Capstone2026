@@ -1,24 +1,21 @@
-# Entregables
+# Distribución de Walmart Visión
 
-## Aplicación local actual
+## V3 actual: pruebas locales
 
-[**Walmart_Vision_Actual_20261023.zip**](Walmart_Vision_Actual_20261023.zip) · [SHA-256](Walmart_Vision_Actual_20261023.sha256).
+El equipo tiene preparado `Walmart_Vision_V3_20261026.zip`, con el **best.pt V3 vigente**, interfaz simplificada y abstención ante señal ambigua en la franja superior.
 
-Incluye el visor, iniciador Windows, archivos Docker para Mac y **dos modelos V2: YOLO11 y YOLO26**. La revisión del 23/10 alinea las instrucciones y metadatos; conserva los pesos, la inferencia y la interfaz de la entrega anterior. No incorpora un modelo V3 ni un entrenamiento nuevo.
+**Este paquete todavía no se ha publicado en GitHub.** Esta actualización del repositorio documenta su funcionamiento; no crea una release ni adjunta pesos, datasets o ZIP nuevos.
 
-Para usar: extraer todo el ZIP y abrir `Walmart_Vision/iniciar.cmd` en Windows. En Mac, abrir Docker Desktop y ejecutar `docker compose up --build -d --wait` dentro de `Walmart_Vision`. [Manual completo](../Documentacion/Usar_Walmart_Vision.md).
+La interfaz utiliza niveles y detección de bordes con confianza fija 0,60. Solo requiere elegir foto, indicar visibilidad y analizar. La ocupación sigue siendo experimental.
 
-El paquete es una preparación local. Este ordenamiento no publica ni reemplaza activos en GitHub. Los paquetes publicados anteriormente se identifican por sus fechas y manifiestos históricos.
+[Manual de V3](../Documentacion/Usar_Walmart_Vision.md) · [Funcionamiento](../Documentacion/Guia_para_entender_el_proyecto.md) · [Ficha del modelo](../Documentacion/Modelo_V3_actual.md)
 
-[Cuaderno para Colab](Probar_en_Colab.ipynb): también está dentro del ZIP. La ejecución remota de Colab no se certifica mediante las comprobaciones locales.
+## Descargas ya publicadas
 
-## Antecedente conservado
+Las [Releases de GitHub](https://github.com/vcanio/Capstone2026/releases) conservan entregas anteriores. No contienen esta actualización V3 y sus instrucciones deben interpretarse según la fecha de cada paquete.
 
-[Walmart_Vision_Actual_20261022.zip](Walmart_Vision_Actual_20261022.zip) y [su hash original](Walmart_Vision_Actual_20261022.sha256) mantienen sus bytes. La documentación antigua incluida en ese ZIP corresponde a su preparación original. No confundirlo con otras distribuciones históricas que incluían cuatro modelos V1/V2.
+El archivo automático “Source code” contiene las fuentes del repositorio, sin el modelo operativo necesario para ejecutar el candidato V3.
 
-## Informe intermedio
+## Material académico
 
-- [PDF](Informe_Intermedio_Avance_20261020.pdf), [Word](Informe_Intermedio_Avance_20261020.docx) y [HTML](Informe_Intermedio_Avance_20261020.html): copias del informe fechado y sus revisiones documentadas. Se conservan como entrega académica, sin reescribir sus resultados durante esta limpieza.
-- [Fuente Markdown](../Documentacion/Informe_Intermedio_Avance_20261020.md) y [evidencias](../Documentacion/Evidencias/README.md).
-
-Los paquetes de datos y modelos del laboratorio se distribuyen por separado y no son necesarios para usar el visor. [Reproducir el laboratorio](../Documentacion/Desarrollo/Replicar_proyecto.md).
+El [informe intermedio](../Documentacion/Informe_Intermedio_Avance_20261020.md) y su [PDF](Informe_Intermedio_Avance_20261020.pdf) conservan sus resultados fechados. Son antecedentes académicos; no certifican el comportamiento de la V3 actual.

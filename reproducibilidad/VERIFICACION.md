@@ -52,7 +52,7 @@ de GitHub está preparado; su ejecución remota se podrá revisar después del p
 
 Descargar la Release de Walmart Visión en otro computador físico y comprobar la
 preparación inicial, los cuatro modelos, ambos métodos y el reinicio sin conexión.
-La [pauta y plantilla de registro](../Documentacion/Usar_Walmart_Vision.md#comprobar-la-instalación-en-otro-computador)
+La [pauta y plantilla de registro](../Documentacion/Historico/Uso_Walmart_Vision_V2.md#comprobar-la-instalación-en-otro-computador)
 define los pasos. No hace falta clonar el repositorio ni instalar Docker o CVAT
 para esta comprobación. La prueba local desde un ZIP extraído no acredita todavía
 ese resultado externo.

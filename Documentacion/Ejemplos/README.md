@@ -1,6 +1,6 @@
 # Recursos de ejemplo
 
-El uso de las seis imágenes reales y sintéticas se explica en [Usar Walmart Visión](../Usar_Walmart_Vision.md#probar-con-imágenes-de-ejemplo), junto con la descarga desde Drive y los estados de referencia.
+El uso de las seis imágenes reales y sintéticas se explica en [Usar Walmart Visión](../Historico/Uso_Walmart_Vision_V2.md#probar-con-imágenes-de-ejemplo), junto con la descarga desde Drive y los estados de referencia.
 
 - `imagenes_demo_20261020.json` conserva la selección, las fuentes y los hashes del ZIP.
 - `LEEME_imagenes_demo_20261020.txt` es el texto versionado incluido en ese paquete; permite regenerarlo sin cambiar sus bytes publicados.

@@ -1,133 +1,73 @@
 # Usar Walmart Visión
 
-Walmart Visión permite cargar una fotografía de una góndola, localizar sus niveles y revisar el estado que predice un modelo ya entrenado. Esta es la aplicación destinada al usuario. El panel de entrenamiento y CVAT son herramientas del equipo de desarrollo; no se necesitan para este recorrido.
+Esta guía corresponde a **V3, en pruebas locales al 26 de octubre de 2026**. El nuevo paquete aún no se ha publicado en GitHub. Consulta el [estado de distribución](../Entregables/README.md) antes de descargar una entrega: las releases existentes pertenecen a versiones anteriores.
 
-## Requisitos y descarga
+## Abrir la aplicación
 
-- Windows x64 para el iniciador automático, o un Mac Intel/Apple Silicon con Docker Desktop para el paquete Docker. Usar una carpeta local con permiso de escritura.
-- Internet durante el primer inicio para descargar Python y las dependencias. Los siguientes arranques reutilizan el entorno instalado y permiten analizar fotos localmente sin conexión.
-- Una fotografía propia en JPG, PNG o WebP, sin animación, de hasta 15 MB y 24 megapíxeles.
+Si el equipo te entregó el paquete V3, extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
 
-El paquete local actualizado es [Walmart_Vision_Actual_20261023.zip](../Entregables/Walmart_Vision_Actual_20261023.zip), junto con su archivo `.sha256`. Incluye el iniciador Windows, los archivos Docker para Mac y solo los dos modelos V2. Esta actualización está preparada localmente y aún no está publicada en GitHub. Las versiones anteriores se pueden descargar desde sus [Releases](https://github.com/vcanio/Capstone2026/releases). Los archivos automáticos «Source code» contienen el código del repositorio; el ZIP de Visión incluye los pesos necesarios para usar la aplicación.
+**Windows:** abre `Walmart_Vision/iniciar.cmd`. El iniciador prepara las dependencias en el primer uso. Después se abre el visor en [http://127.0.0.1:8095](http://127.0.0.1:8095).
 
-El iniciador de Windows prepara Python 3.12 y las bibliotecas dentro de la carpeta de la aplicación. No hace falta instalar previamente Python, Docker, CVAT ni disponer de una GPU NVIDIA. El análisis utiliza CPU; su duración depende del computador. La instalación ocupa más espacio que el ZIP descargado por sus dependencias.
+**Docker:** con Docker Desktop abierto, entra en la carpeta `Walmart_Vision` extraída y ejecuta:
 
-## Usar en Mac con Docker
+```bash
+docker compose up --build -d --wait
+```
 
-Usar el paquete actualizado **Walmart_Vision_Actual_20261023.zip** indicado arriba. El ZIP anterior de Windows del 20 de octubre conserva su contenido y no incluye Docker.
+Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detenerlo, ejecuta `docker compose down`. La instalación en macOS y en otro computador físico sigue pendiente de verificación para V3.
 
-1. Instalar [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) según el procesador Intel o Apple Silicon y dejarlo abierto.
-2. Extraer todo el ZIP y abrir Terminal en la carpeta `Walmart_Vision`, donde está `compose.yaml`.
-3. Ejecutar `docker compose up --build -d --wait`. La primera construcción descarga las dependencias y puede tardar varios minutos.
-4. Abrir http://localhost:8095 y cargar una foto directamente en el visor de la versión actual.
-5. Al terminar, ejecutar `docker compose down` desde esa misma carpeta.
+La preparación inicial requiere conexión para obtener dependencias. La inferencia es local. No necesitas instalar CVAT, preparar datasets ni iniciar el laboratorio.
 
-El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. No hace falta instalar Python. La [guía Docker incluida](../Herramientas/Demo_lite/DOCKER.md) detalla cómo volver a iniciar sin Internet, cambiar el puerto y resolver problemas. Las pruebas en contenedores Linux y la comprobación en un Mac físico se distinguen en el [registro Docker](../Herramientas/Demo_lite/VERIFICACION_DOCKER.md).
+## Analizar una foto
 
-## Iniciar en Windows y analizar una fotografía
+1. Selecciona o arrastra una foto **JPG, PNG o WebP de hasta 15 MB**.
+2. Responde **¿Cómo se ve la góndola?** según lo que ves en la imagen.
+3. Pulsa **Analizar foto**.
+4. Comprueba los contornos y los avisos antes de interpretar los porcentajes.
 
-1. Extraer **todo** el ZIP. No ejecutar la aplicación desde dentro del archivo comprimido.
-2. Abrir `Walmart_Vision/iniciar.cmd` y mantener la consola abierta. El primer inicio puede tardar varios minutos mientras prepara las dependencias.
-3. Esperar a que abra el navegador en http://127.0.0.1:8095. Si no se abre automáticamente, entrar a esa dirección.
-4. El visor abre directamente con V2-YOLO26. Se puede elegir también V2-YOLO11, de la misma versión.
-5. Cargar o arrastrar una foto, elegir **Solo YOLO** o **YOLO + detección de bordes** y pulsar **Analizar foto**.
-6. Revisar **Original**, **Niveles** y **Comparar**. Con el método de bordes también se habilita **Bordes**, con el mapa de señal y las vistas de contornos.
+El análisis utiliza automáticamente el modelo V3 vigente, niveles y detección de bordes, con confianza fija 0,60. No hay que elegir modelos ni ajustar parámetros. La confianza de detección y la ocupación son medidas diferentes.
 
-Cambiar foto, modelo, método o confianza descarta la predicción anterior y requiere analizar de nuevo. Para terminar, pulsar Ctrl+C en la consola.
+Las fotografías se procesan en memoria en el computador y no se guardan ni se añaden al entrenamiento.
 
-## Probar con imágenes de ejemplo
+## Indicar la visibilidad
 
-El conjunto **Walmart_Vision_Imagenes_Demo_20261020.zip** combina tres fotografías reales y tres variantes sintéticas del proyecto. Permite probar disponibilidad suficiente, reposición, espacios vacíos, baja disponibilidad y un caso con errores conocidos del modelo.
-
-**Descarga:** abrir la [carpeta de imágenes de prueba en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) y descargar **Walmart_Vision_Imagenes_Demo_20261020.zip**. Los ejemplos se distribuyen desde Drive; la aplicación se descarga desde la [Release de Walmart Visión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-2026-10-22).
-
-El paquete preparado ocupa aproximadamente **19,4 MiB**. Su SHA-256 de referencia es `4ab1ce9975f2799378b2fd630739942f856e9c82e452751eb3bf70bc7f22c9bf`. Después de descargarlo, se puede comprobar en PowerShell con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Imagenes_Demo_20261020.zip`.
-
-### Cómo usarlo
-
-1. Extraer el ZIP de ejemplos. La carpeta `Imagenes_demo` contiene `reales`, `sinteticas`, las instrucciones y el manifiesto de procedencia.
-2. Iniciar Walmart Visión, elegir **V2 → V2-YOLO26**, confianza **0,25** y **Solo YOLO**.
-3. Cargar una imagen de cualquiera de las dos carpetas y pulsar **Analizar foto**.
-4. Comparar visualmente el resultado con la referencia de la tabla. Probar después **YOLO + detección de bordes** para revisar sus mapas; la señal experimental no cambia el estado de YOLO.
-
-| Imagen | Origen | Referencia de los niveles anotados |
-|---|---|---|
-| `lider_express_015_0_original.jpg` | Real | 6 suficientes. Caso de disponibilidad suficiente. |
-| `lider_express_040_0_original.jpg` | Real | 4 suficientes y 1 reponer. Caso con faltante real. |
-| `lider_express_042_0_original.jpg` | Real | 3 suficientes en el tramo anotado. Caso para observar omisiones y detecciones en tramos vecinos. |
-| `lider_express_014_A_vacios.png` | Sintética | 4 suficientes y 2 reponer. Presenta dos niveles vaciados en la edición. |
-| `lider_express_026_B_baja.png` | Sintética | 2 suficientes y 3 reponer. Presenta niveles con pocos productos. |
-| `lider_express_040_C_mixta.png` | Sintética | 3 suficientes y 2 reponer. Combina un nivel vaciado y otro con disponibilidad baja. |
-
-V2 base reúne vacío y baja disponibilidad en `reponer`; no los muestra como categorías separadas. La referencia no garantiza que el modelo acierte. En los resultados históricos de V2-YOLO26, la foto 042 produjo seis detecciones, con un nivel de referencia omitido y cuatro predicciones sin correspondencia en el tramo anotado. Se incluye para mostrar esa limitación.
-
-### Procedencia y límites
-
-Las fotos reales se copian de la exportación orientada de validación V2. Las sintéticas son ediciones con IA de fotografías reales, identificadas como tales; no son nuevas capturas. Sus referencias se obtienen de las anotaciones conservadas de la tarea 19, no se deducen únicamente del nombre A/B/C.
-
-Las seis imágenes pertenecen al material de validación o diagnóstico sintético de validación. No se incorpora la reserva final ni se cambia ninguna partición. La foto real 040 y su variante sintética están relacionadas: no son ejemplos independientes. Este conjunto sirve para demostrar el recorrido de la aplicación; su selección pequeña y conocida no permite estimar precisión global.
-
-El [manifiesto de selección](Ejemplos/imagenes_demo_20261020.json) conserva hashes, procedencia, uso de los datos y referencias por imagen. Los bytes de las fuentes seleccionadas se copian sin modificar. La preparación del ZIP comprueba esos hashes y su integridad; no representa una nueva ejecución de los modelos ni una prueba de instalación en otro computador.
-
-
-## Interpretar los resultados
-
-| Resultado | Qué significa |
+| Opción | Comportamiento |
 |---|---|
-| Región o máscara sobre una repisa | El modelo localizó un nivel y dibujó su contorno. |
-| V2 base: reponer o suficiente | Son sus dos estados disponibles. No reconoce no evaluable; hay que revisar especialmente las fotos con obstáculos. |
-| Confianza | Puntuación de la predicción; no representa el porcentaje de productos en la repisa. |
-| Señal de bordes, color y textura | Análisis experimental dentro de las máscaras. No cambia el estado YOLO ni mide un porcentaje validado de ocupación. |
+| **Completa y despejada** | Estima ocupación dentro de los niveles detectados. |
+| **Recortada por la foto** | Limita la medición a la zona visible y marca Revisar. |
+| **Con un objeto delante** | Suspende la medición y pide una foto sin el obstáculo. |
+| **Con una persona tapándola** | Muestra Góndola tapada, sin contornos, ocupación ni reposición. |
 
-La actualización del 22 de octubre simplifica la vista con bordes: **un porcentaje de ocupación estimada por nivel**, tanto sobre la imagen como en una tabla visible. Menos del **30 %** se muestra en **rojo · Reponer**; desde el **30 %**, en **verde · Suficiente**. Sin medición se muestra en gris, sin inventar un porcentaje. La imagen descargada conserva esos mismos porcentajes y colores.
+La comprobación es manual: la app no detecta automáticamente esos casos. Si un contorno alcanza el encuadre también aparece un aviso conservador para revisar lo que quedó fuera.
 
-**YOLO + detección de bordes** es el método inicial: usa la [combinación ponderada de Paulo](../Experimentos/Bordes/COMBINACION_PONDERADA_V2.md), 70 % de superficie y 30 % de ancho. El desglose está en **Cómo se calcula**. La predicción original de YOLO se conserva en **Detalle del modelo YOLO**; la lectura de ocupación y sus colores usan el umbral del 30 %. **Solo YOLO** conserva la clasificación del modelo. La estimación continúa siendo experimental y pendiente de calibración. Los ZIP de entregas anteriores conservan sus funciones originales.
+## Revisar el resultado
 
-Una predicción puede omitir un nivel, dibujarlo mal o asignarle un estado incorrecto. Revisar visualmente el resultado antes de usarlo como apoyo para decidir. La aplicación no cuenta SKU ni consulta inventario de bodega. Una foto propia sin anotaciones de referencia permite observar predicciones, pero no calcular precisión.
+Los niveles se numeran desde abajo hacia arriba. Utiliza:
 
-El código local y el paquete de prueba `Walmart_Vision_Cuatro_Vertices.zip` incorporan un [ajuste visual a cuatro vértices](Desarrollo/Posprocesamiento_contornos_niveles.md), con lados rectos y perspectiva. Si el ajuste no supera las comprobaciones geométricas, se conserva el contorno original. El cálculo de ocupación sigue usando la máscara original: sus mapas pueden diferir del borde ajustado. Un borde más limpio no demuestra mayor precisión. Este cambio no modifica el ZIP de la release publicada anteriormente.
+- **Original:** la fotografía que cargaste.
+- **Niveles:** los contornos, las lecturas estimadas y los avisos.
+- **Bordes:** mapas opcionales para inspeccionar la señal visual.
+- **Comparar:** original y resultado juntos.
+- **Descargar resultado:** una copia de la imagen analizada.
 
-Las fotografías se procesan en memoria en el computador: no se guardan ni se usan para entrenar. El ZIP no incluye las imágenes del dataset. El cuaderno opcional de Colab tiene un recorrido distinto y sube los archivos seleccionados al entorno de Google; sus instrucciones están en la [guía incluida en la aplicación](../Herramientas/Demo_lite/LEEME.md#colab).
+**Reponer** aparece bajo el 30 % y **Suficiente** desde el 30 %, solo cuando la medición y el alcance lo permiten. Son referencias experimentales; no certifican stock disponible.
 
-## Si no inicia
+**Revisar** indica que no se puede confirmar el nivel completo o su ocupación. Si casi toda la señal aparece en la mitad superior, la app muestra **Revisar · señal ambigua**, sin porcentaje presentado: puede estar respondiendo a un cartel o al fondo.
 
-| Situación | Acción |
-|---|---|
-| Falló la descarga inicial | Revisar la conexión y volver a abrir `iniciar.cmd`. El registro queda en `.runtime/instalacion.log`, dentro de la carpeta de Visión. |
-| El puerto 8095 está ocupado | Cerrar otra instancia o abrir una consola en la carpeta de Visión y ejecutar `iniciar.cmd --port 8096`; entrar a http://127.0.0.1:8096. |
-| No aparecen los modelos o falla su integridad | Extraer nuevamente el ZIP completo en otra carpeta y conservar el mensaje de error si se repite. |
-| La foto no se acepta | Comprobar formato, tamaño y dimensiones según los requisitos anteriores. |
-| La primera predicción tarda | Esperar a que se carguen los pesos y revisar la consola; el tiempo depende de la CPU. |
+Sin niveles detectados, toma otra foto más frontal. La ausencia de detecciones no demuestra que la góndola esté vacía.
 
-## Comprobar la instalación en otro computador
+## Qué es el mapa de señal
 
-**Estado: pendiente.** Se verificaron la interfaz y la inferencia CPU desde un ZIP extraído en el equipo de desarrollo. Eso no acredita una instalación en otro computador físico. El [registro de verificación de Visión](../Herramientas/Demo_lite/VERIFICACION_VISION.md) conserva el alcance de las pruebas ya realizadas.
+El amarillo destaca zonas que activan el análisis de bordes, color y textura. Puede marcar envases, pero también carteles o fondos. Una zona sin amarillo tampoco garantiza que esté vacía.
 
-Para cerrar esta comprobación, una persona debe seguir los pasos anteriores en otro computador físico, usando el ZIP descargado desde la Release y sin copiar el entorno Python preparado del equipo de desarrollo:
+El mapa sirve para revisar por qué se obtuvo una estimación. No es una segmentación confirmada de productos ni un porcentaje real de inventario.
 
-1. Registrar fecha, persona que prueba, versión de Windows, CPU, RAM y nombre del ZIP. Comparar su SHA-256 con el de el archivo `.sha256` incluido, por ejemplo con `Get-FileHash -Algorithm SHA256 .\Walmart_Vision_Actual_20261023.zip` en PowerShell.
-2. Extraer el ZIP e iniciar con Internet para comprobar la preparación automática y la apertura del visor.
-3. Analizar una fotografía propia autorizada con cada uno de los dos modelos V2, probando **Solo YOLO** y **YOLO + detección de bordes**. Registrar si cada combinación termina y muestra su resultado, incluso si no detecta niveles.
-4. Revisar las cuatro vistas cuando correspondan, cambiar la foto y comprobar que se limpia el resultado anterior.
-5. Cerrar y volver a abrir la aplicación con el entorno ya preparado y sin conexión; analizar otra vez para comprobar el uso local.
-6. Registrar incidencias y adjuntar capturas autorizadas o mensajes de error. Completar el registro de verificación solo con lo que realmente se ejecutó.
+## Si no inicia o no termina el análisis
 
-Plantilla para registrar el resultado:
+- Extrae el ZIP completo y conserva sus archivos juntos.
+- En el primer inicio, comprueba la conexión y espera a que se preparen las dependencias.
+- Si usas Docker, comprueba que Docker Desktop esté funcionando.
+- Si la foto se rechaza o el análisis tarda demasiado, prueba una imagen JPG, PNG o WebP más pequeña.
+- Si el resultado no coincide con la foto, revisa contornos y visibilidad; no lo uses como confirmación de stock.
 
-| Campo | Registro por completar |
-|---|---|
-| Fecha y persona | Pendiente |
-| Windows, CPU y RAM | Pendiente |
-| Nombre y SHA-256 del ZIP | Pendiente |
-| Preparación inicial y apertura | Pendiente |
-| Dos modelos V2 con ambos métodos | Pendiente |
-| Vistas y cambio de foto | Pendiente |
-| Reinicio e inferencia sin conexión | Pendiente |
-| Incidencias y evidencias | Pendiente |
-| Resultado de la instalación: correcta o con incidencias | Pendiente |
-
-Esta comprobación acredita el recorrido de instalación y uso en ese equipo. La precisión de los modelos requiere una evaluación con referencias y conserva las limitaciones documentadas.
-
-## Entender cómo se construyó
-
-La [guía conceptual](Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica la anotación, el entrenamiento y la aplicación de usuario. La [arquitectura y el mapa del código](Desarrollo/Evolucion_v1_v2.md) permiten ubicar su implementación. Para continuar el desarrollo, consultar la [guía técnica del laboratorio](Desarrollo/Replicar_proyecto.md), que requiere activos gestionados por el equipo.
+[Cómo funciona](Guia_para_entender_el_proyecto.md) · [Modelo y limitaciones](Modelo_V3_actual.md) · [Volver al inicio](../README.md)
