@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "scope": "Walmart Visión V3 publicada: fuentes de la app, documentación y descarga verificadas",
   "model": {
     "id": "V3-YOLO26",
@@ -42,7 +42,6 @@
     "common_validation_regression_acknowledged": true
   },
   "app": {
-    "minimum_and_fixed_ui_confidence": 0.6,
     "method": "yolo_paulo_v2",
     "visibility": "user_confirmed_not_automatic",
     "surface_weight": 0.7,
@@ -77,13 +76,15 @@
       "new_replenishment_transitions": 0,
       "test_used": false,
       "not_exhaustive_accuracy_evaluation": true
-    }
+    },
+    "minimum_confidence": 0.4,
+    "default_confidence": 0.6
   },
   "known_incidents": [
     "le_g10: superior de 029 sobredelimitado; superior de 030 omitido."
   ],
   "distribution": {
-    "candidate_package": "Walmart_Vision_V3_20261026.zip",
+    "candidate_package": "Walmart_Vision_V3_20261027.zip",
     "remote_release_published": true,
     "user_trial_pending": true,
     "release_draft": false,
@@ -91,8 +92,8 @@
     "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26",
     "release_id": 423965028,
     "published_at": "2026-10-26T07:45:27Z",
-    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip",
-    "package_sha256": "dd1a611a9c48e14c2d4d76c0484f67504e0eb0f59b31ec9e1bcac8175158225b",
-    "checksum_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.sha256"
+    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip",
+    "package_sha256": "5ef68abf6b3c735396c3ba888f6f39801282187ca5e178c0f54e1658cfb80b98",
+    "checksum_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.sha256"
   }
 }
