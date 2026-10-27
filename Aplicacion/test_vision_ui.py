@@ -195,6 +195,28 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal($('theme-toggle').attrs['aria-label'],'Modo oscuro');
         """)
 
+    def test_analyzing_animation_elements_and_lifecycle(self):
+        self.assertIn('spinner', HTML)
+        for removed in ('scan-laser', 'scan-grid', 'scan-corner', 'scan-hud-badge', 'scan-line'):
+            self.assertNotIn(removed, HTML)
+        self.js("""
+        choose({name:'test.jpg',size:100,type:'image/jpeg'});
+        let submitted=false;
+        global.fetch=async()=>{
+            assert.equal($('scan-overlay').hidden,false);
+            assert.equal($('progress').hidden,false);
+            assert.equal($('stage').attrs['aria-busy'],'true');
+            assert.match($('photo-info').innerHTML,/Analizando foto/);
+            submitted=true;
+            return {ok:true,json:async()=>prediction(false)};
+        };
+        await $('form').listeners.submit({preventDefault(){}});
+        assert.equal(submitted,true);
+        assert.equal($('scan-overlay').hidden,true);
+        assert.equal($('progress').hidden,true);
+        assert.equal($('stage').attrs['aria-busy'],'false');
+        """)
+
 
 if __name__ == '__main__':
     unittest.main()

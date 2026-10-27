@@ -86,6 +86,19 @@ def fragmented_lower_rails(edges, cell):
     return blocked
 
 
+def contiguous_column_coverage(active, usable, fraction):
+    """Fracción de columnas con un tramo continuo respecto de su altura útil."""
+    rows = usable.sum(axis=0)
+    valid = rows > 0
+    runs = np.zeros(active.shape[1], dtype=int)
+    longest = np.zeros_like(runs)
+    for row in (active & usable):
+        runs = np.where(row, runs + 1, 0)
+        longest = np.maximum(longest, runs)
+    covered = (longest >= np.ceil(rows*fraction)) & valid
+    return 100 * float(covered.sum()) / int(valid.sum()) if valid.any() else None
+
+
 @dataclass(frozen=True)
 class Parameters:
     max_side: int = 1600
@@ -105,7 +118,10 @@ class Parameters:
     column_fraction: float = .15
     min_column_rows: int = 2
     surface_weight: float = .70
-    width_row_fraction: float = .20
+    width_row_fraction: float = .20  # Solo se conserva para compatibilidad de configuraciones.
+    width_contiguous_fraction: float = .45
+    coherence_max_gap_pct: float = 45.
+    band_signal_share: float = .90
 
 
 @lru_cache(maxsize=2)
@@ -114,7 +130,7 @@ def paulo(version='v1'):
         raise ValueError('Versión de bordes inválida.')
     filename = 'gondola_combinacion_ponderada.py' if version == 'v2' else 'gondola_bordes.py'
     portable = Path(__file__).with_name(filename)
-    source = portable if portable.is_file() else ROOT / 'Experimentos/Bordes' / filename
+    source = portable if portable.is_file() else ROOT / 'Laboratorio/Experimentos/Bordes' / filename
     spec = importlib.util.spec_from_file_location('paulo_' + version, source)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -127,14 +143,14 @@ def provenance(version='v1', parameters=None):
     portable = Path(__file__).with_name('gondola_bordes.py')
     base = Path(__file__).parent if portable.is_file() else ROOT
     files = ([Path(__file__), portable] if portable.is_file() else
-             [Path(__file__), ROOT / 'Experimentos/Bordes/gondola_bordes.py',
-              ROOT / 'Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py'])
+             [Path(__file__), ROOT / 'Laboratorio/Experimentos/Bordes/gondola_bordes.py',
+              ROOT / 'Laboratorio/Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py'])
     if version == 'v2':
         files.append(base / ('gondola_combinacion_ponderada.py' if portable.is_file() else
-                             'Experimentos/Bordes/gondola_combinacion_ponderada.py'))
+                             'Laboratorio/Experimentos/Bordes/gondola_combinacion_ponderada.py'))
     return {'method': WEIGHTED_METHOD if version == 'v2' else METHOD,
             'parameters': asdict(parameters or Parameters(opening=1 if version == 'v2' else 3)),
-            'interpretation_policy': ({'name': 'spatial_signal_abstention_v2', 'upper_height_fraction': .5,
+            'interpretation_policy': ({'name': 'spatial_signal_abstention_v3', 'upper_height_fraction': .5,
                                        'minimum_signal_share': .95,
                                        'central_window': [.15, .40, .85, .65],
                                        'minimum_central_evidence': .10,
@@ -156,7 +172,10 @@ class Analyzer:
         self.method = WEIGHTED_METHOD if version == 'v2' else METHOD
         self.p = parameters or Parameters(opening=1 if version == 'v2' else 3)
         if not (np.isfinite(self.p.surface_weight) and 0 <= self.p.surface_weight <= 1 and
-                np.isfinite(self.p.width_row_fraction) and 0 <= self.p.width_row_fraction <= 1):
+                np.isfinite(self.p.width_row_fraction) and 0 <= self.p.width_row_fraction <= 1 and
+                np.isfinite(self.p.width_contiguous_fraction) and 0 < self.p.width_contiguous_fraction <= 1 and
+                np.isfinite(self.p.coherence_max_gap_pct) and 0 <= self.p.coherence_max_gap_pct <= 100 and
+                np.isfinite(self.p.band_signal_share) and 0 < self.p.band_signal_share <= 1):
             raise ValueError('Los pesos de superficie y ancho deben estar entre 0 y 1.')
         if self.p.cell < 2 or self.p.max_side < 32 or not 0 <= self.p.margin < .5:
             raise ValueError('Parámetros de escala o margen inválidos.')
@@ -303,10 +322,7 @@ class Analyzer:
         width = 100 * float(active_columns.sum()) / int(valid_columns.sum()) if valid_columns.any() else None
         extra = {}
         if self.version == 'v2':
-            valid_columns = column_rows > 0
-            fractions = raw_active.sum(axis=0) / np.maximum(column_rows, 1)
-            covered_columns = (fractions >= self.p.width_row_fraction) & valid_columns
-            width = 100 * float(covered_columns.sum()) / int(valid_columns.sum())
+            width = contiguous_column_coverage(raw_active, usable, self.p.width_contiguous_fraction)
             extra = {'combined_signal_pct': round(self.p.surface_weight*area + (1-self.p.surface_weight)*width, 2),
                      'adaptive_threshold': round(threshold, 6)}
             # A sign across the top can contribute substantial area and width
@@ -317,7 +333,18 @@ class Analyzer:
             upper_half = (np.arange(active.shape[0]) + .5) / active.shape[0] <= .5
             total_signal = float(signal_weights.sum())
             upper_share = float(signal_weights[upper_half].sum()) / total_signal if total_signal else 0.
-            review_required = total_signal > 0 and upper_share >= .95
+            thirds = np.array_split(signal_weights, 3, axis=0)
+            vertical_profile = [float(part.sum()) / total_signal if total_signal else 0. for part in thirds]
+            row_signal = signal_weights.sum(axis=1)
+            window = max(1, int(np.ceil(active.shape[0] / 3)))
+            band_share = (max(float(row_signal[i:i+window].sum())
+                              for i in range(active.shape[0]-window+1)) / total_signal
+                          if total_signal else 0.)
+            coherence_gap = width - area
+            band_ambiguity = total_signal > 0 and band_share >= self.p.band_signal_share
+            incoherent = (extra['combined_signal_pct'] >= 30 and
+                          coherence_gap >= self.p.coherence_max_gap_pct)
+            review_required = band_ambiguity or incoherent or (total_signal > 0 and upper_share >= .95)
             # La normalización relativa puede amplificar fondo o estructura.
             # Esta comprobación solo cambia la interpretación: mapas, métricas,
             # denominadores y máscaras de YOLO se conservan exactamente.
@@ -335,12 +362,19 @@ class Analyzer:
             review_required |= peripheral_ambiguity
             extra.update(review_required=review_required,
                          signal_pattern=('upper_band_only' if upper_share >= .95 and total_signal > 0 else
+                                         'horizontal_band' if band_ambiguity else
+                                         'incoherent_width' if incoherent else
                                          'peripheral_ambiguity' if peripheral_ambiguity else None),
+                         vertical_signal_thirds=[round(value, 6) for value in vertical_profile],
+                         max_third_window_signal_share=round(band_share, 6),
+                         width_area_gap_pct=round(coherence_gap, 2),
                          upper_half_signal_share=round(upper_share, 6),
                          central_evidence_fraction=round(central_density, 6),
                          lower_edge_evidence_fraction=round(lower_edges, 6),
                          review_reason=(('Señal concentrada en la franja superior: puede ser un cartel o el fondo. '
                                          if upper_share >= .95 else
+                                         'Señal concentrada en una franja horizontal. ' if band_ambiguity else
+                                         'Cobertura horizontal incoherente con el área de señal. ' if incoherent else
                                          'Señal periférica sin respaldo central suficiente: puede ser estructura, cartel o fondo. ') +
                                         'Revisa si hay productos; no se confirma ocupación.'
                                         if review_required else None))

@@ -80,18 +80,16 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 a{color:var(--blue-bright);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* Header */
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--card-border);flex-shrink:0}
+/* Identidad y preferencias */
+.sidebar-brand{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 0}
+.sidebar-brand .brand-group{min-width:0}
+.sidebar-brand .brand-text{min-width:0}
 .brand-group{display:flex;align-items:center;gap:12px}
 .brand-icon{width:36px;height:36px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
 .brand-icon svg{width:19px;height:19px}
 .brand{font-size:17px;font-weight:700;margin:0;color:var(--ink);letter-spacing:-0.2px}
-.brand-text h1{font-size:17px;font-weight:700;margin:0;color:var(--ink);letter-spacing:-0.2px}
 .brand-text p{font-size:12.5px;margin:2px 0 0;color:var(--muted)}
-.header-meta{display:flex;align-items:center;gap:12px}
-.badge-version{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:9999px;border:1px solid var(--card-border);background:var(--surface);font-size:12.5px;color:var(--muted);font-weight:500}
-.badge-version .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
-.theme-toggle{width:32px;height:32px;border-radius:50%;border:1px solid var(--card-border);background:var(--card);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0}
+.theme-toggle{width:40px;height:40px;flex-shrink:0;border-radius:50%;border:1px solid var(--card-border);background:var(--card);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0}
 .theme-toggle:hover{color:var(--ink);border-color:var(--blue-bright)}
 .theme-toggle svg{width:15px;height:15px}
 .theme-icon-sun{display:none}
@@ -187,11 +185,15 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 #comparison figcaption{font-size:12px;font-weight:600;color:var(--muted);padding:0 0 4px;flex-shrink:0}
 #comparison img{flex:1;min-height:0;max-height:100%;width:auto;object-fit:contain;display:block;border-radius:6px}
 
-/* Progress */
-.progress{padding:10px 14px 0;flex-shrink:0}
-.progress span{height:3px;background:var(--blue-bright);display:block;transform-origin:left;animation:analyze 1.6s ease-in-out infinite}
-.progress p{font-size:12.5px;color:var(--muted);margin:6px 0 0}
-@keyframes analyze{0%,100%{transform:scaleX(.15)}50%{transform:scaleX(1)}}
+/* Spinner de análisis */
+.scan-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.28);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:inherit;z-index:3}
+.scan-overlay[hidden]{display:none!important}
+.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+.scan-overlay.is-paused .spinner{animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress{padding:10px 2px 0;flex-shrink:0}
+.progress p{font-size:12.5px;color:var(--muted);margin:0}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none!important}}
 
 /* Edge Controls */
 #edge-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;background:var(--surface);border:1px solid var(--card-border);border-radius:7px;margin-bottom:10px;flex-shrink:0}
@@ -443,27 +445,6 @@ table.edge-table th{color:var(--muted);font-weight:600}
 </head>
 <body>
 
-<header>
-  <div class="brand-group">
-    <div class="brand-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16M7 6v12M17 6v12"/></svg>
-    </div>
-    <div class="brand-text">
-      <div class="brand">Walmart Visión</div>
-      <p>Detección de quiebres de stock</p>
-    </div>
-  </div>
-  <div class="header-meta">
-    <div class="badge-version">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span>Modelo experimental · v0.4</span>
-    </div>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Modo oscuro" title="Cambiar a modo oscuro">
-      <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 11.8A6.8 6.8 0 0 1 8.2 3.5a6.9 6.9 0 1 0 8.3 8.3Z"/></svg>
-      <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.3v2.1M10 15.6v2.1M2.3 10h2.1M15.6 10h2.1M4.6 4.6l1.5 1.5M13.9 13.9l1.5 1.5M15.4 4.6l-1.5 1.5M6.1 13.9l-1.5 1.5"/></svg>
-    </button>
-  </div>
-</header>
 
 <main id="main">
   <div id="error" class="error" role="alert" tabindex="-1" hidden></div>
@@ -486,6 +467,21 @@ table.edge-table th{color:var(--muted);font-weight:600}
     <div class="app-grid">
       <!-- Left Sidebar -->
       <div class="sidebar">
+        <div class="sidebar-brand">
+  <div class="brand-group">
+    <div class="brand-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16M7 6v12M17 6v12"/></svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand">Walmart Visión</div>
+      <p>Modelo experimental · v0.4</p>
+    </div>
+  </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Modo oscuro" title="Cambiar a modo oscuro">
+      <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 11.8A6.8 6.8 0 0 1 8.2 3.5a6.9 6.9 0 1 0 8.3 8.3Z"/></svg>
+      <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.3v2.1M10 15.6v2.1M2.3 10h2.1M15.6 10h2.1M4.6 4.6l1.5 1.5M13.9 13.9l1.5 1.5M15.4 4.6l-1.5 1.5M6.1 13.9l-1.5 1.5"/></svg>
+    </button>
+        </div>
         <form id="form" class="card">
           <fieldset id="fields" disabled>
             <legend class="sr-only">Preparar el análisis de una foto</legend>
@@ -544,7 +540,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
             </div>
             <div class="legend-row">
               <i class="dot dot-green"></i>
-              <span><strong>Suficiente:</strong> 30% o más, visibilidad confirmada</span>
+              <span><strong>Suficiente:</strong> señal experimental ≥ 30 %</span>
             </div>
             <div class="legend-row">
               <i class="dot dot-amber"></i>
@@ -595,6 +591,9 @@ table.edge-table th{color:var(--muted);font-weight:600}
                   <p>Aquí verás los niveles y su ocupación estimada.</p>
                 </div>
                 <img id="photo" alt="Foto original de la góndola" hidden>
+                <div class="scan-overlay" id="scan-overlay" aria-hidden="true" hidden>
+                  <div class="spinner"></div>
+                </div>
                 <div id="comparison" hidden>
                   <figure>
                     <figcaption>Original</figcaption>
@@ -609,7 +608,6 @@ table.edge-table th{color:var(--muted);font-weight:600}
             </div>
 
             <div class="progress" id="progress" role="status" aria-live="polite" hidden>
-              <span></span>
               <p>Analizando los niveles de la foto…</p>
             </div>
 
@@ -905,7 +903,7 @@ function showV3(data){
   }
 
   $('occupancy-columns').innerHTML='<tr><th>Nivel</th><th>Ocupación estimada</th><th>Alcance</th><th>Resultado</th><th>Aviso / acción</th></tr>';
-  $('occupancy-help').textContent=data.visibility==='partial'?'Porcentaje limitado a la zona visible. El nivel completo queda pendiente de revisión.':data.visibility==='occluded'?'Medición suspendida: toma otra foto sin el objeto delante.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':'Rojo bajo el 30 % y verde desde el 30 % solo en áreas con visibilidad confirmada. Los recortes requieren revisión. Estimación experimental.';
+  $('occupancy-help').textContent=data.visibility==='partial'?'Porcentaje limitado a la zona visible. El nivel completo queda pendiente de revisión.':data.visibility==='occluded'?'Medición suspendida: toma otra foto sin el objeto delante.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
   $('level-occupancy').hidden=!total;
 
   $('occupancy-rows').innerHTML=data.detections.map(d=>{
@@ -1104,6 +1102,9 @@ $('form').addEventListener('submit',async e=>{
   $('error').hidden=true;
   resetResult();
   $('progress').hidden=false;
+  $('scan-overlay').hidden=false;
+  $('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Analizando foto…';
+  if(matchMedia('(max-width:860px)').matches)setMobileStep('2');
   $('stage').setAttribute('aria-busy','true');
   availability();
   try{
@@ -1118,9 +1119,15 @@ $('form').addEventListener('submit',async e=>{
   }finally{
     running=false;
     $('progress').hidden=true;
+    $('scan-overlay').hidden=true;
     $('stage').setAttribute('aria-busy','false');
     availability();
   }
+});
+
+document.addEventListener('visibilitychange',()=>{
+  const overlay=$('scan-overlay');
+  if(overlay){if(document.hidden)overlay.classList.add('is-paused');else overlay.classList.remove('is-paused')}
 });
 
 window.addEventListener('pagehide',()=>{if(cameraStream)cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null;cameraRequest++;if(originalUrl)URL.revokeObjectURL(originalUrl)});

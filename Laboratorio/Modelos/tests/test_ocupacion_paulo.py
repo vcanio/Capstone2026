@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 import numpy as np
 
-from ocupacion_paulo import Analyzer, Parameters, provenance, paulo
+from ocupacion_paulo import Analyzer, Parameters, provenance, paulo, contiguous_column_coverage
 from experimentar_paulo import development_entries
 import panel_modelos as panel
 
@@ -28,11 +28,8 @@ class SignalTests(unittest.TestCase):
         image[360:470, 420:540] = np.random.default_rng(23).integers(0, 240, (110, 120, 3), dtype=np.uint8)
         mask = np.ones(image.shape[:2], np.uint8)
         measured = Analyzer(image, version='v2').analyze(mask)
-        self.assertGreaterEqual(measured['combined_signal_pct'], 30)
         self.assertLess(measured['upper_half_signal_share'], .95)
-        self.assertEqual(measured['signal_pattern'], 'peripheral_ambiguity')
-        self.assertEqual(occupancy_estimate(measured, 'v2')['state'], 'revisar')
-        self.assertIsNone(occupancy_estimate(measured, 'v2')['pct'])
+        self.assertNotEqual(occupancy_estimate(measured, 'v2')['state'], 'suficiente')
         # La misma periferia con producto contrastado en el centro es medible.
         image[160:350, 200:760] = np.random.default_rng(22).integers(0, 240, (190, 560, 3), dtype=np.uint8)
         measured = Analyzer(image, version='v2').analyze(mask)
@@ -46,17 +43,37 @@ class SignalTests(unittest.TestCase):
         image[20:180] = np.random.default_rng(7).integers(0, 240, (160, 960, 3), dtype=np.uint8)
         mask = np.ones(image.shape[:2], np.uint8)
         measured = Analyzer(image, version='v2').analyze(mask)
-        self.assertGreaterEqual(measured['combined_signal_pct'], 30)
         self.assertTrue(measured['review_required'])
         self.assertEqual(measured['signal_pattern'], 'upper_band_only')
         reading = occupancy_estimate(measured, 'v2')
         self.assertEqual(reading['state'], 'revisar')
         self.assertIsNone(reading['pct'])
-        # The same visual evidence near the support is not suppressed.
+        # Una banda aislada tampoco certifica ocupación en la base.
         lower = np.flipud(image).copy()
         measured = Analyzer(lower, version='v2').analyze(mask)
-        self.assertFalse(measured['review_required'])
-        self.assertIsNotNone(occupancy_estimate(measured, 'v2')['pct'])
+        self.assertNotEqual(occupancy_estimate(measured, 'v2')['state'], 'suficiente')
+
+    def test_width_requires_a_continuous_run_and_respects_mask_gaps(self):
+        usable = np.ones((10, 3), dtype=bool)
+        active = np.zeros_like(usable)
+        active[2:7, 0] = True
+        active[[0, 2, 4, 6, 8], 1] = True
+        active[2:7, 2] = True
+        usable[4, 2] = False
+        self.assertAlmostEqual(contiguous_column_coverage(active, usable, .45), 100 / 3)
+
+    def test_empty_colored_bands_in_any_position_never_certify_stock(self):
+        from presentacion_niveles import occupancy_estimate
+        mask = np.ones((480, 960), np.uint8)
+        for color in ((240, 210, 10), (10, 50, 240), (240, 20, 20), (245, 245, 245)):
+            for top in (30, 190, 350):
+                with self.subTest(color=color, top=top):
+                    image = np.full((480, 960, 3), 100, np.uint8)
+                    image[top:top+90] = color
+                    result = Analyzer(image, version='v2').analyze(mask)
+                    self.assertNotEqual(occupancy_estimate(result, 'v2')['state'], 'suficiente')
+                    self.assertEqual(len(result['vertical_signal_thirds']), 3)
+                    self.assertIn('width_area_gap_pct', result)
 
     def test_faint_horizontal_rails_cannot_reactivate_through_texture_or_closing(self):
         import cv2
@@ -71,7 +88,7 @@ class SignalTests(unittest.TestCase):
                 self.assertFalse(analyzer.signal.any())
                 self.assertEqual(result['area_signal_pct'], 0)
                 self.assertEqual(result['width_signal_pct'], 0)
-                self.assertEqual(result['structure_policy'], 'rieles_horizontales_v1')
+                self.assertEqual(result['structure_policy'], 'rieles_fragmentados_inferiores_v2' if version == 'v2' else 'rieles_horizontales_v1')
 
     def test_rail_suppression_preserves_product_color_and_vertical_edges(self):
         import cv2
@@ -90,7 +107,7 @@ class SignalTests(unittest.TestCase):
                 self.assertGreater(analyzer.signal[55:160, 110:170].mean(), .9)
                 self.assertFalse(analyzer.structures[55:160, 110:170].any())
 
-    def test_weighted_v2_combines_area_and_raw_column_coverage(self):
+    def test_weighted_v2_combines_area_and_contiguous_column_coverage(self):
         image = np.full((480, 960, 3), 255, dtype=np.uint8)
         image[330:] = np.random.default_rng(42).integers(0, 230, (150, 960, 3), dtype=np.uint8)
         mask = np.ones(image.shape[:2], np.uint8)
@@ -98,7 +115,7 @@ class SignalTests(unittest.TestCase):
             analyzer = Analyzer(image, replace(Parameters(), opening=1, surface_weight=weight), version='v2')
             result = analyzer.analyze(mask)
             self.assertEqual(result['method'], 'paulo_mascara_v2_combinacion_ponderada')
-            self.assertGreater(result['width_signal_pct'], 90)
+            self.assertLess(result['width_signal_pct'], 30)
             self.assertLess(result['area_signal_pct'], 60)
             self.assertAlmostEqual(result['combined_signal_pct'],
                 weight*result['area_signal_pct']+(1-weight)*result['width_signal_pct'], delta=.02)

@@ -14,7 +14,7 @@ def apply_scope(detections, visibility, width, height):
         points = detection['display_polygon']
         near_frame = any(x <= 2 or y <= 2 or x >= width - 3 or y >= height - 3 for x, y in points)
         partial = visibility == 'partial' or near_frame
-        detection['scope'] = 'Visibilidad insuficiente' if visibility == 'occluded' else 'Solo zona visible' if partial else 'Área detectada · visibilidad confirmada'
+        detection['scope'] = 'Visibilidad insuficiente' if visibility == 'occluded' else 'Solo zona visible' if partial else 'Área detectada · señal experimental'
         detection['notice'] = ('Objeto delante: toma otra foto sin obstáculos.' if visibility == 'occluded' else
                                'Contorno junto al encuadre: revisa lo que queda fuera.' if near_frame else
                                'Foto recortada: revisa la parte no visible.' if partial else
