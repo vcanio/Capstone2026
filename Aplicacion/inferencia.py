@@ -96,7 +96,7 @@ class ModelRunner:
                              note=('Este modelo base distingue reponer y suficiente; no reconoce no evaluable.'
                                    if set(classes) == set(V2_CLASSES) else 'No evaluable se comunica por separado y no significa vacío.'))
                 if classes == ['Nivel']:
-                    value.update(geometry_only=True, minimum_confidence=.6, default_confidence=.6,
+                    value.update(geometry_only=True, minimum_confidence=.4, default_confidence=.6,
                                  note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; confirma la visibilidad de la foto.')
             models.append(value)
         return models
@@ -116,8 +116,8 @@ class ModelRunner:
         if geometry:
             from vision_v3 import visibility_check
             visibility_check(visibility)
-            if confidence < .6:
-                raise ValueError('La confianza mínima de V3 es 0,60.')
+            if confidence < .4:
+                raise ValueError('La confianza mínima de V3 es 0,40.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:

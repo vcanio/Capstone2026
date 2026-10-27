@@ -4,7 +4,7 @@ Interfaz local simplificada del 26 de octubre de 2026, sobre el modelo cerrado e
 
 ## Usar la aplicación
 
-En Windows, extraer todo el ZIP y abrir `iniciar.cmd`. En Docker, ejecutar `docker compose up --build -d --wait` desde la carpeta extraída. Abrir http://127.0.0.1:8095. La primera preparación puede requerir conexión para instalar dependencias; después la inferencia es local. Las fotos no se guardan ni se incorporan al entrenamiento.
+En Windows, extraer todo el ZIP y abrir `iniciar.cmd`. En Docker, ejecutar `docker compose up --build -d --wait` desde la carpeta extraída. Abrir http://127.0.0.1:8095. La primera preparación puede requerir conexión para instalar dependencias; después la inferencia es local. Las fotos no se incorporan al entrenamiento. La sesión del lote, incluidas las fotos, se guarda en el navegador de este equipo para recuperarla; puede eliminarse desde la aplicación.
 
 1. Seleccionar una foto JPG, PNG o WebP de hasta 15 MB.
    También puedes elegir **Tomar foto con guía** y permitir el acceso a la cámara. El marco y las líneas ayudan a encuadrar; no son detecciones ni se incorporan a la foto. Revisa la imagen antes de analizarla. La cámara necesita una conexión segura HTTPS o acceso desde el propio equipo (localhost).

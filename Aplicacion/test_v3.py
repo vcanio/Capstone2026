@@ -69,9 +69,9 @@ class RunnerV3Tests(unittest.TestCase):
         runner = ModelRunner(self.root)
         with self.assertRaisesRegex(ValueError, 'visibilidad|Indica'):
             runner.analyze(photo(), 'fixture', .6)
-        with self.assertRaisesRegex(ValueError, '0,60'):
-            runner.analyze(photo(), 'fixture', .59, visibility='clear')
+        with self.assertRaisesRegex(ValueError, '0,40'):
+            runner.analyze(photo(), 'fixture', .39, visibility='clear')
         with patch.dict('sys.modules', {'torch': None, 'ultralytics': None}):
-            result = runner.analyze(photo(), 'fixture', .6, visibility='person')
+            result = runner.analyze(photo(), 'fixture', .4, visibility='person')
         self.assertEqual(result['photo_status'], 'gondola_tapada')
         self.assertTrue(runner.available()[0]['geometry_only'])
