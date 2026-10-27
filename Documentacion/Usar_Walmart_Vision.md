@@ -4,7 +4,7 @@ Esta guía corresponde a **V3, publicada el 26 de octubre de 2026**. Descarga el
 
 ## Abrir la aplicación
 
-Descarga [`Walmart_Vision_V3_20261026.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) y extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
+Descarga [`Walmart_Vision_V3_20261027.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip) y extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
 
 **Windows:** abre `Walmart_Vision/iniciar.cmd`. El iniciador prepara las dependencias en el primer uso. Después se abre el visor en [http://127.0.0.1:8095](http://127.0.0.1:8095).
 
@@ -31,9 +31,9 @@ La perspectiva oblicua cambia las alturas y anchuras aparentes, oculta huecos de
 3. Pulsa **Analizar foto**.
 4. Comprueba los contornos y los avisos antes de interpretar los porcentajes.
 
-El análisis utiliza automáticamente el modelo V3 vigente, niveles y detección de bordes, con confianza fija 0,60. No hay que elegir modelos ni ajustar parámetros. La confianza de detección y la ocupación son medidas diferentes.
+El análisis utiliza automáticamente el modelo V3 vigente, niveles y detección de bordes, con confianza inicial 0,60, ajustable desde 0,40. No hay que elegir modelos. La confianza de detección y la ocupación son medidas diferentes.
 
-Las fotografías se procesan en memoria en el computador y no se guardan ni se añaden al entrenamiento.
+Las fotografías se procesan localmente y no se añaden al entrenamiento. La sesión del lote, incluidas las fotos, se guarda en el navegador del equipo y puede eliminarse desde «Borrar sesión guardada».
 
 ## Indicar la visibilidad
 
@@ -64,7 +64,7 @@ Sin niveles detectados, toma otra foto más frontal. La ausencia de detecciones 
 
 ## Qué es el mapa de señal
 
-El amarillo destaca zonas que activan el análisis de bordes, color y textura. Puede marcar envases, pero también carteles o fondos. Una zona sin amarillo tampoco garantiza que esté vacía.
+El fucsia destaca zonas que activan el análisis de bordes, color y textura. Puede marcar envases, pero también carteles o fondos. Una zona sin señal fucsia tampoco garantiza que esté vacía.
 
 El mapa sirve para revisar por qué se obtuvo una estimación. No es una segmentación confirmada de productos ni un porcentaje real de inventario.
 
