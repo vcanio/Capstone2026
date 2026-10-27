@@ -6,7 +6,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
 | Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
 ## Explorar las carpetas
@@ -56,7 +56,7 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261026.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
+**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261027.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales
 
@@ -74,7 +74,7 @@ Descarga el paquete V3 enlazado arriba y sigue estos pasos:
 4. Indica si la góndola se ve completa, recortada o tapada.
 5. Pulsa **Analizar foto** y revisa **Original**, **Niveles**, **Bordes** y **Comparar**.
 
-El modelo, el análisis de niveles y bordes y la confianza **0,60** están fijados. No necesitas elegir un modelo ni ajustar parámetros.
+El modelo y el análisis de niveles y bordes están fijados. La confianza inicial es **0,60** y puede ajustarse desde **0,40**.
 
 ### Docker, incluido macOS
 
@@ -88,12 +88,12 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261026.zip), con visor y modelo. |
+| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip), con visor y modelo. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
 | Fotografías | JPG, PNG o WebP de hasta 15 MB; se procesan localmente en memoria. |
-| Privacidad | La app no guarda las fotos ni las incorpora al entrenamiento. |
+| Privacidad | La sesión del lote, incluidas las fotos, se guarda en el navegador local y puede eliminarse desde la app; las fotos no se incorporan al entrenamiento. |
 
 > **Para desarrollar:** el repositorio incluye el peso V3 y el preparador de Windows. El ZIP de la release conserva su version publicada y puede diferir de `main`.
 
@@ -148,7 +148,7 @@ Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando
 
 ### Qué significan los bordes y cómo se calcula la ocupación
 
-En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el amarillo de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
+En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el fucsia de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
 
 El cálculo sigue estas etapas:
 
@@ -158,7 +158,7 @@ El cálculo sigue estas etapas:
 4. **Calcula la estimación:** `ocupación estimada = 0,70 × A + 0,30 × W`. Por ejemplo, A = 40 % y W = 80 % producen **52 %**.
 5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, siempre que la medición, la visibilidad y las reglas de abstención lo permitan.
 
-El ancho no pregunta solo si una columna tiene algún píxel activo: exige señal en al menos el **20 % de sus celdas utilizables**. El área y el ancho aportan información distinta: unos productos bajos extendidos a lo largo del estante pueden cubrir poco área y mucho ancho.
+El ancho no pregunta solo si una columna tiene algún píxel activo: exige un tramo continuo de señal en al menos el **45 % de la altura útil de la columna**. El área y el ancho aportan información distinta: unos productos bajos extendidos a lo largo del estante pueden cubrir poco área y mucho ancho.
 
 <details>
 <summary>Detalle técnico de la señal actual</summary>
@@ -169,7 +169,7 @@ Estos pesos describen la **construcción del mapa por celda**. Son distintos de 
 
 </details>
 
-**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona amarilla no confirma producto y una zona sin amarillo no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
+**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona con señal fucsia no confirma producto y una zona sin señal no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
 
 ### Cuándo se abstiene y pide revisión
 
@@ -258,7 +258,7 @@ flowchart LR
     UI -->|"Descarga solicitada"| OUTPUT["Imagen de resultado"]
 ```
 
-El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` decide qué etapas ejecutar: si la persona indica una góndola tapada por alguien, devuelve el aviso sin ejecutar YOLO ni ocupación; con un objeto delante conserva la localización de niveles y suspende la medición. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario; la app no archiva las fotografías cargadas.
+El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` decide qué etapas ejecutar: si la persona indica una góndola tapada por alguien, devuelve el aviso sin ejecutar YOLO ni ocupación; con un objeto delante conserva la localización de niveles y suspende la medición. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La sesión del lote, incluidas las fotografías, se guarda en el navegador local y se puede eliminar desde la aplicación.
 
 CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del primer diagrama. **No son dependencias del visor durante la inferencia**: la app distribuida incluye el modelo y los módulos que necesita para analizar fotos.
 
