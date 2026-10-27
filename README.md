@@ -347,14 +347,16 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 
 | Ruta | Contenido |
 |---|---|
+| [`Aplicacion/`](Aplicacion/README.md) | Aplicación Walmart Visión V3: visor, análisis de fotos e iniciadores para Windows y Docker. |
 | [`Datos/`](Datos/README.md) | Procedencias, anotaciones, particiones y selección del afinado. |
-| [`Laboratorio/`](Laboratorio/README.md) | Visor, laboratorio, procesamiento y verificadores. |
-| [`Modelos/`](Modelos/README.md) | Identidad del modelo vigente y recursos generales de desarrollo. |
-| [`Laboratorio/Experimentos/`](Laboratorio/Experimentos/README.md) | Resultados y trazabilidad de los ensayos. |
-| [`Documentacion/`](Documentacion/README.md) | Guías, criterios, planificación y material académico. |
-| [`Entregables/`](Entregables/README.md) | Estado de distribución de la app y material académico. |
+| [`Documentacion/`](Documentacion/README.md) | Guías de uso, criterios V3, decisiones técnicas y documentación de desarrollo. |
+| [`Entregables/`](Entregables/README.md) | Acceso a la distribución publicada de la app y entregas académicas. |
+| [`Fase 1/`](Fase%201/) | Material académico de la primera fase, conservado en su ubicación original. |
+| [`Fase 2/`](Fase%202/) | Material académico de la segunda fase, conservado en su ubicación original. |
+| [`Historico/`](Historico/README.md) | Documentación, experimentos y registros de reproducibilidad de etapas anteriores. |
 | [`Infraestructura/`](Infraestructura/README.md) | Configuración técnica de servicios y entornos. |
-| [`Historico/`](Historico/README.md) | Manifiestos y comprobaciones de entregas fechadas. |
+| [`Laboratorio/`](Laboratorio/README.md) | Herramientas de datos, CVAT, entrenamiento, evaluación y reproducibilidad; incluye [experimentos](Laboratorio/Experimentos/README.md). |
+| [`Modelos/`](Modelos/README.md) | Referencia del modelo V3 vigente y preentrenados generales para desarrollo. |
 
 ### Material académico y demostración
 
