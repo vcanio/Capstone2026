@@ -1,5 +1,6 @@
 """Auditoría del código publicable; funciona antes de descargar datos y modelos."""
 import ast
+import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -85,7 +86,12 @@ def verify(root=ROOT):
             raise ValueError('Archivo privado visible para Git: ' + rel)
         if path.name == 'acceso_local.json' or (path.name.startswith('.env') and not path.name.endswith('.example')):
             raise ValueError('Archivo privado visible para Git: ' + rel)
-        if path.suffix.lower() in ('.pt', '.zip') or path.stat().st_size >= 50 * 1024**2:
+        if rel == 'Aplicacion/modelos/V3-YOLO26.pt':
+            manifest = json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))
+            model = next((item for item in manifest['models'] if item['file'] == 'modelos/V3-YOLO26.pt'), None)
+            if not model or hashlib.sha256(path.read_bytes()).hexdigest() != model['sha256']:
+                raise ValueError('El peso de la aplicacion no coincide con su manifiesto.')
+        elif path.suffix.lower() in ('.pt', '.zip') or path.stat().st_size >= 50 * 1024**2:
             raise ValueError('Binario o archivo grande fuera de Releases: ' + rel)
         if path.suffix == '.json':
             if secret_fields(json.loads(path.read_text(encoding='utf-8-sig'))):

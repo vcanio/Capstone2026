@@ -21,7 +21,7 @@ class Element {
   focus(){document.activeElement=this}
   scrollIntoView(){}
 }
-global.document={getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id)},querySelector(selector){return this.getElementById(selector)}};
+global.document={getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id)},querySelector(selector){return this.getElementById(selector)},addEventListener(){}};
 global.window={addEventListener(){}};
 global.matchMedia=()=>({matches:false});
 global.URL.createObjectURL=()=> 'blob:original';global.URL.revokeObjectURL=()=>{};
@@ -34,6 +34,33 @@ function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detectio
 
 
 class VisionInterfaceTests(unittest.TestCase):
+    def test_camera_closes_tracks_and_ignores_late_permission(self):
+        self.js("""
+        let resolveCamera, stopped=0;
+        Object.defineProperty(global,'navigator',{configurable:true,value:{mediaDevices:{getUserMedia:()=>new Promise(resolve=>{resolveCamera=resolve})}}});
+        const opening=openCamera();
+        assert.equal($('camera-dialog').hidden,false);
+        closeCamera();
+        resolveCamera({getTracks:()=>[{stop(){stopped++}}]});
+        await opening;
+        assert.equal(stopped,1);assert.equal(cameraStream,null);
+        assert.equal($('camera-dialog').hidden,true);
+        """)
+
+    def test_camera_capture_selects_photo_and_stops_stream(self):
+        self.js("""
+        let stopped=0;
+        Object.defineProperty(global,'navigator',{configurable:true,value:{mediaDevices:{getUserMedia:async()=>({getTracks:()=>[{stop(){stopped++}}]})}}});
+        $('camera-video').play=async()=>{};
+        $('camera-video').videoWidth=1920;$('camera-video').videoHeight=1080;
+        document.createElement=()=>({getContext:()=>({drawImage(){}}),toBlob:callback=>callback(new Blob(['photo'],{type:'image/jpeg'}))});
+        global.File=class extends Blob {constructor(parts,name,options){super(parts,options);this.name=name}};
+        await openCamera();assert.equal($('camera-capture').disabled,false);
+        captureCamera();
+        assert.equal(stopped,1);assert.equal($('camera-dialog').hidden,true);
+        assert.equal(file.name,'gondola.jpg');assert.equal($('analyze').disabled,false);
+        """)
+
     def test_v3_requires_visibility_uses_minimum_and_does_not_call_partial_sufficient(self):
         self.js("""
         currentModel={id:'V3',name:'V3',geometry_only:true,minimum_confidence:.6,guide:'V3'};modelContext();

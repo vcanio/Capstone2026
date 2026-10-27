@@ -162,7 +162,7 @@ with niveles_view:
     display(prediccion['image'])
 with bordes_view:
     if usar_bordes:
-        print('Amarillo: señal experimental. Los colores de Niveles usan la ocupación estimada y el umbral del 30 %.')
+        print('Fucsia: señal experimental. Los colores de Niveles usan la ocupación estimada y el umbral del 30 %.')
         display(prediccion['occupancy_image'])
         display(prediccion['filtered_edges_image'])
         display(prediccion['edges_image'])

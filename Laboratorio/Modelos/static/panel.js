@@ -439,7 +439,7 @@ function renderEdgeLayer(){
 }
 function renderEdgeViews(job){
   edgeLayers=job.result.occupancy?[
-    {id:'signal',name:'Mapa de señal',url:job.occupancy_image_url,help:'Amarillo: señal dentro de cada nivel. Los números corresponden a los niveles detectados.'},
+    {id:'signal',name:'Mapa de señal',url:job.occupancy_image_url,help:'Fucsia: señal dentro de cada nivel. Los números corresponden a los niveles detectados.'},
     {id:'levels',name:'Bordes de los niveles',url:job.occupancy_filtered_edges_url,help:'Bordes filtrados dentro de los niveles analizados. Los niveles sin medición quedan negros.'},
     {id:'photo',name:'Bordes de toda la foto',url:job.occupancy_edges_url,help:'Bordes obtenidos de la foto original, sin colores ni etiquetas de YOLO.'}
   ].filter(layer=>layer.url):[];

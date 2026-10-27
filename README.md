@@ -95,7 +95,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 | Fotografías | JPG, PNG o WebP de hasta 15 MB; se procesan localmente en memoria. |
 | Privacidad | La app no guarda las fotos ni las incorpora al entrenamiento. |
 
-> **Descarga correcta:** el archivo automático **“Source code (zip)”** de GitHub contiene fuentes, sin el modelo operativo necesario para ejecutar el candidato V3.
+> **Para desarrollar:** el repositorio incluye el peso V3 y el preparador de Windows. El ZIP de la release conserva su version publicada y puede diferir de `main`.
 
 **Material para explorar:** [6 imágenes de ejemplo en Google Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing), con tres fotografías reales y tres variantes sintéticas. Fueron seleccionadas para una demostración anterior; sirven para inspeccionar casos, no para acreditar precisión de la V3 ni como evaluación independiente.
 

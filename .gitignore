@@ -89,3 +89,9 @@ Datos/Publicos/comparacion.jpg
 /Aplicacion/modelos/
 /Aplicacion/.runtime/
 /Aplicacion/.entorno-py312/
+
+# Modelo y preparador necesarios para ejecutar la app desde un clon.
+!/Aplicacion/modelos/
+/Aplicacion/modelos/*
+!/Aplicacion/modelos/V3-YOLO26.pt
+!/Aplicacion/herramientas/uv.exe

@@ -426,6 +426,19 @@ table.edge-table th{color:var(--muted);font-weight:600}
     min-height:36px!important;
   }
 }
+.camera-open{width:100%;margin:10px 0 0;padding:12px;border:1px solid var(--blue-bright);border-radius:10px;background:transparent;color:var(--blue-bright);font:inherit;font-weight:700;cursor:pointer}
+.camera-dialog{position:fixed;inset:0;z-index:1000;background:#0b1523;color:#fff;display:flex;flex-direction:column;padding:16px;gap:12px;overflow:auto}
+.camera-dialog[hidden]{display:none}
+.camera-top,.camera-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:760px;width:100%;margin:0 auto}
+.camera-top h2{font-size:18px;margin:0}.camera-top button,.camera-actions button{font:inherit;cursor:pointer;border-radius:10px;padding:12px 18px}
+.camera-close{background:transparent;color:#fff;border:1px solid #a4b3c5}.camera-capture{background:#fff;color:#102a4a;border:0;font-weight:700;flex:1}
+.camera-stage{position:relative;flex:1;min-height:220px;max-width:760px;width:100%;margin:0 auto;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.camera-preview{position:relative;display:inline-block;line-height:0;max-width:100%;max-height:100%}
+.camera-preview video{display:block;max-width:100%;max-height:calc(100dvh - 220px);width:auto;height:auto}
+.camera-guide{position:absolute;inset:9% 8%;border:2px solid #fff;border-radius:4px;box-shadow:0 0 0 1px #172c40;pointer-events:none}
+.camera-guide:before,.camera-guide:after{content:'';position:absolute;left:0;right:0;border-top:1px dashed #fff;filter:drop-shadow(0 1px 1px #172c40)}
+.camera-guide:before{top:33.33%}.camera-guide:after{top:66.66%}
+.camera-help{max-width:760px;margin:0 auto;text-align:center;font-size:14px;line-height:1.4;color:#e1e9f2}.camera-status{min-height:1.4em;color:#ffdcaa}
 </style>
 </head>
 <body>
@@ -501,6 +514,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
                 <input type="file" id="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="file-help">
               </label>
               <p id="file-help" class="file-note hint">JPG, PNG o WebP · hasta 15 MB</p>
+              <button class="camera-open" id="camera-open" type="button">Tomar foto con guía</button>
             </div>
 
             <div class="visibility-group form-group" id="visibility-group" hidden>
@@ -571,7 +585,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
                   <option value="filtered_edges_image_url">Bordes dentro de los niveles</option>
                   <option value="edges_image_url">Bordes de la foto</option>
                 </select>
-                <p id="edge-note" class="edge-note hint">Amarillo: señal experimental dentro de los niveles.</p>
+                <p id="edge-note" class="edge-note hint">Fucsia: señal experimental dentro de los niveles.</p>
               </div>
 
               <div class="viewer">
@@ -667,6 +681,13 @@ table.edge-table th{color:var(--muted);font-weight:600}
   </div>
 </main>
 
+<section id="camera-dialog" class="camera-dialog" role="dialog" aria-modal="true" aria-labelledby="camera-title" hidden>
+  <div class="camera-top"><h2 id="camera-title">Encuadra la góndola</h2><button type="button" class="camera-close" id="camera-close">Cerrar</button></div>
+  <div class="camera-stage"><div class="camera-preview"><video id="camera-video" autoplay playsinline muted></video><div class="camera-guide" aria-hidden="true"></div></div></div>
+  <p class="camera-help">Ponte de frente y alinea los extremos de la góndola con el marco. Las líneas son solo una guía; no necesitan coincidir con las repisas.</p>
+  <p class="camera-help camera-status" id="camera-status" role="status"></p>
+  <div class="camera-actions"><button class="camera-capture" id="camera-capture" type="button" disabled>Tomar foto</button></div>
+</section>
 <script>
 const $=id=>document.getElementById(id),defaultStates=[['reponer','Reponer','#dc2626'],['suficiente','Suficiente','#16a34a']];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -770,6 +791,61 @@ function view(mode){
   $('viewport').setAttribute('aria-labelledby','view-'+mode);
 }
 
+let cameraStream=null,cameraRequest=0;
+function closeCamera(){
+  cameraRequest++;
+  if(cameraStream)cameraStream.getTracks().forEach(track=>track.stop());
+  cameraStream=null;$('camera-video').srcObject=null;$('camera-dialog').hidden=true;
+  $('camera-capture').disabled=true;$('camera-open').focus();
+}
+async function openCamera(){
+  if(running)return;
+  const request=++cameraRequest;
+  $('camera-dialog').hidden=false;$('camera-close').focus();$('camera-capture').disabled=true;
+  $('camera-status').textContent='Preparando cámara…';
+  if(!navigator.mediaDevices?.getUserMedia){$('camera-status').textContent='La cámara no está disponible aquí. Usa una conexión segura o selecciona una foto.';return}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+    if(request!==cameraRequest){stream.getTracks().forEach(track=>track.stop());return}
+    cameraStream=stream;$('camera-video').srcObject=stream;
+    await $('camera-video').play();
+    if(request!==cameraRequest)return;
+    $('camera-status').textContent='';$('camera-capture').disabled=false;
+  }catch(e){
+    if(request!==cameraRequest)return;
+    if(cameraStream)cameraStream.getTracks().forEach(track=>track.stop());
+    cameraStream=null;$('camera-video').srcObject=null;
+    $('camera-status').textContent='No se pudo abrir la cámara. Revisa el permiso o selecciona una foto.';
+  }
+}
+function captureCamera(){
+  const video=$('camera-video');
+  if(!cameraStream||!video.videoWidth||!video.videoHeight){$('camera-status').textContent='Espera a que la cámara esté lista.';return}
+  const canvas=document.createElement('canvas');
+  const scale=Math.min(1,Math.sqrt(24000000/(video.videoWidth*video.videoHeight)));
+  canvas.width=Math.floor(video.videoWidth*scale);canvas.height=Math.floor(video.videoHeight*scale);
+  canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+  $('camera-capture').disabled=true;
+  const request=cameraRequest;
+  canvas.toBlob(blob=>{
+    if(!cameraStream||request!==cameraRequest)return;
+    if(!blob){$('camera-status').textContent='No se pudo tomar la foto. Inténtalo de nuevo.';$('camera-capture').disabled=false;return}
+    const photo=new File([blob],'gondola.jpg',{type:'image/jpeg'});
+    closeCamera();choose(photo);
+  },'image/jpeg',0.9);
+}
+$('camera-open').addEventListener('click',openCamera);
+$('camera-close').addEventListener('click',closeCamera);
+$('camera-capture').addEventListener('click',captureCamera);
+document.addEventListener('keydown',event=>{
+  if($('camera-dialog').hidden)return;
+  if(event.key==='Escape'){event.preventDefault();closeCamera()}
+  if(event.key==='Tab'){
+    const first=$('camera-close'),last=$('camera-capture').disabled?first:$('camera-capture');
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+  }
+});
 function choose(selected){
   if(!selected||running)return;
   $('file').value='';$('error').hidden=true;
@@ -1047,7 +1123,7 @@ $('form').addEventListener('submit',async e=>{
   }
 });
 
-window.addEventListener('pagehide',()=>{if(originalUrl)URL.revokeObjectURL(originalUrl)});
+window.addEventListener('pagehide',()=>{if(cameraStream)cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null;cameraRequest++;if(originalUrl)URL.revokeObjectURL(originalUrl)});
 
 (async()=>{
   try{

@@ -6,6 +6,8 @@
 !app.py
 !inferencia.py
 !geometria_niveles.py
+!presentacion_niveles.py
+!vision_v3.py
 !interfaz.html
 !modelos.json
 !ocupacion_paulo.py

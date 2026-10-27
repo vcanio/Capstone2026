@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 METHOD = 'paulo_mascara_v2_color_textura'
 WEIGHTED_METHOD = 'paulo_mascara_v2_combinacion_ponderada'
 STRUCTURE_POLICY = 'rieles_horizontales_v1'
+FRAGMENTED_STRUCTURE_POLICY = 'rieles_fragmentados_inferiores_v2'
 
 
 def horizontal_structures(edges, cell):
@@ -28,6 +29,60 @@ def horizontal_structures(edges, cell):
         for x1, y1, x2, y2 in np.asarray(lines).reshape(-1, 4):
             if abs(x2-x1) >= minimum and abs(y2-y1) <= .12*abs(x2-x1):
                 cv2.line(blocked, (int(x1), int(y1)), (int(x2), int(y2)), 1, max(7, round(cell*.5)))
+    return blocked
+
+
+def fragmented_lower_rails(edges, cell):
+    """Agrupa tramos casi colineales de barandas en el tercio inferior.
+
+    Exige cobertura horizontal extensa; no extrapola a través de huecos
+    grandes ni elimina una franja inferior fija o los lados de los envases.
+    El margen incluye el halo de los filtros de gradiente/color/textura.
+    """
+    height, width = edges.shape
+    blocked = np.zeros_like(edges, dtype=np.uint8)
+    lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=30,
+                           minLineLength=max(2*cell, round(.08*width)), maxLineGap=10)
+    if lines is None:
+        return blocked
+    candidates = []
+    for x1, y1, x2, y2 in np.asarray(lines).reshape(-1, 4):
+        if x2 < x1:
+            x1, y1, x2, y2 = x2, y2, x1, y1
+        if x2 == x1 or abs(y2-y1) > .08*(x2-x1) or min(y1, y2) < .65*height:
+            continue
+        slope = (y2-y1)/(x2-x1)
+        center_y = y1 + slope*(width/2-x1)
+        candidates.append((center_y, slope, int(x1), int(x2)))
+    groups = []
+    tolerance = max(3, round(cell*.25))
+    for line in sorted(candidates):
+        if not groups or line[0]-groups[-1][0][0] > tolerance:
+            groups.append([])
+        groups[-1].append(line)
+    for group in groups:
+        spans = []
+        for _, _, left, right in sorted(group, key=lambda item: item[2]):
+            if spans and left <= spans[-1][1]:
+                spans[-1][1] = max(spans[-1][1], right)
+            else:
+                spans.append([left, right])
+        covered = sum(right-left for left, right in spans)
+        if covered < .5*width or spans[-1][1]-spans[0][0] < .65*width:
+            continue
+        center_y = float(np.median([line[0] for line in group]))
+        slope = float(np.median([line[1] for line in group]))
+        # Join only small gaps supported by nearby collinear segments.
+        joined = []
+        for left, right in spans:
+            if joined and left-joined[-1][1] <= max(10, round(.03*width)):
+                joined[-1][1] = right
+            else:
+                joined.append([left, right])
+        for left, right in joined:
+            cv2.line(blocked, (left, round(center_y+slope*(left-width/2))),
+                     (right, round(center_y+slope*(right-width/2))), 1,
+                     max(7, round(cell*.5)+4))
     return blocked
 
 
@@ -59,7 +114,7 @@ def paulo(version='v1'):
         raise ValueError('Versión de bordes inválida.')
     filename = 'gondola_combinacion_ponderada.py' if version == 'v2' else 'gondola_bordes.py'
     portable = Path(__file__).with_name(filename)
-    source = portable if portable.is_file() else ROOT / 'Laboratorio/Experimentos/Bordes' / filename
+    source = portable if portable.is_file() else ROOT / 'Experimentos/Bordes' / filename
     spec = importlib.util.spec_from_file_location('paulo_' + version, source)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -72,11 +127,11 @@ def provenance(version='v1', parameters=None):
     portable = Path(__file__).with_name('gondola_bordes.py')
     base = Path(__file__).parent if portable.is_file() else ROOT
     files = ([Path(__file__), portable] if portable.is_file() else
-             [Path(__file__), ROOT / 'Laboratorio/Experimentos/Bordes/gondola_bordes.py',
-              ROOT / 'Laboratorio/Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py'])
+             [Path(__file__), ROOT / 'Experimentos/Bordes/gondola_bordes.py',
+              ROOT / 'Experimentos/Bordes/Versiones/gondola_bordes_paulo_20261020.py'])
     if version == 'v2':
         files.append(base / ('gondola_combinacion_ponderada.py' if portable.is_file() else
-                             'Laboratorio/Experimentos/Bordes/gondola_combinacion_ponderada.py'))
+                             'Experimentos/Bordes/gondola_combinacion_ponderada.py'))
     return {'method': WEIGHTED_METHOD if version == 'v2' else METHOD,
             'parameters': asdict(parameters or Parameters(opening=1 if version == 'v2' else 3)),
             'interpretation_policy': ({'name': 'spatial_signal_abstention_v2', 'upper_height_fraction': .5,
@@ -87,7 +142,7 @@ def provenance(version='v1', parameters=None):
                                        'absolute_edge_density': .012,
                                        'absolute_gradient': 16, 'absolute_deviation': 9} if version == 'v2' else None),
             'mask_policy': 'yolo_raster_v1',
-            'structure_policy': STRUCTURE_POLICY,
+            'structure_policy': FRAGMENTED_STRUCTURE_POLICY if version == 'v2' else STRUCTURE_POLICY,
             'sources': {p.relative_to(base).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
             'calibrated': False, 'changes_yolo_state': False,
             'meaning': 'Señal de bordes/color/textura; no porcentaje validado de producto ni confianza YOLO.'}
@@ -167,6 +222,13 @@ class Analyzer:
         # deben ser bandas finas, no ocupar una parte extensa del nivel.
         if float((structure*region).sum()) > .20*float(region.sum()):
             structure.fill(0)
+        reference_observed = region * (1-structure)
+        if self.version == 'v2':
+            fragments = fragmented_lower_rails(self.structure_edges[y:y+h, x:x+w]*region, self.p.cell)
+            # Keep the existing exclusion if the extra proposal is too broad.
+            combined = np.maximum(structure, fragments)
+            if float((combined*region).sum()) <= .20*float(region.sum()):
+                structure = combined
         observed = region * (1-structure)
         self.structures[y:y+h, x:x+w] |= (structure > 0) & (region > 0)
         # La cobertura del nivel sigue siendo el denominador de ocupación.
@@ -191,16 +253,39 @@ class Analyzer:
             active |= (deviation > self.p.texture_std) & (mean < self.p.texture_max_value)
         if self.version == 'v2':
             source = paulo('v2')
-            # Percentiles and Otsu see only cells covered by YOLO's raster.
-            def normalized(values):
-                normalized_map = np.zeros_like(values, dtype=np.float32)
-                normalized_map[usable] = source.normalizar_por_roi(values[usable])
-                return normalized_map
             gradient = cv2.resize(self.gradient[y:y+h, x:x+w]*observed, grid_size,
                                   interpolation=cv2.INTER_AREA) / denominator
-            score = (.35*normalized(density) + .30*normalized(gradient) +
-                     .20*normalized(color_density) + .15*normalized(deviation))
-            threshold = source.umbral_adaptativo(score[usable])
+            features = (density, gradient, color_density, deviation)
+            references = features
+            if not np.array_equal(reference_observed, observed):
+                # Removing a rail must not rescale the remaining weak background
+                # into a new strong signal. Keep the pre-exclusion reference.
+                ref_coverage = cv2.resize(reference_observed.astype(np.float32), grid_size,
+                                         interpolation=cv2.INTER_AREA)
+                ref_denominator = np.maximum(ref_coverage, 1e-6)
+                def ref_mean(values):
+                    return cv2.resize(values*reference_observed, grid_size,
+                                      interpolation=cv2.INTER_AREA) / ref_denominator
+                ref_gray = ref_mean(gray)
+                references = (ref_mean((edges > 0).astype(np.float32)),
+                              ref_mean(self.gradient[y:y+h, x:x+w]), ref_mean(color),
+                              np.sqrt(np.maximum(ref_mean(gray*gray)-ref_gray*ref_gray, 0)))
+            # Percentiles and Otsu see only cells covered by YOLO's raster.
+            def normalized(values, reference):
+                normalized_map = np.zeros_like(values, dtype=np.float32)
+                low, high = np.percentile(reference[usable], [10, 90])
+                if high-low >= 1e-6:
+                    normalized_map[usable] = np.clip((values[usable]-low)/(high-low), 0., 1.)
+                return normalized_map
+            coefficients = (.35, .30, .20, .15)
+            score = sum(weight*normalized(value, reference)
+                        for weight, value, reference in zip(coefficients, features, references))
+            reference_score = sum(weight*normalized(reference, reference)
+                                  for weight, reference in zip(coefficients, references))
+            # This exclusion may remove evidence, never create new evidence by
+            # averaging over fewer pixels in a partially masked cell.
+            score = np.minimum(score, reference_score)
+            threshold = source.umbral_adaptativo(reference_score[usable])
             raw_active = (score >= threshold) & usable
             active = raw_active
         active = (active & usable).astype(np.uint8)
@@ -264,10 +349,10 @@ class Analyzer:
                 'width_signal_pct': round(width, 2) if width is not None else None,
                 'mask_source': 'yolo_raster', 'contour_warning': not bool(valid_contour),
                 'calibrated': False, 'valid_cells': int(usable.sum()),
-                'structure_policy': STRUCTURE_POLICY,
+                'structure_policy': FRAGMENTED_STRUCTURE_POLICY if self.version == 'v2' else STRUCTURE_POLICY,
                 'reason': None if width is not None else 'Altura insuficiente para proyectar columnas.'}
 
     def overlay(self):
         output = self.rgb.copy()
-        output[self.signal] = (.55*output[self.signal] + .45*np.array([255, 194, 32])).astype(np.uint8)
+        output[self.signal] = (.25*output[self.signal] + .75*np.array([230, 40, 190])).astype(np.uint8)
         return output
