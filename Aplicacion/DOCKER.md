@@ -1,6 +1,6 @@
 # Walmart Vision V3 en macOS con Docker
 
-Descarga el [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip). Incluye el visor, el único modelo V3 y los archivos Docker para Mac Intel y Apple Silicon. Source code contiene fuentes sin pesos y no sustituye ese paquete.
+Descarga el [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip). Incluye el visor, el único modelo V3 y los archivos Docker para Mac Intel y Apple Silicon. Source code contiene fuentes sin pesos y no sustituye ese paquete.
 
 ## Iniciar
 

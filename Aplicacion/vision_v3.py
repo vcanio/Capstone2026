@@ -1,7 +1,12 @@
 """Alcance de las máscaras y lectura experimental de V3."""
 
 def apply_scope(detections, width, height):
-    """Un contorno cercano al encuadre limita la lectura a la zona visible."""
+    """Añadir alcance y avisos a cada detección, modificando la lista recibida.
+
+    width y height son las dimensiones de la foto en píxeles. near_frame
+    conserva el contacto de la máscara original con el encuadre, aunque el
+    dibujo haya sido ajustado a cuatro lados. Un recorte exige revisión.
+    """
     for detection in detections:
         points = detection['display_polygon']
         near_frame = detection.get('near_frame', any(

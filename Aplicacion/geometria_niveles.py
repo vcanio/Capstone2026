@@ -4,12 +4,17 @@ import numpy as np
 
 
 def _valid(points):
+    """Comprobar convexidad, coordenadas finitas y área no degenerada."""
     return (np.isfinite(points).all() and cv2.isContourConvex(points.astype('float32'))
             and abs(cv2.contourArea(points.astype('float32'))) > 1)
 
 
 def _refine(contour, quad):
-    """Ajustar rectas robustas a los cuatro bordes, ignorando salientes locales."""
+    """Ajustar cuatro rectas y devolver sus intersecciones o None si no son fiables.
+
+    contour y quad contienen puntos (x, y) en píxeles, ordenados por el borde.
+    El ajuste robusto reduce la influencia de salientes locales de la máscara.
+    """
     # Muestrear por longitud evita que los tramos en escalera pesen más que
     # los tramos rectos simplificados por el extractor de contornos.
     following = np.roll(contour, -1, axis=0)

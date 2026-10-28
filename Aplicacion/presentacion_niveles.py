@@ -4,6 +4,9 @@ from pathlib import Path
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 from geometria_niveles import level_quadrilateral
 
+# Umbral experimental de interpretación (porcentaje), pendiente de calibración.
+REPLENISH_THRESHOLD_PCT = 30
+
 STATES = {
     'Nivel': ('detectado', 'Nivel detectado', '#2563eb'),
     'Nivel_reponer': ('reponer', 'Reponer', '#dc2626'),
@@ -35,7 +38,11 @@ def spatial_order(boxes):
 
 
 def occupancy_estimate(measurement, version='v1'):
-    """Lectura de presentación; conserva la predicción YOLO por separado."""
+    """Convertir una medición válida en porcentaje, estado, etiqueta y color.
+
+    V3 usa front_signal_pct; los métodos anteriores conservan combinado o área.
+    Una revisión pendiente tiene prioridad sobre el umbral de reposición.
+    """
     field = ('front_signal_pct' if measurement.get('interpretation_policy') == 'front_coverage_v1' else
              'combined_signal_pct' if version == 'v2' else 'area_signal_pct')
     value = measurement.get(field)
@@ -44,12 +51,17 @@ def occupancy_estimate(measurement, version='v1'):
         return {'pct': None, 'state': 'sin_medicion', 'label': 'Sin medición', 'color': '#64748b'}
     if measurement.get('review_required'):
         return {'pct': None, 'state': 'revisar', 'label': 'Revisar · señal ambigua', 'color': '#a16207'}
-    low = value < 30
+    low = value < REPLENISH_THRESHOLD_PCT
     return {'pct': value, 'state': 'reponer' if low else 'suficiente',
             'label': 'Reponer' if low else 'Suficiente', 'color': '#dc2626' if low else '#16a34a'}
 
 
 def draw_result(image, result, measurements=None):
+    """Dibujar niveles y devolver una copia RGB junto con sus datos de presentación.
+
+    measurements contiene las lecturas finales en orden espacial. El ajuste
+    del polígono a cuatro lados solo afecta al dibujo, nunca a result.masks.
+    """
     overlay = Image.new('RGBA', image.size)
     draw = ImageDraw.Draw(overlay)
     font = font_for(max(16, round(max(image.size) / 54)))

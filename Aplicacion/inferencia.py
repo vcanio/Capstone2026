@@ -1,4 +1,9 @@
-"""Inferencia autónoma: pesos del paquete y fotografías en memoria."""
+"""Recorrido de una foto: abrir → YOLO → ocupación → alcance → dibujo.
+
+ModelRunner.analyze coordina las etapas. El modelo devuelve máscaras de
+niveles; ocupacion_paulo mide señal dentro de ellas y presentacion_niveles
+prepara la lectura y la imagen. Las fotos se procesan en memoria.
+"""
 from collections import Counter
 from io import BytesIO
 import hashlib
@@ -17,7 +22,7 @@ try:
 except ModuleNotFoundError as error:
     if error.name != 'presentacion_niveles':
         raise
-    # En el ZIP va junto a inferencia.py; en desarrollo se comparte con el panel.
+    # Compatibilidad con distribuciones que ubican el módulo en el laboratorio.
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'Laboratorio/Modelos'))
     from presentacion_niveles import draw_result, occupancy_estimate, spatial_order, font_for, STATES
@@ -34,6 +39,11 @@ class BusyError(ValueError):
 
 
 def read_photo(body):
+    """Abrir bytes JPG/PNG/WebP, corregir orientación y devolver una imagen RGB.
+
+    Rechaza archivos excesivos o animados; reduce la foto a un lado máximo
+    de 4096 píxeles y compone la transparencia sobre blanco.
+    """
     if not body or len(body) > MAX_BYTES:
         raise ValueError('Elige una foto de hasta 15 MB.')
     try:
@@ -55,6 +65,10 @@ def read_photo(body):
 
 
 class ModelRunner:
+    """Verificar el paquete y reutilizar los modelos cargados entre fotos.
+
+    El bloqueo permite una sola inferencia a la vez en esta instancia.
+    """
     def __init__(self, directory=None, device='auto'):
         self.root = Path(directory or Path(__file__).resolve().parent).resolve()
         config = self.root / '.runtime/config'
@@ -84,6 +98,7 @@ class ModelRunner:
                     raise ValueError(f"El modelo {entry['id']} está incompleto o modificado. Extrae otra vez el ZIP.")
 
     def available(self):
+        """Describir modelos y opciones compatibles para la interfaz."""
         models = []
         for item in self.entries.values():
             value = {'id': item['id'], 'name': item['name']}
@@ -102,6 +117,12 @@ class ModelRunner:
         return models
 
     def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None):
+        """Analizar bytes de una foto y devolver imagen, detecciones y métricas.
+
+        confidence filtra detecciones de niveles; no expresa ocupación.
+        visibility se acepta por compatibilidad con llamadas antiguas y se
+        ignora: las personas y los obstáculos requieren revisión visual.
+        """
         if model_id is None:
             model_id = self.manifest['default_model']
         if model_id not in self.entries:
@@ -119,33 +140,27 @@ class ModelRunner:
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
+            # 1. Abrir la foto y conservar los píxeles sin dibujos para medir.
             image = read_photo(body)
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
-            # No external experiment trackers or downloads are required to predict.
-            os.environ.setdefault('YOLO_AUTOINSTALL', 'false')
-            import torch
-            from ultralytics import YOLO, settings
-            settings.update({'sync': False, 'wandb': False, 'mlflow': False, 'tensorboard': False})
-            device = 0 if self.device == 'auto' and torch.cuda.is_available() else 'cpu'
-            if model_id not in self.models:
-                model = YOLO(str(self.root / self.entries[model_id]['file']))
-                expected_classes = set(self.entries[model_id].get('classes', V1_CLASSES))
-                if expected_classes not in CLASS_PROFILES or set(model.names.values()) != expected_classes:
-                    raise ValueError('Las clases del modelo no corresponden a niveles y disponibilidad.')
-                self.models[model_id] = model
+            # 2. Localizar niveles. retina_masks conserva máscaras alineadas
+            # con la foto; iou filtra detecciones solapadas, no mide ocupación.
+            model, device = self._load_model(model_id)
             started = time.perf_counter()
-            result = self.models[model_id].predict(image, imgsz=640, conf=float(confidence), iou=.7,
+            result = model.predict(image, imgsz=640, conf=float(confidence), iou=.7,
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
             extra = {}
+            # 3. Medir las máscaras originales y revisar el alcance visible.
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
             if geometry:
                 from vision_v3 import apply_scope
                 apply_scope(detections, image.width, image.height)
             if extra:
+                # 4. Dibujar las lecturas definitivas sobre una copia de la foto.
                 annotated, _ = draw_result(image, result, measurements=detections)
             counts = Counter(d['state'] for d in detections)
             return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
@@ -156,11 +171,32 @@ class ModelRunner:
         finally:
             self.lock.release()
 
+    def _load_model(self, model_id):
+        """Cargar YOLO una vez, validar sus clases y elegir CPU o GPU disponible."""
+        # Inferencia local: no habilitar descargas automáticas ni rastreadores.
+        os.environ.setdefault('YOLO_AUTOINSTALL', 'false')
+        import torch
+        from ultralytics import YOLO, settings
+        settings.update({'sync': False, 'wandb': False, 'mlflow': False, 'tensorboard': False})
+        device = 0 if self.device == 'auto' and torch.cuda.is_available() else 'cpu'
+        if model_id not in self.models:
+            model = YOLO(str(self.root / self.entries[model_id]['file']))
+            expected_classes = set(self.entries[model_id].get('classes', V1_CLASSES))
+            if expected_classes not in CLASS_PROFILES or set(model.names.values()) != expected_classes:
+                raise ValueError('Las clases del modelo no corresponden a niveles y disponibilidad.')
+            self.models[model_id] = model
+        return self.models[model_id], device
+
 
 def analyze_edges(original_rgb, result, detections, version='v1'):
-    """Reutiliza el algoritmo de detección de bordes sin dibujar sobre la entrada ni guardar fotos."""
-    # En el ZIP ambos archivos se copian junto a inferencia.py. En el laboratorio
-    # se usa el mismo módulo de Modelos; no se mantiene otra implementación.
+    """Medir cada máscara en orden espacial y añadir su lectura a detections.
+
+    original_rgb: arreglo RGB sin contornos ni etiquetas dibujados.
+    result: salida de YOLO. detections se actualiza en el orden del visor.
+    Devuelve los mapas de diagnóstico y la procedencia del cálculo.
+    """
+    # En la aplicación y el ZIP el estimador está junto a este archivo.
+    # El fallback solo da compatibilidad con distribuciones anteriores.
     try:
         from ocupacion_paulo import Analyzer, provenance
     except ModuleNotFoundError as error:
@@ -181,6 +217,7 @@ def analyze_edges(original_rgb, result, detections, version='v1'):
         order = spatial_order(result.boxes.xyxy.cpu().tolist())
         masks = [masks[i] for i in order if i < len(masks)]
     for index, detection in enumerate(detections):
+        # Umbralizar la máscara de píxeles; nunca usar el cuadrilátero visual.
         mask = (masks[index] > .5).astype('uint8') if index < len(masks) else None
         detection['occupancy'] = analyzer.analyze(mask, state=detection['state'])
         detection['occupancy_estimate'] = occupancy_estimate(detection['occupancy'], version)
