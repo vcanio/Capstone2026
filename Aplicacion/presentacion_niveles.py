@@ -36,7 +36,8 @@ def spatial_order(boxes):
 
 def occupancy_estimate(measurement, version='v1'):
     """Lectura de presentación; conserva la predicción YOLO por separado."""
-    field = 'combined_signal_pct' if version == 'v2' else 'area_signal_pct'
+    field = ('front_signal_pct' if measurement.get('interpretation_policy') == 'front_coverage_v1' else
+             'combined_signal_pct' if version == 'v2' else 'area_signal_pct')
     value = measurement.get(field)
     if (measurement.get('status') != 'medido' or isinstance(value, bool) or
             not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 100):
@@ -70,11 +71,14 @@ def draw_result(image, result, measurements=None):
             color = ImageColor.getrgb(hex_color)
             points = [tuple(map(float, point)) for point in polygons[index]] if polygons is not None else [
                 (box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3])]
-            quad = level_quadrilateral(points, image.size) if polygons is not None and name != 'Nivel' else None
+            near_frame = any(x <= 2 or y <= 2 or x >= image.width - 3 or y >= image.height - 3
+                             for x, y in points)
+            quad = level_quadrilateral(points, image.size) if polygons is not None else None
             if quad is not None:
                 points = [tuple(point) for point in quad]
             detections.append({'id': level_id, 'state': state, 'label': label, 'confidence': float(confidence),
-                               'display_polygon': points, 'contour_adjusted': quad is not None})
+                               'display_polygon': points, 'contour_adjusted': quad is not None,
+                               'near_frame': near_frame})
             if len(points) < 3:
                 continue
             draw.polygon(points, fill=(*color, 35), outline=(*color, 255), width=line_width)

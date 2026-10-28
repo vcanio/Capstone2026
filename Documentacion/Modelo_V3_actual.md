@@ -39,9 +39,9 @@ Estos resultados evalúan la delimitación de niveles, no el porcentaje de ocupa
 ## Comportamiento de la app
 
 - Modelo único, análisis de niveles y bordes, confianza fija 0,60.
-- Ocupación experimental: combinación 70/30 de superficie y cobertura horizontal, con umbral 30 %.
+- Cobertura experimental del frente, con umbral 30 % y supuesto de lleno detrás del producto visible. Requiere calibración y revisión humana.
 - Confirmación manual de visibilidad; sin detección automática de personas u obstáculos.
-- Recorte: solo zona visible y Revisar. Objeto delante: medición suspendida. Persona tapando: Góndola tapada, sin contornos ni ocupación.
+- Contorno junto al encuadre: solo zona visible y Revisar. Personas y objetos no se detectan automáticamente; revisa visualmente las zonas tapadas.
 - Señal concentrada en la mitad superior o periférica sin respaldo central e inferior: Revisar · señal ambigua, sin porcentaje presentado. Es una abstención experimental, no detección de carteles o vacío.
 - La mediana es un criterio de anotación; no se fuerza durante la predicción.
 

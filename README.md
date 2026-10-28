@@ -6,7 +6,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
 | Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
 ## Explorar las carpetas
@@ -56,7 +56,7 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261027.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
+**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261028.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales
 
@@ -88,7 +88,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip), con visor y modelo. |
+| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip), con visor y modelo. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
@@ -138,10 +138,9 @@ Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando
 
 | Resultado | Significado |
 |---|---|
-| **Reponer** | Ocupación estimada menor al 30 % en el área detectada, cuando la visibilidad permite medirla. |
+| **Reponer** | Ocupación estimada menor al 30 % en el área detectada, cuando la señal permite medirla. |
 | **Suficiente** | Ocupación estimada desde el 30 %. Es una referencia experimental, no una certificación de stock. |
 | **Revisar** | Recorte, señal ambigua o falta de medición: no se puede confirmar el resultado completo. |
-| **Góndola tapada** | La persona usuaria indicó una persona tapando la góndola. Se pide otra foto, sin contornos ni ocupación. |
 | **Sin niveles detectados** | Se solicita otra toma. No detectar un nivel no significa que esté vacío. |
 
 **Original** muestra la foto; **Niveles**, los contornos y avisos; **Bordes**, las señales utilizadas; y **Comparar**, ambas imágenes juntas. La descarga conserva la presentación del resultado.
@@ -154,18 +153,16 @@ El cálculo sigue estas etapas:
 
 1. **YOLO delimita el nivel.** El algoritmo utiliza los píxeles originales dentro de esa máscara, sin analizar los rótulos o colores dibujados sobre el resultado.
 2. **Filtra y organiza la señal.** Excluye un margen del contorno y algunas estructuras largas, divide la región en una grilla y calcula bordes, gradiente, color y textura. Los filtros no eliminan de forma fiable todos los carteles, barandas o laterales.
-3. **Combina las señales por celda.** Normaliza sus intensidades dentro del nivel y aplica un umbral adaptativo. Después obtiene dos medidas: **A**, superficie con señal, ponderada por la cobertura válida de las celdas, y **W**, proporción de columnas con suficiente señal vertical.
-4. **Calcula la estimación:** `ocupación estimada = 0,70 × A + 0,30 × W`. Por ejemplo, A = 40 % y W = 80 % producen **52 %**.
-5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, siempre que la medición, la visibilidad y las reglas de abstención lo permitan.
-
-El ancho no pregunta solo si una columna tiene algún píxel activo: exige un tramo continuo de señal en al menos el **45 % de la altura útil de la columna**. El área y el ancho aportan información distinta: unos productos bajos extendidos a lo largo del estante pueden cubrir poco área y mucho ancho.
+3. **Combina las señales por celda.** Normaliza bordes, gradiente, color y textura dentro del nivel y aplica un umbral adaptativo.
+4. **Estima la cobertura del frente.** Cuenta las columnas con señal respaldada por bordes o textura en al menos dos celdas contiguas, a partir del 35 % de la altura del nivel. El espacio libre sobre un producto bajo no reduce la lectura. Se asume lleno detrás del producto visible.
+5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, cuando la medición y las reglas de revisión lo permiten.
 
 <details>
 <summary>Detalle técnico de la señal actual</summary>
 
 La foto se limita a un lado máximo de 1.600 píxeles y la grilla usa celdas de aproximadamente 24 píxeles. Se combinan **35 % densidad de bordes Canny + 30 % gradiente de intensidad + 20 % color saturado + 15 % desviación local de textura**, después de normalizar cada característica por sus percentiles 10–90 dentro de las celdas utilizables. Canny usa 40/120; el umbral adaptativo de Otsu queda limitado a 0,35–0,62. El área se calcula tras un cierre morfológico 3×3 y el ancho usa las activaciones anteriores a ese cierre. Las exclusiones de estructura afectan a todas las señales y el denominador conserva la cobertura válida original.
 
-Estos pesos describen la **construcción del mapa por celda**. Son distintos de la combinación final **70/30 de área y ancho**. [Implementación](Laboratorio/Modelos/ocupacion_paulo.py).
+Estos pesos describen la **construcción del mapa por celda**. La antigua combinación 70/30 de área y ancho se conserva como diagnóstico; la lectura V3 utiliza la cobertura experimental del frente. [Implementación](Laboratorio/Modelos/ocupacion_paulo.py).
 
 </details>
 
@@ -177,11 +174,9 @@ La app conserva la señal bruta, pero muestra **Revisar · señal ambigua**, sin
 
 La última comparación utilizó **151 fotos de desarrollo y 754 detecciones**: las métricas brutas no cambiaron y se añadieron **35 revisiones**, sin nuevas transiciones a Reponer. No es una evaluación exhaustiva de precisión de ocupación. Los filtros agresivos probados no se integraron porque introdujeron nuevas alertas en los controles. La baranda del superior vacío 034 aún produce señal residual.
 
-### ¿Por qué se pregunta por la visibilidad?
+### Visibilidad de la foto
 
-El modelo fue entrenado para delimitar niveles, incluyendo imágenes con obstáculos. No tiene una salida que determine automáticamente si la góndola está tapada.
-
-Por eso la persona indica la visibilidad: **recorte** limita la lectura a lo visible y marca Revisar; **objeto delante** suspende la medición; **persona tapando** solicita otra foto.
+El modelo delimita niveles, pero no detecta automáticamente personas, obstáculos ni si la góndola está completa. Todas las fotos se envían al análisis; revisa los resultados cuando haya zonas tapadas o fuera del encuadre. Un contorno junto al borde de la foto se marca para revisión.
 
 ## Modelo actual y resultados
 
@@ -215,7 +210,7 @@ flowchart TB
         D --> E[best.pt seleccionado por validación]
     end
     subgraph Aplicación
-        F[Foto y visibilidad indicada] --> G[Máscaras de niveles]
+        F[Foto] --> G[Máscaras de niveles]
         E --> G
         G --> H[Bordes, color y textura]
         H --> I[Ocupación estimada y avisos]
@@ -241,15 +236,15 @@ flowchart LR
         RUN["Lectura y coordinación<br/>inferencia.py · ModelRunner"]
         MODEL["Segmentación de niveles<br/>YOLO26n-seg · best.pt"]
         SIGNAL["Bordes, color y textura<br/>ocupacion_paulo.py"]
-        SCOPE["Visibilidad declarada y alcance<br/>vision_v3.py"]
+        SCOPE["Alcance de la zona detectada<br/>vision_v3.py"]
         VIEW["Contornos, lecturas e imagen<br/>presentacion_niveles.py"]
-        UI -->|"Foto y visibilidad · POST /api/predict"| API
+        UI -->|"Foto · POST /api/predict"| API
         API --> RUN
         RUN -->|"Foto validada"| MODEL
         RUN -->|"Píxeles originales"| SIGNAL
         MODEL -->|"Máscaras"| SIGNAL
         MODEL -->|"Contornos"| VIEW
-        RUN -->|"Visibilidad indicada"| SCOPE
+        RUN -->|"Contornos detectados"| SCOPE
         SIGNAL -->|"Señal y métricas"| VIEW
         SCOPE -->|"Alcance de la lectura"| VIEW
         VIEW -->|"Imagen y mediciones"| API
@@ -258,7 +253,7 @@ flowchart LR
     UI -->|"Descarga solicitada"| OUTPUT["Imagen de resultado"]
 ```
 
-El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` decide qué etapas ejecutar: si la persona indica una góndola tapada por alguien, devuelve el aviso sin ejecutar YOLO ni ocupación; con un objeto delante conserva la localización de niveles y suspende la medición. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La sesión del lote, incluidas las fotografías, se guarda en el navegador local y se puede eliminar desde la aplicación.
+El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` localiza niveles y calcula la señal visual; la persona debe revisar obstáculos y zonas tapadas. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La sesión del lote, incluidas las fotografías, se guarda en el navegador local y se puede eliminar desde la aplicación.
 
 CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del primer diagrama. **No son dependencias del visor durante la inferencia**: la app distribuida incluye el modelo y los módulos que necesita para analizar fotos.
 
@@ -325,7 +320,7 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | **Segmentar el área útil del nivel** | Usar solo cajas rectangulares o delimitar únicamente el frente del estante. | Una máscara permite seguir la perspectiva y definir dónde medir, incluidos los huecos; una caja puede incorporar fondo o zonas ajenas. Una banda frontal exigiría reconstruir después el espacio de productos y no resuelve el superior abierto. La máscara predicha puede equivocarse y debe revisarse. |
 | **Una clase geométrica Nivel, separada de la reposición** | Aprender directamente estados como Reponer y Suficiente, como en V1/V2. | Permite mantener el mismo objetivo de localización en fotos llenas y vacías, e inspeccionar por separado un fallo de contorno y uno de ocupación. También permite modificar la interpretación de señal sin reentrenar el localizador. A cambio, la medición posterior necesita su propia validación: un buen mAP de niveles no acredita alertas correctas. |
 | **YOLO26n-seg y ajuste fino de pesos existentes** | Entrenar desde cero o partir siempre de una arquitectura mayor. | Se prioriza una variante pequeña para una aplicación local y se reutilizan características aprendidas para adaptarlas a las góndolas con los datos disponibles. El último afinado parte de pesos propios V3, con optimizador nuevo y repaso de escenas anteriores. Esto evita reiniciar el aprendizaje desde cero; no demuestra que YOLO26 sea universalmente superior ni que el afinado haya mejorado globalmente al padre. |
-| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y ajustar reglas sin entrenar otro modelo, antes de contar con una evaluación específica de ocupación suficientemente revisada. Combinar área y ancho recoge tanto extensión vertical como distribución horizontal. El coste es sensibilidad a carteles, fondos y envases lisos; el 70/30 y el umbral 30 % siguen siendo experimentales. |
+| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y ajustar reglas sin entrenar otro modelo, antes de contar con una evaluación específica de ocupación suficientemente revisada. La cobertura del frente intenta reflejar la distribución horizontal, pero sigue siendo sensible a carteles, fondos y envases lisos. El umbral 30 % sigue siendo experimental. |
 | **CVAT y revisión explícita de polígonos** | Exportar preanotaciones o aceptar etiquetas automáticas sin revisión. | Hace posible mantener una clase y un criterio comunes, registrar delimitaciones y oclusiones y verificar las correcciones sin confundir borrador con aprobación. La mediana aporta consistencia al superior abierto, conservando un techo físico real cuando existe. Requiere trabajo humano y no elimina la incertidumbre del contenido oculto. |
 | **Python con PyTorch/Ultralytics y una interfaz web local** | Usar un servicio remoto para cada fotografía o exigir comandos en cada análisis. | El entorno integra entrenamiento e inferencia y permite compartir funciones de geometría y presentación entre laboratorio y visor. La interfaz de navegador facilita revisar fotos y descargar resultados; Pillow resuelve lectura/orientación y composición. Tras instalar dependencias, el análisis permanece en el equipo y no necesita enviar las imágenes a un servicio externo. La velocidad depende del hardware disponible. |
 | **Docker como vía de ejecución en macOS** | Exigir la instalación manual de cada biblioteca y sus versiones. | Agrupa el entorno y conserva el mismo visor y modelo distribuido, reduciendo diferencias de dependencias entre equipos. Mantiene el procedimiento que el usuario probó en macOS con la release anterior. La primera construcción requiere conexión y los recursos del contenedor siguen dependiendo del computador. |
@@ -371,15 +366,15 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 |---|---|---|
 | Visor, carga de fotos, comparación y descarga | **Implementado y distribuido en V3** | Ejecución local mediante Windows x64 o Docker; requiere que el usuario inicie la aplicación. |
 | Localización y segmentación de niveles | **Operativo** | Una clase Nivel, con máscaras originales. Permanecen las incidencias conocidas de superiores; no se fuerza la mediana durante la inferencia. |
-| Cálculo e interpretación de señal de ocupación | **Operativo, experimental** | Área/ancho 70/30, umbral 30 % y abstención por señal ambigua. Falta calibrar y evaluar su exactitud con referencias humanas de ocupación. |
-| Manejo de visibilidad | **Operativo con declaración manual** | Recorte, objeto delante y persona tapando tienen tratamientos distintos. La detección automática de esas situaciones está pendiente. |
+| Cálculo e interpretación de señal de ocupación | **Operativo, experimental** | Cobertura experimental del frente, umbral 30 % y revisión por señal ambigua. Falta calibrar y evaluar su exactitud con referencias humanas de ocupación. |
+| Manejo de visibilidad | **Revisión visual** | Se advierte si un contorno toca el encuadre; el modelo no detecta personas ni obstáculos. |
 | Datos, anotación, preparación y afinado V3 | **Implementados; ensayo vigente terminado** | El modelo distribuido corresponde al último afinado cerrado. Nuevas incorporaciones requieren otra revisión y preparación; no se entrena al usar el visor. |
 | Evaluación final y generalización | **Pendientes** | Test de 63 fotos reservado y necesidad de nuevas escenas independientes. Las métricas actuales corresponden a validación de máscaras. |
 
 ## Limitaciones y próximos pasos
 
 - **Calibrar la ocupación en V3:** carteles, fondos y envases pueden confundir la señal. El 30 % sigue siendo experimental.
-- **Automatizar y validar la visibilidad:** actualmente se confirma manualmente; no se detectan personas u obstáculos de forma automática.
+- **Automatizar y validar la visibilidad:** actualmente no se detectan personas u obstáculos de forma automática.
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
 - **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.
 - **Mantener compatibilidad de instalación:** V3 conserva el procedimiento Docker que Vicente probó correctamente en macOS con la release anterior.

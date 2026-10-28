@@ -41,28 +41,26 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 ### Qué significan los bordes y cómo se calcula la ocupación
 
-En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el amarillo de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
+En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el fucsia de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
 
 El cálculo sigue estas etapas:
 
 1. **YOLO delimita el nivel.** El algoritmo utiliza los píxeles originales dentro de esa máscara, sin analizar los rótulos o colores dibujados sobre el resultado.
 2. **Filtra y organiza la señal.** Excluye un margen del contorno y algunas estructuras largas, divide la región en una grilla y calcula bordes, gradiente, color y textura. Los filtros no eliminan de forma fiable todos los carteles, barandas o laterales.
-3. **Combina las señales por celda.** Normaliza sus intensidades dentro del nivel y aplica un umbral adaptativo. Después obtiene dos medidas: **A**, superficie con señal, ponderada por la cobertura válida de las celdas, y **W**, proporción de columnas con suficiente señal vertical.
-4. **Calcula la estimación:** `ocupación estimada = 0,70 × A + 0,30 × W`. Por ejemplo, A = 40 % y W = 80 % producen **52 %**.
-5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, siempre que la medición, la visibilidad y las reglas de abstención lo permitan.
-
-El ancho no pregunta solo si una columna tiene algún píxel activo: exige señal en al menos el **20 % de sus celdas utilizables**. El área y el ancho aportan información distinta: unos productos bajos extendidos a lo largo del estante pueden cubrir poco área y mucho ancho.
+3. **Combina las señales por celda.** Normaliza bordes, gradiente, color y textura dentro del nivel y aplica un umbral adaptativo.
+4. **Estima la cobertura del frente.** Cuenta las columnas con señal respaldada por bordes o textura en al menos dos celdas contiguas, a partir del 35 % de la altura del nivel. El espacio libre sobre un producto bajo no reduce la lectura. Se asume lleno detrás del producto visible.
+5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, cuando la medición y las reglas de revisión lo permiten.
 
 <details>
 <summary>Detalle técnico de la señal actual</summary>
 
 La foto se limita a un lado máximo de 1.600 píxeles y la grilla usa celdas de aproximadamente 24 píxeles. Se combinan **35 % densidad de bordes Canny + 30 % gradiente de intensidad + 20 % color saturado + 15 % desviación local de textura**, después de normalizar cada característica por sus percentiles 10–90 dentro de las celdas utilizables. Canny usa 40/120; el umbral adaptativo de Otsu queda limitado a 0,35–0,62. El área se calcula tras un cierre morfológico 3×3 y el ancho usa las activaciones anteriores a ese cierre. Las exclusiones de estructura afectan a todas las señales y el denominador conserva la cobertura válida original.
 
-Estos pesos describen la **construcción del mapa por celda**. Son distintos de la combinación final **70/30 de área y ancho**. [Implementación](../Laboratorio/Modelos/ocupacion_paulo.py).
+Estos pesos describen la **construcción del mapa por celda**. La antigua combinación 70/30 de área y ancho se conserva como diagnóstico; la lectura V3 utiliza la cobertura experimental del frente. [Implementación](../Laboratorio/Modelos/ocupacion_paulo.py).
 
 </details>
 
-**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona amarilla no confirma producto y una zona sin amarillo no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
+**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona fucsia no confirma producto y una zona sin señal fucsia no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
 
 ### Cuándo se abstiene y pide revisión
 
@@ -72,7 +70,7 @@ La última comparación utilizó **151 fotos de desarrollo y 754 detecciones**: 
 
 ## Visibilidad y alcance
 
-La persona indica si la góndola está despejada, recortada, tapada por un objeto o por una persona. No se detectan automáticamente estos casos. El recorte limita el porcentaje a la zona visible y marca Revisar; el objeto suspende la medición; una persona tapando muestra Góndola tapada y pide otra foto sin contornos ni ocupación.
+La persona revisa si la góndola está despejada o tapada: la app no detecta automáticamente personas ni objetos. Si un contorno alcanza el encuadre, se indica que solo se ve parte del nivel y se pide revisión. Una zona tapada requiere comprobar la foto o tomar otra.
 
 La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar precisión de ocupación. Las 63 fotos de test siguen reservadas.
 

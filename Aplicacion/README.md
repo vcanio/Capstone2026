@@ -8,7 +8,7 @@ Esta es la copia local de la aplicación vigente, antes ubicada en una extracci�
 - [Manual de usuario](../Documentacion/Usar_Walmart_Vision.md) · [Guía V3](LEEME_V3.md) · [Modelo y límites](../Documentacion/Modelo_V3_actual.md).
 - [ZIP V3 publicado y SHA-256](../Entregables/README.md).
 
-La confianza inicial es 0,60 y puede ajustarse desde 0,40. La visibilidad se indica manualmente por cada foto. La ocupación usa 70/30 y umbral 30 %, con abstención por señal ambigua; sigue siendo experimental. La sesión del lote, incluidas las fotos, se guarda en el navegador y se puede eliminar desde la aplicación; no se incorpora al entrenamiento.
+La confianza inicial es 0,60 y puede ajustarse desde 0,40. Todas las fotos se analizan sin indicar su visibilidad; la app no detecta automáticamente personas ni obstáculos. V3 interpreta la cobertura experimental del frente con umbral 30 %, suponiendo lleno detrás del producto visible. El espacio libre sobre productos bajos no reduce su aporte. La medición exige señal y respaldo de bordes o textura en al menos dos filas contiguas de la grilla, desde el 35 % de la altura del nivel. Conserva revisión por señal ambigua y recortes; no identifica semánticamente productos y requiere calibración. Las medidas anteriores de superficie, ancho y combinación 70/30 se conservan como diagnóstico y para modelos anteriores. La sesión del lote, incluidas las fotos, se guarda en el navegador y se puede eliminar desde la aplicación; no se incorpora al entrenamiento. Los resultados guardados deben reanalizarse tras actualizar.
 
 La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La interfaz y las reglas actuales también están incluidas en la descarga publicada del 27 de octubre.
 

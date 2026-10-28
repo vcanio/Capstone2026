@@ -211,6 +211,12 @@ class LiteTests(unittest.TestCase):
         self.assertEqual((detections[0]['state'], detections[0]['confidence']), ('suficiente', .9))
         np.testing.assert_array_equal(points, original)
 
+        result.names = {0: 'Nivel'}
+        _, detections = draw_result(Image.new('RGB', (400, 200), 'white'), result)
+        self.assertTrue(detections[0]['contour_adjusted'])
+        self.assertEqual(len(detections[0]['display_polygon']), 4)
+        np.testing.assert_array_equal(points, original)
+
 
 class HttpTests(unittest.TestCase):
     def setUp(self):

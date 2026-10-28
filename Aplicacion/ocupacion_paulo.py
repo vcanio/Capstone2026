@@ -86,6 +86,25 @@ def fragmented_lower_rails(edges, cell):
     return blocked
 
 
+def lower_band_is_low_signal(band, lower_share, combined, width, central, lower_edges):
+    return band and lower_share >= .98 and combined < 30 and width == 0 and central < .05 and lower_edges < .03
+
+
+def front_coverage(active, evidence, usable):
+    """Ancho respaldado por señal en al menos dos filas contiguas.
+
+    Observa la zona de apoyo y excluye la franja superior de cartelería.
+    La altura libre sobre un producto no reduce su aporte al frente.
+    """
+    rows = np.arange(usable.shape[0])[:, None]
+    support_zone = usable & (rows >= .35*usable.shape[0])
+    supported = active & evidence & support_zone
+    consecutive = supported[1:] & supported[:-1]
+    valid = support_zone.sum(axis=0) >= 2
+    covered = consecutive.any(axis=0) & valid
+    return 100*float(covered.sum())/int(valid.sum()) if valid.any() else None
+
+
 def contiguous_column_coverage(active, usable, fraction):
     """Fracción de columnas con un tramo continuo respecto de su altura útil."""
     rows = usable.sum(axis=0)
@@ -165,10 +184,11 @@ def provenance(version='v1', parameters=None):
 
 
 class Analyzer:
-    def __init__(self, rgb, parameters=None, version='v1'):
+    def __init__(self, rgb, parameters=None, version='v1', front_mode=False):
         if version not in ('v1', 'v2'):
             raise ValueError('Versión de bordes inválida.')
         self.version = version
+        self.front_mode = front_mode and version == 'v2'
         self.method = WEIGHTED_METHOD if version == 'v2' else METHOD
         self.p = parameters or Parameters(opening=1 if version == 'v2' else 3)
         if not (np.isfinite(self.p.surface_weight) and 0 <= self.p.surface_weight <= 1 and
@@ -355,13 +375,21 @@ class Analyzer:
             central_density = float((raw_active & center & absolute_evidence).sum()) / max(1, int(center.sum()))
             lower = usable & central_columns & (yy >= .65*usable.shape[0])
             lower_edges = float(((density > .012) & lower).sum()) / max(1, int(lower.sum()))
+            # Una señal débil confinada a la base, sin respaldo de bordes,
+            # no debe por sí sola impedir la lectura de baja ocupación.
+            lower_band_low_signal = lower_band_is_low_signal(
+                band_ambiguity, vertical_profile[2], extra['combined_signal_pct'],
+                width, central_density, lower_edges)
+            if lower_band_low_signal:
+                review_required = False
             # Un producto bajo con bordes en la base continúa siendo medible.
             # Falta de respaldo no certifica vacío ni detecta un cartel.
             peripheral_ambiguity = (total_signal > 0 and central_density < .10 and lower_edges < .25
                                     and extra['combined_signal_pct'] >= 30)
             review_required |= peripheral_ambiguity
             extra.update(review_required=review_required,
-                         signal_pattern=('upper_band_only' if upper_share >= .95 and total_signal > 0 else
+                         signal_pattern=('lower_band_low_signal' if lower_band_low_signal else
+                                         'upper_band_only' if upper_share >= .95 and total_signal > 0 else
                                          'horizontal_band' if band_ambiguity else
                                          'incoherent_width' if incoherent else
                                          'peripheral_ambiguity' if peripheral_ambiguity else None),
@@ -378,6 +406,15 @@ class Analyzer:
                                          'Señal periférica sin respaldo central suficiente: puede ser estructura, cartel o fondo. ') +
                                         'Revisa si hay productos; no se confirma ocupación.'
                                         if review_required else None))
+            if self.front_mode:
+                front = front_coverage(raw_active, absolute_evidence, usable)
+                # Evidencia de producto en el frente permite filas bajas;
+                # carteles superiores y señales débiles conservan la abstención.
+                if front is not None and front >= 30:
+                    extra.update(review_required=False, review_reason=None,
+                                 signal_pattern='front_product_evidence')
+                extra.update(front_signal_pct=round(front, 2) if front is not None else None,
+                             interpretation_policy='front_coverage_v1')
         self.signal[y:y+h, x:x+w] |= (cv2.resize(active.astype(np.uint8), (w, h), interpolation=cv2.INTER_NEAREST) > 0) & (observed > 0)
         return {'method': self.method, 'status': 'medido', 'area_signal_pct': round(area, 2), **extra,
                 'width_signal_pct': round(width, 2) if width is not None else None,

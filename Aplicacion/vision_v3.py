@@ -1,28 +1,18 @@
-"""Alcance de V3: visibilidad declarada, máscaras originales y lectura experimental."""
-VISIBILITY = ('clear', 'partial', 'occluded', 'person')
+"""Alcance de las máscaras y lectura experimental de V3."""
 
-
-def visibility_check(value):
-    if value not in VISIBILITY:
-        raise ValueError('Indica si la góndola está completa, recortada o tapada antes de analizar.')
-    return value
-
-
-def apply_scope(detections, visibility, width, height):
-    """No deducir completitud u oclusión de una clase que solo localiza niveles."""
+def apply_scope(detections, width, height):
+    """Un contorno cercano al encuadre limita la lectura a la zona visible."""
     for detection in detections:
         points = detection['display_polygon']
-        near_frame = any(x <= 2 or y <= 2 or x >= width - 3 or y >= height - 3 for x, y in points)
-        partial = visibility == 'partial' or near_frame
-        detection['scope'] = 'Visibilidad insuficiente' if visibility == 'occluded' else 'Solo zona visible' if partial else 'Área detectada · señal experimental'
-        detection['notice'] = ('Objeto delante: toma otra foto sin obstáculos.' if visibility == 'occluded' else
-                               'Contorno junto al encuadre: revisa lo que queda fuera.' if near_frame else
-                               'Foto recortada: revisa la parte no visible.' if partial else
+        near_frame = detection.get('near_frame', any(
+            x <= 2 or y <= 2 or x >= width - 3 or y >= height - 3 for x, y in points))
+        detection['scope'] = 'Solo zona visible' if near_frame else 'Área detectada · señal experimental'
+        if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'front_coverage_v1':
+            detection['scope'] = 'Cobertura del frente · experimental'
+        detection['notice'] = ('Contorno junto al encuadre: revisa lo que queda fuera.' if near_frame else
                                detection.get('occupancy', {}).get('review_reason') or '')
         reading = detection.get('occupancy_estimate')
-        if visibility == 'occluded':
-            reading = {'pct': None, 'state': 'revisar', 'label': 'Revisar · objeto delante', 'color': '#a16207'}
-        elif reading and partial:
+        if reading and near_frame:
             reading = {**reading, 'state': 'revisar', 'label': 'Revisar · zona visible', 'color': '#a16207'}
         elif reading and reading['pct'] is None:
             reading = {**reading, 'state': 'revisar',
@@ -30,11 +20,3 @@ def apply_scope(detections, visibility, width, height):
                        'color': '#a16207'}
         if reading:
             detection['occupancy_estimate'] = reading
-
-
-def person_result(image, model_id, method):
-    return {'image': image, 'model': model_id, 'device': 'Sin inferencia', 'seconds': 0,
-            'detections': [], 'counts': {}, 'width': image.width, 'height': image.height,
-            'method': method, 'geometry_only': True, 'visibility': 'person',
-            'visibility_source': 'user', 'photo_status': 'gondola_tapada',
-            'message': 'Góndola tapada. Toma otra foto sin personas delante.'}

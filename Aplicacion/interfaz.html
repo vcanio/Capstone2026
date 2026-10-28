@@ -82,8 +82,6 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 
 /* Confidence Card */
 .confidence-card{flex-shrink:0}
-#visibility-group{margin-top:14px}
-#visibility{width:100%;padding:9px;border:1px solid var(--input-border);border-radius:8px;background:var(--input-bg)}
 .confidence-control{margin:0}
 .confidence-title{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px}
 .confidence-slider-row{display:flex;align-items:center;gap:10px}
@@ -219,8 +217,6 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 .occupancy-unknown,.occupancy-revisar{color:var(--amber)}
 
 /* Scope / Footer */
-.occupancy-item-footer{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
-.occupancy-item-footer svg{width:12px;height:12px;flex-shrink:0}
 
 /* Download Button */
 .result-tools{flex-shrink:0;margin-top:auto;padding-top:10px}
@@ -230,6 +226,8 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 
 /* Technical / Edge Results */
 .edge-results{margin-top:8px;padding:8px 12px;background:var(--card);border:1px solid var(--card-border);border-radius:8px;flex-shrink:0}
+.occupancy-item-footer{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
+.occupancy-item-footer svg{width:12px;height:12px;flex-shrink:0}
 .edge-results summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--muted)}
 .edge-results summary:hover{color:var(--ink)}
 .edge-results p{font-size:12px;color:var(--muted);margin:6px 0}
@@ -416,7 +414,6 @@ table.edge-table th{color:var(--muted);font-weight:600}
 #gallery-mobile-slot:empty{display:none}#gallery-mobile-slot .batch-gallery{margin-bottom:8px}
 
 /* Referencia visual: superficies oscuras y fotografía como centro de trabajo. */
-.summary:not([hidden]){display:block!important;margin-bottom:10px;padding:10px 14px;border:1px solid var(--amber-border);border-radius:10px;background:var(--amber-bg);color:var(--ink)}
 .banner-content{display:flex;align-items:center;gap:8px}.banner-content svg{width:18px;height:18px;flex:none;color:var(--amber)}.banner-content h3,.banner-content p{margin:0}
 :root{--blue:#096bd1;--blue-hover:#085bb2;--brand-yellow:#f9c635;--green:#47cf79;--amber:#f9ad26;--red:#f84b4b;--card-border:#242f3d;--muted:#92a0b1}
 body{font-family:Manrope,"Segoe UI",sans-serif;font-size:14px}
@@ -513,17 +510,6 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
 
             <button type="button" class="btn-reanalyze" id="reanalyze-current" disabled>Analizar esta foto</button>
 
-            <div id="visibility-group">
-              <label for="visibility" class="confidence-title">Visibilidad de esta foto</label>
-              <select id="visibility">
-                <option value="" selected>Selecciona la visibilidad</option>
-                <option value="clear">Completa y despejada</option>
-                <option value="partial">Recortada por la foto</option>
-                <option value="occluded">Con un objeto delante</option>
-                <option value="person">Con una persona tapándola</option>
-              </select>
-            </div>
-
             <input type="checkbox" id="batch-confirm" checked hidden><span id="batch-confirm-wrap" hidden></span>
           </fieldset>
         </form>
@@ -540,7 +526,7 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
               <div class="batch-grid" id="batch-grid" aria-label="Seleccionar foto"></div>
               <div class="batch-actions batch-quick"><button type="button" id="batch-prev">Anterior</button><button type="button" id="batch-next">Siguiente</button><button type="button" id="batch-mark" aria-pressed="false">Marcar para revisión</button><button type="button" id="batch-download" disabled>Descargar seleccionadas</button></div>
               <div id="batch-details" hidden>
-                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Marcadas</option><option value="pending">Pendientes</option><option value="failed">Con error</option></select><select id="batch-visibility" hidden aria-hidden="true" tabindex="-1"><option value="clear">Completa y despejada</option></select><button type="button" id="batch-apply-visibility" hidden>Aplicar</button></div>
+                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Marcadas</option><option value="pending">Pendientes</option><option value="failed">Con error</option></select></div>
                 <div class="batch-actions"><button type="button" id="batch-analyze">Analizar pendientes</button><button type="button" id="batch-retry">Reintentar fallidas</button></div>
                 <div class="batch-review" id="batch-review" hidden><label for="batch-reason">Motivo</label><select id="batch-reason"><option value="">Sin especificar</option><option>Nivel omitido</option><option>Contorno incorrecto</option><option>Ocupación incorrecta</option><option>Otro</option></select><label for="batch-note">Nota</label><input id="batch-note" type="text" maxlength="300" placeholder="Detalle opcional"></div>
                 <p class="batch-help" id="batch-help">Las seleccionadas se descargan para anotación y revisión antes de entrenar. Usa las flechas para navegar y M para marcar.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
@@ -768,16 +754,16 @@ function syncOccupancyPanel(){
 
 function availability(){
   $('fields').disabled=!ready||running||batchRunning;
-  $('batch-analyze').disabled=running||batchRunning||!ready||!batch.some(item=>!item.result&&!item.failure&&(!isV3()||item.visibility));
+  $('batch-analyze').disabled=running||batchRunning||!ready||!batch.some(item=>!item.result&&!item.failure);
   $('batch-mark').disabled=running||batchRunning||batchIndex<0;
   $('batch-download').disabled=running||batchRunning||!batch.some(item=>item.marked);
   $('batch-retry').disabled=running||batchRunning||!batch.some(item=>item.failure);
   const visibleIndices=filteredBatchIndices();
   $('batch-prev').disabled=running||batchRunning||!visibleIndices.some(i=>i<batchIndex);
   $('batch-next').disabled=running||batchRunning||!visibleIndices.some(i=>i>batchIndex);
-  for(const id of ['batch-apply-visibility','batch-forget'])$(id).disabled=running||batchRunning;
-  $('analyze').disabled=!ready||running||batchRunning||!file||(isV3()&&(batch.length>1?!batch.some(item=>!item.result&&!item.failure&&item.visibility):!$('visibility').value));
-  $('reanalyze-current').disabled=!ready||running||batchRunning||!file||(isV3()&&!$('visibility').value);
+  for(const id of ['batch-forget'])$(id).disabled=running||batchRunning;
+  $('analyze').disabled=!ready||running||batchRunning||!file;
+  $('reanalyze-current').disabled=!ready||running||batchRunning||!file;
   $('reanalyze-current').textContent=running?'Analizando esta foto...':result?'Reanalizar esta foto':'Analizar esta foto';
   $('batch-confirm-wrap').hidden=true;
   $('analyze').textContent=running||batchRunning?'Analizando…':batch.length>1?`Analizar ${batch.length} fotos`:'Analizar fotos';
@@ -925,7 +911,6 @@ function choose(selected){
   if(originalUrl)URL.revokeObjectURL(originalUrl);
   file=selected;
   resetPhotoZoom();
-  $('visibility').value='';
   originalUrl=URL.createObjectURL(file);
   resetResult();
 
@@ -982,7 +967,8 @@ function showV3(data){
   }
 
   $('occupancy-columns').innerHTML='<tr><th>Nivel</th><th>Ocupación estimada</th><th>Alcance</th><th>Resultado</th><th>Aviso / acción</th></tr>';
-  $('occupancy-help').textContent=data.visibility==='partial'?'Porcentaje limitado a la zona visible. El nivel completo queda pendiente de revisión.':data.visibility==='occluded'?'Medición suspendida: toma otra foto sin el objeto delante.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
+  const front=data.occupancy?.interpretation_policy?.name==='front_coverage_v1';
+  $('occupancy-help').textContent=!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':front?'Cobertura estimada del frente: reponer bajo el 30 %, suficiente desde el 30 %. Se asume lleno detrás del producto visible. Los recortes requieren revisión.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
   $('level-occupancy').hidden=!total;
   syncOccupancyPanel();
 
@@ -992,7 +978,7 @@ function showV3(data){
     const badgeLabel=o?.state==='reponer'?'Reponer':o?.state==='suficiente'?'Suficiente':'Revisar';
     const fillWidth=valid?Math.max(2,Math.min(100,Math.round(o.pct))):0;
     const pctText=valid?Math.round(o.pct)+' %':'—';
-    const scopeNotice=d.scope==='Solo zona visible'?'Solo zona visible - revisa la foto':(d.notice||(d.scope==='Completo'?'Visibilidad confirmada':d.scope||'Visibilidad confirmada'));
+    const scopeNotice=d.scope==='Solo zona visible'?'Solo zona visible - revisa la foto':(d.notice||(d.scope||'Área detectada'));
 
     return `<tr class="occupancy-item occupancy-${tone}"><td class="occupancy-cell">
       <div class="occupancy-item-header">
@@ -1013,7 +999,7 @@ function showV3(data){
     </td></tr>`;
   }).join('');
 
-  if(data.occupancy)$('edge-description').textContent='Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
+  if(data.occupancy)$('edge-description').textContent=front?'Cobertura estimada del frente con señal respaldada por bordes o textura. El espacio libre sobre los productos no reduce la cobertura. Se asume lleno detrás del producto visible. Estimación experimental, pendiente de calibración.':'Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
   if(data.photo_status==='gondola_tapada'){
     $('result-tools').hidden=true;
     $('view-result').disabled=true;
@@ -1073,7 +1059,7 @@ function show(data){
         </div>
         <div class="occupancy-item-footer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span>${valid?'Visibilidad confirmada':'Sin medición'}</span>
+          <span>${valid?'Señal experimental':'Sin medición'}</span>
         </div>
       </td></tr>`;
     }).join('');
@@ -1091,13 +1077,13 @@ function show(data){
   $('download').download='resultado_gondola.jpg';
 
   if(data.occupancy){
-    const weighted=data.occupancy.method==='paulo_mascara_v2_combinacion_ponderada',pct=value=>value==null?'Sin medición':Number(value).toLocaleString('es-CL',{maximumFractionDigits:2})+' %';
+    const front=data.occupancy.interpretation_policy?.name==='front_coverage_v1',weighted=data.occupancy.method==='paulo_mascara_v2_combinacion_ponderada',pct=value=>value==null?'Sin medición':Number(value).toLocaleString('es-CL',{maximumFractionDigits:2})+' %';
     $('edge-summary').textContent='Cómo se estima la ocupación';
     $('edge-description').textContent=(weighted?'Ocupación estimada = 70 % de superficie + 30 % de ancho. ':'Ocupación estimada = área con señal. ')+'La estimación usa bordes, color y textura. No mide el stock detrás de los productos.';
-    $('edge-columns').innerHTML=`<tr><th>Nivel</th>${weighted?'<th>Combinado</th>':''}<th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr>`;
+    $('edge-columns').innerHTML=`<tr><th>Nivel</th>${front?'<th>Cobertura del frente</th>':''}${weighted?'<th>Combinado de área y ancho</th>':''}<th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr>`;
     $('edge-rows').innerHTML=data.detections.map(d=>{
       const o=d.occupancy||{};
-      return `<tr><td>${d.id}</td>${weighted?`<td>${pct(o.combined_signal_pct)}</td>`:''}<td>${pct(o.area_signal_pct)}</td><td>${pct(o.width_signal_pct)}</td><td>${esc(o.reason||(o.status==='medido'?'Señal experimental':'Sin medición'))}</td></tr>`;
+      return `<tr><td>${d.id}</td>${front?`<td>${pct(o.front_signal_pct)}</td>`:''}${weighted?`<td>${pct(o.combined_signal_pct)}</td>`:''}<td>${pct(o.area_signal_pct)}</td><td>${pct(o.width_signal_pct)}</td><td>${esc(o.reason||(o.status==='medido'?'Señal experimental':'Sin medición'))}</td></tr>`;
     }).join('');
     $('edge-results').hidden=false;
   }else{
@@ -1208,14 +1194,13 @@ function chooseBatch(files){
   if(invalid){error(`Revisa ${invalid.name}: usa JPG, PNG o WebP de hasta 15 MB.`);return}
   if(dirtySelection&&!confirm('Hay fotos marcadas sin descargar. ¿Quieres reemplazar el lote?'))return;
   clearBatch();$('batch-confirm').checked=true;dirtySelection=false;batchFilter='all';$('batch-filter').value='all';
-  batch=files.map(f=>({file:f,thumb:null,visibility:'',result:null,marked:false,failure:'',reason:'',note:''}));
+  batch=files.map(f=>({file:f,thumb:null,result:null,marked:false,failure:'',reason:'',note:''}));
   selectBatch(0);buildThumbnails(batch);saveSession();
 }
 function selectBatch(index){
   if(running||index<0||index>=batch.length)return;
   batchIndex=index;
   choose(batch[index].file);
-  $('visibility').value=batch[index].visibility;
   if(batch[index].result){show(batch[index].result);showAppliedConfidence(batch[index].analyzedConfidence)}
   if(batch[index].failure)error(batch[index].failure);
   renderBatch();
@@ -1229,13 +1214,13 @@ async function analyzeBatch(){
   batchStop='';batchRunning=true;renderBatch();
   for(let i=0;i<batch.length;i++){
     if(batchStop)break;
-    if(batch[i].result||batch[i].failure||(isV3()&&!batch[i].visibility))continue;
+    if(batch[i].result||batch[i].failure)continue;
     selectBatch(i);
     $('batch-help').textContent=`Analizando ${i+1} de ${batch.length}. `;
     await analyzePhoto();saveSession();
   }
   batchRunning=false;
-  $('batch-help').textContent=batchStop==='pause'?'Análisis pausado. Pulsa Analizar pendientes para continuar.':batchStop==='cancel'?'Análisis cancelado. Los resultados terminados se conservan.':'Revisa los resultados y selecciona la visibilidad de las fotos pendientes. Las fotos marcadas se descargan para anotación y revisión antes de entrenar.';
+  $('batch-help').textContent=batchStop==='pause'?'Análisis pausado. Pulsa Analizar pendientes para continuar.':batchStop==='cancel'?'Análisis cancelado. Los resultados terminados se conservan.':'Revisa los resultados de las fotos. Las fotos marcadas se descargan para anotación y revisión antes de entrenar.';
   renderBatch();
 }
 // ZIP sin compresión: conserva los archivos originales y evita enviar fotos a otro servicio.
@@ -1265,7 +1250,7 @@ $('batch-download').addEventListener('click',async()=>{
       const safe=selected[i].file.name.replace(/[\\/\x00-\x1f]/g,'_');
       items.push({name:`${String(i+1).padStart(3,'0')}_${safe}`,bytes:new Uint8Array(await selected[i].file.arrayBuffer())});
     }
-    items.push({name:'revision.json',bytes:new TextEncoder().encode(JSON.stringify({fotos:selected.map((item,i)=>({archivo:items[i].name,original:item.file.name,motivo:item.reason||'',nota:item.note||'',visibilidad:item.visibility}))},null,2))});
+    items.push({name:'revision.json',bytes:new TextEncoder().encode(JSON.stringify({fotos:selected.map((item,i)=>({archivo:items[i].name,original:item.file.name,motivo:item.reason||'',nota:item.note||''}))},null,2))});
     const url=URL.createObjectURL(zipSelected(items)),link=document.createElement('a');link.href=url;link.download='fotos_para_revision.zip';link.click();dirtySelection=false;saveSession();setTimeout(()=>URL.revokeObjectURL(url),60000);
   }catch(e){error('No se pudo preparar la descarga. Prueba con menos fotos.')}finally{availability()}
 });
@@ -1279,7 +1264,6 @@ $('batch-pause').addEventListener('click',()=>{batchStop='pause';$('batch-help')
 $('batch-cancel').addEventListener('click',()=>{batchStop='cancel';$('batch-help').textContent='Se cancelará al terminar la foto actual.'});
 $('batch-retry').addEventListener('click',()=>{for(const item of batch)item.failure='';renderBatch();saveSession();analyzeBatch()});
 for(const field of ['reason','note'])$('batch-'+field).addEventListener('input',()=>{if(batchIndex<0)return;batch[batchIndex][field]=$('batch-'+field).value;dirtySelection=true;saveSession()});
-$('batch-apply-visibility').addEventListener('click',()=>{const value=$('batch-visibility').value;for(const item of batch){if(item.visibility!==value){item.visibility=value;item.result=null;item.failure=''}}$('batch-confirm').checked=false;selectBatch(batchIndex);saveSession()});
 document.addEventListener('keydown',event=>{if(event.defaultPrevented||batchIndex<0||batchRunning||running||event.altKey||event.ctrlKey||event.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();moveBatch(event.key==='ArrowLeft'?-1:1)}else if(event.key.toLowerCase()==='m'){$('batch-mark').click()}else if(event.key.toLowerCase()==='c'&&result){view('compare')}});
 function renderPhotoZoom(){const photo=$('photo');photo.style.setProperty('--photo-zoom',photoZoom);photo.style.setProperty('--pan-x',panX+'px');photo.style.setProperty('--pan-y',panY+'px');photo.classList.toggle('zoomed',photoZoom>1);const pct=Math.round(photoZoom*100);$('photo-zoom-label').textContent=`Zoom ${pct} %`;if($('photo-zoom-display'))$('photo-zoom-display').textContent=`${pct}%`}
 function resetPhotoZoom(){photoZoom=1;panX=0;panY=0;photoDrag=null;renderPhotoZoom()}
@@ -1298,19 +1282,13 @@ const compareFigures=document.querySelectorAll?document.querySelectorAll('#compa
 for(const figure of compareFigures)figure.addEventListener('scroll',()=>{for(const other of compareFigures)if(other!==figure){other.scrollLeft=figure.scrollLeft;other.scrollTop=figure.scrollTop}});
 // Guardado local en IndexedDB, limitado a este navegador y eliminable por el usuario.
 function sessionDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB){reject(Error('Almacenamiento no disponible'));return}const request=window.indexedDB.open('walmart-vision-session',1);request.onupgradeneeded=()=>request.result.createObjectStore('session');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
-function saveSession(){if(!window.indexedDB)return;const snapshot={items:batch.map(({thumb,...item})=>item),index:batchIndex,dirty:dirtySelection,confirmed:$('batch-confirm').checked,visibilityVersion:1,model:currentModel?.id};saveQueue=saveQueue.catch(()=>{}).then(async()=>{const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').put(snapshot,'current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close();$('storage-status').hidden=true;$('storage-status').textContent='Sesión guardada en este navegador.'}).catch(()=>{$('storage-status').hidden=false;$('storage-status').textContent='No se pudo guardar la sesión. Descarga las fotos antes de cerrar.'});}
-async function restoreSession(){if(!window.indexedDB)return;try{await saveQueue;const db=await sessionDB();const snapshot=await new Promise((resolve,reject)=>{const req=db.transaction('session').objectStore('session').get('current');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});db.close();if(batch.length||!snapshot?.items?.length)return;batch=snapshot.items.map(({thumb,...item})=>({...item,thumb:null,visibility:snapshot.visibilityVersion===1?item.visibility:'',result:snapshot.visibilityVersion===1&&snapshot.model===currentModel?.id?item.result:null}));dirtySelection=!!snapshot.dirty;$('batch-confirm').checked=true;selectBatch(Math.min(snapshot.index||0,batch.length-1));buildThumbnails(batch);$('storage-status').textContent='Sesión recuperada de este navegador.'}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo recuperar la sesión guardada.'}}
+function saveSession(){if(!window.indexedDB)return;const snapshot={items:batch.map(({thumb,...item})=>item),index:batchIndex,dirty:dirtySelection,confirmed:$('batch-confirm').checked,analysisVersion:2,model:currentModel?.id};saveQueue=saveQueue.catch(()=>{}).then(async()=>{const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').put(snapshot,'current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close();$('storage-status').hidden=true;$('storage-status').textContent='Sesión guardada en este navegador.'}).catch(()=>{$('storage-status').hidden=false;$('storage-status').textContent='No se pudo guardar la sesión. Descarga las fotos antes de cerrar.'});}
+async function restoreSession(){if(!window.indexedDB)return;try{await saveQueue;const db=await sessionDB();const snapshot=await new Promise((resolve,reject)=>{const req=db.transaction('session').objectStore('session').get('current');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});db.close();if(batch.length||!snapshot?.items?.length)return;batch=snapshot.items.map(({thumb,...item})=>({...item,thumb:null,result:snapshot.analysisVersion===2&&snapshot.model===currentModel?.id?item.result:null}));dirtySelection=!!snapshot.dirty;$('batch-confirm').checked=true;selectBatch(Math.min(snapshot.index||0,batch.length-1));buildThumbnails(batch);$('storage-status').textContent='Sesión recuperada de este navegador.'}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo recuperar la sesión guardada.'}}
 $('batch-forget').addEventListener('click',async()=>{if(!confirm('Se borrará la sesión guardada y el lote actual. ¿Continuar?'))return;try{await saveQueue;if(window.indexedDB){const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').delete('current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close()}clearBatch();dirtySelection=false;location.reload()}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo borrar la sesión guardada. Intenta nuevamente.'}});
 window.addEventListener('beforeunload',event=>{if(dirtySelection){event.preventDefault();event.returnValue=''}});
 
 $('confidence').addEventListener('input',()=>{$('confidence-value').textContent=Math.round(Number($('confidence').value)*100)+' %'});
 $('file').addEventListener('change',()=>chooseBatch(Array.from($('file').files))); 
-$('visibility').addEventListener('change',()=>{
-  resetResult();
-  if(batchIndex>=0){batch[batchIndex].visibility=$('visibility').value;batch[batchIndex].result=null;batch[batchIndex].failure='';$('batch-confirm').checked=false;renderBatch();saveSession()}
-  modelContext();availability();
-  if(file)$('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Foto lista con visibilidad indicada';
-});
 
 for(const mode of viewModes)$('view-'+mode).addEventListener('click',()=>view(mode));
 $('edge-view').addEventListener('change',()=>view('edges'));
@@ -1339,7 +1317,6 @@ function showAppliedConfidence(confidence){
 }
 async function analyzePhoto(){
   if(!ready||!file||running)return;
-  if(isV3()&&!$('visibility').value){error('Selecciona la visibilidad de esta foto antes de analizar.');return}
   const previousResult=result,previousConfidence=batchIndex>=0?batch[batchIndex].analyzedConfidence:null;
   const selectedConfidence=$('confidence').value;
   running=true;
@@ -1352,7 +1329,7 @@ async function analyzePhoto(){
   $('stage').setAttribute('aria-busy','true');
   availability();
   try{
-    const params=new URLSearchParams({model:currentModel.id,confidence:selectedConfidence,method:ANALYSIS_METHOD,...(isV3()?{visibility:$('visibility').value}:{})});
+    const params=new URLSearchParams({model:currentModel.id,confidence:selectedConfidence,method:ANALYSIS_METHOD});
     const response=await fetch('/api/predict?'+params,{method:'POST',headers:{'Content-Type':file.type||'application/octet-stream'},body:file,signal:AbortSignal.timeout(300000)});
     const data=await response.json();
     if(!response.ok)throw Error(data.error||'No se pudo analizar la foto.');

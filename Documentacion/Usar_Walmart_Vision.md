@@ -4,7 +4,7 @@ Esta guía corresponde a **V3, publicada el 26 de octubre de 2026**. Descarga el
 
 ## Abrir la aplicación
 
-Descarga [`Walmart_Vision_V3_20261027.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip) y extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
+Descarga [`Walmart_Vision_V3_20261028.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip) y extrae todo el ZIP. El archivo automático “Source code” de GitHub contiene fuentes, sin los pesos necesarios para ejecutar esta versión de la app.
 
 **Windows:** abre `Walmart_Vision/iniciar.cmd`. El iniciador prepara las dependencias en el primer uso. Después se abre el visor en [http://127.0.0.1:8095](http://127.0.0.1:8095).
 
@@ -27,24 +27,16 @@ La perspectiva oblicua cambia las alturas y anchuras aparentes, oculta huecos de
 ## Analizar una foto
 
 1. Selecciona o arrastra una foto **JPG, PNG o WebP de hasta 15 MB**.
-2. Responde **¿Cómo se ve la góndola?** según lo que ves en la imagen.
-3. Pulsa **Analizar foto**.
-4. Comprueba los contornos y los avisos antes de interpretar los porcentajes.
+2. Pulsa **Analizar foto**.
+3. Comprueba los contornos, la visibilidad y los avisos antes de interpretar los porcentajes.
 
 El análisis utiliza automáticamente el modelo V3 vigente, niveles y detección de bordes, con confianza inicial 0,60, ajustable desde 0,40. No hay que elegir modelos. La confianza de detección y la ocupación son medidas diferentes.
 
 Las fotografías se procesan localmente y no se añaden al entrenamiento. La sesión del lote, incluidas las fotos, se guarda en el navegador del equipo y puede eliminarse desde «Borrar sesión guardada».
 
-## Indicar la visibilidad
+## Revisar la visibilidad
 
-| Opción | Comportamiento |
-|---|---|
-| **Completa y despejada** | Estima ocupación dentro de los niveles detectados. |
-| **Recortada por la foto** | Limita la medición a la zona visible y marca Revisar. |
-| **Con un objeto delante** | Suspende la medición y pide una foto sin el obstáculo. |
-| **Con una persona tapándola** | Muestra Góndola tapada, sin contornos, ocupación ni reposición. |
-
-La comprobación es manual: la app no detecta automáticamente esos casos. Si un contorno alcanza el encuadre también aparece un aviso conservador para revisar lo que quedó fuera.
+La app no detecta automáticamente personas ni obstáculos. Revisa la foto y toma otra si la góndola está tapada. Si un contorno alcanza el encuadre aparece un aviso para revisar lo que quedó fuera.
 
 ## Revisar el resultado
 
@@ -56,7 +48,7 @@ Los niveles se numeran desde abajo hacia arriba. Utiliza:
 - **Comparar:** original y resultado juntos.
 - **Descargar resultado:** una copia de la imagen analizada.
 
-**Reponer** aparece bajo el 30 % y **Suficiente** desde el 30 %, solo cuando la medición y el alcance lo permiten. Son referencias experimentales; no certifican stock disponible.
+**Reponer** aparece bajo el 30 % y **Suficiente** desde el 30 % de cobertura experimental del frente, solo cuando la medición y el alcance lo permiten. Se asume lleno detrás del producto visible; el espacio libre encima no reduce la cobertura. La señal no identifica productos de manera fiable y requiere calibración; revisa la foto antes de tomar decisiones.
 
 **Revisar** indica que no se puede confirmar el nivel completo o su ocupación. Si la señal se concentra arriba o en la periferia sin suficiente respaldo central e inferior, la app muestra **Revisar · señal ambigua**, sin porcentaje presentado: puede estar respondiendo a un cartel o al fondo.
 

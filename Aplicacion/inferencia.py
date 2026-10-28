@@ -97,7 +97,7 @@ class ModelRunner:
                                    if set(classes) == set(V2_CLASSES) else 'No evaluable se comunica por separado y no significa vacío.'))
                 if classes == ['Nivel']:
                     value.update(geometry_only=True, minimum_confidence=.4, default_confidence=.6,
-                                 note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; confirma la visibilidad de la foto.')
+                                 note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; revisa la foto y los resultados.')
             models.append(value)
         return models
 
@@ -114,17 +114,12 @@ class ModelRunner:
         if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
         if geometry:
-            from vision_v3 import visibility_check
-            visibility_check(visibility)
             if confidence < .4:
                 raise ValueError('La confianza mínima de V3 es 0,40.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
             image = read_photo(body)
-            if geometry and visibility == 'person':
-                from vision_v3 import person_result
-                return person_result(image, model_id, method)
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
@@ -145,20 +140,19 @@ class ModelRunner:
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
             extra = {}
-            if method in ('yolo_paulo', 'yolo_paulo_v2') and not (geometry and visibility == 'occluded'):
+            if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
             if geometry:
                 from vision_v3 import apply_scope
-                apply_scope(detections, visibility, image.width, image.height)
-            if extra or (geometry and visibility == 'occluded'):
+                apply_scope(detections, image.width, image.height)
+            if extra:
                 annotated, _ = draw_result(image, result, measurements=detections)
             counts = Counter(d['state'] for d in detections)
             return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
                     'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
                     'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
                     'width': image.width, 'height': image.height, 'method': method,
-                    'geometry_only': geometry, 'visibility': visibility,
-                    'visibility_source': 'user' if geometry else None, **extra}
+                    'geometry_only': geometry, **extra}
         finally:
             self.lock.release()
 
@@ -180,7 +174,8 @@ def analyze_edges(original_rgb, result, detections, version='v1'):
         sys.modules[spec.name] = module
         spec.loader.exec_module(module)
         Analyzer, provenance = module.Analyzer, module.provenance
-    analyzer = Analyzer(original_rgb, version=version)
+    front_mode = version == 'v2' and set(getattr(result, 'names', {}).values()) == {'Nivel'}
+    analyzer = Analyzer(original_rgb, version=version, front_mode=front_mode)
     masks = result.masks.data.cpu().numpy() if result.masks is not None else []
     if getattr(result, 'boxes', None) is not None and len(masks):
         order = spatial_order(result.boxes.xyxy.cpu().tolist())
@@ -189,6 +184,11 @@ def analyze_edges(original_rgb, result, detections, version='v1'):
         mask = (masks[index] > .5).astype('uint8') if index < len(masks) else None
         detection['occupancy'] = analyzer.analyze(mask, state=detection['state'])
         detection['occupancy_estimate'] = occupancy_estimate(detection['occupancy'], version)
-    return {'occupancy': provenance(version, analyzer.p), 'occupancy_image': Image.fromarray(analyzer.overlay()),
+    info = provenance(version, analyzer.p)
+    if front_mode:
+        info.update(interpretation_policy={'name': 'front_coverage_v1', 'support_start': .35,
+                                          'minimum_contiguous_rows': 2, 'threshold_pct': 30},
+                    meaning='Cobertura experimental del frente; se asume lleno detrás del producto visible.')
+    return {'occupancy': info, 'occupancy_image': Image.fromarray(analyzer.overlay()),
             'edges_image': Image.fromarray(analyzer.edges),
             'filtered_edges_image': Image.fromarray(analyzer.filtered_edges)}

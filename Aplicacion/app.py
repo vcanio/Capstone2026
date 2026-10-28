@@ -71,11 +71,7 @@ class Handler(BaseHTTPRequestHandler):
             body = self.rfile.read(length)
             if len(body) != length:
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
-            visibility = params.get('visibility', [None])[0]
-            if visibility is None:
-                prediction = self.server.runner.analyze(body, model, confidence, method)
-            else:
-                prediction = self.server.runner.analyze(body, model, confidence, method, visibility=visibility)
+            prediction = self.server.runner.analyze(body, model, confidence, method)
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=92)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')

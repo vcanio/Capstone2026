@@ -66,8 +66,7 @@ class VisionInterfaceTests(unittest.TestCase):
         self.js("""
         currentModel={id:'V3',geometry_only:true};modelContext();
         const photos=[{name:'uno.jpg',type:'image/jpeg',size:10},{name:'dos.png',type:'image/png',size:20}];
-        chooseBatch(photos);assert.equal(batch.length,2);assert.equal($('batch-analyze').disabled,true);
-        for(let i=0;i<2;i++){selectBatch(i);$('visibility').value='clear';$('visibility').listeners.change()}
+        chooseBatch(photos);assert.equal(batch.length,2);
         assert.equal($('batch-analyze').disabled,false);
         $('batch-confirm').checked=true;$('batch-confirm').listeners.change();
         let calls=[];global.fetch=async(url,options)=>{calls.push(options.body.name);return {ok:true,json:async()=>prediction()}};
@@ -77,15 +76,12 @@ class VisionInterfaceTests(unittest.TestCase):
         selectBatch(0);assert.equal(file.name,'uno.jpg');assert.ok(result);
         $('batch-mark').listeners.click();assert.equal(batch[0].marked,true);
         selectBatch(1);assert.equal(batch[0].marked,true);assert.equal($('batch-download').disabled,false);
-        $('visibility').value='partial';$('visibility').listeners.change();
-        assert.equal(batch[1].visibility,'partial');assert.equal(batch[1].result,null);assert.equal($('batch-confirm').checked,false);
         """)
 
     def test_batch_pause_and_retry_failed_photo(self):
         self.js("""
         currentModel={id:'V3',geometry_only:true};modelContext();
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
-        for(let i=0;i<2;i++){selectBatch(i);$('visibility').value='clear';$('visibility').listeners.change()}
         $('batch-confirm').checked=true;let calls=[],finish;
         global.fetch=async(url,options)=>{calls.push(options.body.name);if(calls.length===1)await new Promise(resolve=>finish=resolve);return {ok:true,json:async()=>prediction()}};
         const run=analyzeBatch();$('batch-pause').listeners.click();finish();await run;
@@ -105,8 +101,6 @@ class VisionInterfaceTests(unittest.TestCase):
         $('batch-filter').value='marked';$('batch-filter').listeners.change();
         assert.deepEqual(filteredBatchIndices(),[0]);
         assert.equal(batch[0].reason,'Nivel omitido');assert.equal(batch[0].note,'Superior');
-        $('batch-visibility').value='partial';$('batch-apply-visibility').listeners.click();
-        assert.ok(batch.every(item=>item.visibility==='partial'));assert.equal($('batch-confirm').checked,false);
         """)
 
     def test_gallery_can_collapse_without_hiding_review_actions(self):
@@ -181,22 +175,21 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal(file.name,'gondola.jpg');assert.equal($('analyze').disabled,false);
         """)
 
-    def test_v3_requires_visibility_uses_minimum_and_does_not_call_partial_sufficient(self):
+    def test_v3_allows_analysis_and_does_not_call_partial_sufficient(self):
         self.js("""
         currentModel={id:'V3',name:'V3',geometry_only:true,minimum_confidence:.4,guide:'V3'};modelContext();
         assert.equal($('confidence').value,'0.60');
-        choose({name:'new.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,true);
-        $('visibility').value='partial';$('visibility').listeners.change();assert.equal($('analyze').disabled,false);
+        choose({name:'new.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
         const data=prediction(true);data.geometry_only=true;data.visibility='partial';
         data.detections[0].scope='Solo zona visible';data.detections[0].notice='Revisa el resto';
         data.detections[0].occupancy_estimate={pct:80,state:'revisar',label:'Revisar · zona visible'};
         show(data);assert.match($('occupancy-rows').innerHTML,/Solo zona visible/);
-        assert.match($('occupancy-help').textContent,/nivel completo queda pendiente/);
+        assert.match($('occupancy-rows').innerHTML,/Revisar/);
         assert.doesNotMatch(resultDescription(data),/verde/);
         assert.doesNotMatch($('occupancy-rows').innerHTML,/occupancy-enough/);
         show({...data,photo_status:'gondola_tapada',detections:[],counts:{},message:'Góndola tapada'});
         assert.match($('summary').innerHTML,/Góndola tapada/);assert.equal($('result-tools').hidden,true);
-        choose({name:'another.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,true);
+        choose({name:'another.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
         """)
     def test_v2_selection_shows_weighted_measurement_and_clears_old_results(self):
         self.js("""
@@ -237,31 +230,24 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal($('viewport').attrs['aria-labelledby'],'view-edges');
         """)
 
-    def test_visibility_changes_clear_old_results_and_requests_keep_fixed_settings(self):
+    def test_requests_keep_fixed_settings_without_visibility(self):
         self.js("""
         currentModel={id:'V3',geometry_only:true};modelContext();
         choose({name:'foto.jpg',size:100,type:'image/jpeg'});
         let requests=[];
         global.fetch=async(url,options)=>{requests.push({url,options});return {ok:true,json:async()=>prediction()}};
-        await $('form').listeners.submit({preventDefault(){}});assert.equal(requests.length,0);
-        $('visibility').value='clear';$('visibility').listeners.change();
         await $('form').listeners.submit({preventDefault(){}});
         assert.equal(requests.length,1);
         const params=new URL(requests[0].url,'http://localhost').searchParams;
         assert.equal(params.get('model'),'V3');
         assert.equal(params.get('method'),'yolo_paulo_v2');
         assert.equal(Number(params.get('confidence')),0.6);
-        assert.equal(params.get('visibility'),'clear');
+        assert.equal(params.has('visibility'),false);
         $('confidence').value='0.4';$('confidence').listeners.input();
         assert.equal($('confidence-value').textContent,'40 %');
         await $('form').listeners.submit({preventDefault(){}});
         assert.equal(new URL(requests[1].url,'http://localhost').searchParams.get('confidence'),'0.4');
         assert.equal(requests[0].options.body,file);
-        show(prediction());view('compare');
-        $('visibility').value='partial';$('visibility').listeners.change();
-        assert.equal(result,null);assert.equal($('view-edges').disabled,true);
-        assert.equal($('comparison').hidden,true);assert.equal($('compare-result').src,undefined);
-        assert.equal($('photo').src,'blob:original');assert.equal($('download').href,undefined);
         choose({name:'otra.png',size:120,type:'image/png'});assert.equal(result,null);
         """)
 

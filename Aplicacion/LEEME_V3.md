@@ -8,9 +8,8 @@ En Windows, extraer todo el ZIP y abrir `iniciar.cmd`. En Docker, ejecutar `dock
 
 1. Seleccionar una foto JPG, PNG o WebP de hasta 15 MB.
    También puedes elegir **Tomar foto con guía** y permitir el acceso a la cámara. El marco y las líneas ayudan a encuadrar; no son detecciones ni se incorporan a la foto. Revisa la imagen antes de analizarla. La cámara necesita una conexión segura HTTPS o acceso desde el propio equipo (localhost).
-2. Indicar cómo se ve la góndola: completa y despejada, recortada, con un objeto delante o con una persona tapándola. Esta comprobación es manual: el modelo no detecta automáticamente la visibilidad.
-3. El análisis usa automáticamente el modelo vigente, detección de niveles y bordes, con confianza fija 0,60. No requiere configuración técnica.
-4. Pulsar Analizar foto. Revisar contornos, ocupación estimada, alcance y avisos. Original, Niveles, Bordes y Comparar permiten comprobar el resultado.
+2. El análisis usa automáticamente el modelo vigente, detección de niveles y bordes, con confianza inicial 0,60 ajustable desde 0,40.
+3. Pulsar Analizar foto. Revisar contornos, ocupación estimada, alcance y avisos. Original, Niveles, Bordes y Comparar permiten comprobar el resultado.
 
 ## Fotografías frontales
 
@@ -28,11 +27,11 @@ Si el superior no tiene un techo claro, las anotaciones usan la mediana de las a
 
 YOLO V3 predice una sola clase: Nivel. Conserva las máscaras del modelo; no impone una mediana ni inventa niveles omitidos. La confianza no es ocupación.
 
-Los bordes son cambios de intensidad de la foto, distintos del contorno del nivel. Se combinan con gradiente, color y textura por celdas dentro de la máscara. El mapa fucsia es esa señal combinada, no producto confirmado. La estimación final combina 70 % de superficie con señal y 30 % de cobertura horizontal: `O = 0,70 × A + 0,30 × W`. Con A = 40 % y W = 80 %, O = 52 %. El ancho exige un tramo continuo de señal en al menos el 45 % de la altura útil de cada columna. La concentración horizontal y la incoherencia entre área y ancho pueden requerir revisión. Menos del 30 % produce Reponer; desde el 30 %, Suficiente, como señal experimental para el área detectada. Es una estimación experimental pendiente de calibración V3, no una medición exacta de stock.
+Los bordes son cambios de intensidad de la foto, distintos del contorno del nivel. Se combinan con gradiente, color y textura por celdas dentro de la máscara. El mapa fucsia es esa señal combinada, no producto confirmado. La lectura estima qué parte del frente tiene señal con respaldo de bordes o textura, sin penalizar el espacio libre sobre productos bajos. Se asume lleno detrás del producto visible. Por debajo del 30 % muestra Reponer y desde el 30 %, Suficiente, cuando las reglas permiten una lectura. El cálculo 70/30 anterior se conserva como diagnóstico. La cobertura es experimental, no está calibrada ni identifica productos de manera fiable.
 
 Cuando la señal se concentra arriba, o queda en la periferia sin suficiente respaldo central e inferior, se muestra Revisar · señal ambigua, sin porcentaje ni decisión de reposición. Puede proceder de cartelería, estructura o fondo; también puede ocurrir con productos escasos o poco contrastados. El mapa fucsia conserva la señal bruta: esta abstención no detecta ni borra automáticamente esos elementos.
 
-Si la foto es recortada o un contorno alcanza el encuadre, se muestra Solo zona visible y Revisar; un porcentaje alto no certifica el nivel completo. Si se indica un objeto delante se suspende la medición. Si se indica una persona tapando la góndola, se muestra Góndola tapada y se pide otra foto, sin contornos, ocupación ni reposición. La ausencia de detecciones no significa góndola vacía.
+Si un contorno alcanza el encuadre, se muestra Solo zona visible y Revisar; un porcentaje alto no certifica el nivel completo. La app no detecta automáticamente personas ni obstáculos: revisa las zonas tapadas o fuera del encuadre. La ausencia de detecciones no significa góndola vacía.
 
 En las pruebas conocidas, el superior vacío de Líder Express 030 puede omitirse; en 029 el contorno superior puede quedar demasiado alto. Revisar estos casos y fotos nuevas antes de tomar decisiones operativas. No se evaluó la reserva final de 63 fotos. La validación común de máscaras no mejoró globalmente respecto del padre; la adopción de esta versión fue una decisión visual del usuario con estas limitaciones conocidas.
 
