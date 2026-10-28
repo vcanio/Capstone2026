@@ -15,6 +15,6 @@ El procesamiento es local en CPU. La sesión del lote, incluidas las fotos, se g
 
 Con la imagen ya preparada, usar `docker compose up -d --wait`. Para detener: `docker compose down`. Si el puerto 8095 está ocupado, detener otra instancia o seguir las opciones de Compose incluidas en la descarga. Mantener todos los archivos del ZIP juntos.
 
-Vicente confirmó que este procedimiento funcionó en macOS con la release anterior. V3 mantiene el mismo flujo y dependencias. Las pruebas anteriores de AMD64 y ARM64 emulada están en el [registro Docker fechado](VERIFICACION_DOCKER.md); no constituyen una nueva validación de precisión V3. La [guía del 23 de octubre](../Historico/Documentacion/Aplicacion/DOCKER_20261023.md) se conserva como antecedente.
+Vicente confirmó que este procedimiento funcionó en macOS con la release anterior. V3 mantiene el mismo flujo y dependencias. Las pruebas anteriores de AMD64 y ARM64 emulada están en el [registro Docker fechado](Documentacion/VERIFICACION_DOCKER.md); no constituyen una nueva validación de precisión V3. La [guía del 23 de octubre](../Historico/Documentacion/Aplicacion/DOCKER_20261023.md) se conserva como antecedente.
 
 [Manual V3](../Documentacion/Usar_Walmart_Vision.md) · [Distribución](../Entregables/README.md) · [Modelo y límites](../Modelos/Actual/README.md).

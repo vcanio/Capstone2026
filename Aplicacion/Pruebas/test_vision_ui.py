@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import unittest
 
-HTML = Path(__file__).with_name('interfaz.html').read_text(encoding='utf-8')
+HTML = (Path(__file__).resolve().parents[1] / 'interfaz.html').read_text(encoding='utf-8')
 SCRIPT = re.search(r'<script>(.*?)</script>', HTML, re.S).group(1)
 HARNESS = r"""
 const assert=require('node:assert/strict');

@@ -5,7 +5,7 @@
 Este documento conserva las comprobaciones del laboratorio y de las versiones
 anteriores de la demo del 20 de octubre de 2026. La entrega descrita en este registro para el usuario
 es **Walmart Visión**, con la Release `walmart-vision-2026-10-20` y el activo
-`Walmart_Vision_20261020.zip`. Su [verificación específica](../../Aplicacion/VERIFICACION_VISION.md)
+`Walmart_Vision_20261020.zip`. Su [verificación específica](../../Aplicacion/Documentacion/VERIFICACION_VISION.md)
 registra las comprobaciones de esa versión. Los resultados históricos siguientes
 mantienen el alcance y los nombres de los paquetes que se probaron.
 

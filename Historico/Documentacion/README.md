@@ -19,8 +19,8 @@ Las guías antiguas se agrupan en esta carpeta y los enlaces del repositorio apu
 |---|---|---|
 | [Guía de anotación V1](Guia_anotacion_CVAT.md) | Criterio de cuatro estados, versión 1.3 del 14 de octubre. | [Guía V2 de Líder Express](Desarrollo/Guia_anotacion.md). |
 | [Primera pasada](Revision_primera_pasada_20261016.md) y [recuento](Revision_primera_pasada_20261016.json) | Diagnóstico del 16 de octubre sobre los primeros modelos V1. | [Evolución V1/V2 y mapa del código](Desarrollo/Evolucion_v1_v2.md). |
-| [Verificación de Lite V1](../../Aplicacion/VERIFICACION.md) | Comprobaciones del paquete inicial con dos modelos. | [Verificación de Visión](../../Aplicacion/VERIFICACION_VISION.md). |
-| [Notas de Lite V2 con bordes](Notas_Release_avance_20261020.md) y [verificación](../../Aplicacion/VERIFICACION_V2.md) | Paquete previo al cambio de nombre a Walmart Visión. | [Notas de Walmart Visión](Desarrollo/Notas_Release_Walmart_Vision_20261020.md). |
+| [Verificación de Lite V1](../../Aplicacion/Documentacion/VERIFICACION.md) | Comprobaciones del paquete inicial con dos modelos. | [Verificación de Visión](../../Aplicacion/Documentacion/VERIFICACION_VISION.md). |
+| [Notas de Lite V2 con bordes](Notas_Release_avance_20261020.md) y [verificación](../../Aplicacion/Documentacion/VERIFICACION_V2.md) | Paquete previo al cambio de nombre a Walmart Visión. | [Notas de Walmart Visión](Desarrollo/Notas_Release_Walmart_Vision_20261020.md). |
 | [Primera revisión de bordes](../../Laboratorio/Experimentos/Bordes/REVISION_20261018.md) | Revisión técnica del 18 de octubre. | [Revisión del 20 de octubre](../../Laboratorio/Experimentos/Bordes/REVISION_20261020.md). |
 
 Los resultados y configuraciones de los ensayos se conservan como evidencia técnica en [Experimentos](../../Laboratorio/Experimentos/README.md). Los resúmenes de comprobaciones están en [Evidencias](../../Documentacion/Evidencias/README.md); los logs extensos, las respuestas completas de consultas de GitHub y los respaldos de registros quedan solo en local.

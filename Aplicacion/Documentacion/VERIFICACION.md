@@ -1,8 +1,8 @@
-> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../Modelos/Actual/README.md).
+> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../../Modelos/Actual/README.md).
 
 # Verificación de Walmart Lite — 15 de octubre de 2026
 
-> **Registro histórico · Lite V1 con dos modelos.** Estas comprobaciones corresponden al paquete inicial. La entrega descrita en este registro utiliza cuatro modelos y se documenta en [Verificación de Walmart Visión](VERIFICACION_VISION.md). Para instalarla, seguir [Usar Walmart Visión](../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../Historico/Documentacion/README.md).
+> **Registro histórico · Lite V1 con dos modelos.** Estas comprobaciones corresponden al paquete inicial. La entrega descrita en este registro utiliza cuatro modelos y se documenta en [Verificación de Walmart Visión](VERIFICACION_VISION.md). Para instalarla, seguir [Usar Walmart Visión](../../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../../Historico/Documentacion/README.md).
 
 El paquete fue extraído en una carpeta separada y ejecutado con solo sus archivos y pesos, sin montar datos, CVAT, anotaciones, credenciales ni el resto del proyecto.
 

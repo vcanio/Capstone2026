@@ -7,6 +7,14 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'Aplicacion'
+
+
+def source_file(name):
+    """Las guías de verificación viven agrupadas en la copia de desarrollo."""
+    path = SOURCE / name
+    return path if path.is_file() else SOURCE / 'Documentacion' / name
+
+
 FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instalar.cmd', 'iniciar.cmd',
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
@@ -196,7 +204,7 @@ def build(output, *, v3=False):
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     for name in FILES:
-        if not (SOURCE / name).is_file():
+        if not source_file(name).is_file():
             raise ValueError(f'Falta {name}')
     uv_source = json.loads((SOURCE / 'herramientas/fuente_uv.json').read_text(encoding='utf-8'))
     for entry in uv_source['files']:
@@ -228,14 +236,15 @@ def build(output, *, v3=False):
     nb_value = notebook_v3(output.name) if v3 else notebook(output.name)
     nb = json.dumps(nb_value, ensure_ascii=False, indent=2) + '\n'
     verify_name = 'VERIFICACION_V3.md' if v3 else 'VERIFICACION_ACTUAL.md'
-    verify = (SOURCE / verify_name).read_text(encoding='utf-8') if (SOURCE / verify_name).exists() else 'Verificación de esta entrega pendiente.\n'
+    verify_path = source_file(verify_name)
+    verify = verify_path.read_text(encoding='utf-8') if verify_path.exists() else 'Verificación de esta entrega pendiente.\n'
     with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         for name in FILES:
-            body = (SOURCE / name).read_bytes()
+            body = source_file(name).read_bytes()
             if v3 and name == 'LEEME.md':
-                body = (SOURCE / 'LEEME_V3.md').read_bytes()
+                body = source_file('LEEME_V3.md').read_bytes()
             if v3 and name == 'DOCKER.md':
-                body = (SOURCE / 'DOCKER_V3.md').read_bytes()
+                body = source_file('DOCKER_V3.md').read_bytes()
             if name.endswith('.cmd'):
                 body = body.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
             elif name in ('Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt',

@@ -14,5 +14,5 @@ jobs:
       - run: python -m compileall -q Laboratorio/Modelos Laboratorio/Datos Aplicacion Laboratorio/Reproducibilidad
       - run: python -m unittest discover -s Laboratorio/Datos -v
       - run: python -m unittest discover -s Laboratorio/Reproducibilidad/tests -v
-      - run: python -m unittest discover -s Aplicacion -v
+      - run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
       - run: python Laboratorio/Reproducibilidad/verificar_publicacion.py

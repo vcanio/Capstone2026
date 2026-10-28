@@ -1,8 +1,8 @@
-> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../Modelos/Actual/README.md).
+> **Registro fechado: consultar su alcance original.** Las pruebas, modelos y expresiones de actualidad de este registro corresponden a la etapa que documenta. La distribución vigente es **Walmart Vision V3**, publicada el 26 de octubre de 2026, con un único best.pt propio. Este antecedente no acredita una evaluación nueva de V3. [Versión vigente y límites](../../Modelos/Actual/README.md).
 
 # Verificación de Walmart Lite V2 con bordes
 
-> **Registro histórico · Lite V2 anterior al cambio de nombre y visor de Walmart Visión.** Las comprobaciones vigentes de esa nueva entrega están en [Verificación de Walmart Visión](VERIFICACION_VISION.md); su instalación se explica en la [guía de uso](../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../Historico/Documentacion/README.md).
+> **Registro histórico · Lite V2 anterior al cambio de nombre y visor de Walmart Visión.** Las comprobaciones vigentes de esa nueva entrega están en [Verificación de Walmart Visión](VERIFICACION_VISION.md); su instalación se explica en la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md). Véase el [índice histórico](../../Historico/Documentacion/README.md).
 
 Esta entrega incorpora los dos modelos V1 históricos y los dos V2 base. El manifiesto
 incluye la procedencia y el SHA-256 de cada best.pt. La interfaz muestra las clases
