@@ -31,7 +31,7 @@
     "gondola_bordes.py": "d46f96de286004ea60f0515536b443333e7c0ff167a704547cf1206b8238c84d",
     "gondola_combinacion_ponderada.py": "d958b12047e6fd0f03d372a0e4c8e87f934f08e1223ae9b65c5f9f0933ea33b1"
   },
-  "minimum_confidence": 0.4,
+  "minimum_confidence": 0.25,
   "occupancy_calibrated": false,
   "known_limitations": [
     "le_g10: superior vacío 030 omitido; 029 contorno superior demasiado alto.",

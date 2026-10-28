@@ -51,8 +51,8 @@ class RunnerV3Tests(unittest.TestCase):
 
     def test_inference_runs_without_visibility_and_with_legacy_person_value(self):
         runner = ModelRunner(self.root)
-        with self.assertRaisesRegex(ValueError, '0,40'):
-            runner.analyze(photo(), 'fixture', .39)
+        with self.assertRaisesRegex(ValueError, '0,25'):
+            runner.analyze(photo(), 'fixture', .24)
         model = MagicMock()
         model.predict.return_value = [object()]
         runner.models['fixture'] = model
@@ -60,7 +60,9 @@ class RunnerV3Tests(unittest.TestCase):
         ultralytics = SimpleNamespace(YOLO=MagicMock(), settings=SimpleNamespace(update=lambda value: None))
         with patch.dict('sys.modules', {'torch': torch, 'ultralytics': ultralytics}), \
              patch('inferencia.draw_result', side_effect=lambda image, result: (image, [])):
+            runner.analyze(photo(), 'fixture', .25)
+            self.assertEqual(model.predict.call_args.kwargs['conf'], .25)
             for visibility in (None, 'person', 'occluded'):
                 result = runner.analyze(photo(), 'fixture', .6, visibility=visibility)
                 self.assertNotIn('visibility', result)
-        self.assertEqual(model.predict.call_count, 3)
+        self.assertEqual(model.predict.call_count, 4)

@@ -85,8 +85,12 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 .confidence-control{margin:0}
 .confidence-title{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px}
 .confidence-slider-row{display:flex;align-items:center;gap:10px}
-.confidence-slider-row input[type=range]{flex:1;min-width:0;margin:0;height:5px;accent-color:#127eee;color-scheme:light;cursor:pointer}
-.confidence-slider-row output{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:#127eee;flex-shrink:0}
+.confidence-slider-row input[type=range]{appearance:none;-webkit-appearance:none;flex:1;min-width:0;margin:0;height:24px;background:transparent;cursor:pointer}
+.confidence-slider-row input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(to right,var(--blue) var(--slider-fill,47.3%),var(--bar-track) var(--slider-fill,47.3%))}
+.confidence-slider-row input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:linear-gradient(to right,var(--blue) var(--slider-fill,47.3%),var(--bar-track) var(--slider-fill,47.3%))}
+.confidence-slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6px;border:2px solid #fff;border-radius:50%;background:var(--blue)}
+.confidence-slider-row input[type=range]::-moz-range-thumb{width:14px;height:14px;border:2px solid #fff;border-radius:50%;background:var(--blue)}
+.confidence-slider-row output{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:var(--ink);background:var(--surface);border:1px solid var(--card-border);border-radius:8px;padding:4px 8px;min-width:52px;text-align:center;flex-shrink:0}
 .confidence-scale{display:flex;justify-content:space-between;align-items:center;margin:5px 0 0;font-size:12px;color:var(--muted)}
 .btn-reanalyze{display:inline-flex;align-items:center;justify-content:center;width:100%;margin-top:10px;padding:7px 10px;border:1px solid #223041;border-radius:7px;background:#131d28;color:#cbd5e1;font-size:12px;font-weight:600;transition:background .15s,border-color .15s}
 .btn-reanalyze:hover:not(:disabled){background:var(--surface-hover);border-color:#2f4259;color:#fff}
@@ -102,7 +106,11 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 .gallery-card-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px;flex-shrink:0}
 .gallery-count-pill{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .gallery-empty-text{font-size:12.5px;color:var(--muted);line-height:1.45;margin:0}
-#gallery-sidebar-slot{flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto}
+#gallery-sidebar-slot{flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#536b83 var(--surface)}
+#gallery-sidebar-slot::-webkit-scrollbar{width:10px}
+#gallery-sidebar-slot::-webkit-scrollbar-track{background:var(--surface);border-radius:8px}
+#gallery-sidebar-slot::-webkit-scrollbar-thumb{background:#536b83;border:2px solid var(--surface);border-radius:8px}
+#gallery-sidebar-slot::-webkit-scrollbar-thumb:hover{background:#718aa3}
 
 /* Legend Card */
 .legend-card{flex-shrink:0;padding:13px 15px}
@@ -198,6 +206,7 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 .occupancy-cell{display:flex;flex-direction:column;gap:5px;width:100%;padding:0;border:0}
 .occupancy-item-header{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .occupancy-level-title{font-size:13px;font-weight:600;color:var(--ink)}
+.detection-confidence{font-size:11.5px;color:var(--muted);grid-column:1 / -1}
 .badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:11.5px;font-weight:600;line-height:1.35}
 .badge-low{background:var(--red-bg);color:var(--red)}
 .badge-enough{background:var(--green-bg);color:var(--green)}
@@ -411,6 +420,8 @@ table.edge-table th{color:var(--muted);font-weight:600}
 .batch-toolbar,.batch-review,.batch-progress{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:7px;font-size:12px}.batch-gallery select,.batch-gallery input[type=text]{padding:4px 6px;border:1px solid var(--card-border);border-radius:5px;background:var(--surface);color:var(--ink);font-size:12px}.batch-review input[type=text]{flex:1;min-width:100px}.batch-progress progress{flex:1;min-width:70px;height:6px}.batch-gallery button:focus-visible,.batch-gallery select:focus-visible,.batch-gallery input:focus-visible{outline:2px solid var(--blue-bright);outline-offset:2px}.compare-zoom{display:flex;align-items:center;gap:8px;padding:6px;font-size:12px}.compare-zoom input{width:130px}#comparison figure{overflow:auto}#comparison img{flex:none;max-width:none;max-height:none;height:auto;width:var(--compare-zoom,100%)}
 .batch-quick{margin-top:6px}.batch-quick button{flex:1 1 44%;min-width:0}#batch-details{overflow-y:auto}@media(max-width:860px){#batch-details{max-height:none}.batch-gallery{padding:9px}.batch-quick button{flex:1;min-width:105px}.viewer{min-height:55vh}}
 .viewer img#photo{transform:translate(var(--pan-x,0px),var(--pan-y,0px)) scale(var(--photo-zoom,1));cursor:zoom-in;transform-origin:center;user-select:none;-webkit-user-drag:none}.viewer img#photo.zoomed{cursor:grab;touch-action:none}.viewer img#photo.dragging{cursor:grabbing}.photo-zoom-tools{display:none!important}
+.photo-nav{position:absolute;top:50%;z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(8,14,22,.85);color:#fff;transform:translateY(-50%)}
+.photo-nav:hover:not(:disabled){background:#096bd1}.photo-nav:disabled{opacity:.4}.photo-nav svg{width:22px;height:22px}.photo-nav-prev{left:12px}.photo-nav-next{right:12px}
 #gallery-mobile-slot:empty{display:none}#gallery-mobile-slot .batch-gallery{margin-bottom:8px}
 
 /* Referencia visual: superficies oscuras y fotografía como centro de trabajo. */
@@ -433,6 +444,23 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
 .stage-header{padding:10px 16px}.view-switch,.stage-zoom-pill{border:0;border-radius:12px;background:var(--viewer-bg)}.view-switch button{font-size:13px;font-weight:500;padding:7px 12px}.viewer{padding:24px;background-color:var(--viewer-bg);background-image:radial-gradient(#1a2939 1px,transparent 1px);background-size:16px 16px}.viewer img#photo{border-radius:10px}
 .batch-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px 0}.batch-item button{position:relative;padding:0;overflow:hidden;border:2px solid transparent;border-radius:9px;aspect-ratio:3/4;opacity:.75}.batch-item button:hover,.batch-item button[aria-current=true]{opacity:1}.batch-item button[aria-current=true]{border-color:var(--blue)}.batch-item img{height:100%;border-radius:0}.thumb-status{position:absolute;bottom:3px;left:3px;background:var(--surface);color:var(--ink);border-radius:4px;padding:1px 3px;font-size:10px;font-weight:700}.thumb-enough{background:var(--green);color:#0c1723}.thumb-low{background:var(--red);color:#0c1723}.thumb-mark{position:absolute;right:3px;top:2px;color:var(--brand-yellow)}
 .batch-head{justify-content:flex-end}.batch-count{display:none}.batch-quick button{border-radius:10px;padding:9px 6px}.batch-quick #batch-mark,.batch-quick #batch-download{flex-basis:100%}.batch-progress{color:var(--muted)}
+.batch-progress{margin:0 0 12px}
+.stage-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.batch-mark-action{min-height:44px;padding:10px 12px;border:1px solid var(--blue);border-radius:10px;background:var(--blue);color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.batch-mark-action:hover{background:var(--blue-hover)}.batch-mark-action[aria-pressed="true"]{background:var(--surface);color:var(--ink);border-color:var(--blue)}.batch-mark-action:disabled{opacity:.5;cursor:not-allowed}
+.batch-head #batch-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:40px;padding:9px 12px;border:1px solid var(--card-border);border-radius:10px;background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;text-align:left}
+.batch-head #batch-toggle:hover,.batch-head #batch-toggle[aria-expanded="true"]{background:var(--surface-hover)}
+.batch-head #batch-toggle::after{content:'';width:8px;height:8px;flex:none;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:0 3px 4px 0}
+.batch-head #batch-toggle[aria-expanded="true"]::after{transform:rotate(225deg);margin:4px 3px 0 0}
+#batch-details{margin-top:10px;padding:12px;border:1px solid var(--card-border);border-radius:12px;background:var(--surface)}
+#batch-details .batch-toolbar{display:flex;align-items:stretch;flex-direction:column;gap:6px;margin:0;color:var(--ink);font-weight:600}
+#batch-details select{width:100%;min-height:40px;padding:8px 10px;border:1px solid var(--input-border);border-radius:8px;background:var(--input-bg);color:var(--ink);font-size:13px}
+#batch-details .batch-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+#batch-details .batch-actions button{min-height:40px;padding:9px 10px;border:1px solid var(--card-border);border-radius:8px;background:var(--card);font-size:13px;font-weight:600;text-align:left}
+#batch-details .batch-actions button:hover:not(:disabled){background:var(--surface-hover)}
+#batch-details .batch-help{margin:12px 0;line-height:1.5}
+#batch-forget{padding:4px 0;border:0;background:transparent;color:var(--muted);font-size:12px;text-align:left}
+#batch-forget:hover:not(:disabled){color:var(--ink);text-decoration:underline}
 .occupancy-header{margin-bottom:16px}.occupancy-avg-badge{background:var(--viewer-bg);border:0;border-radius:16px;padding:16px;gap:15px;margin-bottom:18px}.avg-ring{width:80px;height:80px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) var(--average,0%),var(--bar-track) 0);position:relative}.avg-ring:before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--viewer-bg)}.avg-val{position:relative;color:var(--ink);font-size:20px}.avg-label{color:var(--muted);text-transform:none;letter-spacing:0;font-size:11px;font-weight:400}.occupancy-avg-badge strong{display:block;color:var(--ink);font-size:13px}.avg-note{font-size:11px;color:var(--muted)}
 .occupancy-table{margin:0}.occupancy-table tbody{gap:12px}.occupancy-item{border:0;padding:0}.occupancy-cell{display:grid;grid-template-columns:65px minmax(0,1fr);column-gap:8px;row-gap:3px;align-items:center}.occupancy-item-header{display:contents}.occupancy-level-title{grid-column:1}.occupancy-state{grid-column:1 / -1;grid-row:2;justify-self:start;font-size:10px}.occupancy-bar-row{grid-column:2;grid-row:1}.occupancy-item-footer{grid-column:1 / -1;font-size:10px}.occupancy-threshold-marker{display:none}
 .result-note{font-size:11px;color:var(--muted);margin:0 0 12px}.download{background:var(--brand-yellow);color:#0c1723;border:0;border-radius:10px;padding:11px}.download:hover{background:#ffda60;color:#0c1723}
@@ -499,7 +527,7 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
             <div class="confidence-control">
               <label for="confidence" class="confidence-title">Confianza de detección</label>
               <div class="confidence-slider-row">
-                <input id="confidence" type="range" min="0.4" max="0.99" step="0.01" value="0.60" aria-describedby="confidence-help">
+                <input id="confidence" type="range" min="0.25" max="0.99" step="0.01" value="0.60" aria-describedby="confidence-help">
                 <output id="confidence-value" for="confidence">60%</output>
               </div>
               <div id="confidence-help" class="confidence-scale">
@@ -522,17 +550,17 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
           <p class="gallery-empty-text" id="gallery-empty">Las fotos que subas aparecerán aquí.</p>
           <div id="gallery-sidebar-slot">
             <section class="batch-gallery" id="batch-gallery" aria-label="Galería de fotos" hidden>
+              <div class="batch-progress"><progress id="batch-progress" max="1" value="0" aria-label="Progreso del lote"></progress><span id="batch-progress-text" role="status" aria-live="polite"></span><button type="button" id="batch-pause" hidden>Pausar</button><button type="button" id="batch-cancel" hidden>Cancelar</button></div>
               <div class="batch-head"><h2>Galería de fotos</h2><span id="batch-count" class="batch-count hint"></span><button type="button" id="batch-toggle" aria-expanded="false" aria-controls="batch-details">Ver opciones</button></div>
-              <div class="batch-grid" id="batch-grid" aria-label="Seleccionar foto"></div>
-              <div class="batch-actions batch-quick"><button type="button" id="batch-prev">Anterior</button><button type="button" id="batch-next">Siguiente</button><button type="button" id="batch-mark" aria-pressed="false">Marcar para revisión</button><button type="button" id="batch-download" disabled>Descargar seleccionadas</button></div>
               <div id="batch-details" hidden>
                 <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Marcadas</option><option value="pending">Pendientes</option><option value="failed">Con error</option></select></div>
                 <div class="batch-actions"><button type="button" id="batch-analyze">Analizar pendientes</button><button type="button" id="batch-retry">Reintentar fallidas</button></div>
-                <div class="batch-review" id="batch-review" hidden><label for="batch-reason">Motivo</label><select id="batch-reason"><option value="">Sin especificar</option><option>Nivel omitido</option><option>Contorno incorrecto</option><option>Ocupación incorrecta</option><option>Otro</option></select><label for="batch-note">Nota</label><input id="batch-note" type="text" maxlength="300" placeholder="Detalle opcional"></div>
                 <p class="batch-help" id="batch-help">Las seleccionadas se descargan para anotación y revisión antes de entrenar. Usa las flechas para navegar y M para marcar.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
               </div>
+              <div class="batch-review" id="batch-review" hidden><label for="batch-reason">Motivo</label><select id="batch-reason"><option value="">Sin especificar</option><option>Nivel omitido</option><option>Contorno incorrecto</option><option>Ocupación incorrecta</option><option>Otro</option></select><label for="batch-note">Nota</label><input id="batch-note" type="text" maxlength="300" placeholder="Detalle opcional"></div>
+              <div class="batch-grid" id="batch-grid" aria-label="Seleccionar foto"></div>
+              <div class="batch-actions batch-quick"><button type="button" id="batch-download" disabled>Descargar seleccionadas</button></div>
               <p class="batch-help" id="storage-status" role="status" hidden></p>
-              <div class="batch-progress"><progress id="batch-progress" max="1" value="0" aria-label="Progreso del lote"></progress><span id="batch-progress-text" role="status" aria-live="polite"></span><button type="button" id="batch-pause" hidden>Pausar</button><button type="button" id="batch-cancel" hidden>Cancelar</button></div>
             </section>
           </div>
         </section>
@@ -578,10 +606,15 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
                 <button type="button" role="tab" id="view-edges" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Bordes</button>
                 <button type="button" role="tab" id="view-compare" aria-controls="viewport" aria-selected="false" tabindex="-1" disabled>Comparar</button>
               </div>
-              <div class="stage-zoom-pill" aria-label="Control de zoom">
-                <button type="button" class="zoom-step-btn" id="photo-zoom-out" aria-label="Alejar">&minus;</button>
-                <button type="button" class="zoom-reset-btn" id="photo-zoom-reset" title="Restablecer zoom"><span id="photo-zoom-display">100%</span></button>
-                <button type="button" class="zoom-step-btn" id="photo-zoom-in" aria-label="Acercar">+</button>
+              <div class="stage-actions">
+                <div id="photo-review-action" hidden>
+                  <button type="button" class="batch-mark-action" id="batch-mark" aria-pressed="false">Marcar para revisión</button>
+                </div>
+                <div class="stage-zoom-pill" aria-label="Control de zoom" hidden>
+                  <button type="button" class="zoom-step-btn" id="photo-zoom-out" aria-label="Alejar">&minus;</button>
+                  <button type="button" class="zoom-reset-btn" id="photo-zoom-reset" title="Restablecer zoom"><span id="photo-zoom-display">100%</span></button>
+                  <button type="button" class="zoom-step-btn" id="photo-zoom-in" aria-label="Acercar">+</button>
+                </div>
               </div>
             </div>
 
@@ -599,6 +632,8 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
               <div class="compare-zoom" id="compare-zoom-controls" hidden><label for="compare-zoom">Zoom sincronizado</label><input type="range" id="compare-zoom" min="100" max="300" step="25" value="100"><output id="compare-zoom-value">100 %</output></div>
               <div class="photo-zoom-tools" id="photo-zoom-tools" hidden><span id="photo-zoom-label">Zoom 100 %</span><span>Usa la rueda y arrastra para moverte</span></div>
               <div class="viewer">
+                <button type="button" class="photo-nav photo-nav-prev" id="batch-prev" aria-label="Foto anterior" title="Foto anterior" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+                <button type="button" class="photo-nav photo-nav-next" id="batch-next" aria-label="Foto siguiente" title="Foto siguiente" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
                 <label for="file" class="upload-zone upload" id="drop">
                   <div class="empty" id="empty">
                     <svg class="empty-upload-svg" viewBox="0 0 40 44" fill="none" aria-hidden="true">
@@ -755,10 +790,13 @@ function syncOccupancyPanel(){
 function availability(){
   $('fields').disabled=!ready||running||batchRunning;
   $('batch-analyze').disabled=running||batchRunning||!ready||!batch.some(item=>!item.result&&!item.failure);
-  $('batch-mark').disabled=running||batchRunning||batchIndex<0;
+  const reviewItem=batch[batchIndex];
+  $('photo-review-action').hidden=!reviewItem;
+  $('batch-mark').disabled=running||batchRunning||!reviewItem||(!reviewItem.result&&!reviewItem.marked);
   $('batch-download').disabled=running||batchRunning||!batch.some(item=>item.marked);
   $('batch-retry').disabled=running||batchRunning||!batch.some(item=>item.failure);
   const visibleIndices=filteredBatchIndices();
+  $('batch-prev').hidden=$('batch-next').hidden=batchIndex<0||batch.length<2;
   $('batch-prev').disabled=running||batchRunning||!visibleIndices.some(i=>i<batchIndex);
   $('batch-next').disabled=running||batchRunning||!visibleIndices.some(i=>i>batchIndex);
   for(const id of ['batch-forget'])$(id).disabled=running||batchRunning;
@@ -917,7 +955,7 @@ function choose(selected){
   $('stage').classList.add('has-photo');
   $('header-photo-meta').hidden=false;
   $('photo-name').textContent=file.name;
-  $('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Foto lista para analizar';
+  $('photo-info').hidden=true;
   $('photo').hidden=false;
   $('empty').hidden=true;
   $('view-original').disabled=false;
@@ -935,6 +973,12 @@ function renderKPIs(total, low, review, avgPct){
   $('occupancy-avg-badge').style.setProperty('--average', `${Number.isFinite(avgPct)?Math.max(0,Math.min(100,avgPct)):0}%`);
   $('kpi-count').textContent=`${low} ${low===1?'nivel por reponer':'niveles por reponer'}${review?` · ${review} para revisar`:''}`;
   if($('kpi-ocupacion'))$('kpi-ocupacion').textContent=Number.isFinite(avgPct)?`${Math.round(avgPct)}%`:'—';
+}
+
+function detectionConfidence(value){
+  return Number.isFinite(value)&&value>=0&&value<=1
+    ? `Confianza de detección: ${(value*100).toLocaleString('es-CL',{maximumFractionDigits:1})} %`
+    : 'Confianza de detección: no disponible';
 }
 
 function showV3(data){
@@ -992,6 +1036,7 @@ function showV3(data){
         </div>
         <span class="occupancy-pct occupancy-value occupancy-${tone}">${pctText}</span>
       </div>
+      <div class="detection-confidence">${detectionConfidence(d.confidence)}</div>
       <div class="occupancy-item-footer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         <span>${esc(scopeNotice)}</span>
@@ -1057,6 +1102,7 @@ function show(data){
           </div>
           <span class="occupancy-pct occupancy-value occupancy-${tone}">${pctText}</span>
         </div>
+        <div class="detection-confidence">${detectionConfidence(d.confidence)}</div>
         <div class="occupancy-item-footer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <span>${valid?'Señal experimental':'Sin medición'}</span>
@@ -1066,6 +1112,7 @@ function show(data){
   }
 
   $('legend').hidden=total>0;
+  $('photo-info').hidden=false;
   $('photo-info').innerHTML='<span class="status-dot"></span> Análisis completado';
   $('view-result').disabled=false;
   $('view-compare').disabled=false;
@@ -1207,7 +1254,7 @@ function selectBatch(index){
 }
 $('batch-grid').addEventListener('click',event=>{const button=event.target.closest('[data-batch-index]');if(button)selectBatch(Number(button.dataset.batchIndex))});
 $('batch-confirm').addEventListener('change',()=>{availability();saveSession()});
-$('batch-mark').addEventListener('click',()=>{if(batchIndex<0)return;batch[batchIndex].marked=!batch[batchIndex].marked;dirtySelection=true;renderBatch();saveSession()});
+$('batch-mark').addEventListener('click',()=>{const item=batch[batchIndex];if(!item||running||batchRunning||(!item.result&&!item.marked))return;item.marked=!item.marked;dirtySelection=true;renderBatch();saveSession()});
 $('batch-analyze').addEventListener('click',analyzeBatch);
 async function analyzeBatch(){
   if(batchRunning||running)return;
@@ -1287,7 +1334,8 @@ async function restoreSession(){if(!window.indexedDB)return;try{await saveQueue;
 $('batch-forget').addEventListener('click',async()=>{if(!confirm('Se borrará la sesión guardada y el lote actual. ¿Continuar?'))return;try{await saveQueue;if(window.indexedDB){const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').delete('current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close()}clearBatch();dirtySelection=false;location.reload()}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo borrar la sesión guardada. Intenta nuevamente.'}});
 window.addEventListener('beforeunload',event=>{if(dirtySelection){event.preventDefault();event.returnValue=''}});
 
-$('confidence').addEventListener('input',()=>{$('confidence-value').textContent=Math.round(Number($('confidence').value)*100)+' %'});
+function updateConfidenceControl(){const input=$('confidence'),value=Number(input.value);$('confidence-value').textContent=Math.round(value*100)+' %';input.style.setProperty('--slider-fill',`${Math.max(0,Math.min(100,(value-.25)/(.99-.25)*100))}%`)}
+$('confidence').addEventListener('input',updateConfidenceControl);
 $('file').addEventListener('change',()=>chooseBatch(Array.from($('file').files))); 
 
 for(const mode of viewModes)$('view-'+mode).addEventListener('click',()=>view(mode));
@@ -1324,6 +1372,7 @@ async function analyzePhoto(){
   resetResult();
   $('progress').hidden=false;
   $('scan-overlay').hidden=false;
+  $('photo-info').hidden=false;
   $('photo-info').innerHTML='<span class="status-dot" style="background:var(--blue-bright)"></span> Analizando foto…';
   if(matchMedia('(max-width:860px)').matches)setMobileStep('2');
   $('stage').setAttribute('aria-busy','true');

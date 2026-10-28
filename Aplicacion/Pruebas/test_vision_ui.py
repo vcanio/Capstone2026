@@ -55,11 +55,14 @@ class VisionInterfaceTests(unittest.TestCase):
         self.js("""
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
         assert.match($('batch-count').textContent,/Foto 1 de 2/);
+        assert.equal($('batch-prev').hidden,false);assert.equal($('batch-next').hidden,false);
         assert.equal($('batch-prev').disabled,true);
         moveBatch(-1);assert.equal(batchIndex,0);
         moveBatch(1);assert.match($('batch-count').textContent,/Foto 2 de 2/);
         assert.equal($('batch-next').disabled,true);
         moveBatch(1);assert.equal(batchIndex,1);
+        chooseBatch([{name:'solo.jpg',type:'image/jpeg',size:1}]);
+        assert.equal($('batch-prev').hidden,true);assert.equal($('batch-next').hidden,true);
         """)
 
     def test_batch_retains_results_and_marks_originals(self):
@@ -96,6 +99,8 @@ class VisionInterfaceTests(unittest.TestCase):
     def test_review_metadata_and_filters(self):
         self.js("""
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
+        assert.equal($('batch-mark').disabled,true);$('batch-mark').listeners.click();assert.equal(batch[0].marked,false);
+        batch[0].result=prediction();renderBatch();assert.equal($('batch-mark').disabled,false);
         $('batch-mark').listeners.click();$('batch-reason').value='Nivel omitido';$('batch-reason').listeners.input();
         $('batch-note').value='Superior';$('batch-note').listeners.input();
         $('batch-filter').value='marked';$('batch-filter').listeners.change();
@@ -110,7 +115,7 @@ class VisionInterfaceTests(unittest.TestCase):
         $('batch-toggle').listeners.click();assert.equal($('batch-details').hidden,false);
         assert.equal($('batch-toggle').attrs['aria-expanded'],'true');
         $('batch-toggle').listeners.click();assert.equal($('batch-details').hidden,true);
-        assert.equal($('batch-mark').disabled,false);
+        assert.equal($('batch-mark').disabled,true);
         """)
 
     def test_batch_accepts_150_and_rejects_151_photos(self):
@@ -177,16 +182,21 @@ class VisionInterfaceTests(unittest.TestCase):
 
     def test_v3_allows_analysis_and_does_not_call_partial_sufficient(self):
         self.js("""
-        currentModel={id:'V3',name:'V3',geometry_only:true,minimum_confidence:.4,guide:'V3'};modelContext();
+        currentModel={id:'V3',name:'V3',geometry_only:true,minimum_confidence:.25,guide:'V3'};modelContext();
         assert.equal($('confidence').value,'0.60');
         choose({name:'new.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
         const data=prediction(true);data.geometry_only=true;data.visibility='partial';
         data.detections[0].scope='Solo zona visible';data.detections[0].notice='Revisa el resto';
         data.detections[0].occupancy_estimate={pct:80,state:'revisar',label:'Revisar · zona visible'};
         show(data);assert.match($('occupancy-rows').innerHTML,/Solo zona visible/);
+        assert.match($('occupancy-rows').innerHTML,/Confianza de detección: 90 %/);
         assert.match($('occupancy-rows').innerHTML,/Revisar/);
         assert.doesNotMatch(resultDescription(data),/verde/);
         assert.doesNotMatch($('occupancy-rows').innerHTML,/occupancy-enough/);
+        data.detections[0].confidence=.256;show({...data,occupancy:null});
+        assert.match($('occupancy-rows').innerHTML,/Confianza de detección: 25,6 %/);
+        delete data.detections[0].confidence;show(data);
+        assert.match($('occupancy-rows').innerHTML,/Confianza de detección: no disponible/);
         show({...data,photo_status:'gondola_tapada',detections:[],counts:{},message:'Góndola tapada'});
         assert.match($('summary').innerHTML,/Góndola tapada/);assert.equal($('result-tools').hidden,true);
         choose({name:'another.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
@@ -243,10 +253,10 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal(params.get('method'),'yolo_paulo_v2');
         assert.equal(Number(params.get('confidence')),0.6);
         assert.equal(params.has('visibility'),false);
-        $('confidence').value='0.4';$('confidence').listeners.input();
-        assert.equal($('confidence-value').textContent,'40 %');
+        $('confidence').value='0.25';$('confidence').listeners.input();
+        assert.equal($('confidence-value').textContent,'25 %');
         await $('form').listeners.submit({preventDefault(){}});
-        assert.equal(new URL(requests[1].url,'http://localhost').searchParams.get('confidence'),'0.4');
+        assert.equal(new URL(requests[1].url,'http://localhost').searchParams.get('confidence'),'0.25');
         assert.equal(requests[0].options.body,file);
         choose({name:'otra.png',size:120,type:'image/png'});assert.equal(result,null);
         """)
@@ -288,12 +298,16 @@ class VisionInterfaceTests(unittest.TestCase):
         view('compare');assert.equal($('compare-caption').textContent,'Ocupación estimada');
         data.detections=[{id:1,label:'Suficiente',confidence:.99}];show(data);
         assert.match($('summary').innerHTML,/No se pudo estimar/);
-        assert.doesNotMatch($('occupancy-rows').innerHTML,/99 %/);
+        assert.match($('occupancy-rows').innerHTML,/Confianza de detección: 99 %/);
+        assert.match($('occupancy-rows').innerHTML,/occupancy-value occupancy-unknown">—/);
         show(prediction(false));assert.equal($('level-occupancy').hidden,true);
         assert.equal($('occupancy-rows').innerHTML,'');
         """)
 
     def test_workspace_has_no_version_controls_and_keeps_theme_toggle(self):
+        self.assertLess(HTML.index('id="batch-progress"'), HTML.index('id="batch-grid"'))
+        self.assertLess(HTML.index('id="batch-mark"'), HTML.index('id="photo-zoom-display"'))
+        self.assertLess(HTML.index('id="photo-zoom-display"'), HTML.index('<div class="viewer">'))
         for removed in ('version-step', 'version-cards', 'change-version', 'version-continue', 'version-group', 'id="model"', 'id="method"', 'Ajustes de detección', 'Detalle del modelo YOLO'):
             self.assertNotIn(removed, HTML)
         self.assertIn('<div id="workspace-step">', HTML)

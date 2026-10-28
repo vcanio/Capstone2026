@@ -8,7 +8,7 @@ En Windows, extraer todo el ZIP y abrir `iniciar.cmd`. En Docker, ejecutar `dock
 
 1. Seleccionar una foto JPG, PNG o WebP de hasta 15 MB.
    También puedes elegir **Tomar foto con guía** y permitir el acceso a la cámara. El marco y las líneas ayudan a encuadrar; no son detecciones ni se incorporan a la foto. Revisa la imagen antes de analizarla. La cámara necesita una conexión segura HTTPS o acceso desde el propio equipo (localhost).
-2. El análisis usa automáticamente el modelo vigente, detección de niveles y bordes, con confianza inicial 0,60 ajustable desde 0,40.
+2. El análisis usa automáticamente el modelo vigente, detección de niveles y bordes, con confianza inicial 0,60 ajustable desde 0,25.
 3. Pulsar Analizar foto. Revisar contornos, ocupación estimada, alcance y avisos. Original, Niveles, Bordes y Comparar permiten comprobar el resultado.
 
 ## Fotografías frontales

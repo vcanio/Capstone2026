@@ -111,7 +111,7 @@ class ModelRunner:
                              note=('Este modelo base distingue reponer y suficiente; no reconoce no evaluable.'
                                    if set(classes) == set(V2_CLASSES) else 'No evaluable se comunica por separado y no significa vacío.'))
                 if classes == ['Nivel']:
-                    value.update(geometry_only=True, minimum_confidence=.4, default_confidence=.6,
+                    value.update(geometry_only=True, minimum_confidence=.25, default_confidence=.6,
                                  note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; revisa la foto y los resultados.')
             models.append(value)
         return models
@@ -135,8 +135,8 @@ class ModelRunner:
         if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
         if geometry:
-            if confidence < .4:
-                raise ValueError('La confianza mínima de V3 es 0,40.')
+            if confidence < .25:
+                raise ValueError('La confianza mínima de V3 es 0,25.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:

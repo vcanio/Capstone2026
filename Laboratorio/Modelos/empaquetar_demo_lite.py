@@ -229,7 +229,7 @@ def build(output, *, v3=False):
                 'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
     if v3:
         manifest.update(schema_version=6, date='2026-10-26', guide='V3', default_model='V3-YOLO26',
-                        minimum_confidence=.4, visibility_source='user', occupancy_calibrated=False,
+                        minimum_confidence=.25, visibility_source='user', occupancy_calibrated=False,
                         known_limitations=['le_g10: superior vacío 030 omitido; 029 contorno superior demasiado alto.',
                                            'No detecta automáticamente personas, oclusión o completitud.',
                                            'Ocupación experimental: umbral 30 % sin calibración V3; test final reservado.'])
