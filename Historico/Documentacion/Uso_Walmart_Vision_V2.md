@@ -26,7 +26,7 @@ Usar el paquete descrito en este registroizado **Walmart_Vision_Actual_20261023.
 4. Abrir http://localhost:8095 y cargar una foto directamente en el visor de la versión actual.
 5. Al terminar, ejecutar `docker compose down` desde esa misma carpeta.
 
-El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. No hace falta instalar Python. La [guía Docker incluida](../../Aplicacion/DOCKER.md) detalla cómo volver a iniciar sin Internet, cambiar el puerto y resolver problemas. Las pruebas en contenedores Linux y la comprobación en un Mac físico se distinguen en el [registro Docker](../../Aplicacion/VERIFICACION_DOCKER.md).
+El procesamiento es local en CPU; las fotos no se guardan ni se suben a Google. No hace falta instalar Python. La [guía Docker incluida](../../Aplicacion/DOCKER.md) detalla cómo volver a iniciar sin Internet, cambiar el puerto y resolver problemas. Las pruebas en contenedores Linux y la comprobación en un Mac físico se distinguen en el [registro Docker](../../Aplicacion/Documentacion/VERIFICACION_DOCKER.md).
 
 ## Iniciar en Windows y analizar una fotografía
 
@@ -105,7 +105,7 @@ Las fotografías se procesan en memoria en el computador: no se guardan ni se us
 
 ## Comprobar la instalación en otro computador
 
-**Estado: pendiente.** Se verificaron la interfaz y la inferencia CPU desde un ZIP extraído en el equipo de desarrollo. Eso no acredita una instalación en otro computador físico. El [registro de verificación de Visión](../../Aplicacion/VERIFICACION_VISION.md) conserva el alcance de las pruebas ya realizadas.
+**Estado: pendiente.** Se verificaron la interfaz y la inferencia CPU desde un ZIP extraído en el equipo de desarrollo. Eso no acredita una instalación en otro computador físico. El [registro de verificación de Visión](../../Aplicacion/Documentacion/VERIFICACION_VISION.md) conserva el alcance de las pruebas ya realizadas.
 
 Para cerrar esta comprobación, una persona debe seguir los pasos anteriores en otro computador físico, usando el ZIP descargado desde la Release y sin copiar el entorno Python preparado del equipo de desarrollo:
 
