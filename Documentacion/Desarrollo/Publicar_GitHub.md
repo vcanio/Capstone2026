@@ -12,7 +12,7 @@ Walmart Vision V3 está publicada en la [release del 26 de octubre de 2026](http
 
 ## Distribución vigente
 
-El [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip) incluye el modelo y funciona con el iniciador Windows o el procedimiento Docker del [manual](../Usar_Walmart_Vision.md). Los archivos automáticos Source code contienen fuentes sin pesos.
+El [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip) incluye el modelo y funciona con el iniciador Windows o el procedimiento Docker del [manual](../Usar_Walmart_Vision.md). Los archivos automáticos Source code contienen fuentes sin pesos.
 
 Los empaquetadores conservan funciones históricas con nombres y manifiestos fechados. No deben usarse sus valores antiguos para reemplazar la release vigente. Una entrega futura necesita un paquete y tag nuevos, comprobaciones explícitas y autorización para publicarla.
 

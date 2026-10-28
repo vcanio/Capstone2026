@@ -203,7 +203,10 @@ prediccion['image'].save(ruta_resultado, quality=92)
 def build(output, *, v3=False):
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    for name in FILES:
+    files = tuple(name for name in FILES if not (v3 and name in ('VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md')))
+    edge_files = {name: SOURCE / name for name in EDGE_FILES} if v3 else EDGE_FILES
+    support_files = {name: SOURCE / name for name in SUPPORT_FILES} if v3 else SUPPORT_FILES
+    for name in files:
         if not source_file(name).is_file():
             raise ValueError(f'Falta {name}')
     uv_source = json.loads((SOURCE / 'herramientas/fuente_uv.json').read_text(encoding='utf-8'))
@@ -226,7 +229,7 @@ def build(output, *, v3=False):
                 'windows_setup': 'private_python_3.12_automatic',
                 'task': 'segment', 'purpose': 'inference_only', 'models': models,
                 'features': ['yolo', 'paulo_mascara_v2_combinacion_ponderada'],
-                'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in EDGE_FILES.items()}}
+                'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in edge_files.items()}}
     if v3:
         manifest.update(schema_version=6, date='2026-10-26', guide='V3', default_model='V3-YOLO26',
                         minimum_confidence=.25, visibility_source='user', occupancy_calibrated=False,
@@ -239,7 +242,7 @@ def build(output, *, v3=False):
     verify_path = source_file(verify_name)
     verify = verify_path.read_text(encoding='utf-8') if verify_path.exists() else 'Verificación de esta entrega pendiente.\n'
     with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
-        for name in FILES:
+        for name in files:
             body = source_file(name).read_bytes()
             if v3 and name == 'LEEME.md':
                 body = source_file('LEEME_V3.md').read_bytes()
@@ -253,11 +256,12 @@ def build(output, *, v3=False):
             archive.writestr('Walmart_Vision/' + name, body)
         for name, body in weights.items():
             archive.writestr('Walmart_Vision/' + name, body)
-        for name, path in (EDGE_FILES | SUPPORT_FILES).items():
+        for name, path in (edge_files | support_files).items():
             archive.writestr('Walmart_Vision/' + name, path.read_bytes())
         archive.writestr('Walmart_Vision/modelos.json', json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
-        archive.writestr('Walmart_Vision/Probar_en_Colab.ipynb', nb)
-        archive.writestr('Walmart_Vision/VERIFICACION.md', verify)
+        if not v3:
+            archive.writestr('Walmart_Vision/Probar_en_Colab.ipynb', nb)
+            archive.writestr('Walmart_Vision/VERIFICACION.md', verify)
     with zipfile.ZipFile(output) as archive:
         if archive.testzip() is not None:
             raise ValueError('El ZIP no pasó la comprobación de integridad.')
@@ -265,7 +269,8 @@ def build(output, *, v3=False):
             if hashlib.sha256(archive.read('Walmart_Vision/' + entry['file'])).hexdigest() != entry['sha256']:
                 raise ValueError('Los pesos del ZIP difieren del original.')
     output.with_suffix('.sha256').write_text(hashlib.sha256(output.read_bytes()).hexdigest() + '  ' + output.name + '\n', encoding='utf-8')
-    output.with_name('Probar_en_Colab.ipynb').write_text(nb, encoding='utf-8', newline='\n')
+    if not v3:
+        output.with_name('Probar_en_Colab.ipynb').write_text(nb, encoding='utf-8', newline='\n')
     return {'zip': str(output), 'bytes': output.stat().st_size, 'models': [m['id'] for m in models]}
 
 

@@ -1,6 +1,6 @@
 # Walmart Vision V3 en macOS con Docker
 
-Descarga el [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip). Incluye el visor, el único modelo V3 y los archivos Docker para Mac Intel y Apple Silicon. Source code contiene fuentes sin pesos y no sustituye ese paquete.
+Descarga el [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip). Incluye el visor, el único modelo V3 y los archivos Docker para Mac Intel y Apple Silicon. Source code contiene fuentes sin pesos y no sustituye ese paquete.
 
 ## Iniciar
 
@@ -9,7 +9,7 @@ Descarga el [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/d
 3. Ejecutar `docker compose up --build -d --wait`. La primera construcción necesita Internet para preparar la imagen y las dependencias.
 4. Abrir http://127.0.0.1:8095, seleccionar una foto frontal o casi frontal, pulsar Analizar foto.
 
-El procesamiento es local en CPU. La sesión del lote, incluidas las fotos, se guarda en el navegador local y puede borrarse desde la aplicación; no se añade al entrenamiento. La confianza inicial es 0,60, ajustable desde 0,40; la ocupación sigue siendo experimental y no se detectan automáticamente obstáculos.
+El procesamiento es local en CPU. La sesión del lote, incluidas las fotos, se guarda en el navegador local y puede borrarse desde la aplicación; no se añade al entrenamiento. La confianza inicial es 0,60, ajustable desde 0,25; la ocupación sigue siendo experimental y no se detectan automáticamente obstáculos.
 
 ## Volver a usar y detener
 

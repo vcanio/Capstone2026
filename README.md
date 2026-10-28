@@ -6,7 +6,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
 | Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
 ## Explorar las carpetas
@@ -56,7 +56,7 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
-**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261028_codigo.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
+**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261028.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales
 
@@ -71,10 +71,9 @@ Descarga el paquete V3 enlazado arriba y sigue estos pasos:
 1. Extrae **todo** el archivo ZIP.
 2. Ejecuta **`Walmart_Vision/iniciar.cmd`**.
 3. Selecciona una foto JPG, PNG o WebP de hasta **15 MB**.
-4. Indica si la góndola se ve completa, recortada o tapada.
-5. Pulsa **Analizar foto** y revisa **Original**, **Niveles**, **Bordes** y **Comparar**.
+4. Pulsa **Analizar fotos** y revisa **Original**, **Niveles**, **Bordes** y **Comparar**.
 
-El modelo y el análisis de niveles y bordes están fijados. La confianza inicial es **0,60** y puede ajustarse desde **0,40**.
+El modelo y el análisis de niveles y bordes están fijados. La confianza inicial es **0,60** y puede ajustarse desde **0,25**.
 
 ### Docker, incluido macOS
 
@@ -88,7 +87,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028_codigo.zip), con visor y modelo. |
+| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip), con visor y modelo. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
