@@ -45,6 +45,13 @@ class Handler(BaseHTTPRequestHandler):
             models = self.server.runner.available()
             default = getattr(self.server.runner, 'manifest', {}).get('default_model')
             return self.send({'models': models, 'default_model': default or (models[0]['id'] if models else None)})
+        if path == '/api/visibilidad/config':
+            try:
+                from visibilidad_experimental import load
+                _, _, revision = load(self.server.runner.root)
+                return self.send({'revision': revision})
+            except (ValueError, OSError, TypeError, json.JSONDecodeError):
+                return self.send({'error': 'El filtro experimental no tiene un candidato verificado.'}, 400)
         if path == '/api/health':
             return self.send({'status': 'ok', 'app': 'Walmart Visión'})
         return self.send({'error': 'Ruta no disponible.'}, 404)
@@ -59,7 +66,7 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length', '0'))
             if not 0 < length <= MAX_BYTES:
                 self.close_connection = True
-                return self.send({'error': 'Elige una foto de hasta 15 MB.'}, 413)
+                return self.send({'error': 'Elige una foto de hasta 10 MB.'}, 413)
             if self.headers.get_content_type() not in ('image/jpeg', 'image/png', 'image/webp', 'application/octet-stream'):
                 self.close_connection = True
                 return self.send({'error': 'Usa una foto JPG, PNG o WebP.'}, 415)
@@ -68,10 +75,12 @@ class Handler(BaseHTTPRequestHandler):
             model = params.get('model', [default_model])[0]
             confidence = float(params['confidence'][0]) if 'confidence' in params else None
             method = params.get('method', ['yolo'])[0]
+            visibility_mode = params.get('visibilidad', ['stable'])[0]
             body = self.rfile.read(length)
             if len(body) != length:
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
-            prediction = self.server.runner.analyze(body, model, confidence, method)
+            prediction = (self.server.runner.analyze(body, model, confidence, method) if visibility_mode == 'stable'
+                          else self.server.runner.analyze(body, model, confidence, method, visibility_mode=visibility_mode))
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=92)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')

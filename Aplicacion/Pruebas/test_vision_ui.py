@@ -35,6 +35,23 @@ function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detectio
 
 
 class VisionInterfaceTests(unittest.TestCase):
+    def test_model_switch_keeps_results_separate_and_does_not_discard_photos(self):
+        self.js("""
+        const stable={id:'stable',geometry_only:true},candidate={id:'candidate',geometry_only:true};
+        availableModels=[stable,candidate];currentModel=stable;modelContext();
+        chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
+        const stableResult=prediction();stableResult.model='stable';
+        batch[0].result=stableResult;batch[0].analyzedConfidence=.6;batch[0].marked=true;
+        changeModel('candidate');
+        assert.equal(currentModel.id,'candidate');assert.equal(batch.length,2);
+        assert.equal(batch[0].result,null);assert.equal(batch[0].marked,true);
+        const candidateResult=prediction();candidateResult.model='candidate';
+        batch[0].result=candidateResult;batch[0].analyzedConfidence=.6;
+        changeModel('stable');assert.equal(batch[0].result,stableResult);
+        changeModel('candidate');assert.equal(batch[0].result,candidateResult);
+        running=true;changeModel('stable');assert.equal(currentModel.id,'candidate');
+        """)
+
     def test_reanalyze_only_current_photo_with_selected_confidence(self):
         self.js("""
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
@@ -87,7 +104,11 @@ class VisionInterfaceTests(unittest.TestCase):
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
         $('batch-confirm').checked=true;let calls=[],finish;
         global.fetch=async(url,options)=>{calls.push(options.body.name);if(calls.length===1)await new Promise(resolve=>finish=resolve);return {ok:true,json:async()=>prediction()}};
-        const run=analyzeBatch();$('batch-pause').listeners.click();finish();await run;
+        const run=analyzeBatch();$('batch-pause').listeners.click();
+        assert.match($('batch-stop-status').textContent,/terminar la foto actual/);
+        assert.equal($('batch-pause').disabled,true);assert.equal($('batch-cancel').disabled,true);
+        finish();await run;
+        assert.match($('batch-stop-status').textContent,/Análisis pausado/);
         assert.deepEqual(calls,['a.jpg']);assert.ok(batch[0].result);assert.equal(batch[1].result,null);
         global.fetch=async(url,options)=>{calls.push(options.body.name);return {ok:false,json:async()=>({error:'Fallo'})}};
         await analyzeBatch();assert.equal(batch[1].failure,'Fallo');assert.ok(batch[0].result);
@@ -118,12 +139,17 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal($('batch-mark').disabled,true);
         """)
 
-    def test_batch_accepts_150_and_rejects_151_photos(self):
+    def test_batch_limits_photo_count_and_size(self):
         self.js("""
-        const photos=Array.from({length:151},(_,i)=>({name:`foto${i}.jpg`,type:'image/jpeg',size:1}));
-        chooseBatch(photos.slice(0,150));assert.equal(batch.length,150);
-        chooseBatch(photos);assert.equal(batch.length,150);
-        assert.match($('error').textContent,/150 fotos/);
+        const mb=1024*1024;
+        const photos=Array.from({length:51},(_,i)=>({name:`foto${i}.jpg`,type:'image/jpeg',size:10*mb}));
+        chooseBatch(photos.slice(0,50));assert.equal(batch.length,50);
+        chooseBatch(photos);assert.equal(batch.length,50);
+        assert.match($('error').textContent,/50 fotos/);
+        chooseBatch([{name:'grande.jpg',type:'image/jpeg',size:10*mb+1}]);
+        assert.equal(batch.length,50);assert.match($('error').textContent,/10 MB/);
+        choose({name:'grande.jpg',type:'image/jpeg',size:10*mb+1});
+        assert.match($('error').textContent,/10 MB/);
         """)
 
     def test_photo_wheel_zoom_and_reset_on_new_photo(self):
@@ -199,6 +225,10 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.match($('occupancy-rows').innerHTML,/Confianza de detección: no disponible/);
         show({...data,photo_status:'gondola_tapada',detections:[],counts:{},message:'Góndola tapada'});
         assert.match($('summary').innerHTML,/Góndola tapada/);assert.equal($('result-tools').hidden,true);
+        show({...data,photo_status:'no_evaluable',detections:[],counts:{},occupancy:null,evaluabilidad:{estado:'dudosa'},message:'Toma otra foto.'});
+        assert.match($('summary').innerHTML,/Visibilidad dudosa/);assert.equal($('result-tools').hidden,true);
+        assert.equal($('view-result').disabled,true);assert.equal($('view-compare').disabled,true);
+        assert.equal($('level-occupancy').hidden,true);assert.equal($('edge-results').hidden,true);
         choose({name:'another.jpg',type:'image/jpeg',size:100});assert.equal($('analyze').disabled,false);
         """)
     def test_v2_selection_shows_weighted_measurement_and_clears_old_results(self):
@@ -217,8 +247,9 @@ class VisionInterfaceTests(unittest.TestCase):
         show(prediction(false));assert.equal($('edge-results').hidden,true);
         """)
 
-    def js(self, body):
-        code = HARNESS + SCRIPT + '\nsetImmediate(async()=>{try{' + body + "\n}catch(error){console.error(error);process.exitCode=1}});"
+    def js(self, body, experimental=False):
+        location = "global.location={search:'?visibilidad=experimental'};\n" if experimental else ''
+        code = HARNESS + location + SCRIPT + '\nsetImmediate(async()=>{try{' + body + "\n}catch(error){console.error(error);process.exitCode=1}});"
         result = subprocess.run([shutil.which('node') or 'node', '-'], input=code, capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
@@ -260,6 +291,17 @@ class VisionInterfaceTests(unittest.TestCase):
         assert.equal(requests[0].options.body,file);
         choose({name:'otra.png',size:120,type:'image/png'});assert.equal(result,null);
         """)
+
+    def test_experimental_invalidates_previous_results_when_policy_changes(self):
+        self.js("""
+        chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
+        const old={...prediction(),evaluabilidad:{estado:'apta',revision:'old'}};
+        batch[0].result=old;batch[1].result=old;visibilityRevision='old';
+        global.fetch=async()=>({ok:true,json:async()=>({revision:'new'})});
+        await selectBatch(0);
+        assert.equal(batch[0].result,null);assert.equal(batch[1].result,null);
+        assert.equal(result,null);assert.equal(visibilityRevision,'new');
+        """, experimental=True)
 
     def test_keyboard_skips_unavailable_tabs_and_wraps(self):
         self.js("""
@@ -313,13 +355,13 @@ class VisionInterfaceTests(unittest.TestCase):
         self.assertIn('<div id="workspace-step">', HTML)
         self.assertNotIn('value="yolo_paulo"', HTML)
         self.js("""
-        assert.equal($('theme-toggle').attrs['aria-pressed'],'false');
-        $('theme-toggle').listeners.click();
         assert.equal($('theme-toggle').attrs['aria-pressed'],'true');
-        assert.equal($('theme-toggle').attrs['aria-label'],'Modo claro');
         $('theme-toggle').listeners.click();
         assert.equal($('theme-toggle').attrs['aria-pressed'],'false');
         assert.equal($('theme-toggle').attrs['aria-label'],'Modo oscuro');
+        $('theme-toggle').listeners.click();
+        assert.equal($('theme-toggle').attrs['aria-pressed'],'true');
+        assert.equal($('theme-toggle').attrs['aria-label'],'Modo claro');
         """)
 
     def test_thumbnails_are_bounded_and_do_not_replace_originals(self):
@@ -338,6 +380,7 @@ class VisionInterfaceTests(unittest.TestCase):
 
     def test_analyzing_animation_elements_and_lifecycle(self):
         self.assertIn('spinner', HTML)
+        self.assertNotIn('Analizando los niveles de la foto', HTML)
         for removed in ('scan-laser', 'scan-grid', 'scan-corner', 'scan-hud-badge', 'scan-line'):
             self.assertNotIn(removed, HTML)
         self.js("""
@@ -345,7 +388,6 @@ class VisionInterfaceTests(unittest.TestCase):
         let submitted=false;
         global.fetch=async()=>{
             assert.equal($('scan-overlay').hidden,false);
-            assert.equal($('progress').hidden,false);
             assert.equal($('stage').attrs['aria-busy'],'true');
             assert.match($('photo-info').innerHTML,/Analizando foto/);
             submitted=true;
@@ -354,7 +396,6 @@ class VisionInterfaceTests(unittest.TestCase):
         await $('form').listeners.submit({preventDefault(){}});
         assert.equal(submitted,true);
         assert.equal($('scan-overlay').hidden,true);
-        assert.equal($('progress').hidden,true);
         assert.equal($('stage').attrs['aria-busy'],'false');
         """)
 

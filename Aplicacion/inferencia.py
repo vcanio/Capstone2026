@@ -27,7 +27,7 @@ except ModuleNotFoundError as error:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'Laboratorio/Modelos'))
     from presentacion_niveles import draw_result, occupancy_estimate, spatial_order, font_for, STATES
 
-MAX_BYTES = 15 * 1024 * 1024
+MAX_BYTES = 10 * 1024 * 1024
 MAX_PIXELS = 24_000_000
 V1_CLASSES = ('Nivel_vacio', 'Nivel_baja_disponibilidad', 'Nivel_suficiente', 'Nivel_no_evaluable')
 V2_CLASSES = ('Nivel_reponer', 'Nivel_suficiente')
@@ -45,7 +45,7 @@ def read_photo(body):
     de 4096 píxeles y compone la transparencia sobre blanco.
     """
     if not body or len(body) > MAX_BYTES:
-        raise ValueError('Elige una foto de hasta 15 MB.')
+        raise ValueError('Elige una foto de hasta 10 MB.')
     try:
         with warnings.catch_warnings():
             warnings.simplefilter('error', Image.DecompressionBombWarning)
@@ -116,7 +116,7 @@ class ModelRunner:
             models.append(value)
         return models
 
-    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None):
+    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable'):
         """Analizar bytes de una foto y devolver imagen, detecciones y métricas.
 
         confidence filtra detecciones de niveles; no expresa ocupación.
@@ -134,6 +134,8 @@ class ModelRunner:
             raise ValueError('La confianza debe estar entre 0,01 y 0,99.')
         if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
+        if visibility_mode not in ('stable', 'experimental') or (visibility_mode == 'experimental' and not geometry):
+            raise ValueError('El filtro experimental requiere el modelo V3.')
         if geometry:
             if confidence < .25:
                 raise ValueError('La confianza mínima de V3 es 0,25.')
@@ -142,20 +144,44 @@ class ModelRunner:
         try:
             # 1. Abrir la foto y conservar los píxeles sin dibujos para medir.
             image = read_photo(body)
+            started = time.perf_counter()
+            evaluability = None
+            def blocked(state, reason):
+                return {'image': image, 'model': model_id, 'device': 'CPU',
+                        'seconds': round(time.perf_counter() - started, 2),
+                        'detections': [], 'counts': {}, 'width': image.width, 'height': image.height,
+                        'method': method, 'geometry_only': geometry, 'photo_status': 'no_evaluable',
+                        'message': reason, 'evaluabilidad': {**(evaluability or {}), 'estado': state, 'motivo': reason}}
+            if visibility_mode == 'experimental':
+                from visibilidad_experimental import assess
+                evaluability = assess(image, self.root)
+                if evaluability['estado'] != 'apta':
+                    return blocked(evaluability['estado'], 'No se puede evaluar la góndola con esta foto. Toma otra imagen despejada.')
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
             # 2. Localizar niveles. retina_masks conserva máscaras alineadas
             # con la foto; iou filtra detecciones solapadas, no mide ocupación.
             model, device = self._load_model(model_id)
-            started = time.perf_counter()
             result = model.predict(image, imgsz=640, conf=float(confidence), iou=.7,
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
             annotated, detections = draw_result(image, result)
+            if visibility_mode == 'experimental':
+                import numpy as np
+                masks = result.masks.data.cpu().numpy() if result.masks is not None else []
+                valid = (len(detections) > 0 and len(masks) == len(detections)
+                         and all(getattr(mask, 'shape', None) == (image.height, image.width)
+                                 and np.isfinite(mask).all() and np.all((mask >= 0) & (mask <= 1))
+                                 and np.any(mask > .5) for mask in masks)
+                         and not any(d.get('near_frame', False) for d in detections))
+                if not valid:
+                    return blocked('dudosa', 'No se pudieron delimitar los niveles con suficiente alcance. Toma otra foto.')
             extra = {}
             # 3. Medir las máscaras originales y revisar el alcance visible.
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
+                if visibility_mode == 'experimental' and any(d.get('occupancy', {}).get('status') != 'medido' for d in detections):
+                    return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
             if geometry:
                 from vision_v3 import apply_scope
                 apply_scope(detections, image.width, image.height)
@@ -167,7 +193,7 @@ class ModelRunner:
                     'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
                     'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
                     'width': image.width, 'height': image.height, 'method': method,
-                    'geometry_only': geometry, **extra}
+                    'geometry_only': geometry, **({'evaluabilidad': evaluability} if evaluability else {}), **extra}
         finally:
             self.lock.release()
 

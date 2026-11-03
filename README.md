@@ -56,6 +56,8 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 ## Inicio rápido: Walmart Visión
 
+**Para probar el candidato del 2 de noviembre:** descarga el [código actualizado de main](https://github.com/vcanio/Capstone2026/archive/refs/heads/main.zip), extrae el ZIP completo y abre `Aplicacion/iniciar.cmd` en Windows, o ejecuta `docker compose up --build -d --wait` desde `Aplicacion` con Docker. Selecciona **Candidato nuevo · 2 noviembre** en la aplicación. El modelo estable sigue siendo la opción inicial; el ZIP de la release enlazado abajo no incluye el candidato. La primera preparación necesita conexión.
+
 **V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261028.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales

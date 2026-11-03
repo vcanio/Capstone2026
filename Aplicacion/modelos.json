@@ -11,7 +11,7 @@
   "models": [
     {
       "id": "V3-YOLO26",
-      "name": "V3-YOLO26",
+      "name": "V3 estable · modelo actual",
       "file": "modelos/V3-YOLO26.pt",
       "sha256": "6617f6dc7b20eac2e343b17813a1180c6df6c481f3fc8cb744bb3949ff18b2c9",
       "bytes": 6523606,
@@ -20,6 +20,16 @@
         "Nivel"
       ],
       "guide": "V3 · niveles y ocupación estimada"
+    },
+    {
+      "id": "V3-candidato-20261102",
+      "name": "Candidato nuevo · 2 noviembre",
+      "file": "modelos/V3-segmentacion-candidato-20261102.pt",
+      "sha256": "2ba37c853b88648e03b9a72309cfbc4179ef05f9c67452bb968f3bfb1a96ff70",
+      "bytes": 6525654,
+      "source_run": "v3_segmentacion_sin_tapadas_20261102_202529_4bb3",
+      "classes": ["Nivel"],
+      "guide": "Candidato de segmentación para evaluación"
     }
   ],
   "features": [
@@ -36,7 +46,7 @@
   "known_limitations": [
     "le_g10: superior vacío 030 omitido; 029 contorno superior demasiado alto.",
     "No detecta automáticamente personas, oclusión o completitud.",
-    "Ocupación experimental: umbral 30 % sin calibración V3; test final reservado."
+    "Ocupación experimental: umbral 30 % sin calibración V3."
   ],
   "local_signal_revision": "rieles_fragmentados_inferiores_v2_20261026"
 }
