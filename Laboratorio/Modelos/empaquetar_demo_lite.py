@@ -19,7 +19,7 @@ FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instal
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
          'Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt', 'DOCKER.md',
-         'VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md', 'vision_v3.py')
+         'VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md', 'vision_v3.py', 'visibilidad_experimental.py')
 EDGE_FILES = {'ocupacion_paulo.py': ROOT / 'Laboratorio/Modelos/ocupacion_paulo.py',
               'gondola_bordes.py': ROOT / 'Laboratorio/Experimentos/Bordes/gondola_bordes.py',
               'gondola_combinacion_ponderada.py': ROOT / 'Laboratorio/Experimentos/Bordes/gondola_combinacion_ponderada.py'}
@@ -215,7 +215,25 @@ def build(output, *, v3=False):
             raise ValueError('La herramienta uv no coincide con su fuente verificada.')
     models = []
     weights = {}
-    selected_runs = {'V3-YOLO26': 'v3_afinado_papeles_huevos_20261026_011847_7021'} if v3 else RUNS
+    if v3:
+        current = json.loads((SOURCE / 'modelos.json').read_text(encoding='utf-8-sig'))
+        models = current['models']
+        if len(models) != 1 or current['default_model'] != models[0]['id'] or models[0]['classes'] != ['Nivel']:
+            raise ValueError('La entrega V3 requiere un único modelo oficial Nivel.')
+        entry = models[0]
+        path = (SOURCE / entry['file']).resolve()
+        if not path.is_relative_to((SOURCE / 'modelos').resolve()):
+            raise ValueError('Ruta de modelo fuera de la aplicación.')
+        body = path.read_bytes()
+        if len(body) != entry['bytes'] or hashlib.sha256(body).hexdigest() != entry['sha256']:
+            raise ValueError('El modelo oficial no coincide con el manifiesto.')
+        registry = ROOT / '.config-modelo/version_actual_v3.json'
+        if registry.is_file():
+            stable = json.loads(registry.read_text(encoding='utf-8-sig'))
+            if stable['sha256'] != entry['sha256'] or stable['run'] != entry['source_run']:
+                raise ValueError('La aplicación y el registro oficial no coinciden.')
+        weights[entry['file']] = body
+    selected_runs = {} if v3 else RUNS
     for model_id, run in selected_runs.items():
         source = ROOT / 'Laboratorio/Experimentos' / run / 'entrenamiento/weights/best.pt'
         body = source.read_bytes()
@@ -231,11 +249,9 @@ def build(output, *, v3=False):
                 'features': ['yolo', 'paulo_mascara_v2_combinacion_ponderada'],
                 'edge_sources': {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in edge_files.items()}}
     if v3:
-        manifest.update(schema_version=6, date='2026-10-26', guide='V3', default_model='V3-YOLO26',
-                        minimum_confidence=.25, visibility_source='user', occupancy_calibrated=False,
-                        known_limitations=['le_g10: superior vacío 030 omitido; 029 contorno superior demasiado alto.',
-                                           'No detecta automáticamente personas, oclusión o completitud.',
-                                           'Ocupación experimental: umbral 30 % sin calibración V3; test final reservado.'])
+        if current.get('edge_sources') != manifest['edge_sources']:
+            raise ValueError('Los módulos de bordes no coinciden con el manifiesto oficial.')
+        manifest = current
     nb_value = notebook_v3(output.name) if v3 else notebook(output.name)
     nb = json.dumps(nb_value, ensure_ascii=False, indent=2) + '\n'
     verify_name = 'VERIFICACION_V3.md' if v3 else 'VERIFICACION_ACTUAL.md'
@@ -279,7 +295,12 @@ if __name__ == '__main__':
     parser.add_argument('--output')
     parser.add_argument('--v3', action='store_true')
     args = parser.parse_args()
-    output = args.output or str(ROOT / ('Entregables/V3/Walmart_Vision_V3_20261025.zip' if args.v3 else 'Entregables/Walmart_Vision_Actual_20261023.zip'))
+    if args.v3:
+        date = json.loads((SOURCE / 'modelos.json').read_text(encoding='utf-8-sig'))['date'].replace('-', '')
+        default_output = f'Entregables/V3/Walmart_Vision_V3_{date}.zip'
+    else:
+        default_output = 'Entregables/Walmart_Vision_Actual_20261023.zip'
+    output = args.output or str(ROOT / default_output)
     if Path(output).exists():
         parser.error('La entrega ya existe. Usa --output con un nombre nuevo para conservar la versión anterior.')
     print(json.dumps(build(output, v3=args.v3), ensure_ascii=False))

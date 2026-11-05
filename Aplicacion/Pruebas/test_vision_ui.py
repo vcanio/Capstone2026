@@ -19,6 +19,8 @@ class Element {
   setAttribute(key,value){this.attrs[key]=value}
   removeAttribute(key){delete this[key];delete this.attrs[key]}
   focus(){document.activeElement=this}
+  showModal(){this.open=true}
+  close(){this.open=false;this.listeners.close?.()}
   scrollIntoView(){}
 }
 global.document={getElementById(id){if(!elements.has(id))elements.set(id,new Element());return elements.get(id)},querySelector(selector){return this.getElementById(selector)},addEventListener(){}};
@@ -94,7 +96,7 @@ class VisionInterfaceTests(unittest.TestCase):
         await $('form').listeners.submit({preventDefault(){}});
         assert.deepEqual(calls,['uno.jpg','dos.png']);assert.ok(batch.every(item=>item.result));
         selectBatch(0);assert.equal(file.name,'uno.jpg');assert.ok(result);
-        $('batch-mark').listeners.click();assert.equal(batch[0].marked,true);
+        $('batch-mark').listeners.click();assert.equal(batch[0].marked,false);$('batch-reason').value='Nivel omitido';$('review-form').listeners.submit({preventDefault(){}});assert.equal(batch[0].marked,true);
         selectBatch(1);assert.equal(batch[0].marked,true);assert.equal($('batch-download').disabled,false);
         """)
 
@@ -122,11 +124,42 @@ class VisionInterfaceTests(unittest.TestCase):
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1},{name:'b.jpg',type:'image/jpeg',size:1}]);
         assert.equal($('batch-mark').disabled,true);$('batch-mark').listeners.click();assert.equal(batch[0].marked,false);
         batch[0].result=prediction();renderBatch();assert.equal($('batch-mark').disabled,false);
-        $('batch-mark').listeners.click();$('batch-reason').value='Nivel omitido';$('batch-reason').listeners.input();
-        $('batch-note').value='Superior';$('batch-note').listeners.input();
+        $('batch-mark').listeners.click();assert.equal($('review-dialog').open,true);$('review-cancel').listeners.click();assert.equal(batch[0].marked,false);
+        $('batch-mark').listeners.click();$('batch-reason').value='Nivel superior omitido';$('batch-note').value='Superior';$('review-form').listeners.submit({preventDefault(){}});
         $('batch-filter').value='marked';$('batch-filter').listeners.change();
         assert.deepEqual(filteredBatchIndices(),[0]);
-        assert.equal(batch[0].reason,'Nivel omitido');assert.equal(batch[0].note,'Superior');
+        assert.equal(batch[0].reason,'Nivel superior omitido');assert.equal(batch[0].note,'Superior');
+        """)
+
+    def test_review_zip_pairs_original_with_contours_and_metadata(self):
+        self.js("""
+        const original=new Uint8Array([1,2,3]);
+        const photo={name:'foto.jpg',type:'image/jpeg',size:3,arrayBuffer:async()=>original.buffer};
+        chooseBatch([photo]);batch[0].marked=true;batch[0].reason='Nivel omitido';batch[0].note='Arriba';
+        batch[0].analyzedConfidence=.6;batch[0].result={model:'V3',width:100,height:80,detections:[{display_polygon:[[1,2],[50,2],[50,40],[1,40]]}]};
+        let strokes=0,bitmapClosed=0,captured;
+        global.createImageBitmap=async()=>({width:100,height:80,close(){bitmapClosed++}});
+        document.createElement=tag=>tag==='canvas'?{getContext(){return {drawImage(){},beginPath(){},moveTo(){},lineTo(){},closePath(){},stroke(){strokes++}}},toBlob(cb){cb(new Blob(['contours'],{type:'image/jpeg'}))}}:{click(){}};
+        global.URL.createObjectURL=blob=>{captured=blob;return 'blob:zip'};
+        global.setTimeout=()=>0;await $('batch-download').listeners.click();
+        assert.equal(strokes,1);assert.equal(bitmapClosed,1);assert.equal(dirtySelection,false);
+        const bytes=Buffer.from(await captured.arrayBuffer()), text=bytes.toString('utf8');
+        assert.ok(text.includes('originales/001_foto.jpg'));assert.ok(text.includes('contornos/001_contornos.jpg'));
+        assert.match(text,/Nivel omitido/);assert.match(text,/"confianza": 0.6/);
+        assert.ok(bytes.includes(Buffer.from([1,2,3])));assert.match(text,/contours/);
+        """)
+
+    def test_review_status_and_pending_download_warning(self):
+        self.js("""
+        const photo=name=>({name,type:'image/jpeg',size:1,arrayBuffer:async()=>new Uint8Array([1]).buffer});
+        chooseBatch([photo('good.jpg'),photo('pending.jpg')]);
+        batch[0].result={model:'V3',width:1,height:1,detections:[]};renderBatch();
+        $('batch-correct').listeners.click();assert.equal(batch[0].correct,true);assert.equal(batch[0].marked,false);
+        assert.equal($('photo-review-status').textContent,'');
+        $('batch-filter').value='unreviewed';$('batch-filter').listeners.change();assert.deepEqual(filteredBatchIndices(),[1]);
+        let warnings=[];global.confirm=message=>{warnings.push(message);return false};
+        await $('batch-download').listeners.click();assert.equal(warnings.length,1);assert.match(warnings[0],/1 foto sin revisar/);
+        assert.equal(batch[1].correct,undefined);assert.equal(batch[1].marked,false);
         """)
 
     def test_gallery_can_collapse_without_hiding_review_actions(self):

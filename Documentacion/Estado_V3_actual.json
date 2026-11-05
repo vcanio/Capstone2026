@@ -1,99 +1,70 @@
 {
-  "schema_version": 1,
-  "updated": "2026-10-27",
-  "scope": "Walmart Visión V3 publicada: fuentes de la app, documentación y descarga verificadas",
+  "schema_version": 2,
+  "updated": "2026-11-05",
   "model": {
-    "id": "V3-YOLO26",
+    "id": "V3-refuerzo-revision-20261105",
     "architecture": "YOLO26n-seg",
     "classes": [
       "Nivel"
     ],
     "checkpoint": "best.pt",
-    "source_run": "v3_afinado_papeles_huevos_20261026_011847_7021",
-    "sha256": "6617f6dc7b20eac2e343b17813a1180c6df6c481f3fc8cb744bb3949ff18b2c9",
-    "completed_epochs": 29,
-    "best_epoch_combined_fitness": 19,
-    "maximum_mask_map_epoch": 14
+    "source_run": "v3_refuerzo_geometria_revision_20261105_022414_e6f0",
+    "sha256": "7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a",
+    "completed_epochs": 40,
+    "best_epoch_combined_fitness_csv": 35
   },
   "data": {
-    "partition": "v3_469_afinado_20261025",
-    "catalog": 469,
-    "real": 192,
-    "synthetic": 277,
-    "train_catalog": 337,
-    "train_exportable": 336,
-    "val": 69,
+    "partition": "v3_refuerzo_geometria_20261104",
+    "selection": "revision_geometria_20261104",
+    "selected_train": 171,
+    "val_real": 59,
+    "val_synthetic": 34,
     "test_reserved": 63,
-    "selection": "afinado_papeles_huevos_20261025",
-    "selected_train": 113,
-    "selected_real": 67,
-    "selected_synthetic": 46,
-    "val_real": 22,
-    "val_synthetic": 47
+    "R254_excluded": true
   },
   "validation": {
     "criterion": "geometria_nivel_v3",
-    "mask_map50_real": 0.995,
-    "mask_map50_95_real": 0.8895874192447156,
-    "mask_map50_synthetic": 0.9946471496450918,
-    "mask_map50_95_synthetic": 0.8532638716895876,
-    "occupancy_evaluated": false,
+    "sets": {
+      "val_real": {
+        "metrics/precision(B)": 0.996210306805102,
+        "metrics/recall(B)": 0.9966996699669967,
+        "metrics/mAP50(B)": 0.995,
+        "metrics/mAP50-95(B)": 0.9076600393954003,
+        "metrics/precision(M)": 0.996210306805102,
+        "metrics/recall(M)": 0.9966996699669967,
+        "metrics/mAP50(M)": 0.995,
+        "metrics/mAP50-95(M)": 0.899534253058192,
+        "fitness": 1.8071942924535924
+      },
+      "val_sintetica": {
+        "metrics/precision(B)": 0.9996162465086629,
+        "metrics/recall(B)": 1.0,
+        "metrics/mAP50(B)": 0.995,
+        "metrics/mAP50-95(B)": 0.9509209632365956,
+        "metrics/precision(M)": 0.9996162465086629,
+        "metrics/recall(M)": 1.0,
+        "metrics/mAP50(M)": 0.995,
+        "metrics/mAP50-95(M)": 0.9313890200248105,
+        "fitness": 1.882309983261406
+      }
+    },
     "test_used": false,
-    "common_validation_regression_acknowledged": true
+    "selection": "best.pt por validación real; sintéticas como diagnóstico separado",
+    "occupancy_evaluated": false
   },
   "app": {
-    "method": "yolo_paulo_v2",
-    "visibility": "user_confirmed_not_automatic",
-    "surface_weight": 0.7,
-    "width_weight": 0.3,
-    "experimental_replenishment_threshold_pct": 30,
+    "default_confidence": 0.6,
+    "minimum_confidence": 0.25,
     "occupancy_calibrated": false,
-    "review_guard": {
-      "name": "spatial_signal_abstention_v2",
-      "upper_height_fraction": 0.5,
-      "minimum_signal_share": 0.95,
-      "central_window": [
-        0.15,
-        0.4,
-        0.85,
-        0.65
-      ],
-      "minimum_central_evidence": 0.1,
-      "minimum_lower_edge_fraction": 0.25,
-      "absolute_edge_density": 0.012,
-      "absolute_gradient": 16,
-      "absolute_deviation": 9,
-      "display": "Revisar · señal ambigua",
-      "displayed_occupancy_pct": null
-    },
-    "median_enforced_during_inference": false,
-    "photo_input": "frontal_or_near_frontal; no automatic perspective correction",
-    "occupancy_development_check": {
-      "photos": 151,
-      "detections": 754,
-      "metrics_unchanged": true,
-      "new_reviews": 35,
-      "new_replenishment_transitions": 0,
-      "test_used": false,
-      "not_exhaustive_accuracy_evaluation": true
-    },
-    "minimum_confidence": 0.4,
-    "default_confidence": 0.6
+    "visibility_automatic": false,
+    "experimental_replenishment_threshold_pct": 30
   },
-  "known_incidents": [
-    "le_g10: superior de 029 sobredelimitado; superior de 030 omitido."
-  ],
   "distribution": {
-    "candidate_package": "Walmart_Vision_V3_20261027.zip",
-    "remote_release_published": true,
+    "release_tag": "walmart-vision-v3-2026-11-05",
+    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05",
+    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip",
     "user_trial_pending": true,
-    "release_draft": false,
-    "release_tag": "walmart-vision-v3-2026-10-26",
-    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26",
-    "release_id": 423965028,
-    "published_at": "2026-10-26T07:45:27Z",
-    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.zip",
-    "package_sha256": "5ef68abf6b3c735396c3ba888f6f39801282187ca5e178c0f54e1658cfb80b98",
-    "checksum_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261027.sha256"
+    "package_sha256": "4124744d2615f555280070537ba6308e60025a02729990b3116eda594cc2c3c7",
+    "package_bytes": 20865765
   }
 }

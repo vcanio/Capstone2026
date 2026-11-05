@@ -1,6 +1,6 @@
 # Walmart Vision · Aplicación V3
 
-El selector ofrece **V3 estable · modelo actual** y **Candidato nuevo · 2 noviembre** para evaluar la segmentación. El estable sigue seleccionado al iniciar; el candidato no lo reemplaza. La ocupación es experimental.
+El modelo oficial es el **best.pt del refuerzo de geometría terminado el 5 de noviembre**. Está incluido en el repositorio y se selecciona al iniciar; no necesitas descargar pesos por separado. La ocupación sigue siendo experimental.
 
 - **Usar en Windows:** abrir [iniciar.cmd](iniciar.cmd). El primer inicio prepara las dependencias.
 - **Usar con Docker:** ejecutar `docker compose up --build -d --wait` desde esta carpeta y abrir http://127.0.0.1:8095.
@@ -10,9 +10,9 @@ El selector ofrece **V3 estable · modelo actual** y **Candidato nuevo · 2 novi
 - [Cómo leer el código de niveles y ocupación](Documentacion/LEER_CODIGO.md).
 - [Documentación técnica y registros](Documentacion/) · [Pruebas de la aplicación](Pruebas/).
 
-La confianza inicial es 0,60 y puede ajustarse desde 0,40. Todas las fotos se analizan sin indicar su visibilidad; la app no detecta automáticamente personas ni obstáculos. V3 interpreta la cobertura experimental del frente con umbral 30 %, suponiendo lleno detrás del producto visible. El espacio libre sobre productos bajos no reduce su aporte. La medición exige señal y respaldo de bordes o textura en al menos dos filas contiguas de la grilla, desde el 35 % de la altura del nivel. Conserva revisión por señal ambigua y recortes; no identifica semánticamente productos y requiere calibración. Las medidas anteriores de superficie, ancho y combinación 70/30 se conservan como diagnóstico y para modelos anteriores. La sesión del lote, incluidas las fotos, se guarda en el navegador y se puede eliminar desde la aplicación; no se incorpora al entrenamiento. Los resultados guardados deben reanalizarse tras actualizar.
+La confianza inicial es 0,60 y puede ajustarse desde 0,25. Todas las fotos se analizan sin indicar su visibilidad; la app no detecta automáticamente personas ni obstáculos. V3 interpreta la cobertura experimental del frente con umbral 30 %, suponiendo lleno detrás del producto visible. El espacio libre sobre productos bajos no reduce su aporte. La medición exige señal y respaldo de bordes o textura en al menos dos filas contiguas de la grilla, desde el 35 % de la altura del nivel. Conserva revisión por señal ambigua y recortes; no identifica semánticamente productos y requiere calibración. Las medidas anteriores de superficie, ancho y combinación 70/30 se conservan como diagnóstico y para modelos anteriores. La sesión del lote, incluidas las fotos, se guarda en el navegador y se puede eliminar desde la aplicación; no se incorpora al entrenamiento. Los resultados guardados deben reanalizarse tras actualizar.
 
-La exclusión de barandas fragmentadas sigue pendiente de revisión visual. El ZIP publicado el 28 de octubre no incluye el candidato.
+La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) incluye el modelo oficial y los módulos actuales.
 
 Los archivos del programa y el modelo se conservaron durante el traslado. Los documentos de verificación con fecha anterior describen su propia entrega.
 
@@ -23,3 +23,5 @@ El repositorio incluye el manifiesto, ambos pesos y el preparador de Windows. Cl
 La corrección de barandas sigue pendiente de revisión visual y el mapa de señal se muestra en fucsia. Tras modificar los m?dulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicaci?n pueda verificar su integridad.
 
 Para ejecutar las pruebas desde `Aplicacion` en Windows: `..\.venv-modelo\Scripts\python.exe -m unittest discover -s Pruebas`.
+
+Tras actualizar, vuelve a analizar las fotos guardadas en el navegador para obtener resultados del modelo oficial.

@@ -458,7 +458,7 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
 .batch-progress button:hover:not(:disabled){background:var(--surface-hover)}
 .batch-progress button:disabled{opacity:.5;cursor:not-allowed}
 .batch-stop-status{color:var(--ink)}
-.stage-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+#photo-review-action:not([hidden]){display:flex;align-items:center;gap:8px;flex-wrap:wrap}#photo-review-status{color:var(--ink);font-size:13px;font-weight:600}.stage-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .batch-mark-action{min-height:44px;padding:10px 12px;border:1px solid var(--blue);border-radius:10px;background:var(--blue);color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 .batch-mark-action:hover{background:var(--blue-hover)}.batch-mark-action[aria-pressed="true"]{background:var(--surface);color:var(--ink);border-color:var(--blue)}.batch-mark-action:disabled{opacity:.5;cursor:not-allowed}
 .batch-head #batch-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:40px;padding:9px 12px;border:1px solid var(--card-border);border-radius:10px;background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;text-align:left}
@@ -511,6 +511,7 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
 :root[data-theme=light] .thumb-enough,:root[data-theme=light] .thumb-low{color:#fff}
 @media(max-width:480px){.top-header{gap:8px;padding:10px 12px}.brand{font-size:15px}.brand-icon{width:32px;height:32px}.header-actions{gap:5px}.btn-header-upload,.btn-header-analyze{padding:9px 8px;font-size:12px}.theme-toggle{width:38px;height:38px}}
 
+.review-dialog{width:min(460px,calc(100% - 32px));max-height:calc(100% - 32px);overflow:auto;padding:24px;border:1px solid var(--card-border);border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 18px 60px #0008}.review-dialog::backdrop{background:#0009}.review-dialog h2{margin:0 0 8px;font-size:20px}.review-dialog p{margin:0 0 18px;color:var(--muted);overflow-wrap:anywhere}.review-dialog label{display:block;margin:14px 0 6px;font-weight:700}.review-dialog select,.review-dialog textarea{width:100%;padding:10px;border:1px solid var(--input-border);border-radius:8px;background:var(--input-bg);color:var(--ink);font:inherit}.review-dialog textarea{resize:vertical;min-height:76px}.review-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.review-dialog-actions button{min-height:44px;padding:9px 16px;border:1px solid var(--card-border);border-radius:9px;background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.review-dialog-actions button[type=submit]{background:var(--blue);border-color:var(--blue);color:#fff}.review-dialog :focus-visible{outline:3px solid var(--brand-yellow);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -603,13 +604,13 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
               <div class="batch-progress"><progress id="batch-progress" max="1" value="0" aria-label="Progreso del lote"></progress><span class="batch-progress-text" id="batch-progress-text" role="status" aria-live="polite"></span><button type="button" id="batch-pause" hidden>Pausar</button><button type="button" id="batch-cancel" hidden>Cancelar</button><span class="batch-stop-status" id="batch-stop-status" role="status" aria-live="polite" hidden></span></div>
               <div class="batch-head"><h2>Galería de fotos</h2><span id="batch-count" class="batch-count hint"></span><button type="button" id="batch-toggle" aria-expanded="false" aria-controls="batch-details">Ver opciones</button></div>
               <div id="batch-details" hidden>
-                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Marcadas</option><option value="pending">Pendientes</option><option value="failed">Con error</option></select></div>
+                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Para revisi&#243;n</option><option value="correct">Correctas</option><option value="unreviewed">Sin revisar</option><option value="pending">Sin analizar</option><option value="failed">Con error</option></select></div>
                 <div class="batch-actions"><button type="button" id="batch-analyze">Analizar pendientes</button><button type="button" id="batch-retry">Reintentar fallidas</button></div>
-                <p class="batch-help" id="batch-help">Las seleccionadas se descargan para anotación y revisión antes de entrenar. Usa las flechas para navegar y M para marcar.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
+                <p class="batch-help" id="batch-help">Clasifica cada foto y descarga el lote completo. Usa las flechas para navegar y M para marcar para revisi&#243;n.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
               </div>
-              <div class="batch-review" id="batch-review" hidden><label for="batch-reason">Motivo</label><select id="batch-reason"><option value="">Sin especificar</option><option>Nivel omitido</option><option>Contorno incorrecto</option><option>Ocupación incorrecta</option><option>Otro</option></select><label for="batch-note">Nota</label><input id="batch-note" type="text" maxlength="300" placeholder="Detalle opcional"></div>
+
               <div class="batch-grid" id="batch-grid" aria-label="Seleccionar foto"></div>
-              <div class="batch-actions batch-quick"><button type="button" id="batch-download" disabled>Descargar seleccionadas</button></div>
+              <div class="batch-actions batch-quick"><button type="button" id="batch-download" disabled>Descargar lote</button></div>
               <p class="batch-help" id="storage-status" role="status" hidden></p>
             </section>
           </div>
@@ -658,6 +659,8 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
               </div>
               <div class="stage-actions">
                 <div id="photo-review-action" hidden>
+                  <span id="photo-review-status" aria-live="polite"></span>
+                  <button type="button" class="batch-mark-action" id="batch-correct" aria-pressed="false">Marcar correcta</button>
                   <button type="button" class="batch-mark-action" id="batch-mark" aria-pressed="false">Marcar para revisión</button>
                 </div>
                 <div class="stage-zoom-pill" aria-label="Control de zoom" hidden>
@@ -791,6 +794,11 @@ main{padding:16px;overflow:auto}.app-grid{grid-template-columns:260px minmax(0,1
   <p class="camera-help camera-status" id="camera-status" id="camera-status" role="status"></p>
   <div class="camera-actions"><button class="camera-capture" id="camera-capture" type="button" disabled>Tomar foto</button></div>
 </section>
+<dialog class="review-dialog" id="review-dialog" aria-labelledby="review-title" aria-describedby="review-filename">
+<form id="review-form"><h2 id="review-title">Marcar para revisión</h2><p id="review-filename"></p>
+<label for="batch-reason">Motivo</label><select id="batch-reason" required><option value="">Selecciona un motivo</option><option>Falso nivel detectado</option><option>Nivel superior omitido</option><option>Nivel omitido</option><option>Contorno incorrecto</option><option>Ocupación incorrecta</option><option>Otro</option></select>
+<label for="batch-note">Detalle (opcional)</label><textarea id="batch-note" maxlength="300" placeholder="Por ejemplo: el segundo nivel desde arriba"></textarea>
+<div class="review-dialog-actions"><button type="button" id="review-cancel">Cancelar</button><button type="submit">Guardar marca</button></div></form></dialog>
 <script>
 const $=id=>document.getElementById(id),defaultStates=[['reponer','Reponer','#dc2626'],['suficiente','Suficiente','#16a34a']];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -859,7 +867,8 @@ function availability(){
   const reviewItem=batch[batchIndex];
   $('photo-review-action').hidden=!reviewItem;
   $('batch-mark').disabled=running||batchRunning||!reviewItem||(!reviewItem.result&&!reviewItem.marked);
-  $('batch-download').disabled=running||batchRunning||!batch.some(item=>item.marked);
+  $('batch-correct').disabled=running||batchRunning||!reviewItem||!reviewItem.result;
+  $('batch-download').disabled=running||batchRunning||!batch.length;
   $('batch-retry').disabled=running||batchRunning||!batch.some(item=>item.failure);
   const visibleIndices=filteredBatchIndices();
   $('batch-prev').hidden=$('batch-next').hidden=batchIndex<0||batch.length<2;
@@ -1007,7 +1016,7 @@ document.addEventListener('keydown',event=>{
   }
 });
 function choose(selected){
-  if(!batchRunning && batchIndex>=0 && batch[batchIndex]?.file!==selected){if(dirtySelection&&!confirm('Hay fotos marcadas sin descargar. ¿Quieres reemplazar el lote?'))return;clearBatch();dirtySelection=false;renderBatch();saveSession()} 
+  if(!batchRunning && batchIndex>=0 && batch[batchIndex]?.file!==selected){if(dirtySelection&&!confirm('Hay cambios sin descargar. \u00bfQuieres reemplazar el lote?'))return;clearBatch();dirtySelection=false;renderBatch();saveSession()}
   if(!selected||running)return;
   $('file').value='';$('error').hidden=true;
   if(!selected.size||selected.size>10*1024*1024){error('Elige una foto de hasta 10 MB.');return}
@@ -1255,19 +1264,20 @@ function renderBatch(){
   const marked=batch.filter(item=>item.marked).length,done=batch.filter(item=>item.result).length,failed=batch.filter(item=>item.failure).length;
   $('batch-progress').max=batch.length;$('batch-progress').value=done+failed;
   $('batch-progress-text').textContent=`${done} analizadas, ${failed} con error, ${batch.length-done-failed} pendientes`;
-  $('batch-review').hidden=!batch[batchIndex].marked;
-  $('batch-reason').value=batch[batchIndex].reason||'';$('batch-note').value=batch[batchIndex].note||'';
   $('batch-pause').hidden=!batchRunning;$('batch-cancel').hidden=!batchRunning;
   $('batch-pause').disabled=$('batch-cancel').disabled=Boolean(batchStop);
   $('batch-stop-status').hidden=!batchStop;
   $('batch-stop-status').textContent=batchStop?(batchRunning?(batchStop==='pause'?'Se pausará al terminar la foto actual.':'Se cancelará al terminar la foto actual.'):(batchStop==='pause'?'Análisis pausado. Usa «Analizar pendientes» para continuar.':'Análisis cancelado. Se conservan los resultados terminados.')):'';
   $('batch-count').textContent=`Foto ${batchIndex+1} de ${batch.length} · ${done} analizadas · ${marked} seleccionadas`;
   $('batch-grid').innerHTML=batch.map((item,i)=>{
-    if(batchFilter==='marked'&&!item.marked||batchFilter==='pending'&&(item.result||item.failure)||batchFilter==='failed'&&!item.failure)return '';
+    if(!filteredBatchIndices().includes(i))return '';
     const values=(item.result?.detections||[]).map(d=>d.occupancy_estimate?.pct).filter(Number.isFinite);
     const avg=values.length?Math.round(values.reduce((a,b)=>a+b,0)/values.length):null;
-    return `<div class="batch-item"><button type="button" data-batch-index="${i}" aria-current="${i===batchIndex}" aria-label="${esc(item.file.name)}${item.marked?', marcada para revisión':''}"><img ${item.thumb?`src="${item.thumb}"`:""} alt=""><span class="thumb-status ${avg===null?'':avg<30?'thumb-low':'thumb-enough'}">${avg===null?(item.failure?'Error':'Pendiente'):avg+'%'}</span>${item.marked?'<span class="thumb-mark" aria-hidden="true">&#9733;</span>':''}</button></div>`;
+    return `<div class="batch-item"><button type="button" data-batch-index="${i}" aria-current="${i===batchIndex}" aria-label="${esc(item.file.name)}${item.marked?', marcada para revisión':''}"><img ${item.thumb?`src="${item.thumb}"`:""} alt=""><span class="thumb-status ${avg===null?'':avg<30?'thumb-low':'thumb-enough'}">${avg===null?(item.failure?'Error':'Pendiente'):avg+'%'}</span>${item.marked?'<span class="thumb-mark" aria-hidden="true">&#9733;</span>':item.correct?'<span class="thumb-mark" aria-hidden="true">&#10003;</span>':''}</button></div>`;
   }).join('');
+  $('photo-review-status').textContent=batch[batchIndex].marked||batch[batchIndex].correct?'':'Sin revisar';
+  $('batch-correct').textContent=batch[batchIndex].correct?'Quitar correcta':'Marcar correcta';
+  $('batch-correct').setAttribute('aria-pressed',String(!!batch[batchIndex].correct));
   $('batch-mark').textContent=batch[batchIndex].marked?'Quitar de revisión':'Marcar para revisión';
   $('batch-mark').setAttribute('aria-pressed',String(batch[batchIndex].marked));
   availability();
@@ -1309,7 +1319,7 @@ function chooseBatch(files){
   const invalid=files.find(f=>!f.size||f.size>10*1024*1024||(!['image/jpeg','image/png','image/webp'].includes(f.type)&&!/^.*\.(jpe?g|png|webp)$/i.test(f.name)));
   if(invalid){error(`Revisa ${invalid.name}: usa JPG, PNG o WebP de hasta 10 MB.`);return}
   if(files.reduce((total,f)=>total+f.size,0)>500*1024*1024){error('El lote no puede superar 500 MB.');return}
-  if(dirtySelection&&!confirm('Hay fotos marcadas sin descargar. ¿Quieres reemplazar el lote?'))return;
+  if(dirtySelection&&!confirm('Hay cambios sin descargar. \u00bfQuieres reemplazar el lote?'))return;
   clearBatch();$('batch-confirm').checked=true;dirtySelection=false;batchFilter='all';$('batch-filter').value='all';
   batch=files.map(f=>({file:f,thumb:null,result:null,marked:false,failure:'',reason:'',note:''}));
   selectBatch(0);buildThumbnails(batch);saveSession();
@@ -1345,7 +1355,12 @@ async function selectBatch(index){
 }
 $('batch-grid').addEventListener('click',event=>{const button=event.target.closest('[data-batch-index]');if(button)selectBatch(Number(button.dataset.batchIndex))});
 $('batch-confirm').addEventListener('change',()=>{availability();saveSession()});
-$('batch-mark').addEventListener('click',()=>{const item=batch[batchIndex];if(!item||running||batchRunning||(!item.result&&!item.marked))return;item.marked=!item.marked;dirtySelection=true;renderBatch();saveSession()});
+$('batch-correct').addEventListener('click',()=>{const item=batch[batchIndex];if(!item||running||batchRunning||!item.result)return;item.correct=!item.correct;if(item.correct)item.marked=false;dirtySelection=true;renderBatch();saveSession()});
+let reviewTarget=null;
+$('batch-mark').addEventListener('click',()=>{const item=batch[batchIndex];if(!item||running||batchRunning||(!item.result&&!item.marked))return;if(item.marked){item.marked=false;dirtySelection=true;renderBatch();saveSession();return}reviewTarget=item;$('review-filename').textContent=item.file.name;$('batch-reason').value=item.reason||'';$('batch-note').value=item.note||'';$('review-dialog').showModal();$('batch-reason').focus()});
+$('review-cancel').addEventListener('click',()=>$('review-dialog').close());
+$('review-dialog').addEventListener('close',()=>{reviewTarget=null;$('batch-mark').focus()});
+$('review-form').addEventListener('submit',event=>{event.preventDefault();if(!reviewTarget||!$('batch-reason').value)return;reviewTarget.reason=$('batch-reason').value;reviewTarget.note=$('batch-note').value.trim();reviewTarget.marked=true;reviewTarget.correct=false;dirtySelection=true;$('review-dialog').close();renderBatch();saveSession()});
 $('batch-analyze').addEventListener('click',analyzeBatch);
 async function analyzeBatch(){
   if(batchRunning||running)return;
@@ -1362,7 +1377,7 @@ async function analyzeBatch(){
     await analyzePhoto();saveSession();
   }
   batchRunning=false;
-  $('batch-help').textContent=batchStop==='pause'?'Análisis pausado. Pulsa Analizar pendientes para continuar.':batchStop==='cancel'?'Análisis cancelado. Los resultados terminados se conservan.':'Revisa los resultados de las fotos. Las fotos marcadas se descargan para anotación y revisión antes de entrenar.';
+  $('batch-help').textContent=batchStop==='pause'?'Análisis pausado. Pulsa Analizar pendientes para continuar.':batchStop==='cancel'?'Análisis cancelado. Los resultados terminados se conservan.':'Clasifica cada foto y descarga el lote completo.';
   renderBatch();
 }
 // ZIP sin compresión: conserva los archivos originales y evita enviar fotos a otro servicio.
@@ -1383,30 +1398,55 @@ function zipSelected(items){
   u32(ev,[0,0x06054b50]);u16(ev,[8,items.length]);u16(ev,[10,items.length]);u32(ev,[12,size]);u32(ev,[16,offset]);
   return new Blob([...parts,...central,end],{type:'application/zip'});
 }
+// Reproduce only the displayed level contours, including for already saved sessions.
+async function contourEvidence(item){
+  const data=item.result;
+  if(!data||!Array.isArray(data.detections)||!Number.isFinite(data.width)||!Number.isFinite(data.height))throw Error('MISSING_RESULT');
+  const bitmap=await createImageBitmap(item.file);
+  try{
+    if(bitmap.width!==data.width||bitmap.height!==data.height)throw Error('DIMENSIONS');
+    const canvas=document.createElement('canvas');canvas.width=data.width;canvas.height=data.height;
+    const ctx=canvas.getContext('2d');if(!ctx)throw Error('CANVAS');
+    ctx.drawImage(bitmap,0,0);ctx.strokeStyle='#00b7ff';ctx.lineWidth=Math.max(3,Math.round(Math.max(data.width,data.height)/500));ctx.lineJoin='round';
+    for(const detection of data.detections){
+      const points=detection.display_polygon;
+      if(!Array.isArray(points)||points.length<3||points.some(p=>!Array.isArray(p)||p.length!==2||!p.every(Number.isFinite)))throw Error('MISSING_CONTOUR');
+      ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(const p of points.slice(1))ctx.lineTo(p[0],p[1]);ctx.closePath();ctx.stroke();
+    }
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',0.92));if(!blob)throw Error('ENCODING');
+    return new Uint8Array(await blob.arrayBuffer());
+  }finally{bitmap.close()}
+}
 $('batch-download').addEventListener('click',async()=>{
-  const selected=batch.filter(item=>item.marked);if(!selected.length)return;
+  const selected=batch.slice();if(!selected.length)return;
+  const pending=selected.filter(item=>!item.marked&&!item.correct).length;
+  if(pending&&!confirm(`Hay ${pending} ${pending===1?'foto sin revisar':'fotos sin revisar'}. Se incluir${pending===1?'\u00e1':'\u00e1n'} como pendientes. \u00bfDescargar el lote de todos modos?`))return;
+  const noResult=selected.filter(item=>!item.result).length;
+  if(noResult&&!confirm(`${noResult} ${noResult===1?'foto no tiene':'fotos no tienen'} resultado y se descargar${noResult===1?'\u00e1':'\u00e1n'} sin contornos. \u00bfContinuar?`))return;
   $('batch-download').disabled=true;
   try{
-    const items=[];
+    const items=[], records=[];
     for(let i=0;i<selected.length;i++){
-      const safe=selected[i].file.name.replace(/[\\/\x00-\x1f]/g,'_');
-      items.push({name:`${String(i+1).padStart(3,'0')}_${safe}`,bytes:new Uint8Array(await selected[i].file.arrayBuffer())});
+      const item=selected[i], safe=item.file.name.replace(/[\\/\x00-\x1f]/g,'_');
+      const prefix=String(i+1).padStart(3,'0'), original=`originales/${prefix}_${safe}`, evidence=`contornos/${prefix}_contornos.jpg`;
+      items.push({name:original,bytes:new Uint8Array(await item.file.arrayBuffer())});
+      if(item.result)items.push({name:evidence,bytes:await contourEvidence(item)});
+      records.push({archivo:original,contornos:item.result?evidence:null,original:item.file.name,estado:item.marked?'para_revision':item.correct?'correcta':'sin_revisar',motivo:item.marked?(item.reason||''):'',nota:item.marked?(item.note||''):'',modelo:item.result?.model||null,confianza:item.analyzedConfidence??null});
     }
-    items.push({name:'revision.json',bytes:new TextEncoder().encode(JSON.stringify({fotos:selected.map((item,i)=>({archivo:items[i].name,original:item.file.name,motivo:item.reason||'',nota:item.note||''}))},null,2))});
+    items.push({name:'revision.json',bytes:new TextEncoder().encode(JSON.stringify({fotos:records},null,2))});
     const url=URL.createObjectURL(zipSelected(items)),link=document.createElement('a');link.href=url;link.download='fotos_para_revision.zip';link.click();dirtySelection=false;saveSession();setTimeout(()=>URL.revokeObjectURL(url),60000);
-  }catch(e){error('No se pudo preparar la descarga. Prueba con menos fotos.')}finally{availability()}
+  }catch(e){error('No se pudo preparar la descarga con contornos. Comprueba que cada foto marcada tenga un resultado y vuelve a analizarla si es necesario.')}finally{availability()}
 });
 
 $('batch-toggle').addEventListener('click',()=>{const expanded=$('batch-details').hidden;$('batch-details').hidden=!expanded;$('batch-toggle').setAttribute('aria-expanded',String(expanded));$('batch-toggle').textContent=expanded?'Ocultar opciones':'Ver opciones'});
 $('batch-filter').addEventListener('change',()=>{batchFilter=$('batch-filter').value;renderBatch()});
-function filteredBatchIndices(){return batch.map((item,i)=>({item,i})).filter(({item})=>batchFilter==='all'||(batchFilter==='marked'&&item.marked)||(batchFilter==='failed'&&item.failure)||(batchFilter==='pending'&&!item.result&&!item.failure)).map(x=>x.i)}
+function filteredBatchIndices(){return batch.map((item,i)=>({item,i})).filter(({item})=>batchFilter==='all'||(batchFilter==='marked'&&item.marked)||(batchFilter==='correct'&&item.correct)||(batchFilter==='unreviewed'&&!item.marked&&!item.correct)||(batchFilter==='failed'&&item.failure)||(batchFilter==='pending'&&!item.result&&!item.failure)).map(x=>x.i)}
 function moveBatch(delta){const indices=filteredBatchIndices();const next=delta<0?indices.filter(i=>i<batchIndex).at(-1):indices.find(i=>i>batchIndex);if(next!==undefined)selectBatch(next)}
 $('batch-prev').addEventListener('click',()=>moveBatch(-1));$('batch-next').addEventListener('click',()=>moveBatch(1));
 $('batch-pause').addEventListener('click',()=>{if(!batchRunning||batchStop)return;batchStop='pause';renderBatch()});
 $('batch-cancel').addEventListener('click',()=>{if(!batchRunning||batchStop)return;batchStop='cancel';renderBatch()});
 $('batch-retry').addEventListener('click',()=>{for(const item of batch)item.failure='';renderBatch();saveSession();analyzeBatch()});
-for(const field of ['reason','note'])$('batch-'+field).addEventListener('input',()=>{if(batchIndex<0)return;batch[batchIndex][field]=$('batch-'+field).value;dirtySelection=true;saveSession()});
-document.addEventListener('keydown',event=>{if(event.defaultPrevented||batchIndex<0||batchRunning||running||event.altKey||event.ctrlKey||event.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();moveBatch(event.key==='ArrowLeft'?-1:1)}else if(event.key.toLowerCase()==='m'){$('batch-mark').click()}else if(event.key.toLowerCase()==='c'&&result){view('compare')}});
+document.addEventListener('keydown',event=>{if(event.defaultPrevented||$('review-dialog').open||batchIndex<0||batchRunning||running||event.altKey||event.ctrlKey||event.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();moveBatch(event.key==='ArrowLeft'?-1:1)}else if(event.key.toLowerCase()==='m'){$('batch-mark').click()}else if(event.key.toLowerCase()==='c'&&result){view('compare')}});
 function renderPhotoZoom(){const photo=$('photo');photo.style.setProperty('--photo-zoom',photoZoom);photo.style.setProperty('--pan-x',panX+'px');photo.style.setProperty('--pan-y',panY+'px');photo.classList.toggle('zoomed',photoZoom>1);const pct=Math.round(photoZoom*100);$('photo-zoom-label').textContent=`Zoom ${pct} %`;if($('photo-zoom-display'))$('photo-zoom-display').textContent=`${pct}%`}
 function resetPhotoZoom(){photoZoom=1;panX=0;panY=0;photoDrag=null;renderPhotoZoom()}
 function stepPhotoZoom(delta){if(!originalUrl)return;const previousZoom=photoZoom;photoZoom=Math.max(1,Math.min(4,Math.round((photoZoom+delta)*100)/100));if(photoZoom<previousZoom){const remaining=(photoZoom-1)/(previousZoom-1);panX*=remaining;panY*=remaining;if(photoZoom===1){panX=0;panY=0}}renderPhotoZoom()}

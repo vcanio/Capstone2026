@@ -95,3 +95,6 @@ Datos/Publicos/comparacion.jpg
 /Aplicacion/modelos/*
 !/Aplicacion/modelos/V3-YOLO26.pt
 !/Aplicacion/herramientas/uv.exe
+
+# Modelo oficial de la aplicaci?n (requerido para ejecutar desde un clon).
+!/Aplicacion/modelos/V3-refuerzo-revision-20261105.pt

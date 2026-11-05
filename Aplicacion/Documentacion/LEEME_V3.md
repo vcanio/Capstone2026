@@ -10,7 +10,7 @@ Walmart Visión detecta niveles en fotografías de góndolas y muestra una estim
 
 ## Analizar fotos
 
-1. Sube fotos JPG, PNG o WebP de hasta 15 MB cada una. Usa tomas frontales o casi frontales, nítidas y con el tramo completo visible.
+1. Sube hasta 50 fotos JPG, PNG o WebP de hasta 10 MB cada una y 500 MB en total por lote. Usa tomas frontales o casi frontales, nítidas y con el tramo completo visible.
 2. Pulsa **Analizar fotos**. La confianza inicial de detección es 60 % y puede ajustarse desde 25 %. Una confianza menor puede recuperar niveles, pero también producir detecciones incorrectas.
 3. Revisa cada contorno y su confianza de detección. Usa las vistas **Original**, **Niveles**, **Bordes** y **Comparar** para contrastar el resultado. Puedes marcar una foto analizada para revisión y descargar las seleccionadas.
 

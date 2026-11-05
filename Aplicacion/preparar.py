@@ -55,12 +55,21 @@ def is_ready(expected):
         return False
 
 
+def show_ready(message):
+    print('  __', flush=True)
+    print('    \\________________', flush=True)
+    print('     \\              /', flush=True)
+    print('      \\____________/', flush=True)
+    print('        O        O', flush=True)
+    print(message, flush=True)
+
+
 def main():
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError('Abre iniciar.cmd para usar el entorno privado de la aplicación.')
     expected = ready_state()
     if is_ready(expected):
-        print('Entorno listo.', flush=True)
+        show_ready('Entorno listo.')
         return
     RUNTIME.mkdir(exist_ok=True)
     uv = ROOT / 'herramientas/uv.exe'
@@ -105,7 +114,7 @@ def main():
         temporary = READY.with_suffix('.tmp')
         temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         temporary.replace(READY)
-        print('Walmart Visión está listo.', flush=True)
+        show_ready('Walmart Visión está listo.')
 
 
 if __name__ == '__main__':

@@ -1,9 +1,7 @@
-# Modelo vigente · V3-YOLO26
+# Modelo oficial · V3
 
-El único modelo propio vigente es best.pt del afinado `v3_afinado_papeles_huevos_20261026_011847_7021`. Una clase Nivel, confianza 0,60; ocupación experimental y visibilidad manual.
+El modelo vigente es **best.pt** de `v3_refuerzo_geometria_revision_20261105_022414_e6f0`, adoptado por Vicente el 5 de noviembre de 2026. La copia distribuida está en [Aplicacion/modelos/V3-refuerzo-revision-20261105.pt](../../Aplicacion/modelos/V3-refuerzo-revision-20261105.pt) y se selecciona al iniciar la aplicación.
 
-SHA-256: `6617f6dc7b20eac2e343b17813a1180c6df6c481f3fc8cb744bb3949ff18b2c9`.
+SHA-256: `7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a`.
 
-[Descargar la app y el modelo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Métricas y limitaciones](../../Documentacion/Modelo_V3_actual.md) · [Historia](../../Documentacion/Desarrollo/Historial_modelos_y_cambios.md).
-
-Los pesos están en el ZIP de la release. El repositorio contiene fuentes y registros; no incluye el dataset ni los binarios del modelo.
+[Ficha y métricas](../../Documentacion/Modelo_V3_actual.md) · [Adopción y límites](../../Documentacion/Desarrollo/Modelo_oficial_V3_20261105.md) · [Descarga con modelo](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip). Los ensayos anteriores se conservan como historial. La ocupación sigue siendo experimental y la reserva final no se ha utilizado.

@@ -86,10 +86,13 @@ def verify(root=ROOT):
             raise ValueError('Archivo privado visible para Git: ' + rel)
         if path.name == 'acceso_local.json' or (path.name.startswith('.env') and not path.name.endswith('.example')):
             raise ValueError('Archivo privado visible para Git: ' + rel)
-        if rel == 'Aplicacion/modelos/V3-YOLO26.pt':
+        if path.suffix.lower() == '.pt' and path.parent == root / 'Aplicacion/modelos':
             manifest = json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))
-            model = next((item for item in manifest['models'] if item['file'] == 'modelos/V3-YOLO26.pt'), None)
-            if not model or hashlib.sha256(path.read_bytes()).hexdigest() != model['sha256']:
+            models = manifest['models']
+            model = next((item for item in models if item['file'] == 'modelos/' + path.name), None)
+            if (len(models) != 1 or not model or manifest['default_model'] != model['id'] or
+                    model.get('classes') != ['Nivel'] or path.stat().st_size != model['bytes'] or
+                    hashlib.sha256(path.read_bytes()).hexdigest() != model['sha256']):
                 raise ValueError('El peso de la aplicacion no coincide con su manifiesto.')
         elif path.suffix.lower() in ('.pt', '.zip') or path.stat().st_size >= 50 * 1024**2:
             raise ValueError('Binario o archivo grande fuera de Releases: ' + rel)

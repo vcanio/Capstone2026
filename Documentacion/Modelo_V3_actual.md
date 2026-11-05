@@ -1,54 +1,25 @@
 # Modelo actual de Walmart Visión
 
-**V3-YOLO26**, integrado en la aplicación y disponible en la [release publicada el 26 de octubre de 2026](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26).
-
-## Identidad y función
+**V3 oficial · refuerzo de geometría**, adoptado por Vicente el 5 de noviembre de 2026. [Descargar app y modelo](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) · [Release](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05).
 
 | Campo | Valor |
 |---|---|
 | Arquitectura | YOLO26n-seg |
-| Clases | Una: `Nivel` |
-| Checkpoint operativo | `best.pt` |
-| Ensayo fuente | `v3_afinado_papeles_huevos_20261026_011847_7021` |
-| SHA-256 del modelo | `6617f6dc7b20eac2e343b17813a1180c6df6c481f3fc8cb744bb3949ff18b2c9` |
-| Uso en la app | Máscaras originales, confianza fija 0,60 y resolución 640 |
+| Clase | `Nivel` |
+| Checkpoint | `best.pt` |
+| Ensayo | `v3_refuerzo_geometria_revision_20261105_022414_e6f0` |
+| SHA-256 | `7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a` |
+| Afinado | 171 imágenes, 40 épocas, AdamW, lr 0,0001, batch 2, resolución 640, semilla 42 |
+| Selección del best | Fitness combinado de cajas y máscaras; máximo del CSV en época 35 |
+| Confianza en la app | Inicial 0,60; ajustable desde 0,25 |
 
-El modelo localiza áreas de niveles. No clasifica directamente reposición, personas u oclusiones. La app calcula e interpreta la ocupación por separado.
+| Máscaras | Fotos | mAP50 | mAP50–95 |
+|---|---:|---:|---:|
+| Validación real | 59 | 99,50 % | 89,95 % |
+| Diagnóstico sintético | 34 | 99,50 % | 93,14 % |
 
-## Entrenamiento vigente
+La partición de desarrollo es `v3_refuerzo_geometria_20261104`, con selección `revision_geometria_20261104`. Las escenas relacionadas se agruparon antes del ensayo. Los valores no son comparables directamente con los agregados históricos de otra partición. No se evaluó ocupación y la reserva final de 63 fotos permanece sin utilizar.
 
-El último afinado partió de pesos propios V3 y utilizó **113 fotos: 67 reales y 46 sintéticas**. La selección reúne **32 superiores vacíos, 11 tomas reales nuevas, seis fotos de huevos y 64 de repaso**. El repaso cubre las 26 escenas de entrenamiento anteriores.
+El modelo localiza áreas de niveles; no decide directamente reposición ni detecta personas u obstáculos. La app conserva las máscaras y estima cobertura del frente mediante bordes, color y textura, con umbral experimental 30 %. Requiere revisión humana y no mide stock oculto. La mediana es un criterio de anotación y no se fuerza durante la inferencia.
 
-Configuración: AdamW, tasa de aprendizaje 0,0001, tamaño 640, batch 2 y semilla 42. Terminó tras **29 épocas**, con paciencia 10. El entrenador eligió el best de la **época 19** por fitness combinado de cajas y máscaras; el máximo mAP de máscaras del CSV estaba en la época 14.
-
-## Datos y validación
-
-El catálogo actual contiene **469 imágenes: 192 reales y 277 sintéticas**. La partición por escenas y familias es **337 train / 69 val / 63 test**. Una train está desactivada: hay 336 exportables, de las que el afinado seleccionó 113.
-
-La validación del afinado contiene **22 reales y 47 sintéticas**, evaluadas por separado. El test conserva sus **63 fotos reservadas**, sin utilizarse para entrenamiento, selección o ajustes.
-
-| Segmentación de máscaras | 22 fotos reales | 47 fotos sintéticas |
-|---|---:|---:|
-| mAP50 | 99,50 % | 99,46 % |
-| mAP50–95 | 88,96 % | 85,33 % |
-
-Estos resultados evalúan la delimitación de niveles, no el porcentaje de ocupación ni la precisión de reposición. El afinado fue adoptado tras revisión visual con limitaciones aceptadas: no se presenta como una mejora global frente al padre. En la validación común, el mAP50–95 de máscaras bajó de 90,49 a 88,96 % en reales y de 86,01 a 85,33 % en sintéticas.
-
-[Resumen numérico y procedencia](Estado_V3_actual.json).
-
-## Comportamiento de la app
-
-- Modelo único, análisis de niveles y bordes, confianza fija 0,60.
-- Cobertura experimental del frente, con umbral 30 % y supuesto de lleno detrás del producto visible. Requiere calibración y revisión humana.
-- Confirmación manual de visibilidad; sin detección automática de personas u obstáculos.
-- Contorno junto al encuadre: solo zona visible y Revisar. Personas y objetos no se detectan automáticamente; revisa visualmente las zonas tapadas.
-- Señal concentrada en la mitad superior o periférica sin respaldo central e inferior: Revisar · señal ambigua, sin porcentaje presentado. Es una abstención experimental, no detección de carteles o vacío.
-- La mediana es un criterio de anotación; no se fuerza durante la predicción.
-
-## Limitaciones que permanecen
-
-En la familia `le_g10`, a confianza 0,60, el superior vacío de la foto 029 se delimita demasiado alto y el de la 030 se omite. Faltan escenas independientes de papeles y huevos para evaluar generalización.
-
-La entrada prevista son fotografías frontales o casi frontales; no existe corrección automática de perspectiva. La ocupación sigue sin calibración V3. La última ampliación de abstención se comprobó en 151 fotos de desarrollo y 754 detecciones, conservando las métricas brutas y añadiendo 35 revisiones; no constituye una evaluación exhaustiva ni prueba final. El procedimiento Docker ya fue probado correctamente por Vicente en macOS con la release anterior; esta entrega conserva ese flujo y sus dependencias.
-
-[Manual](Usar_Walmart_Vision.md) · [Funcionamiento](Guia_para_entender_el_proyecto.md) · [Distribución](../Entregables/README.md)
+Pueden existir omisiones y contornos incorrectos. Las incidencias históricas de superiores no se declaran resueltas por esta adopción. Las pruebas de funcionamiento no constituyen una calibración de ocupación ni una evaluación exhaustiva de precisión. [Registro de adopción](Desarrollo/Modelo_oficial_V3_20261105.md) · [Resumen estructurado](Estado_V3_actual.json).

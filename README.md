@@ -6,8 +6,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
+| [**Descargar Walmart Visión V3**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Release publicada](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
 ## Explorar las carpetas
 
@@ -58,7 +58,7 @@ La aplicación y el entorno técnico tienen funciones diferentes:
 
 **Para probar el candidato del 2 de noviembre:** descarga el [código actualizado de main](https://github.com/vcanio/Capstone2026/archive/refs/heads/main.zip), extrae el ZIP completo y abre `Aplicacion/iniciar.cmd` en Windows, o ejecuta `docker compose up --build -d --wait` desde `Aplicacion` con Docker. Selecciona **Candidato nuevo · 2 noviembre** en la aplicación. El modelo estable sigue siendo la opción inicial; el ZIP de la release enlazado abajo no incluye el candidato. La primera preparación necesita conexión.
 
-**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261028.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
+**V3 ya está publicada.** Descarga [`Walmart_Vision_V3_20261105.zip`](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip): incluye la aplicación y el único modelo vigente para Windows x64 y macOS con Docker. [Ver la release y sus instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) · [Manual de uso](Documentacion/Usar_Walmart_Vision.md).
 
 ### Fotografías frontales
 
@@ -89,7 +89,7 @@ Abre [http://127.0.0.1:8095](http://127.0.0.1:8095). Para detener la aplicación
 
 | Requisito | Detalle |
 |---|---|
-| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-10-26/Walmart_Vision_V3_20261028.zip), con visor y modelo. |
+| Paquete | [ZIP V3 publicado](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip), con visor y modelo. |
 | Windows | Iniciador automático para Windows x64. |
 | Docker | Alternativa de ejecución incluida en el paquete. |
 | Primer inicio | Conexión para preparar las dependencias o construir la imagen Docker. |
@@ -181,22 +181,20 @@ El modelo delimita niveles, pero no detecta automáticamente personas, obstácul
 
 ## Modelo actual y resultados
 
-La app local utiliza **V3-YOLO26**, el `best.pt` del afinado de papeles, huevos y superiores vacíos. Su única clase aprendida es **Nivel**: las decisiones de reposición se calculan después.
+La aplicación usa como único modelo oficial el **best.pt del refuerzo de geometría terminado el 5 de noviembre**. Su clase aprendida es **Nivel**; la ocupación se calcula después y sigue siendo experimental.
 
-| Modelo vigente | Entrenamiento del último afinado | Validación | Estado |
+| Modelo | Afinado | Validación | Distribución |
 |---|---|---|---|
-| **YOLO26n-seg V3** | **113 fotos**, 29 épocas completadas | **22 reales + 47 sintéticas**, evaluadas por separado | [Disponible en la release V3](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) |
+| YOLO26n-seg V3 | 171 fotos, 40 épocas | 59 reales + 34 sintéticas, separadas | [App y modelo incluidos](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) |
 
-| Segmentación de máscaras | Fotos | mAP50 | mAP50–95 |
+| Máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
-| Validación real | 22 | 99,50 % | 88,96 % |
-| Diagnóstico sintético | 47 | 99,46 % | 85,33 % |
+| Validación real | 59 | 99,50 % | 89,95 % |
+| Diagnóstico sintético | 34 | 99,50 % | 93,14 % |
 
-**Cómo leer estas cifras:** evalúan la delimitación de niveles, no la precisión de los porcentajes de ocupación ni de las alertas de reposición. La reserva final de **63 fotos de test permanece sin utilizar**.
+Estas cifras evalúan geometría, no ocupación ni reposición. La partición de desarrollo cambió; no se comparan directamente con los agregados históricos. La reserva final de **63 fotos de test permanece sin utilizar**. La adopción expresa de Vicente no certifica ausencia de errores.
 
-El afinado se adoptó tras revisión visual con limitaciones aceptadas. En la validación común, el mAP50–95 de máscaras bajó de 90,49 a 88,96 % en reales y de 86,01 a 85,33 % en sintéticas: **no se presenta como una mejora global** frente al padre.
-
-La [ficha del modelo actual](Documentacion/Modelo_V3_actual.md) conserva el ensayo fuente, el hash exacto del peso, la configuración y los límites de la evaluación.
+[Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y procedencia](Documentacion/Desarrollo/Modelo_oficial_V3_20261105.md).
 
 ## Arquitectura y funcionamiento
 
@@ -260,19 +258,11 @@ CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del prim
 
 ## Datos y entrenamiento
 
-El catálogo vigente reúne **469 imágenes: 192 reales y 277 sintéticas**. Las vistas de la misma escena y sus variantes se mantienen juntas para reducir la fuga de información entre aprendizaje, validación y prueba.
+El modelo oficial parte del best.pt aceptado el 3 de noviembre. El refuerzo seleccionó **171 fotos para entrenar**, con evaluación separada sobre **59 reales y 34 sintéticas**, usando la partición de desarrollo por escenas `v3_refuerzo_geometria_20261104`. El conjunto incorpora la revisión geométrica y repaso de escenas anteriores. R254 permanece excluida. La reserva final de 63 fotos no se utilizó.
 
-| Partición actual | Imágenes | Uso |
-|---|---:|---|
-| **Train** | **337** | Aprendizaje: una imagen está desactivada; 336 son exportables. |
-| **Val** | **69** | Selección y revisión: 22 reales y 47 sintéticas. |
-| **Test** | **63** | Reserva para evaluación final, sin utilizar. |
+Los inventarios históricos y sus particiones se conservan para reproducir los ensayos anteriores. Las cifras de 469 imágenes que siguen describen el catálogo de octubre, no la selección del modelo oficial de noviembre.
 
-El último afinado seleccionó **113 fotos de train: 67 reales y 46 sintéticas**, compuestas por 32 superiores vacíos, 11 tomas reales nuevas, seis fotos de huevos y 64 de repaso. El repaso cubre las 26 escenas del entrenamiento anterior.
-
-Las sintéticas son variantes de fuentes existentes; no se consideran capturas independientes. Las imágenes conservan sus ubicaciones de procedencia y no se suman de nuevo por reutilizarse con el criterio V3.
-
-### Origen y composición del conjunto V3
+### Origen y composición del catálogo V3 de octubre
 
 Se utilizan fotografías de góndolas reunidas para el proyecto en locales Líder, junto con variantes sintéticas generadas a partir de esas capturas. Los registros distinguen **Líder Express**, el lote identificado localmente como **Líder 2** y un refuerzo de papeles/servilletas. El nombre Líder 2 es un identificador del lote; no se presenta como el nombre oficial de una sucursal. El corpus operativo V3 es propio del proyecto; los pesos generales preentrenados se utilizan como punto de partida del modelo, no como fotografías adicionales de este catálogo.
 
@@ -294,7 +284,7 @@ Las variantes A/B/C, los obstáculos y los superiores vacíos son **ediciones ge
 3. **Etiquetado en CVAT.** Se utiliza una sola clase de segmentación, `Nivel`, con polígonos del área útil completa, incluidos los huecos. Los atributos `delimitacion` y `Occluded` registran revisión y oclusión; no son clases que YOLO prediga. Se aplica el criterio de apoyo sobre el portaprecio y la mediana del superior abierto descritos arriba.
 4. **Control de calidad antes de exportar.** Las anotaciones requieren revisión humana. Se aparta la foto completa ante límites pendientes o dudosos, desactivación o geometría incompatible. Una región parcial bien delimitada o un perímetro ocluido recuperable puede utilizarse para localizar niveles tras revisión explícita; eso no permite conocer el producto oculto. La exclusión de una foto no cambia su partición.
 5. **Separación por familias y escenas.** Originales, variantes y vistas relacionadas heredan grupo y partición, evitando que la misma góndola aparezca a ambos lados de una comparación como si fuera independiente. Las 11 fotos nuevas se agruparon conservadoramente con la escena de papeles relacionada. Se mantienen **337 train / 69 val / 63 test**, con una train desactivada, y las sintéticas se evalúan separadas de las reales.
-6. **Copias reproducibles para el ensayo.** Se exportan imágenes y polígonos revisados, se comprueba su correspondencia y se congelan selección, configuración y hashes. La orientación EXIF se resuelve en copias del ensayo para coincidir con la vista anotada; se conservan los originales. El afinado vigente seleccionó 113 fotos de train; la validación conserva 22 reales y 47 sintéticas. Los píxeles de test no entran en el dataset del ensayo ni en los ajustes de modelo u ocupación.
+6. **Copias reproducibles para el ensayo.** Se exportan imágenes y polígonos revisados, se comprueba su correspondencia y se congelan selección, configuración y hashes. La orientación EXIF se resuelve en copias del ensayo para coincidir con la vista anotada; se conservan los originales. El afinado de octubre seleccionó 113 fotos de train con validación de 22 reales y 47 sintéticas; el refuerzo vigente de noviembre usa los recuentos indicados arriba. Los píxeles de test no entran en el dataset del ensayo ni en los ajustes de modelo u ocupación.
 
 Esta preparación controla la coherencia y la trazabilidad de los datos; no convierte una variante sintética en evidencia de generalización ni certifica la exactitud de la ocupación. El uso de fotos con obstáculos para aprender geometría tampoco constituye entrenamiento de un detector automático de visibilidad.
 
