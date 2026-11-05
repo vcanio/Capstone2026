@@ -15,4 +15,5 @@ jobs:
       - run: python -m unittest discover -s Laboratorio/Datos -v
       - run: python -m unittest discover -s Laboratorio/Reproducibilidad/tests -v
       - run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
+      - run: python -m unittest discover -s Laboratorio/Modelos/tests -p test_paquete_oficial_v3.py -v
       - run: python Laboratorio/Reproducibilidad/verificar_publicacion.py

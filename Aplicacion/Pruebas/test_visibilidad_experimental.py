@@ -1,5 +1,6 @@
 import hashlib
 import json
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -37,7 +38,10 @@ class FiltroExperimentalTests(unittest.TestCase):
         self.assertNotIn('occupancy', result)
 
     def test_falta_candidato_falla_cerrado_sin_ejecutar_yolo(self):
-        with patch.object(self.runner, '_load_model') as load:
+        # Esta prueba de configuración no requiere instalar motores de inferencia en CI.
+        # Se conserva la lectura real del candidato ausente y se simulan solo las dependencias.
+        with patch.dict(sys.modules, {'torch': MagicMock(), 'ultralytics': MagicMock()}), \
+             patch.object(self.runner, '_load_model') as load:
             with self.assertRaisesRegex(ValueError, 'candidato'):
                 self.runner.analyze(self.photo, 'fixture', .6, visibility_mode='experimental')
         load.assert_not_called()
