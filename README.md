@@ -260,37 +260,57 @@ CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del prim
 
 ## Datos y entrenamiento
 
-El modelo oficial parte del best.pt aceptado el 3 de noviembre. El refuerzo seleccionó **171 fotos para entrenar**, con evaluación separada sobre **59 reales y 34 sintéticas**, usando la partición de desarrollo por escenas `v3_refuerzo_geometria_20261104`. El conjunto incorpora la revisión geométrica y repaso de escenas anteriores. R254 permanece excluida. La reserva final de 63 fotos no se utilizó.
+### Qué imágenes utilizó el modelo oficial
 
-Las nuevas revisiones y lotes no se incorporan automáticamente al modelo: requieren selección y revisión explícitas. Solo Vicente inicia entrenamiento desde el panel. Los inventarios históricos y sus particiones se conservan para reproducir los ensayos anteriores. Las cifras de 469 imágenes que siguen describen el catálogo de octubre, no la selección del modelo oficial de noviembre.
+El peso actual deriva de **dos etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. Estos recuentos corresponden a los archivos efectivamente incluidos en los manifiestos de los ensayos, no a todas las fotos reunidas o revisadas por el equipo.
 
-### Origen y composición del catálogo V3 de octubre
+| Etapa de la cadena del modelo | Train reales | Train sintéticas | Train total | Validación real | Validación sintética |
+|---|---:|---:|---:|---:|---:|
+| Afinado iniciado el 2/11, base del refuerzo | 153 | 179 | **332** | 32 | 37 |
+| Refuerzo oficial del 5/11 | 152 | 19 | **171** | 59 | 34 |
 
-Las fotografías originales fueron tomadas por el equipo en locales Líder, y las anotaciones fueron realizadas por el equipo usando CVAT, según lo confirmado por Vicente. El corpus incluye variantes sintéticas generadas a partir de esas capturas. La autoría y las condiciones de uso están documentadas en [Licencias y procedencia](LICENCIAS.md). Los registros distinguen **Líder Express**, el lote identificado localmente como **Líder 2** y un refuerzo de papeles/servilletas. El nombre Líder 2 es un identificador del lote; no se presenta como el nombre oficial de una sucursal. El corpus operativo V3 es propio del proyecto; los pesos generales preentrenados se utilizan como punto de partida del modelo, no como fotografías adicionales de este catálogo.
+Las **171** son las imágenes del **último refuerzo**, no toda la experiencia previa del modelo. De ellas, **69 son repaso de train del padre y 102 pertenecen al refuerzo geométrico**. Por los SHA-256 de las fuentes, las dos etapas reúnen **434 archivos distintos usados para entrenar: 248 reales y 186 sintéticos**. Las 69 imágenes de repaso no se cuentan dos veces. Este recuento no equivale a 434 escenas independientes, ni incluye aumentos internos de YOLO o imágenes del preentrenamiento general.
 
-| Procedencia | Reales | Sintéticas | Total | Aporte al conjunto |
-|---|---:|---:|---:|---|
-| Líder Express, captura del 16 de octubre | 59 | 177 | 236 | Originales y variantes A/B/C con distintos escenarios de disponibilidad. |
-| Visibilidad limitada, derivada de Líder Express | 0 | 60 | 60 | Ediciones con personas, carros y cajas delante de la góndola. |
-| Superiores vacíos D, derivados de Líder Express | 0 | 40 | 40 | Ejemplos para mantener la detección del superior aunque no tenga productos. |
-| Líder 2, captura del 17 de octubre | 122 | 0 | 122 | Otras estructuras y distribuciones de productos, incluidos los ejemplos de huevos. |
-| Refuerzo de papeles/servilletas del 25 de octubre | 11 | 0 | 11 | Nuevas tomas reales relacionadas con escenas de papeles ya registradas. |
-| **Total del catálogo V3** | **192** | **277** | **469** | Imágenes catalogadas; una permanece desactivada para entrenamiento. |
+### Composición del último refuerzo, por procedencia
 
-Las variantes A/B/C, los obstáculos y los superiores vacíos son **ediciones generadas con IA**; no son nuevas capturas reales. Sus nombres y prompts describen la edición solicitada, sin asignar automáticamente una etiqueta verdadera de ocupación. Las seis fotos de huevos y las 32 superiores vacías de la selección final ya pertenecen al catálogo: no se suman otra vez a las 469 imágenes.
+Se contrastaron el manifiesto del ensayo oficial, el manifiesto de su exportación y las listas `train.txt`, `val_real.txt` y `val_sintetica.txt`. La exportación final contiene **264 archivos: 171 para entrenar y 93 para validar**. Las 93 de validación no se usaron para ajustar los pesos por gradiente.
 
-### Limpieza, etiquetado y preparación
+| Procedencia registrada | Train reales | Train sintéticas | Val reales | Val sintéticas | Total |
+|---|---:|---:|---:|---:|---:|
+| Líder 2 (lote histórico) | 26 | 0 | 22 | 0 | 48 |
+| Líder Express de octubre: originales y variantes A/B/C | 30 | 0 | 8 | 24 | 62 |
+| Refuerzo de papeles de octubre | 1 | 0 | 0 | 0 | 1 |
+| Refuerzo: Arauco Quilicura 2 | 18 | 0 | 3 | 0 | 21 |
+| Refuerzo: Express Independencia | 23 | 0 | 5 | 0 | 28 |
+| Refuerzo: Express Sta Luisa | 10 | 0 | 3 | 0 | 13 |
+| Refuerzo: Marcoleta | 35 | 0 | 13 | 0 | 48 |
+| Refuerzo: Ohiggins | 9 | 7 | 5 | 5 | 26 |
+| Superiores vacíos D (sintéticas de octubre) | 0 | 12 | 0 | 5 | 17 |
+| **Total del último refuerzo** | **152** | **19** | **59** | **34** | **264** |
 
-1. **Inventario e integridad.** Se registran procedencia, nombres, dimensiones y SHA-256, se comprueba que las imágenes se puedan abrir y se contrastan hashes para detectar duplicados exactos. Las vistas distintas de una misma escena se conservan, pero se agrupan; un archivo distinto no se considera automáticamente un ejemplo independiente.
-2. **Revisión de variantes.** Se identifican las imágenes sintéticas y su original. Se revisa su geometría y no se copian polígonos sin comprobar que la edición conserve encuadre, dimensiones y perspectiva.
-3. **Etiquetado en CVAT.** Se utiliza una sola clase de segmentación, `Nivel`, con polígonos del área útil completa, incluidos los huecos. Los atributos `delimitacion` y `Occluded` registran revisión y oclusión; no son clases que YOLO prediga. Se aplica el criterio de apoyo sobre el portaprecio y la mediana del superior abierto descritos arriba.
-4. **Control de calidad antes de exportar.** Las anotaciones requieren revisión humana. Se aparta la foto completa ante límites pendientes o dudosos, desactivación o geometría incompatible. Una región parcial bien delimitada o un perímetro ocluido recuperable puede utilizarse para localizar niveles tras revisión explícita; eso no permite conocer el producto oculto. La exclusión de una foto no cambia su partición.
-5. **Separación por familias y escenas.** Originales, variantes y vistas relacionadas heredan grupo y partición, evitando que la misma góndola aparezca a ambos lados de una comparación como si fuera independiente. Las 11 fotos nuevas se agruparon conservadoramente con la escena de papeles relacionada. Se mantienen **337 train / 69 val / 63 test**, con una train desactivada, y las sintéticas se evalúan separadas de las reales.
-6. **Copias reproducibles para el ensayo.** Se exportan imágenes y polígonos revisados, se comprueba su correspondencia y se congelan selección, configuración y hashes. La orientación EXIF se resuelve en copias del ensayo para coincidir con la vista anotada; se conservan los originales. El afinado de octubre seleccionó 113 fotos de train con validación de 22 reales y 47 sintéticas; el refuerzo vigente de noviembre usa los recuentos indicados arriba. Los píxeles de test no entran en el dataset del ensayo ni en los ajustes de modelo u ocupación.
+Los nombres de la tabla son identificadores de procedencia de los registros. «Líder 2» no se presenta como nombre oficial de una sucursal. Los lotes nuevos de Arauco Quilicura 2, Express Independencia, Express Sta Luisa, Marcoleta y Ohiggins aportan **136 archivos incluidos**: 102 train y 34 val. Las restantes 128 referencias corresponden al repaso y a validación de los lotes anteriores.
 
-Esta preparación controla la coherencia y la trazabilidad de los datos; no convierte una variante sintética en evidencia de generalización ni certifica la exactitud de la ocupación. El uso de fotos con obstáculos para aprender geometría tampoco constituye entrenamiento de un detector automático de visibilidad.
+La partición preparatoria tenía 275 registros; la exportación excluyó 11 según las decisiones documentadas. **R254 permanece excluida deliberadamente**, sin restaurarla ni usarla como negativo. Se mantuvieron las relaciones por escenas/familias; no se repartieron las fotos al azar. La reserva final de **63 fotos de test sigue sin utilizarse** y no forma parte de los 264 archivos de esta exportación.
 
-[Datos actuales](Datos/README.md) · [Registros V3](Datos/Registros/README.md) · [Resumen numérico](Documentacion/Estado_V3_actual.json)
+[Recuento verificable, hashes de manifiestos y alcance](Documentacion/Evidencias/catalogo_modelo_oficial_20261110.json) · [Modelo y métricas](Documentacion/Modelo_V3_actual.md).
+
+### Autoría, anotación y preparación
+
+Las fotografías originales fueron tomadas por el equipo y las anotaciones fueron realizadas por el equipo usando CVAT, según lo confirmado por Vicente. El corpus incluye variantes sintéticas identificadas como tales. Se conservan los registros de revisión y las correcciones asistidas de geometría. [Autoría y condiciones de datos/pesos](LICENCIAS.md).
+
+1. **Inventario y procedencia.** Se registran nombres, dimensiones y SHA-256. Las variantes y las vistas relacionadas se agrupan; un archivo diferente no se trata automáticamente como una escena independiente.
+2. **Anotación y revisión en CVAT.** Una clase `Nivel`, con polígonos del área útil completa, incluidos los huecos. Los atributos de delimitación y oclusión registran revisión; no son clases que YOLO prediga. Se aplica el apoyo sobre el portaprecio y la mediana para el superior abierto cuando corresponde.
+3. **Selección y exclusiones.** Se utilizan las decisiones y listas de la preparación congelada. Las fotos dudosas, desactivadas o excluidas no se incorporan por figurar en un catálogo más amplio.
+4. **Separación por escenas.** Originales, variantes y vistas relacionadas conservan las asignaciones documentadas. Validación real y sintética se informan por separado. Sus métricas no se comparan directamente con agregados de otra partición histórica.
+5. **Preparación reproducible.** Se exportan las imágenes y polígonos incluidos con sus hashes. La orientación EXIF se resuelve en copias de preparación, conservando los originales. No se abren los píxeles de test para preparar o ajustar los ensayos.
+
+Las nuevas fotos y revisiones no cambian por sí solas el modelo publicado. Requieren una selección y preparación posteriores; **solo Vicente inicia entrenamiento desde el panel**. Las fotos cargadas en las apps no se incorporan automáticamente al entrenamiento. El dataset completo sigue fuera de la distribución pública de las apps.
+
+### Catálogo histórico
+
+El catálogo de **469 imágenes de octubre** y su partición **337 train / 69 val / 63 test** son antecedentes de otra etapa. No describen la selección del último refuerzo ni el total de fuentes usadas en la cadena del modelo actual. Sus registros se conservan para trazabilidad en el [archivo histórico](Historico/README.md).
+
+La preparación y la revisión de datos no certifican por sí solas la precisión de ocupación ni convierten las imágenes sintéticas en evidencia de generalización. El ajuste de Línea A y la evaluación final del sistema son trabajos distintos del entrenamiento geométrico descrito aquí.
 
 ## Tecnologías
 
