@@ -1,4 +1,8 @@
+**Prueba de ambas apps del 10/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+
 # Walmart Vision · Aplicación V3
+
+Mesa de revisión del equipo (9/11): marcado por nivel o zona, atajos, revisión durante el análisis, comparación de ejecuciones y lotes ZIP recuperables. Ver [guía de revisión](Documentacion/REVISION_EQUIPO.md).
 
 El modelo oficial es el **best.pt del refuerzo de geometría terminado el 5 de noviembre**. Está incluido en el repositorio y se selecciona al iniciar; no necesitas descargar pesos por separado. La ocupación sigue siendo experimental.
 
@@ -10,17 +14,19 @@ El modelo oficial es el **best.pt del refuerzo de geometría terminado el 5 de n
 - [Cómo leer el código de niveles y ocupación](Documentacion/LEER_CODIGO.md).
 - [Documentación técnica y registros](Documentacion/) · [Pruebas de la aplicación](Pruebas/).
 
-La confianza inicial es 0,60 y puede ajustarse desde 0,25. Todas las fotos se analizan sin indicar su visibilidad; la app no detecta automáticamente personas ni obstáculos. V3 interpreta la cobertura experimental del frente con umbral 30 %, suponiendo lleno detrás del producto visible. El espacio libre sobre productos bajos no reduce su aporte. La medición exige señal y respaldo de bordes o textura en al menos dos filas contiguas de la grilla, desde el 35 % de la altura del nivel. Conserva revisión por señal ambigua y recortes; no identifica semánticamente productos y requiere calibración. Las medidas anteriores de superficie, ancho y combinación 70/30 se conservan como diagnóstico y para modelos anteriores. La sesión del lote, incluidas las fotos, se guarda en el navegador y se puede eliminar desde la aplicación; no se incorpora al entrenamiento. Los resultados guardados deben reanalizarse tras actualizar.
+La app usa **Línea A** para el índice de disponibilidad visual por nivel: normalización compartida por góndola, evidencia híbrida y penalización por hueco continuo. **Reponer** con índice menor a **52 / 100**, **Suficiente** desde 52 cuando no hay ambigüedad y **Revisar** por señal ambigua o recorte. Es un índice experimental con ajuste preliminar sobre etiquetas humanas, no un porcentaje físico de stock. Los resultados previos guardados se descartan al recuperar la sesión si pertenecen al estimador anterior; las fotos y las marcas se conservan. Véase `Documentacion/LINEA_A_20261108.md`.
 
-La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) incluye el modelo oficial y los módulos actuales.
+La confianza inicial de YOLO es 0,60 y puede ajustarse desde 0,25. La app no detecta automáticamente personas ni obstáculos: revisa la visibilidad y los contornos. La sesión se guarda en el navegador y no se incorpora al entrenamiento.
+
+La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) conserva el modelo oficial y el estimador de su publicación; esta actualización local a Línea A todavía no está en esa release.
 
 Los archivos del programa y el modelo se conservaron durante el traslado. Los documentos de verificación con fecha anterior describen su propia entrega.
 
 ## Desarrollar desde un clon
 
-El repositorio incluye el manifiesto, ambos pesos y el preparador de Windows. Clona el proyecto y abre `Aplicacion/iniciar.cmd` en Windows, o ejecuta `docker compose up --build -d --wait` desde `Aplicacion` para usar Docker. La primera preparación requiere Internet. El código de main puede ser más reciente que el ZIP de la release.
+El repositorio incluye el manifiesto, el peso oficial y el preparador de Windows. Clona el proyecto y abre `Aplicacion/iniciar.cmd` en Windows, o ejecuta `docker compose up --build -d --wait` desde `Aplicacion` para usar Docker. La primera preparación requiere Internet. El código de main puede ser más reciente que el ZIP de la release.
 
-La corrección de barandas sigue pendiente de revisión visual y el mapa de señal se muestra en fucsia. Tras modificar los m?dulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicaci?n pueda verificar su integridad.
+La corrección de barandas sigue pendiente de revisión visual y el mapa de señal se muestra en fucsia. Tras modificar los módulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicación pueda verificar su integridad.
 
 Para ejecutar las pruebas desde `Aplicacion` en Windows: `..\.venv-modelo\Scripts\python.exe -m unittest discover -s Pruebas`.
 

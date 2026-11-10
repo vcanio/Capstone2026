@@ -1,0 +1,41 @@
+{
+  "status": "ok",
+  "zip_sha256": "98b2553acdff86ac773b7a28175f6dbc964327c48ce272230705241823d5dfb2",
+  "bytes": 20915550,
+  "files_verified": 39,
+  "apps": [
+    {
+      "app": "equipo",
+      "http": "ok",
+      "cpu_inference": "ok",
+      "levels": 5,
+      "revision": "linea_a_20261108_contornos_conservados"
+    },
+    {
+      "app": "cliente",
+      "http": "ok",
+      "cpu_inference": "ok",
+      "levels": 5,
+      "revision": "linea_a_20261108_contornos_conservados"
+    }
+  ],
+  "sample_split": "val_real",
+  "sample": "lider_2_030_0_original.jpg",
+  "model_sha256": "7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a",
+  "docker": "compose validado; motor Docker apagado, sin build ni prueba en Mac",
+  "scope": "Comprobación de funcionamiento; no evaluación de precisión.",
+  "date": "2026-11-10",
+  "release_tag": "walmart-vision-apps-prueba-2026-11-10",
+  "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10",
+  "tests": {
+    "cliente": 9,
+    "equipo": 102,
+    "datos": 16,
+    "publicacion": 20,
+    "paquete_oficial": 1
+  },
+  "private_data": "No se incluyen fotos, datasets, entornos, credenciales ni respaldos. GitHub respalda fuentes, registros publicables y modelo operativo; no todo el almacenamiento local.",
+  "documentation": "Guías de cliente/equipo y de instalación. El resto del repositorio conserva su estado previo.",
+  "previous_releases": "Se conservan los activos anteriores; se comprobarán nuevamente tras publicar.",
+  "scope_publication": "Actualización acotada a ambas apps, pruebas, empaquetado e instrucciones. No se publican nuevos registros de datos ni de CVAT."
+}

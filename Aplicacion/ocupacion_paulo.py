@@ -426,7 +426,11 @@ class Analyzer:
         # Para color/textura/gradiente solo se observan píxeles sin estructura.
         observed_coverage = cv2.resize(observed.astype(np.float32), grid_size, interpolation=cv2.INTER_AREA)
         denominator = np.maximum(observed_coverage, 1e-6)
-        edges = paulo(self.version).quitar_lineas_largas(raw_edges, max(30, round(self.p.line*line_width)))
+        # V2/Línea A ya excluye las bandas respaldadas como rieles en observed.
+        # El borrado genérico de rectas también eliminaba lados de envases:
+        # conservar Canny y aplicar solo la exclusión estructural de arriba.
+        edges = (raw_edges if self.version == 'v2' else
+                 paulo(self.version).quitar_lineas_largas(raw_edges, max(30, round(self.p.line*line_width))))
         filtered = self.filtered_edges[y:y+h, x:x+w]
         np.maximum(filtered, edges * observed, out=filtered)
         density = cv2.resize((edges > 0).astype(np.float32)*observed, grid_size, interpolation=cv2.INTER_AREA) / denominator

@@ -6,7 +6,7 @@ import subprocess
 import unittest
 
 HTML = (Path(__file__).resolve().parents[1] / 'interfaz.html').read_text(encoding='utf-8')
-SCRIPT = re.search(r'<script>(.*?)</script>', HTML, re.S).group(1)
+SCRIPT = (Path(__file__).resolve().parents[1] / 'revision_rapida.js').read_text(encoding='utf-8') + '\n' + re.search(r'<script>(.*?)</script>', HTML, re.S).group(1)
 HARNESS = r"""
 const assert=require('node:assert/strict');
 const elements=new Map();
@@ -37,6 +37,32 @@ function prediction(edges=true){return {counts:{reponer:1,suficiente:0},detectio
 
 
 class VisionInterfaceTests(unittest.TestCase):
+    def test_linea_a_renders_index_threshold_and_invalidates_previous_estimator(self):
+        self.js(r"""
+        currentModel={id:'V3',geometry_only:true,occupancy_method:'linea_a_v1_gondola_anchorage'};
+        modelContext();
+        const data=prediction();data.geometry_only=true;
+        data.occupancy={method:currentModel.occupancy_method,interpretation_policy:{name:'body_fill_gap_v1',threshold_pct:52}};
+        data.detections[0].occupancy={pct:45,hyb_body_pct:60,max_gap_pct:55,status:'medido'};
+        data.detections[0].occupancy_estimate={pct:45,state:'reponer'};
+        show(data);
+        assert.match($('occupancy-help').textContent,/52/);
+        assert.match($('occupancy-rows').innerHTML,/45 \/ 100/);
+        assert.match($('occupancy-rows').innerHTML,/--occupancy-threshold:52%/);
+        assert.match($('edge-columns').innerHTML,/Índice/);
+        assert.match($('legend-enough-range').textContent,/52/);
+        assert.equal(resultMatchesAlgorithm(prediction()),false);
+        assert.equal(resultMatchesAlgorithm(data),true);
+        currentModel.occupancy_revision='contours-fixed';
+        assert.equal(resultMatchesAlgorithm(data),false);
+        data.occupancy.revision='contours-fixed';
+        assert.equal(resultMatchesAlgorithm(data),true);
+        chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1}]);
+        batch[0].result=prediction();batch[0].marked=true;
+        await selectBatch(0);
+        assert.equal(batch[0].result,null);assert.equal(batch[0].marked,true);
+        """)
+
     def test_model_switch_keeps_results_separate_and_does_not_discard_photos(self):
         self.js("""
         const stable={id:'stable',geometry_only:true},candidate={id:'candidate',geometry_only:true};

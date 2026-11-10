@@ -17,7 +17,11 @@ explicaciones están en español.
 La confianza filtra detecciones de niveles. El porcentaje de cobertura se
 calcula después y no es la confianza de YOLO.
 
-## Recorrido de un nivel
+## Línea A en V3
+
+`analyze_edges()` extrae las características de todas las máscaras con `Analyzer`, calcula límites compartidos con `gondola_feature_bounds()` y decide cada nivel con `score_level_from_features()` de `ocupacion_linea_a.py`. El mapa de evidencia usa las mismas activaciones híbridas que la decisión. `occupancy_estimate()` respeta el estado de Línea A (umbral 52) y oculta el índice si hay abstención. `apply_scope()` conserva la revisión por recorte. El módulo portable no depende del laboratorio. Los métodos anteriores conservan compatibilidad para modelos V1/V2.
+
+## Recorrido del estimador anterior
 
 En `ocupacion_paulo.py`, `Analyzer` prepara los mapas de la foto una sola vez.
 Después `Analyzer.analyze()` procesa cada nivel mediante estos pasos:

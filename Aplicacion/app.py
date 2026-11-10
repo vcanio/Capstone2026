@@ -1,18 +1,22 @@
 """Visor local de inferencia; no necesita CVAT, Docker ni datos de entrenamiento."""
 import argparse
 import base64
+from datetime import datetime, timezone
+import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import BytesIO
 import json
 from pathlib import Path
 import sys
 import threading
+import uuid
 from urllib.parse import parse_qs, urlparse
 import webbrowser
 
 from inferencia import BusyError, MAX_BYTES, ModelRunner
 
 ROOT = Path(__file__).resolve().parent
+REVIEW_VERSION = 'revision_equipo_20261109_v1'
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -38,11 +42,18 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == '/':
             return self.send((ROOT / 'interfaz.html').read_bytes(), content_type='text/html; charset=utf-8')
+        if path == '/revision_rapida.js':
+            return self.send((ROOT / 'revision_rapida.js').read_bytes(), content_type='text/javascript; charset=utf-8')
         if path in ('/favicon.ico', '/favicon.svg'):
             svg = b'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#2563eb"/><path d="M7 10h18M7 16h18M7 22h18M11 10v12M21 10v12" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/></svg>'''
             return self.send(svg, content_type='image/svg+xml')
         if path == '/api/models':
             models = self.server.runner.available()
+            for item in models:
+                entry = getattr(self.server.runner, 'entries', {}).get(item['id'], {})
+                if entry.get('sha256'):
+                    item['model_sha256'] = entry['sha256']
+                    item['inference_sha256'] = hashlib.sha256((ROOT / 'inferencia.py').read_bytes()).hexdigest()
             default = getattr(self.server.runner, 'manifest', {}).get('default_model')
             return self.send({'models': models, 'default_model': default or (models[0]['id'] if models else None)})
         if path == '/api/visibilidad/config':
@@ -53,7 +64,7 @@ class Handler(BaseHTTPRequestHandler):
             except (ValueError, OSError, TypeError, json.JSONDecodeError):
                 return self.send({'error': 'El filtro experimental no tiene un candidato verificado.'}, 400)
         if path == '/api/health':
-            return self.send({'status': 'ok', 'app': 'Walmart Visión'})
+            return self.send({'status': 'ok', 'app': 'Walmart Visión', 'review_version': REVIEW_VERSION})
         return self.send({'error': 'Ruta no disponible.'}, 404)
 
     def do_POST(self):
@@ -81,6 +92,16 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
             prediction = (self.server.runner.analyze(body, model, confidence, method) if visibility_mode == 'stable'
                           else self.server.runner.analyze(body, model, confidence, method, visibility_mode=visibility_mode))
+            entry = getattr(self.server.runner, 'entries', {}).get(model, {})
+            prediction['analysis_context'] = {
+                'id': str(uuid.uuid4()), 'completed_at_utc': datetime.now(timezone.utc).isoformat(),
+                'input_sha256': hashlib.sha256(body).hexdigest(), 'model_sha256': entry.get('sha256'),
+                'confidence': confidence if confidence is not None else (.6 if entry.get('classes') == ['Nivel'] else .25),
+                'method': method, 'visibility_mode': visibility_mode, 'review_version': REVIEW_VERSION,
+                'estimator_revision': (prediction.get('occupancy') or {}).get('revision'),
+                'source_sha256': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+                                  for name in ('app.py', 'inferencia.py', 'revision_rapida.js', 'interfaz.html')},
+            }
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=92)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')

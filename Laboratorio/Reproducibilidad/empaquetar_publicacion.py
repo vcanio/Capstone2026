@@ -49,9 +49,9 @@ def archive(output, files, *, prefix_root=ROOT):
 
 def copy_code(git, checkout):
     shutil.copy2(ROOT / '.gitignore', checkout / '.gitignore')
-    candidates = [ROOT / n for n in ('README.md', 'AGENTS.md', '.gitignore', '.gitattributes', '.dockerignore')
+    candidates = [ROOT / n for n in ('README.md', 'AGENTS.md', '.gitignore', '.gitattributes', '.dockerignore', 'compose.apps.yaml')
                   if (ROOT / n).is_file()]
-    for base in ('Aplicacion', 'Laboratorio', 'Infraestructura', 'Documentacion', 'Datos', 'Modelos', 'Entregables', 'Historico', '.github'):
+    for base in ('Aplicacion', 'Aplicacion_Cliente', 'Laboratorio', 'Infraestructura', 'Documentacion', 'Datos', 'Modelos', 'Entregables', 'Historico', '.github'):
         candidates.extend(files_under(ROOT / base))
     names = [f.relative_to(ROOT).as_posix() for f in candidates]
     result = subprocess.run([git, '-C', str(checkout), 'check-ignore', '--no-index', '--stdin', '-z'],

@@ -15,7 +15,7 @@ def source_file(name):
     return path if path.is_file() else SOURCE / 'Documentacion' / name
 
 
-FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'requirements.txt', 'instalar.cmd', 'iniciar.cmd',
+FILES = ('app.py', 'inferencia.py', 'interfaz.html', 'revision_rapida.js', 'REVISION_EQUIPO.md', 'requirements.txt', 'instalar.cmd', 'iniciar.cmd',
          'preparar.cmd', 'preparar.py', 'LEEME.md', 'herramientas/uv.exe', 'herramientas/fuente_uv.json',
          'herramientas/licencias/LICENSE-APACHE', 'herramientas/licencias/LICENSE-MIT',
          'Dockerfile', '.dockerignore', 'compose.yaml', 'requirements-docker.txt', 'DOCKER.md',
@@ -49,7 +49,7 @@ with zipfile.ZipFile(BytesIO(next(iter(uploaded.values())))) as archive:
 sys.path.insert(0, str(destination/'Walmart_Vision'))
 from inferencia import ModelRunner
 runner = ModelRunner(destination/'Walmart_Vision')'''),
-        ('markdown', '## Visibilidad\n\nYOLO localiza niveles, sin clasificar recorte ni oclusión. Confirma lo que ves antes de analizar. La ocupación es experimental y usa un umbral del 30 %; no mide stock detrás de los productos.'),
+        ('markdown', '## Visibilidad\n\nYOLO localiza niveles. Revisa personas, obstáculos y contornos. Línea A usa un índice de disponibilidad visual de 0 a 100 con umbral 52; no es porcentaje físico de stock. Su ajuste es preliminar.'),
         ('code', '''import ipywidgets as widgets
 from IPython.display import display
 visibility = widgets.Dropdown(options=[('Selecciona la visibilidad', None), ('Completa y despejada', 'clear'), ('Recortada', 'partial'), ('Objeto delante', 'occluded'), ('Persona tapando', 'person')], value=None, description='Visibilidad:')
@@ -204,7 +204,11 @@ def build(output, *, v3=False):
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     files = tuple(name for name in FILES if not (v3 and name in ('VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md')))
+    if v3 and source_file('LINEA_A_20261108.md').is_file():
+        files += ('LINEA_A_20261108.md',)
     edge_files = {name: SOURCE / name for name in EDGE_FILES} if v3 else EDGE_FILES
+    if v3 and (SOURCE / 'ocupacion_linea_a.py').is_file():
+        edge_files['ocupacion_linea_a.py'] = SOURCE / 'ocupacion_linea_a.py'
     support_files = {name: SOURCE / name for name in SUPPORT_FILES} if v3 else SUPPORT_FILES
     for name in files:
         if not source_file(name).is_file():

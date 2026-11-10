@@ -1,5 +1,9 @@
 # Walmart Visión V3
 
+## Mesa de revisión del equipo · 9/11/2026
+
+Esta entrega incluye revisión rápida por foto, nivel o zona, varios fallos por imagen, atajos A/F/Enter/Z y revisión durante el análisis del lote. Abre **REVISION_EQUIPO.md** (en Documentacion/ en la copia de desarrollo) para el flujo completo y la comparación antes/después. **Descargar lote** guarda originales, incidencias, resultados y resumen; **Abrir lote de revisión** permite recuperarlos en otro equipo o versión. Las marcas se guardan localmente y no se envían al entrenamiento.
+
 Walmart Visión detecta niveles en fotografías de góndolas y muestra una estimación experimental de cobertura del frente. Incluye el modelo V3 vigente y funciona localmente.
 
 ## Iniciar
@@ -20,6 +24,8 @@ Las fotos se procesan localmente y no se incorporan al entrenamiento. La sesión
 
 El modelo detecta una clase: **Nivel**. Puede omitir niveles o dibujar contornos incorrectos; revisa la fotografía antes de tomar decisiones. La confianza de detección no es ocupación. Si no hay detecciones, eso no significa que la góndola esté vacía.
 
-La cobertura estimada usa señal de bordes, color y textura dentro de los niveles. Es experimental y no identifica productos de forma fiable ni mide el stock detrás del frente visible. La aplicación muestra **Reponer** bajo el umbral experimental de 30 %, **Suficiente** desde 30 % cuando hay una lectura válida y **Revisar** cuando la señal o el alcance son ambiguos. La medición no está calibrada para V3.
+El algoritmo actual es **Línea A**: índice visual de 0 a 100, con umbral **52** (Reponer por debajo; Suficiente desde 52, salvo revisión). Comparte normalización entre los niveles y penaliza huecos continuos. Es un índice experimental, no porcentaje físico de stock. El ajuste preliminar se evaluó con máscaras humanas; falta validación independiente suficiente de quiebres reales y del flujo completo. Se mantienen los avisos por recorte y señal ambigua. Consulta `Documentacion/LINEA_A_20261108.md`.
+
+
 
 La aplicación no detecta automáticamente personas ni obstáculos. Revisa las zonas tapadas y fuera del encuadre; un resultado de «solo zona visible» no certifica el nivel completo. Se conocen omisiones de algunos superiores vacíos y contornos superiores demasiado altos. La reserva final de prueba no se ha evaluado.

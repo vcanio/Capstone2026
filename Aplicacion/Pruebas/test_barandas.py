@@ -9,6 +9,30 @@ from ocupacion_paulo import Analyzer, fragmented_lower_rails
 
 
 class FragmentedRailTests(unittest.TestCase):
+    def test_filtered_edges_preserve_product_sides_and_local_tops(self):
+        image = np.full((300, 900, 3), 40, np.uint8)
+        # Un envase alto con tapa horizontal corta; antes se borraban sus rectas.
+        cv2.rectangle(image, (350, 80), (440, 210), (230, 230, 230), -1)
+        analyzer = Analyzer(image, version='v2')
+        analyzer.analyze(np.ones(image.shape[:2], np.uint8))
+        for ys, xs in ((slice(95, 195), slice(345, 355)),
+                       (slice(95, 195), slice(435, 445)),
+                       (slice(75, 85), slice(365, 425))):
+            raw = analyzer.edges[ys, xs]
+            filtered = analyzer.filtered_edges[ys, xs]
+            self.assertGreater(np.count_nonzero(raw), 20)
+            self.assertTrue(np.array_equal(filtered, raw))
+
+    def test_lower_rail_is_removed_but_product_sides_above_it_survive(self):
+        image = self.scene()
+        cv2.rectangle(image, (350, 80), (440, 210), (230, 230, 230), -1)
+        analyzer, _ = self.measure(image)
+        self.assertGreater(np.count_nonzero(analyzer.filtered_edges[95:195, 345:355]), 50)
+        self.assertTrue(analyzer.structures[225:265].any())
+        blocked = analyzer.structures & (analyzer.edges > 0)
+        self.assertTrue(blocked.any())
+        self.assertFalse(analyzer.filtered_edges[blocked].any())
+
     def scene(self):
         image = np.full((300, 900, 3), 50, np.uint8)
         for y in (235, 250):

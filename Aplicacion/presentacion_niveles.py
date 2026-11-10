@@ -43,7 +43,9 @@ def occupancy_estimate(measurement, version='v1'):
     V3 usa front_signal_pct; los métodos anteriores conservan combinado o área.
     Una revisión pendiente tiene prioridad sobre el umbral de reposición.
     """
-    field = ('front_signal_pct' if measurement.get('interpretation_policy') == 'front_coverage_v1' else
+    linea_a = measurement.get('interpretation_policy') == 'body_fill_gap_v1'
+    field = ('pct' if linea_a else
+             'front_signal_pct' if measurement.get('interpretation_policy') == 'front_coverage_v1' else
              'combined_signal_pct' if version == 'v2' else 'area_signal_pct')
     value = measurement.get(field)
     if (measurement.get('status') != 'medido' or isinstance(value, bool) or
@@ -51,7 +53,8 @@ def occupancy_estimate(measurement, version='v1'):
         return {'pct': None, 'state': 'sin_medicion', 'label': 'Sin medición', 'color': '#64748b'}
     if measurement.get('review_required'):
         return {'pct': None, 'state': 'revisar', 'label': 'Revisar · señal ambigua', 'color': '#a16207'}
-    low = value < REPLENISH_THRESHOLD_PCT
+    # Línea A decide con su índice y umbral propios, antes del redondeo de diagnóstico.
+    low = measurement.get('state') == 'reponer' if linea_a else value < REPLENISH_THRESHOLD_PCT
     return {'pct': value, 'state': 'reponer' if low else 'suficiente',
             'label': 'Reponer' if low else 'Suficiente', 'color': '#dc2626' if low else '#16a34a'}
 

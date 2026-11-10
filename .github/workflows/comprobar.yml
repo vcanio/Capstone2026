@@ -11,9 +11,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install pillow==12.3.0 numpy==1.26.4 opencv-python==4.11.0.86 shapely==2.1.2
-      - run: python -m compileall -q Laboratorio/Modelos Laboratorio/Datos Aplicacion Laboratorio/Reproducibilidad
+      - run: python -m compileall -q Laboratorio/Modelos Laboratorio/Datos Aplicacion Aplicacion_Cliente Laboratorio/Reproducibilidad
       - run: python -m unittest discover -s Laboratorio/Datos -v
       - run: python -m unittest discover -s Laboratorio/Reproducibilidad/tests -v
       - run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
+      - run: PYTHONPATH=Aplicacion:Aplicacion_Cliente python -m unittest discover -s Aplicacion_Cliente/Pruebas -v
       - run: python -m unittest discover -s Laboratorio/Modelos/tests -p test_paquete_oficial_v3.py -v
       - run: python Laboratorio/Reproducibilidad/verificar_publicacion.py

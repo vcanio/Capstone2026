@@ -95,6 +95,24 @@ class LiteTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'bordes.*modificado'):
             ModelRunner(self.root)
 
+    def test_linea_a_module_is_required_and_verified_when_declared(self):
+        manifest = json.loads((self.root / 'modelos.json').read_text())
+        manifest['occupancy_method'] = 'linea_a_v1_gondola_anchorage'
+        manifest['edge_sources'] = {}
+        for name in ('ocupacion_paulo.py', 'gondola_bordes.py', 'gondola_combinacion_ponderada.py', 'ocupacion_linea_a.py'):
+            (self.root / name).write_bytes(b'fixture source')
+            manifest['edge_sources'][name] = hashlib.sha256(b'fixture source').hexdigest()
+        path = self.root / 'modelos.json'
+        path.write_text(json.dumps(manifest))
+        ModelRunner(self.root)
+        (self.root / 'ocupacion_linea_a.py').write_text('changed')
+        with self.assertRaisesRegex(ValueError, 'bordes.*modificado'):
+            ModelRunner(self.root)
+        del manifest['edge_sources']['ocupacion_linea_a.py']
+        path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, 'Línea A.*incompleto'):
+            ModelRunner(self.root)
+
     def test_edges_use_original_pixels_and_keep_yolo_states(self):
         import numpy as np
         original = np.full((240, 720, 3), 255, dtype=np.uint8)
@@ -233,6 +251,23 @@ class HttpTests(unittest.TestCase):
             self.assertIn('Walmart Visión'.encode('utf-8'), response.read())
         with urlopen(self.url + '/api/models') as response:
             self.assertEqual(json.load(response)['models'][0]['id'], 'fixture')
+        with urlopen(self.url + '/revision_rapida.js') as response:
+            self.assertIn(b'const ReviewDesk', response.read())
+            self.assertIn('javascript', response.headers['Content-Type'])
+
+    def test_analysis_receipt_links_bytes_settings_and_source_version(self):
+        body = b'fixture-image'
+        request = Request(self.url + '/api/predict?model=fixture&confidence=0.6&method=yolo_paulo_v2',
+                          data=body, headers={'Content-Type': 'image/jpeg'})
+        with urlopen(request) as response:
+            data = json.load(response)
+        context = data['analysis_context']
+        self.assertEqual(context['input_sha256'], hashlib.sha256(body).hexdigest())
+        self.assertEqual(context['confidence'], .6)
+        self.assertEqual(context['method'], 'yolo_paulo_v2')
+        self.assertEqual(context['review_version'], app.REVIEW_VERSION)
+        self.assertIn('inferencia.py', context['source_sha256'])
+        self.assertTrue(context['id'])
 
     def test_container_listener_keeps_local_host_and_origin_checks(self):
         with patch.object(app, 'ModelRunner', return_value=self.server.runner):

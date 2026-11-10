@@ -83,7 +83,10 @@ class ModelRunner:
         if 'edge_sources' in self.manifest:
             sources = self.manifest['edge_sources']
             legacy_sources = {'ocupacion_paulo.py', 'gondola_bordes.py'}
-            if set(sources) not in (legacy_sources, legacy_sources | {'gondola_combinacion_ponderada.py'}):
+            if self.manifest.get('occupancy_method') == 'linea_a_v1_gondola_anchorage' and 'ocupacion_linea_a.py' not in sources:
+                raise ValueError('El análisis de bordes Línea A está incompleto.')
+            if set(sources) not in (legacy_sources, legacy_sources | {'gondola_combinacion_ponderada.py'},
+                                   legacy_sources | {'gondola_combinacion_ponderada.py', 'ocupacion_linea_a.py'}):
                 raise ValueError('El manifiesto de bordes no corresponde a este paquete.')
             for name, expected in sources.items():
                 path = self.root / name
@@ -111,7 +114,10 @@ class ModelRunner:
                              note=('Este modelo base distingue reponer y suficiente; no reconoce no evaluable.'
                                    if set(classes) == set(V2_CLASSES) else 'No evaluable se comunica por separado y no significa vacío.'))
                 if classes == ['Nivel']:
+                    from ocupacion_linea_a import METHOD_LINEA_A, REVISION_LINEA_A
                     value.update(geometry_only=True, minimum_confidence=.25, default_confidence=.6,
+                                 occupancy_method=METHOD_LINEA_A,
+                                 occupancy_revision=REVISION_LINEA_A,
                                  note='Localiza niveles. La ocupación y las recomendaciones se estiman con bordes; revisa la foto y los resultados.')
             models.append(value)
         return models
@@ -242,16 +248,36 @@ def analyze_edges(original_rgb, result, detections, version='v1'):
     if getattr(result, 'boxes', None) is not None and len(masks):
         order = spatial_order(result.boxes.xyxy.cpu().tolist())
         masks = [masks[i] for i in order if i < len(masks)]
+    if front_mode:
+        import cv2
+        import numpy as np
+        from ocupacion_linea_a import (extract_cell_features, gondola_feature_bounds,
+                                      score_level_from_features, compute_cell_maps,
+                                      provenance as linea_a_provenance)
+        # Compartir el anclaje de todos los niveles; medir las máscaras YOLO originales.
+        features = [extract_cell_features(analyzer, (masks[i] > .5).astype('uint8')
+                    if i < len(masks) else None) for i in range(len(detections))]
+        bounds = gondola_feature_bounds(features)
+        for detection, feat in zip(detections, features):
+            measurement = score_level_from_features(feat, bounds)
+            detection['occupancy'] = measurement
+            detection['occupancy_estimate'] = occupancy_estimate(measurement, version)
+            if feat is not None:
+                maps = compute_cell_maps(feat, bounds)
+                x, y, w, h = feat['bounds']
+                evidence = maps['hyb_ev'] & feat['usable']
+                analyzer.signal[y:y+h, x:x+w] |= (
+                    cv2.resize(evidence.astype('uint8'), (w, h), interpolation=cv2.INTER_NEAREST) > 0
+                ) & (feat['observed'] > 0)
+        return {'occupancy': linea_a_provenance(), 'occupancy_image': Image.fromarray(analyzer.overlay()),
+                'edges_image': Image.fromarray(analyzer.edges),
+                'filtered_edges_image': Image.fromarray(analyzer.filtered_edges)}
     for index, detection in enumerate(detections):
         # Umbralizar la máscara de píxeles; nunca usar el cuadrilátero visual.
         mask = (masks[index] > .5).astype('uint8') if index < len(masks) else None
         detection['occupancy'] = analyzer.analyze(mask, state=detection['state'])
         detection['occupancy_estimate'] = occupancy_estimate(detection['occupancy'], version)
     info = provenance(version, analyzer.p)
-    if front_mode:
-        info.update(interpretation_policy={'name': 'front_coverage_v1', 'support_start': .35,
-                                          'minimum_contiguous_rows': 2, 'threshold_pct': 30},
-                    meaning='Cobertura experimental del frente; se asume lleno detrás del producto visible.')
     return {'occupancy': info, 'occupancy_image': Image.fromarray(analyzer.overlay()),
             'edges_image': Image.fromarray(analyzer.edges),
             'filtered_edges_image': Image.fromarray(analyzer.filtered_edges)}

@@ -1,0 +1,1569 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Walmart Visión · Operaciones de Tienda</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f3f6fa;
+  --surface: #ffffff;
+  --surface-subtle: #eaf0f7;
+  --surface-hover: #e1eaf4;
+  --border: #cfdbe8;
+  --border-strong: #b4c6da;
+  --ink: #0f1d2e;
+  --ink-secondary: #3b5068;
+  --ink-muted: #586f87;
+  --brand-blue: #0053e2;
+  --brand-blue-hover: #0043b8;
+  --brand-blue-soft: #e8f1ff;
+  --brand-spark: #ffc220;
+  --red: #b91c1c;
+  --red-bg: #fef2f2;
+  --red-border: #f5b4b4;
+  --green: #0d6e38;
+  --green-bg: #ecfdf3;
+  --green-border: #9ee2b8;
+  --amber: #8f4f00;
+  --amber-bg: #fff8eb;
+  --amber-border: #f2cb82;
+  --viewer-bg: #dde6f0;
+  --shadow-sm: 0 2px 6px rgba(15, 29, 46, 0.05);
+  --shadow-md: 0 6px 18px rgba(15, 29, 46, 0.08);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b121b;
+  --surface: #121c28;
+  --surface-subtle: #182535;
+  --surface-hover: #1f3044;
+  --border: #25364b;
+  --border-strong: #354c68;
+  --ink: #f0f5fa;
+  --ink-secondary: #b4c5d8;
+  --ink-muted: #889eb5;
+  --brand-blue: #1d74f5;
+  --brand-blue-hover: #3986f7;
+  --brand-blue-soft: #152b4a;
+  --brand-spark: #ffc220;
+  --red: #f87171;
+  --red-bg: #2c1418;
+  --red-border: #6e262b;
+  --green: #4ade80;
+  --green-bg: #10291e;
+  --green-border: #21593b;
+  --amber: #fbbf24;
+  --amber-bg: #2b2011;
+  --amber-border: #664918;
+  --viewer-bg: #080e16;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.42);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+::selection { background: var(--brand-blue); color: #ffffff; }
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); caret-color: var(--brand-blue); }
+body {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { opacity: 0.48; cursor: not-allowed; }
+:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 2px; }
+
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+
+/* Barra superior corporativa */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 20px;
+  background: #0053e2;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  flex-shrink: 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+  color: var(--brand-spark);
+  flex-shrink: 0;
+}
+.brand-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+  white-space: nowrap;
+}
+.brand-subtitle {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.86);
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 160ms ease-out;
+}
+.btn-top:hover:not(:disabled) { background: rgba(255, 255, 255, 0.22); }
+.btn-top-spark {
+  background: var(--brand-spark);
+  border-color: #eab010;
+  color: #0b1b32;
+  font-weight: 700;
+}
+.btn-top-spark:hover:not(:disabled) { background: #ffd04d; }
+.btn-icon-only { padding: 7px 9px; }
+
+/* Semáforo operativo del pasillo */
+.aisle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-subtle);
+  color: var(--ink-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: background 150ms ease-out, border-color 150ms ease-out;
+}
+.filter-btn:hover { background: var(--surface-hover); }
+.filter-btn[aria-pressed="true"] {
+  background: var(--brand-blue-soft);
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.dot-red { background: var(--red); }
+.dot-amber { background: var(--amber); }
+.dot-green { background: var(--green); }
+
+.aisle-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+.progress-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--ink-secondary);
+  font-weight: 600;
+}
+.sort-select {
+  padding: 5px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8125rem;
+}
+.link-reset {
+  border: 0;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 4px 6px;
+}
+.link-reset:hover { color: var(--ink); }
+
+/* Área principal de 3 columnas */
+.workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 360px;
+  gap: 14px;
+  padding: 14px 20px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.panel-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  margin: 0;
+}
+.panel-count {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Columna izquierda: Cola de góndolas */
+.queue-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.queue-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-align: left;
+  transition: background 150ms ease-out, border-color 150ms ease-out;
+}
+.queue-item:hover { background: var(--surface-subtle); }
+.queue-item[aria-current="true"] {
+  background: var(--brand-blue-soft);
+  border-color: var(--brand-blue);
+}
+.queue-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--viewer-bg);
+  border: 1px solid var(--border);
+  display: block;
+}
+.queue-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.queue-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.queue-sub {
+  font-size: 0.75rem;
+  color: var(--ink-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: fit-content;
+  font-variant-numeric: tabular-nums;
+}
+.pill-reponer {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid var(--red-border);
+}
+.pill-suficiente {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+.pill-verificar {
+  background: var(--amber-bg);
+  color: var(--amber);
+  border: 1px solid var(--amber-border);
+}
+
+/* Columna central: Visor de góndola */
+.stage-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.stage-banner.tone-reponer { background: var(--red-bg); border-bottom-color: var(--red-border); }
+.stage-banner.tone-suficiente { background: var(--green-bg); border-bottom-color: var(--green-border); }
+.stage-banner.tone-verificar { background: var(--amber-bg); border-bottom-color: var(--amber-border); }
+
+.banner-text {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.banner-headline {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.banner-sub {
+  font-size: 0.8125rem;
+  color: var(--ink-secondary);
+  margin-left: 6px;
+}
+
+.stage-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 14px;
+  background: var(--surface-subtle);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.seg-group {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.seg-btn {
+  border: 0;
+  background: transparent;
+  color: var(--ink-secondary);
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.seg-btn[aria-selected="true"] {
+  background: var(--brand-blue);
+  color: #ffffff;
+}
+
+.viewer-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: var(--viewer-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 14px;
+}
+.photo-canvas {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+.photo-canvas img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 245px);
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  user-select: none;
+}
+.interactive-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+.shelf-poly {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 3;
+  cursor: pointer;
+  transition: fill 150ms ease-out, stroke 150ms ease-out;
+}
+.shelf-poly:hover, .shelf-poly.is-active {
+  fill: rgba(255, 194, 32, 0.24);
+  stroke: #ffc220;
+}
+
+.compare-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+  overflow: auto;
+}
+.compare-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  max-height: 100%;
+}
+.compare-card figcaption {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  background: var(--surface);
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.compare-card img {
+  max-width: 100%;
+  max-height: calc(100vh - 280px);
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Estado vacío inicial */
+.empty-state {
+  max-width: 460px;
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.empty-state h2 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  margin: 0;
+}
+.empty-state p {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: 0.875rem;
+  max-width: 40ch;
+}
+.empty-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: background 150ms ease-out;
+}
+.btn:hover:not(:disabled) { background: var(--surface-subtle); }
+.btn-primary {
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: #ffffff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--brand-blue-hover); }
+.btn-success {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+/* Columna derecha: Plan de reposición por nivel */
+.levels-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.level-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+.level-card.is-highlighted {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 2px var(--brand-blue-soft);
+}
+.level-card.card-reponer {
+  background: var(--red-bg);
+  border-color: var(--red-border);
+}
+.level-card.card-repuesto {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+}
+
+.level-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.level-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.level-pos-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  margin-left: 4px;
+}
+
+.diag-headline {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.diag-action {
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bar-track {
+  flex: 1;
+  height: 7px;
+  background: var(--surface-subtle);
+  border-radius: 99px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 200ms ease-out;
+}
+.bar-fill.tone-reponer { background: var(--red); }
+.bar-fill.tone-suficiente { background: var(--green); }
+.bar-fill.tone-verificar { background: var(--amber); }
+.bar-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  font-variant-numeric: tabular-nums;
+  min-width: 54px;
+  text-align: right;
+}
+
+.check-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  transition: background 150ms ease-out, border-color 150ms ease-out;
+}
+.check-btn:hover { background: var(--surface-subtle); }
+.check-btn[aria-pressed="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #ffffff;
+}
+
+.panel-footer {
+  padding: 11px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 29, 46, 0.55);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-items: center;
+  z-index: 15;
+}
+.loading-card {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.error-toast {
+  margin: 8px 20px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--red-bg);
+  border: 1px solid var(--red-border);
+  color: var(--red);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Modal de cámara */
+.camera-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 14, 22, 0.92);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 12px;
+  color: #ffffff;
+}
+.camera-frame {
+  position: relative;
+  max-width: 720px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: #000000;
+}
+.camera-frame video {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+@media (max-width: 1120px) {
+  body { overflow: auto; }
+  .workspace {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .photo-canvas img { max-height: 62vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 3v4M12 17v4M4.2 7.5l3.5 2M16.3 14.5l3.5 2M4.2 16.5l3.5-2M16.3 9.5l3.5-2"/>
+      </svg>
+    </div>
+    <div>
+      <h1 class="brand-title">Walmart Visión <span class="brand-subtitle">Reposición en Sala</span></h1>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <label for="fileInput" class="btn-top btn-top-spark">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Subir fotos de pasillo
+    </label>
+    <input id="fileInput" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" hidden>
+
+    <button id="cameraBtn" type="button" class="btn-top">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Tomar foto
+    </button>
+
+    <button id="demoBtn" type="button" class="btn-top">
+      Cargar pasillo de ejemplo
+    </button>
+
+    <button id="exportCsvBtn" type="button" class="btn-top" disabled>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar hoja de reposición (CSV)
+    </button>
+
+    <button id="themeBtn" type="button" class="btn-top btn-icon-only" aria-label="Cambiar tema claro u oscuro" title="Cambiar entre modo sala claro y modo oscuro">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="errorBar" class="error-toast" role="alert" hidden>
+  <span id="errorText"></span>
+  <button type="button" class="btn" id="errorClose" style="padding:3px 9px">Cerrar</button>
+</div>
+
+<section class="aisle-bar" aria-label="Semáforo de prioridad del pasillo">
+  <div class="filter-pills" role="group" aria-label="Filtrar góndolas por estado">
+    <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
+      Todas (<span id="countAll">0</span>)
+    </button>
+    <button type="button" class="filter-btn" data-filter="reponer" aria-pressed="false">
+      <span class="dot dot-red"></span>Urgentes por reponer (<span id="countReponer">0</span>)
+    </button>
+    <button type="button" class="filter-btn" data-filter="verificar" aria-pressed="false">
+      <span class="dot dot-amber"></span>Por verificar (<span id="countVerificar">0</span>)
+    </button>
+    <button type="button" class="filter-btn" data-filter="suficiente" aria-pressed="false">
+      <span class="dot dot-green"></span>Abastecidas / Listas (<span id="countSuficiente">0</span>)
+    </button>
+  </div>
+
+  <div class="aisle-right">
+    <label for="sortSelect">Orden:</label>
+    <select id="sortSelect" class="sort-select">
+      <option value="priority">Mayor urgencia de reposición</option>
+      <option value="order">Orden de recorrido</option>
+    </select>
+    <div class="progress-pill" id="replenishProgress">
+      0 de 0 niveles repuestos
+    </div>
+    <button type="button" id="clearSessionBtn" class="link-reset" hidden>Limpiar pasillo</button>
+  </div>
+</section>
+
+<main class="workspace">
+  <!-- 1. Recorrido de góndolas -->
+  <section class="panel" aria-labelledby="queueHeading">
+    <div class="panel-header">
+      <h2 class="panel-title" id="queueHeading">Góndolas del pasillo</h2>
+      <span class="panel-count" id="queueStatus">Sin fotos</span>
+    </div>
+    <div class="queue-list" id="queueList">
+      <p style="color:var(--ink-muted);font-size:0.8125rem;margin:8px 4px">
+        Sube las fotos del pasillo o carga el ejemplo para priorizar dónde reponer primero.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Visor central de góndola -->
+  <section class="panel" aria-labelledby="stageHeading">
+    <div class="stage-banner" id="stageBanner" hidden>
+      <div class="banner-text">
+        <span class="status-pill" id="stagePill"></span>
+        <div>
+          <span class="banner-headline" id="stageHeadline"></span>
+          <span class="banner-sub" id="stageSub"></span>
+        </div>
+      </div>
+      <button type="button" class="btn" id="markAllGondolaBtn" hidden>
+        Marcar toda la góndola como repuesta ✓
+      </button>
+    </div>
+
+    <div class="stage-toolbar" id="stageToolbar" hidden>
+      <div class="seg-group" role="tablist" aria-label="Modo de vista">
+        <button type="button" class="seg-btn" role="tab" data-view="result" aria-selected="true">Niveles detectados</button>
+        <button type="button" class="seg-btn" role="tab" data-view="compare" aria-selected="false">Comparar con original</button>
+        <button type="button" class="seg-btn" role="tab" data-view="original" aria-selected="false">Foto original</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button type="button" class="btn" id="prevGondolaBtn" style="padding:4px 10px">◀ Anterior</button>
+        <span id="stagePos" style="font-size:0.75rem;color:var(--ink-muted);font-variant-numeric:tabular-nums"></span>
+        <button type="button" class="btn" id="nextGondolaBtn" style="padding:4px 10px">Siguiente ▶</button>
+      </div>
+    </div>
+
+    <div class="viewer-wrap" id="dropZone">
+      <div class="loading-overlay" id="loadingOverlay" hidden>
+        <div class="loading-card" id="loadingText">Analizando disponibilidad en góndola…</div>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <h2 id="stageHeading">Revisión de disponibilidad en pasillo</h2>
+        <p>Arrastra aquí las fotografías de las góndolas o usa el pasillo de demostración para generar el plan de reposición por nivel.</p>
+        <div class="empty-actions">
+          <label for="fileInput" class="btn btn-primary">Seleccionar fotos</label>
+          <button type="button" class="btn" id="emptyDemoBtn">Probar con pasillo de ejemplo (4 góndolas)</button>
+        </div>
+      </div>
+
+      <div class="photo-canvas" id="singleView" hidden>
+        <img id="mainPhoto" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Fotografía de la góndola">
+        <svg id="polyOverlay" class="interactive-overlay" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="compare-grid" id="compareView" hidden>
+        <figure class="compare-card" style="margin:0">
+          <figcaption>Fotografía original</figcaption>
+          <img id="compareOrigImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Fotografía original">
+        </figure>
+        <figure class="compare-card" style="margin:0">
+          <figcaption>Diagnóstico de niveles</figcaption>
+          <img id="compareResImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Diagnóstico de niveles">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Plan de reposición por nivel -->
+  <aside class="panel" aria-labelledby="planHeading">
+    <div class="panel-header">
+      <h2 class="panel-title" id="planHeading">Plan por nivel (arriba ↓ abajo)</h2>
+      <span class="panel-count" id="planMeta"></span>
+    </div>
+
+    <div class="levels-list" id="levelsList">
+      <p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
+        Al seleccionar una góndola verás aquí el detalle de cada estante y podrás marcar los niveles ya repuestos.
+      </p>
+    </div>
+
+    <div class="panel-footer" id="planFooter" hidden>
+      <a id="downloadAnnotatedBtn" class="btn" download="gondola_evaluada.jpg" style="text-decoration:none">
+        Guardar imagen con niveles marcados
+      </a>
+    </div>
+  </aside>
+</main>
+
+<!-- Modal de cámara -->
+<section class="camera-modal" id="cameraModal" role="dialog" aria-modal="true" aria-labelledby="camTitle" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:center;max-width:720px;width:100%">
+    <h2 id="camTitle" style="margin:0;font-size:1.05rem">Capturar góndola de frente</h2>
+    <button type="button" class="btn" id="camCloseBtn">Cerrar</button>
+  </div>
+  <div class="camera-frame">
+    <video id="camVideo" autoplay playsinline muted></video>
+  </div>
+  <p id="camStatus" style="margin:0;font-size:0.8125rem;color:#cbd5e1">Encuadra toda la altura del módulo de estantes.</p>
+  <button type="button" class="btn btn-primary" id="camSnapBtn" disabled>Capturar y analizar</button>
+</section>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[c]));
+
+const state = {
+  items: [],          // [{ id, name, file, origUrl, result, replenished: { [levelId]: timestamp }, analyzing, error }]
+  selectedId: null,
+  filter: 'all',
+  sort: 'priority',
+  viewMode: 'result',
+  highlightedLevel: null,
+};
+
+function effectiveGondolaState(item) {
+  if (!item.result) return 'pendiente';
+  const dets = item.result.detections || [];
+  if (!dets.length) return 'verificar';
+  const unreplenishedAlerts = dets.filter(
+    d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id]
+  );
+  if (unreplenishedAlerts.length > 0) return 'reponer';
+  const anyReview = dets.some(d => d.store_diagnosis?.operational_state === 'revisar');
+  if (anyReview) return 'verificar';
+  return 'suficiente';
+}
+
+function unreplenishedAlertCount(item) {
+  if (!item.result) return 0;
+  return (item.result.detections || []).filter(
+    d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id]
+  ).length;
+}
+
+function totalAlertLevelsAndDone() {
+  let total = 0;
+  let done = 0;
+  for (const item of state.items) {
+    if (!item.result) continue;
+    for (const det of (item.result.detections || [])) {
+      if (det.store_diagnosis?.operational_state === 'reponer') {
+        total += 1;
+        if (item.replenished?.[det.id]) done += 1;
+      }
+    }
+  }
+  return { total, done };
+}
+
+function visibleItems() {
+  let list = [...state.items];
+  if (state.filter !== 'all') {
+    list = list.filter(it => effectiveGondolaState(it) === state.filter);
+  }
+  if (state.sort === 'priority') {
+    const rank = { reponer: 0, verificar: 1, pendiente: 2, suficiente: 3 };
+    list.sort((a, b) => {
+      const ra = rank[effectiveGondolaState(a)] ?? 9;
+      const rb = rank[effectiveGondolaState(b)] ?? 9;
+      if (ra !== rb) return ra - rb;
+      const diff = unreplenishedAlertCount(b) - unreplenishedAlertCount(a);
+      if (diff !== 0) return diff;
+      return a.order - b.order;
+    });
+  } else {
+    list.sort((a, b) => a.order - b.order);
+  }
+  return list;
+}
+
+function showError(msg) {
+  $('errorText').textContent = msg;
+  $('errorBar').hidden = false;
+}
+
+function updateAisleBar() {
+  const counts = { all: state.items.length, reponer: 0, verificar: 0, suficiente: 0 };
+  for (const item of state.items) {
+    const st = effectiveGondolaState(item);
+    if (st in counts) counts[st] += 1;
+  }
+  $('countAll').textContent = counts.all;
+  $('countReponer').textContent = counts.reponer;
+  $('countVerificar').textContent = counts.verificar;
+  $('countSuficiente').textContent = counts.suficiente;
+
+  const { total, done } = totalAlertLevelsAndDone();
+  $('replenishProgress').textContent = total > 0
+    ? `${done} de ${total} ${total === 1 ? 'quiebre repuesto' : 'quiebres repuestos'}`
+    : 'Sin quiebres pendientes';
+
+  const hasAnalyzed = state.items.some(i => i.result);
+  $('exportCsvBtn').disabled = !hasAnalyzed;
+  $('clearSessionBtn').hidden = state.items.length === 0;
+}
+
+function renderQueue() {
+  updateAisleBar();
+  const listEl = $('queueList');
+  const visible = visibleItems();
+  $('queueStatus').textContent = `${state.items.length} ${state.items.length === 1 ? 'góndola' : 'góndolas'}`;
+
+  if (!state.items.length) {
+    listEl.innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:8px 4px">
+      Sube las fotos del pasillo o carga el ejemplo para priorizar dónde reponer primero.
+    </p>`;
+    return;
+  }
+  if (!visible.length) {
+    listEl.innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:8px 4px">
+      Ninguna góndola coincide con este filtro.
+    </p>`;
+    return;
+  }
+
+  listEl.innerHTML = visible.map(item => {
+    const selected = item.id === state.selectedId;
+    const eff = effectiveGondolaState(item);
+    const pendingAlerts = unreplenishedAlertCount(item);
+    const totalAlerts = (item.result?.detections || []).filter(d => d.store_diagnosis?.operational_state === 'reponer').length;
+
+    let pillClass = 'pill-verificar';
+    let pillText = item.analyzing ? 'Analizando…' : item.error ? 'Error' : 'Pendiente';
+    let subText = '';
+
+    if (item.result) {
+      if (eff === 'reponer') {
+        pillClass = 'pill-reponer';
+        pillText = `${pendingAlerts} por reponer`;
+        const ids = item.result.detections
+          .filter(d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id])
+          .map(d => `N${d.id}`).join(', ');
+        subText = `Prioridad en ${ids}`;
+      } else if (eff === 'verificar') {
+        pillClass = 'pill-verificar';
+        pillText = 'Verificar en sala';
+        subText = `${item.result.detections.length} niveles medidos`;
+      } else {
+        pillClass = 'pill-suficiente';
+        pillText = totalAlerts > 0 ? 'Repuesta ✓' : 'Abastecida';
+        subText = `${item.result.detections.length} niveles al día`;
+      }
+    }
+
+    return `<button type="button" class="queue-item" data-id="${esc(item.id)}" aria-current="${selected}">
+      <img class="queue-thumb" src="${esc(item.origUrl)}" alt="">
+      <div class="queue-meta">
+        <span class="queue-name">${esc(item.name)}</span>
+        <span class="status-pill ${pillClass}">${esc(pillText)}</span>
+        <span class="queue-sub">${esc(subText)}</span>
+      </div>
+    </button>`;
+  }).join('');
+
+  listEl.querySelectorAll('.queue-item').forEach(btn => {
+    btn.addEventListener('click', () => selectItem(btn.dataset.id));
+  });
+}
+
+function renderStageAndLevels() {
+  const item = state.items.find(i => i.id === state.selectedId);
+  if (!item) {
+    $('emptyState').hidden = false;
+    $('singleView').hidden = true;
+    $('compareView').hidden = true;
+    $('stageBanner').hidden = true;
+    $('stageToolbar').hidden = true;
+    $('planFooter').hidden = true;
+    $('planMeta').textContent = '';
+    $('levelsList').innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
+      Al seleccionar una góndola verás aquí el detalle de cada estante y podrás marcar los niveles ya repuestos.
+    </p>`;
+    return;
+  }
+
+  $('emptyState').hidden = true;
+  $('loadingOverlay').hidden = !item.analyzing;
+
+  const visible = visibleItems();
+  const idx = visible.findIndex(i => i.id === item.id);
+  $('prevGondolaBtn').disabled = idx <= 0;
+  $('nextGondolaBtn').disabled = idx < 0 || idx >= visible.length - 1;
+  $('stagePos').textContent = idx >= 0 ? `Góndola ${idx + 1} de ${visible.length}` : item.name;
+
+  if (!item.result) {
+    $('stageBanner').hidden = true;
+    $('stageToolbar').hidden = true;
+    $('singleView').hidden = false;
+    $('compareView').hidden = true;
+    $('mainPhoto').src = item.origUrl;
+    $('polyOverlay').innerHTML = '';
+    $('levelsList').innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
+      ${item.analyzing ? 'Analizando niveles de la góndola…' : esc(item.error || 'Esperando análisis…')}
+    </p>`;
+    return;
+  }
+
+  const res = item.result;
+  const eff = effectiveGondolaState(item);
+  const pendingIds = (res.detections || [])
+    .filter(d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id])
+    .map(d => d.id);
+  const totalAlerts = (res.detections || []).filter(d => d.store_diagnosis?.operational_state === 'reponer').length;
+
+  $('stageBanner').hidden = false;
+  $('stageBanner').className = `stage-banner tone-${eff}`;
+  const pill = $('stagePill');
+  pill.className = `status-pill pill-${eff}`;
+
+  if (eff === 'reponer') {
+    pill.textContent = `${pendingIds.length} ${pendingIds.length === 1 ? 'quiebre pendiente' : 'quiebres pendientes'}`;
+    $('stageHeadline').textContent = `Reponer ${pendingIds.length === 1 ? 'nivel ' + pendingIds[0] : 'niveles ' + pendingIds.join(', ')}`;
+    $('stageSub').textContent = item.name;
+    $('markAllGondolaBtn').hidden = false;
+  } else if (eff === 'verificar') {
+    pill.textContent = 'Verificar';
+    $('stageHeadline').textContent = res.store_summary?.aisle_label || 'Verificar niveles en pasillo';
+    $('stageSub').textContent = res.store_summary?.aisle_summary || '';
+    $('markAllGondolaBtn').hidden = true;
+  } else {
+    pill.textContent = totalAlerts > 0 ? 'Reposición lista ✓' : 'Abastecida';
+    $('stageHeadline').textContent = totalAlerts > 0
+      ? 'Todos los quiebres de esta góndola fueron marcados como repuestos'
+      : 'Góndola con abastecimiento completo';
+    $('stageSub').textContent = item.name;
+    $('markAllGondolaBtn').hidden = true;
+  }
+
+  $('stageToolbar').hidden = false;
+  if (state.viewMode === 'compare') {
+    $('singleView').hidden = true;
+    $('compareView').hidden = false;
+    $('compareOrigImg').src = item.origUrl;
+    $('compareResImg').src = res.image_url;
+  } else {
+    $('singleView').hidden = false;
+    $('compareView').hidden = true;
+    $('mainPhoto').src = state.viewMode === 'original' ? item.origUrl : res.image_url;
+    renderPolygonOverlay(item);
+  }
+
+  // Renderizar tarjetas de niveles de arriba hacia abajo (mayor ID arriba)
+  const orderedDets = [...(res.detections || [])].sort((a, b) => b.id - a.id);
+  const maxId = orderedDets.length ? orderedDets[0].id : 0;
+  $('planMeta').textContent = `${orderedDets.length} niveles`;
+  $('planFooter').hidden = false;
+  $('downloadAnnotatedBtn').href = res.image_url;
+  $('downloadAnnotatedBtn').download = `reposicion_${item.name.replace(/\.[^.]+$/, '')}.jpg`;
+
+  $('levelsList').innerHTML = orderedDets.map(det => {
+    const diag = det.store_diagnosis || {};
+    const opState = diag.operational_state || 'revisar';
+    const isReplenished = Boolean(item.replenished?.[det.id]);
+    const pct = det.occupancy_estimate?.pct;
+    const validPct = Number.isFinite(pct);
+    const posTag = det.id === maxId ? 'Superior' : det.id === 1 ? 'Inferior' : 'Intermedio';
+
+    const cardTone = isReplenished ? 'card-repuesto' : opState === 'reponer' ? 'card-reponer' : '';
+    const pillTone = isReplenished ? 'pill-suficiente' : opState === 'reponer' ? 'pill-reponer' : opState === 'suficiente' ? 'pill-suficiente' : 'pill-verificar';
+    const pillLabel = isReplenished ? 'Repuesto ✓' : (diag.operational_label || 'Verificar');
+    const barTone = isReplenished ? 'tone-suficiente' : opState === 'reponer' ? 'tone-reponer' : opState === 'suficiente' ? 'tone-suficiente' : 'tone-verificar';
+    const fillW = validPct ? Math.max(4, Math.min(100, Math.round(pct))) : 0;
+
+    return `<article class="level-card ${cardTone}" data-level="${det.id}">
+      <div class="level-top">
+        <span class="level-name">Nivel ${det.id}<span class="level-pos-tag">· ${posTag}</span></span>
+        <span class="status-pill ${pillTone}">${esc(pillLabel)}</span>
+      </div>
+      <p class="diag-headline">${esc(isReplenished ? 'Reposición registrada en sala' : diag.headline)}</p>
+      <p class="diag-action">${esc(isReplenished ? `Marcado listo a las ${item.replenished[det.id]}` : diag.action)}</p>
+      <div class="bar-row">
+        <div class="bar-track" title="Disponibilidad visual (mínimo operativo: 52 / 100)">
+          <div class="bar-fill ${barTone}" style="width:${fillW}%"></div>
+        </div>
+        <span class="bar-val">${validPct ? Math.round(pct) + ' / 100' : 'Verificar'}</span>
+      </div>
+      ${opState === 'reponer' ? `
+        <button type="button" class="check-btn" data-toggle-level="${det.id}" aria-pressed="${isReplenished}">
+          ${isReplenished ? '✓ Repuesto en sala (clic para deshacer)' : 'Marcar nivel como repuesto ✓'}
+        </button>
+      ` : ''}
+    </article>`;
+  }).join('');
+
+  $('levelsList').querySelectorAll('.level-card').forEach(card => {
+    const lv = Number(card.dataset.level);
+    card.addEventListener('mouseenter', () => highlightLevel(lv));
+    card.addEventListener('mouseleave', () => highlightLevel(null));
+  });
+  $('levelsList').querySelectorAll('[data-toggle-level]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      toggleReplenished(item.id, Number(btn.dataset.toggleLevel));
+    });
+  });
+}
+
+function renderPolygonOverlay(item) {
+  const svg = $('polyOverlay');
+  const res = item?.result;
+  if (!res || !res.width || !res.height) {
+    svg.innerHTML = '';
+    return;
+  }
+  svg.setAttribute('viewBox', `0 0 ${res.width} ${res.height}`);
+  svg.innerHTML = (res.detections || []).map(det => {
+    const pts = (det.display_polygon || []).map(p => `${p[0]},${p[1]}`).join(' ');
+    if (!pts) return '';
+    return `<polygon class="shelf-poly" data-poly-level="${det.id}" points="${pts}">
+      <title>Nivel ${det.id} · ${esc(det.store_diagnosis?.headline || '')}</title>
+    </polygon>`;
+  }).join('');
+
+  svg.querySelectorAll('.shelf-poly').forEach(poly => {
+    const lv = Number(poly.dataset.polyLevel);
+    poly.addEventListener('mouseenter', () => highlightLevel(lv));
+    poly.addEventListener('mouseleave', () => highlightLevel(null));
+    poly.addEventListener('click', () => {
+      highlightLevel(lv);
+      const card = $('levelsList').querySelector(`.level-card[data-level="${lv}"]`);
+      card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+}
+
+function highlightLevel(levelId) {
+  state.highlightedLevel = levelId;
+  document.querySelectorAll('.level-card').forEach(c => {
+    c.classList.toggle('is-highlighted', Number(c.dataset.level) === levelId);
+  });
+  document.querySelectorAll('.shelf-poly').forEach(p => {
+    p.classList.toggle('is-active', Number(p.dataset.polyLevel) === levelId);
+  });
+}
+
+function toggleReplenished(itemId, levelId) {
+  const item = state.items.find(i => i.id === itemId);
+  if (!item) return;
+  item.replenished = item.replenished || {};
+  if (item.replenished[levelId]) {
+    delete item.replenished[levelId];
+  } else {
+    item.replenished[levelId] = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+  }
+  renderQueue();
+  renderStageAndLevels();
+}
+
+$('markAllGondolaBtn').addEventListener('click', () => {
+  const item = state.items.find(i => i.id === state.selectedId);
+  if (!item?.result) return;
+  item.replenished = item.replenished || {};
+  const now = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+  for (const det of (item.result.detections || [])) {
+    if (det.store_diagnosis?.operational_state === 'reponer') {
+      item.replenished[det.id] = item.replenished[det.id] || now;
+    }
+  }
+  renderQueue();
+  renderStageAndLevels();
+});
+
+function selectItem(id) {
+  state.selectedId = id;
+  renderQueue();
+  renderStageAndLevels();
+}
+
+async function analyzeQueue() {
+  for (const item of state.items) {
+    if (item.result || item.analyzing || item.error) continue;
+    item.analyzing = true;
+    renderQueue();
+    if (state.selectedId === item.id) renderStageAndLevels();
+
+    try {
+      const resp = await fetch('/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': item.file.type || 'image/jpeg' },
+        body: item.file,
+      });
+      const data = await resp.json();
+      if (!resp.ok || data.error) throw new Error(data.error || 'No se pudo analizar la imagen.');
+      item.result = data;
+    } catch (err) {
+      item.error = err.message || 'Error al analizar.';
+      showError(`${item.name}: ${item.error}`);
+    } finally {
+      item.analyzing = false;
+      renderQueue();
+      if (state.selectedId === item.id) renderStageAndLevels();
+    }
+  }
+}
+
+function addFiles(fileList) {
+  const incoming = Array.from(fileList || []);
+  if (!incoming.length) return;
+  $('errorBar').hidden = true;
+
+  for (const f of incoming) {
+    if (!f.size || f.size > 10 * 1024 * 1024) {
+      showError(`${f.name}: supera el límite de 10 MB.`);
+      continue;
+    }
+    const id = `g_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    const origUrl = URL.createObjectURL(f);
+    state.items.push({
+      id,
+      order: state.items.length + 1,
+      name: f.name,
+      file: f,
+      origUrl,
+      result: null,
+      replenished: {},
+      analyzing: false,
+      error: null,
+    });
+    if (!state.selectedId) state.selectedId = id;
+  }
+  renderQueue();
+  renderStageAndLevels();
+  analyzeQueue();
+}
+
+$('fileInput').addEventListener('change', e => {
+  addFiles(e.target.files);
+  e.target.value = '';
+});
+
+async function loadDemoAisle() {
+  try {
+    $('loadingOverlay').hidden = false;
+    $('loadingText').textContent = 'Cargando pasillo de demostración…';
+    const resp = await fetch('/api/demo-photos');
+    const data = await resp.json();
+    const demos = data.demos || [];
+    if (!demos.length) throw new Error('No se encontraron fotografías de demostración.');
+
+    const files = [];
+    for (const d of demos) {
+      const imgResp = await fetch(`/api/demo-photo/${encodeURIComponent(d.id)}`);
+      if (!imgResp.ok) continue;
+      const blob = await imgResp.blob();
+      files.push(new File([blob], `${d.label} (${d.filename})`, { type: blob.type || 'image/jpeg' }));
+    }
+    $('loadingOverlay').hidden = true;
+    $('loadingText').textContent = 'Analizando disponibilidad en góndola…';
+    addFiles(files);
+  } catch (err) {
+    $('loadingOverlay').hidden = true;
+    showError(err.message);
+  }
+}
+
+$('demoBtn').addEventListener('click', loadDemoAisle);
+$('emptyDemoBtn').addEventListener('click', loadDemoAisle);
+
+// Filtros y orden
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    state.filter = btn.dataset.filter;
+    const vis = visibleItems();
+    if (vis.length && !vis.some(i => i.id === state.selectedId)) {
+      state.selectedId = vis[0].id;
+    }
+    renderQueue();
+    renderStageAndLevels();
+  });
+});
+
+$('sortSelect').addEventListener('change', e => {
+  state.sort = e.target.value;
+  renderQueue();
+  renderStageAndLevels();
+});
+
+// Conmutador de vistas
+document.querySelectorAll('.seg-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.seg-btn').forEach(b => b.setAttribute('aria-selected', 'false'));
+    btn.setAttribute('aria-selected', 'true');
+    state.viewMode = btn.dataset.view;
+    renderStageAndLevels();
+  });
+});
+
+$('prevGondolaBtn').addEventListener('click', () => {
+  const vis = visibleItems();
+  const idx = vis.findIndex(i => i.id === state.selectedId);
+  if (idx > 0) selectItem(vis[idx - 1].id);
+});
+$('nextGondolaBtn').addEventListener('click', () => {
+  const vis = visibleItems();
+  const idx = vis.findIndex(i => i.id === state.selectedId);
+  if (idx >= 0 && idx < vis.length - 1) selectItem(vis[idx + 1].id);
+});
+
+$('clearSessionBtn').addEventListener('click', () => {
+  for (const it of state.items) {
+    if (it.origUrl) URL.revokeObjectURL(it.origUrl);
+  }
+  state.items = [];
+  state.selectedId = null;
+  renderQueue();
+  renderStageAndLevels();
+});
+
+$('errorClose').addEventListener('click', () => { $('errorBar').hidden = true; });
+
+// Drag and drop en el visor
+const dropZone = $('dropZone');
+['dragenter', 'dragover'].forEach(ev => dropZone.addEventListener(ev, e => {
+  e.preventDefault();
+  e.stopPropagation();
+}));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
+});
+
+// Exportar Hoja de Reposición CSV compatible con Excel en español (UTF-8 BOM + ;)
+$('exportCsvBtn').addEventListener('click', () => {
+  const rows = [
+    ['Góndola / Archivo', 'Estado Góndola', 'Nivel (1=Inferior)', 'Acción Operativa', 'Estado Reposición', 'Hora Reposición', 'Índice Visual (0-100)', 'Hueco Horizontal (%)', 'Diagnóstico de Tienda']
+  ];
+  for (const item of visibleItems()) {
+    if (!item.result) continue;
+    const eff = effectiveGondolaState(item);
+    const gStateLabel = eff === 'reponer' ? 'Urgente por reponer' : eff === 'verificar' ? 'Por verificar' : 'Abastecida / Lista';
+    const ordered = [...(item.result.detections || [])].sort((a, b) => b.id - a.id);
+    for (const det of ordered) {
+      const diag = det.store_diagnosis || {};
+      const opState = diag.operational_state || 'revisar';
+      const repTime = item.replenished?.[det.id] || '';
+      const repStatus = opState === 'reponer' ? (repTime ? 'Repuesto en sala' : 'Pendiente de reponer') : 'No requiere';
+      const pct = Number.isFinite(det.occupancy_estimate?.pct) ? Math.round(det.occupancy_estimate.pct) : '';
+      const gap = Number.isFinite(det.occupancy?.max_gap_pct) ? Math.round(det.occupancy.max_gap_pct) : '';
+      rows.push([
+        item.name,
+        gStateLabel,
+        `Nivel ${det.id}`,
+        diag.operational_label || '',
+        repStatus,
+        repTime,
+        pct,
+        gap,
+        `${diag.headline || ''} - ${diag.action || ''}`,
+      ]);
+    }
+  }
+  const csvContent = '\uFEFF' + rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';')).join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hoja_reposicion_pasillo_${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+});
+
+// Tema claro / oscuro
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('walmart-cliente-theme', theme); } catch {}
+}
+$('themeBtn').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  setTheme(cur === 'light' ? 'dark' : 'light');
+});
+try {
+  const saved = localStorage.getItem('walmart-cliente-theme');
+  if (saved === 'dark' || saved === 'light') setTheme(saved);
+} catch {}
+
+// Cámara
+let camStream = null;
+function stopCamera() {
+  if (camStream) camStream.getTracks().forEach(t => t.stop());
+  camStream = null;
+  $('camVideo').srcObject = null;
+  $('cameraModal').hidden = true;
+}
+$('cameraBtn').addEventListener('click', async () => {
+  $('cameraModal').hidden = false;
+  $('camSnapBtn').disabled = true;
+  $('camStatus').textContent = 'Iniciando cámara…';
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
+    $('camVideo').srcObject = camStream;
+    await $('camVideo').play();
+    $('camSnapBtn').disabled = false;
+    $('camStatus').textContent = 'Alinea toda la góndola dentro del recuadro.';
+  } catch {
+    $('camStatus').textContent = 'No se pudo acceder a la cámara en este dispositivo. Usa "Subir fotos de pasillo".';
+  }
+});
+$('camCloseBtn').addEventListener('click', stopCamera);
+$('camSnapBtn').addEventListener('click', () => {
+  const video = $('camVideo');
+  if (!video.videoWidth) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  canvas.toBlob(blob => {
+    stopCamera();
+    if (blob) {
+      const f = new File([blob], `pasillo_${new Date().toTimeString().slice(0, 8).replace(/:/g, '')}.jpg`, { type: 'image/jpeg' });
+      addFiles([f]);
+    }
+  }, 'image/jpeg', 0.9);
+});
+</script>
+</body>
+</html>

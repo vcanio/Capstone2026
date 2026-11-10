@@ -14,6 +14,8 @@ def apply_scope(detections, width, height):
         detection['scope'] = 'Solo zona visible' if near_frame else 'Área detectada · señal experimental'
         if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'front_coverage_v1':
             detection['scope'] = 'Cobertura del frente · experimental'
+        if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'body_fill_gap_v1':
+            detection['scope'] = 'Disponibilidad visual · Línea A'
         detection['notice'] = ('Contorno junto al encuadre: revisa lo que queda fuera.' if near_frame else
                                detection.get('occupancy', {}).get('review_reason') or '')
         reading = detection.get('occupancy_estimate')
