@@ -1,6 +1,8 @@
+**Revisión r2 · licencias:** incluye LICENSE (AGPL-3.0-only), NOTICE.md y LICENCIAS.md. Conserva el modelo oficial. La primera entrega del 10/11 y la release del 5/11 permanecen como historial con sus archivos intactos.
+
 ## Prueba de cliente y equipo · 10 de noviembre
 
-[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-10/Walmart_Vision_Cliente_y_Equipo_20261110.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10).
+[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-10-r2/Walmart_Vision_Cliente_y_Equipo_20261110_r2_licencias.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2).
 
 Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart_Vision/iniciar_equipo.cmd` (8095). El primer inicio prepara Python/dependencias y requiere Internet. Docker: `docker compose -f compose.apps.yaml up --build -d --wait` desde `Walmart_Vision`.
 

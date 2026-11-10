@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-10",
+  "team_statement": {
+    "provided_by": "Vicente",
+    "original_photos": "capturadas por el equipo",
+    "annotations": "realizadas por el equipo en CVAT",
+    "purpose": "100 % académico",
+    "code_license_agreement": "AGPL-3.0 confirmado por Vicente en representación del acuerdo del equipo"
+  },
+  "code_license": "AGPL-3.0-only",
+  "license_text_source": "LICENSE de la distribución instalada Ultralytics 8.4.174",
+  "license_text_sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+  "data_status": "Autoría documentada; licencia pública del dataset no concedida. No se afirma autorización institucional adicional.",
+  "model_chain": [
+    {
+      "model": "yolo26n-seg.pt",
+      "sha256": "361fbfabab285c3237700b6bb91d7ecfa602cd945fffda8dbe1242829b71e73f"
+    },
+    {
+      "run": "v3_segmentacion_sin_tapadas_20261102_202529_4bb3",
+      "sha256": "2ba37c853b88648e03b9a72309cfbc4179ef05f9c67452bb968f3bfb1a96ff70"
+    },
+    {
+      "run": "v3_refuerzo_geometria_revision_20261105_022414_e6f0",
+      "sha256": "7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a"
+    }
+  ],
+  "model_license_route": "AGPL-3.0, conforme condiciones publicadas por Ultralytics; sin afirmación de licencia Enterprise",
+  "release_tag": "walmart-vision-apps-prueba-2026-11-10-r2",
+  "package_sha256": "449a778ae32e77a592a1788eebad0dbd9262d16641e141fd950b6cef69ae2e3e",
+  "validation_scope": "Documentación y empaquetado de licencias; no certificación de permisos de terceros ni evaluación final del modelo."
+}

@@ -25,6 +25,9 @@ ENV YOLO_CONFIG_DIR=/app/Walmart_Vision/.runtime/config \
 COPY --chown=10001:10001 app.py inferencia.py interfaz.html revision_rapida.js modelos.json visibilidad_experimental.py \
     ocupacion_paulo.py ocupacion_linea_a.py gondola_bordes.py gondola_combinacion_ponderada.py geometria_niveles.py presentacion_niveles.py vision_v3.py ./
 COPY --chown=10001:10001 modelos/ ./modelos/
+COPY --chown=10001:10001 LICENSE NOTICE.md LICENCIAS.md ./
+LABEL org.opencontainers.image.licenses="AGPL-3.0-only" \
+      org.opencontainers.image.source="https://github.com/vcanio/Capstone2026"
 RUN mkdir -p .runtime/config && chown -R 10001:10001 .runtime
 USER 10001:10001
 # Comprueba versiones, manifiesto y hashes de los pesos al construir.

@@ -15,7 +15,7 @@ Esta entrega no constituye una evaluación final del flujo operativo.
 
 ## Descargar e iniciar
 
-La [versión de prueba del 10/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10)
+La [versión de prueba del 10/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2)
 incluye ambas apps y el modelo. Extrae todo el ZIP.
 
 En Windows x64, abre `iniciar_cliente.cmd` en la raíz del paquete o
@@ -55,3 +55,7 @@ Desde la raíz con el entorno de desarrollo preparado:
 
 La [guía del equipo](../Aplicacion/Documentacion/REVISION_EQUIPO.md) explica el marcado y
 la devolución de lotes. La release del 5/11 conserva su versión anterior.
+
+## Licencia
+
+Código original del equipo: [AGPL-3.0-only](../LICENSE). Consulta [licencias y procedencia de datos/pesos](../LICENCIAS.md) y [avisos de terceros](../NOTICE.md). Los datos no reciben una licencia pública por este acuerdo sobre el código.

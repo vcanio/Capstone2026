@@ -7,6 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / 'Aplicacion'
+LEGAL_FILES = ('LICENSE', 'NOTICE.md', 'LICENCIAS.md')
 
 
 def source_file(name):
@@ -202,6 +203,7 @@ prediccion['image'].save(ruta_resultado, quality=92)
 
 def build(output, *, v3=False):
     output = Path(output).resolve()
+    legal = {name: (ROOT / name).read_bytes() for name in LEGAL_FILES}
     output.parent.mkdir(parents=True, exist_ok=True)
     files = tuple(name for name in FILES if not (v3 and name in ('VERIFICACION_DOCKER.md', 'VERIFICACION_OCUPACION.md')))
     if v3 and source_file('LINEA_A_20261108.md').is_file():
@@ -262,6 +264,10 @@ def build(output, *, v3=False):
     verify_path = source_file(verify_name)
     verify = verify_path.read_text(encoding='utf-8') if verify_path.exists() else 'Verificación de esta entrega pendiente.\n'
     with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+        for name, body in legal.items():
+            if name == 'LICENCIAS.md':
+                body = body.replace(b'(Aplicacion/modelos.json)', b'(modelos.json)')
+            archive.writestr('Walmart_Vision/' + name, body)
         for name in files:
             body = source_file(name).read_bytes()
             if v3 and name == 'LEEME.md':

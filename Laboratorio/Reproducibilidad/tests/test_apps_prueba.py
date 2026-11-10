@@ -32,6 +32,8 @@ class CombinedPackageTests(unittest.TestCase):
                 self.assertEqual(len([n for n in names if n.endswith('.pt')]), 1)
                 self.assertIn(prefix + 'Aplicacion_Cliente/app_cliente.py', names)
                 self.assertIn(prefix + 'Aplicacion/modelos/current.pt', names)
+                for name in package.LEGAL_FILES:
+                    self.assertEqual(archive.read(prefix + name), (package.ROOT / name).read_bytes())
                 self.assertFalse(any('/Laboratorio/' in n or '/Datos/' in n for n in names))
                 manifest = json.loads(archive.read(prefix + 'MANIFIESTO_SHA256.json'))
                 for name, digest in manifest.items():

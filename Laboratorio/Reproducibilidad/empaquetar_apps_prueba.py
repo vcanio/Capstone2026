@@ -13,6 +13,7 @@ from empaquetar_demo_lite import build as build_team
 
 CLIENT_FILES = ('app_cliente.py', 'interfaz_cliente.html', 'iniciar_cliente.cmd', 'README.md')
 PACKAGE_ROOT = 'Walmart_Vision'
+LEGAL_FILES = ('LICENSE', 'NOTICE.md', 'LICENCIAS.md')
 
 
 def build(output):
@@ -21,6 +22,8 @@ def build(output):
         raise ValueError('La entrega ya existe; usa un nombre nuevo para conservarla.')
     output.parent.mkdir(parents=True, exist_ok=True)
     entries = {}
+    for name in LEGAL_FILES:
+        entries[name] = (ROOT / name).read_bytes()
     with tempfile.TemporaryDirectory(prefix='walmart_apps_') as temporary:
         team_zip = Path(temporary) / 'equipo.zip'
         build_team(team_zip, v3=True)
@@ -58,6 +61,11 @@ Usa el modelo oficial del 5/11 y Línea A del 8/11, índice visual preliminar de
 umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos.
 Revisa los contornos y la visibilidad. Es una versión de prueba, sin evaluación final.
 La release del 5/11 se conserva como distribución histórica independiente.
+
+Código original del equipo: AGPL-3.0-only. Lee LICENSE, NOTICE.md y LICENCIAS.md.
+La finalidad académica no limita los usos permitidos por AGPL ni concede una
+licencia pública a las fotografías y anotaciones. Fuente correspondiente:
+https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2
 """.encode('utf-8')
     manifest = {name: hashlib.sha256(body).hexdigest() for name, body in sorted(entries.items())}
     entries['MANIFIESTO_SHA256.json'] = (json.dumps(manifest, indent=2) + '\n').encode()

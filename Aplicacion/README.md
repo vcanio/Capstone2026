@@ -1,4 +1,4 @@
-**Prueba de ambas apps del 10/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+**Prueba de ambas apps del 10/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
 
 # Walmart Vision · Aplicación V3
 
@@ -31,3 +31,7 @@ La corrección de barandas sigue pendiente de revisión visual y el mapa de señ
 Para ejecutar las pruebas desde `Aplicacion` en Windows: `..\.venv-modelo\Scripts\python.exe -m unittest discover -s Pruebas`.
 
 Tras actualizar, vuelve a analizar las fotos guardadas en el navegador para obtener resultados del modelo oficial.
+
+## Licencia
+
+Código original del equipo: [AGPL-3.0-only](../LICENSE). Consulta [licencias y procedencia de datos/pesos](../LICENCIAS.md) y [avisos de terceros](../NOTICE.md). Los datos no reciben una licencia pública por este acuerdo sobre el código.
