@@ -19,7 +19,7 @@ Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart
 
 [App cliente](Aplicacion_Cliente/README.md): alertas visuales, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación, marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
 
-La entrega del 11/11 incluye el **cierre con contornos revisados adoptado el 10/11**, compartido por ambas apps, y el cliente actualizado el 11/11. El modelo se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Las entregas anteriores conservan sus modelos y archivos. Línea A mantiene índice visual preliminar 0–100 y umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos. Requiere revisión visual. No es una evaluación final. La [release del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) se conserva como antecedente con su estimador anterior y sus archivos.
+La entrega del 11/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente, compartido por ambas apps, y el cliente actualizado el 11/11. El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A mantiene índice visual preliminar 0–100 y umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos. Requiere revisión visual; la evaluación final del sistema sigue pendiente.
 
 ## Explorar las carpetas
 
@@ -115,8 +115,6 @@ El dataset y el catálogo local de demostración no vienen en el ZIP: carga foto
 
 [Guía cliente](Aplicacion_Cliente/README.md) · [Guía de revisión del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Descargas e historial](Entregables/README.md).
 
-La [distribución del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) conserva su estimador anterior y su estructura con `iniciar.cmd`; las instrucciones anteriores de ese paquete no sustituyen las de la entrega conjunta del 11/11.
-
 ## ¿Qué consideramos un nivel?
 
 Un **nivel** es el área útil de una repisa donde pueden existir **productos y huecos**. Se dibuja un polígono para el espacio completo del mismo tramo de góndola, siguiendo su perspectiva; no se dibuja una máscara por envase ni solo la banda frontal del estante.
@@ -180,17 +178,17 @@ Carteles, fondos, barandas y envases lisos todavía pueden confundir la señal. 
 
 ## Modelo actual y resultados
 
-Ambas apps comparten un único modelo oficial: el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, derivado de `yolo26n-seg.pt` a través del afinado del 2/11 y del refuerzo del 5/11. Vicente lo adoptó tras revisar Ohiggins 3 para cerrar de momento el localizador y centrarse en ocupación. Su clase aprendida es **Nivel**; la ocupación se calcula después y sigue siendo experimental.
+Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**, el `best.pt` del cierre con contornos revisados adoptado el 10 de noviembre. Su clase aprendida es **Nivel**; la ocupación se calcula después mediante Línea A y sigue siendo experimental. El localizador queda cerrado de momento para centrar el trabajo en ocupación.
 
-| Modelo | Afinado | Validación | Distribución |
+| Modelo vigente | Último afinado | Validación | Distribución |
 |---|---|---|---|
-| YOLO26n-seg V3 | 256 fotos, 40 épocas | 11 reales de tres escenas | Incluido en la prueba del 11/11; r2 conserva el peso anterior |
+| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | Prueba de cliente y equipo del 11/11 |
 
 | Máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
 | Validación real | 11 | 99,50 % | 90,04 % |
 
-Estas cifras evalúan geometría, no ocupación ni reposición. Sobre las mismas 11 fotos, nuevo y anterior oficial detectan 54 de 55 niveles sin falsos positivos; el IoU medio pasa de 93,52 % a 93,39 %. No comparar el mAP con el de las antiguas 59 val. En las 68 fotos de Ohiggins 3, Vicente aceptó 65 y marcó tres con siete contornos incorrectos: es revisión visual, no mAP o recall. La reserva histórica de **63 fotos de test permanece sin utilizar**. La adopción expresa no certifica ausencia de errores o superioridad global.
+Estas cifras evalúan la geometría de los niveles. En las 11 fotos de validación se detectaron **54 de 55 niveles, con cero falsos positivos**. La muestra es pequeña y corresponde a tres escenas; no acredita por sí sola generalización ni precisión de ocupación. En las 68 fotos de Ohiggins 3, Vicente aceptó 65 y marcó tres con siete contornos incorrectos: es revisión visual, no mAP o recall. La reserva de **63 fotos de test permanece sin utilizar**. La adopción no certifica ausencia de errores ni superioridad global.
 
 SHA-256 del peso: `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
 
@@ -252,46 +250,19 @@ flowchart LR
     UI -->|"Descarga solicitada"| OUTPUT["Imagen · CSV cliente · lote de revisión del equipo"]
 ```
 
-El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` localiza niveles y calcula la señal visual; la persona debe revisar obstáculos y zonas tapadas. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La mesa del equipo conserva la sesión del lote en el navegador local. El cliente mantiene el lote durante la sesión de la página. Los archivos se comparten solo cuando el usuario los exporta y entrega.
+El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` localiza niveles y calcula la señal visual; la persona debe revisar obstáculos y zonas tapadas. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La mesa del equipo conserva la sesión del lote en el navegador local. El cliente conserva el recorrido por foto en el navegador y lo recupera al recargar. Los archivos se comparten solo cuando el usuario los exporta y entrega.
 
 CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del primer diagrama. **No son dependencias del visor durante la inferencia**: la app distribuida incluye el modelo y los módulos que necesita para analizar fotos.
 
 ## Datos y entrenamiento
 
-### Qué imágenes utilizó el modelo oficial
+### Datos del modelo vigente
 
-El peso actual deriva de **tres etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. El candidato anterior del 10/11 no forma parte de esta cadena. Estos recuentos corresponden a los archivos efectivamente incluidos en los manifiestos de los ensayos, no a todas las fotos reunidas o revisadas por el equipo.
+El último afinado utilizó **256 imágenes de entrenamiento: 203 reales y 53 sintéticas**, con **1.298 polígonos**. Su validación contiene **11 fotos reales y 55 polígonos**. Las escenas y familias conservan las asignaciones documentadas; las fotos incorporadas a train dejan de ser validación independiente.
 
-| Etapa de la cadena del modelo | Train reales | Train sintéticas | Train total | Validación real | Validación sintética |
-|---|---:|---:|---:|---:|---:|
-| Afinado iniciado el 2/11, base del refuerzo | 153 | 179 | **332** | 32 | 37 |
-| Refuerzo oficial del 5/11 | 152 | 19 | **171** | 59 | 34 |
-| Cierre con contornos revisados del 10/11 | 203 | 53 | **256** | 11 | 0 |
+El peso deriva de **tres etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. La cadena reúne **519 fuentes distintas de train por SHA-256: 299 reales y 220 sintéticas**. Las 256 del último ensayo no representan toda su experiencia previa; estas cifras tampoco cuentan escenas independientes, aumentos internos ni preentrenamiento general.
 
-Las **256** son las imágenes del último refuerzo, con **1.298 polígonos**, no toda la experiencia previa del modelo. Las tres etapas reúnen **519 fuentes distintas de train por SHA-256: 299 reales y 220 sintéticas**. No son escenas independientes, ni incluyen aumentos internos o preentrenamiento general. El último ensayo conserva 174 train del cierre anterior y añade 82 antiguas val con sus escenas/familias completas; estas 82 dejan de ser validación independiente. Las 11 val actuales contienen 55 polígonos y no actualizan pesos por gradiente. [Catálogo vigente](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json).
-
-### Antecedente: composición del refuerzo del 5/11, por procedencia
-
-Se contrastaron el manifiesto del ensayo oficial, el manifiesto de su exportación y las listas `train.txt`, `val_real.txt` y `val_sintetica.txt`. La exportación final contiene **264 archivos: 171 para entrenar y 93 para validar**. Las 93 de validación no se usaron para ajustar los pesos por gradiente.
-
-| Procedencia registrada | Train reales | Train sintéticas | Val reales | Val sintéticas | Total |
-|---|---:|---:|---:|---:|---:|
-| Líder 2 (lote histórico) | 26 | 0 | 22 | 0 | 48 |
-| Líder Express de octubre: originales y variantes A/B/C | 30 | 0 | 8 | 24 | 62 |
-| Refuerzo de papeles de octubre | 1 | 0 | 0 | 0 | 1 |
-| Refuerzo: Arauco Quilicura 2 | 18 | 0 | 3 | 0 | 21 |
-| Refuerzo: Express Independencia | 23 | 0 | 5 | 0 | 28 |
-| Refuerzo: Express Sta Luisa | 10 | 0 | 3 | 0 | 13 |
-| Refuerzo: Marcoleta | 35 | 0 | 13 | 0 | 48 |
-| Refuerzo: Ohiggins | 9 | 7 | 5 | 5 | 26 |
-| Superiores vacíos D (sintéticas de octubre) | 0 | 12 | 0 | 5 | 17 |
-| **Total del refuerzo del 5/11** | **152** | **19** | **59** | **34** | **264** |
-
-Los nombres de la tabla son identificadores de procedencia de los registros. «Líder 2» no se presenta como nombre oficial de una sucursal. Los lotes nuevos de Arauco Quilicura 2, Express Independencia, Express Sta Luisa, Marcoleta y Ohiggins aportan **136 archivos incluidos**: 102 train y 34 val. Las restantes 128 referencias corresponden al repaso y a validación de los lotes anteriores.
-
-La partición preparatoria tenía 275 registros; la exportación excluyó 11 según las decisiones documentadas. **R254 permanece excluida deliberadamente**, sin restaurarla ni usarla como negativo. Se mantuvieron las relaciones por escenas/familias; no se repartieron las fotos al azar. La reserva final de **63 fotos de test sigue sin utilizarse** y no forma parte de los 264 archivos de esta exportación.
-
-[Recuento verificable, hashes de manifiestos y alcance](Documentacion/Evidencias/catalogo_modelo_oficial_20261110.json) · [Modelo y métricas](Documentacion/Modelo_V3_actual.md).
+[Catálogo vigente y alcance del recuento](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Antecedentes de entrenamiento, comparaciones y distribuciones](Historico/Documentacion/Desarrollo/Antecedentes_modelo_V3_20261111.md).
 
 ### Autoría, anotación y preparación
 
@@ -310,10 +281,6 @@ Las nuevas fotos y revisiones no cambian por sí solas el modelo publicado. Requ
 El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos de la clase `Nivel`**. Se construyó además un **laboratorio interno con interfaz visual** para preparar datos, configurar los entrenamientos y seguir métricas, curvas y resultados de los ensayos. Su código se conserva como apoyo técnico y trazabilidad del desarrollo; no forma parte del ZIP cliente/equipo.
 
 Las predicciones del modelo se inspeccionaron en la **app de revisión del equipo**, comparando fotos y contornos y registrando errores por nivel o zona. Esta revisión visual complementa la evaluación cuantitativa; no equivale a mAP o recall ni demuestra por sí sola exactitud de ocupación. [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md).
-
-### Catálogo histórico
-
-El catálogo de **469 imágenes de octubre** y su partición **337 train / 69 val / 63 test** son antecedentes de otra etapa. No describen la selección del último refuerzo ni el total de fuentes usadas en la cadena del modelo actual. Sus registros se conservan para trazabilidad en el [archivo histórico](Historico/README.md).
 
 La preparación y la revisión de datos no certifican por sí solas la precisión de ocupación ni convierten las imágenes sintéticas en evidencia de generalización. El ajuste de Línea A y la evaluación final del sistema son trabajos distintos del entrenamiento geométrico descrito aquí.
 
