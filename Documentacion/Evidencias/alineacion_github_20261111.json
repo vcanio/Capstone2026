@@ -4,8 +4,8 @@
   "base_commit": "47edc242b74a69d172ebe4a1f47c39d45d460b78",
   "release_tag": "walmart-vision-apps-prueba-2026-11-11",
   "package": {
-    "zip_sha256": "a7788b6d60e3589d5bbbbe2625f5d2e2dd0ec8748a52d20ff7cea96a6c47bb8b",
-    "bytes": 20961084,
+    "zip_sha256": "71aaa1151e09057f0024c01561b8508deca290402c2dc9fd229da9ad542a8bb9",
+    "bytes": 20960824,
     "files_verified": 46,
     "model_sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5"
   },
@@ -52,5 +52,6 @@
     "Clon público sin activos privados de entrenamiento/calibración"
   ],
   "source_notices": "NOTICE y código correspondiente apuntan al tag de la entrega del 11/11.",
-  "ci_dependency_fix": "PyYAML 6.0.3 declarada para las pruebas ampliadas del laboratorio."
+  "ci_dependency_fix": "PyYAML 6.0.3 y runtime Ultralytics 8.4.174 con PyTorch 2.5.1/Torchvision 0.20.1 CPU declarados para pruebas ampliadas.",
+  "build_source": "Checkout limpio de Git; archivos operativos idénticos al código correspondiente, salvo normalización CRLF de iniciadores y enlaces documentales de la distribución."
 }
