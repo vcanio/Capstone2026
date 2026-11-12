@@ -42,6 +42,8 @@ La zona marcada es evidencia humana de revisión, no una modificación del polí
 
 ## Comprobar un ajuste
 
+**Modelo oficial local adoptado el 10/11:** revisión y cliente usan por defecto **V3 oficial - cierre con contornos revisados 10 noviembre**, ID `V3-cierre-revisado-20261110`, manteniendo confianza inicial 60 %. Recargar la app para tomar el nuevo predeterminado y reanalizar las fotos guardadas cuando pertenezcan a otro peso. El antiguo candidato de época 12 se conserva como antecedente y no es el oficial. [Adopción y comprobación de ambas apps](../../Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md). Las releases publicadas no se actualizaron con esta adopción local.
+
 1. Guarda el lote mediante **Descargar lote** antes de cambiar de equipo o de versión.
 2. En la aplicación nueva, usa **Abrir lote de revisión** y selecciona ese ZIP sin recomprimirlo. Recupera las fotos y las incidencias. Si modelo o estimador cambiaron, el resultado anterior queda como referencia y se solicita un análisis nuevo.
 3. Usa **Reanalizar esta foto** o **Reanalizar lote** con la configuración elegida. El lote conserva la última ejecución anterior para comparar y mantiene las incidencias históricas. Una ejecución nueva requiere una revisión nueva.

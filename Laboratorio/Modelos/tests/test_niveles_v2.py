@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[3]
 class V2Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not (ROOT / 'Datos/V2/lider_express_20261016/imagenes_ordenadas/lider_express_001_0_original.jpg').is_file():
+            raise unittest.SkipTest('Integración V2: requiere fotografías privadas del laboratorio.')
         raw = datasets.read(ROOT / 'Datos/Registros/Particiones/lider_express_v2_20261019/fuentes/tarea_19.json')
         cls.snapshot = {'scope': 'Nivel_estados', 'frames': raw['meta']['frames'], 'labels': raw['labels'],
                         'annotations': raw['annotations'], 'sources': [

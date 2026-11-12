@@ -1,10 +1,10 @@
-**Prueba de ambas apps del 10/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+**Prueba de ambas apps del 11/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
 
 # Walmart Vision · Aplicación V3
 
 Mesa de revisión del equipo (9/11): marcado por nivel o zona, atajos, revisión durante el análisis, comparación de ejecuciones y lotes ZIP recuperables. Ver [guía de revisión](Documentacion/REVISION_EQUIPO.md).
 
-El modelo oficial es el **best.pt del refuerzo de geometría terminado el 5 de noviembre**. Está incluido en el repositorio y se selecciona al iniciar; no necesitas descargar pesos por separado. La ocupación sigue siendo experimental.
+El modelo oficial local es el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, adoptado por Vicente y predeterminado en ambas apps. Su SHA-256 es `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`; la copia compartida está en `modelos/V3-cierre-revisado-20261110.pt`. La entrega del 11/11 incluye este peso; los ZIP anteriores conservan sus pesos originales. La ocupación sigue siendo experimental y no cambió con esta adopción.
 
 - **Usar en Windows:** abrir [iniciar.cmd](iniciar.cmd). El primer inicio prepara las dependencias.
 - **Usar con Docker:** ejecutar `docker compose up --build -d --wait` desde esta carpeta y abrir http://127.0.0.1:8095.

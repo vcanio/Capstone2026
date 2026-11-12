@@ -1,4 +1,4 @@
-"""Walmart Visión · Aplicación de Reposición en Sala (Versión Cliente Final).
+"""Walmart Visión · Visor de alertas (aplicación cliente).
 
 Comparte el motor oficial (`Aplicacion/inferencia.py`, `ocupacion_linea_a.py` y `best.pt`)
 sin modificar la aplicación de auditoría técnica en `Aplicacion/`.
@@ -9,6 +9,7 @@ from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from io import BytesIO
 import json
+import math
 from pathlib import Path
 import socket
 import sys
@@ -30,11 +31,12 @@ DEFAULT_METHOD = 'yolo_paulo_v2'
 
 
 def store_diagnosis(detection: dict) -> dict:
-    """Traducir la lectura técnica de Línea A a lenguaje operativo de tienda."""
+    """Describir alertas visuales sin prescribir acciones de reposición."""
     est = detection.get('occupancy_estimate') or {}
     occ = detection.get('occupancy') or {}
-    state = est.get('state') or 'revisar'
     pct = est.get('pct')
+    evaluable = isinstance(pct, (int, float)) and math.isfinite(pct)
+    state = (est.get('state') or 'revisar') if evaluable else 'revisar'
     max_gap = occ.get('max_gap_pct')
     hyb_body = occ.get('hyb_body_pct')
     fill_pct = occ.get('fill_pct')
@@ -43,58 +45,54 @@ def store_diagnosis(detection: dict) -> dict:
 
     if state == 'reponer':
         if (pct is not None and pct <= 12.0) or (hyb_body is not None and hyb_body < 15.0):
-            headline = 'Estante sin mercadería visible'
-            action = 'Reponer frente completo del nivel.'
+            headline = 'Posible ausencia de producto visible'
         elif (
             max_gap is not None and max_gap >= 45.0 and
             (fill_pct is None or (100.0 - max_gap) <= fill_pct + 5.0)
         ):
-            headline = f'Hueco sin producto en el {round(max_gap)} % del frente'
-            action = 'Cubrir tramo vacío y adelantar mercadería (facing).'
+            headline = f'Hueco visual estimado en el {round(max_gap)} % del frente'
         elif max_gap is not None and max_gap >= 30.0:
-            headline = f'Baja mercadería (hueco de {round(max_gap)} % del ancho)'
-            action = 'Reabastecer unidades faltantes en el nivel.'
+            headline = f'Posible baja disponibilidad (hueco de {round(max_gap)} % del ancho)'
         else:
-            headline = 'Disponibilidad visual bajo el mínimo operativo'
-            action = 'Reponer producto y ordenar el frente.'
+            headline = 'Índice visual bajo el umbral de alerta'
         return {
             'operational_state': 'reponer',
-            'operational_label': 'Reponer',
+            'operational_label': 'Alerta por baja disponibilidad',
             'headline': headline,
-            'action': action,
+            'action': 'Revisa la foto y los contornos para confirmar la alerta.',
         }
 
     if state == 'suficiente':
         gap_note = (
             f'Frente continuo cubierto ({round(100.0 - max_gap)} % del ancho con producto).'
-            if isinstance(max_gap, (int, float)) else 'Frente con abastecimiento normal.'
+            if isinstance(max_gap, (int, float)) else 'El análisis de esta foto no generó una alerta en este nivel.'
         )
         return {
             'operational_state': 'suficiente',
-            'operational_label': 'Abastecido',
-            'headline': 'Frente abastecido',
+            'operational_label': 'Sin alerta visual',
+            'headline': 'Sin alerta visual detectada',
             'action': gap_note,
         }
 
     if near_frame:
         headline = 'Estante en el borde de la foto'
-        action = 'Verificar en pasillo o tomar foto encuadrando el nivel completo.'
+        action = 'Revisa el encuadre y toma otra foto que muestre el nivel completo.'
     elif pattern in ('hollow_banner', 'upper_band_only'):
-        headline = 'Cartel o cenefa sobre el nivel'
-        action = 'Verificar visualmente detrás de la cartelería.'
+        headline = 'Patrón visual ambiguo en el nivel'
+        action = 'Revisa la visibilidad del nivel y toma otra foto si hace falta.'
     else:
         headline = 'Lectura visual ambigua'
-        action = 'Verificar disponibilidad directamente en el pasillo.'
+        action = 'Revisa la foto; si no hay evidencia suficiente, registra el nivel como no evaluable.'
     return {
         'operational_state': 'revisar',
-        'operational_label': 'Verificar',
+        'operational_label': 'Requiere revisión' if evaluable else 'No evaluable',
         'headline': headline,
         'action': action,
     }
 
 
 def enrich_for_store(prediction: dict) -> dict:
-    """Añadir resumen operativo de pasillo y diagnóstico en lenguaje de tienda por nivel."""
+    """Añadir resumen de alertas por nivel; conservar los códigos internos del motor."""
     detections = prediction.get('detections') or []
     reponer_ids = []
     revisar_ids = []
@@ -119,17 +117,17 @@ def enrich_for_store(prediction: dict) -> dict:
         aisle_state = 'reponer'
         n_rep = len(reponer_ids)
         lv_str = f'nivel {reponer_ids[0]}' if n_rep == 1 else f'niveles {", ".join(map(str, reponer_ids))}'
-        aisle_label = f'{n_rep} {"nivel por reponer" if n_rep == 1 else "niveles por reponer"}'
-        aisle_summary = f'Atención prioritaria en {lv_str}.'
+        aisle_label = f'{n_rep} {"nivel con alerta" if n_rep == 1 else "niveles con alerta"}'
+        aisle_summary = f'Posible baja disponibilidad en {lv_str}. Revisa la foto y los contornos.'
     elif revisar_ids:
         aisle_state = 'verificar'
         n_rev = len(revisar_ids)
         aisle_label = f'{n_rev} {"nivel por verificar" if n_rev == 1 else "niveles por verificar"}'
-        aisle_summary = 'Sin quiebres confirmados; verifica los niveles junto al borde.'
+        aisle_summary = 'Verifica los niveles con lectura ambigua.'
     else:
         aisle_state = 'suficiente'
-        aisle_label = 'Góndola abastecida'
-        aisle_summary = f'Los {len(detections)} niveles medidos cumplen el estándar visual.'
+        aisle_label = 'Sin alertas visuales detectadas'
+        aisle_summary = f'El análisis no generó alertas en los {len(detections)} niveles detectados.'
 
     prediction['store_summary'] = {
         'aisle_state': aisle_state,
@@ -196,18 +194,15 @@ class ClientHandler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path == '/':
             return self.send((HERE / 'interfaz_cliente.html').read_bytes(), content_type='text/html; charset=utf-8')
-        if path in ('/favicon.ico', '/favicon.svg'):
-            svg = (b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
-                   b'<rect width="32" height="32" rx="8" fill="#0053e2"/>'
-                   b'<path d="M16 6v5M16 21v5M7.3 11l4.3 2.5M20.4 18.5l4.3 2.5M7.3 21l4.3-2.5M20.4 13.5l4.3-2.5" '
-                   b'stroke="#ffc220" stroke-width="2.6" stroke-linecap="round"/></svg>')
-            return self.send(svg, content_type='image/svg+xml')
+        if path in ('/favicon.ico', '/favicon.svg', '/logo.svg'):
+            return self.send((HERE / 'logo.svg').read_bytes(), content_type='image/svg+xml')
         if path == '/api/health':
             return self.send({
                 'status': 'ok',
-                'app': 'Walmart Visión · Operaciones de Tienda',
+                'app': 'Walmart Visión · Visor de alertas',
                 'revision': REVISION_LINEA_A,
                 'threshold_pct': CALIBRATED_THRESHOLD_PCT,
+                'analysis_ready': getattr(self.server, 'analysis_ready', False),
             })
         if path == '/api/demo-photos':
             return self.send({'demos': demo_catalog()['items']})
@@ -246,6 +241,7 @@ class ClientHandler(BaseHTTPRequestHandler):
                 confidence=DEFAULT_CONFIDENCE,
                 method=DEFAULT_METHOD,
             )
+            self.server.analysis_ready = True
             buffer = BytesIO()
             prediction.pop('image').save(buffer, format='JPEG', quality=90)
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')

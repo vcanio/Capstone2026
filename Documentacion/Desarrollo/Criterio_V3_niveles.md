@@ -44,7 +44,7 @@ Este atributo no se exporta como clase de YOLO.
 2. **Nivel fuera del encuadre o con límites inciertos:** delimita únicamente la parte identificable, recortada al borde de la imagen cuando corresponda, y asigna `parcial`. No extrapoles un ancho inventado. Si además hay un objeto tapándolo, activa **Occluded**.
 3. **No puedes ubicar el nivel con fiabilidad:** no inventes un polígono. Añade una etiqueta de imagen **Revision_foto** con el motivo `nivel_no_delimitable`. Usa una incidencia de CVAT para señalar el caso si hace falta explicar dónde está.
 
-**Un nivel parcial, no localizado o con contenido oculto no da 0 % de ocupación.** Debe comunicarse como `sin_medicion` / `no_evaluable`, con una sugerencia de repetir la foto cuando sea necesario. Una medición de la zona visible, si se desarrolla, debe identificarse como parcial y no extrapolarse al nivel completo.
+**Un nivel parcial, no localizado o con contenido oculto no da 0 % de ocupación.** Su ocupación total permanece desconocida. Por decisión del usuario, la futura medición de una región visible parcial se presentará como «Ocupación visible», con aviso «Nivel recortado: porcentaje correspondiente solo al área visible». Ese cálculo sigue pendiente de integración y no se extrapola al nivel completo. Las oclusiones con contenido desconocido requieren un tratamiento separado.
 
 No detectar ningún nivel tampoco demuestra que la góndola esté vacía ni suficientemente abastecida.
 
@@ -75,7 +75,7 @@ Las variantes sintéticas se identifican como tales y se revisan visualmente ant
 
 - Conservar la separación existente por familias y escenas; la reserva final no se usa para entrenar ni ajustar el algoritmo.
 - No exportar automáticamente los borradores pendientes.
-- No eliminar un nivel parcial o no delimitable y utilizar el resto de esa foto como si fuera un negativo completamente anotado. En el primer ensayo, apartar la foto hasta resolverla o definir un tratamiento explícito de regiones ignoradas.
+- No eliminar un nivel parcial o no delimitable y utilizar el resto de esa foto como si fuera un negativo completamente anotado. Política autorizada por el usuario el 25 de octubre: un parcial con región visible bien delimitada puede exportarse para entrenar el localizador tras revisión humana explícita, conservando su marca y sus avisos en el manifiesto. Si los límites siguen siendo inciertos, dejarlo pendiente o marcar la foto para revisión y apartarla hasta resolverla. Esta política admite polígonos existentes y no autoriza añadir niveles al lote.
 - Los niveles ocluidos con perímetro completo pueden servir para aprender geometría tras revisión. Su ocupación total permanece no evaluable hasta que exista evidencia suficiente o un tratamiento de oclusiones validado.
 - Definir y validar por separado la medición de ancho, área o combinación y su umbral de reposición. El 30 % del ancho de V2 no equivale al 30 % de la combinación 70/30.
 - Adaptar el exportador, las validaciones y la interfaz a una sola clase geométrica, excluyendo pendientes y el ensayo de bandas frontales, antes de iniciar entrenamiento desde el panel. El cálculo de bordes utiliza el área del nivel y suprime la estructura dentro de ella. La preparación de este proyecto no habilita por sí sola ese flujo.

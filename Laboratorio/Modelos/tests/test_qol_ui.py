@@ -154,24 +154,26 @@ class QolUiTests(unittest.TestCase):
 
     def test_home_preserves_navigation_and_syncs_shell_view(self):
         self.assertIn('<div class="shell" data-view="version">', self.html)
-        self.assertIn('<div id="version-cards" class="version-cards"', self.html)
-        self.assertIn('class="version-card" data-version="v2"', self.html)
-        self.assertIn('class="version-card" data-version="v1"', self.html)
+        self.assertIn('class="model-paths"', self.html)
+        self.assertIn('data-tab="visibilidad-foto"', self.html)
+        self.assertNotIn('class="version-card" data-version="v1"', self.html)
+        self.assertNotIn('class="version-card" data-version="v2"', self.html)
         nav = re.search(r'<nav id="sections-nav"[^>]*>(.*?)</nav>', self.html, re.S)[1]
         self.assertNotIn('data-tab="version"', nav)
         self.assertIn('id="work-summary"', self.html)
         start = self.html.index('function switchTab(id){')
         switch_tab = self.html[start:self.html.index('async function retryQueries(', start)]
         self.js("""
-        let currentView='version',glossaryReturn='version';const fullCatalog=null;
+        let currentView='version',glossaryReturn='version',projectVersion='v3';const fullCatalog=null;
         const shell={dataset:{view:'version'}},heading={tabIndex:0,focus:()=>{}};
-        const views=['version','datasets','train','results','predict','glossary'].map(id=>({
+        const views=['version','segmentacion-inicio','clasificacion-inicio','visibilidad-foto','datasets','train','results','predict','glossary'].map(id=>({
           id,classList:{contains:c=>c==='view',toggle(c,on){this.active=on}},querySelector:()=>heading}));
         const navButtons=['datasets','train','results','predict','glossary'].map(tab=>({
           dataset:{tab},attributes:{},classList:{toggle(c,on){this.active=on}},
           setAttribute(k,v){this.attributes[k]=v},removeAttribute(k){delete this.attributes[k]}}));
         const nodes=new Map(views.map(v=>[v.id,v]));
         nodes.set('workspace-version',{hidden:true});
+        nodes.set('workspace-version-name',{textContent:''});
         nodes.set('mobile-section',{textContent:''});
         nodes.set('sections-nav',{classList:{remove:()=>{}}});
         nodes.set('sections-toggle',{setAttribute:()=>{}});
@@ -182,12 +184,17 @@ class QolUiTests(unittest.TestCase):
         """ + switch_tab + """
         switchTab('datasets');
         assert.equal(shell.dataset.view,'datasets');
+        assert.equal(shell.dataset.model,'segmentation');
         assert.equal($('workspace-version').hidden,false);
         assert.equal(navButtons.find(b=>b.dataset.tab==='datasets').attributes['aria-current'],'page');
         switchTab('version');
         assert.equal(shell.dataset.view,'version');
-        assert.equal($('workspace-version').hidden,false);
+        assert.equal($('workspace-version').hidden,true);
+        assert.equal(shell.dataset.model,undefined);
         assert.equal(navButtons.every(b=>!b.attributes['aria-current']),true);
+        switchTab('clasificacion-inicio');
+        assert.equal(shell.dataset.model,'classification');
+        assert.match($('workspace-version-name').textContent,/Clasificaci/);
         """)
 
 

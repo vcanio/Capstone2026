@@ -1,7 +1,6 @@
 """Una exportacion verificada por version de datos, compartida entre ensayos."""
 import hashlib
 import json
-from rutas_datos import current_image_path, experiment_parts
 from pathlib import Path
 import re
 import shutil
@@ -58,8 +57,14 @@ def content_inventory(directory):
 def verify_export(directory):
     receipt = read(directory / 'integridad.json')
     for item in receipt['archivos']:
-        path = (directory / item['archivo']).resolve()
-        if not path.is_relative_to(directory.resolve()) or digest(path) != item['sha256']:
+        logical = directory / item['archivo']
+        path = logical.resolve()
+        permitted = path.is_relative_to(directory.resolve())
+        if not permitted:
+            from almacenamiento_datos import CATALOG, authorized
+            project = next((p for p in directory.parents if (p / CATALOG).is_file()), None)
+            permitted = project is not None and authorized(project, logical, directory)
+        if not permitted or digest(path) != item['sha256']:
             raise ValueError('La exportacion compartida fue modificada: ' + item['archivo'])
     if content_inventory(directory) != receipt['archivos']:
         raise ValueError('La exportacion compartida contiene archivos no registrados.')
@@ -104,11 +109,9 @@ def consolidate_export(root, run):
 def experiment_file(root, value):
     """Resolver referencias historicas a archivos de datasets de un ensayo."""
     path = root / value
-    value = current_image_path(value)
-    path = root / value
-    parts = experiment_parts(value)
-    if len(parts) >= 4 and parts[0] in ('Laboratorio/Experimentos', 'Historico/Experimentos') and parts[2] in DIRECTORIES:
-        run = root / parts[0] / parts[1]
+    parts = Path(value).parts
+    if len(parts) >= 4 and parts[0] == 'Experimentos' and parts[2] in DIRECTORIES:
+        run = root / 'Experimentos' / parts[1]
         manifest = read(run / 'manifest.json')
         if manifest.get('dataset_dir', 'dataset_modulos') == parts[2]:
             directory = dataset_directory(root, run, manifest)

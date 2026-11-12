@@ -76,6 +76,16 @@ class LiderExpressPanelTests(unittest.TestCase):
             self.assertEqual(panel.allowed_file(preview['image_path']), datasets.safe_image_path(inventory[iid]))
             self.assertIsNone(panel.allowed_file(datasets.LIDER_EXPRESS + '/manifest.json'))
 
+    def test_docker_host_alias_keeps_logical_inventory_reference(self):
+        resolve = Path.resolve
+        def host_alias(path, *args, **kwargs):
+            if path.is_relative_to(self.base):
+                return Path('/mnt/host/dataset') / path.relative_to(self.base)
+            return resolve(path, *args, **kwargs)
+        with patch.object(Path, 'resolve', host_alias):
+            row = datasets.lider_express_inventory()['lider_express_001_0_original']
+        self.assertEqual(row['archivo'], datasets.LIDER_EXPRESS.removeprefix('Datos/') + '/imagenes_ordenadas/lider_express_001_0_original.jpg')
+
     def test_old_states_and_unregistered_project_tasks_are_rejected(self):
         self.snapshot['labels'][0]['attributes'][0]['values'] = ['vacio', 'suficiente', 'no_evaluable']
         with self.assertRaises(ValueError):

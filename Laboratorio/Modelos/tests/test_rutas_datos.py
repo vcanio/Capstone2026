@@ -20,7 +20,7 @@ class ImagePathTests(unittest.TestCase):
         self.assertEqual(current_inventory_path('Imagenes/01.jpg'), 'V1/Lider/lider_001.jpg')
         self.assertEqual(current_image_path('Datos/Equilibrado_v1_20261013/reales/REAL_01.jpg'),
                          'Datos/V1/Lider/lider_001.jpg')
-        for path in ('Datos/Imagenes_extra/01.jpg', 'Laboratorio/Experimentos/run/prediccion.jpg', None):
+        for path in ('Datos/Imagenes_extra/01.jpg', 'Experimentos/run/prediccion.jpg', None):
             self.assertEqual(current_image_path(path), path)
 
     def test_old_image_link_resolves_but_reserve_and_unknown_files_do_not(self):
@@ -36,7 +36,7 @@ class ImagePathTests(unittest.TestCase):
     def test_historical_upload_metadata_is_read_from_new_folder(self):
         iid = 'a' * 32
         previous = f'Datos/Fotos_prueba/{iid}/imagen.jpg'
-        current = f'Laboratorio/Experimentos/panel_pruebas/Subidas_panel/{iid}/imagen.jpg'
+        current = f'Experimentos/panel_pruebas/Subidas_panel/{iid}/imagen.jpg'
         image = self.root / current
         image.parent.mkdir(parents=True)
         image.write_bytes(b'fixture')

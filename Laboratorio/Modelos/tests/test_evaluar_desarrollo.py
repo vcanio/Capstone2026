@@ -77,7 +77,7 @@ class DevelopmentEvaluationTests(unittest.TestCase):
 
     def test_prediction_uses_server_reference_rows_and_ignores_client_rows(self):
         record = development_records(self.run)[1]
-        model_id = 'Laboratorio/Experimentos/fixture/entrenamiento/weights/best.pt'
+        model_id = 'Experimentos/fixture/entrenamiento/weights/best.pt'
         image_id = panel.manifest_image_path(record)
         catalog = {'models': [{'id': model_id, 'run': 'fixture'}], 'images': [{'id': image_id}],
             'runs': [{'id': 'fixture', 'manifest': {'scope': 'Nivel_estados',

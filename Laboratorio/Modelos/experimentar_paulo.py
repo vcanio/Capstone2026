@@ -116,8 +116,8 @@ def main():
     import torch
     partition = load_partition(ROOT)
     if not partition: raise ValueError('Falta la partición base registrada.')
-    runs = [(ROOT / 'Laboratorio/Experimentos' / name).resolve() for name in args.runs]
-    if any(run.parent != (ROOT / 'Laboratorio/Experimentos').resolve() for run in runs):
+    runs = [(ROOT / 'Experimentos' / name).resolve() for name in args.runs]
+    if any(run.parent != (ROOT / 'Experimentos').resolve() for run in runs):
         raise ValueError('Indica nombres de ensayos dentro de Experimentos.')
     for run in runs:
         development_entries(json.loads((run / 'manifest.json').read_text(encoding='utf-8-sig')), partition)

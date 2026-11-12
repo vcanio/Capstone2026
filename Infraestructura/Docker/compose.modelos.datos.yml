@@ -1,0 +1,290 @@
+{
+  "services": {
+    "panel_modelos": {
+      "environment": {
+        "WALMART_DATA_ROOT": "/datasets"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT:?Defina WALMART_DATA_ROOT}",
+          "target": "/datasets",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021/dataset_niveles/images",
+          "target": "/app/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021/dataset_niveles/images",
+          "target": "/app/Historico/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3/dataset_niveles/images",
+          "target": "/app/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3/dataset_niveles/images",
+          "target": "/app/Historico/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Exportaciones/Proyecto/Laboratorio/Experimentos/v3_refuerzo_geometria_revision_20261105_022414_e6f0/dataset_niveles/images",
+          "target": "/app/Experimentos/v3_refuerzo_geometria_revision_20261105_022414_e6f0/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Exportaciones/Proyecto/Datos/Preparados/V3/v3_20261105_012333_53df4a59/exportacion_71b4668d/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261105_012333_53df4a59/exportacion_71b4668d/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/01_reales",
+          "target": "/app/Datos/Preparados/V3/Comparacion_modelos_20261105/01_reales",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/01_reales",
+          "target": "/app/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/01_reales",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/02_sinteticas",
+          "target": "/app/Datos/Preparados/V3/Comparacion_modelos_20261105/02_sinteticas",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/02_sinteticas",
+          "target": "/app/Historico/Datos/Preparados/V3/Comparacion_modelos_20261105/02_sinteticas",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Pilotos/modulos_20261025/imagenes",
+          "target": "/app/Datos/Preparados/V3/Pilotos/modulos_20261025/imagenes",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Pilotos/modulos_20261025/imagenes",
+          "target": "/app/Historico/Datos/Preparados/V3/Pilotos/modulos_20261025/imagenes",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025/imagenes",
+          "target": "/app/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025/imagenes",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025/imagenes",
+          "target": "/app/Historico/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025/imagenes",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_030348_b77a3c46/exportacion_00b741eb/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261025_030348_b77a3c46/exportacion_00b741eb/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_030348_b77a3c46/exportacion_00b741eb/images",
+          "target": "/app/Historico/Datos/Preparados/V3/v3_20261025_030348_b77a3c46/exportacion_00b741eb/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_033415_6e0d391f/exportacion_b797db0d/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261025_033415_6e0d391f/exportacion_b797db0d/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_033415_6e0d391f/exportacion_b797db0d/images",
+          "target": "/app/Historico/Datos/Preparados/V3/v3_20261025_033415_6e0d391f/exportacion_b797db0d/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef/exportacion_639630df/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef/exportacion_639630df/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef/exportacion_639630df/images",
+          "target": "/app/Historico/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef/exportacion_639630df/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261026_005357_f915e7ac/exportacion_99084685/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261026_005357_f915e7ac/exportacion_99084685/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261026_005357_f915e7ac/exportacion_99084685/images",
+          "target": "/app/Historico/Datos/Preparados/V3/v3_20261026_005357_f915e7ac/exportacion_99084685/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261102_182957_ebfc930d/exportacion_ef996971/images",
+          "target": "/app/Datos/Preparados/V3/v3_20261102_182957_ebfc930d/exportacion_ef996971/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/v3_20261102_182957_ebfc930d/exportacion_ef996971/images",
+          "target": "/app/Historico/Datos/Preparados/V3/v3_20261102_182957_ebfc930d/exportacion_ef996971/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/images",
+          "target": "/app/Datos/Registros/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/images",
+          "target": "/app/Historico/Datos/Versiones_modelos/datos_20261015_012453_4ba1d339/exportaciones/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images",
+          "target": "/app/Datos/Registros/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images",
+          "target": "/app/Historico/Datos/Versiones_modelos/datos_20261019_234626_3df2e643/exportaciones/dataset_niveles/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025/diagnostico_padre/dataset_orientado/images",
+          "target": "/app/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025/diagnostico_padre/dataset_orientado/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        },
+        {
+          "type": "bind",
+          "source": "${WALMART_DATA_ROOT}/Historico/Proyecto/Historico/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025/diagnostico_padre/dataset_orientado/images",
+          "target": "/app/Historico/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025/diagnostico_padre/dataset_orientado/images",
+          "read_only": true,
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ]
+    }
+  }
+}

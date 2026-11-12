@@ -21,13 +21,21 @@ from urllib.parse import parse_qs, quote, urlparse
 import uuid
 import warnings
 import datos_modelos as datasets
+import preparacion_v3 as v3
+import entrenamiento_v3 as training_v3
+import prediccion_v3 as prediction_v3
+import entrenamiento_visibilidad as visibility_training
+import revision_visibilidad_cvat as visibility_review
+import galeria_seleccion_v3 as selection_gallery
 from sync_cvat import CvatSync
 from PIL import Image, ImageOps, UnidentifiedImageError
-from rutas_datos import current_image_path, experiment_parts
+from rutas_datos import current_image_path
+from archivo_historico import within, read_path as historical_read_path
+import almacenamiento_datos as storage
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
-JOBS = ROOT / 'Laboratorio/Experimentos/panel_pruebas'
+JOBS = ROOT / 'Experimentos/panel_pruebas'
 MAX_UPLOAD_BYTES = 15 * 1024 * 1024
 MAX_UPLOAD_PIXELS = 24_000_000
 LOCAL_PYTHON = ROOT / '.venv-modelo/Scripts/python.exe'
@@ -38,28 +46,35 @@ ACTIVE = None
 DATA_LOCK = threading.Lock()
 CATALOG_LOCK = threading.Lock()
 CATALOG_CACHE = None
+CURRENT_CATALOG_CACHE = None
 JOB_CACHE_LOCK = threading.Lock()
 JOB_CACHE = {}
 FINISHED_JOB_RECHECK_SECONDS = 15
 
 
 def invalidate_catalog():
-    global CATALOG_CACHE
+    global CATALOG_CACHE, CURRENT_CATALOG_CACHE
     with CATALOG_LOCK:
         CATALOG_CACHE = None
+        CURRENT_CATALOG_CACHE = None
 
 
-def cached_catalog():
+def cached_catalog(*, current=False):
     """Cache reads only; mutations still validate current on-disk data."""
-    global CATALOG_CACHE
+    global CATALOG_CACHE, CURRENT_CATALOG_CACHE
     with CATALOG_LOCK:
-        if CATALOG_CACHE is None or time.monotonic() >= CATALOG_CACHE[0]:
-            value = catalog()
+        cached = CURRENT_CATALOG_CACHE if current else CATALOG_CACHE
+        if cached is None or time.monotonic() >= cached[0]:
+            value = current_catalog() if current else catalog()
             body = json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(',', ':')).encode('utf-8')
-            CATALOG_CACHE = (time.monotonic() + (5 if ACTIVE else 15), body,
+            cached = (time.monotonic() + (5 if ACTIVE else 15), body,
                              gzip.compress(body, compresslevel=1, mtime=0),
                              'W/"' + hashlib.sha256(body).hexdigest() + '"')
-        return CATALOG_CACHE
+            if current:
+                CURRENT_CATALOG_CACHE = cached
+            else:
+                CATALOG_CACHE = cached
+        return cached
 
 
 CVAT_SYNC = CvatSync(DATA_LOCK, invalidate_catalog)
@@ -116,10 +131,10 @@ def base_development_images():
 def uploaded_photo(requested):
     """Only accept server-issued image paths, never arbitrary client paths."""
     requested = current_image_path(requested)
-    if not isinstance(requested, str) or not re.fullmatch(r'Laboratorio/Experimentos/panel_pruebas/Subidas_panel/[a-f0-9]{32}/imagen\.jpg', requested):
+    if not isinstance(requested, str) or not re.fullmatch(r'Experimentos/panel_pruebas/Subidas_panel/[a-f0-9]{32}/imagen\.jpg', requested):
         return None
     path = (ROOT / requested).resolve()
-    if not path.is_relative_to((ROOT / 'Laboratorio/Experimentos/panel_pruebas/Subidas_panel').resolve()):
+    if not path.is_relative_to((ROOT / 'Experimentos/panel_pruebas/Subidas_panel').resolve()):
         return None
     metadata = read_json(path.parent / 'foto.json')
     return {**metadata, 'id': requested} if path.is_file() and metadata and current_image_path(metadata.get('id')) == requested else None
@@ -148,7 +163,7 @@ def save_uploaded_photo(body, filename):
         raise ValueError('No pudimos abrir la foto. Prueba con un archivo JPG, PNG o WebP válido.') from None
     # Bound full-resolution mask memory; model input size is configured separately.
     image.thumbnail((4096, 4096))
-    folder = ROOT / 'Laboratorio/Experimentos/panel_pruebas/Subidas_panel' / uuid.uuid4().hex
+    folder = ROOT / 'Experimentos/panel_pruebas/Subidas_panel' / uuid.uuid4().hex
     folder.mkdir(parents=True)
     path = folder / 'imagen.jpg'
     image.save(path, quality=95)
@@ -189,18 +204,30 @@ def training_image_ids(model, runs):
         run = by_id[run_id]
         images.update(manifest_image_path(photo) for photo in run['manifest']['imagenes']
                       if photo.get('split') == 'train')
-        parent = experiment_parts(run.get('config', {}).get('model', ''))
-        if len(parent) > 2 and parent[0] == 'Laboratorio/Experimentos':
+        parent = run.get('config', {}).get('model', '').split('/')
+        if len(parent) > 2 and parent[0] == 'Experimentos':
             pending.append(parent[1])
     return sorted(images)
 
 
 def catalog():
     runs, models = [], []
-    for path in sorted((ROOT / 'Laboratorio/Experimentos').iterdir()):
+    # El clon público no tiene las junctions de compatibilidad de Windows.
+    # Conservar también la procedencia de los ensayos archivados sin duplicarlos.
+    experiments = ROOT / 'Experimentos'
+    if not experiments.is_dir():
+        experiments = ROOT / 'Laboratorio/Experimentos'
+    run_paths = {}
+    for folder in (experiments, ROOT / 'Historico/Experimentos'):
+        if folder.is_dir():
+            for path in folder.iterdir():
+                run_paths.setdefault(path.name, path)
+    for path in sorted(run_paths.values()):
         manifest = read_json(path / 'manifest.json') if path.is_dir() else None
         if not manifest:
             continue
+        if manifest.get('criterion', {}).get('version') == training_v3.CRITERION:
+            continue  # V3 tiene su propio catálogo y evaluación geométrica.
         history = []
         csv_path = path / 'entrenamiento/results.csv'
         if csv_path.exists():
@@ -231,6 +258,8 @@ def catalog():
                                'run': path.name, 'imgsz': read_json(path / 'config_interfaz.json', {}).get('imgsz', 640),
                                'classes': manifest.get('clases', []), 'criterion': manifest.get('criterion')})
     for path in sorted((ROOT / 'Modelos/preentrenados').glob('*.pt')):
+        if path.stem.endswith('-cls'):
+            continue  # Clasificadores de visibilidad no son modelos de niveles.
         models.append({'id': relative(path), 'name': f'{path.stem} · preentrenado genérico', 'run': None, 'imgsz': 640})
     images = [{'id': relative(ROOT / 'Datos' / item['archivo']), 'name': item['imagen_id'],
                'scene': item['grupo_escena'], 'url': file_url(ROOT / 'Datos' / item['archivo'])} for item in inventory()]
@@ -251,7 +280,49 @@ def catalog():
                 for model in models if model['run'] and model['id'] in records]
     visible = [model for model in models if not model['run'] or model['id'] not in records]
     return {'runs': runs, 'models': visible, 'archived_models': archived, 'images': images, 'datasets': datasets.versions(),
-            'archived_datasets': datasets.versions(archived=True)}
+            'archived_datasets': datasets.versions(archived=True),
+            'v3_preparation': v3.catalog_status(ROOT), 'v3_training': training_v3.catalog(ROOT),
+            'v3_prediction': prediction_v3.catalog(ROOT)}
+
+
+def current_catalog():
+    """Catálogo operativo V3; no carga inventarios, copias ni comparaciones V1/V2."""
+    training = training_v3.catalog(ROOT, include_pilot=False)
+    released = training.get('vision_release')
+    preparation = v3.catalog_status(ROOT)
+    prediction = prediction_v3.catalog(ROOT)
+    if released:
+        # Además del V3 estable, mostrar únicamente el preentrenado general
+        # requerido por una selección vigente y autorizada de segmentación.
+        required = {s.get('required_initial_model') for s in training.get('selections', [])}
+        allowed_general = {'Modelos/preentrenados/yolo26n-seg.pt'} & required
+        training['initial_models'] = [m for m in training['initial_models'] if m['id'] == released['model'] or m['id'] in allowed_general]
+        training['supported'] = bool(training['initial_models'])
+        training['defaults'].update(name='v3_refuerzo_actual',
+                                    purpose='Refuerzo desde el best.pt estable con imágenes revisadas y repaso; prueba final reservada.')
+        # Conserva la versión estable y candidatos con pesos, no ensayos retirados.
+        training['runs'] = [r for r in training['runs'] if r['id'] == released['run'] or r['best'] or not r['ready']]
+    else:
+        training['initial_models'] = []
+        training['supported'] = False
+    if not training['supported']:
+        training['error'] = 'No está disponible el best.pt estable registrado. Revisa Modelos/Actual antes de preparar un refuerzo.'
+    if preparation and preparation.get('partition_id'):
+        # Un refuerzo aprobado puede usar una versión aditiva sin cambiar el
+        # puntero de la partición del modelo oficial antes de entrenar.
+        prepared_sources = {s['source'] for s in training.get('selections', [])
+                            if released and s.get('required_initial_model') == released['model']}
+        training['exports'] = [e for e in training['exports']
+                               if e['partition_id'] == preparation['partition_id'] or e['id'] in prepared_sources]
+        sources = {e['id'] for e in training['exports']}
+        training['selections'] = [s for s in training['selections'] if s['source'] in sources]
+    training['module_pilot'] = None
+    model_runs = {m['run'] for m in prediction['models']}
+    prediction['runs'] = [r for r in prediction['runs'] if r['id'] in model_runs]
+    prediction['models'].sort(key=lambda m: m['id'] != (released or {}).get('model'))
+    return {'runs': [], 'models': [], 'images': [], 'datasets': [],
+            'archived_models': [], 'archived_datasets': [],
+            'v3_preparation': preparation, 'v3_training': training, 'v3_prediction': prediction}
 
 
 def record_decision(config):
@@ -259,8 +330,8 @@ def record_decision(config):
     run_id = config.get('run')
     if not isinstance(run_id, str) or not re.fullmatch(r'[a-zA-Z0-9_-]{1,100}', run_id):
         raise ValueError('Identificador de ensayo inválido.')
-    folder = (ROOT / 'Laboratorio/Experimentos' / run_id).resolve()
-    if folder.parent != (ROOT / 'Laboratorio/Experimentos').resolve() or not (folder / 'manifest.json').is_file():
+    folder = ROOT / 'Experimentos' / run_id
+    if not within(ROOT, folder, ROOT / 'Experimentos') or not (folder / 'manifest.json').is_file():
         raise ValueError('El ensayo ya no está disponible.')
     status, reason, author = (config.get(key) for key in ('status', 'reason', 'author'))
     if status not in ('candidato', 'seguir_ajustando', 'descartado'):
@@ -285,7 +356,8 @@ def change_model_visibility(config, *, archive):
     if not isinstance(model_id, str) or not model_id:
         raise ValueError('Elige el modelo que quieres quitar o recuperar.')
     data = catalog()
-    model = next((item for item in data['models'] + data['archived_models']
+    v3 = data.get('v3_prediction') or {}
+    model = next((item for item in data['models'] + data['archived_models'] + v3.get('models', []) + v3.get('archived_models', [])
                   if item['id'] == model_id), None)
     if not model:
         raise ValueError('Este modelo ya no está disponible. Actualiza la lista.')
@@ -320,8 +392,24 @@ def number(config, key, low, high, integer=False):
 
 
 def validate(config, data):
-    config = {**config, 'image': current_image_path(config.get('image')),
-              'model': current_image_path(config.get('model'))}
+    if config.get('pipeline') == 'visibilidad_foto_v1':
+        if config.get('action') != 'train':
+            raise ValueError('Acción de visibilidad desconocida.')
+        snapshot = visibility_review.collect(datasets.CvatReader(),
+            read_json(visibility_review.DATA / 'inventario_pendiente.json'),
+            read_json(visibility_review.DATA / 'cvat_revision.json'))
+        visibility_training.prepare(snapshot)
+        return {'action': 'train', 'pipeline': 'visibilidad_foto_v1', 'source_kind': 'visibility_review',
+                'epochs': 40, 'batch': 2, 'imgsz': 640, 'seed': 42,
+                'run': 'visibilidad_foto_' + datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S') + '_' + uuid.uuid4().hex[:4],
+                '_revision': snapshot}
+    if config.get('pipeline') == training_v3.CRITERION:
+        if config.get('action') == 'predict':
+            return prediction_v3.validate(ROOT, config, uploaded_photo)
+        if config.get('action') != 'train':
+            raise ValueError('Acción V3 desconocida.')
+        return training_v3.validate_config(ROOT, config)
+    config = {**config, 'image': current_image_path(config.get('image'))}
     models = {item['id']: item for item in data['models']}
     if config.get('model') not in models:
         raise ValueError('Elige un modelo local disponible.')
@@ -361,13 +449,13 @@ def validate(config, data):
                 if directory not in ('dataset_modulos', 'dataset_niveles'):
                     raise ValueError('Directorio del conjunto inválido.')
                 from conjuntos import dataset_directory
-                labels = dataset_directory(ROOT, ROOT / 'Laboratorio/Experimentos' / run, source['manifest']) / 'labels'
+                labels = dataset_directory(ROOT, ROOT / 'Experimentos' / run, source['manifest']) / 'labels'
                 clean['truth'] = relative(labels / entry['split'] / (Path(entry['imagen']).stem + '.txt'))
                 clean['scope'] = source['manifest'].get('scope', 'Modulo')
                 clean['split'] = entry['split']
             elif source['manifest'].get('criterion', {}).get('stage') == 'base':
                 from evaluar_desarrollo import development_records, verified_image
-                reference = next((photo for photo in development_records(ROOT / 'Laboratorio/Experimentos' / run)
+                reference = next((photo for photo in development_records(ROOT / 'Experimentos' / run)
                                   if manifest_image_path(photo) == clean['image']), None)
                 if reference:
                     verified_image(reference)
@@ -381,7 +469,7 @@ def validate(config, data):
         raise ValueError('Elige un ensayo terminado o una copia de anotaciones revisada.')
     source_report = (version or {}).get('report') or (source or {}).get('manifest', {})
     if source_report.get('clases') == ['Nivel']:
-        raise ValueError('V3 requiere exportador, validaciones, partición y evaluación compatibles antes de entrenar desde el panel.')
+        raise ValueError('V3 requiere integrar el entrenamiento y la evaluación geométrica antes de entrenar desde el panel. La preparación de datos no habilita ese paso.')
     purpose = config.get('purpose', '')
     if not isinstance(purpose, str) or len(purpose) > 1000:
         raise ValueError('El propósito del ensayo debe tener como máximo 1000 caracteres.')
@@ -413,7 +501,7 @@ def job_status(path):
         progress = read_json(path / 'progreso.json', {})
         run_name = status['config'].get('run', '')
         if re.fullmatch(r'[a-zA-Z0-9_-]{1,100}', run_name):
-            run = ROOT / 'Laboratorio/Experimentos' / run_name
+            run = ROOT / 'Experimentos' / run_name
             environment = read_json(run / 'entorno.json', {})
             progress['device'] = environment.get('gpu') or ('CPU' if environment else None)
             # Sólo imágenes generadas por el ensayo; nunca fotos de la reserva.
@@ -431,6 +519,8 @@ def job_status(path):
             status['image_url'] = file_url(path / result['imagen'])
         if result.get('occupancy_image') == 'paulo_senal.jpg':
             status['occupancy_image_url'] = file_url(path / 'paulo_senal.jpg')
+        if result.get('occupancy_result_image') == 'ocupacion_estimada.jpg':
+            status['occupancy_result_url'] = file_url(path / 'ocupacion_estimada.jpg')
         for field, filename in (('occupancy_edges', 'paulo_bordes.png'),
                                 ('occupancy_filtered_edges', 'paulo_bordes_niveles.png')):
             if result.get(field + '_image') == filename:
@@ -475,7 +565,7 @@ def recent_jobs():
                 run_files = []
                 run_name = status.get('config', {}).get('run', '')
                 if status.get('config', {}).get('action') == 'train' and re.fullmatch(r'[a-zA-Z0-9_-]{1,100}', run_name):
-                    run = ROOT / 'Laboratorio/Experimentos' / run_name
+                    run = ROOT / 'Experimentos' / run_name
                     run_files = [run / 'entorno.json', run / 'entrenamiento']
                     preview = status.get('progress', {}).get('preview_url')
                     if preview:
@@ -497,20 +587,30 @@ def launch(config):
     with LOCK:
         if ACTIVE:
             raise ValueError('Hay un trabajo en curso. Espera a que termine para usar la GPU.')
-        clean = validate(config, catalog())
+        # Los flujos V3 y visibilidad validan sus fuentes de forma independiente;
+        # no requieren cargar inventarios históricos V1/V2 antes del trabajo.
+        independent = config.get('pipeline') in ('visibilidad_foto_v1', training_v3.CRITERION)
+        validation_data = {} if independent else catalog()
+        clean = validate(config, validation_data)
+        review_snapshot = clean.pop('_revision', None)
         job_id = uuid.uuid4().hex
         job = JOBS / job_id
         job.mkdir(parents=True)
         if clean['action'] == 'train':
-            run = ROOT / 'Laboratorio/Experimentos' / clean['run']
-            run.mkdir()
-            source_dir = datasets.version_path(clean['source']) if clean['source_kind'] == 'dataset' else ROOT / 'Laboratorio/Experimentos' / clean['source']
-            shutil.copy2(source_dir / 'snapshot_cvat.json', run / 'snapshot_cvat.json')
-            version_file = source_dir / ('version.json' if clean['source_kind'] == 'dataset' else 'version_datos.json')
-            if version_file.exists():
-                shutil.copy2(version_file, run / 'version_datos.json')
-                shutil.copy2(source_dir / 'particion.json', run / 'particion.json')
-            write_json(run / 'config_interfaz.json', clean)
+            run = ROOT / 'Experimentos' / clean['run']
+            if clean['source_kind'] == 'visibility_review':
+                write_json(job / 'revision_visibilidad.json', review_snapshot)
+            elif clean['source_kind'] == 'v3_export':
+                training_v3.register_run(ROOT, clean, run)
+            else:
+                run.mkdir()
+                source_dir = datasets.version_path(clean['source']) if clean['source_kind'] == 'dataset' else ROOT / 'Experimentos' / clean['source']
+                shutil.copy2(source_dir / 'snapshot_cvat.json', run / 'snapshot_cvat.json')
+                version_file = source_dir / ('version.json' if clean['source_kind'] == 'dataset' else 'version_datos.json')
+                if version_file.exists():
+                    shutil.copy2(version_file, run / 'version_datos.json')
+                    shutil.copy2(source_dir / 'particion.json', run / 'particion.json')
+                write_json(run / 'config_interfaz.json', clean)
         write_json(job / 'solicitud.json', clean)
         write_json(job / 'estado.json', {'id': job_id, 'state': 'running', 'config': clean,
                                        'started_at': datetime.now(timezone.utc).isoformat()})
@@ -543,10 +643,23 @@ def monitor(job, config):
 def allowed_file(requested):
     """Authorize an image without constructing the experiment catalog."""
     requested = current_image_path(requested)
-    path = (ROOT / requested).resolve()
+    try:
+        registered = storage.entry(ROOT, requested)
+        if registered and registered.get('panel') is True:
+            return storage.read_path(ROOT, requested)
+    except FileNotFoundError:
+        raise
+    except (ValueError, OSError):
+        return None
+    if isinstance(requested, str) and re.fullmatch(
+            r'Experimentos/panel_pruebas/[a-f0-9]{32}/(?:prediccion\.jpg|ocupacion_estimada\.jpg|paulo_senal\.jpg|paulo_bordes\.png|paulo_bordes_niveles\.png)', requested):
+        archived = historical_read_path(ROOT, requested)
+        if archived.is_file() and (archived.parent / 'estado.json').is_file():
+            return archived
+    path = historical_read_path(ROOT, requested).resolve()
     if not path.is_relative_to(ROOT.resolve()):
         return None
-    parts = experiment_parts(requested)
+    parts = Path(requested).parts
     if path.is_relative_to((ROOT / datasets.LIDER_EXPRESS / 'imagenes_ordenadas').resolve()):
         if any(path == (ROOT / 'Datos' / item['archivo']).resolve()
                for item in datasets.lider_express_inventory().values()):
@@ -557,8 +670,8 @@ def allowed_file(requested):
         return path
     if requested in {'Datos/' + item['archivo'] for item in datasets.package_inventory().values()}:
         return path
-    if len(parts) == 4 and parts[0] in ('Laboratorio/Experimentos', 'Historico/Experimentos'):
-        run = ROOT / parts[0] / parts[1]
+    if len(parts) == 4 and parts[0] == 'Experimentos':
+        run = ROOT / 'Experimentos' / parts[1]
         if parts[2] == 'comparaciones' and (run / 'manifest.json').is_file():
             allowed = {f"{Path(item['imagen']).stem}_{item['split']}.jpg"
                        for item in read_json(run / 'evaluacion_por_imagen.json', [])}
@@ -568,7 +681,7 @@ def allowed_file(requested):
         if (parts[2] == 'entrenamiento' and (run / 'manifest.json').is_file() and
                 re.fullmatch(r'(?:val_batch\d+_pred|train_batch\d+)\.jpg', parts[3])):
             return path
-        if (parts[1] == 'panel_pruebas' and parts[3] in ('prediccion.jpg', 'paulo_senal.jpg', 'paulo_bordes.png', 'paulo_bordes_niveles.png') and
+        if (parts[1] == 'panel_pruebas' and parts[3] in ('prediccion.jpg', 'ocupacion_estimada.jpg', 'paulo_senal.jpg', 'paulo_bordes.png', 'paulo_bordes_niveles.png') and
                 (JOBS / parts[2] / 'estado.json').is_file()):
             return path
     return None
@@ -586,8 +699,8 @@ def thumbnail(path, modified, size):
 
 
 class Handler(BaseHTTPRequestHandler):
-    def reply_catalog(self):
-        _, plain, compressed, etag = cached_catalog()
+    def reply_catalog(self, *, current=False):
+        _, plain, compressed, etag = cached_catalog(current=current)
         unchanged = any(tag.strip().removeprefix('W/') in (etag.removeprefix('W/'), '*')
                         for tag in self.headers.get('If-None-Match', '').split(','))
         self.send_response(304 if unchanged else 200)
@@ -632,10 +745,42 @@ class Handler(BaseHTTPRequestHandler):
             return
         url = urlparse(self.path)
         try:
+            if url.path == '/v3/selection':
+                query = parse_qs(url.query)
+                body = selection_gallery.page(ROOT, query.get('selection', [''])[0])
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Content-Length', str(len(body)))
+                self.send_header('Cache-Control', 'private, no-cache')
+                self.end_headers()
+                return self.wfile.write(body)
             if url.path == '/api/health':
                 return self.reply({'status': 'ok'})
             if url.path == '/api/catalog':
                 return self.reply_catalog()
+            if url.path == '/api/catalog/current':
+                return self.reply_catalog(current=True)
+            if url.path == '/api/v3/preparation':
+                return self.reply({**v3.status(ROOT), 'report': v3.report(ROOT)})
+            if url.path == '/api/visibilidad/revision':
+                review = visibility_review.collect(datasets.CvatReader(),
+                    read_json(visibility_review.DATA / 'inventario_pendiente.json'),
+                    read_json(visibility_review.DATA / 'cvat_revision.json'))
+                return self.reply({'counts': review['counts'], 'issues': review['issues'],
+                                   'project_id': review['project_id'], 'proposal_count': review['proposal_count'],
+                                   'proposals_confirmed': review['proposals_confirmed'],
+                                   'proposal_batches': review['proposal_batches'],
+                                   'proposals': [{key: row[key] for key in ('name', 'split', 'revision_task_id', 'revision_frame', 'propuesta')}
+                                                 for row in review['images'] if 'propuesta' in row]})
+            if url.path == '/api/visibilidad/resultado':
+                query = parse_qs(url.query)
+                name = query.get('run', [''])[0]
+                if not re.fullmatch(r'visibilidad_foto_[0-9]{8}_[0-9]{6}_[0-9a-f]{4}', name):
+                    raise ValueError('Ensayo de visibilidad inválido.')
+                result = read_json(ROOT / 'Experimentos' / name / 'resultado.json')
+                if not result or result.get('schema') != 'visibilidad_foto_ensayo_v1':
+                    raise ValueError('El ensayo aún no tiene resultados.')
+                return self.reply(result)
             if url.path == '/api/datasets/sources':
                 return self.reply(datasets.import_sources())
             if url.path == '/api/datasets/sync':
@@ -651,7 +796,81 @@ class Handler(BaseHTTPRequestHandler):
                     return self.reply({'error': str(error)}, 400)
                 preview['image_url'] = file_url(ROOT / preview.pop('image_path'))
                 return self.reply(preview)
-            if url.path == '/':
+            if url.path == '/api/visibilidad/propuesta-imagen':
+                query = parse_qs(url.query)
+                try:
+                    task_id, frame = int(query.get('task', [''])[0]), int(query.get('frame', [''])[0])
+                except (TypeError, ValueError):
+                    raise ValueError('Identificador de propuesta inválido.') from None
+                proposals = [read_json(path) or {} for path in (visibility_review.PROPOSALS, visibility_review.SECOND_PROPOSALS)]
+                target = next((x for proposal in proposals for x in proposal.get('targets', [])
+                               if x['task_id'] == task_id and x['frame'] == frame and x['split'] in ('train', 'val')), None)
+                if not target:
+                    raise ValueError('Propuesta no disponible.')
+                inventory = read_json(visibility_review.DATA / 'inventario_pendiente.json')
+                row = next((x for x in inventory['images'] if x['name'] == target['name'] and x['split'] == target['split']
+                            and x['sha256'] == target['sha256']), None)
+                if not row:
+                    raise ValueError('La foto no pertenece a las propuestas de desarrollo.')
+                path = visibility_training.source_path(row)
+                if visibility_training.sha256(path) != row['sha256']:
+                    raise ValueError('La fuente de la propuesta cambió.')
+            elif url.path == '/api/visibilidad/comparacion':
+                query = parse_qs(url.query)
+                name, photo = query.get('run', [''])[0], query.get('photo', [''])[0]
+                if not re.fullmatch(r'visibilidad_foto_[0-9]{8}_[0-9]{6}_[0-9a-f]{4}', name):
+                    raise ValueError('Ensayo de visibilidad inválido.')
+                result = read_json(ROOT / 'Experimentos' / name / 'resultado.json')
+                row = next((x for x in result.get('validation', []) if x['name'] == photo and x['split'] == 'val'), None) if result else None
+                filename = row.get('comparison_image') if row else None
+                if not isinstance(filename, str) or not re.fullmatch(r'[0-9]{3}\.jpg', filename):
+                    raise ValueError('Comparación no disponible.')
+                folder = (ROOT / 'Experimentos' / name / 'comparaciones').resolve()
+                path = (folder / filename).resolve()
+                if not path.is_relative_to(folder) or not path.is_file():
+                    raise ValueError('Comparación no disponible.')
+            elif url.path in ('/api/visibilidad/imagen', '/api/visibilidad/calibracion-imagen'):
+                query = parse_qs(url.query)
+                name, photo = query.get('run', [''])[0], query.get('photo', [''])[0]
+                if not re.fullmatch(r'visibilidad_foto_[0-9]{8}_[0-9]{6}_[0-9a-f]{4}', name):
+                    raise ValueError('Ensayo de visibilidad inválido.')
+                result = read_json(ROOT / 'Experimentos' / name / 'resultado.json')
+                calibration = url.path.endswith('/calibracion-imagen')
+                if calibration:
+                    allowed = result and photo in result.get('calibration_names', []) and any(
+                        item['name'] == photo for item in result.get('calibration', []))
+                    split = 'train'
+                else:
+                    allowed = result and any(item['name'] == photo and item['split'] == 'val' for item in result.get('validation', []))
+                    split = 'val'
+                if not allowed:
+                    raise ValueError('La foto no corresponde a esta parte del ensayo.')
+                inventory = read_json(visibility_review.DATA / 'inventario_pendiente.json')
+                row = next((x for x in inventory['images'] if x['name'] == photo and x['split'] == split), None)
+                if not row:
+                    raise ValueError('Foto de validación no disponible.')
+                path = visibility_training.source_path(row)
+                if visibility_training.sha256(path) != row['sha256']:
+                    raise ValueError('La foto de validación cambió.')
+            elif url.path == '/api/v3/development-image':
+                query = parse_qs(url.query)
+                path, _, _ = prediction_v3.validation_image(ROOT, query.get('model', [''])[0], query.get('photo', [''])[0])
+            elif url.path == '/api/v3/final-image':
+                query = parse_qs(url.query)
+                path = v3.final_image_path(ROOT, query.get('photo', [''])[0])
+            elif url.path == '/api/v3/selection-image':
+                query = parse_qs(url.query)
+                path = selection_gallery.image_path(ROOT, query.get('selection', [''])[0], query.get('photo', [''])[0])
+            elif url.path == '/api/v3/image':
+                query = parse_qs(url.query)
+                report = v3.report(ROOT, query.get('id', [''])[0])
+                photo = next((i for i in report['images'] if i['name'] == query.get('photo', [''])[0]), None)
+                if photo is None:
+                    return self.reply({'error': 'Foto no disponible en esta copia V3.'}, 404)
+                path = v3.v3_image_path(ROOT, photo['path'])
+                if not path.is_file():
+                    return self.reply({'error': 'Foto local no disponible.'}, 404)
+            elif url.path == '/':
                 path = HERE / 'panel.html'
             elif url.path.startswith('/static/'):
                 static = (HERE / 'static').resolve()
@@ -665,7 +884,7 @@ class Handler(BaseHTTPRequestHandler):
                     return self.reply({'error': 'Archivo no disponible.'}, 404)
             else:
                 return self.reply({'error': 'Ruta no disponible.'}, 404)
-            preview = url.path == '/file' and query.get('preview') == ['thumb']
+            preview = url.path in ('/file', '/api/v3/selection-image', '/api/visibilidad/propuesta-imagen', '/api/visibilidad/calibracion-imagen') and query.get('preview') == ['thumb']
             stat = path.stat()
             etag = f'"{stat.st_mtime_ns:x}-{stat.st_size:x}-{"thumb" if preview else "full"}"'
             if self.headers.get('If-None-Match') == etag:
@@ -682,6 +901,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('ETag', etag)
             self.end_headers()
             self.wfile.write(body)
+        except FileNotFoundError as error:
+            self.reply({'error': str(error)}, 503)
         except ValueError as error:
             self.reply({'error': str(error)}, 400)
         except Exception as error:
@@ -708,7 +929,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply({'error': str(error)}, 400)
             except Exception:
                 return self.reply({'error': 'No se pudo guardar la foto. Reintenta la carga.'}, 500)
-        if self.path not in ('/api/jobs', '/api/datasets/import', '/api/datasets/approve',
+        if self.path not in ('/api/jobs', '/api/v3/prepare', '/api/v3/export', '/api/visibilidad/confirmar', '/api/datasets/import', '/api/datasets/approve',
                              '/api/datasets/archive', '/api/datasets/restore',
                              '/api/datasets/sync',
                              '/api/models/archive', '/api/models/restore', '/api/runs/decision'):
@@ -720,6 +941,17 @@ class Handler(BaseHTTPRequestHandler):
             config = json.loads(self.rfile.read(length))
             if not isinstance(config, dict):
                 raise ValueError('Se requiere una solicitud de objeto JSON.')
+            if self.path == '/api/visibilidad/confirmar':
+                with DATA_LOCK:
+                    result = visibility_review.confirm_proposals(datasets.CvatReader(),
+                        read_json(visibility_review.DATA / 'inventario_pendiente.json'),
+                        read_json(visibility_review.DATA / 'cvat_revision.json'), config.get('reviewed'), config.get('batch', 'tarea33'))
+                return self.reply(result)
+            if self.path.startswith('/api/v3/'):
+                with DATA_LOCK:
+                    result = v3.prepare(ROOT) if self.path.endswith('/prepare') else v3.export(ROOT, config)
+                invalidate_catalog()
+                return self.reply(result, 201)
             if self.path == '/api/runs/decision':
                 with LOCK:
                     result = record_decision(config)

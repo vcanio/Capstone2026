@@ -36,6 +36,9 @@
   },
   "private_data": "No se incluyen fotos, datasets, entornos, credenciales ni respaldos. GitHub respalda fuentes, registros publicables y modelo operativo; no todo el almacenamiento local.",
   "documentation": "Guías de cliente/equipo y de instalación. El resto del repositorio conserva su estado previo.",
-  "previous_releases": "Se conservan los activos anteriores; se comprobarán nuevamente tras publicar.",
-  "scope_publication": "Actualización acotada a ambas apps, pruebas, empaquetado e instrucciones. No se publican nuevos registros de datos ni de CVAT."
+  "previous_releases": "Cinco releases previas y sus activos conservados, comprobado tras publicar.",
+  "scope_publication": "Actualización acotada a ambas apps, pruebas, empaquetado e instrucciones. No se publican nuevos registros de datos ni de CVAT.",
+  "published_commit": "0abd1ed8b0236dff5afad6de1450c5a683340287",
+  "ci_url": "https://github.com/vcanio/Capstone2026/actions/runs/42759317447",
+  "public_download": "verified"
 }

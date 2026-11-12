@@ -61,12 +61,12 @@ def apply():
     require(not RECEIPT.exists(), 'La limpieza ya se aplicó; usar --verify.')
     temporary = ROOT / '.tmp'
     cache = [ROOT / '.tmp/video_tools', ROOT / '.tmp/__pycache__']
-    for base in (ROOT / 'Laboratorio', ROOT / 'Laboratorio/Experimentos/Bordes'):
+    for base in (ROOT / 'Herramientas', ROOT / 'Experimentos/Bordes'):
         cache.extend(p for p in base.rglob('__pycache__')
                      if not {'cvat-v2.77.0', '.runtime', '.entorno-py312'}.intersection(p.parts))
     cache = [bounded(p, ROOT) for p in cache if p.exists()]
-    require(all((p.name == '__pycache__' and p.is_relative_to(ROOT / 'Laboratorio'))
-                or (p.name == '__pycache__' and p.is_relative_to(ROOT / 'Laboratorio/Experimentos/Bordes'))
+    require(all((p.name == '__pycache__' and p.is_relative_to(ROOT / 'Herramientas'))
+                or (p.name == '__pycache__' and p.is_relative_to(ROOT / 'Experimentos/Bordes'))
                 or p in (ROOT / '.tmp/video_tools', ROOT / '.tmp/__pycache__')
                 for p in cache), 'Objetivo de borrado no autorizado por la lista acotada.')
     actions = []

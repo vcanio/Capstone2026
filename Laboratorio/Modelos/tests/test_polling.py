@@ -32,13 +32,14 @@ class PollingTests(unittest.TestCase):
         const esc=String,runName=String,setHTML=(node,html)=>{node.innerHTML=html};
         const updateAvailability=()=>{},renderHome=()=>renders++,renderTraining=()=>renders++;
         const renderVersionContext=()=>{},projectVersion='v1',jobInVersion=()=>true;
-        const fullCatalog={runs:[],datasets:[]},Lab={versionOf:()=> 'v1'},versionNames={v1:'V1'};
+        const fullCatalog={runs:[],datasets:[],models:[]},versionNames={v1:'V1',v2:'V2',v3:'V3',otros:'Otros'};
         const error=message=>{throw Error(message)},showPrediction=()=>predictions++;
         const refresh=async()=>{refreshes++;lastCatalogRefresh=Date.now()};
         let response=[],pending=null;
         const api=async()=>{requests++;return pending?await pending:response};
         """
-        script = prelude + self.poll_code + '\n(async()=>{' + assertions + '})().catch(e=>{console.error(e);process.exitCode=1});'
+        logic = (Path(__file__).resolve().parents[1] / 'static/lab-logic.js').read_text(encoding='utf-8-sig')
+        script = prelude + logic + self.poll_code + '\n(async()=>{' + assertions + '})().catch(e=>{console.error(e);process.exitCode=1});'
         result = subprocess.run([self.node], input=script, capture_output=True,
                                 text=True, encoding='utf-8', timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -50,6 +51,16 @@ class PollingTests(unittest.TestCase):
         await poll();await poll();
         assert.equal(predictions,1);
         assert.equal(refreshes,0);assert.equal(renders,0);
+        """)
+
+    def test_active_v3_jobbar_links_to_v3_without_a_legacy_run(self):
+        self.run_js("""
+        response=[{id:'v3',state:'running',config:{action:'train',run:'new_v3',pipeline:'geometria_nivel_v3'},
+                   progress:{stage:'preparing'}}];
+        await poll();
+        assert.match($('jobbar').innerHTML,/Entrenamiento en curso · V3/);
+        assert.match($('jobbar').innerHTML,/data-version="v3"/);
+        assert.doesNotMatch($('jobbar').innerHTML,/data-version="otros"/);
         """)
 
     def test_poll_requests_do_not_overlap_and_schedule_after_completion(self):
@@ -94,6 +105,26 @@ class PollingTests(unittest.TestCase):
           assert.notEqual(second,first);assert.equal(second.runs[0].id,'new');
           await api('/api/jobs');
           assert.equal(options.headers,undefined);
+        })().catch(e=>{console.error(e);process.exitCode=1});
+        """
+        result = subprocess.run([self.node], input=script, capture_output=True,
+                                text=True, encoding='utf-8', timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_catalog_waits_longer_and_timeout_does_not_retry_training_submission(self):
+        script = "const assert=require('node:assert/strict');\n" + self.api_code + """
+        (async()=>{
+          const budgets=[];let calls=0,lastOptions;
+          global.AbortSignal={timeout:ms=>{budgets.push(ms);return {ms}}};
+          global.fetch=async(path,options)=>{calls++;lastOptions=options;return {ok:true,status:200,headers:{get:()=>null},json:async()=>({runs:[]})}};
+          await api('/api/catalog');await api('/api/jobs');await api('/api/datasets/sources');
+          assert.deepEqual(budgets,[60000,15000,30000]);
+          global.fetch=async()=>{calls++;throw Object.assign(Error('signal timed out'),{name:'TimeoutError'})};
+          await assert.rejects(api('/api/catalog'),/Actualiza el seguimiento/);
+          assert.equal(calls,4);
+          global.fetch=async(path,options)=>{calls++;lastOptions=options;throw Error('offline')};
+          await assert.rejects(api('/api/jobs',{action:'train'}),/offline/);
+          assert.equal(calls,5);assert.equal(lastOptions.method,'POST');assert.equal(lastOptions.signal,undefined);
         })().catch(e=>{console.error(e);process.exitCode=1});
         """
         result = subprocess.run([self.node], input=script, capture_output=True,

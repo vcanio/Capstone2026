@@ -34,7 +34,17 @@ def execute(job):
             write_json(job / 'progreso.json', tracking)
 
         progress('preparing')
-        pilot.RUN = pilot.ROOT / 'Laboratorio/Experimentos' / config['run']
+        if config.get('pipeline') == 'visibilidad_foto_v1':
+            from entrenamiento_visibilidad import train
+            result = train(job / 'revision_visibilidad.json', pilot.ROOT / 'Experimentos' / config['run'], progress)
+            pilot.save_json(job / 'resultado.json', {'run': config['run'], 'threshold': result['threshold'],
+                                                     'candidate_enabled': False, 'test_used': False})
+            return
+        if config.get('pipeline') == 'geometria_nivel_v3':
+            from entrenamiento_v3 import execute as execute_v3
+            execute_v3(pilot.ROOT, job, progress)
+            return
+        pilot.RUN = pilot.ROOT / 'Experimentos' / config['run']
         pilot.SEED = config['seed']
         pilot.prepare()
         progress('training')
@@ -167,6 +177,13 @@ def execute(job):
         import hashlib
         occupancy.update(input_kind='original_rgb_before_inference',
                          input_rgb_sha256=hashlib.sha256(occupancy_rgb.tobytes()).hexdigest())
+        # Misma lectura y mismo dibujo que Walmart Visión; YOLO y sus métricas
+        # conservan sus clases originales y su imagen por separado.
+        from presentacion_niveles import occupancy_estimate, draw_result
+        for detection in detections:
+            detection['occupancy_estimate'] = occupancy_estimate(detection['occupancy'], version)
+        estimated_image, _ = draw_result(image, result, measurements=detections)
+        estimated_image.save(job / 'ocupacion_estimada.jpg', quality=90)
     for x, y, w, h, title, number, number_width, padding, color, bounds in badges:
         draw.rounded_rectangle((x, y, x + w, y + h), radius=h / 2,
                                fill=(255, 255, 255, 252), outline=(218, 226, 228, 255))
@@ -201,6 +218,10 @@ def execute(job):
     if has_truth and set(model.names.values()) == {'Modulo'}:
         metrics = {'anotados': len(truth), 'aciertos': len(matches), 'omitidos': len(truth) - len(matches),
                    'extras': len(detections) - len(matches), 'iou_medio': sum(matches) / len(matches) if matches else 0}
+    elif has_truth and set(model.names.values()) == {'Nivel'}:
+        metrics = {'scope': 'Nivel_geometria', 'anotados': len(truth), 'aciertos': len(matches),
+                   'omitidos': len(truth) - len(matches), 'extras': len(detections) - len(matches),
+                   'iou_medio': sum(matches) / len(matches) if matches else 0}
     elif has_truth and levels:
         detail = evaluate_masks(list(zip(truth_classes, truth)),
             [(states.index(d['clase'].removeprefix('Nivel_')), m) for d, m in zip(detections, masks)], states=states)
@@ -213,7 +234,8 @@ def execute(job):
     pilot.save_json(job / 'resultado.json', {'detecciones': detections, 'metricas': metrics,
                                             'config': config, 'imagen': 'prediccion.jpg',
                                             'level_states': list(states) if levels else None,
-                                            **({'occupancy': occupancy, 'occupancy_image': 'paulo_senal.jpg',
+                                            **({'occupancy': occupancy, 'occupancy_result_image': 'ocupacion_estimada.jpg',
+                                                'occupancy_image': 'paulo_senal.jpg',
                                                 'occupancy_edges_image': 'paulo_bordes.png',
                                                 'occupancy_filtered_edges_image': 'paulo_bordes_niveles.png'} if occupancy else {})})
 

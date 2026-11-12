@@ -15,7 +15,7 @@ class SharedDatasetTests(unittest.TestCase):
         self.version = 'datos_20261015_012453_4ba1d339'
 
     def make_run(self, name, label='0 0.1 0.1 0.9 0.1 0.9 0.9'):
-        run = self.root / 'Laboratorio/Experimentos' / name
+        run = self.root / 'Experimentos' / name
         (run / 'dataset_niveles/images/train').mkdir(parents=True)
         (run / 'dataset_niveles/labels/train').mkdir(parents=True)
         (run / 'dataset_niveles/images/train/REAL_01.jpg').write_bytes(b'immutable-image')
@@ -31,7 +31,7 @@ class SharedDatasetTests(unittest.TestCase):
         self.assertFalse((first / 'dataset_niveles').exists())
         self.assertFalse((second / 'dataset_niveles').exists())
         self.assertEqual(dataset_directory(self.root, first), dataset_directory(self.root, second))
-        self.assertEqual(experiment_file(self.root, 'Laboratorio/Experimentos/primero/dataset_niveles/labels/train/REAL_01.txt'),
+        self.assertEqual(experiment_file(self.root, 'Experimentos/primero/dataset_niveles/labels/train/REAL_01.txt'),
                          shared / 'labels/train/REAL_01.txt')
         self.assertEqual(len(verify_export(shared)['archivos']), 3)
 

@@ -2,24 +2,24 @@
 
 **Análisis de disponibilidad en góndolas mediante visión por computador**
 
-Estado actualizado al **10 de noviembre de 2026** · proyecto académico · versión de prueba r2 con licencias.
+Estado actualizado al **11 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 revisado.
 
 Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo. Ambas identifican los niveles, delimitan sus áreas útiles y calculan un índice visual para ayudar a revisar posibles faltantes.
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-10-r2/Walmart_Vision_Cliente_y_Equipo_20261110_r2_licencias.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Prueba del 10/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
+| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Prueba del 11/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
-## Prueba de cliente y equipo · 10 de noviembre
+## Prueba de cliente y equipo · 11 de noviembre
 
-[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-10-r2/Walmart_Vision_Cliente_y_Equipo_20261110_r2_licencias.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2).
+[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11).
 
 Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart_Vision/iniciar_equipo.cmd` (8095). El primer inicio prepara Python/dependencias y requiere Internet. Docker: `docker compose -f compose.apps.yaml up --build -d --wait` desde `Walmart_Vision`.
 
-[App cliente](Aplicacion_Cliente/README.md): prioridades, checklist y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación, marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
+[App cliente](Aplicacion_Cliente/README.md): alertas visuales, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación, marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
 
-Ambas usan el modelo oficial del 5/11 y Línea A del 8/11, índice visual preliminar 0–100, umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos. Requiere revisión visual. No es una evaluación final. La [release del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) se conserva como antecedente con su estimador anterior y sus archivos.
+La entrega del 11/11 incluye el **cierre con contornos revisados adoptado el 10/11**, compartido por ambas apps, y el cliente actualizado el 11/11. El modelo se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Las entregas anteriores conservan sus modelos y archivos. Línea A mantiene índice visual preliminar 0–100 y umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos. Requiere revisión visual. No es una evaluación final. La [release del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) se conserva como antecedente con su estimador anterior y sus archivos.
 
 ## Explorar las carpetas
 
@@ -54,7 +54,7 @@ El objetivo es **facilitar la revisión de niveles con posibles faltantes visibl
 2. **Analiza** bordes, color y textura dentro de los niveles detectados.
 3. **Estima** la ocupación visual y señala posibles necesidades de reposición.
 4. **Muestra** contornos, índices y avisos para que una persona revise el resultado.
-5. **Organiza el trabajo:** el cliente prioriza fotos y genera una hoja CSV; el equipo compara resultados, marca fallos y exporta lotes de revisión.
+5. **Organiza el trabajo:** el cliente filtra alertas, registra la revisión humana y genera una hoja CSV; el equipo compara resultados, marca fallos y exporta lotes de revisión.
 
 Trabajamos por nivel de góndola para ubicar posibles faltantes en una repisa completa. El sistema **no cuenta unidades, no identifica SKU, no mide profundidad ni consulta inventario**.
 
@@ -62,7 +62,7 @@ Las dos apps comparten motor y modelo; el laboratorio tiene otro propósito:
 
 | Componente | Para qué sirve | Público |
 |---|---|---|
-| **App cliente · 8098** | Priorizar fotos, revisar niveles, marcar «Repuesto» y descargar hoja CSV. | Supervisores y equipos de reposición, en pruebas. |
+| **App cliente · 8098** | Consultar alertas, revisar niveles, registrar la revisión humana y descargar hoja CSV. | Supervisores y equipos de reposición, en pruebas. |
 | **App del equipo · 8095** | Comparar análisis, revisar bordes, marcar fallos por nivel/zona y exportar lotes ZIP. | Equipo de desarrollo y evaluadores. |
 | **Laboratorio de desarrollo** | Preparar datos, revisar anotaciones, entrenar y evaluar modelos. | Equipo de desarrollo. |
 
@@ -70,18 +70,18 @@ Las dos apps comparten motor y modelo; el laboratorio tiene otro propósito:
 
 ## Inicio rápido: Walmart Visión
 
-La entrega actual es la [**prueba r2 de cliente y equipo del 10/11**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2). Incluye ambas apps, un único modelo oficial y los textos de licencia. Cada persona ejecuta su copia local; GitHub distribuye los archivos y no aloja un servicio de análisis ni sincroniza sesiones.
+La entrega actual es la [**prueba de cliente y equipo del 11/11**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11). Incluye ambas apps, un único modelo oficial y los textos de licencia. Cada persona ejecuta su copia local; GitHub distribuye los archivos y no aloja un servicio de análisis ni sincroniza sesiones.
 
 ### Windows x64
 
-1. Descarga [Walmart_Vision_Cliente_y_Equipo_20261110_r2_licencias.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-10-r2/Walmart_Vision_Cliente_y_Equipo_20261110_r2_licencias.zip) y extrae **todo** el contenido.
+1. Descarga [Walmart_Vision_Cliente_y_Equipo_20261111.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) y extrae **todo** el contenido.
 2. Abre `Walmart_Vision/iniciar_cliente.cmd` para la app cliente, o `Walmart_Vision/iniciar_equipo.cmd` para la app del equipo.
 3. El primer inicio prepara Python 3.12 y las dependencias dentro de la carpeta; necesita Internet. Deja abierta la consola mientras uses la app.
 4. Carga fotos JPG, PNG o WebP de hasta **10 MB cada una** y 24 megapíxeles. Revisa los contornos y la visibilidad antes de interpretar la lectura.
 
 | Aplicación | Dirección | Flujo principal |
 |---|---|---|
-| Cliente | [http://127.0.0.1:8098](http://127.0.0.1:8098) | Prioridades de reposición, detalle por nivel, checklist y CSV. |
+| Cliente | [http://127.0.0.1:8098](http://127.0.0.1:8098) | Alertas visuales, detalle por nivel, revisión humana y CSV. |
 | Equipo | [http://127.0.0.1:8095](http://127.0.0.1:8095) | Original/Niveles/Bordes/Comparar, marcado por nivel o zona y lotes ZIP. |
 
 En ambas apps la confianza inicial de YOLO es **0,60**. El cliente la usa preconfigurada; la app del equipo permite ajustarla desde **0,25**. No es el índice visual ni una medida de stock.
@@ -100,7 +100,7 @@ Abre las dos direcciones de la tabla. Para detener ambas apps:
 docker compose -f compose.apps.yaml down
 ```
 
-Se validó la configuración Compose. El ZIP r2 se probó mediante HTTP e inferencia CPU desde una extracción limpia en este equipo; no se repitió un build Docker ni una prueba física en Mac porque Docker estaba apagado. Las pruebas de macOS de releases anteriores siguen siendo antecedentes, no una verificación nueva de esta entrega.
+La entrega del 11/11 se comprobó mediante HTTP e inferencia CPU de ambas apps desde una extracción limpia, con una foto de train y cinco niveles por app. Se validó Compose; no se construyó Docker ni se probó físicamente en Mac porque el daemon estaba apagado. [Evidencia y alcance](Documentacion/Evidencias/alineacion_github_20261111.json). Las pruebas de macOS de releases anteriores siguen siendo antecedentes, no una verificación nueva de esta entrega.
 
 ### Desde un clon
 
@@ -110,13 +110,13 @@ El repositorio incluye el peso oficial y el preparador Windows. Ejecuta `Aplicac
 
 Toma fotos **frontales o casi frontales**, con la cámara nivelada, ambos extremos del tramo y las superficies de apoyo visibles. Evita desenfoque, reflejos fuertes y tomas oblicuas. Para una góndola larga, utiliza varias tomas de tramos completos. No existe un ángulo máximo validado ni un detector automático que certifique la visibilidad.
 
-Las fotos se procesan en el equipo y no se incorporan al entrenamiento. La app del equipo guarda la sesión del lote en el navegador local y permite eliminarla; el cliente mantiene el lote y el checklist durante la sesión de la página. No hay sincronización entre computadores. Para devolver observaciones del modelo se comparte manualmente el lote ZIP exportado por la app del equipo.
+Las fotos se procesan en el equipo y no se incorporan al entrenamiento. La app del equipo guarda la sesión del lote en el navegador local y permite eliminarla; el cliente conserva fotos, resultados y revisión humana por foto en IndexedDB y los recupera al recargar. «Limpiar pasillo» borra definitivamente ese recorrido guardado. No hay sincronización entre computadores. Para devolver observaciones del modelo se comparte manualmente el lote ZIP exportado por la app del equipo.
 
 El dataset y el catálogo local de demostración no vienen en el ZIP: carga fotos propias. Hay una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing), tres reales y tres sintéticas, para explorar casos de la demostración anterior; no acredita precisión de la versión actual.
 
 [Guía cliente](Aplicacion_Cliente/README.md) · [Guía de revisión del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Descargas e historial](Entregables/README.md).
 
-La [distribución del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) conserva su estimador anterior y su estructura con `iniciar.cmd`; las instrucciones anteriores de ese paquete no sustituyen las de la entrega conjunta r2.
+La [distribución del 5/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-11-05) conserva su estimador anterior y su estructura con `iniciar.cmd`; las instrucciones anteriores de ese paquete no sustituyen las de la entrega conjunta del 11/11.
 
 ## ¿Qué consideramos un nivel?
 
@@ -160,7 +160,7 @@ Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando
 | **Revisar / Verificar** | Señal ambigua, contorno recortado o falta de medición; requiere revisión humana. |
 | **Sin niveles detectados** | Se solicita otra toma. No detectar un nivel no significa que esté vacío. |
 
-La app cliente traduce estas lecturas a prioridades y acciones de reposición. La app del equipo conserva el detalle técnico, los mapas y las herramientas de revisión. Los mensajes sobre huecos o frentes son interpretaciones de señal visible y requieren comprobar la foto.
+La app cliente presenta alertas visuales y permite registrar una revisión humana independiente del análisis. La app del equipo conserva el detalle técnico, los mapas y las herramientas de revisión. Los mensajes sobre huecos o frentes son interpretaciones de señal visible y requieren comprobar la foto.
 
 ### Cómo se obtiene el índice
 
@@ -181,22 +181,21 @@ Carteles, fondos, barandas y envases lisos todavía pueden confundir la señal. 
 
 ## Modelo actual y resultados
 
-Ambas apps comparten un único modelo oficial: el **best.pt del refuerzo de geometría terminado el 5 de noviembre**, derivado de `yolo26n-seg.pt` a través del afinado del 2/11. Su clase aprendida es **Nivel**; la ocupación se calcula después y sigue siendo experimental.
+Ambas apps comparten un único modelo oficial: el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, derivado de `yolo26n-seg.pt` a través del afinado del 2/11 y del refuerzo del 5/11. Vicente lo adoptó tras revisar Ohiggins 3 para cerrar de momento el localizador y centrarse en ocupación. Su clase aprendida es **Nivel**; la ocupación se calcula después y sigue siendo experimental.
 
 | Modelo | Afinado | Validación | Distribución |
 |---|---|---|---|
-| YOLO26n-seg V3 | 171 fotos, 40 épocas | 59 reales + 34 sintéticas, separadas | [Cliente y equipo r2](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-10-r2) |
+| YOLO26n-seg V3 | 256 fotos, 40 épocas | 11 reales de tres escenas | Incluido en la prueba del 11/11; r2 conserva el peso anterior |
 
 | Máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
-| Validación real | 59 | 99,50 % | 89,95 % |
-| Diagnóstico sintético | 34 | 99,50 % | 93,14 % |
+| Validación real | 11 | 99,50 % | 90,04 % |
 
-Estas cifras evalúan geometría, no ocupación ni reposición. La partición de desarrollo cambió; no se comparan directamente con los agregados históricos. La reserva final de **63 fotos de test permanece sin utilizar**. La adopción expresa de Vicente no certifica ausencia de errores.
+Estas cifras evalúan geometría, no ocupación ni reposición. Sobre las mismas 11 fotos, nuevo y anterior oficial detectan 54 de 55 niveles sin falsos positivos; el IoU medio pasa de 93,52 % a 93,39 %. No comparar el mAP con el de las antiguas 59 val. En las 68 fotos de Ohiggins 3, Vicente aceptó 65 y marcó tres con siete contornos incorrectos: es revisión visual, no mAP o recall. La reserva histórica de **63 fotos de test permanece sin utilizar**. La adopción expresa no certifica ausencia de errores o superioridad global.
 
-SHA-256 del peso: `7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a`.
+SHA-256 del peso: `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
 
-[Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y procedencia](Documentacion/Desarrollo/Modelo_oficial_V3_20261105.md).
+[Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y verificación de ambas apps](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md).
 
 ## Arquitectura y funcionamiento
 
@@ -227,7 +226,7 @@ En las anotaciones, el superior abierto se delimita por la mediana de las altura
 
 ### Componentes de la aplicación
 
-Las dos apps funcionan en el equipo del usuario. Sus servidores HTTP locales comparten `inferencia.py`, el modelo oficial y Línea A. El cliente presenta prioridades y exporta CSV; la mesa del equipo permite comparar, registrar fallos y exportar lotes de revisión.
+Las dos apps funcionan en el equipo del usuario. Sus servidores HTTP locales comparten `inferencia.py`, el modelo oficial y Línea A. El cliente filtra alertas, registra revisión humana y exporta CSV; la mesa del equipo permite comparar, registrar fallos y exportar lotes de revisión.
 
 ```mermaid
 flowchart LR
@@ -262,16 +261,17 @@ CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del prim
 
 ### Qué imágenes utilizó el modelo oficial
 
-El peso actual deriva de **dos etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. Estos recuentos corresponden a los archivos efectivamente incluidos en los manifiestos de los ensayos, no a todas las fotos reunidas o revisadas por el equipo.
+El peso actual deriva de **tres etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. El candidato anterior del 10/11 no forma parte de esta cadena. Estos recuentos corresponden a los archivos efectivamente incluidos en los manifiestos de los ensayos, no a todas las fotos reunidas o revisadas por el equipo.
 
 | Etapa de la cadena del modelo | Train reales | Train sintéticas | Train total | Validación real | Validación sintética |
 |---|---:|---:|---:|---:|---:|
 | Afinado iniciado el 2/11, base del refuerzo | 153 | 179 | **332** | 32 | 37 |
 | Refuerzo oficial del 5/11 | 152 | 19 | **171** | 59 | 34 |
+| Cierre con contornos revisados del 10/11 | 203 | 53 | **256** | 11 | 0 |
 
-Las **171** son las imágenes del **último refuerzo**, no toda la experiencia previa del modelo. De ellas, **69 son repaso de train del padre y 102 pertenecen al refuerzo geométrico**. Por los SHA-256 de las fuentes, las dos etapas reúnen **434 archivos distintos usados para entrenar: 248 reales y 186 sintéticos**. Las 69 imágenes de repaso no se cuentan dos veces. Este recuento no equivale a 434 escenas independientes, ni incluye aumentos internos de YOLO o imágenes del preentrenamiento general.
+Las **256** son las imágenes del último refuerzo, con **1.298 polígonos**, no toda la experiencia previa del modelo. Las tres etapas reúnen **519 fuentes distintas de train por SHA-256: 299 reales y 220 sintéticas**. No son escenas independientes, ni incluyen aumentos internos o preentrenamiento general. El último ensayo conserva 174 train del cierre anterior y añade 82 antiguas val con sus escenas/familias completas; estas 82 dejan de ser validación independiente. Las 11 val actuales contienen 55 polígonos y no actualizan pesos por gradiente. [Catálogo vigente](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json).
 
-### Composición del último refuerzo, por procedencia
+### Antecedente: composición del refuerzo del 5/11, por procedencia
 
 Se contrastaron el manifiesto del ensayo oficial, el manifiesto de su exportación y las listas `train.txt`, `val_real.txt` y `val_sintetica.txt`. La exportación final contiene **264 archivos: 171 para entrenar y 93 para validar**. Las 93 de validación no se usaron para ajustar los pesos por gradiente.
 
@@ -286,7 +286,7 @@ Se contrastaron el manifiesto del ensayo oficial, el manifiesto de su exportaci�
 | Refuerzo: Marcoleta | 35 | 0 | 13 | 0 | 48 |
 | Refuerzo: Ohiggins | 9 | 7 | 5 | 5 | 26 |
 | Superiores vacíos D (sintéticas de octubre) | 0 | 12 | 0 | 5 | 17 |
-| **Total del último refuerzo** | **152** | **19** | **59** | **34** | **264** |
+| **Total del refuerzo del 5/11** | **152** | **19** | **59** | **34** | **264** |
 
 Los nombres de la tabla son identificadores de procedencia de los registros. «Líder 2» no se presenta como nombre oficial de una sucursal. Los lotes nuevos de Arauco Quilicura 2, Express Independencia, Express Sta Luisa, Marcoleta y Ohiggins aportan **136 archivos incluidos**: 102 train y 34 val. Las restantes 128 referencias corresponden al repaso y a validación de los lotes anteriores.
 
@@ -357,7 +357,7 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | Ruta | Contenido |
 |---|---|
 | [`Aplicacion/`](Aplicacion/README.md) | Mesa del equipo (8095), motor compartido, modelo oficial, revisión y lotes ZIP. |
-| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | Cliente de prueba (8098), prioridades, checklist y hoja CSV. |
+| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | Cliente de prueba (8098), alertas visuales, revisión humana y hoja CSV. |
 | [`Datos/`](Datos/README.md) | Procedencias, anotaciones, particiones y selección del afinado. |
 | [`Documentacion/`](Documentacion/README.md) | Guías de uso, criterios V3, decisiones técnicas y documentación de desarrollo. |
 | [`Entregables/`](Entregables/README.md) | Acceso a la distribución publicada de la app y entregas académicas. |
@@ -379,13 +379,13 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 
 | Componente | Estado actual | Alcance o pendiente |
 |---|---|---|
-| App cliente | **Publicada como prueba r2** | Carga de fotos, prioridades, checklist «Repuesto» y CSV. Requiere revisión visual. |
-| Mesa del equipo | **Publicada como prueba r2** | Comparación, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
+| App cliente | **Prueba del 11/11** | Carga de fotos, filtros de alertas, revisión humana y CSV. Miniaturas y persistencia por foto; limpieza definitiva del recorrido. |
+| Mesa del equipo | **Prueba del 11/11** | Comparación, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
 | Segmentación de niveles | **Operativa** | Modelo V3 oficial, clase Nivel. Puede omitir o delimitar mal; no se impone la mediana al predecir. |
 | Línea A | **Operativa, preliminar** | Índice visual 0–100 y umbral 52; guardas de ambigüedad/recorte. Validación limitada, con fallos reales pendientes. |
 | Personas y obstáculos | **Revisión humana** | No hay detector automático en el flujo estable. |
-| Ejecución e instalación | **HTTP e inferencia CPU comprobados desde el ZIP en este equipo** | Preparador Windows incluido; primer inicio con Internet. Compose validado; sin nueva construcción Docker ni prueba física en Mac. |
-| Modelo y preparación | **Ensayo oficial terminado** | 171 train, 59 val reales y 34 sintéticas. Usar las apps no inicia entrenamiento. |
+| Ejecución e instalación | **HTTP e inferencia CPU comprobados desde el ZIP del 11/11** | Preparador Windows incluido; primer inicio con Internet. Compose validado; sin nueva construcción Docker ni prueba física en Mac. |
+| Modelo y preparación | **Ensayo oficial terminado** | 256 train (203 reales/53 sintéticas), 11 val reales y 1.298 polígonos train. Usar las apps no inicia entrenamiento. |
 | Evaluación final | **Pendiente** | Test de 63 fotos reservado; hacen falta escenas independientes. |
 | Licencias | **Código bajo AGPL-3.0; procedencia de pesos documentada** | Autoría de datos documentada; licencia pública del dataset no concedida. Véase [LICENCIAS.md](LICENCIAS.md). |
 

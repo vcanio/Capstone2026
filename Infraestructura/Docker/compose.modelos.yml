@@ -33,9 +33,34 @@ services:
         read_only: true
         bind:
           create_host_path: false
+      # Las rutas históricas V2 se montan desde sus ubicaciones físicas en V3.
+      - type: bind
+        source: ../../Datos/V3/lider_express_20261016
+        target: /app/Datos/V2/lider_express_20261016
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/V3/visibilidad_limitada_20261019
+        target: /app/Datos/V2/visibilidad_limitada_20261019
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/V3/lider_express_20261016
+        target: /app/Datos/V3/lider_express_20261016
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Datos/V3/visibilidad_limitada_20261019
+        target: /app/Datos/V3/visibilidad_limitada_20261019
+        read_only: true
+        bind:
+          create_host_path: false
       - type: bind
         source: ../../Laboratorio/Experimentos
-        target: /app/Laboratorio/Experimentos
+        target: /app/Experimentos
         bind:
           create_host_path: false
       - type: bind
@@ -56,6 +81,211 @@ services:
       - type: bind
         source: ../../Datos/Registros/CVAT/organizacion.json
         target: /app/Datos/Registros/CVAT/organizacion.json
+        read_only: true
+        bind:
+          create_host_path: false
+      # Archivo f?sico con compatibilidad para IDs congelados (8 noviembre).
+      - type: bind
+        source: ../../Historico/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021
+        target: /app/Experimentos/v3_afinado_papeles_huevos_20261026_011847_7021
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3
+        target: /app/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Experimentos/visibilidad_foto_20261102_163858_5061
+        target: /app/Experimentos/visibilidad_foto_20261102_163858_5061
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Comparacion_modelos_20261105
+        target: /app/Datos/Preparados/V3/Comparacion_modelos_20261105
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Pilotos
+        target: /app/Datos/Preparados/V3/Pilotos
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261023_074230_561677aa
+        target: /app/Datos/Preparados/V3/v3_20261023_074230_561677aa
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261023_163258_74d96da7
+        target: /app/Datos/Preparados/V3/v3_20261023_163258_74d96da7
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261023_232442_fbf22ea2
+        target: /app/Datos/Preparados/V3/v3_20261023_232442_fbf22ea2
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261023_232557_02f2a642
+        target: /app/Datos/Preparados/V3/v3_20261023_232557_02f2a642
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261023_232900_377c7d43
+        target: /app/Datos/Preparados/V3/v3_20261023_232900_377c7d43
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261025_025623_54ec9b50
+        target: /app/Datos/Preparados/V3/v3_20261025_025623_54ec9b50
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261025_030348_b77a3c46
+        target: /app/Datos/Preparados/V3/v3_20261025_030348_b77a3c46
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261025_032846_3bcafc2f
+        target: /app/Datos/Preparados/V3/v3_20261025_032846_3bcafc2f
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261025_033415_6e0d391f
+        target: /app/Datos/Preparados/V3/v3_20261025_033415_6e0d391f
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef
+        target: /app/Datos/Preparados/V3/v3_20261025_210248_5eeb39ef
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261026_005357_f915e7ac
+        target: /app/Datos/Preparados/V3/v3_20261026_005357_f915e7ac
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261030_044237_fdcab79c
+        target: /app/Datos/Preparados/V3/v3_20261030_044237_fdcab79c
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261102_181013_08b3b68c
+        target: /app/Datos/Preparados/V3/v3_20261102_181013_08b3b68c
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261102_181847_d9dc8700
+        target: /app/Datos/Preparados/V3/v3_20261102_181847_d9dc8700
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261102_182957_ebfc930d
+        target: /app/Datos/Preparados/V3/v3_20261102_182957_ebfc930d
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/v3_20261105_012257_8f165a05
+        target: /app/Datos/Preparados/V3/v3_20261105_012257_8f165a05
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Visibilidad_foto_20261102
+        target: /app/Datos/Preparados/V3/Visibilidad_foto_20261102
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/afinado_papeles_huevos_20261025
+        target: /app/Datos/Preparados/V3/Selecciones/afinado_papeles_huevos_20261025
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/originales_una_vacia_20261025
+        target: /app/Datos/Preparados/V3/Selecciones/originales_una_vacia_20261025
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/refuerzo_papeles_20261025
+        target: /app/Datos/Preparados/V3/Selecciones/refuerzo_papeles_20261025
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/segmentacion_sin_tapadas_20261102
+        target: /app/Datos/Preparados/V3/Selecciones/segmentacion_sin_tapadas_20261102
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/segmentacion_v3_sin_tarea33_20261102
+        target: /app/Datos/Preparados/V3/Selecciones/segmentacion_v3_sin_tarea33_20261102
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Selecciones/sin_tarea33_ef996971
+        target: /app/Datos/Preparados/V3/Selecciones/sin_tarea33_ef996971
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025
+        target: /app/Datos/Preparados/V3/Refuerzos/afinado_papeles_huevos_20261025
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025
+        target: /app/Datos/Preparados/V3/Refuerzos/afinado_superiores_vacios_20261025
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Datos/Versiones_modelos
+        target: /app/Datos/Registros/Versiones_modelos
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Experimentos/Bordes/combinado_v2_20261020_color_textura
+        target: /app/Experimentos/Bordes/combinado_v2_20261020_color_textura
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico/Experimentos/Bordes/combinado_v2_20261020_primera_pasada
+        target: /app/Experimentos/Bordes/combinado_v2_20261020_primera_pasada
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ../../Historico
+        target: /app/Historico
         read_only: true
         bind:
           create_host_path: false

@@ -10,6 +10,103 @@ HERE = Path(__file__).resolve().parents[1]
 
 
 class InterfaceTests(unittest.TestCase):
+    def test_general_pretrained_model_is_not_described_as_finetuning(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const selection={id:'new',recommended:true,development_counts:{train:332},required_initial_model:'Modelos/preentrenados/yolo26n-seg.pt'};
+        const catalog={datasets:[],runs:[],models:[],v3_training:{exports:[],runs:[],selections:[selection]}};
+        let state=Lab.workspaceState(catalog,'','',[],{phase:'ready',activityKnown:true},'v3');
+        assert.match(state.title,/Entrenamiento nuevo/);assert.match(state.reason,/modelo general preentrenado/);
+        assert.doesNotMatch(state.title,/Afinado/);assert.match(state.startModel,/general/);
+        selection.required_initial_model='Experimentos/current/entrenamiento/weights/best.pt';
+        state=Lab.workspaceState(catalog,'','',[],{phase:'ready',activityKnown:true},'v3');
+        assert.match(state.title,/Afinado/);
+        """)
+    def test_integrated_version_guides_to_official_results(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const model='Experimentos/current/entrenamiento/weights/best.pt';
+        const catalog={datasets:[],runs:[],models:[],v3_training:{exports:[],runs:[{id:'current',ready:true}],selections:[],vision_release:{model,run:'current'}}};
+        const state=Lab.workspaceState(catalog,'','',[],{phase:'ready',activityKnown:true},'v3');
+        assert.equal(state.target,'v3results');assert.equal(state.nextObjectId,'current');
+        assert.match(state.title,/integrada/);assert.doesNotMatch(state.occupancy,/pendiente/);
+        """)
+    def test_prepared_refuerzo_guides_to_new_selection_then_tracks_its_run(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const run={id:'old',ready:true},selection={id:'refuerzo',recommended:true,development_counts:{train:178}};
+        const catalog={datasets:[],runs:[],models:[],v3_training:{exports:[{id:'new',copy:'copy'}],runs:[run],selections:[selection]}};
+        const connection={phase:'ready',activityKnown:true};
+        const state=Lab.workspaceState(catalog,'','',[],connection,'v3');
+        assert.equal(state.target,'v3selection');assert.equal(state.nextObjectId,'refuerzo');
+        assert.match(state.action,/178/);assert.equal(state.trialState,'sin iniciar');
+        const job={state:'running',config:{action:'train',pipeline:'geometria_nivel_v3'}};
+        assert.equal(Lab.workspaceState(catalog,'','',[job],connection,'v3').trialState,'entrenando');
+        run.selection_id='refuerzo';
+        assert.notEqual(Lab.workspaceState(catalog,'','',[],connection,'v3').target,'v3selection');
+        """)
+
+    def test_v3_finished_detector_guides_to_results_and_keeps_product_step_pending(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const run={id:'v3_run',ready:true},best={id:'v3_run/best.pt',run:'v3_run',checkpoint:'best'};
+        const catalog={datasets:[],runs:[],models:[],v3_training:{exports:[{id:'export',copy:'copy'}],runs:[run]},v3_prediction:{models:[best]}};
+        const c={phase:'ready',activityKnown:true},job={state:'done',config:{action:'train',pipeline:'geometria_nivel_v3',run:run.id}};
+        let s=Lab.workspaceState(catalog,'','',[job],c,'v3');
+        assert.equal(s.target,'v3results');assert.equal(s.nextObjectId,run.id);assert.equal(s.trialState,'terminado');
+        assert.match(s.occupancy,/pendiente/);
+        const prediction={state:'running',config:{action:'predict',pipeline:'geometria_nivel_v3'}};
+        assert.equal(Lab.workspaceState(catalog,'','',[prediction,job],c,'v3').target,'v3results');
+        run.decision={status:'candidato',reason:'Revisado en varias escenas'};
+        s=Lab.workspaceState(catalog,'','',[job],c,'v3');assert.equal(s.target,'v3results');assert.match(s.title,/pendiente de adopción/);
+        run.decision.status='descartado';assert.equal(Lab.workspaceState(catalog,'','',[job],c,'v3').target,'v3train');
+        job.state='error';assert.equal(Lab.workspaceState(catalog,'','',[job],c,'v3').kind,'v3failed');
+        job.state='running';assert.equal(Lab.workspaceState(catalog,'','',[job],c,'v3').trialState,'entrenando');
+        """)
+
+    def test_v3_job_tracking_stays_in_v3_before_the_run_is_in_legacy_catalog(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const catalog={runs:[],datasets:[],models:[]};
+        const job={config:{action:'train',pipeline:'geometria_nivel_v3',project_version:'v3',run:'new_v3_run'}};
+        assert.equal(Lab.jobVersion(job,catalog),'v3');
+        delete job.config.project_version;assert.equal(Lab.jobVersion(job,catalog),'v3');
+        catalog.runs.push({id:'v2_run',manifest:{clases:['Nivel_reponer','Nivel_suficiente']}});
+        assert.equal(Lab.jobVersion({config:{run:'v2_run'}},catalog),'v2');
+        assert.equal(Lab.jobVersion({config:{run:'unknown'}},catalog),'otros');
+        """)
+
+    def test_v3_reviewed_export_exposes_training_without_reusing_state_datasets(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const catalog={datasets:[],runs:[],models:[],v3_training:{supported:true,exports:[{id:'export',copy:'copy'}],runs:[]}};
+        const connection={phase:'ready',activityKnown:true};
+        let state=Lab.workspaceState(catalog,'','',[],connection,'v3');
+        assert.equal(state.target,'v3train');assert.equal(state.dataState,'exportación revisada');
+        assert.equal(state.trialState,'sin iniciar');
+        const jobs=[{id:'job',state:'running',config:{pipeline:'geometria_nivel_v3',action:'train'}}];
+        state=Lab.workspaceState(catalog,'','',jobs,connection,'v3');
+        assert.equal(state.trialState,'entrenando');
+        assert.equal(Lab.workspaceState(catalog,'','',[],connection,'v2').kind,'empty');
+        assert.match(Lab.versionStatus(catalog,'v3'),/entrenamiento geométrico disponible/);
+        """)
+
+    def test_v3_preparation_is_reachable_without_claiming_training_approval(self):
+        self.js("""
+        const assert=require('node:assert/strict');
+        const catalog={runs:[],datasets:[],models:[],images:[],v3_preparation:{current:null}};
+        const connection={phase:'ready',activityKnown:true};
+        let state=Lab.workspaceState(catalog,'','',[],connection,'v3');
+        assert.equal(state.target,'datasets');
+        assert.match(state.action,/Preparar datos V3/);
+        assert.equal(state.trialState,'sin iniciar');
+        catalog.v3_preparation.current={image_count:458,blocked_images:458};
+        state=Lab.workspaceState(catalog,'','',[],connection,'v3');
+        assert.equal(state.target,'datasets');
+        assert.match(state.reason,/458 excluidas/);
+        assert.match(Lab.versionStatus(catalog,'v3'),/revisa las anotaciones/);
+        """)
+
     def test_decision_uses_the_expanded_evaluation_when_available(self):
         self.js("""
         const assert=require('node:assert/strict');
@@ -49,7 +146,7 @@ class InterfaceTests(unittest.TestCase):
         assert.deepEqual(PredictionDemo.methodConfig('yolo_paulo_v2'),{occupancy:true,occupancy_version:'v2'});
         assert.deepEqual(PredictionDemo.methodConfig('yolo_paulo'),{occupancy:true,occupancy_version:'v1'});
         assert.deepEqual(PredictionDemo.methodConfig('yolo'),{occupancy:false,occupancy_version:'v1'});
-        assert.match(PredictionDemo.methodHelp('yolo_paulo_v2'),/70 %/);
+        assert.match(PredictionDemo.methodHelp('yolo_paulo_v2'),/30 %/);
         assert.equal(PredictionDemo.occupancyRows([{occupancy:{combined_signal_pct:0}}])[0].combined,'0.0 %');
         assert.equal(rows[1].combined,'Sin medición');
         assert.equal(rows[0].width,'100.0 %');assert.equal(rows[1].area,'Sin medición');
@@ -431,7 +528,7 @@ class InterfaceTests(unittest.TestCase):
           ['old26_20261013_020000_c','yolo26'],['new26_20261015_020000_d','yolo26'],
           ['running11_20261016_010000_e','yolo11']].map(([id,base])=>({id,ready:!id.startsWith('running'),
             scope:'Nivel_estados',config:{model:'Modelos/preentrenados/'+base+'.pt'}}));
-        const models=runs.flatMap(run=>['best','last'].map(weight=>({id:'Laboratorio/Experimentos/'+run.id+'/entrenamiento/weights/'+weight+'.pt',run:run.id})));
+        const models=runs.flatMap(run=>['best','last'].map(weight=>({id:'Experimentos/'+run.id+'/entrenamiento/weights/'+weight+'.pt',run:run.id})));
         models.push({id:'Modelos/preentrenados/yolo11.pt',run:null},{id:'Modelos/preentrenados/yolo26.pt',run:null});
         const catalog={runs,models},visible=Lab.modelChoices(catalog);
         assert.equal(visible.length,4);
@@ -444,9 +541,9 @@ class InterfaceTests(unittest.TestCase):
         self.js("""
         const assert=require('node:assert/strict');
         const old={id:'old_20261013_010000_a',ready:true,scope:'Nivel_estados',config:{model:'Modelos/preentrenados/yolo11.pt'}};
-        const recent={id:'new_20261015_010000_b',ready:true,scope:'Nivel_estados',config:{model:'Laboratorio/Experimentos/'+old.id+'/entrenamiento/weights/best.pt'}};
+        const recent={id:'new_20261015_010000_b',ready:true,scope:'Nivel_estados',config:{model:'Experimentos/'+old.id+'/entrenamiento/weights/best.pt'}};
         const other={id:'modules_20261015_020000_c',ready:true,config:{model:'Modelos/preentrenados/yolo11.pt'}};
-        const runs=[old,recent,other],models=runs.map(run=>({id:'Laboratorio/Experimentos/'+run.id+'/entrenamiento/weights/best.pt',run:run.id}));
+        const runs=[old,recent,other],models=runs.map(run=>({id:'Experimentos/'+run.id+'/entrenamiento/weights/best.pt',run:run.id}));
         assert.deepEqual(Lab.modelChoices({runs,models}).map(m=>m.run).sort(),[other.id,recent.id].sort());
         """)
 

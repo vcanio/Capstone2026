@@ -124,7 +124,7 @@ def main():
     args = parser.parse_args()
     if not re.fullmatch(r'[A-Za-z0-9_-]{1,100}', args.run):
         parser.error('Nombre de ensayo inválido.')
-    evaluate(ROOT / 'Laboratorio/Experimentos' / args.run)
+    evaluate(ROOT / 'Experimentos' / args.run)
 
 
 if __name__ == '__main__':

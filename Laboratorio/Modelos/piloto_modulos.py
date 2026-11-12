@@ -17,7 +17,7 @@ import sys
 # los datos, los parámetros y los archivos que conserva cada ensayo.
 ROOT = Path(__file__).resolve().parents[2]
 # Ruta histórica por defecto. El panel la reemplaza por la del ensayo nuevo.
-RUN = ROOT / 'Laboratorio/Experimentos/piloto_01_vicente_20261002'
+RUN = ROOT / 'Experimentos/piloto_01_vicente_20261002'
 # Configuración y recursos gráficos locales para Windows y Docker.
 os.environ.setdefault('YOLO_CONFIG_DIR', str(ROOT / '.config-modelo'))
 os.environ.setdefault('MPLCONFIGDIR', str(ROOT / '.config-modelo/matplotlib'))

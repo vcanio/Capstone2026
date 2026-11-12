@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fotos seleccionadas · Walmart</title><link rel="stylesheet" href="/static/panel.css"><link rel="stylesheet" href="/static/v3-selection-gallery.css"><script src="/static/theme-preference.js"></script></head>
+<body class="selection-gallery-page"><main>
+<a href="/">Volver al laboratorio</a>
+<h1>Fotos para entrenar</h1><p id="gallery-summary"></p><p id="gallery-description"></p>
+<p>Contornos verdes: anotaciones de la copia revisada de CVAT, sin predicciones. Usa «Abrir en CVAT» para consultar o editar su estado actual.</p>
+<label><input id="gallery-annotations" type="checkbox" checked> Mostrar anotaciones</label>
+<form id="gallery-filters" class="gallery-filters" role="search">
+<label for="gallery-search">Buscar foto o escena<input id="gallery-search" type="search" placeholder="Ejemplo: lider_2_060 o le_g01" autocomplete="off"></label>
+<label for="gallery-origin">Tipo de foto<select id="gallery-origin"><option value="all">Todas</option><option value="real">Originales reales</option><option value="sintetica">Variantes sintéticas</option></select></label>
+<label><input id="gallery-hard-only" type="checkbox"> Solo casos conflictivos incorporados</label>
+<button id="gallery-clear" class="secondary" type="button">Limpiar filtros</button></form>
+<p id="gallery-count" role="status" aria-live="polite"></p><div id="gallery-grid" class="selection-gallery-grid"></div>
+<nav class="gallery-pagination" aria-label="Páginas de fotos"><button id="gallery-prev" class="secondary" type="button">Anterior</button><span id="gallery-page"></span><button id="gallery-next" class="secondary" type="button">Siguiente</button></nav>
+<p class="field-help">Consulta de la selección de entrenamiento. Validación y prueba final mantienen sus conjuntos separados.</p>
+</main><script id="gallery-data" type="application/json">@@GALLERY_DATA@@</script><script src="/static/v3-selection-gallery.js"></script></body></html>

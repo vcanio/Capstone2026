@@ -1,5 +1,7 @@
 """El material privado no debe copiarse ni aceptarse en una publicación."""
 from pathlib import Path
+import hashlib
+import json
 import subprocess
 import sys
 import tempfile
@@ -13,12 +15,26 @@ import verificar_publicacion as publication
 
 
 class PrivateContextTests(unittest.TestCase):
+    def test_checkout_must_preserve_exact_engine_bytes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            app = root / 'Aplicacion'
+            app.mkdir()
+            body = b'# verified source\r\n'
+            (app / 'signal.py').write_bytes(body)
+            (app / 'modelos.json').write_text(json.dumps({
+                'edge_sources': {'signal.py': hashlib.sha256(body).hexdigest()}}), encoding='utf-8')
+            publication.verify_engine_sources(root)
+            (app / 'signal.py').write_bytes(body.replace(b'\r\n', b'\n'))
+            with self.assertRaisesRegex(ValueError, 'edge_sources'):
+                publication.verify_engine_sources(root)
+
     def test_local_asset_manifest_resolves_zip_and_checksum_without_public_url(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            (root / 'Historico/Reproducibilidad').mkdir(parents=True)
-            (root / 'Historico/Reproducibilidad/artefactos.json').write_text('{"packages": {}}', encoding='utf-8')
-            (root / 'Historico/Reproducibilidad/activos_locales_20261023.json').write_text(
+            (root / 'reproducibilidad').mkdir()
+            (root / 'reproducibilidad/artefactos.json').write_text('{"packages": {}}', encoding='utf-8')
+            (root / 'reproducibilidad/activos_locales_20261023.json').write_text(
                 '{"packages":{"demo_local":{"file":"Actual.zip","sha256":"' + '0' * 64 +
                 '","destination":"Entregables","url":null,"files":[]}}}', encoding='utf-8')
             (root / 'README.md').write_text('[ZIP local](Entregables/Actual.zip) '
@@ -31,9 +47,9 @@ class PrivateContextTests(unittest.TestCase):
     def test_local_asset_manifest_cannot_replace_a_published_package(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            (root / 'Historico/Reproducibilidad').mkdir(parents=True)
+            (root / 'reproducibilidad').mkdir()
             for filename in ('artefactos.json', 'activos_locales_20261023.json'):
-                (root / 'Historico/Reproducibilidad' / filename).write_text('{"packages":{"duplicado":{}}}', encoding='utf-8')
+                (root / 'reproducibilidad' / filename).write_text('{"packages":{"duplicado":{}}}', encoding='utf-8')
             with self.assertRaisesRegex(ValueError, 'repite nombres'):
                 publication.verify(root)
 
@@ -44,10 +60,15 @@ class PrivateContextTests(unittest.TestCase):
             root.mkdir()
             checkout.mkdir()
             public = ['Documentacion/Evidencias/verificacion.json',
+                      'Aplicacion_Cliente/app_cliente.py',
                       'AGENTS.md',
-                      'Historico/Documentacion/README.md',
+                      'Documentacion/Historico/README.md',
                       'Datos/Registros/Particiones/lote/particion.json']
             local = ['Datos/Registros/Particiones/lote/respaldo_registros/manifest.json',
+                     'Historico/Publicaciones/paquete/registro.json',
+                     'Historico/Evidencias/respaldo/registro.json',
+                     'Historico/Datos/exportacion/registro.json',
+                     'Historico/Experimentos/ensayo/registro.json',
                      'Documentacion/Evidencias/pruebas_20261021.log',
                      'Documentacion/Evidencias/consulta_github_20261021.json',
                      'Documentacion/Evidencias/otro_corte/pruebas.log',
@@ -73,8 +94,8 @@ class PrivateContextTests(unittest.TestCase):
                      'Documentacion/Evidencias/consulta_github_20261021.json'):
             with self.subTest(name=name), tempfile.TemporaryDirectory() as temporary:
                 root = Path(temporary)
-                (root / 'Historico/Reproducibilidad').mkdir(parents=True)
-                (root / 'Historico/Reproducibilidad/artefactos.json').write_text('{"packages": {}}', encoding='utf-8')
+                (root / 'reproducibilidad').mkdir()
+                (root / 'reproducibilidad/artefactos.json').write_text('{"packages": {}}', encoding='utf-8')
                 path = root / name
                 path.parent.mkdir(parents=True)
                 path.write_text('{}', encoding='utf-8')
@@ -115,8 +136,8 @@ class PrivateContextTests(unittest.TestCase):
     def test_audit_rejects_context_forced_into_git(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            (root / 'Historico/Reproducibilidad').mkdir(parents=True)
-            (root / 'Historico/Reproducibilidad/artefactos.json').write_text(
+            (root / 'reproducibilidad').mkdir()
+            (root / 'reproducibilidad/artefactos.json').write_text(
                 '{"packages": {}}', encoding='utf-8')
             (root / '.gitignore').write_text('/Contexto/\n', encoding='utf-8')
             (root / 'Contexto').mkdir()

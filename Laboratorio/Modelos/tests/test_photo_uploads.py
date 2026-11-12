@@ -28,7 +28,7 @@ class PhotoUploadTests(unittest.TestCase):
         self.inventory_path.write_text('imagen_id,archivo,sha256,grupo_escena\n')
         self.inventory_before = self.inventory_path.read_bytes()
         for context in (patch.object(panel, 'ROOT', self.root),
-                        patch.object(panel, 'JOBS', self.root / 'Laboratorio/Experimentos/panel_pruebas')):
+                        patch.object(panel, 'JOBS', self.root / 'Experimentos/panel_pruebas')):
             context.start()
             self.addCleanup(context.stop)
         self.server = panel.ThreadingHTTPServer(('127.0.0.1', 0), panel.Handler)
@@ -53,7 +53,7 @@ class PhotoUploadTests(unittest.TestCase):
             photo = json.load(response)
         self.assertEqual(photo['name'], 'mi foto.png')
         self.assertEqual((photo['width'], photo['height']), (80, 40))
-        self.assertTrue(photo['id'].startswith('Laboratorio/Experimentos/panel_pruebas/Subidas_panel/'))
+        self.assertTrue(photo['id'].startswith('Experimentos/panel_pruebas/Subidas_panel/'))
         self.assertEqual(self.inventory_path.read_bytes(), self.inventory_before)
         self.assertFalse((self.root / 'Datos/Registros/Versiones_modelos').exists())
         with urlopen(self.url + photo['url']) as response:
@@ -64,7 +64,7 @@ class PhotoUploadTests(unittest.TestCase):
 
     def test_own_photo_never_borrows_truth_from_matching_filename(self):
         photo = panel.save_uploaded_photo(self.photo(), 'REAL_01.jpg')
-        model = 'Laboratorio/Experimentos/run/entrenamiento/weights/best.pt'
+        model = 'Experimentos/run/entrenamiento/weights/best.pt'
         catalog = {'models': [{'id': model, 'run': 'run'}], 'images': [], 'runs': [
             {'id': 'run', 'manifest': {'scope': 'Nivel_estados', 'dataset_dir': 'dataset_niveles',
                                       'imagenes': [{'imagen': 'imagen.jpg', 'split': 'val'}]}}]}
@@ -88,7 +88,7 @@ class PhotoUploadTests(unittest.TestCase):
             with self.subTest(body=body[:6]), self.assertRaises(HTTPError) as error:
                 self.upload(body)
             self.assertEqual(error.exception.code, 400)
-        self.assertFalse((self.root / 'Laboratorio/Experimentos/panel_pruebas/Subidas_panel').exists())
+        self.assertFalse((self.root / 'Experimentos/panel_pruebas/Subidas_panel').exists())
 
     def test_byte_and_pixel_limits_are_enforced_before_storage(self):
         with patch.object(panel, 'MAX_UPLOAD_BYTES', 10), self.assertRaises(HTTPError) as error:
@@ -97,7 +97,7 @@ class PhotoUploadTests(unittest.TestCase):
         with patch.object(panel, 'MAX_UPLOAD_PIXELS', 100), self.assertRaises(HTTPError) as error:
             self.upload()
         self.assertEqual(error.exception.code, 400)
-        self.assertFalse((self.root / 'Laboratorio/Experimentos/panel_pruebas/Subidas_panel').exists())
+        self.assertFalse((self.root / 'Experimentos/panel_pruebas/Subidas_panel').exists())
 
     def test_reserved_photo_can_be_tested_without_entering_training_or_validation(self):
         body = self.photo()
@@ -111,7 +111,7 @@ class PhotoUploadTests(unittest.TestCase):
             photo = json.load(response)
         with urlopen(self.url + photo['url']) as response:
             self.assertEqual(response.status, 200)
-        model = 'Laboratorio/Experimentos/run/entrenamiento/weights/best.pt'
+        model = 'Experimentos/run/entrenamiento/weights/best.pt'
         catalog = {'models': [{'id': model, 'run': 'run'}], 'images': [], 'runs': []}
         config = panel.validate({'action': 'predict', 'image': photo['id'], 'model': model,
                                  'conf': .25, 'nms': .7, 'imgsz': 640}, catalog)

@@ -139,8 +139,8 @@ def lider_express_inventory():
     result = {}
     with (base / 'inventario.csv').open(encoding='utf-8-sig', newline='') as handle:
         for row in csv.DictReader(handle):
-            source = (base / row['archivo']).resolve()
-            if not source.is_relative_to((base / 'imagenes_ordenadas').resolve()):
+            source = base / row['archivo']
+            if not source.resolve().is_relative_to((base / 'imagenes_ordenadas').resolve()):
                 raise ValueError('Ruta de Líder Express fuera del directorio registrado.')
             iid = source.stem  # El original incluye _0_original en CVAT.
             if iid in result:
@@ -550,14 +550,14 @@ def version_usage_index():
     """Read experiment references once for the whole version list."""
     uses = {}
     for name in ('config_interfaz.json', 'version_datos.json', 'manifest.json'):
-        for path in (ROOT / 'Laboratorio/Experimentos').glob(f'*/{name}'):
+        for path in (ROOT / 'Experimentos').glob(f'*/{name}'):
             value = read(path)
             ids = {value.get('id'), value.get('version_datos')}
             if value.get('source_kind') == 'dataset':
                 ids.add(value.get('source'))
             for version_id in ids - {None}:
                 uses.setdefault(version_id, set()).add(path.parent.name)
-    for path in (ROOT / 'Laboratorio/Experimentos/panel_pruebas').glob('*/solicitud.json'):
+    for path in (ROOT / 'Experimentos/panel_pruebas').glob('*/solicitud.json'):
         value = read(path)
         if value.get('source') and value.get('source_kind') == 'dataset':
             uses.setdefault(value['source'], set()).add(value.get('run') or path.parent.name)

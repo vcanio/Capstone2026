@@ -190,7 +190,7 @@ class DataTests(unittest.TestCase):
         self.snapshot['frames'][2].update(width=20, height=30)
         imported = self.imported()
         datasets.approve({'id': imported['id'], 'reviewer': 'Vi', 'reviewed': True})
-        run = self.root / 'Laboratorio/Experimentos/oriented'
+        run = self.root / 'Experimentos/oriented'
         run.mkdir(parents=True)
         datasets.prepare_version(datasets.version_path(imported['id']), run)
         with Image.open(run / 'dataset_modulos/images/val/03.jpg') as result:
@@ -341,7 +341,7 @@ class DataTests(unittest.TestCase):
     def test_worker_uses_version_partition_for_more_than_pilot(self):
         v = self.imported(); path = datasets.version_path(v['id'])
         approved = datasets.approve({'id': v['id'], 'reviewer': 'Vi', 'reviewed': True})
-        run = self.root / 'Laboratorio/Experimentos/new_run'; run.mkdir(parents=True)
+        run = self.root / 'Experimentos/new_run'; run.mkdir(parents=True)
         datasets.write(run / 'version_datos.json', approved)
         for name in ('snapshot_cvat.json', 'particion.json'):
             (run / name).write_bytes((path / name).read_bytes())
@@ -379,7 +379,7 @@ class DataTests(unittest.TestCase):
 
     def test_used_version_is_kept_even_before_training_has_a_manifest(self):
         value = self.imported()
-        run = self.root / 'Laboratorio/Experimentos/ensayo_en_preparacion'
+        run = self.root / 'Experimentos/ensayo_en_preparacion'
         run.mkdir(parents=True)
         datasets.write(run / 'config_interfaz.json', {'source': value['id'], 'source_kind': 'dataset'})
         self.assertEqual(datasets.versions()[0]['archive_uses'], ['ensayo_en_preparacion'])

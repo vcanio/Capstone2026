@@ -71,6 +71,31 @@ def fixture(scenario):
     return data
 
 
+def current_fixture(scenario):
+    """Recorrido V3 con datos inventados; sin acceso a modelos, fotos o CVAT."""
+    legacy = fixture(scenario)
+    empty = scenario == 'empty'
+    model = 'synthetic/best.pt'
+    run_id = 'ensayo_sintetico'
+    run = {'id': run_id, 'ready': scenario not in TRAINING_SCENARIOS or scenario == 'training_done',
+           'source': 'exportacion_sintetica', 'history': (legacy.get('runs') or [{}])[0].get('history', []) if not empty else [],
+           'metrics': {'sets': {'val_real': {'metrics/precision(M)': .8, 'metrics/recall(M)': .7,
+                                            'metrics/mAP50(M)': .75, 'metrics/mAP50-95(M)': .5}}},
+           'decision': DECISIONS.get(run_id)}
+    exports = [] if empty else [{'id': 'exportacion_sintetica', 'copy': 'copia_sintetica',
+                                 'author': 'Revisor de prueba', 'counts': {'train': 12, 'val_real': 4,
+                                 'val_sintetica': 2}, 'excluded': 0}]
+    training = {'supported': True, 'runs': [] if empty else [run], 'exports': exports, 'selections': [],
+                'initial_models': [] if empty else [{'id': model, 'label': 'Modelo sintético de prueba'}],
+                'defaults': {'model': model, 'epochs': 40, 'batch': 2, 'lr': .0001,
+                             'patience': 10, 'imgsz': 640, 'seed': 42},
+                'vision_release': {'run': run_id, 'model': model, 'accepted_by': 'Revisor de prueba'}
+                                  if scenario == 'v3' else None}
+    return {'runs': [], 'models': [], 'images': [], 'datasets': [],
+            'v3_preparation': {'current': None}, 'v3_training': training,
+            'v3_prediction': {'models': [] if empty else [{'id': model, 'run': run_id, 'checkpoint': 'best'}]}}
+
+
 class Handler(BaseHTTPRequestHandler):
     def send(self, value, status=200, mime='application/json; charset=utf-8'):
         body=value if isinstance(value,bytes) else json.dumps(value,ensure_ascii=False).encode('utf-8')
@@ -102,13 +127,15 @@ class Handler(BaseHTTPRequestHandler):
                  'group':'Piloto sintético','jobs':[27],'image_ids':['03','05','16','25','28']},
                 {'id':'task:14','task_id':14,'name':'Set sintético · 3 fotos · completado','completed_jobs':3,
                  'group':'Set sintético','jobs':[30,31,32],'image_ids':['01','02','04']}]);return
-        if url.path=='/api/catalog':
+        if url.path in ('/api/catalog', '/api/catalog/current'):
             with LOCK:
                 COUNTS[scenario]=COUNTS.get(scenario,0)+1;count=COUNTS[scenario]
             if scenario=='loading':time.sleep(12)
             if scenario=='error' or (scenario=='recover' and count==1):
                 self.send({'error':'Fallo simulado de consulta; no afecta al servidor real.'},503);return
-            self.send(fixture(scenario));return
+            self.send(current_fixture(scenario) if url.path.endswith('/current') else fixture(scenario));return
+        if url.path=='/api/v3/preparation':
+            self.send({'report': None});return
         if url.path=='/api/jobs':
             if scenario=='activity_error':
                 self.send({'error':'Fallo simulado de actividad.'},503);return
@@ -122,7 +149,7 @@ class Handler(BaseHTTPRequestHandler):
                 if scenario!='preparing':progress.update(preview_url='/fixture.svg',preview_kind='validation')
                 self.send([{'id':'synthetic_job','state':{'training_done':'done','training_error':'error',
                            'training_interrupted':'interrupted'}.get(scenario,'running'),
-                           'config':{'action':'train','run':'ensayo_sintetico','epochs':100},'progress':progress,
+                           'config':{'action':'train','pipeline':'geometria_nivel_v3','run':'ensayo_sintetico','epochs':100},'progress':progress,
                            'log':'Avance simulado; no hay entrenamiento en ejecución.'}]);return
             self.send([]);return
         self.send({'error':'Ruta de prueba desconocida'},404)
@@ -132,7 +159,7 @@ class Handler(BaseHTTPRequestHandler):
         scenario=parse_qs(urlparse(self.headers.get('Referer','')).query).get('scenario',['mixed'])[0]
         if self.path=='/api/runs/decision':
             config=json.loads(self.rfile.read(int(self.headers.get('Content-Length','0'))))
-            if (not any(r['id']==config.get('run') for r in fixture(scenario)['runs']) or
+            if (not any(r['id']==config.get('run') for r in fixture(scenario)['runs']+current_fixture(scenario)['v3_training']['runs']) or
                     config.get('status') not in ('candidato','seguir_ajustando','descartado') or
                     not str(config.get('reason','')).strip() or len(str(config.get('author','')).strip())<2):
                 self.send({'error':'Completa ensayo, decisión, motivo y autor.'},400);return

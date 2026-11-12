@@ -1,6 +1,6 @@
 # Cómo funciona Walmart Visión
 
-V3 aprende una sola clase, **Nivel**, para localizar áreas útiles. Después, un algoritmo independiente estima señal visual y la interpreta como Reponer, Suficiente o Revisar. La [release V3 del 26 de octubre](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-v3-2026-10-26) ya está publicada; la ocupación sigue sin calibración V3.
+V3 aprende una clase, Nivel, para localizar áreas útiles. Las dos apps del 11/11 comparten el cierre revisado adoptado el 10/11 y Línea A del 8/11: índice visual 0–100 con umbral 52. Los ZIP anteriores conservan su contenido histórico.
 
 ## Fotografías frontales
 
@@ -39,38 +39,24 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 [Criterio de anotación V3](Desarrollo/Criterio_V3_niveles.md) · [Regla completa de mediana](Desarrollo/Regla_nivel_superior_mediana_V3.md)
 
-### Qué significan los bordes y cómo se calcula la ocupación
+### Qué significan los bordes y cómo se calcula el índice
 
-En este proyecto, **bordes** son cambios de intensidad de la foto que pueden coincidir con aristas, etiquetas y contornos de envases. No son los contornos del nivel que predice YOLO. El análisis también utiliza color, variaciones locales de brillo y textura; por eso el fucsia de la vista Bordes es un **mapa combinado de señal**, no solamente el resultado de Canny.
+Los bordes son cambios de intensidad que pueden coincidir con envases, carteles o estructuras. YOLO delimita el nivel; Línea A analiza la imagen original dentro de esas máscaras.
 
-El cálculo sigue estas etapas:
+1. Conserva Canny y aplica la exclusión estructural de rieles y barandas, sin borrar genéricamente los lados rectos de los productos.
+2. Extrae la señal por celdas y comparte los límites de normalización entre niveles de la misma góndola.
+3. Combina evidencia visual y penaliza huecos continuos en el frente útil.
+4. Presenta un índice de 0 a 100: Reponer bajo 52 y Suficiente desde 52, si no hay abstención. Los recortes y señales ambiguas requieren revisión.
 
-1. **YOLO delimita el nivel.** El algoritmo utiliza los píxeles originales dentro de esa máscara, sin analizar los rótulos o colores dibujados sobre el resultado.
-2. **Filtra y organiza la señal.** Excluye un margen del contorno y algunas estructuras largas, divide la región en una grilla y calcula bordes, gradiente, color y textura. Los filtros no eliminan de forma fiable todos los carteles, barandas o laterales.
-3. **Combina las señales por celda.** Normaliza bordes, gradiente, color y textura dentro del nivel y aplica un umbral adaptativo.
-4. **Estima la cobertura del frente.** Cuenta las columnas con señal respaldada por bordes o textura en al menos dos celdas contiguas, a partir del 35 % de la altura del nivel. El espacio libre sobre un producto bajo no reduce la lectura. Se asume lleno detrás del producto visible.
-5. **Interpreta la lectura.** Por debajo del 30 % se muestra Reponer y desde el 30 %, Suficiente, cuando la medición y las reglas de revisión lo permiten.
+El mapa fucsia representa evidencia híbrida. No certifica presencia de productos ni mide porcentaje físico de stock. La confianza de YOLO y el índice de disponibilidad son medidas distintas.
 
-<details>
-<summary>Detalle técnico de la señal actual</summary>
+Línea A tiene ajuste preliminar en desarrollo: en 112 niveles etiquetados de validación con máscaras humanas se conservaron 15/16 alertas y cero falsas alertas; solo 1/2 críticos reales fue detectado. No acredita precisión final del flujo completo. El ZIP publicado del 5/11 conserva el estimador anterior y su umbral 30.
 
-La foto se limita a un lado máximo de 1.600 píxeles y la grilla usa celdas de aproximadamente 24 píxeles. Se combinan **35 % densidad de bordes Canny + 30 % gradiente de intensidad + 20 % color saturado + 15 % desviación local de textura**, después de normalizar cada característica por sus percentiles 10–90 dentro de las celdas utilizables. Canny usa 40/120; el umbral adaptativo de Otsu queda limitado a 0,35–0,62. El área se calcula tras un cierre morfológico 3×3 y el ancho usa las activaciones anteriores a ese cierre. Las exclusiones de estructura afectan a todas las señales y el denominador conserva la cobertura válida original.
-
-Estos pesos describen la **construcción del mapa por celda**. La antigua combinación 70/30 de área y ancho se conserva como diagnóstico; la lectura V3 utiliza la cobertura experimental del frente. [Implementación](../Laboratorio/Modelos/ocupacion_paulo.py).
-
-</details>
-
-**El porcentaje no cuenta productos, no mide inventario ni está calibrado como proporción real de stock.** Carteles y fondos pueden activar la señal; productos claros o lisos pueden producir poca. Una zona fucsia no confirma producto y una zona sin señal fucsia no garantiza vacío. Tampoco la confianza de YOLO de 0,60 equivale a un 60 % de ocupación.
-
-### Cuándo se abstiene y pide revisión
-
-La app conserva la señal bruta, pero muestra **Revisar · señal ambigua**, sin porcentaje ni decisión de reposición, cuando la señal se concentra casi totalmente arriba o queda en la periferia sin suficiente respaldo central e inferior. Son comprobaciones experimentales, no detectores automáticos de carteles ni de niveles vacíos. Pueden solicitar revisión con productos escasos o de poco contraste.
-
-La última comparación utilizó **151 fotos de desarrollo y 754 detecciones**: las métricas brutas no cambiaron y se añadieron **35 revisiones**, sin nuevas transiciones a Reponer. No es una evaluación exhaustiva de precisión de ocupación. Los filtros agresivos probados no se integraron porque introdujeron nuevas alertas en los controles. La baranda del superior vacío 034 aún produce señal residual.
+[Detalle actual](../Aplicacion/Documentacion/LINEA_A_20261108.md).
 
 ## Visibilidad y alcance
 
-La persona revisa si la góndola está despejada o tapada: la app no detecta automáticamente personas ni objetos. Si un contorno alcanza el encuadre, se indica que solo se ve parte del nivel y se pide revisión. Una zona tapada requiere comprobar la foto o tomar otra.
+La app del equipo permite indicar si la góndola está despejada, recortada, tapada por un objeto o por una persona. El cliente registra la revisión humana por nivel de forma separada del diagnóstico. No se detectan automáticamente estos casos. El recorte limita el porcentaje a la zona visible y marca Revisar; el objeto suspende la medición; una persona tapando muestra Góndola tapada y pide otra foto sin contornos ni ocupación.
 
 La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar precisión de ocupación. Las 63 fotos de test siguen reservadas.
 

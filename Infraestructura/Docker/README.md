@@ -2,13 +2,14 @@
 
 Esta guía es para el **laboratorio del equipo de desarrollo**. La aplicación de usuario Walmart Visión conserva su iniciador Windows y tiene un paquete Docker independiente para macOS: consultar la [guía de uso](../../Documentacion/Usar_Walmart_Vision.md) y [Docker para Visión](../../Aplicacion/DOCKER.md). El Compose de Visión viene dentro de su paquete y no inicia el laboratorio ni CVAT.
 
-Los comandos de esta guía se ejecutan desde la raíz del proyecto. Los Compose del panel resuelven sus rutas a Datos, Experimentos, Modelos y Laboratorio desde esta carpeta; mantienen el proyecto Docker `walmart-modelos` y los montajes anteriores.
+Los comandos de esta guía se ejecutan desde la raíz del proyecto. Los Compose del panel resuelven sus rutas a Datos, Experimentos, Modelos y Herramientas desde esta carpeta; mantienen el proyecto Docker `walmart-modelos` y los montajes anteriores.
 
 | Archivo | Uso |
 |---|---|
 | compose.modelos.yml | Panel y laboratorio, configuración base. |
 | compose.modelos.gpu.yml | Acceso a GPU NVIDIA. |
 | compose.modelos.dev.yml | Código local montado para desarrollo. |
+| compose.modelos.datos.yml | Catálogo externo y carpetas de imágenes en lectura; requiere WALMART_DATA_ROOT. |
 | compose.modelos.linux.yml | Red del anfitrión en Docker Engine Linux. |
 | compose.cvat.migracion.yml | Ajustes para trasladar CVAT a otro equipo. |
 | .env.modelos.example | Plantilla de conexión del panel a CVAT. |
@@ -57,7 +58,9 @@ Para migrar CVAT, copiar `.env.cvat.migracion.example` a `.env.cvat.migracion` d
 
 ## Datos y ejecución
 
-El panel utiliza Datos para imágenes, registros y exportaciones; Laboratorio/Experimentos para pesos y resultados; Modelos para los checkpoints generales; y .config-modelo para estado y cachés. Los originales de V1, V2 y la reserva final se montan en solo lectura. Las exportaciones compartidas se escriben en Datos/Registros/Versiones_modelos.
+Los datasets externalizados se configuran según la [guía de almacenamiento](../../Datos/Registros/Almacenamiento/README.md). El iniciador incorpora sus montajes automáticamente cuando existe la configuración local. El Compose externo conserva los montajes históricos y añade ubicaciones explícitas; no depende de junctions de Windows dentro del contenedor.
+
+El panel utiliza Datos para imágenes, registros y exportaciones; Experimentos para pesos y resultados; Modelos para los checkpoints generales; y .config-modelo para estado y cachés. Los originales de V1, V2 y la reserva final se montan en solo lectura. Las exportaciones compartidas se escriben en Datos/Registros/Versiones_modelos.
 
 Las anotaciones de CVAT son un estado independiente, guardado en sus volúmenes Docker. Copiar las carpetas del proyecto no sustituye un respaldo de esos volúmenes. La guía de migración contiene el procedimiento completo de respaldo y restauración.
 
@@ -66,3 +69,7 @@ Solo se ejecuta un trabajo de entrenamiento o inferencia del panel a la vez. Con
 Los cambios de esta reorganización requieren reconstruir una imagen Docker antigua con `iniciar_panel.ps1 -Build`, o usar el montaje de desarrollo y reiniciar el servicio. No se inicia ni se detiene un entrenamiento al reorganizar los archivos.
 
 [Configuración de CVAT](../CVAT/README.md) · [Migración](../Migracion.md) · [Entrada del proyecto](../../README.md).
+
+## Archivo hist?rico del 8/11
+
+`compose.modelos.yml` monta expl?citamente los destinos f?sicos archivados en sus rutas originales dentro del contenedor, adem?s de `Historico` en modo lectura. No depende de que Linux interprete las junctions de Windows. El c?digo local mantiene los IDs congelados con `.config-modelo/rutas_historicas.json`. Mantener esos montajes al recrear el laboratorio. La app portable no depende de Hist?rico.

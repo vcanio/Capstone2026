@@ -31,6 +31,8 @@ class CombinedPackageTests(unittest.TestCase):
                 names = archive.namelist()
                 self.assertEqual(len([n for n in names if n.endswith('.pt')]), 1)
                 self.assertIn(prefix + 'Aplicacion_Cliente/app_cliente.py', names)
+                self.assertEqual(archive.read(prefix + 'Aplicacion_Cliente/logo.svg'),
+                                 (package.ROOT / 'Aplicacion_Cliente/logo.svg').read_bytes())
                 self.assertIn(prefix + 'Aplicacion/modelos/current.pt', names)
                 for name in package.LEGAL_FILES:
                     self.assertEqual(archive.read(prefix + name), (package.ROOT / name).read_bytes())

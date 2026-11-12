@@ -4,6 +4,8 @@ Esta carpeta conserva resultados compactos y figuras que respaldan la documentac
 
 | Evidencia pública | Alcance |
 |---|---|
+| Prueba final en la interfaz, 23/10/2026 (`Documentacion/Evidencias/prueba_final_panel_20261023.md`, archivo del entorno local; fuera de esta distribución) | Galería V3 de 63 fotos reservadas, filtros de 27 reales y 36 sintéticas, sin predicciones ni cambios de partición; 80 pruebas del panel. |
+| Preparación V3 en la interfaz, 23/10/2026 (`Documentacion/Evidencias/preparacion_v3_panel_20261023.md`, archivo del entorno local; fuera de esta distribución) | Consulta de 458 fotos y 2.313 polígonos; revisión por foto, exportación condicionada y 78 pruebas del panel. |
 | [Preparación del repositorio, 23/10/2026](sincronizacion_repo_20261023.md) | Pruebas de reproducción, visor, datos y laboratorio; manifiesto complementario y conservación de cambios previos. |
 | [Orden del proyecto, 23/10/2026](orden_proyecto_20261023.md) | Guías y enlaces actualizados, entrega local de dos modelos, temporales archivados, cachés eliminadas y conservación de datos y del checkout Git. |
 | [Verificación del informe](verificacion_informe_20261020.json) | Corte original del 20 de octubre: 20 casos visuales, 11 pruebas de datos, 222 pruebas de modelos con una omitida y verificación de la partición de 296 imágenes. También conserva los intentos fallidos y las limitaciones del entorno. |
@@ -31,3 +33,7 @@ La respuesta completa de la consulta se conserva en local. Este resumen sustituy
 - Los respaldos bajo `Datos/Registros/Particiones/**/respaldo_registros/`.
 
 Los archivos locales originales se conservan sin cambios. En los registros públicos, `log_local` y `consulta_local` identifican esos originales para el equipo; no son archivos descargables del repositorio. Las reglas de Git, el empaquetador y la auditoría de publicación excluyen este material. Las métricas, particiones vigentes, resúmenes y evidencia técnica de los modelos permanecen en Git.
+
+## Alineación pública del 11/11
+
+[Revisión de GitHub, código, documentación y paquete](alineacion_github_20261111.json) · [Adopción del cierre revisado](adopcion_cierre_revisado_20261110.md). Las pruebas funcionales y de interfaz no constituyen una evaluación final de precisión.

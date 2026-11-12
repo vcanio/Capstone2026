@@ -78,13 +78,7 @@ def draw_result(image, result, measurements=None):
             if len(points) < 3:
                 continue
             draw.polygon(points, fill=(*color, 35), outline=(*color, 255), width=line_width)
-            title = label
-            if reading:
-                pct = (f"{reading['pct']:.2f}".rstrip('0').rstrip('.').replace('.', ',')
-                       if reading['pct'] is not None else None)
-                if name == 'Nivel' and reading['pct'] is not None:
-                    pct = str(round(reading['pct']))
-                title = f"{pct} % · {reading['label']}" if pct is not None else reading['label']
+            title = reading['label'] if reading else label
             bounds = draw.textbbox((0, 0), title, font=font)
             text_height = font.getbbox('Ágj')[3] - font.getbbox('Ágj')[1]
             padding = max(5, round(font.size * .35))

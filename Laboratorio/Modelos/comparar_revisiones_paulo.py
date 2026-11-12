@@ -36,7 +36,7 @@ def compare(before, after):
     (after / 'comparacion_anterior.json').write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding='utf-8')
     case = next((r for r in records if r['estado_anotado'] == 'reponer' and r['area_antes'] is not None and r['area_despues'] is not None), None)
     if case:
-        run = ROOT / 'Laboratorio/Experimentos' / case['run']
+        run = ROOT / 'Experimentos' / case['run']
         manifest = json.loads((run / 'manifest.json').read_text(encoding='utf-8'))
         with Image.open(dataset_directory(ROOT, run, manifest) / 'images/val' / case['foto']) as original:
             thumb = original.copy(); thumb.thumbnail((850, 680)); width, height = thumb.size

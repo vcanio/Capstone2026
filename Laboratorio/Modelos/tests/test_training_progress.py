@@ -46,7 +46,7 @@ class TrainingProgressTests(unittest.TestCase):
         with TemporaryDirectory() as directory:
             root=Path(directory)
             job=root/'job';job.mkdir()
-            training=root/'Laboratorio/Experimentos/fixture/entrenamiento';training.mkdir(parents=True)
+            training=root/'Experimentos/fixture/entrenamiento';training.mkdir(parents=True)
             panel.write_json(job/'estado.json',{'state':'running','config':{'action':'train','run':'fixture'}})
             panel.write_json(job/'progreso.json',{'stage':'training','completed_epochs':3})
             (training/'train_batch0.jpg').write_bytes(b'fixture')

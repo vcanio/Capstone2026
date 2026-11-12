@@ -2,7 +2,7 @@
 
 Esta guía está dirigida al **equipo de desarrollo**. La entrega para el usuario es Walmart Visión: para descargarla, analizar fotos e interpretar resultados, seguir la [guía de uso](../Usar_Walmart_Vision.md). No requiere el panel de entrenamiento, CVAT ni los paquetes del laboratorio.
 
-La [guía conceptual](../../Historico/Documentacion/Guia_conceptual_V1_V2.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
+La [guía conceptual](../Guia_para_entender_el_proyecto.md#cómo-se-relacionan-las-tres-interfaces) explica cómo se construyó el sistema sin necesidad de instalar esas herramientas. Los pasos siguientes se conservan para continuar el desarrollo o repetir ensayos con los activos correspondientes; la Release pública no distribuye un laboratorio completo ni el dataset.
 
 La aplicación descargable es `walmart-vision-2026-10-22`. Los paquetes del laboratorio conservan la versión `avance-2026-10-20`. El código y el manifiesto se guardan
 en Git. La Release pública contiene únicamente Walmart Visión con sus modelos y
@@ -52,7 +52,7 @@ Docker Desktop con WSL2. Empezar por CPU; NVIDIA es opcional.
 ```powershell
 git clone https://github.com/vcanio/Capstone2026.git
 cd Capstone2026
-python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 ```
 
 Los paquetes se entregan mediante coordinación interna del equipo; este repositorio no ofrece un canal público de solicitud ni descarga para ellos. Para seguir los comandos de preparación de esta guía, acordar con el mantenedor la entrega de `datos_fuentes`, `datos_exportados`, `modelos_resultados` e `informe`: el preparador incluye esos cuatro paquetes por defecto. Sin los datos y modelos se puede leer el código y usar Visión, pero no repetir los ensayos conservados.
@@ -66,23 +66,23 @@ los activos, su extracción y las imágenes Docker.
 Usar la carpeta que contiene los ZIP recibidos por transferencia separada:
 
 ```powershell
-python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart
 ```
 
 Para incorporar la demo o recuperar por separado el informe:
 
 ```powershell
-python Laboratorio/Reproducibilidad/preparar.py --paquetes demo
-python Laboratorio/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe
+python Herramientas/Reproducibilidad/preparar.py --paquetes demo
+python Herramientas/Reproducibilidad/preparar.py --assets D:/Transferencias/Walmart --paquetes informe
 ```
 
 La demo se extrae en `Entregables/Walmart_Vision/`. Para comprobar los archivos ya
 instalados, sin descargar ni escribir:
 
 ```powershell
-python Laboratorio/Reproducibilidad/preparar.py --verificar
-python Laboratorio/verificar_proyecto.py
-python Laboratorio/Datos/particionar_lider_express.py --verify
+python Herramientas/Reproducibilidad/preparar.py --verificar
+python Herramientas/verificar_proyecto.py
+python Herramientas/Datos/particionar_lider_express.py --verify
 ```
 
 ## Iniciar en CPU
@@ -115,13 +115,13 @@ variar respecto de comparaciones históricas.
 Primero comprobar el ensayo conservado:
 
 ```bash
-docker compose -f Infraestructura/Docker/compose.modelos.yml exec panel_modelos python Laboratorio/Reproducibilidad/repetir_ensayo.py --ensayo v2_base_yolo26n_01_20261020_004933_b105 --solo-verificar
+docker compose -f Infraestructura/Docker/compose.modelos.yml exec panel_modelos python Herramientas/Reproducibilidad/repetir_ensayo.py --ensayo v2_base_yolo26n_01_20261020_004933_b105 --solo-verificar
 ```
 
 Después entrenar en una carpeta nueva con la misma configuración:
 
 ```bash
-docker compose -f Infraestructura/Docker/compose.modelos.yml exec panel_modelos python Laboratorio/Reproducibilidad/repetir_ensayo.py --ensayo v2_base_yolo26n_01_20261020_004933_b105 --nombre replica_yolo26_equipo --device cpu
+docker compose -f Infraestructura/Docker/compose.modelos.yml exec panel_modelos python Herramientas/Reproducibilidad/repetir_ensayo.py --ensayo v2_base_yolo26n_01_20261020_004933_b105 --nombre replica_yolo26_equipo --device cpu
 ```
 
 Usar --device auto en un contenedor con GPU disponible. Los cuatro IDs originales

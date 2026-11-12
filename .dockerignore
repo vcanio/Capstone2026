@@ -15,4 +15,20 @@
 !Laboratorio/Datos/*.py
 
 !Aplicacion/
-!Aplicacion/**
+!Aplicacion/*.py
+!Aplicacion/*.html
+!Aplicacion/*.md
+!Aplicacion/*.cmd
+!Aplicacion/*.txt
+!Aplicacion/Dockerfile
+!Aplicacion/compose.yaml
+!Aplicacion/.dockerignore
+!Aplicacion/herramientas/
+!Aplicacion/herramientas/**
+
+!Aplicacion/*.json
+!Aplicacion/*.js
+!Aplicacion/modelos/
+!Aplicacion/modelos/V3-cierre-revisado-20261110.pt
+!Aplicacion/Documentacion/
+!Aplicacion/Documentacion/*.md

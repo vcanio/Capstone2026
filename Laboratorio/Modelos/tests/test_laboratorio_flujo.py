@@ -85,7 +85,7 @@ class DecisionTests(unittest.TestCase):
 
     def test_decision_history_is_atomic_and_does_not_change_metrics(self):
         with tempfile.TemporaryDirectory() as temp:
-            root=Path(temp);run=root/'Laboratorio/Experimentos'/'fixture';run.mkdir(parents=True)
+            root=Path(temp);run=root/'Experimentos'/'fixture';run.mkdir(parents=True)
             (run/'manifest.json').write_text('{}');metrics=run/'metricas_validacion.json';metrics.write_text('{"score": 0.6}')
             config={'run':'fixture','status':'candidato','reason':'Revisar escenas nuevas','author':'Vicente'}
             with patch.object(panel,'ROOT',root),patch.object(panel,'invalidate_catalog'):

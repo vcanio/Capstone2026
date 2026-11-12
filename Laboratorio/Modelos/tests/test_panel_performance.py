@@ -25,7 +25,7 @@ class PerformanceTests(unittest.TestCase):
         self.original = self.image.read_bytes()
         self.inventory = [{'archivo': 'V1/Lider/lider_001.jpg'}]
         for context in (patch.object(panel, 'ROOT', self.root),
-                        patch.object(panel, 'JOBS', self.root / 'Laboratorio/Experimentos/panel_pruebas'),
+                        patch.object(panel, 'JOBS', self.root / 'Experimentos/panel_pruebas'),
                         patch.object(panel, 'inventory', side_effect=lambda: self.inventory),
                         patch.object(panel.datasets, 'package_inventory', return_value={})):
             context.start()
@@ -146,7 +146,7 @@ class PerformanceTests(unittest.TestCase):
         self.addCleanup(clock_patch.stop)
         job = panel.JOBS / 'train'
         job.mkdir(parents=True)
-        run = self.root / 'Laboratorio/Experimentos/run'
+        run = self.root / 'Experimentos/run'
         training = run / 'entrenamiento'
         training.mkdir(parents=True)
         panel.write_json(job / 'estado.json', {'state': 'done', 'config': {'action': 'train', 'run': 'run'}})
@@ -165,7 +165,7 @@ class PerformanceTests(unittest.TestCase):
         self.assertNotEqual(panel.recent_jobs()[0]['progress']['preview_url'], updated['progress']['preview_url'])
 
     def test_only_recorded_comparisons_and_run_previews_are_served(self):
-        run = self.root / 'Laboratorio/Experimentos/fixture'
+        run = self.root / 'Experimentos/fixture'
         run.mkdir(parents=True)
         panel.write_json(run / 'manifest.json', {'imagenes': []})
         panel.write_json(run / 'evaluacion_por_imagen.json', [{'imagen': '01.jpg', 'split': 'val'}])
@@ -175,11 +175,11 @@ class PerformanceTests(unittest.TestCase):
             file.parent.mkdir(parents=True, exist_ok=True)
             file.write_bytes(self.original)
         for name in ('comparaciones/01_val.jpg', 'entrenamiento/val_batch0_pred.jpg'):
-            with urlopen(self.url + '/file?path=Laboratorio/Experimentos/fixture/' + name) as response:
+            with urlopen(self.url + '/file?path=Experimentos/fixture/' + name) as response:
                 self.assertEqual(response.status, 200)
         for name in ('comparaciones/unlisted.jpg', 'entrenamiento/private.jpg', '../../README.md'):
             with self.assertRaises(HTTPError) as context:
-                urlopen(self.url + '/file?path=Laboratorio/Experimentos/fixture/' + name)
+                urlopen(self.url + '/file?path=Experimentos/fixture/' + name)
             self.assertEqual(context.exception.code, 404)
 
 

@@ -33,6 +33,15 @@ const Lab = (() => {
       models:catalog.models.filter(m=>!m.run||belongs(m)),
       archived_models:(catalog.archived_models||[]).filter(belongs)};
   }
+  function jobVersion(job,catalog={runs:[],datasets:[],models:[]}){
+    const config=job?.config||{};
+    if(config.pipeline==='geometria_nivel_v3')return 'v3';
+    if(['v1','v2','v3','otros'].includes(config.project_version))return config.project_version;
+    const item=(catalog.runs||[]).find(r=>r.id===config.run||r.id===config.source)
+      ||(catalog.datasets||[]).find(v=>v.id===config.source)
+      ||(catalog.models||[]).find(m=>m.id===config.model);
+    return versionOf(item,catalog);
+  }
   function predictionImages(catalog,modelId){
     const model=catalog.models.find(m=>m.id===modelId);
     if(!model)return [];
@@ -40,7 +49,7 @@ const Lab = (() => {
     return catalog.images.filter(image=>!trained.has(image.id));
   }
   function versionStatus(catalog,version,activeJobs=[]){
-    if(version==='v3')return 'En preparación · integración de localización pendiente';
+    if(version==='v3')return activeJobs.some(j=>j.state==='running'&&j.config?.action==='train'&&j.config?.pipeline==='geometria_nivel_v3')?'Entrenando · sigue el avance en Entrenar':catalog.v3_training?.runs?.some(r=>r.ready)?'Modelo entrenado · revisa los contornos y registra tu decisión':catalog.v3_preparation?.error?'Revisa los registros de preparación':catalog.v3_training?.exports?.length?'Exportación revisada · entrenamiento geométrico disponible':catalog.v3_preparation?.current?'Copia V3 disponible · revisa las anotaciones y exporta':'Preparación disponible · 458 imágenes con partición fija';
     const scoped=versionCatalog(catalog,version),running=activeJobs.some(j=>j.state==='running'&&j.config?.action==='train'&&versionOf(catalog.runs.find(r=>r.id===j.config.run||r.id===j.config.source)||catalog.datasets.find(v=>v.id===j.config.source),catalog)===version);
     if(running)return 'Entrenando · puedes seguir el avance en Entrenar';
     const count=new Set(scoped.models.filter(m=>m.run&&scoped.runs.some(r=>r.id===m.run&&r.ready)&&!technical(m.run)).map(m=>m.run)).size;
@@ -116,7 +125,7 @@ const Lab = (() => {
       if(visited.has(runId))return 'run:'+runId;visited.add(runId);
       const source=runs.get(runId)?.config?.model;
       if(typeof source!=='string')return 'run:'+runId;
-      const parent=source.match(/^Laboratorio/Laboratorio\Experimentos\/([^/]+)\/entrenamiento\/weights\/[^/]+$/);
+      const parent=source.match(/^Experimentos\/([^/]+)\/entrenamiento\/weights\/[^/]+$/);
       return parent?family(parent[1],visited):source;
     }
     const latest=new Map(),stamp=run=>run.id.match(/_(\d{8}_\d{6})_/)?.[1]||run.created_at||run.id;
@@ -181,7 +190,27 @@ const Lab = (() => {
     const state=(kind,title,action,target,reason='')=>({...context,kind,title,action,target,reason});
     if(home.kind==='error')return state('error','No se pudo verificar el estado actual','Reintentar consulta','retry',home.reason);
     if(home.kind==='loading')return state('loading','Consultando el estado actual…','Consultar estado','retry');
-    if(version==='v3')return state('v3','V3 está en preparación','Ver dependencias de V3','v3','Faltan exportador, validaciones, partición y evaluación compatibles con una clase Nivel.');
+    if(version==='v3'){
+      if(catalog.v3_preparation?.error)return state('v3','Revisa los registros V3','Revisar preparación V3','datasets',catalog.v3_preparation.error);
+      const latest=catalog.v3_preparation?.current;
+      const exportReady=catalog.v3_training?.exports?.[0],v3job=jobs.find(j=>j.config?.action==='train'&&j.config?.pipeline==='geometria_nivel_v3'&&j.state==='running')||jobs.find(j=>j.config?.action==='train'&&j.config?.pipeline==='geometria_nivel_v3');
+      const finished=[...(catalog.v3_training?.runs||[])].filter(r=>r.ready).sort((a,b)=>b.id.localeCompare(a.id))[0];
+      const planned=catalog.v3_training?.selections?.find(s=>s.recommended&&!catalog.v3_training.runs?.some(r=>r.selection_id===s.id));
+      if(planned&&v3job?.state!=='running'){
+        const general=planned.required_initial_model?.startsWith('Modelos/preentrenados/');
+        const title=general?'Entrenamiento nuevo preparado':planned.required_initial_model?'Afinado preparado':'Entrenamiento preparado';
+        const reason=general?'Parte de un modelo general preentrenado, sin usar los pesos V3 actuales.':'Revisa los pesos de partida y los datos antes de iniciar.';
+        return {...state('v3ready',title,`Configurar entrenamiento con ${planned.development_counts.train} fotos`,'v3selection',reason),nextObjectId:planned.id,startModel:general?'Modelo general preentrenado':planned.required_initial_model?'Modelo V3 existente':'Elegir modelo de partida',dataState:'exportación revisada',trialState:'sin iniciar',evaluation:'validación preparada',occupancy:'experimental'};
+      }
+      const released=catalog.v3_training?.vision_release;
+      if(released&&v3job?.state!=='running')return {...state('v3review','Versión integrada en Walmart Vision','Ver resultados del modelo vigente','v3results','best.pt vigente. Los ensayos anteriores están archivados. Para reforzar, añade y revisa nuevas imágenes; esta versión se conserva como base.'),nextObjectId:released.run,dataState:'versión cerrada',trialState:'terminado',evaluation:'revisión registrada',occupancy:'estimación experimental integrada'};
+      if(finished&&!['running','error','interrupted'].includes(v3job?.state)){
+        const decision=finished.decision?.status,candidate=decision==='candidato',discarded=decision==='descartado';
+        return {...state('v3review',candidate?'Candidato registrado: pendiente de adopción':discarded?'Ensayo descartado: configura una nueva prueba':decision==='seguir_ajustando'?'Modelo revisado: quedan ajustes por hacer':'Modelo entrenado: revisa sus resultados',discarded?'Configurar otro ensayo':'Revisar resultados',discarded?'v3train':'v3results',finished.decision?.reason||'Revisa las métricas del ensayo y registra en Resultados y decisión si el modelo es candidato o necesita ajustes.'),nextObjectId:finished.id,dataState:'exportación revisada',trialState:'terminado',evaluation:'disponible',occupancy:'pendiente de integración'};
+      }
+      if(exportReady){const running=v3job?.state==='running',failed=v3job&&['error','interrupted'].includes(v3job.state);return {...state(running?'v3active':failed?'v3failed':'v3ready',running?'Entrenamiento geométrico en curso':failed?'El ensayo V3 requiere revisión':'Exportación V3 revisada y lista para entrenar',running||failed?'Ver seguimiento V3':'Configurar entrenamiento V3','v3train',exportReady.copy),dataState:'exportación revisada',trialState:running?'entrenando':failed?'fallido':v3job?.state==='done'?'terminado':'sin iniciar',evaluation:catalog.v3_training?.runs?.some(r=>r.ready)?'disponible en Entrenar':'pendiente'};}
+      return {...state('v3',latest?'V3 tiene una copia para revisar':'V3 lista para preparar datos',latest?'Revisar datos V3':'Preparar datos V3','datasets',latest?`${latest.image_count} fotos · ${latest.blocked_images} excluidas. Consulta la copia y sus incidencias.`:'Trae las anotaciones de la partición activa y revisa sus polígonos.'),dataState:latest?'pendientes de revisión':'partición verificada'};
+    }
     if(job?.state==='running')return state('active','El ensayo sigue en curso','Ver seguimiento','train',job.config.run);
     if(failed)return state('failed','El ensayo no terminó','Revisar y recuperar','train',`${job.config.run} · etapa ${job.progress?.stage||'sin registrar'} · ${job.error||'Consulta el registro técnico para conocer la causa.'}`);
     if(!copy)return state('empty','Faltan anotaciones para este criterio','Traer anotaciones','datasets');
@@ -230,5 +259,5 @@ const Lab = (() => {
     const elapsed=Number.isFinite(started)?Math.max(0, ((terminal&&Number.isFinite(ended)?ended:now)-started)/1000):null;
     return {history,latest,completed,total,stage,best,elapsed,terminal,percent:total?Math.min(100,Math.round(completed/total*100)):null};
   }
-    return {readyCopy,blocked,levelsCopy,profile,versionOf,versionCatalog,predictionImages,versionStatus,technical,currentCopy,homeState,workspaceState,comparisonReason,groupIssues,issueCounts,reportGroups,issueAdvice,defaultRun,modelChoices,defaultModel,resultDecision,comparable,evaluationContext,copiesByPerson,copiesByLot,trainingState};
+    return {readyCopy,blocked,levelsCopy,profile,versionOf,versionCatalog,jobVersion,predictionImages,versionStatus,technical,currentCopy,homeState,workspaceState,comparisonReason,groupIssues,issueCounts,reportGroups,issueAdvice,defaultRun,modelChoices,defaultModel,resultDecision,comparable,evaluationContext,copiesByPerson,copiesByLot,trainingState};
 })();

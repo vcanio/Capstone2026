@@ -16,7 +16,19 @@ const PredictionDemo=(()=>{
       combined:value(d.occupancy?.combined_signal_pct),reason:d.occupancy?.reason||''}));
   }
   function occupancyRevision(method){return method==='paulo_mascara_v2_combinacion_ponderada'?'Bordes V2 · combinación ponderada':method==='paulo_mascara_v2_color_textura'?'Bordes V1 · Revisión 2 · color y textura':method==='paulo_mascara_v1'?'Revisión 1 · color y oscuridad':'Revisión sin registrar'}
-  function methodHelp(method){return method==='yolo_paulo_v2'?'V2 combina 70 % de superficie y 30 % de ancho, con umbral adaptativo por nivel. Señal experimental; YOLO determina el estado.':method==='yolo_paulo'?'Analiza bordes, color y textura en la foto original, dentro de cada nivel. El estado lo determina YOLO.':'YOLO localiza cada nivel y determina su estado.'}
+  function occupancySummary(detections,method){
+    const weighted=method==='paulo_mascara_v2_combinacion_ponderada';
+    const rows=detections.map((d,i)=>{
+      const o=d.occupancy,raw=d.occupancy_estimate?d.occupancy_estimate.pct:o?.status==='medido'?o[weighted?'combined_signal_pct':'area_signal_pct']:null;
+      const pct=Number.isFinite(raw)&&raw>=0&&raw<=100?raw:null;
+      return {id:d.id||i+1,pct,tone:pct===null?'unknown':pct<30?'low':'enough',label:pct===null?'Sin medición':pct<30?'Reponer':'Suficiente'};
+    });
+    const low=rows.filter(r=>r.tone==='low').length,unknown=rows.filter(r=>r.pct===null).length;
+    const title=!rows.length?'No se detectaron niveles':low?`${low} ${low===1?'nivel necesita reposición':'niveles necesitan reposición'}`:unknown===rows.length?'No se pudo estimar la ocupación':unknown?'Sin reposición señalada; hay niveles sin medición':'Los niveles detectados se ven suficientes';
+    const detail=`${rows.length} ${rows.length===1?'nivel detectado':'niveles detectados'}.${unknown?` ${unknown} sin medición.`:''}`;
+    return {rows,title,detail};
+  }
+  function methodHelp(method){return method==='yolo'?'YOLO localiza cada nivel y determina su estado.':'Estima la ocupación de cada nivel. Rojo bajo el 30 %; verde desde el 30 %.'}
   function methodConfig(method){return {occupancy:method==='yolo_paulo'||method==='yolo_paulo_v2',occupancy_version:method==='yolo_paulo_v2'?'v2':'v1'}}
-  return {states,stateOf,summary,occupancyRows,occupancyRevision,methodHelp,methodConfig};
+  return {states,stateOf,summary,occupancyRows,occupancyRevision,occupancySummary,methodHelp,methodConfig};
 })();

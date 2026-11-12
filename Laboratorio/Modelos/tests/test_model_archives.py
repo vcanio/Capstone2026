@@ -9,6 +9,19 @@ import panel_modelos as panel
 
 
 class ModelArchiveTests(unittest.TestCase):
+    def test_v3_uses_same_reversible_archive_without_losing_parent_checkpoint(self):
+        (self.run / 'manifest.json').write_text(json.dumps({'criterion': {'version': 'geometria_nivel_v3'},
+                                                           'clases': ['Nivel'], 'imagenes': []}), encoding='utf-8')
+        (self.run / 'config_interfaz.json').write_text(json.dumps({'imgsz': 640}), encoding='utf-8')
+        (self.run / 'metricas_geometria_v3.json').write_text(json.dumps({'sets': {}, 'test_used': False}), encoding='utf-8')
+        panel.change_model_visibility({'id': self.last}, archive=True)
+        data = panel.catalog()['v3_prediction']
+        self.assertEqual([m['id'] for m in data['models']], [self.best])
+        self.assertEqual([m['id'] for m in data['archived_models']], [self.last])
+        self.assertEqual((self.weights / 'last.pt').read_bytes(), b'weights-last')
+        panel.change_model_visibility({'id': self.last}, archive=False)
+        self.assertEqual(len(panel.catalog()['v3_prediction']['models']), 2)
+
     def setUp(self):
         workspace = Path(__file__).resolve().parents[3]
         test_dir = workspace / '.impeccable/test-tmp'
@@ -17,7 +30,7 @@ class ModelArchiveTests(unittest.TestCase):
         assert Path(self.temp.name).resolve().is_relative_to(test_dir.resolve())
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.run = self.root / 'Laboratorio/Experimentos/ensayo_fixture'
+        self.run = self.root / 'Experimentos/ensayo_fixture'
         self.weights = self.run / 'entrenamiento/weights'
         self.weights.mkdir(parents=True)
         (self.run / 'manifest.json').write_text(json.dumps({'imagenes': []}), encoding='utf-8')
@@ -27,10 +40,10 @@ class ModelArchiveTests(unittest.TestCase):
         self.general = self.root / 'Modelos/preentrenados/general.pt'
         self.general.parent.mkdir(parents=True)
         self.general.write_bytes(b'general-weights')
-        self.best = 'Laboratorio/Experimentos/ensayo_fixture/entrenamiento/weights/best.pt'
-        self.last = 'Laboratorio/Experimentos/ensayo_fixture/entrenamiento/weights/last.pt'
+        self.best = 'Experimentos/ensayo_fixture/entrenamiento/weights/best.pt'
+        self.last = 'Experimentos/ensayo_fixture/entrenamiento/weights/last.pt'
         for context in (patch.object(panel, 'ROOT', self.root),
-                        patch.object(panel, 'JOBS', self.root / 'Laboratorio/Experimentos/panel_pruebas'),
+                        patch.object(panel, 'JOBS', self.root / 'Experimentos/panel_pruebas'),
                         patch.object(panel, 'ACTIVE', None),
                         patch.object(panel, 'inventory', return_value=[]),
                         patch.object(panel.datasets, 'versions', return_value=[])):
@@ -83,7 +96,7 @@ class ModelArchiveTests(unittest.TestCase):
         self.assertEqual(panel.catalog()['archived_models'], [])
 
     def test_restoring_visible_or_missing_weights_is_rejected(self):
-        for model_id in (self.best, 'Laboratorio/Experimentos/missing/best.pt'):
+        for model_id in (self.best, 'Experimentos/missing/best.pt'):
             with self.assertRaises(ValueError):
                 panel.change_model_visibility({'id': model_id}, archive=False)
         self.assertFalse(panel.model_archive_path().exists())

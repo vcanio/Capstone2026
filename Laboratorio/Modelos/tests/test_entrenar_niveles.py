@@ -102,7 +102,7 @@ class LevelTrainingTests(unittest.TestCase):
         with patch.object(training, 'train') as train:
             training.main(['--data', str(self.data), '--solo-verificar'])
         train.assert_not_called()
-        self.assertFalse((self.root / 'Laboratorio/Experimentos').exists())
+        self.assertFalse((self.root / 'Experimentos').exists())
 
     def test_runtime_check_with_dataset_never_starts_training(self):
         with patch.object(training, 'load_model'), patch.object(training, 'train') as train:

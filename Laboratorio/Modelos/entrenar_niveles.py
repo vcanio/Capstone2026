@@ -296,7 +296,7 @@ def train(args, dataset, report):
         raise ValueError('--modelo debe ser un archivo local .pt de segmentación.')
     # Los ensayos v2 se guardan en una subcarpeta propia: el panel actual sigue
     # interpretando cuatro estados y todavía no puede visualizar estos modelos.
-    run = ROOT / 'Laboratorio/Experimentos' / 'niveles_v2' / args.nombre
+    run = ROOT / 'Experimentos' / 'niveles_v2' / args.nombre
     if run.exists():
         raise ValueError(f'Ya existe el ensayo {run}. Usa otro --nombre.')
     torch, ultralytics = load_runtime()

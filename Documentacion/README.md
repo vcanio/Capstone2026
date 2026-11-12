@@ -1,13 +1,13 @@
 # Documentación de Walmart Visión
 
-La documentación principal explica la **V3 local en pruebas**, su uso y el alcance real de sus resultados. La nueva release todavía no está publicada.
+La documentación principal explica **las apps del 11 de noviembre de 2026**, con el cierre V3 revisado adoptado el 10/11 y Línea A del 8/11. Las releases anteriores conservan sus propios modelos, interfaces y estimadores. [Mapa de carpetas](Desarrollo/Mapa_del_proyecto.md) · [Aplicación local](../Aplicacion/README.md) · [Modelo vigente](../Modelos/Actual/README.md).
 
 | Lectura | Qué resuelve |
 |---|---|
 | [Usar Walmart Visión](Usar_Walmart_Vision.md) | Abrir la app, analizar una foto y revisar los resultados. |
 | [Cómo funciona](Guia_para_entender_el_proyecto.md) | Niveles, ocupación, mapa de señal, visibilidad y regla de mediana. |
 | [Modelo actual V3](Modelo_V3_actual.md) | Identidad, datos, entrenamiento, resultados y limitaciones. |
-| [Estado de distribución](../Entregables/README.md) | Qué está preparado localmente y qué sigue pendiente de publicación. |
+| [Estado de distribución](../Entregables/README.md) | ZIP V3 vigente, SHA-256 y release publicada. |
 | [Datos actuales](../Datos/README.md) | Catálogo V3, partición y selección del último afinado. |
 
 ## Consulta técnica y académica

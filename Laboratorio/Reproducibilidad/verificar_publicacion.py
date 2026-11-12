@@ -14,7 +14,8 @@ from preparar import safe_path
 from rutas_publicacion import current_reference
 
 PRIVATE = ('.config-modelo/', '.resguardo/', '.tmp/', '.publicacion/', '.artefactos/',
-           '.venv-modelo/', '.venv-cvat/', 'Laboratorio/Experimentos/panel_pruebas/', 'Contexto/', 'Historico/Contexto/')
+           '.venv-modelo/', '.venv-cvat/', 'Experimentos/panel_pruebas/', 'Contexto/',
+           'Laboratorio/Experimentos/panel_pruebas/', 'Historico/Contexto/')
 SECRET_KEYS = {'password', 'passwd', 'token', 'api_key', 'secret', 'client_secret', 'access_token', 'auth_token'}
 
 
@@ -44,12 +45,31 @@ def secret_fields(value, path=''):
     return findings
 
 
+def verify_engine_sources(root):
+    """Comprobar los bytes que el motor exige al abrir un clon limpio."""
+    app = Path(root) / 'Aplicacion'
+    manifest = app / 'modelos.json'
+    if not manifest.is_file():
+        return
+    value = json.loads(manifest.read_text(encoding='utf-8-sig'))
+    for name, expected in value.get('edge_sources', {}).items():
+        if Path(name).name != name or '\\' in name or ':' in name:
+            raise ValueError('Ruta de motor inválida: ' + name)
+        source = app / name
+        if not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest() != expected:
+            raise ValueError('Los bytes del motor no coinciden con edge_sources: ' + name)
+
+
 def verify(root=ROOT):
     root = Path(root).resolve()
-    manifest = json.loads((root / 'Historico/Reproducibilidad/artefactos.json').read_text(encoding='utf-8'))
+    verify_engine_sources(root)
+    registry = root / 'Historico/Reproducibilidad'
+    if not registry.is_dir():
+        registry = root / 'reproducibilidad'  # Lectura compatible de entregas anteriores.
+    manifest = json.loads((registry / 'artefactos.json').read_text(encoding='utf-8'))
     declared = set()
     packages = dict(manifest['packages'])
-    local_manifest = root / 'Historico/Reproducibilidad/activos_locales_20261023.json'
+    local_manifest = registry / 'activos_locales_20261023.json'
     if local_manifest.is_file():
         additional = json.loads(local_manifest.read_text(encoding='utf-8'))['packages']
         if set(packages).intersection(additional):
@@ -87,13 +107,13 @@ def verify(root=ROOT):
         if path.name == 'acceso_local.json' or (path.name.startswith('.env') and not path.name.endswith('.example')):
             raise ValueError('Archivo privado visible para Git: ' + rel)
         if path.suffix.lower() == '.pt' and path.parent == root / 'Aplicacion/modelos':
-            manifest = json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))
-            models = manifest['models']
+            model_manifest = json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))
+            models = model_manifest['models']
             model = next((item for item in models if item['file'] == 'modelos/' + path.name), None)
-            if (len(models) != 1 or not model or manifest['default_model'] != model['id'] or
+            if (len(models) != 1 or not model or model_manifest['default_model'] != model['id'] or
                     model.get('classes') != ['Nivel'] or path.stat().st_size != model['bytes'] or
                     hashlib.sha256(path.read_bytes()).hexdigest() != model['sha256']):
-                raise ValueError('El peso de la aplicacion no coincide con su manifiesto.')
+                raise ValueError('El peso de la aplicación no coincide con su manifiesto.')
         elif path.suffix.lower() in ('.pt', '.zip') or path.stat().st_size >= 50 * 1024**2:
             raise ValueError('Binario o archivo grande fuera de Releases: ' + rel)
         if path.suffix == '.json':

@@ -88,7 +88,8 @@ class SignalTests(unittest.TestCase):
                 self.assertFalse(analyzer.signal.any())
                 self.assertEqual(result['area_signal_pct'], 0)
                 self.assertEqual(result['width_signal_pct'], 0)
-                self.assertEqual(result['structure_policy'], 'rieles_fragmentados_inferiores_v2' if version == 'v2' else 'rieles_horizontales_v1')
+                self.assertEqual(result['structure_policy'], 'rieles_fragmentados_inferiores_v2'
+                                 if version == 'v2' else 'rieles_horizontales_v1')
 
     def test_rail_suppression_preserves_product_color_and_vertical_edges(self):
         import cv2
@@ -319,10 +320,12 @@ class SignalTests(unittest.TestCase):
             self.assertFalse(data['calibrado'])
 
     def test_both_new_models_share_registered_validation_and_reject_other_splits(self):
+        if not (panel.ROOT / 'Experimentos/v2_base_yolo26n_01_20261020_004933_b105/manifest.json').is_file():
+            self.skipTest('Requiere los registros locales V2 en sus rutas de compatibilidad.')
         from particion_niveles import load_partition
         import json
         partition = load_partition(panel.ROOT)
-        run = panel.ROOT / 'Historico/Experimentos/v2_base_yolo26n_01_20261020_004933_b105'
+        run = panel.ROOT / 'Experimentos/v2_base_yolo26n_01_20261020_004933_b105'
         manifest = json.loads((run / 'manifest.json').read_text(encoding='utf-8-sig'))
         self.assertEqual(len(development_entries(manifest, partition)), 10)
         changed = {**manifest, 'imagenes': [{**manifest['imagenes'][0], 'split': 'val'}]}

@@ -16,6 +16,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 from preparar import digest
 from verificar_publicacion import local_only, secret_fields
 
+ARCHIVE_LOCAL = ('Historico/Publicaciones', 'Historico/Evidencias',
+                 'Historico/Datos', 'Historico/Experimentos')
+
 
 def files_under(base):
     if not base.is_dir():
@@ -23,8 +26,9 @@ def files_under(base):
     files = []
     for folder, dirs, names in os.walk(base):
         dirs[:] = [d for d in dirs
-                   if d not in ('.git', 'node_modules', '__pycache__', '.runtime', '.entorno-py312', 'cvat-v2.77.0', 'panel_pruebas')
+                   if d not in ('__pycache__', '.git', 'node_modules', '.runtime', '.entorno-py312', 'cvat-v2.77.0', 'panel_pruebas')
                    and not (Path(folder) / d).is_junction() and not (Path(folder) / d).is_symlink()
+                   and (Path(folder) / d).relative_to(ROOT).as_posix() not in ARCHIVE_LOCAL
                    and not local_only((Path(folder) / d).relative_to(ROOT).as_posix() + '/')]
         for name in names:
             p = Path(folder) / name
@@ -51,7 +55,7 @@ def copy_code(git, checkout):
     shutil.copy2(ROOT / '.gitignore', checkout / '.gitignore')
     candidates = [ROOT / n for n in ('README.md', 'AGENTS.md', '.gitignore', '.gitattributes', '.dockerignore', 'compose.apps.yaml', 'LICENSE', 'NOTICE.md', 'LICENCIAS.md')
                   if (ROOT / n).is_file()]
-    for base in ('Aplicacion', 'Aplicacion_Cliente', 'Laboratorio', 'Infraestructura', 'Documentacion', 'Datos', 'Modelos', 'Entregables', 'Historico', '.github'):
+    for base in ('Aplicacion', 'Aplicacion_Cliente', 'Laboratorio', 'Infraestructura', 'Documentacion', 'Datos', 'Modelos', 'Historico', 'Entregables', '.github'):
         candidates.extend(files_under(ROOT / base))
     names = [f.relative_to(ROOT).as_posix() for f in candidates]
     result = subprocess.run([git, '-C', str(checkout), 'check-ignore', '--no-index', '--stdin', '-z'],

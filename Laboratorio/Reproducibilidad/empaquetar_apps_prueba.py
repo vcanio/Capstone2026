@@ -2,18 +2,53 @@
 import argparse
 import hashlib
 import json
+import posixpath
 from pathlib import Path
+import re
 import sys
 import tempfile
+from urllib.parse import quote, urlsplit
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'Laboratorio/Modelos'))
 from empaquetar_demo_lite import build as build_team
 
-CLIENT_FILES = ('app_cliente.py', 'interfaz_cliente.html', 'iniciar_cliente.cmd', 'README.md')
+CLIENT_FILES = ('app_cliente.py', 'interfaz_cliente.html', 'logo.svg', 'iniciar_cliente.cmd', 'README.md')
 PACKAGE_ROOT = 'Walmart_Vision'
 LEGAL_FILES = ('LICENSE', 'NOTICE.md', 'LICENCIAS.md')
+SOURCE_REF = 'walmart-vision-apps-prueba-2026-11-11'
+
+
+def resolve_document_links(entries):
+    """Mantener enlaces internos del ZIP y dirigir las guías externas a su fuente."""
+    for name, body in list(entries.items()):
+        if not name.endswith('.md') or name in LEGAL_FILES:
+            continue
+        source = ROOT / name
+        if not source.is_file() and name.startswith('Aplicacion/'):
+            source = ROOT / 'Aplicacion/Documentacion' / Path(name).name
+        if not source.is_file():
+            source = ROOT / Path(name).name
+        def resolve(match):
+            label, raw = match.groups()
+            value = raw.strip('<>')
+            parts = urlsplit(value)
+            if parts.scheme or value.startswith('#'):
+                return match.group(0)
+            target = posixpath.normpath(posixpath.join(posixpath.dirname(name), parts.path))
+            if target in entries:
+                return match.group(0)
+            original = (source.parent / parts.path).resolve()
+            if not original.is_relative_to(ROOT):
+                raise ValueError('Enlace documental fuera del proyecto: ' + name)
+            relative = original.relative_to(ROOT).as_posix()
+            url = 'https://github.com/vcanio/Capstone2026/blob/' + SOURCE_REF + '/' + quote(relative)
+            if parts.fragment:
+                url += '#' + parts.fragment
+            return '[' + label + '](' + url + ')'
+        entries[name] = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', resolve,
+                               body.decode('utf-8-sig')).encode('utf-8')
 
 
 def build(output):
@@ -40,7 +75,7 @@ def build(output):
     for name, target in (('iniciar_cliente.cmd', 'Aplicacion_Cliente\\iniciar_cliente.cmd'),
                          ('iniciar_equipo.cmd', 'Aplicacion\\iniciar.cmd')):
         entries[name] = ('@echo off\r\ncall "%~dp0' + target + '" %*\r\n').encode()
-    entries['LEEME.md'] = """# Walmart Visión · prueba de cliente y equipo · 10/11/2026
+    entries['LEEME.md'] = """# Walmart Visión · prueba de cliente y equipo · 11/11/2026
 
 Extrae todo el ZIP en una carpeta con permisos de escritura.
 
@@ -51,13 +86,14 @@ Extrae todo el ZIP en una carpeta con permisos de escritura.
   Abre http://127.0.0.1:8098 (cliente) y http://127.0.0.1:8095 (equipo).
   Para detener: `docker compose -f compose.apps.yaml down`.
 
-Cliente: fotos propias, prioridades, checklist y hoja CSV. Equipo: marcado por nivel/zona,
+Cliente: fotos propias, alertas visuales, revisión humana independiente y hoja CSV.
+La limpieza del recorrido es definitiva; no elimina los originales del computador. Equipo: marcado por nivel/zona,
 comparación y exportación de lotes de revisión. Consulta los README de ambas carpetas
 y Aplicacion/REVISION_EQUIPO.md. Cada colega ejecuta su copia local; los lotes se comparten
 manualmente. No hay sincronización entre computadores ni alojamiento web de las apps.
 El dataset y las fotos del catálogo local de demostración no se incluyen: carga tus fotos.
 
-Usa el modelo oficial del 5/11 y Línea A del 8/11, índice visual preliminar de 0 a 100,
+Usa el cierre V3 revisado adoptado el 10/11 y Línea A del 8/11, índice visual preliminar de 0 a 100,
 umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos.
 Revisa los contornos y la visibilidad. Es una versión de prueba, sin evaluación final.
 La release del 5/11 se conserva como distribución histórica independiente.
@@ -65,8 +101,9 @@ La release del 5/11 se conserva como distribución histórica independiente.
 Código original del equipo: AGPL-3.0-only. Lee LICENSE, NOTICE.md y LICENCIAS.md.
 La finalidad académica no limita los usos permitidos por AGPL ni concede una
 licencia pública a las fotografías y anotaciones. Fuente correspondiente:
-https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2
+https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-11
 """.encode('utf-8')
+    resolve_document_links(entries)
     manifest = {name: hashlib.sha256(body).hexdigest() for name, body in sorted(entries.items())}
     entries['MANIFIESTO_SHA256.json'] = (json.dumps(manifest, indent=2) + '\n').encode()
     with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:

@@ -15,7 +15,7 @@ class ValidationTests(unittest.TestCase):
         cls.data['runs'] = [{'id': 'ensayo_fixture', 'ready': True,
                              'manifest': {'imagenes': [{'imagen': '03.jpg', 'split': 'train'},
                                                       {'imagen': '28.jpg', 'split': 'val'}]}}]
-        cls.data['models'] = [{'id': 'Laboratorio/Experimentos/ensayo_fixture/entrenamiento/weights/best.pt',
+        cls.data['models'] = [{'id': 'Experimentos/ensayo_fixture/entrenamiento/weights/best.pt',
                                'run': 'ensayo_fixture'}]
         cls.config = {'action': 'predict', 'model': cls.data['models'][0]['id'],
                       'image': 'Datos/V1/Lider/lider_028.jpg', 'conf': 0.25, 'nms': 0.7, 'imgsz': 640}
@@ -42,7 +42,7 @@ class ValidationTests(unittest.TestCase):
         parent = {'id': 'parent', 'manifest': {'imagenes': [
             {'imagen': 'REAL_03.jpg', 'archivo': 'Equilibrado_v1_20261013/reales/entrenamiento/REAL_03.jpg', 'split': 'train'},
             {'imagen': '28.jpg', 'split': 'val'}]}}
-        child = {'id': 'child', 'config': {'model': 'Laboratorio/Experimentos/parent/entrenamiento/weights/best.pt'},
+        child = {'id': 'child', 'config': {'model': 'Experimentos/parent/entrenamiento/weights/best.pt'},
                  'manifest': {'imagenes': [{'imagen': '04.jpg', 'split': 'train'}]}}
         self.assertEqual(panel.training_image_ids({'run': 'child'}, [parent, child]),
                          ['Datos/V1/Lider/lider_003.jpg', 'Datos/V1/Lider/lider_004.jpg'])

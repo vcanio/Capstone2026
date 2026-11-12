@@ -53,7 +53,7 @@ docker compose version
 nvidia-smi
 ```
 
-Si el usuario no tiene acceso a Docker, ejecutar los comandos Docker de esta guía con `sudo` o configurar ese acceso con el administrador. Usar una cuenta propietaria de `/srv/walmart`, con permiso de escritura en `Datos/Registros/Versiones_modelos`, `Laboratorio/Experimentos` y `.config-modelo`.
+Si el usuario no tiene acceso a Docker, ejecutar los comandos Docker de esta guía con `sudo` o configurar ese acceso con el administrador. Usar una cuenta propietaria de `/srv/walmart`, con permiso de escritura en `Datos/Registros/Versiones_modelos`, `Experimentos` y `.config-modelo`.
 
 El laboratorio usa PyTorch 2.5.1 con CUDA 12.1. La comprobación real del paso 8 determina si esa imagen funciona con la GPU del destino. Una GPU más nueva puede necesitar actualizar coordinadamente PyTorch, torchvision y CUDA; Docker no elimina esa compatibilidad.
 
@@ -259,7 +259,7 @@ test -z "$(ls -A /srv/walmart)" || { echo 'La carpeta no está vacía'; exit 1; 
 tar -xzf /srv/transferencias/migracion_walmart/walmart_proyecto.tar.gz -C /srv/walmart
 cd /srv/walmart
 docker image load -i /srv/transferencias/migracion_walmart/imagen_modelos.tar
-mkdir -p .config-modelo Laboratorio/Experimentos Datos/Registros/Versiones_modelos
+mkdir -p .config-modelo Experimentos Datos/Registros/Versiones_modelos
 ```
 
 Comprobar que están presentes:
@@ -273,9 +273,9 @@ Datos/Registros/
 Datos/V2/
 Datos/V1/Lider/
 Datos/V1/Sinteticas/
-Laboratorio/Experimentos/panel_pruebas/Subidas_panel/
+Experimentos/panel_pruebas/Subidas_panel/
 Datos/V1/Reservadas/
-Laboratorio/Experimentos/
+Experimentos/
 Modelos/preentrenados/yolo11n-seg.pt
 Datos/Registros/CVAT/organizacion.json
 Datos/Registros/reserva_evaluacion.json
@@ -308,11 +308,11 @@ Usar otro editor si no está instalado Nano. Guardar en ese archivo los valores 
 
 1. Mantener el PC original encendido con Docker y Tailscale conectados.
 2. Instalar Tailscale en el destino y autorizar ese equipo para acceder al CVAT del proyecto en la política de la red.
-3. Comprobar desde el destino que se puede abrir `https://TU_HOST_CVAT` e iniciar sesión con la cuenta autorizada.
+3. Comprobar desde el destino que se puede abrir `https://pcvicen.tailca514b.ts.net` e iniciar sesión con la cuenta autorizada.
 4. Crear o editar `Infraestructura/Docker/.env.modelos` en la carpeta Infraestructura/Docker del proyecto destino:
 
 ```dotenv
-MODEL_CVAT_URL=https://TU_HOST_CVAT
+MODEL_CVAT_URL=https://pcvicen.tailca514b.ts.net/api
 MODEL_CVAT_HOST_HEADER=
 ```
 
@@ -597,7 +597,7 @@ El panel debe estar `healthy`. En la ruta GPU debe aparecer `CUDA: True`, la GPU
 ### 8.2. Datos y conexión a CVAT desde el contenedor
 
 ```powershell
-docker @targetModelArgs exec -T panel_modelos python -c "import sys; sys.path.insert(0, '/app/Herramientas/Modelos'); import panel_modelos as p, datos_modelos as d; print('Catalogo:', {k:len(v) for k,v in p.catalog().items()}); print('Proyecto CVAT:', d.CvatReader().request('/projects/4')['name'])"
+docker @targetModelArgs exec -T panel_modelos python -c "import sys; sys.path.insert(0, '/app/Laboratorio/Modelos'); import panel_modelos as p, datos_modelos as d; print('Catalogo:', {k:len(v) for k,v in p.catalog().items()}); print('Proyecto CVAT:', d.CvatReader().request('/projects/4')['name'])"
 ```
 
 Se esperan las fotos de desarrollo, versiones y modelos copiados y el proyecto `Walmart Stock`. La cuenta puede necesitar permisos para leer ese proyecto. Este comando comprueba la conexión **desde el contenedor**: abrir CVAT en el navegador del anfitrión no comprueba por sí solo DNS y acceso desde Docker.
@@ -681,6 +681,6 @@ Si ya se guardaron anotaciones o resultados nuevos en el destino, respaldarlos a
 | «Abrir trabajo en CVAT» abre el PC equivocado | En ruta A los enlaces aún son locales; abrir la URL privada del CVAT original. En servidor completo usar el túnel de ambos puertos. |
 | Guardar por HTTPS falla por origen/CSRF | Revisar el dominio del destino y los encabezados del proxy, especialmente el gateway autorizado. |
 | Puerto 8090 ocupado | Detener el panel manual o la instalación local anterior después de confirmar que no hay un trabajo activo. |
-| Faltan ensayos/modelos | Comprobar copia de `Laboratorio/Experimentos` y `Modelos`; la imagen Docker no incluye esos datos. |
+| Faltan ensayos/modelos | Comprobar copia de `Experimentos` y `Modelos`; la imagen Docker no incluye esos datos. |
 
 Los comandos de Compose de los ajustes de destino se validaron en el equipo actual. La restauración real y el funcionamiento del hardware de otro equipo se verifican durante la migración con los pasos 6 a 8.

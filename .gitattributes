@@ -14,3 +14,15 @@
 *.pdf binary
 *.docx binary
 *.zip binary
+
+# Registro congelado: SHA-256 sobre sus bytes originales.
+Datos/Registros/Particiones/v3_458_20261023/grupos_escena.json -text whitespace=cr-at-eol
+
+# Licencias de uv: conservar los bytes LF comprobados por fuente_uv.json.
+Aplicacion/herramientas/licencias/LICENSE-* text eol=lf
+
+# Motor verificado: preservar exactamente los bytes de edge_sources.
+Aplicacion/ocupacion_paulo.py -text whitespace=cr-at-eol
+Aplicacion/gondola_bordes.py -text whitespace=cr-at-eol
+Aplicacion/gondola_combinacion_ponderada.py -text whitespace=cr-at-eol
+Aplicacion/ocupacion_linea_a.py -text whitespace=cr-at-eol

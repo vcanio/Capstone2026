@@ -8,7 +8,7 @@ La consulta conserva los nombres y estados actuales de CVAT. No importa anotacio
 ni aprueba copias automáticamente.
 
 La incorporación se mantiene manual en `PROJECT_SCOPES` y `project_scope()` de
-`Laboratorio/Modelos/datos_modelos.py`. Los proyectos 4 y 6 conservan sus flujos
+`Herramientas/Modelos/datos_modelos.py`. Los proyectos 4 y 6 conservan sus flujos
 históricos. El proyecto 7 incorpora exclusivamente la tarea 19 de Líder Express.
 Agregar otro proyecto también requiere comprobar su esquema, inventario y criterio;
 el número de proyecto por sí solo no habilita sus tareas.

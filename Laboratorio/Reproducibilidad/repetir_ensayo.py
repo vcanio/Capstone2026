@@ -23,7 +23,7 @@ def main(argv=None):
         for value in (args.ensayo, args.nombre):
             if value is not None and not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,119}', value):
                 raise ValueError('Los nombres admiten letras, números, guiones y guiones bajos.')
-        source = ROOT / 'Laboratorio/Experimentos' / args.ensayo
+        source = ROOT / 'Experimentos' / args.ensayo
         manifest = json.loads((source / 'manifest.json').read_text(encoding='utf-8-sig'))
         version = json.loads((source / 'version_datos.json').read_text(encoding='utf-8-sig'))
         config = json.loads((source / 'config_interfaz.json').read_text(encoding='utf-8-sig'))
@@ -41,7 +41,7 @@ def main(argv=None):
             return
         if not args.nombre:
             raise ValueError('Indica --nombre para conservar el ensayo original.')
-        target = ROOT / 'Laboratorio/Experimentos' / args.nombre
+        target = ROOT / 'Experimentos' / args.nombre
         target.mkdir(exist_ok=False)
         for name in ('manifest.json', 'version_datos.json', 'snapshot_cvat.json', 'particion.json', 'revision_etiquetas.json'):
             shutil.copy2(source / name, target / name)

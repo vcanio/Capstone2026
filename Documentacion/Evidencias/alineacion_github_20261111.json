@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-11",
+  "scope": "Alineación de código y documentación públicos con el estado local autorizado; no respaldo de datos privados.",
+  "base_commit": "47edc242b74a69d172ebe4a1f47c39d45d460b78",
+  "release_tag": "walmart-vision-apps-prueba-2026-11-11",
+  "package": {
+    "zip_sha256": "37a64472c5de242000a51b706a2849fa8e46a62acd377ba65fce5efc3be097a9",
+    "bytes": 20961057,
+    "files_verified": 46,
+    "model_sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5"
+  },
+  "http_package": [
+    {
+      "app": "equipo",
+      "http": "ok",
+      "cpu_inference": "ok",
+      "levels": 5,
+      "revision": "linea_a_20261108_contornos_conservados"
+    },
+    {
+      "app": "cliente",
+      "http": "ok",
+      "cpu_inference": "ok",
+      "levels": 5,
+      "revision": "linea_a_20261108_contornos_conservados"
+    }
+  ],
+  "sample_split": "train",
+  "historical_test_used": false,
+  "training_started": false,
+  "cvat_modified": false,
+  "unit_tests": {
+    "equipo": 102,
+    "cliente": 11,
+    "datos": 16,
+    "reproducibilidad": 21,
+    "laboratorio_cases": 383,
+    "laboratorio_skipped_private_assets": 13,
+    "ocupacion_cases": 14,
+    "ocupacion_skipped_private_assets": 3
+  },
+  "browser_tests": [
+    "68 imágenes simuladas; migración, persistencia por foto, recarga y limpieza definitiva",
+    "Alertas, revisión independiente, CSV, teclado y cinco vistas adaptables"
+  ],
+  "docker": "Compose validado; daemon apagado, sin build ni prueba física en Mac.",
+  "historical_releases_preserved_expected": 7,
+  "source_layout": "Fuentes operativas y documentación publicables; candidatos, sesiones, fotos privadas, configuraciones locales y respaldos excluidos.",
+  "known_limits": [
+    "Test final reservado; no certificación final de precisión",
+    "Tres fuentes históricas V1 ausentes en el entorno local; no auditoría global aprobada",
+    "Clon público sin activos privados de entrenamiento/calibración"
+  ]
+}

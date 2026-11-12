@@ -1,25 +1,26 @@
 {
   "schema_version": 6,
   "product": "Walmart Visión",
-  "date": "2026-11-05",
+  "date": "2026-11-10",
   "guide": "V3",
-  "default_model": "V3-refuerzo-revision-20261105",
+  "default_model": "V3-cierre-revisado-20261110",
   "ultralytics": "8.4.174",
   "windows_setup": "private_python_3.12_automatic",
   "task": "segment",
   "purpose": "inference_only",
   "models": [
     {
-      "id": "V3-refuerzo-revision-20261105",
-      "name": "V3 oficial · refuerzo de geometría 5 noviembre",
-      "file": "modelos/V3-refuerzo-revision-20261105.pt",
-      "sha256": "7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a",
-      "bytes": 6509910,
-      "source_run": "v3_refuerzo_geometria_revision_20261105_022414_e6f0",
+      "id": "V3-cierre-revisado-20261110",
+      "name": "V3 oficial - cierre con contornos revisados 10 noviembre",
+      "file": "modelos/V3-cierre-revisado-20261110.pt",
+      "sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5",
+      "bytes": 6525526,
+      "source_run": "v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c",
       "classes": [
         "Nivel"
       ],
-      "guide": "V3 · niveles y ocupación estimada"
+      "guide": "V3 - modelo oficial; niveles y ocupacion estimada",
+      "official": true
     }
   ],
   "features": [

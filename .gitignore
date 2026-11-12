@@ -65,6 +65,17 @@ Datos/Publicos/comparacion.jpg
 /Entregables/Walmart_Lite/
 /Aplicacion/.runtime/
 /Aplicacion/.entorno-py312/
+
+# Evidencia local de almacenamiento: conserva rutas privadas del equipo.
+/Datos/Registros/Almacenamiento/antes/
+/Datos/Registros/Almacenamiento/*.log
+/Datos/Registros/Almacenamiento/inventario_inicial.json
+/Datos/Registros/Almacenamiento/manifiesto_migracion.json
+/Datos/Registros/Almacenamiento/copias_verificadas.json
+/Datos/Registros/Almacenamiento/activacion.json
+/Datos/Registros/Almacenamiento/retiro.json
+/Datos/Registros/Almacenamiento/orden_E.json
+/Datos/Registros/Almacenamiento/particion_previa.json
 /Aplicacion/herramientas/uv.exe
 # Los iniciadores de acceso privado son específicos del equipo anfitrión.
 /Laboratorio/CVAT/iniciar_acceso_privado_equipo.ps1
@@ -74,6 +85,15 @@ Datos/Publicos/comparacion.jpg
 /Entregables/Historico/
 
 # Estructura local reorganizada; datos privados y aliases de compatibilidad.
+/Historico/Publicaciones/
+/Historico/Evidencias/
+/Historico/Datos/
+/Historico/Experimentos/
+/Historico/Entregables/*.docx
+/Historico/Entregables/*.html
+/Historico/Entregables/**/*.zip
+/Entregables/**/*.zip
+/Entregables/**/*.sha256
 /Herramientas
 /Experimentos
 /Contexto
@@ -90,11 +110,8 @@ Datos/Publicos/comparacion.jpg
 /Aplicacion/.runtime/
 /Aplicacion/.entorno-py312/
 
-# Modelo y preparador necesarios para ejecutar la app desde un clon.
+# Distribución: único modelo oficial y preparador verificado.
 !/Aplicacion/modelos/
 /Aplicacion/modelos/*
-!/Aplicacion/modelos/V3-YOLO26.pt
+!/Aplicacion/modelos/V3-cierre-revisado-20261110.pt
 !/Aplicacion/herramientas/uv.exe
-
-# Modelo oficial de la aplicaci?n (requerido para ejecutar desde un clon).
-!/Aplicacion/modelos/V3-refuerzo-revision-20261105.pt

@@ -56,9 +56,14 @@ Se verificó la siguiente procedencia en los manifiestos locales de los ensayos:
 2. Primer afinado de esta cadena:
    `v3_segmentacion_sin_tapadas_20261102_202529_4bb3`, best.pt SHA-256
    `2ba37c853b88648e03b9a72309cfbc4179ef05f9c67452bb968f3bfb1a96ff70`.
-3. Refuerzo oficial:
+3. Refuerzo del 5/11:
    `v3_refuerzo_geometria_revision_20261105_022414_e6f0`, best.pt SHA-256
    `7ec03c8b6aa1164bc8589faf1e3dc904aefe4d6d8b781c1e1df1aff320dad40a`.
+
+4. Cierre revisado adoptado el 10/11:
+   `v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c`, best.pt SHA-256
+   `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
+   Parte del refuerzo del 5/11.
 
 El peso distribuido se identifica en [Aplicacion/modelos.json](Aplicacion/modelos.json).
 Se usa Ultralytics 8.4.174. Los pesos son un afinado del modelo preentrenado;

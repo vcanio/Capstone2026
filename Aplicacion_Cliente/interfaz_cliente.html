@@ -1,805 +1,257 @@
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Walmart Visión · Operaciones de Tienda</title>
+<title>Walmart Visión · Visor de alertas</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>
 :root {
   color-scheme: light;
-  --bg: #f3f6fa;
-  --surface: #ffffff;
-  --surface-subtle: #eaf0f7;
-  --surface-hover: #e1eaf4;
-  --border: #cfdbe8;
-  --border-strong: #b4c6da;
-  --ink: #0f1d2e;
-  --ink-secondary: #3b5068;
-  --ink-muted: #586f87;
-  --brand-blue: #0053e2;
-  --brand-blue-hover: #0043b8;
-  --brand-blue-soft: #e8f1ff;
-  --brand-spark: #ffc220;
-  --red: #b91c1c;
-  --red-bg: #fef2f2;
-  --red-border: #f5b4b4;
-  --green: #0d6e38;
-  --green-bg: #ecfdf3;
-  --green-border: #9ee2b8;
-  --amber: #8f4f00;
-  --amber-bg: #fff8eb;
-  --amber-border: #f2cb82;
-  --viewer-bg: #dde6f0;
-  --shadow-sm: 0 2px 6px rgba(15, 29, 46, 0.05);
-  --shadow-md: 0 6px 18px rgba(15, 29, 46, 0.08);
-  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --bg: #eef3f9; --surface: #fff; --surface-subtle: #e9eff6; --surface-hover: #dce7f5;
+  --border: #c9d7e5; --border-strong: #9cafc5; --ink: #11243b; --ink-secondary: #415b76; --ink-muted: #526c85;
+  --brand-blue: #0067ce; --brand-blue-hover: #0057b3; --brand-blue-soft: #e3efff; --brand-spark: #ffc220;
+  --red: #b92537; --red-bg: #fff0f2; --red-border: #e7afba;
+  --green: #15733e; --green-bg: #e9f7ef; --green-border: #9acdb0;
+  --amber: #865500; --amber-bg: #fff7e5; --amber-border: #dec58e;
+  --viewer-bg: var(--surface);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
 }
-
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b121b;
-  --surface: #121c28;
-  --surface-subtle: #182535;
-  --surface-hover: #1f3044;
-  --border: #25364b;
-  --border-strong: #354c68;
-  --ink: #f0f5fa;
-  --ink-secondary: #b4c5d8;
-  --ink-muted: #889eb5;
-  --brand-blue: #1d74f5;
-  --brand-blue-hover: #3986f7;
-  --brand-blue-soft: #152b4a;
-  --brand-spark: #ffc220;
-  --red: #f87171;
-  --red-bg: #2c1418;
-  --red-border: #6e262b;
-  --green: #4ade80;
-  --green-bg: #10291e;
-  --green-border: #21593b;
-  --amber: #fbbf24;
-  --amber-bg: #2b2011;
-  --amber-border: #664918;
-  --viewer-bg: #080e16;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.28);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.42);
+  --bg: #050f1a; --surface: #0c1928; --surface-subtle: #162434; --surface-hover: #1b3048;
+  --border: #22364b; --border-strong: #3a536c; --ink: #f1f6fc; --ink-secondary: #b2c8de; --ink-muted: #94aec7;
+  --brand-blue: #0071df; --brand-blue-hover: #0872dc; --brand-blue-soft: #102f51;
+  --red: #ff727c; --red-bg: #341d29; --red-border: #773b4a;
+  --green: #4dcc83; --green-bg: #123529; --green-border: #28664b;
+  --amber: #ffbf51; --amber-bg: #352c1b; --amber-border: #786136;
 }
-
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-::selection { background: var(--brand-blue); color: #ffffff; }
-html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); caret-color: var(--brand-blue); }
-body {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.875rem;
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-}
-
-button, input, select { font: inherit; color: inherit; }
-button { cursor: pointer; }
-button:disabled { opacity: 0.48; cursor: not-allowed; }
-:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 2px; }
-
-* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
-
-/* Barra superior corporativa */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 10px 20px;
-  background: #0053e2;
-  color: #ffffff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  flex-shrink: 0;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  min-width: 0;
-}
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: rgba(255, 255, 255, 0.12);
-  display: grid;
-  place-items: center;
-  color: var(--brand-spark);
-  flex-shrink: 0;
-}
-.brand-title {
-  font-size: 1.375rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin: 0;
-  white-space: nowrap;
-}
-.brand-subtitle {
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.86);
-  margin-left: 8px;
-  font-weight: 500;
-}
-
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.btn-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 13px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 160ms ease-out;
-}
-.btn-top:hover:not(:disabled) { background: rgba(255, 255, 255, 0.22); }
-.btn-top-spark {
-  background: var(--brand-spark);
-  border-color: #eab010;
-  color: #0b1b32;
-  font-weight: 700;
-}
-.btn-top-spark:hover:not(:disabled) { background: #ffd04d; }
-.btn-icon-only { padding: 7px 9px; }
-
-/* Semáforo operativo del pasillo */
-.aisle-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 9px 20px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-.filter-pills {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.filter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface-subtle);
-  color: var(--ink-secondary);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  transition: background 150ms ease-out, border-color 150ms ease-out;
-}
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); }
+body { display: flex; flex-direction: column; overflow: hidden; font-size: 14px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+button, input, select { font: inherit; color: inherit; caret-color: var(--brand-blue); }
+button, summary, label[for="fileInput"] { cursor: pointer; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+button, a, summary, select { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--brand-spark); outline-offset: 3px; }
+:root[data-theme="light"] :focus-visible { outline-color: var(--brand-blue); }
+::selection { background: var(--brand-blue); color: #fff; }
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+button { transition: background 150ms ease-out, border-color 150ms ease-out; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-shrink: 0; min-height: 68px; padding: 12px 24px; background: #0064cc; color: #fff; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark { width: 38px; height: 38px; flex-shrink: 0; }
+.brand-mark img { display: block; width: 100%; height: 100%; }
+.brand-title { margin: 0; font-size: 20px; line-height: 1.15; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+.brand-subtitle { display: block; margin-top: 3px; font-size: 12px; color: #e0efff; font-weight: 400; letter-spacing: 0; }
+.top-actions, .session-status { display: flex; align-items: center; gap: 8px; }
+.session-status { margin-right: 12px; font-size: 12px; color: #e0efff; white-space: nowrap; }
+.save-dot { width: 7px; height: 7px; border-radius: 50%; background: #6af0a1; flex-shrink: 0; }
+.btn-top { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 8px 13px; border: 1px solid #ffffff40; border-radius: 12px; background: transparent; color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.btn-top:hover:not(:disabled) { background: #ffffff1f; }
+.btn-top-spark { background: var(--brand-spark); border-color: var(--brand-spark); color: #0b1b32; font-weight: 700; }
+.btn-top-spark:hover:not(:disabled) { background: #ffd153; }
+.more-actions { position: relative; }
+.more-actions > summary { list-style: none; padding: 8px; width: 38px; }
+.more-actions > summary::-webkit-details-marker { display: none; }
+.actions-menu { position: absolute; z-index: 40; top: calc(100% + 8px); right: 0; display: flex; flex-direction: column; gap: 4px; width: 260px; padding: 8px; background: var(--surface); color: var(--ink); border: 1px solid var(--border-strong); border-radius: 12px; box-shadow: 0 10px 26px #00000030; }
+.actions-menu button { text-align: left; border: 0; background: transparent; padding: 10px; border-radius: 7px; font-size: 13px; }
+.actions-menu button:hover:not(:disabled) { background: var(--surface-hover); }
+.actions-menu .menu-note { margin: 4px 10px 8px; color: var(--ink-muted); font-size: 12px; }
+.aisle-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 24px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.filter-pills { display: flex; align-items: center; gap: 8px; }
+.filter-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; padding: 6px 13px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-secondary); font-weight: 500; white-space: nowrap; }
 .filter-btn:hover { background: var(--surface-hover); }
-.filter-btn[aria-pressed="true"] {
-  background: var(--brand-blue-soft);
-  border-color: var(--brand-blue);
-  color: var(--brand-blue);
-}
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
-}
-.dot-red { background: var(--red); }
-.dot-amber { background: var(--amber); }
-.dot-green { background: var(--green); }
-
-.aisle-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 0.8125rem;
-  font-variant-numeric: tabular-nums;
-}
-.progress-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 11px;
-  border-radius: 8px;
-  background: var(--surface-subtle);
-  border: 1px solid var(--border);
-  color: var(--ink-secondary);
-  font-weight: 600;
-}
-.sort-select {
-  padding: 5px 9px;
-  border-radius: 7px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--ink);
-  font-size: 0.8125rem;
-}
-.link-reset {
-  border: 0;
-  background: transparent;
-  color: var(--ink-muted);
-  font-size: 0.75rem;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  padding: 4px 6px;
-}
-.link-reset:hover { color: var(--ink); }
-
-/* Área principal de 3 columnas */
-.workspace {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 360px;
-  gap: 14px;
-  padding: 14px 20px;
-}
-
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
-}
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.panel-title {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  margin: 0;
-}
-.panel-count {
-  font-size: 0.75rem;
-  color: var(--ink-muted);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Columna izquierda: Cola de góndolas */
-.queue-list {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.queue-item {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 10px;
-  align-items: center;
-  padding: 8px;
-  border-radius: 9px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  text-align: left;
-  transition: background 150ms ease-out, border-color 150ms ease-out;
-}
-.queue-item:hover { background: var(--surface-subtle); }
-.queue-item[aria-current="true"] {
-  background: var(--brand-blue-soft);
-  border-color: var(--brand-blue);
-}
-.queue-thumb {
-  width: 56px;
-  height: 56px;
-  border-radius: 6px;
-  object-fit: cover;
-  background: var(--viewer-bg);
-  border: 1px solid var(--border);
-  display: block;
-}
-.queue-meta {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.queue-name {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.queue-sub {
-  font-size: 0.75rem;
-  color: var(--ink-secondary);
-  font-variant-numeric: tabular-nums;
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  width: fit-content;
-  font-variant-numeric: tabular-nums;
-}
-.pill-reponer {
-  background: var(--red-bg);
-  color: var(--red);
-  border: 1px solid var(--red-border);
-}
-.pill-suficiente {
-  background: var(--green-bg);
-  color: var(--green);
-  border: 1px solid var(--green-border);
-}
-.pill-verificar {
-  background: var(--amber-bg);
-  color: var(--amber);
-  border: 1px solid var(--amber-border);
-}
-
-/* Columna central: Visor de góndola */
-.stage-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.stage-banner.tone-reponer { background: var(--red-bg); border-bottom-color: var(--red-border); }
-.stage-banner.tone-suficiente { background: var(--green-bg); border-bottom-color: var(--green-border); }
-.stage-banner.tone-verificar { background: var(--amber-bg); border-bottom-color: var(--amber-border); }
-
-.banner-text {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-}
-.banner-headline {
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-.banner-sub {
-  font-size: 0.8125rem;
-  color: var(--ink-secondary);
-  margin-left: 6px;
-}
-
-.stage-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 14px;
-  background: var(--surface-subtle);
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.seg-group {
-  display: inline-flex;
-  padding: 2px;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-.seg-btn {
-  border: 0;
-  background: transparent;
-  color: var(--ink-secondary);
-  padding: 5px 11px;
-  border-radius: 6px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-}
-.seg-btn[aria-selected="true"] {
-  background: var(--brand-blue);
-  color: #ffffff;
-}
-
-.viewer-wrap {
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  background: var(--viewer-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 14px;
-}
-.photo-canvas {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  max-height: 100%;
-}
-.photo-canvas img {
-  display: block;
-  max-width: 100%;
-  max-height: calc(100vh - 245px);
-  width: auto;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: var(--shadow-md);
-  user-select: none;
-}
-.interactive-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
-}
-.shelf-poly {
-  fill: transparent;
-  stroke: transparent;
-  stroke-width: 3;
-  cursor: pointer;
-  transition: fill 150ms ease-out, stroke 150ms ease-out;
-}
-.shelf-poly:hover, .shelf-poly.is-active {
-  fill: rgba(255, 194, 32, 0.24);
-  stroke: #ffc220;
-}
-
-.compare-grid {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  align-items: center;
-  justify-items: center;
-  overflow: auto;
-}
-.compare-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  max-height: 100%;
-}
-.compare-card figcaption {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--ink-secondary);
-  background: var(--surface);
-  padding: 3px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-.compare-card img {
-  max-width: 100%;
-  max-height: calc(100vh - 280px);
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-/* Estado vacío inicial */
-.empty-state {
-  max-width: 460px;
-  padding: 24px 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.empty-state h2 {
-  font-size: 1.375rem;
-  line-height: 1.25;
-  margin: 0;
-}
-.empty-state p {
-  margin: 0;
-  color: var(--ink-secondary);
-  font-size: 0.875rem;
-  max-width: 40ch;
-}
-.empty-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 6px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  color: var(--ink);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  transition: background 150ms ease-out;
-}
-.btn:hover:not(:disabled) { background: var(--surface-subtle); }
-.btn-primary {
-  background: var(--brand-blue);
-  border-color: var(--brand-blue);
-  color: #ffffff;
-}
+.filter-btn[aria-pressed="true"] { color: #fff; background: var(--brand-blue); border-color: var(--brand-blue); font-weight: 600; }
+.filter-count { padding: 0 5px; border-radius: 10px; font-size: 12px; background: var(--surface-subtle); font-variant-numeric: tabular-nums; }
+.filter-btn[aria-pressed="true"] .filter-count { background: #ffffff26; }
+.aisle-right { display: flex; align-items: center; gap: 10px; }
+.sort-select { padding: 7px 12px; max-width: 100%; min-height: 36px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-size: 14px; }
+.workspace { display: grid; grid-template-columns: clamp(220px, 14.7vw, 280px) minmax(0, 1fr) clamp(300px, 18.8vw, 360px); gap: 16px; padding: 16px 20px 10px; flex: 1; min-height: 0; }
+.panel { display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+.panel-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; flex-shrink: 0; }
+.panel-title { font-size: 15px; font-weight: 700; margin: 0; }
+.panel-count { font-size: 12px; color: var(--ink-muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+.queue-list { display: flex; flex-direction: column; gap: 4px; flex: 1; min-height: 0; overflow-y: auto; padding: 0 8px 8px; }
+.queue-item { display: grid; grid-template-columns: 40px minmax(0, 1fr) 8px; align-items: center; gap: 10px; width: 100%; padding: 7px 8px; text-align: left; border: 1px solid transparent; border-radius: 12px; background: transparent; }
+.queue-item:hover { background: var(--surface-hover); }
+.queue-item[aria-current="true"] { background: var(--brand-blue-soft); border-color: var(--brand-blue); }
+.queue-thumb { display: block; width: 40px; height: 48px; object-fit: cover; border-radius: 4px; background: var(--surface-subtle); }
+.queue-meta { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.queue-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.queue-sub { color: var(--ink-muted); font-size: 12px; }
+.queue-dot { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--amber); }
+.queue-dot.pill-reponer { background: var(--red); }
+.queue-dot.pill-suficiente { background: var(--green); }
+.queue-footer { padding: 10px 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-muted); }
+.status-pill { display: inline-flex; align-items: center; padding: 2px 9px; width: fit-content; white-space: nowrap; border: 1px solid; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.pill-reponer { color: var(--red); background: var(--red-bg); border-color: var(--red-border); }
+.pill-suficiente { color: var(--green); background: var(--green-bg); border-color: var(--green-border); }
+.pill-verificar { color: var(--amber); background: var(--amber-bg); border-color: var(--amber-border); }
+.stage-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; min-height: 57px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.banner-text { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.banner-heading { min-width: 0; display: flex; align-items: baseline; gap: 10px; }
+.banner-headline { margin: 0; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.banner-sub { color: var(--ink-muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 24ch; }
+.stage-nav { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.nav-btn { border: 0; background: transparent; padding: 4px 0; font-size: 13px; }
+.nav-btn:hover:not(:disabled) { color: var(--brand-blue); }
+#stagePos { color: var(--ink-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.stage-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 14px; border-top: 1px solid var(--border); order: 3; flex-shrink: 0; }
+.seg-group { display: inline-flex; padding: 2px; gap: 2px; border-radius: 8px; background: var(--bg); }
+.seg-btn { padding: 4px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-muted); font-size: 12px; }
+.seg-btn[aria-selected="true"] { background: var(--surface-hover); color: var(--ink); }
+.viewer-wrap { flex: 1; min-height: 0; min-width: 0; position: relative; display: flex; justify-content: center; align-items: center; padding: 16px; background: var(--viewer-bg); overflow: hidden; container-type: size; }
+.photo-canvas { position: relative; display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 100%; }
+.photo-canvas img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100cqh; border-radius: 12px; user-select: none; }
+.interactive-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.shelf-poly { fill: transparent; stroke: var(--contour-color); stroke-width: 1.2; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill 150ms ease-out, stroke 150ms ease-out; }
+.shelf-poly:hover, .shelf-poly.is-active { fill: #ffc22022; stroke: #ffc220; stroke-width: 2; }
+.contour-label { pointer-events: none; }
+.contour-label rect { fill: #07131ddd; stroke: var(--contour-color); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.contour-label text { fill: var(--contour-color); font-family: "Segoe UI", sans-serif; font-weight: 600; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; height: 100%; align-items: center; overflow: auto; }
+.compare-card { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+.compare-card figcaption { font-size: 12px; color: var(--ink-secondary); }
+.compare-card img { max-width: 100%; max-height: calc(100cqh - 32px); object-fit: contain; border-radius: 10px; }
+.empty-state { max-width: 460px; padding: 24px 16px; text-align: center; }
+.empty-mark { width: 64px; height: 64px; margin: 0 auto 20px; }
+.empty-state h2 { margin: 0 0 12px; font-size: 24px; line-height: 1.25; letter-spacing: -.02em; }
+.empty-state p { margin: 0 auto; max-width: 42ch; color: var(--ink-secondary); }
+.empty-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.empty-hint { margin-top: 14px !important; font-size: 12px; color: var(--ink-muted) !important; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 13px; min-height: 36px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-subtle); font-size: 13px; font-weight: 600; text-decoration: none; }
+.btn:hover:not(:disabled) { background: var(--surface-hover); }
+.btn-primary { background: var(--brand-blue); border-color: var(--brand-blue); color: #fff; }
 .btn-primary:hover:not(:disabled) { background: var(--brand-blue-hover); }
-.btn-success {
-  background: var(--green-bg);
-  border-color: var(--green-border);
-  color: var(--green);
+.levels-list { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; overflow-y: auto; padding: 0 12px 12px; }
+.level-card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); }
+.level-card.is-highlighted { border-color: var(--brand-blue); }
+.level-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.level-name { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+.bar-track { flex: 1; height: 8px; background: var(--surface-subtle); border-radius: 99px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 99px; }
+.bar-fill.tone-reponer { background: var(--red); } .bar-fill.tone-suficiente { background: var(--green); } .bar-fill.tone-verificar { background: var(--amber); }
+.bar-val { min-width: 56px; color: var(--ink-secondary); font-size: 13px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.front-coverage, .diag-action { margin: 0; color: var(--ink-muted); font-size: 12px; }
+.front-coverage { padding-right: 48px; }
+.review-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.review-switch button { border: 0; border-radius: 999px; background: var(--surface-subtle); color: var(--ink-secondary); min-height: 26px; padding: 4px; font-size: 12px; line-height: 1.2; }
+.review-switch button:hover { background: var(--surface-hover); }
+.review-switch button[aria-pressed="true"] { background: var(--brand-blue); color: #fff; }
+.level-details { margin-top: -8px; font-size: 12px; color: var(--ink-muted); }
+.level-details > summary { position: absolute; top: 70px; right: 12px; list-style: none; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.level-details > summary::-webkit-details-marker { display: none; }
+.level-details[open] { margin-top: 2px; }
+.diag-headline { margin: 0 0 5px; font-size: 12px; color: var(--ink); font-weight: 600; }
+.level-details label { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+.level-details select { width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-subtle); font-size: 12px; }
+.level-details .diag-action + .diag-action { margin-top: 6px; }
+.panel-footer { padding: 12px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.plan-note { margin: 0; color: var(--ink-muted); font-size: 12px; line-height: 1.5; }
+.link-reset { padding: 6px; border: 0; background: transparent; color: var(--ink-muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.app-footer { padding: 0 20px 5px; color: var(--ink-muted); font-size: 11px; text-align: center; }
+.app-footer a { color: inherit; text-underline-offset: 3px; }
+.loading-overlay { position: absolute; inset: 0; background: #050f1ae6; display: grid; place-items: center; z-index: 15; padding: 24px; text-align: center; }
+.loading-card { color: #fff; font-weight: 600; }
+.loading-hint { max-width: 38ch; margin: 12px auto 0; color: #e2e8f0; font-size: 14px; font-weight: 400; line-height: 1.6; }
+.error-toast { margin: 10px 20px 0; padding: 10px 14px; border: 1px solid var(--red-border); border-radius: 12px; background: var(--red-bg); color: var(--red); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.camera-modal { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; gap: 12px; color: #fff; background: #080e16f5; }
+.camera-frame { position: relative; max-width: 720px; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #ffffff60; background: #000; }
+.camera-frame video { display: block; width: 100%; max-height: 70vh; object-fit: contain; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (min-width: 1600px) { .level-card { gap: 8px; padding: 12px; } }
+@media (max-width: 1400px) {
+  .workspace { grid-template-columns: 210px minmax(0, 1fr) 300px; gap: 12px; padding: 12px 16px 8px; }
+  .session-status { display: none; }
+  .banner-heading { flex-direction: column; gap: 2px; }
+  .stage-banner { gap: 8px; padding: 12px; }
+  .banner-text { gap: 8px; }
+  .stage-nav { gap: 8px; }
+  .banner-headline { font-size: 15px; }
+  .banner-sub { font-size: 12px; max-width: 18ch; }
 }
+@media (max-width: 1100px) {
+  body { overflow: auto; height: auto; min-height: 100%; }
+  .topbar { padding: 12px 16px; }
+  .top-actions { gap: 6px; }
+  .btn-top { font-size: 12px; padding: 8px 10px; }
+  .workspace { flex: none; grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto minmax(520px, 75vh); }
+  .queue-panel { grid-column: 1 / -1; }
+  .queue-list { flex-direction: row; overflow-x: auto; padding: 0 10px 10px; }
+  .queue-item { width: 205px; flex-shrink: 0; }
+  .queue-footer { display: none; }
+  .queue-panel .panel-header { padding: 10px 16px; }
+  .aisle-bar { padding: 12px 16px; flex-wrap: wrap; }
+  .filter-btn { font-size: 13px; }
+  .stage-banner { align-items: flex-start; flex-direction: column; }
+  .banner-heading { flex-direction: row; align-items: baseline; gap: 8px; }
+  .stage-nav { width: 100%; justify-content: flex-end; }
+}
+@media (max-width: 700px) {
+  .topbar { align-items: flex-start; flex-direction: column; gap: 14px; padding: 16px; }
+  .top-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr 38px; gap: 8px; }
+  .top-actions > label { grid-column: 1 / -1; grid-row: 1; }
+  .btn-top { min-height: 40px; font-size: 13px; border-radius: 10px; }
+  .more-actions > summary { padding: 9px; }
+  .filter-pills { width: 100%; overflow-x: auto; padding-bottom: 3px; gap: 6px; }
+  .filter-btn { font-size: 12px; padding: 6px 10px; }
+  .aisle-right { width: 100%; justify-content: flex-end; }
+  .sort-select { font-size: 12px; }
+  .workspace { display: flex; flex-direction: column; padding: 12px; gap: 12px; }
+  .queue-panel { flex: none; }
+  .stage-panel { height: 70svh; min-height: 440px; flex: none; }
+  .plan-panel { flex: none; }
+  .stage-banner { gap: 10px; }
+  .banner-text { width: 100%; }
+  .banner-heading { flex-direction: column; gap: 2px; }
+  .banner-sub { max-width: 24ch; }
+  .viewer-wrap { padding: 12px; }
+  .stage-toolbar { flex-wrap: wrap; padding: 8px; }
+  .seg-group { width: 100%; justify-content: space-between; }
+  .seg-btn { flex: 1; padding: 6px; font-size: 11px; }
+  .empty-state { padding: 16px 8px; }
+  .empty-mark { width: 44px; height: 44px; margin-bottom: 12px; }
+  .empty-state h2 { font-size: 21px; }
+  .empty-state p { font-size: 13px; }
+  .empty-actions { margin-top: 14px; }
+  .empty-hint { font-size: 12px !important; }
+  .levels-list { overflow: visible; }
+  .review-switch button { min-height: 36px; }
+  .app-footer { padding: 4px 12px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
 
-/* Columna derecha: Plan de reposición por nivel */
-.levels-list {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.level-card {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  padding: 11px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
-}
-.level-card.is-highlighted {
-  border-color: var(--brand-blue);
-  box-shadow: 0 0 0 2px var(--brand-blue-soft);
-}
-.level-card.card-reponer {
-  background: var(--red-bg);
-  border-color: var(--red-border);
-}
-.level-card.card-repuesto {
-  background: var(--green-bg);
-  border-color: var(--green-border);
-}
-
-.level-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.level-name {
-  font-size: 0.875rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-.level-pos-tag {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--ink-muted);
-  margin-left: 4px;
-}
-
-.diag-headline {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0;
-}
-.diag-action {
-  font-size: 0.78rem;
-  color: var(--ink-secondary);
-  margin: 0;
-}
-
-.bar-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.bar-track {
-  flex: 1;
-  height: 7px;
-  background: var(--surface-subtle);
-  border-radius: 99px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-.bar-fill {
-  height: 100%;
-  border-radius: 99px;
-  transition: width 200ms ease-out;
-}
-.bar-fill.tone-reponer { background: var(--red); }
-.bar-fill.tone-suficiente { background: var(--green); }
-.bar-fill.tone-verificar { background: var(--amber); }
-.bar-val {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--ink-secondary);
-  font-variant-numeric: tabular-nums;
-  min-width: 54px;
-  text-align: right;
-}
-
-.check-btn {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  padding: 7px 10px;
-  border-radius: 7px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  color: var(--ink);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  transition: background 150ms ease-out, border-color 150ms ease-out;
-}
-.check-btn:hover { background: var(--surface-subtle); }
-.check-btn[aria-pressed="true"] {
-  background: var(--green);
-  border-color: var(--green);
-  color: #ffffff;
-}
-
-.panel-footer {
-  padding: 11px 14px;
-  border-top: 1px solid var(--border);
-  background: var(--surface-subtle);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.loading-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 29, 46, 0.55);
-  backdrop-filter: blur(2px);
-  display: grid;
-  place-items: center;
-  z-index: 15;
-}
-.loading-card {
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.error-toast {
-  margin: 8px 20px 0;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: var(--red-bg);
-  border: 1px solid var(--red-border);
-  color: var(--red);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Modal de cámara */
-.camera-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 14, 22, 0.92);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  gap: 12px;
-  color: #ffffff;
-}
-.camera-frame {
-  position: relative;
-  max-width: 720px;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  background: #000000;
-}
-.camera-frame video {
-  display: block;
-  width: 100%;
-  max-height: 70vh;
-  object-fit: contain;
-}
-
-@media (max-width: 1120px) {
-  body { overflow: auto; }
-  .workspace {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-  .photo-canvas img { max-height: 62vh; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
-}
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="brand">
-    <div class="brand-mark" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M12 3v4M12 17v4M4.2 7.5l3.5 2M16.3 14.5l3.5 2M4.2 16.5l3.5-2M16.3 9.5l3.5-2"/>
-      </svg>
-    </div>
+    <div class="brand-mark" aria-hidden="true"><img src="/logo.svg" alt="" width="38" height="38"></div>
     <div>
-      <h1 class="brand-title">Walmart Visión <span class="brand-subtitle">Reposición en Sala</span></h1>
+      <h1 class="brand-title">Walmart Visión <span class="brand-subtitle">Visor de alertas</span></h1>
     </div>
   </div>
 
   <div class="top-actions">
-    <label for="fileInput" class="btn-top btn-top-spark">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      Subir fotos de pasillo
-    </label>
+    <div class="session-status"><span class="save-dot" aria-hidden="true"></span><span id="batchProgress" role="status">0 analizadas</span><span aria-hidden="true">·</span><span id="saveStatus" role="status">Preparando guardado…</span></div>
+    <button id="cameraBtn" type="button" class="btn-top">Tomar foto</button>
+    <button id="exportCsvBtn" type="button" class="btn-top" title="Exportar todo (CSV)" disabled>Exportar CSV</button>
+    <label for="fileInput" class="btn-top btn-top-spark" tabindex="0" role="button">Subir fotos de pasillo</label>
     <input id="fileInput" type="file" multiple accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" hidden>
-
-    <button id="cameraBtn" type="button" class="btn-top">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      Tomar foto
-    </button>
-
-    <button id="demoBtn" type="button" class="btn-top">
-      Cargar pasillo de ejemplo
-    </button>
-
-    <button id="exportCsvBtn" type="button" class="btn-top" disabled>
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Descargar hoja de reposición (CSV)
-    </button>
-
-    <button id="themeBtn" type="button" class="btn-top btn-icon-only" aria-label="Cambiar tema claro u oscuro" title="Cambiar entre modo sala claro y modo oscuro">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    </button>
+    <details class="more-actions" id="moreActions">
+      <summary class="btn-top" aria-label="Más opciones" title="Más opciones"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></summary>
+      <div class="actions-menu">
+        <button id="exportSelectionBtn" type="button" disabled>Exportar filtro actual (CSV)</button>
+        <button id="demoBtn" type="button">Cargar pasillo de ejemplo</button>
+        <button id="themeBtn" type="button">Cambiar tema claro u oscuro</button>
+        <button id="clearSessionBtn" type="button" title="Borrar las fotos y resultados guardados del pasillo, sin deshacer" hidden>Limpiar pasillo</button>
+        <p class="menu-note" id="sessionDetail">El recorrido se guarda en este navegador.</p>
+      </div>
+    </details>
   </div>
 </header>
 
@@ -808,89 +260,81 @@ button:disabled { opacity: 0.48; cursor: not-allowed; }
   <button type="button" class="btn" id="errorClose" style="padding:3px 9px">Cerrar</button>
 </div>
 
-<section class="aisle-bar" aria-label="Semáforo de prioridad del pasillo">
+<section class="aisle-bar" aria-label="Alertas visuales del pasillo">
   <div class="filter-pills" role="group" aria-label="Filtrar góndolas por estado">
-    <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
-      Todas (<span id="countAll">0</span>)
-    </button>
-    <button type="button" class="filter-btn" data-filter="reponer" aria-pressed="false">
-      <span class="dot dot-red"></span>Urgentes por reponer (<span id="countReponer">0</span>)
-    </button>
-    <button type="button" class="filter-btn" data-filter="verificar" aria-pressed="false">
-      <span class="dot dot-amber"></span>Por verificar (<span id="countVerificar">0</span>)
-    </button>
-    <button type="button" class="filter-btn" data-filter="suficiente" aria-pressed="false">
-      <span class="dot dot-green"></span>Abastecidas / Listas (<span id="countSuficiente">0</span>)
-    </button>
+    <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">Todas <span class="filter-count" id="countAll">0</span></button>
+    <button type="button" class="filter-btn" data-filter="reponer" aria-pressed="false">Con alertas <span class="filter-count" id="countReponer">0</span></button>
+    <button type="button" class="filter-btn" data-filter="verificar" aria-pressed="false">Requieren revisión <span class="filter-count" id="countVerificar">0</span></button>
+    <button type="button" class="filter-btn" data-filter="suficiente" aria-pressed="false">Sin alertas <span class="filter-count" id="countSuficiente">0</span></button>
   </div>
 
   <div class="aisle-right">
-    <label for="sortSelect">Orden:</label>
+    <label for="sortSelect" class="sr-only">Orden de las góndolas</label>
     <select id="sortSelect" class="sort-select">
-      <option value="priority">Mayor urgencia de reposición</option>
+      <option value="priority">Con alertas primero</option>
       <option value="order">Orden de recorrido</option>
     </select>
-    <div class="progress-pill" id="replenishProgress">
-      0 de 0 niveles repuestos
-    </div>
-    <button type="button" id="clearSessionBtn" class="link-reset" hidden>Limpiar pasillo</button>
   </div>
 </section>
 
 <main class="workspace">
   <!-- 1. Recorrido de góndolas -->
-  <section class="panel" aria-labelledby="queueHeading">
+  <section class="panel queue-panel" aria-labelledby="queueHeading">
     <div class="panel-header">
-      <h2 class="panel-title" id="queueHeading">Góndolas del pasillo</h2>
+      <h2 class="panel-title" id="queueHeading">Góndolas</h2>
       <span class="panel-count" id="queueStatus">Sin fotos</span>
     </div>
     <div class="queue-list" id="queueList">
       <p style="color:var(--ink-muted);font-size:0.8125rem;margin:8px 4px">
-        Sube las fotos del pasillo o carga el ejemplo para priorizar dónde reponer primero.
+        Sube las fotos del pasillo o carga el ejemplo para revisar las alertas visuales.
       </p>
     </div>
+    <div class="queue-footer" id="alertSummary" role="status">Sin niveles analizados</div>
   </section>
 
   <!-- 2. Visor central de góndola -->
-  <section class="panel" aria-labelledby="stageHeading">
+  <section class="panel stage-panel" aria-label="Fotografía de la góndola y niveles detectados">
     <div class="stage-banner" id="stageBanner" hidden>
       <div class="banner-text">
         <span class="status-pill" id="stagePill"></span>
-        <div>
-          <span class="banner-headline" id="stageHeadline"></span>
+        <div class="banner-heading">
+          <h2 class="banner-headline" id="stageHeadline"></h2>
           <span class="banner-sub" id="stageSub"></span>
         </div>
       </div>
-      <button type="button" class="btn" id="markAllGondolaBtn" hidden>
-        Marcar toda la góndola como repuesta ✓
-      </button>
+      <nav class="stage-nav" aria-label="Recorrer góndolas">
+        <button type="button" class="nav-btn" id="prevGondolaBtn" title="Foto anterior (←)" aria-keyshortcuts="ArrowLeft">← Anterior</button>
+        <span id="stagePos"></span>
+        <button type="button" class="nav-btn" id="nextGondolaBtn" title="Foto siguiente (→)" aria-keyshortcuts="ArrowRight">Siguiente →</button>
+      </nav>
+
     </div>
 
     <div class="stage-toolbar" id="stageToolbar" hidden>
       <div class="seg-group" role="tablist" aria-label="Modo de vista">
-        <button type="button" class="seg-btn" role="tab" data-view="result" aria-selected="true">Niveles detectados</button>
-        <button type="button" class="seg-btn" role="tab" data-view="compare" aria-selected="false">Comparar con original</button>
+        <button type="button" class="seg-btn" role="tab" data-view="result" aria-selected="true">Con niveles</button>
+        <button type="button" class="seg-btn" role="tab" data-view="compare" aria-selected="false">Comparar</button>
         <button type="button" class="seg-btn" role="tab" data-view="original" aria-selected="false">Foto original</button>
       </div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <button type="button" class="btn" id="prevGondolaBtn" style="padding:4px 10px">◀ Anterior</button>
-        <span id="stagePos" style="font-size:0.75rem;color:var(--ink-muted);font-variant-numeric:tabular-nums"></span>
-        <button type="button" class="btn" id="nextGondolaBtn" style="padding:4px 10px">Siguiente ▶</button>
-      </div>
+
     </div>
 
     <div class="viewer-wrap" id="dropZone">
       <div class="loading-overlay" id="loadingOverlay" hidden>
-        <div class="loading-card" id="loadingText">Analizando disponibilidad en góndola…</div>
+        <div class="loading-card" role="status" aria-live="polite" aria-atomic="true">
+          <div id="loadingText">Analizando foto…</div>
+          <p class="loading-hint" id="loadingHint" hidden></p>
+        </div>
       </div>
 
       <div class="empty-state" id="emptyState">
-        <h2 id="stageHeading">Revisión de disponibilidad en pasillo</h2>
-        <p>Arrastra aquí las fotografías de las góndolas o usa el pasillo de demostración para generar el plan de reposición por nivel.</p>
+        <img class="empty-mark" src="/logo.svg" alt="" width="64" height="64"><h2 id="stageHeading">Tu pasillo, nivel por nivel</h2>
+        <p id="emptyDescription">Sube o arrastra tus fotos para detectar los niveles y consultar alertas de baja disponibilidad.</p>
         <div class="empty-actions">
-          <label for="fileInput" class="btn btn-primary">Seleccionar fotos</label>
-          <button type="button" class="btn" id="emptyDemoBtn">Probar con pasillo de ejemplo (4 góndolas)</button>
+          <label for="fileInput" class="btn btn-primary" tabindex="0" role="button">Seleccionar fotos</label>
+          <button type="button" class="btn" id="emptyDemoBtn">Probar un pasillo de ejemplo</button>
         </div>
+        <p class="empty-hint">JPG, PNG o WebP · Hasta 10 MB por foto</p>
       </div>
 
       <div class="photo-canvas" id="singleView" hidden>
@@ -911,27 +355,28 @@ button:disabled { opacity: 0.48; cursor: not-allowed; }
     </div>
   </section>
 
-  <!-- 3. Plan de reposición por nivel -->
-  <aside class="panel" aria-labelledby="planHeading">
+  <!-- 3. Alertas y revisión por nivel -->
+  <aside class="panel plan-panel" aria-labelledby="planHeading">
     <div class="panel-header">
-      <h2 class="panel-title" id="planHeading">Plan por nivel (arriba ↓ abajo)</h2>
-      <span class="panel-count" id="planMeta"></span>
+      <h2 class="panel-title" id="planHeading">Alertas por nivel</h2>
+      <span class="panel-count" id="planMeta">De arriba a abajo</span>
     </div>
 
     <div class="levels-list" id="levelsList">
       <p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
-        Al seleccionar una góndola verás aquí el detalle de cada estante y podrás marcar los niveles ya repuestos.
+        Al seleccionar una góndola verás el resultado por nivel y podrás registrar tu revisión de la foto.
       </p>
     </div>
 
     <div class="panel-footer" id="planFooter" hidden>
+      <p class="plan-note">El puntaje es un índice visual preliminar de la foto, no el stock físico. Los contornos corresponden a los niveles detectados por el modelo.</p>
       <a id="downloadAnnotatedBtn" class="btn" download="gondola_evaluada.jpg" style="text-decoration:none">
-        Guardar imagen con niveles marcados
+        Guardar imagen con niveles
       </a>
     </div>
   </aside>
 </main>
-<footer style="text-align:center;padding:12px;font-size:12px;color:var(--ink-muted)">
+<footer class="app-footer">
   <a href="https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2" target="_blank" rel="noopener noreferrer" style="color:inherit">Código fuente · AGPL-3.0</a>
   · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-apps-prueba-2026-11-10-r2/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
 </footer>
@@ -956,47 +401,164 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
 }[c]));
 
 const state = {
-  items: [],          // [{ id, name, file, origUrl, result, replenished: { [levelId]: timestamp }, analyzing, error }]
+  items: [],          // [{ id, name, file, origUrl, result, reviews, analyzing, error }]
   selectedId: null,
   filter: 'all',
   sort: 'priority',
   viewMode: 'result',
   highlightedLevel: null,
 };
+let analysisReady = null;
+let aisleGeneration = 0;
+const EMPTY_THUMB = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+let thumbnailObserver = null;
+const thumbnailQueue = [];
+const thumbnailPending = new Set();
+let thumbnailRunning = false;
 
+function liveItem(item) {
+  return state.items.includes(item);
+}
+function releaseItemUrls(item) {
+  for (const url of [item.origUrl, item.thumbUrl, item.result?.image_url]) {
+    if (url?.startsWith('blob:')) URL.revokeObjectURL(url);
+  }
+}
+async function compactResult(item) {
+  const url = item.result?.image_url;
+  if (!url?.startsWith('data:image/')) return;
+  // Blob conserva los bytes JPEG, sin retener/copiar el texto base64 en cada guardado.
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('No se pudo preparar la vista de la foto.');
+  item.resultImage = await response.blob();
+  item.result.image_url = URL.createObjectURL(item.resultImage);
+}
+async function makeThumbnails() {
+  if (thumbnailRunning) return;
+  thumbnailRunning = true;
+  try {
+    while (thumbnailQueue.length) {
+      const item = thumbnailQueue.shift();
+      let bitmap;
+      let canvas;
+      try {
+        if (!liveItem(item) || item.thumbUrl) continue;
+        // Solo se decodifica un original a la vez, y se libera al terminar.
+        bitmap = await createImageBitmap(item.file);
+        if (!liveItem(item)) continue;
+        canvas = document.createElement('canvas');
+        const scale = Math.min(1, 160 / Math.max(bitmap.width, bitmap.height));
+        canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+        canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        bitmap.close(); bitmap = null;
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', .8));
+        if (!blob || !liveItem(item)) continue;
+        item.thumbnail = blob;
+        item.thumbUrl = URL.createObjectURL(blob);
+        for (const img of $('queueList').querySelectorAll('[data-thumbnail]')) {
+          if (img.dataset.thumbnail === item.id) img.src = item.thumbUrl;
+        }
+        saveSession(item.id);
+      } catch {
+        // Un archivo ilegible mantiene su marcador; no se usa el original como miniatura.
+      } finally {
+        bitmap?.close();
+        if (canvas) { canvas.width = 1; canvas.height = 1; }
+        thumbnailPending.delete(item.id);
+      }
+    }
+  } finally { thumbnailRunning = false; }
+}
+function observeThumbnails() {
+  thumbnailObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      thumbnailObserver.unobserve(entry.target);
+      const item = state.items.find(i => i.id === entry.target.dataset.thumbnail);
+      if (!item || item.thumbUrl || thumbnailPending.has(item.id)) continue;
+      thumbnailPending.add(item.id);
+      thumbnailQueue.push(item);
+    }
+    makeThumbnails();
+  }, { root: $('queueList'), rootMargin: '160px' });
+  for (const img of $('queueList').querySelectorAll('[data-thumbnail]')) {
+    if (img.src === EMPTY_THUMB) thumbnailObserver.observe(img);
+  }
+}
+
+function renderAnalysisFeedback() {
+  $('loadingText').textContent = analysisReady === false
+    ? 'Preparando y analizando la primera foto…' : 'Analizando foto…';
+  $('loadingHint').hidden = analysisReady === true;
+  $('loadingHint').textContent = 'El primer análisis puede tardar más mientras se carga el modelo. Las siguientes fotos suelen ser más rápidas. Puedes seguir revisando el recorrido.';
+}
+
+// Los códigos del motor se conservan; las marcas humanas nunca cambian sus alertas.
+function analysisState(det) {
+  const estimate = det.occupancy_estimate || {};
+  if (!Number.isFinite(estimate.pct)) return 'revisar';
+  const value = estimate.state || det.store_diagnosis?.operational_state;
+  return value === 'reponer' || value === 'suficiente' ? value : 'revisar';
+}
+function levelDiagnosis(det) {
+  const value = analysisState(det);
+  if (value === 'reponer') return {
+    label: 'Alerta por baja disponibilidad',
+    headline: 'Posible baja disponibilidad en el nivel',
+    action: 'Revisa la foto y los contornos para confirmar la alerta.',
+  };
+  if (value === 'suficiente') return {
+    label: 'Sin alerta visual',
+    headline: 'Sin alerta visual detectada',
+    action: 'El análisis de esta foto no generó una alerta en este nivel.',
+  };
+  return {
+    label: Number.isFinite(det.occupancy_estimate?.pct) ? 'Requiere revisión' : 'No evaluable',
+    headline: 'El análisis no permite concluir sobre la disponibilidad',
+    action: 'Revisa la visibilidad del nivel y toma otra foto si hace falta.',
+  };
+}
+function humanReviewLabel(value) {
+  return ({
+    revisado: 'Revisado',
+    alerta_confirmada: 'Alerta confirmada visualmente',
+    sin_alerta: 'Sin baja disponibilidad observada',
+    no_evaluable: 'No se puede evaluar',
+    confirmado: 'Confirmación visual anterior',
+    necesita: 'Baja disponibilidad indicada (registro anterior)',
+  })[value] || 'Sin revisar';
+}
 function effectiveGondolaState(item) {
   if (!item.result) return 'pendiente';
   const dets = item.result.detections || [];
   if (!dets.length) return 'verificar';
-  const unreplenishedAlerts = dets.filter(
-    d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id]
-  );
-  if (unreplenishedAlerts.length > 0) return 'reponer';
-  const anyReview = dets.some(d => d.store_diagnosis?.operational_state === 'revisar');
+  if (dets.some(d => analysisState(d) === 'reponer')) return 'reponer';
+  const anyReview = dets.some(d => analysisState(d) === 'revisar');
   if (anyReview) return 'verificar';
   return 'suficiente';
 }
 
-function unreplenishedAlertCount(item) {
+function visualAlertCount(item) {
   if (!item.result) return 0;
   return (item.result.detections || []).filter(
-    d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id]
+    d => analysisState(d) === 'reponer'
   ).length;
 }
 
-function totalAlertLevelsAndDone() {
+function totalAlertLevels() {
   let total = 0;
-  let done = 0;
+  let review = 0;
+  let analyzed = 0;
   for (const item of state.items) {
     if (!item.result) continue;
     for (const det of (item.result.detections || [])) {
-      if (det.store_diagnosis?.operational_state === 'reponer') {
-        total += 1;
-        if (item.replenished?.[det.id]) done += 1;
-      }
+      analyzed += 1;
+      if (analysisState(det) === 'reponer') total += 1;
+      if (analysisState(det) === 'revisar') review += 1;
     }
   }
-  return { total, done };
+  return { total, review, analyzed };
 }
 
 function visibleItems() {
@@ -1010,7 +572,7 @@ function visibleItems() {
       const ra = rank[effectiveGondolaState(a)] ?? 9;
       const rb = rank[effectiveGondolaState(b)] ?? 9;
       if (ra !== rb) return ra - rb;
-      const diff = unreplenishedAlertCount(b) - unreplenishedAlertCount(a);
+      const diff = visualAlertCount(b) - visualAlertCount(a);
       if (diff !== 0) return diff;
       return a.order - b.order;
     });
@@ -1036,25 +598,32 @@ function updateAisleBar() {
   $('countVerificar').textContent = counts.verificar;
   $('countSuficiente').textContent = counts.suficiente;
 
-  const { total, done } = totalAlertLevelsAndDone();
-  $('replenishProgress').textContent = total > 0
-    ? `${done} de ${total} ${total === 1 ? 'quiebre repuesto' : 'quiebres repuestos'}`
-    : 'Sin quiebres pendientes';
+  const { total, review, analyzed: levels } = totalAlertLevels();
+  $('alertSummary').textContent = levels > 0
+    ? `${total} ${total === 1 ? 'nivel con alerta' : 'niveles con alerta'} · ${review} por revisar`
+    : 'Sin niveles analizados';
 
   const hasAnalyzed = state.items.some(i => i.result);
   $('exportCsvBtn').disabled = !hasAnalyzed;
-  $('clearSessionBtn').hidden = state.items.length === 0;
+  $('exportSelectionBtn').disabled = !visibleItems().some(i => i.result);
+  const analyzed = state.items.filter(i => i.result).length;
+  const errors = state.items.filter(i => i.error).length;
+  $('batchProgress').textContent = analyzed === state.items.length ? `${analyzed} analizadas` : `${analyzed} / ${state.items.length} analizadas`;
+  $('sessionDetail').textContent = `${analyzed} de ${state.items.length} analizadas${errors ? ` · ${errors} con error` : ''}. El recorrido se guarda en este navegador.`;
+  $('clearSessionBtn').hidden = state.items.length === 0 && !clearPhotosPending;
 }
 
 function renderQueue() {
+  thumbnailObserver?.disconnect();
   updateAisleBar();
   const listEl = $('queueList');
   const visible = visibleItems();
-  $('queueStatus').textContent = `${state.items.length} ${state.items.length === 1 ? 'góndola' : 'góndolas'}`;
+  if (!visible.some(i => i.id === state.selectedId)) state.selectedId = visible[0]?.id || null;
+  $('queueStatus').textContent = String(state.items.length);
 
   if (!state.items.length) {
     listEl.innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:8px 4px">
-      Sube las fotos del pasillo o carga el ejemplo para priorizar dónde reponer primero.
+      Sube las fotos del pasillo o carga el ejemplo para revisar las alertas visuales.
     </p>`;
     return;
   }
@@ -1068,51 +637,58 @@ function renderQueue() {
   listEl.innerHTML = visible.map(item => {
     const selected = item.id === state.selectedId;
     const eff = effectiveGondolaState(item);
-    const pendingAlerts = unreplenishedAlertCount(item);
-    const totalAlerts = (item.result?.detections || []).filter(d => d.store_diagnosis?.operational_state === 'reponer').length;
+    const alerts = visualAlertCount(item);
 
     let pillClass = 'pill-verificar';
     let pillText = item.analyzing ? 'Analizando…' : item.error ? 'Error' : 'Pendiente';
-    let subText = '';
 
     if (item.result) {
       if (eff === 'reponer') {
         pillClass = 'pill-reponer';
-        pillText = `${pendingAlerts} por reponer`;
-        const ids = item.result.detections
-          .filter(d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id])
-          .map(d => `N${d.id}`).join(', ');
-        subText = `Prioridad en ${ids}`;
+        pillText = `${alerts} ${alerts === 1 ? 'nivel con alerta' : 'niveles con alerta'}`;
       } else if (eff === 'verificar') {
         pillClass = 'pill-verificar';
-        pillText = 'Verificar en sala';
-        subText = `${item.result.detections.length} niveles medidos`;
+        pillText = 'Requiere revisión';
       } else {
         pillClass = 'pill-suficiente';
-        pillText = totalAlerts > 0 ? 'Repuesta ✓' : 'Abastecida';
-        subText = `${item.result.detections.length} niveles al día`;
+        pillText = 'Sin alertas';
       }
     }
 
-    return `<button type="button" class="queue-item" data-id="${esc(item.id)}" aria-current="${selected}">
-      <img class="queue-thumb" src="${esc(item.origUrl)}" alt="">
-      <div class="queue-meta">
-        <span class="queue-name">${esc(item.name)}</span>
-        <span class="status-pill ${pillClass}">${esc(pillText)}</span>
-        <span class="queue-sub">${esc(subText)}</span>
-      </div>
+    const shortName = `Góndola ${String(item.order).padStart(2, '0')}`;
+    return `<button type="button" class="queue-item" data-id="${esc(item.id)}" aria-current="${selected}" aria-label="${esc(shortName + ': ' + item.name + '. ' + pillText)}" title="${esc(item.name + ' · ' + pillText)}">
+      <img class="queue-thumb" data-thumbnail="${esc(item.id)}" src="${esc(item.thumbUrl || EMPTY_THUMB)}" loading="lazy" decoding="async" alt="">
+      <span class="queue-meta">
+        <span class="queue-name">${esc(shortName)}</span>
+        <span class="queue-sub">${item.result ? `${item.result.detections.length} ${item.result.detections.length === 1 ? 'nivel' : 'niveles'}` : esc(pillText)}</span>
+      </span>
+      <span class="queue-dot ${pillClass}" aria-hidden="true"></span>
     </button>`;
   }).join('');
 
   listEl.querySelectorAll('.queue-item').forEach(btn => {
     btn.addEventListener('click', () => selectItem(btn.dataset.id));
   });
+  observeThumbnails();
 }
 
 function renderStageAndLevels() {
   const item = state.items.find(i => i.id === state.selectedId);
+  // Las vistas ocultas no retienen otra foto grande ya decodificada.
+  if (!item || state.viewMode !== 'compare' || !item.result) {
+    $('compareOrigImg').removeAttribute('src');
+    $('compareResImg').removeAttribute('src');
+  }
+  if (!item || (state.viewMode === 'compare' && item.result)) $('mainPhoto').removeAttribute('src');
   if (!item) {
+    $('polyOverlay').innerHTML = '';
+    $('downloadAnnotatedBtn').removeAttribute('href');
+    $('loadingOverlay').hidden = true;
     $('emptyState').hidden = false;
+    $('stageHeading').textContent = state.items.length ? 'No hay góndolas en este filtro' : 'Tu pasillo, nivel por nivel';
+    $('emptyDescription').textContent = state.items.length
+      ? 'Cambia el filtro para seguir revisando las fotos de tu recorrido.'
+      : 'Sube o arrastra tus fotos para detectar los niveles y consultar alertas de baja disponibilidad.';
     $('singleView').hidden = true;
     $('compareView').hidden = true;
     $('stageBanner').hidden = true;
@@ -1120,19 +696,20 @@ function renderStageAndLevels() {
     $('planFooter').hidden = true;
     $('planMeta').textContent = '';
     $('levelsList').innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
-      Al seleccionar una góndola verás aquí el detalle de cada estante y podrás marcar los niveles ya repuestos.
+      Al seleccionar una góndola verás el resultado por nivel y podrás registrar tu revisión de la foto.
     </p>`;
     return;
   }
 
   $('emptyState').hidden = true;
   $('loadingOverlay').hidden = !item.analyzing;
+  if (item.analyzing) renderAnalysisFeedback();
 
   const visible = visibleItems();
   const idx = visible.findIndex(i => i.id === item.id);
   $('prevGondolaBtn').disabled = idx <= 0;
   $('nextGondolaBtn').disabled = idx < 0 || idx >= visible.length - 1;
-  $('stagePos').textContent = idx >= 0 ? `Góndola ${idx + 1} de ${visible.length}` : item.name;
+  $('stagePos').textContent = idx >= 0 ? `${idx + 1} / ${visible.length}` : 'Fuera del filtro';
 
   if (!item.result) {
     $('stageBanner').hidden = true;
@@ -1141,18 +718,20 @@ function renderStageAndLevels() {
     $('compareView').hidden = true;
     $('mainPhoto').src = item.origUrl;
     $('polyOverlay').innerHTML = '';
-    $('levelsList').innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
-      ${item.analyzing ? 'Analizando niveles de la góndola…' : esc(item.error || 'Esperando análisis…')}
-    </p>`;
+    $('planFooter').hidden = true;
+    $('levelsList').innerHTML = `<p>${item.analyzing ? 'Analizando niveles de la góndola…' : esc(item.error || 'Esperando análisis…')}</p>
+      ${item.error ? '<button type="button" class="btn" id="retryPhoto">Reintentar</button>' : ''}
+      <button type="button" class="btn" id="removePhoto">Quitar foto</button>`;
+    $('retryPhoto')?.addEventListener('click', () => { item.error = null; saveSession(item.id); renderQueue(); renderStageAndLevels(); analyzeQueue(); });
+    $('removePhoto').addEventListener('click', () => removeItem(item.id));
     return;
   }
 
   const res = item.result;
   const eff = effectiveGondolaState(item);
-  const pendingIds = (res.detections || [])
-    .filter(d => d.store_diagnosis?.operational_state === 'reponer' && !item.replenished?.[d.id])
+  const alertIds = (res.detections || [])
+    .filter(d => analysisState(d) === 'reponer')
     .map(d => d.id);
-  const totalAlerts = (res.detections || []).filter(d => d.store_diagnosis?.operational_state === 'reponer').length;
 
   $('stageBanner').hidden = false;
   $('stageBanner').className = `stage-banner tone-${eff}`;
@@ -1160,23 +739,16 @@ function renderStageAndLevels() {
   pill.className = `status-pill pill-${eff}`;
 
   if (eff === 'reponer') {
-    pill.textContent = `${pendingIds.length} ${pendingIds.length === 1 ? 'quiebre pendiente' : 'quiebres pendientes'}`;
-    $('stageHeadline').textContent = `Reponer ${pendingIds.length === 1 ? 'nivel ' + pendingIds[0] : 'niveles ' + pendingIds.join(', ')}`;
-    $('stageSub').textContent = item.name;
-    $('markAllGondolaBtn').hidden = false;
+    pill.textContent = `${alertIds.length} ${alertIds.length === 1 ? 'nivel con alerta' : 'niveles con alerta'}`;
   } else if (eff === 'verificar') {
-    pill.textContent = 'Verificar';
-    $('stageHeadline').textContent = res.store_summary?.aisle_label || 'Verificar niveles en pasillo';
-    $('stageSub').textContent = res.store_summary?.aisle_summary || '';
-    $('markAllGondolaBtn').hidden = true;
+    pill.textContent = 'Requiere revisión';
   } else {
-    pill.textContent = totalAlerts > 0 ? 'Reposición lista ✓' : 'Abastecida';
-    $('stageHeadline').textContent = totalAlerts > 0
-      ? 'Todos los quiebres de esta góndola fueron marcados como repuestos'
-      : 'Góndola con abastecimiento completo';
-    $('stageSub').textContent = item.name;
-    $('markAllGondolaBtn').hidden = true;
+    pill.textContent = 'Sin alertas';
   }
+
+  $('stageHeadline').textContent = `Góndola ${String(item.order).padStart(2, '0')}`;
+  $('stageSub').textContent = item.name;
+  $('stageSub').title = item.name;
 
   $('stageToolbar').hidden = false;
   if (state.viewMode === 'compare') {
@@ -1187,62 +759,94 @@ function renderStageAndLevels() {
   } else {
     $('singleView').hidden = false;
     $('compareView').hidden = true;
-    $('mainPhoto').src = state.viewMode === 'original' ? item.origUrl : res.image_url;
+    $('mainPhoto').src = item.origUrl;
+    $('polyOverlay').toggleAttribute('hidden', state.viewMode === 'original');
     renderPolygonOverlay(item);
   }
 
   // Renderizar tarjetas de niveles de arriba hacia abajo (mayor ID arriba)
   const orderedDets = [...(res.detections || [])].sort((a, b) => b.id - a.id);
-  const maxId = orderedDets.length ? orderedDets[0].id : 0;
-  $('planMeta').textContent = `${orderedDets.length} niveles`;
+  $('planMeta').textContent = `${orderedDets.length} niveles · de arriba a abajo`;
   $('planFooter').hidden = false;
   $('downloadAnnotatedBtn').href = res.image_url;
-  $('downloadAnnotatedBtn').download = `reposicion_${item.name.replace(/\.[^.]+$/, '')}.jpg`;
+  $('downloadAnnotatedBtn').download = `alertas_${item.name.replace(/\.[^.]+$/, '')}.jpg`;
 
   $('levelsList').innerHTML = orderedDets.map(det => {
-    const diag = det.store_diagnosis || {};
-    const opState = diag.operational_state || 'revisar';
-    const isReplenished = Boolean(item.replenished?.[det.id]);
+    const diag = levelDiagnosis(det);
+    const opState = analysisState(det);
     const pct = det.occupancy_estimate?.pct;
     const validPct = Number.isFinite(pct);
-    const posTag = det.id === maxId ? 'Superior' : det.id === 1 ? 'Inferior' : 'Intermedio';
 
-    const cardTone = isReplenished ? 'card-repuesto' : opState === 'reponer' ? 'card-reponer' : '';
-    const pillTone = isReplenished ? 'pill-suficiente' : opState === 'reponer' ? 'pill-reponer' : opState === 'suficiente' ? 'pill-suficiente' : 'pill-verificar';
-    const pillLabel = isReplenished ? 'Repuesto ✓' : (diag.operational_label || 'Verificar');
-    const barTone = isReplenished ? 'tone-suficiente' : opState === 'reponer' ? 'tone-reponer' : opState === 'suficiente' ? 'tone-suficiente' : 'tone-verificar';
-    const fillW = validPct ? Math.max(4, Math.min(100, Math.round(pct))) : 0;
+    const review = item.reviews?.[det.id]?.value || '';
+    const cardTone = opState === 'reponer' ? 'card-reponer' : '';
+    const pillTone = opState === 'reponer' ? 'pill-reponer' : opState === 'suficiente' ? 'pill-suficiente' : 'pill-verificar';
+    const pillLabel = diag.label;
+    const barTone = opState === 'reponer' ? 'tone-reponer' : opState === 'suficiente' ? 'tone-suficiente' : 'tone-verificar';
+    const fillW = validPct ? Math.max(0, Math.min(100, Math.round(pct))) : 0;
 
-    return `<article class="level-card ${cardTone}" data-level="${det.id}">
+    const gap = det.occupancy?.max_gap_pct;
+    const front = validPct && Number.isFinite(gap) ? Math.max(0, Math.min(100, Math.round(100 - gap))) : null;
+    const quickState = review === 'revisado' || review === 'confirmado' ? 'revisado' : review === 'no_evaluable' ? 'no_evaluable' : review ? null : 'pendiente';
+    return `<article class="level-card ${cardTone}" data-level="${det.id}" aria-label="Nivel ${det.id}">
       <div class="level-top">
-        <span class="level-name">Nivel ${det.id}<span class="level-pos-tag">· ${posTag}</span></span>
-        <span class="status-pill ${pillTone}">${esc(pillLabel)}</span>
+        <span class="level-name">Nivel ${det.id}</span>
+        <span class="status-pill ${pillTone}" title="Resultado original de la foto">${esc(opState === 'suficiente' ? 'Sin alerta visual' : pillLabel)}</span>
       </div>
-      <p class="diag-headline">${esc(isReplenished ? 'Reposición registrada en sala' : diag.headline)}</p>
-      <p class="diag-action">${esc(isReplenished ? `Marcado listo a las ${item.replenished[det.id]}` : diag.action)}</p>
       <div class="bar-row">
-        <div class="bar-track" title="Disponibilidad visual (mínimo operativo: 52 / 100)">
+        <div class="bar-track" role="meter" aria-label="Índice visual del nivel ${det.id}" aria-valuemin="0" aria-valuemax="100" ${validPct ? `aria-valuenow="${Math.round(pct)}"` : 'aria-valuetext="No evaluable"'} title="Índice visual preliminar · umbral 52 / 100">
           <div class="bar-fill ${barTone}" style="width:${fillW}%"></div>
         </div>
-        <span class="bar-val">${validPct ? Math.round(pct) + ' / 100' : 'Verificar'}</span>
+        <span class="bar-val">${validPct ? Math.round(pct) + ' / 100' : 'Sin lectura'}</span>
       </div>
-      ${opState === 'reponer' ? `
-        <button type="button" class="check-btn" data-toggle-level="${det.id}" aria-pressed="${isReplenished}">
-          ${isReplenished ? '✓ Repuesto en sala (clic para deshacer)' : 'Marcar nivel como repuesto ✓'}
-        </button>
-      ` : ''}
+      <p class="front-coverage">${front === null ? 'Frente cubierto sin lectura' : `Frente continuo cubierto ${front}%`}</p>
+      <div class="review-switch" role="group" aria-label="Verificación del nivel ${det.id}">
+        <button type="button" data-quick-level="${det.id}" data-action="pendiente" aria-pressed="${quickState === 'pendiente'}" title="Retirar la revisión humana sin cambiar el análisis">Sin revisar</button>
+        <button type="button" data-quick-level="${det.id}" data-action="revisado" aria-pressed="${quickState === 'revisado'}" title="Registrar que revisaste la foto; la alerta se conserva">Revisado</button>
+        <button type="button" data-quick-level="${det.id}" data-action="no_evaluable" aria-pressed="${quickState === 'no_evaluable'}" title="Indicar que no hay visibilidad suficiente; el análisis se conserva">No evaluable</button>
+      </div>
+      <details class="level-details">
+        <summary aria-label="Diagnóstico y opciones del nivel ${det.id}">Detalle</summary>
+        ${review ? `<p class="diag-headline">Revisión humana: ${esc(humanReviewLabel(review))}</p>` : ''}
+        <p class="diag-headline">${esc(diag.headline)}</p>
+        <p class="diag-action">${esc(diag.action)}</p>
+        <p class="diag-action">La revisión humana no cambia el resultado del análisis de la foto.</p>
+        <label>Verificación humana
+          <select data-review-level="${det.id}">
+            <option value="" ${!review ? 'selected' : ''}>Sin revisar</option>
+            <option value="revisado" ${review === 'revisado' ? 'selected' : ''}>Revisado</option>
+            <option value="alerta_confirmada" ${review === 'alerta_confirmada' ? 'selected' : ''}>Alerta confirmada visualmente</option>
+            <option value="sin_alerta" ${review === 'sin_alerta' ? 'selected' : ''}>Sin baja disponibilidad observada</option>
+            <option value="no_evaluable" ${review === 'no_evaluable' ? 'selected' : ''}>No se puede evaluar</option>
+            ${review === 'confirmado' || review === 'necesita' ? `<option value="${review}" selected>${esc(humanReviewLabel(review))}</option>` : ''}
+          </select>
+        </label>
+      </details>
     </article>`;
-  }).join('');
+  }).join('') || '<p>No se detectaron niveles. Prueba con otra foto que muestre la góndola completa y despejada.</p>';
 
   $('levelsList').querySelectorAll('.level-card').forEach(card => {
     const lv = Number(card.dataset.level);
     card.addEventListener('mouseenter', () => highlightLevel(lv));
     card.addEventListener('mouseleave', () => highlightLevel(null));
   });
-  $('levelsList').querySelectorAll('[data-toggle-level]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      toggleReplenished(item.id, Number(btn.dataset.toggleLevel));
+  $('levelsList').insertAdjacentHTML('beforeend', '<button type="button" class="link-reset" id="removePhoto">Quitar foto del recorrido</button>');
+  $('removePhoto').addEventListener('click', () => removeItem(item.id));
+  $('levelsList').querySelectorAll('[data-review-level]').forEach(select => {
+    select.addEventListener('change', () => {
+      const id = Number(select.dataset.reviewLevel);
+      item.reviews ||= {};
+      if (select.value) item.reviews[id] = { value: select.value, at: new Date().toISOString() };
+      else delete item.reviews[id];
+      saveSession(item.id); renderQueue(); renderStageAndLevels();
+    });
+  });
+  $('levelsList').querySelectorAll('[data-quick-level]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = Number(btn.dataset.quickLevel);
+      item.reviews ||= {};
+      if (btn.dataset.action === 'pendiente') delete item.reviews[id];
+      else item.reviews[id] = { value: btn.dataset.action, at: new Date().toISOString() };
+      saveSession(item.id); renderQueue(); renderStageAndLevels();
     });
   });
 }
@@ -1258,9 +862,24 @@ function renderPolygonOverlay(item) {
   svg.innerHTML = (res.detections || []).map(det => {
     const pts = (det.display_polygon || []).map(p => `${p[0]},${p[1]}`).join(' ');
     if (!pts) return '';
-    return `<polygon class="shelf-poly" data-poly-level="${det.id}" points="${pts}">
-      <title>Nivel ${det.id} · ${esc(det.store_diagnosis?.headline || '')}</title>
-    </polygon>`;
+    const op = analysisState(det);
+    const color = op === 'reponer' ? '#ff727c' : op === 'suficiente' ? '#59d58d' : '#ffcc6b';
+    const points = det.display_polygon;
+    const x = Math.max(0, Math.min(...points.map(p => p[0])));
+    const y = Math.max(0, Math.min(...points.map(p => p[1])));
+    const font = Math.max(12, res.width / 65);
+    const score = det.occupancy_estimate?.pct;
+    const label = `N${det.id} · ${Number.isFinite(score) ? Math.round(score) : '—'}`;
+    const labelY = Math.max(font * 1.7, y);
+    return `<g style="--contour-color:${color}">
+      <polygon class="shelf-poly" data-poly-level="${det.id}" points="${pts}">
+        <title>Nivel ${det.id} · ${esc(levelDiagnosis(det).headline)}</title>
+      </polygon>
+      <g class="contour-label" transform="translate(${x + font / 2},${labelY - font * 1.6})">
+        <rect width="${font * 5.3}" height="${font * 1.6}" rx="${font * .7}"/>
+        <text x="${font * .5}" y="${font * 1.12}" font-size="${font}">${esc(label)}</text>
+      </g>
+    </g>`;
   }).join('');
 
   svg.querySelectorAll('.shelf-poly').forEach(poly => {
@@ -1285,91 +904,96 @@ function highlightLevel(levelId) {
   });
 }
 
-function toggleReplenished(itemId, levelId) {
-  const item = state.items.find(i => i.id === itemId);
-  if (!item) return;
-  item.replenished = item.replenished || {};
-  if (item.replenished[levelId]) {
-    delete item.replenished[levelId];
-  } else {
-    item.replenished[levelId] = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
-  }
-  renderQueue();
-  renderStageAndLevels();
-}
-
-$('markAllGondolaBtn').addEventListener('click', () => {
-  const item = state.items.find(i => i.id === state.selectedId);
-  if (!item?.result) return;
-  item.replenished = item.replenished || {};
-  const now = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
-  for (const det of (item.result.detections || [])) {
-    if (det.store_diagnosis?.operational_state === 'reponer') {
-      item.replenished[det.id] = item.replenished[det.id] || now;
-    }
-  }
-  renderQueue();
-  renderStageAndLevels();
-});
-
 function selectItem(id) {
   state.selectedId = id;
+  saveSession();
   renderQueue();
   renderStageAndLevels();
 }
 
+let queueRunning = false;
+let analysisController = null;
 async function analyzeQueue() {
-  for (const item of state.items) {
-    if (item.result || item.analyzing || item.error) continue;
+  if (queueRunning) return;
+  queueRunning = true;
+  try { while (true) {
+    const item = state.items.find(i => !i.result && !i.analyzing && !i.error);
+    if (!item) break;
+    analysisController = new AbortController();
     item.analyzing = true;
     renderQueue();
     if (state.selectedId === item.id) renderStageAndLevels();
 
     try {
+      // Consultar el servidor: recargar la pestaña no vuelve a cargar el modelo.
+      try {
+        const health = await fetch('/api/health', { signal: AbortSignal.any([analysisController.signal, AbortSignal.timeout(2000)]) });
+        if (health.ok) {
+          const status = await health.json();
+          analysisReady = typeof status.analysis_ready === 'boolean' ? status.analysis_ready : null;
+        } else { analysisReady = null; }
+      } catch { analysisReady = null; }
+      if (!liveItem(item)) continue;
+      if (state.selectedId === item.id) renderAnalysisFeedback();
       const resp = await fetch('/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': item.file.type || 'image/jpeg' },
         body: item.file,
+        signal: analysisController.signal,
       });
       const data = await resp.json();
       if (!resp.ok || data.error) throw new Error(data.error || 'No se pudo analizar la imagen.');
-      item.result = data;
+      analysisReady = true;
+      if (liveItem(item)) {
+        item.result = data;
+        await compactResult(item);
+        if (!liveItem(item)) releaseItemUrls(item);
+      }
     } catch (err) {
-      item.error = err.message || 'Error al analizar.';
-      showError(`${item.name}: ${item.error}`);
+      if (state.items.includes(item)) { item.error = err.message || 'Error al analizar.'; showError(`${item.name}: ${item.error}`); }
     } finally {
+      analysisController = null;
       item.analyzing = false;
+      if (liveItem(item)) saveSession(item.id);
       renderQueue();
       if (state.selectedId === item.id) renderStageAndLevels();
     }
+  } } finally {
+    queueRunning = false;
+    if (state.items.some(i => !i.result && !i.analyzing && !i.error)) analyzeQueue();
   }
 }
 
-function addFiles(fileList) {
+async function addFiles(fileList) {
+  const generation = aisleGeneration;
   const incoming = Array.from(fileList || []);
-  if (!incoming.length) return;
+  await storageReady;
+  if (!incoming.length || generation !== aisleGeneration) return;
   $('errorBar').hidden = true;
 
+  const addedIds = [];
   for (const f of incoming) {
     if (!f.size || f.size > 10 * 1024 * 1024) {
       showError(`${f.name}: supera el límite de 10 MB.`);
       continue;
     }
     const id = `g_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    addedIds.push(id);
     const origUrl = URL.createObjectURL(f);
     state.items.push({
       id,
-      order: state.items.length + 1,
+      order: Math.max(0, ...state.items.map(i => i.order || 0)) + 1,
       name: f.name,
       file: f,
       origUrl,
       result: null,
-      replenished: {},
+      reviews: {},
       analyzing: false,
       error: null,
     });
     if (!state.selectedId) state.selectedId = id;
   }
+  saveSession(addedIds);
   renderQueue();
   renderStageAndLevels();
   analyzeQueue();
@@ -1381,11 +1005,14 @@ $('fileInput').addEventListener('change', e => {
 });
 
 async function loadDemoAisle() {
+  const generation = aisleGeneration;
   try {
     $('loadingOverlay').hidden = false;
     $('loadingText').textContent = 'Cargando pasillo de demostración…';
+    $('loadingHint').hidden = true;
     const resp = await fetch('/api/demo-photos');
     const data = await resp.json();
+    if (generation !== aisleGeneration) return;
     const demos = data.demos || [];
     if (!demos.length) throw new Error('No se encontraron fotografías de demostración.');
 
@@ -1394,12 +1021,14 @@ async function loadDemoAisle() {
       const imgResp = await fetch(`/api/demo-photo/${encodeURIComponent(d.id)}`);
       if (!imgResp.ok) continue;
       const blob = await imgResp.blob();
+      if (generation !== aisleGeneration) return;
       files.push(new File([blob], `${d.label} (${d.filename})`, { type: blob.type || 'image/jpeg' }));
     }
     $('loadingOverlay').hidden = true;
     $('loadingText').textContent = 'Analizando disponibilidad en góndola…';
     addFiles(files);
   } catch (err) {
+    if (generation !== aisleGeneration) return;
     $('loadingOverlay').hidden = true;
     showError(err.message);
   }
@@ -1439,26 +1068,42 @@ document.querySelectorAll('.seg-btn').forEach(btn => {
   });
 });
 
-$('prevGondolaBtn').addEventListener('click', () => {
+function navigatePhotos(direction) {
   const vis = visibleItems();
   const idx = vis.findIndex(i => i.id === state.selectedId);
-  if (idx > 0) selectItem(vis[idx - 1].id);
-});
-$('nextGondolaBtn').addEventListener('click', () => {
-  const vis = visibleItems();
-  const idx = vis.findIndex(i => i.id === state.selectedId);
-  if (idx >= 0 && idx < vis.length - 1) selectItem(vis[idx + 1].id);
-});
+  const next = idx + direction;
+  if (idx < 0 || next < 0 || next >= vis.length) return false;
+  selectItem(vis[next].id);
+  return true;
+}
+$('prevGondolaBtn').addEventListener('click', () => navigatePhotos(-1));
+$('nextGondolaBtn').addEventListener('click', () => navigatePhotos(1));
 
 $('clearSessionBtn').addEventListener('click', () => {
-  for (const it of state.items) {
-    if (it.origUrl) URL.revokeObjectURL(it.origUrl);
-  }
+  ++aisleGeneration;
+  $('errorBar').hidden = true;
+  thumbnailObserver?.disconnect();
+  thumbnailQueue.length = 0;
+  thumbnailPending.clear();
+  for (const item of state.items) releaseItemUrls(item);
   state.items = [];
   state.selectedId = null;
-  renderQueue();
-  renderStageAndLevels();
+  state.highlightedLevel = null;
+  state.filter = 'all';
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.filter === 'all')));
+  analysisController?.abort();
+  clearPhotosPending = true;
+  dirtyIds.clear();
+  saveSession(); renderQueue(); renderStageAndLevels();
 });
+function removeItem(id) {
+  const item = state.items.find(i => i.id === id);
+  if (!item) return;
+  state.items = state.items.filter(i => i.id !== id);
+  releaseItemUrls(item);
+  state.selectedId = state.items[0]?.id || null;
+  saveSession(); renderQueue(); renderStageAndLevels();
+}
 
 $('errorClose').addEventListener('click', () => { $('errorBar').hidden = true; });
 
@@ -1474,33 +1119,34 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
 });
 
-// Exportar Hoja de Reposición CSV compatible con Excel en español (UTF-8 BOM + ;)
-$('exportCsvBtn').addEventListener('click', () => {
+// Exportar análisis y revisión humana por separado (CSV para Excel en español).
+function exportCsv(selectionOnly) {
   const rows = [
-    ['Góndola / Archivo', 'Estado Góndola', 'Nivel (1=Inferior)', 'Acción Operativa', 'Estado Reposición', 'Hora Reposición', 'Índice Visual (0-100)', 'Hueco Horizontal (%)', 'Diagnóstico de Tienda']
+    ['Góndola / Archivo', 'Resultado Góndola', 'Nivel (1=Inferior)', 'Resultado del análisis', 'Índice Visual (0-100)', 'Hueco Horizontal (%)', 'Detalle del análisis', 'Revisión humana', 'Fecha revisión']
   ];
-  for (const item of visibleItems()) {
+  for (const item of (selectionOnly ? visibleItems() : state.items)) {
     if (!item.result) continue;
     const eff = effectiveGondolaState(item);
-    const gStateLabel = eff === 'reponer' ? 'Urgente por reponer' : eff === 'verificar' ? 'Por verificar' : 'Abastecida / Lista';
+    const gStateLabel = eff === 'reponer' ? 'Con alertas' : eff === 'verificar' ? 'Requiere revisión' : 'Sin alertas';
     const ordered = [...(item.result.detections || [])].sort((a, b) => b.id - a.id);
+    if (!ordered.length) rows.push([
+      item.name, gStateLabel, '', 'No se detectaron niveles', '', '',
+      'Sin lectura evaluable. Prueba con otra foto de la góndola.', '', '',
+    ]);
     for (const det of ordered) {
-      const diag = det.store_diagnosis || {};
-      const opState = diag.operational_state || 'revisar';
-      const repTime = item.replenished?.[det.id] || '';
-      const repStatus = opState === 'reponer' ? (repTime ? 'Repuesto en sala' : 'Pendiente de reponer') : 'No requiere';
+      const diag = levelDiagnosis(det);
       const pct = Number.isFinite(det.occupancy_estimate?.pct) ? Math.round(det.occupancy_estimate.pct) : '';
-      const gap = Number.isFinite(det.occupancy?.max_gap_pct) ? Math.round(det.occupancy.max_gap_pct) : '';
+      const gap = pct !== '' && Number.isFinite(det.occupancy?.max_gap_pct) ? Math.round(det.occupancy.max_gap_pct) : '';
       rows.push([
         item.name,
         gStateLabel,
         `Nivel ${det.id}`,
-        diag.operational_label || '',
-        repStatus,
-        repTime,
+        diag.label,
         pct,
         gap,
         `${diag.headline || ''} - ${diag.action || ''}`,
+        humanReviewLabel(item.reviews?.[det.id]?.value),
+        item.reviews?.[det.id]?.at || '',
       ]);
     }
   }
@@ -1509,12 +1155,172 @@ $('exportCsvBtn').addEventListener('click', () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `hoja_reposicion_pasillo_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `alertas_pasillo_${new Date().toISOString().slice(0, 10)}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1500);
-});
+}
+$('exportCsvBtn').addEventListener('click', () => exportCsv(false));
+$('exportSelectionBtn').addEventListener('click', () => exportCsv(true));
+
+// Cada foto se guarda por separado: navegar no vuelve a copiar imágenes del recorrido.
+let clearPhotosPending = false;
+let db = null;
+let saveChain = Promise.resolve();
+let saveVersion = 0;
+let saveRunning = false;
+let saveRequested = false;
+let migrationPending = false;
+let persistedIds = new Set();
+const dirtyIds = new Set();
+function serializableItem(item) {
+  const { origUrl, thumbUrl, analyzing, result, ...record } = item;
+  // Las URL blob son temporales; los bytes se conservan en resultImage.
+  if (result) {
+    const { image_url, ...details } = result;
+    record.result = item.resultImage ? details : result;
+  } else { record.result = null; }
+  return record;
+}
+function hydrate(items) {
+  return (items || []).map(item => ({
+    ...item,
+    origUrl: URL.createObjectURL(item.file),
+    thumbUrl: item.thumbnail ? URL.createObjectURL(item.thumbnail) : null,
+    result: item.result ? { ...item.result, ...(item.resultImage ? { image_url: URL.createObjectURL(item.resultImage) } : {}) } : null,
+    analyzing: false,
+  }));
+}
+function saveSession(changedIds = []) {
+  if (!db) { $('saveStatus').textContent = 'Guardado local no disponible'; return; }
+  for (const id of typeof changedIds === 'string' ? [changedIds] : changedIds) dirtyIds.add(id);
+  ++saveVersion;
+  saveRequested = true;
+  $('saveStatus').textContent = 'Guardando…';
+  if (!saveRunning) {
+    saveRunning = true;
+    // Agrupar cambios del mismo turno y mantener como máximo una escritura en curso.
+    saveChain = Promise.resolve().then(flushSaves);
+  }
+}
+async function flushSaves() {
+  try {
+    while (saveRequested) {
+      saveRequested = false;
+      const version = saveVersion;
+      const changed = [...dirtyIds];
+      dirtyIds.clear();
+      const clearPhotos = clearPhotosPending;
+      clearPhotosPending = false;
+      const records = new Map(state.items.map(item => [item.id, item]));
+      const wanted = new Set(records.keys());
+      const manifest = {
+        version: 2,
+        itemIds: state.items.map(item => item.id),
+        selectedId: state.selectedId,
+      };
+      try {
+        await new Promise((resolve, reject) => {
+          const tx = db.transaction(['session', 'photos'], 'readwrite');
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(tx.error || new Error('Error de guardado'));
+          tx.onabort = () => reject(tx.error || new Error('Guardado cancelado'));
+          try {
+            const photos = tx.objectStore('photos');
+            if (clearPhotos) {
+              photos.clear();
+              tx.objectStore('session').clear();
+            }
+            for (const id of clearPhotos ? wanted : changed) {
+              if (records.has(id)) photos.put(serializableItem(records.get(id)));
+            }
+            if (!clearPhotos) {
+              for (const id of persistedIds) { if (!wanted.has(id)) photos.delete(id); }
+            }
+            tx.objectStore('session').put(manifest, 'current-v2');
+            // La sesión antigua se sustituye solo en la misma transacción atómica.
+            if (migrationPending) tx.objectStore('session').delete('current');
+          } catch (error) { tx.abort(); reject(error); }
+        });
+        persistedIds = wanted;
+        migrationPending = false;
+        if (version === saveVersion) $('saveStatus').textContent = 'guardado local';
+      } catch {
+        clearPhotosPending ||= clearPhotos;
+        changed.forEach(id => dirtyIds.add(id));
+        $('saveStatus').textContent = clearPhotos ? 'No se pudo borrar' : 'No se pudo guardar';
+        showError(clearPhotos
+          ? 'No se pudo borrar el recorrido guardado. Vuelve a pulsar Limpiar pasillo para reintentar.'
+          : 'No se pudo guardar el recorrido en este navegador. Revisa el espacio disponible antes de cerrar la página.');
+        if (version === saveVersion) break;
+      }
+    }
+  } finally { saveRunning = false; updateAisleBar(); }
+}
+function readStored(store, key) {
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(store, 'readonly').objectStore(store).get(key);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+const storageReady = (async () => {
+  $('loadingOverlay').hidden = false;
+  $('loadingText').textContent = 'Recuperando el recorrido guardado…';
+  $('loadingHint').hidden = true;
+  try {
+    db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open('walmart-cliente-sesion', 2);
+      request.onupgradeneeded = () => {
+        if (!request.result.objectStoreNames.contains('session')) request.result.createObjectStore('session');
+        if (!request.result.objectStoreNames.contains('photos')) request.result.createObjectStore('photos', { keyPath: 'id' });
+      };
+      request.onblocked = () => showError('Cierra las otras pestañas de esta app y recarga para recuperar el recorrido.');
+      request.onerror = () => reject(request.error);
+      request.onsuccess = () => resolve(request.result);
+    });
+    db.onversionchange = () => db.close();
+    const saved = await readStored('session', 'current-v2');
+    if (saved) {
+      const items = new Map();
+      // Lecturas individuales: no clonar todo el lote en una sola respuesta.
+      for (const id of saved.itemIds) {
+        const record = await readStored('photos', id);
+        if (!record) throw new Error('Falta una foto del recorrido guardado.');
+        items.set(id, record);
+      }
+      state.items = hydrate(saved.itemIds.map(id => items.get(id)));
+      state.selectedId = saved.selectedId;
+      persistedIds = new Set([...items.keys(), ...(saved.undoIds || [])]);
+      // Descartar la reserva de deshacer de versiones anteriores sin cargar sus fotos.
+      if (saved.undoIds) { saveSession(); await saveChain; }
+    } else {
+      const legacy = await readStored('session', 'current');
+      if (legacy) {
+        state.items = hydrate(legacy.items);
+        state.selectedId = legacy.selectedId;
+        for (const item of state.items) {
+          await compactResult(item);
+        }
+        migrationPending = true;
+        saveSession(state.items.map(item => item.id));
+        await saveChain;
+      }
+    }
+    if (!state.items.some(item => item.id === state.selectedId)) state.selectedId = state.items[0]?.id || null;
+    if (!migrationPending) $('saveStatus').textContent = 'guardado local';
+  } catch {
+    db?.close(); db = null;
+    $('saveStatus').textContent = 'Guardado local no disponible';
+    showError('No se pudo recuperar el recorrido guardado. Tus datos se conservan en este navegador; no borres los datos del sitio.');
+    // No permitir que una carga parcial sustituya el recorrido persistido.
+    for (const item of state.items) releaseItemUrls(item);
+    state.items = []; state.selectedId = null;
+  }
+  renderQueue(); renderStageAndLevels();
+})();
+storageReady.then(() => analyzeQueue());
 
 // Tema claro / oscuro
 function setTheme(theme) {
@@ -1522,13 +1328,29 @@ function setTheme(theme) {
   try { localStorage.setItem('walmart-cliente-theme', theme); } catch {}
 }
 $('themeBtn').addEventListener('click', () => {
-  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
   setTheme(cur === 'light' ? 'dark' : 'light');
 });
 try {
   const saved = localStorage.getItem('walmart-cliente-theme');
   if (saved === 'dark' || saved === 'light') setTheme(saved);
 } catch {}
+
+document.querySelectorAll('label[for="fileInput"]').forEach(label => {
+  label.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('fileInput').click(); }
+  });
+});
+document.addEventListener('click', e => {
+  if (!$('moreActions').contains(e.target) || e.target.closest('.actions-menu button')) $('moreActions').open = false;
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { $('moreActions').open = false; if (!$('cameraModal').hidden) stopCamera(); }
+  if (!['ArrowLeft', 'ArrowRight'].includes(e.key) || e.defaultPrevented || e.isComposing
+      || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || !$('cameraModal').hidden || $('moreActions').open) return;
+  if (e.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], [role="slider"], [role="tablist"], [role="listbox"], [role="combobox"]')) return;
+  if (navigatePhotos(e.key === 'ArrowLeft' ? -1 : 1)) e.preventDefault();
+});
 
 // Cámara
 let camStream = null;

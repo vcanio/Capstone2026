@@ -123,10 +123,10 @@ class StoreDiagnosisTest(unittest.TestCase):
         }
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'reponer')
-        self.assertEqual(diag['operational_label'], 'Reponer')
-        self.assertIn('sin mercadería visible', diag['headline'])
+        self.assertEqual(diag['operational_label'], 'Alerta por baja disponibilidad')
+        self.assertIn('Posible ausencia', diag['headline'])
 
-    def test_wide_gap_translates_to_facing_and_replenish(self):
+    def test_wide_gap_describes_an_alert_without_replenishment_instructions(self):
         det = {
             'near_frame': False,
             'occupancy': {'max_gap_pct': 58.0, 'hyb_body_pct': 35.0, 'fill_pct': 42.0},
@@ -135,7 +135,8 @@ class StoreDiagnosisTest(unittest.TestCase):
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'reponer')
         self.assertIn('58 %', diag['headline'])
-        self.assertIn('facing', diag['action'])
+        self.assertIn('confirmar la alerta', diag['action'])
+        self.assertNotIn('Reponer', diag['action'])
 
     def test_sufficient_shelf_translates_to_abastecido(self):
         det = {
@@ -145,7 +146,7 @@ class StoreDiagnosisTest(unittest.TestCase):
         }
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'suficiente')
-        self.assertEqual(diag['operational_label'], 'Abastecido')
+        self.assertEqual(diag['operational_label'], 'Sin alerta visual')
         self.assertIn('90 %', diag['action'])
 
     def test_near_frame_translates_to_verificar_borde(self):
@@ -156,8 +157,27 @@ class StoreDiagnosisTest(unittest.TestCase):
         }
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'revisar')
-        self.assertEqual(diag['operational_label'], 'Verificar')
+        self.assertEqual(diag['operational_label'], 'No evaluable')
         self.assertIn('borde de la foto', diag['headline'])
+
+    def test_missing_reading_never_becomes_a_sufficient_or_empty_result(self):
+        for state in ('reponer', 'suficiente', 'revisar'):
+            with self.subTest(state=state):
+                diag = store_diagnosis({'occupancy_estimate': {'state': state, 'pct': None}})
+                self.assertEqual(diag['operational_state'], 'revisar')
+                self.assertEqual(diag['operational_label'], 'No evaluable')
+
+    def test_summary_distinguishes_alerts_review_and_absent_detections(self):
+        for detections, expected in (
+            ([], 'verificar'),
+            ([{'id': 1, 'occupancy_estimate': {'pct': None, 'state': 'suficiente'}}], 'verificar'),
+            ([{'id': 1, 'occupancy_estimate': {'pct': 80, 'state': 'suficiente'}}], 'suficiente'),
+            ([{'id': 1, 'occupancy_estimate': {'pct': 25, 'state': 'reponer'}},
+              {'id': 2, 'occupancy_estimate': {'pct': None, 'state': 'revisar'}}], 'reponer'),
+        ):
+            with self.subTest(expected=expected, detections=detections):
+                result = enrich_for_store({'detections': detections})
+                self.assertEqual(result['store_summary']['aisle_state'], expected)
 
     def test_demo_catalog_never_touches_test_split(self):
         cat = demo_catalog()
@@ -182,9 +202,12 @@ class ClientHttpServerTest(unittest.TestCase):
         with urlopen(f'{self.base_url}/') as resp:
             self.assertEqual(resp.status, 200)
             html = resp.read().decode('utf-8')
-        self.assertIn('Walmart Visión · Operaciones de Tienda', html)
-        self.assertIn('Descargar hoja de reposición (CSV)', html)
+        self.assertIn('Walmart Visión · Visor de alertas', html)
+        self.assertIn('Exportar todo (CSV)', html)
         self.assertNotIn('Marcar para revisión', html)
+        with urlopen(f'{self.base_url}/logo.svg') as resp:
+            self.assertEqual(resp.headers.get_content_type(), 'image/svg+xml')
+            self.assertEqual(resp.read(), (CLIENT_DIR / 'logo.svg').read_bytes())
 
     def test_health_and_demo_catalog_endpoints(self):
         with urlopen(f'{self.base_url}/api/health') as resp:
@@ -192,6 +215,7 @@ class ClientHttpServerTest(unittest.TestCase):
             payload = json.loads(resp.read().decode('utf-8'))
         self.assertEqual(payload['status'], 'ok')
         self.assertEqual(payload['threshold_pct'], 52.0)
+        self.assertFalse(payload['analysis_ready'])
 
         with urlopen(f'{self.base_url}/api/demo-photos') as resp:
             self.assertEqual(resp.status, 200)
@@ -221,7 +245,10 @@ class ClientHttpServerTest(unittest.TestCase):
         self.assertIn('image_url', data)
         self.assertNotIn('edges_image', data)
         self.assertNotIn('filtered_edges_image', data)
-        self.assertEqual(data['detections'][0]['store_diagnosis']['operational_label'], 'Reponer')
+        self.assertEqual(data['detections'][0]['store_diagnosis']['operational_label'], 'Alerta por baja disponibilidad')
+        # La preparación pertenece al servidor y sobrevive a recargar la pestaña.
+        with urlopen(f'{self.base_url}/api/health') as resp:
+            self.assertTrue(json.load(resp)['analysis_ready'])
 
     def test_predict_rejects_foreign_origin(self):
         req = Request(
@@ -237,6 +264,8 @@ class ClientHttpServerTest(unittest.TestCase):
             urlopen(req)
         self.assertEqual(ctx.exception.code, 403)
         ctx.exception.close()
+        with urlopen(f'{self.base_url}/api/health') as resp:
+            self.assertFalse(json.load(resp)['analysis_ready'])
 
 
 if __name__ == '__main__':

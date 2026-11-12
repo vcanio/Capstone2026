@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-10",
+  "official_run": "v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c",
+  "official_weight_sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5",
+  "training_stages": [
+    {
+      "run": "v3_segmentacion_sin_tapadas_20261102_202529_4bb3",
+      "manifest": "Historico/Experimentos/v3_segmentacion_sin_tapadas_20261102_202529_4bb3/manifest.json",
+      "manifest_sha256": "ffa6eec107c58b1adc94c54eb0d916a54b6d8dd667d624f6c97087fac5b0ff12",
+      "counts": {
+        "train": 332,
+        "val_real": 32,
+        "val_sintetica": 37
+      },
+      "levels": {
+        "train": 1643,
+        "val": 374
+      }
+    },
+    {
+      "run": "v3_refuerzo_geometria_revision_20261105_022414_e6f0",
+      "manifest": "Experimentos/v3_refuerzo_geometria_revision_20261105_022414_e6f0/manifest.json",
+      "manifest_sha256": "02ad4e68e634a1855cbef73265ffd0b671cafcdbe232608c1e1fc124e2fee479",
+      "counts": {
+        "train": 171,
+        "val_real": 59,
+        "val_sintetica": 34
+      },
+      "levels": {
+        "train": 857,
+        "val": 482
+      }
+    },
+    {
+      "run": "v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c",
+      "manifest": "Experimentos/v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c/manifest.json",
+      "manifest_sha256": "5369c80bcf6d88daf833fc08f075b73d6be7865e4d6c2fab8708b1e10eea327f",
+      "counts": {
+        "train": 256,
+        "val_real": 11,
+        "val_sintetica": 0
+      },
+      "levels": {
+        "train": 1298,
+        "val": 55
+      }
+    }
+  ],
+  "unique_train_sources_sha256": 519,
+  "unique_train_sources_by_origin": {
+    "real": 299,
+    "sintetica": 220
+  },
+  "unique_train_levels_latest_annotation_per_source": 2588,
+  "count_scope": "Instancias por imagen y última anotación de train; no escenas independientes ni preentrenamiento o aumentos internos.",
+  "human_visual_review": {
+    "document": "Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md",
+    "photos": 68,
+    "accepted_photos": 65,
+    "photos_with_issues": 3,
+    "contour_issues": 7,
+    "missed_levels_reported": 0,
+    "is_map_or_recall": false
+  },
+  "published": true,
+  "publication_tag": "walmart-vision-apps-prueba-2026-11-11"
+}

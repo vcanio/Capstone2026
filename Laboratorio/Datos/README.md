@@ -5,7 +5,7 @@
 Desde la raíz:
 
 ```powershell
-& ./.venv-modelo/Scripts/python.exe ./Herramientas/Datos/verificar_datos.py
+& ./.venv-modelo/Scripts/python.exe ./Laboratorio/Datos/verificar_datos.py
 & ./.venv-modelo/Scripts/python.exe -m unittest discover -s Laboratorio/Datos
 ```
 
@@ -15,7 +15,7 @@ Si falla, corregir la procedencia o el registro; no recalcular hashes para ocult
 
 [Flujo común](../../Datos/README.md) · [Catálogo de lotes](../../Datos/Registros/lotes.json).
 
-## Laboratorio de partición y mantenimiento
+## Herramientas de partición y mantenimiento
 
 | Programa | Alcance |
 |---|---|
