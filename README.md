@@ -23,7 +23,7 @@ La entrega del 11/11 incluye el **cierre con contornos revisados adoptado el 10/
 
 ## Explorar las carpetas
 
-[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Laboratorio**](Laboratorio/README.md) · [**Datos**](Datos/README.md) · [**Modelo vigente**](Modelos/Actual/README.md) · [**Entregables**](Entregables/README.md) · [**Histórico**](Historico/README.md)
+[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Modelo vigente**](Modelos/Actual/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
 Las fuentes actuales se organizan por función y los antecedentes se reúnen en Histórico. Consulta el [mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md).
 
@@ -58,13 +58,12 @@ El objetivo es **facilitar la revisión de niveles con posibles faltantes visibl
 
 Trabajamos por nivel de góndola para ubicar posibles faltantes en una repisa completa. El sistema **no cuenta unidades, no identifica SKU, no mide profundidad ni consulta inventario**.
 
-Las dos apps comparten motor y modelo; el laboratorio tiene otro propósito:
+Las dos apps comparten motor y modelo:
 
 | Componente | Para qué sirve | Público |
 |---|---|---|
 | **App cliente · 8098** | Consultar alertas, revisar niveles, registrar la revisión humana y descargar hoja CSV. | Supervisores y equipos de reposición, en pruebas. |
 | **App del equipo · 8095** | Comparar análisis, revisar bordes, marcar fallos por nivel/zona y exportar lotes ZIP. | Equipo de desarrollo y evaluadores. |
-| **Laboratorio de desarrollo** | Preparar datos, revisar anotaciones, entrenar y evaluar modelos. | Equipo de desarrollo. |
 
 **Para usar la app no necesitas instalar el laboratorio ni CVAT.**
 
@@ -306,6 +305,12 @@ Las fotografías originales fueron tomadas por el equipo y las anotaciones fuero
 
 Las nuevas fotos y revisiones no cambian por sí solas el modelo publicado. Requieren una selección y preparación posteriores; **solo Vicente inicia entrenamiento desde el panel**. Las fotos cargadas en las apps no se incorporan automáticamente al entrenamiento. El dataset completo sigue fuera de la distribución pública de las apps.
 
+### Herramientas internas de desarrollo y revisión
+
+El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos de la clase `Nivel`**. Se construyó además un **laboratorio interno con interfaz visual** para preparar datos, configurar los entrenamientos y seguir métricas, curvas y resultados de los ensayos. Su código se conserva como apoyo técnico y trazabilidad del desarrollo; no forma parte del ZIP cliente/equipo.
+
+Las predicciones del modelo se inspeccionaron en la **app de revisión del equipo**, comparando fotos y contornos y registrando errores por nivel o zona. Esta revisión visual complementa la evaluación cuantitativa; no equivale a mAP o recall ni demuestra por sí sola exactitud de ocupación. [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md).
+
 ### Catálogo histórico
 
 El catálogo de **469 imágenes de octubre** y su partición **337 train / 69 val / 63 test** son antecedentes de otra etapa. No describen la selección del último refuerzo ni el total de fuentes usadas en la cadena del modelo actual. Sus registros se conservan para trazabilidad en el [archivo histórico](Historico/README.md).
@@ -349,7 +354,8 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | Consultar entrenamiento y métricas vigentes | [Modelo V3 actual](Documentacion/Modelo_V3_actual.md) |
 | Ubicar datos, herramientas y documentos | [Mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md) |
 | Consultar estado de distribución | [Entregables](Entregables/README.md) |
-| Continuar el desarrollo o preparar el laboratorio | [Referencia técnica](Documentacion/Desarrollo/README.md) |
+| Consultar cómo se anotó, entrenó y revisó el modelo | [Metodología de desarrollo](Documentacion/Metodologia_desarrollo_y_revision.md) |
+| Continuar el desarrollo o preparar el laboratorio interno | [Referencia técnica](Documentacion/Desarrollo/README.md) |
 | Revisar decisiones y etapas anteriores | [Archivo documental](Historico/Documentacion/README.md) |
 
 ### Carpetas principales
@@ -365,7 +371,7 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | [`Fase 2/`](Fase%202/) | Material académico de la segunda fase, conservado en su ubicación original. |
 | [`Historico/`](Historico/README.md) | Documentación, experimentos y registros de reproducibilidad de etapas anteriores. |
 | [`Infraestructura/`](Infraestructura/README.md) | Configuración técnica de servicios y entornos. |
-| [`Laboratorio/`](Laboratorio/README.md) | Herramientas de datos, CVAT, entrenamiento, evaluación y reproducibilidad; incluye [experimentos](Laboratorio/Experimentos/README.md). |
+| [`Laboratorio/`](Laboratorio/README.md) | Herramientas internas de desarrollo y trazabilidad: datos, CVAT, entrenamiento, evaluación y reproducibilidad; incluye [experimentos](Laboratorio/Experimentos/README.md). |
 | [`Modelos/`](Modelos/README.md) | Referencia del modelo V3 vigente y preentrenados generales para desarrollo. |
 
 ### Material académico y demostración

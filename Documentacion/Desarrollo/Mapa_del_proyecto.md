@@ -8,7 +8,7 @@ Los datasets voluminosos usan una raíz externa configurable. El [catálogo y la
 |---|---|
 | [Aplicacion](../../Aplicacion/README.md) | App del equipo V3, iniciador Windows y Docker, puerto 8095. |
 | [Aplicacion_Cliente](../../Aplicacion_Cliente/README.md) | App cliente de prueba, alertas, revisión humana y CSV, puerto 8098. |
-| [Laboratorio](../../Laboratorio/README.md) | Preparación, anotación, entrenamiento, evaluación y verificadores. |
+| [Laboratorio](../../Laboratorio/README.md) | Herramientas internas para preparación, entrenamiento, seguimiento y verificaciones; apoyo técnico del desarrollo. |
 | [Datos](../../Datos/README.md) | Fuentes, procedencia, anotaciones, exportaciones y particiones. |
 | [Modelos](../../Modelos/Actual/README.md) | Acceso al best.pt vigente y recursos preentrenados. |
 | [Entregables](../../Entregables/README.md) | Entrega conjunta de apps, SHA-256 e historial de distribución. |

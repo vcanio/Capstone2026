@@ -1,5 +1,7 @@
 # Laboratorio de modelos · V3 estable
 
+Panel interno para preparar y seguir los ensayos del equipo. Su código se conserva como evidencia técnica del desarrollo; no es necesario para usar las apps ni se incluye en su ZIP. [Metodología de desarrollo y revisión](../../Documentacion/Metodologia_desarrollo_y_revision.md).
+
 El laboratorio abre siempre V3 y toma el modelo de `.config-modelo/version_actual_v3.json`. El punto de partida es el **best.pt aceptado por Vicente**; [Modelos/Actual](../../Modelos/Actual/README.md) documenta su ubicación. Las preferencias antiguas del navegador ya no cambian la versión activa.
 
 Para analizar fotografías, abrir [Walmart Vision](../../Aplicacion/README.md). El laboratorio se centra en preparar datos, entrenar y revisar métricas y decisiones. El enlace **Abrir app de revisión** está disponible en todas las secciones y abre la app del equipo en el puerto 8095. La sección de probar fotos se retiró del flujo operativo.

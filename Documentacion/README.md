@@ -12,6 +12,8 @@ La documentación principal explica **las apps del 11 de noviembre de 2026**, co
 
 ## Consulta técnica y académica
 
+La [metodología de desarrollo y revisión](Metodologia_desarrollo_y_revision.md) explica el uso de CVAT para anotar niveles, el laboratorio interno para preparar y seguir ensayos y la app del equipo para revisar predicciones. Las apps constituyen la entrega de uso; el laboratorio se conserva como apoyo técnico.
+
 El [índice de desarrollo](Desarrollo/README.md) reúne criterios de anotación, laboratorio y colaboración. La [planificación](Planificacion_y_metodologia.md) y el [informe intermedio](Informe_Intermedio_Avance_20261020.md) conservan su alcance académico y sus fechas.
 
 Los documentos de etapas anteriores se consultan en el [archivo histórico](../Historico/Documentacion/README.md). Sus modelos, métricas e instrucciones no describen la app V3 actual.

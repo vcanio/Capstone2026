@@ -1,5 +1,7 @@
 # Desarrollo de Walmart Vision · V3
 
+Estas herramientas y guías están dirigidas al equipo de desarrollo. El [proceso documentado](../Metodologia_desarrollo_y_revision.md) distingue anotación en CVAT, seguimiento de ensayos en el laboratorio interno y revisión visual en la app del equipo. Para usar el producto, consultar las [apps y su descarga](../../Entregables/README.md).
+
 | Necesidad | Entrada |
 |---|---|
 | Explorar las carpetas | [Mapa del proyecto](Mapa_del_proyecto.md). |
