@@ -14,10 +14,10 @@ autoría, patrocinio ni aprobación institucional a esas entidades.
 Repositorio: https://github.com/vcanio/Capstone2026
 
 Fuente correspondiente a la entrega con avisos de licencia:
-https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2
+https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-11
 
 Archivo de fuentes de ese tag:
-https://github.com/vcanio/Capstone2026/archive/refs/tags/walmart-vision-apps-prueba-2026-11-10-r2.zip
+https://github.com/vcanio/Capstone2026/archive/refs/tags/walmart-vision-apps-prueba-2026-11-11.zip
 
 La raíz del repositorio contiene los scripts de empaquetado, las dependencias
 fijadas y las instrucciones de ejecución. El código original de los componentes

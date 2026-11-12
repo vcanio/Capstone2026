@@ -1,5 +1,7 @@
 # Propuesta de resultados V3 para Walmart Visión
 
+> Propuesta histórica del 25/10; sus umbrales y componentes propuestos no describen el estado vigente. Consultar [funcionamiento actual](../Guia_para_entender_el_proyecto.md) y [cliente vigente](Cliente_alertas_20261111.md).
+
 Fecha: 25 de octubre de 2026. Propuesta para discusión; no implementa inferencia, no cambia anotaciones, particiones, umbrales ni autoriza entrenamiento. Se apoya en el criterio de área útil V3 y en la interfaz V2 existente.
 
 ## Recorrido

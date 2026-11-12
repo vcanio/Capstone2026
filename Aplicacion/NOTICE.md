@@ -14,10 +14,10 @@ autoría, patrocinio ni aprobación institucional a esas entidades.
 Repositorio: https://github.com/vcanio/Capstone2026
 
 Fuente correspondiente a la entrega con avisos de licencia:
-https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2
+https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-11
 
 Archivo de fuentes de ese tag:
-https://github.com/vcanio/Capstone2026/archive/refs/tags/walmart-vision-apps-prueba-2026-11-10-r2.zip
+https://github.com/vcanio/Capstone2026/archive/refs/tags/walmart-vision-apps-prueba-2026-11-11.zip
 
 La raíz del repositorio contiene los scripts de empaquetado, las dependencias
 fijadas y las instrucciones de ejecución. El código original de los componentes
@@ -39,7 +39,7 @@ instalados pueden incluir avisos adicionales de sus propios componentes.
 | Pillow 12.3.0 | MIT-CMU | https://github.com/python-pillow/Pillow/blob/12.3.0/LICENSE |
 | OpenCV / opencv-python 4.11.0.86 | Apache-2.0; avisos adicionales de las bibliotecas incluidas en cada paquete | https://github.com/opencv/opencv/blob/4.11.0/LICENSE |
 | Shapely 2.1.2, usado en laboratorio y comprobaciones | BSD-3-Clause; componentes como GEOS conservan sus condiciones | https://github.com/shapely/shapely/blob/2.1.2/LICENSE.txt |
-| uv, ejecutable incluido para preparar Windows | Apache-2.0 OR MIT | Aplicacion/herramientas/fuente_uv.json y Aplicacion/herramientas/licencias/ |
+| uv, ejecutable incluido para preparar Windows | Apache-2.0 OR MIT | herramientas/fuente_uv.json y herramientas/licencias/ |
 
 Las dependencias Python se descargan durante la preparación; no se incluyen
 sus wheels ni un entorno instalado en el ZIP. El ejecutable uv distribuido sí

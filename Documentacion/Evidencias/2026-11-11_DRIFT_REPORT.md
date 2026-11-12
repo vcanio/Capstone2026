@@ -33,3 +33,8 @@
 ## Enlaces documentales
 
 - Se corrigen destinos trasladados. Las rutas de recibos y activos locales no distribuidos se identifican como tales; no se fabrican archivos ni se publican respaldos.
+
+## Guías secundarias y CI
+
+- Instalación, colaboración y pruebas geométricas todavía dirigían a flujos V1/V2 o afinados de octubre. Se conservan los textos previos como antecedentes y se actualizan las entradas al flujo vigente.
+- Los avisos de fuente todavía apuntaban a r2: la nueva entrega usa su propio tag. El CI ampliado necesitaba declarar PyYAML 6.0.3.

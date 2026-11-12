@@ -8,6 +8,7 @@ de entrenamiento que requiere las dependencias del laboratorio.
 | preparar.py | Descargar o leer ZIP locales, verificar hashes e instalar sin sobrescribir archivos diferentes. |
 | verificar_publicacion.py | Auditar el checkout Git antes de descargar archivos grandes. |
 | repetir_ensayo.py | Repetir V1 o V2 base en una carpeta nueva usando su copia congelada y sin consultar CVAT/test. |
+| empaquetar_apps_prueba.py | Construir la entrega conjunta actual con un solo motor/modelo, logo, licencias y manifiesto de hashes. |
 | empaquetar_publicacion.py | Preparar el checkout y los activos desde el laboratorio del mantenedor. No hace commit ni push. |
 | empaquetar_imagenes_demo.py | Preparar el ZIP separado de las seis imágenes reales/sintéticas seleccionadas, comprobando hashes y sin publicarlo. |
 
@@ -25,7 +26,7 @@ reemplazar el manifiesto de la release anterior. Para instalar esos recursos des
 por el equipo, usar `--manifest reproducibilidad/activos_locales_20261023.json --assets RUTA_A_LOS_ZIP
 --paquetes recursos_v3_20261023`. Los ZIP y las imágenes siguen fuera de Git.
 
-El [criterio de publicación](../../Documentacion/Desarrollo/Publicar_GitHub.md#mantener-limpio-el-repositorio) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
+El [criterio de publicación](../../Documentacion/Desarrollo/Publicar_GitHub.md#preparar-una-entrega-nueva) mantiene en local los respaldos de partición, logs extensos y consultas completas de GitHub. El empaquetador los omite y la auditoría rechaza su incorporación; los [resúmenes de comprobaciones](../../Documentacion/Evidencias/README.md) permanecen públicos. La documentación de versiones anteriores se conserva con avisos históricos.
 
 Pruebas del preparador y de CVAT opcional:
 

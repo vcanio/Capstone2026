@@ -74,8 +74,8 @@
     "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip",
     "source_ref": "walmart-vision-apps-prueba-2026-11-11",
     "client_revision": "alertas_revision_humana_memoria_limpieza_definitiva_20261111",
-    "package_sha256": "37a64472c5de242000a51b706a2849fa8e46a62acd377ba65fce5efc3be097a9",
-    "package_bytes": 20961057
+    "package_sha256": "a7788b6d60e3589d5bbbbe2625f5d2e2dd0ec8748a52d20ff7cea96a6c47bb8b",
+    "package_bytes": 20961084
   },
   "visual_review": {
     "document": "Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md",

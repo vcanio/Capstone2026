@@ -24,7 +24,7 @@ Las fotos se procesan localmente y no se incorporan al entrenamiento. La sesión
 
 El modelo detecta una clase: **Nivel**. Puede omitir niveles o dibujar contornos incorrectos; revisa la fotografía antes de tomar decisiones. La confianza de detección no es ocupación. Si no hay detecciones, eso no significa que la góndola esté vacía.
 
-El algoritmo actual es **Línea A**: índice visual de 0 a 100, con umbral **52** (Reponer por debajo; Suficiente desde 52, salvo revisión). Comparte normalización entre los niveles y penaliza huecos continuos. Es un índice experimental, no porcentaje físico de stock. El ajuste preliminar se evaluó con máscaras humanas; falta validación independiente suficiente de quiebres reales y del flujo completo. Se mantienen los avisos por recorte y señal ambigua. Consulta `Documentacion/LINEA_A_20261108.md`.
+El algoritmo actual es **Línea A**: índice visual de 0 a 100, con umbral **52** (Reponer por debajo; Suficiente desde 52, salvo revisión). Comparte normalización entre los niveles y penaliza huecos continuos. Es un índice experimental, no porcentaje físico de stock. El ajuste preliminar se evaluó con máscaras humanas; falta validación independiente suficiente de quiebres reales y del flujo completo. Se mantienen los avisos por recorte y señal ambigua. Consulta `LINEA_A_20261108.md`.
 
 
 

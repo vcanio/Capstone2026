@@ -18,7 +18,7 @@ El inicio permite elegir **Segmentación de niveles** o **Clasificación de visi
 
 ## Trabajo habitual
 
-1. **Preparar datos:** consultar las tareas de la partición activa, revisar las regiones visibles y exportar con identificación del revisor. La preparación actual contiene 275 imágenes; 264 son elegibles (171 train, 59 val reales y 34 sintéticas). Consultar CVAT no modifica polígonos ni aprueba pendientes.
+1. **Preparar datos:** consultar las tareas de la partición activa, revisar las regiones visibles y exportar con identificación del revisor. El cierre revisado completado contiene 267 imágenes: 256 train (203 reales/53 sintéticas) y 11 val reales, con 1.298 y 55 polígonos respectivamente. Un futuro refuerzo requiere un plan nuevo. Consultar CVAT no modifica polígonos ni aprueba pendientes.
 2. **Entrenar segmentación:** elegir datos revisados y configurar el próximo refuerzo desde el best.pt oficial: máximo 40 épocas, paciencia 10 y lr 0,0001. Solo Vicente inicia el ensayo al pulsar **Iniciar entrenamiento de segmentación**.
 3. **Resultados y decisión:** consultar métricas y curvas, con validación real y diagnóstico sintético separados. La aceptación del modelo oficial se muestra como registro; las decisiones editables corresponden a otros ensayos. Registrar un candidato no reemplaza el modelo oficial.
 4. **Clasificación de visibilidad:** revisar las etiquetas de sus fotos, entrenar y consultar resultados desde su espacio independiente. Revisar estas anotaciones sigue siendo parte de la preparación del clasificador.
@@ -29,9 +29,9 @@ El catálogo operativo omite inventarios V1/V2, exportaciones de particiones sus
 
 ## Datos y límites
 
-Las subidas históricas permanecen en `Laboratorio/Experimentos/panel_pruebas/Subidas_panel/`, aisladas de los datos y del entrenamiento. La interfaz operativa ya no carga los módulos de predicción V3 ni la galería de reserva final. Los controles V1/V2 quedan inertes, fuera de la navegación, por compatibilidad con el controlador histórico; sus APIs y registros se conservan. Las escenas y sus variantes conservan grupo y partición. Las 63 fotos de la antigua reserva se redistribuyeron a desarrollo por petición del usuario; la prueba externa aún no está conectada.
+Las subidas históricas permanecen en `Laboratorio/Experimentos/panel_pruebas/Subidas_panel/`, aisladas de los datos y del entrenamiento. La interfaz operativa ya no carga los módulos de predicción V3 ni la galería de reserva final. Los controles V1/V2 quedan inertes, fuera de la navegación, por compatibilidad con el controlador histórico; sus APIs y registros se conservan. Las escenas y sus variantes conservan grupo y partición. Los repartos anteriores conservan su alcance histórico. El test histórico actual de 63 fotos permanece reservado; las 68 fotos de Ohiggins 3 tienen revisión visual humana y siguen fuera de train.
 
-V3 aprende una clase `Nivel`. En Walmart Vision, ocupación y alertas siguen siendo experimentales y la visibilidad la confirma el usuario. Se mantienen los incidentes de `le_g10`: el superior de la 029 queda demasiado alto y el de la 030 puede omitirse. La adopción del afinado no demuestra una mejora global; la comparación común con el padre conserva su caída de mAP.
+V3 aprende una clase `Nivel`. En Walmart Vision, ocupación y alertas siguen siendo experimentales y la visibilidad la confirma el usuario. Se mantienen los incidentes de `le_g10`: el superior de la 029 queda demasiado alto y el de la 030 puede omitirse. La adopción del afinado no demuestra una mejora global; las métricas de cada etapa conservan su partición y condiciones de comparación.
 
 ## Código y comprobaciones
 

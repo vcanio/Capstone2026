@@ -1,9 +1,7 @@
-# Experimentos actuales
+# Experimentos y registros
 
-El ensayo oficial es v3_refuerzo_geometria_revision_20261105_022414_e6f0 (`Laboratorio/Experimentos/v3_refuerzo_geometria_revision_20261105_022414_e6f0`, archivo del entorno local; fuera de esta distribución). Se conserva completo, con su dataset de desarrollo, configuración, métricas y checkpoints. La interfaz ofrece su **best.pt** como modelo vigente.
+El ensayo oficial vigente es `v3_cierre_yolo_contornos_revisados_20261110_222620_aa7c`, adoptado el 10/11. Su `best.pt` operativo está en `Aplicacion/modelos/V3-cierre-revisado-20261110.pt` y se comparte entre las dos apps. [Ficha, métricas y límites](../../Documentacion/Modelo_V3_actual.md).
 
-`Bordes/` conserva el núcleo compartido y las versiones necesarias para diagnósticos históricos. `panel_pruebas/` conserva las fotos subidas y trabajos del ensayo oficial; las demás ejecuciones terminadas están en Histórico del panel (`Historico/Evidencias/Panel`, archivo del entorno local; fuera de esta distribución).
+Los ensayos completos, checkpoints anteriores, exportaciones y trabajos del panel se conservan en el entorno local con sus IDs y recibos. El clon público incluye el código y resúmenes, sin esos datasets ni las fotos subidas. `Bordes/` conserva los módulos y antecedentes de análisis visual; el prototipo de ocupación vive en `Laboratorio/Ocupacion/`, separado del motor portable.
 
-Los ensayos anteriores están físicamente en [Historico/Experimentos](../../Historico/Experimentos/). Los enlaces ocultos preservan los IDs `Experimentos/...`; sus pesos existentes se conservan, pero quedan fuera del catálogo habitual.
-
-[Modelo oficial](../../Modelos/Actual/README.md) · Evolución (`Historico/Evolucion.md`, archivo del entorno local; fuera de esta distribución).
+Los [registros históricos publicados](../../Historico/Experimentos/README.md) conservan sus propias fechas. No sumar sus archivos como nuevas fuentes de entrenamiento ni presentar sus métricas como evaluación del cierre actual. [Modelo vigente](../../Modelos/Actual/README.md) · [Laboratorio](../README.md).

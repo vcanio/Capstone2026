@@ -14,8 +14,8 @@ explicaciones están en español.
 6. `apply_scope()` añade avisos cuando el nivel llega al borde de la foto.
 7. `draw_result()` dibuja la lectura final sobre una copia de la foto.
 
-La confianza filtra detecciones de niveles. El porcentaje de cobertura se
-calcula después y no es la confianza de YOLO.
+La confianza filtra detecciones de niveles. El índice visual se
+calcula después y no es la confianza de YOLO ni porcentaje físico de stock.
 
 ## Línea A en V3
 
