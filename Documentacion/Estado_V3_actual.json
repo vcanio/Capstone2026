@@ -53,7 +53,7 @@
     "visibility_automatic": false,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
-    "occupancy_revision": "linea_a_20261108_contornos_conservados",
+    "occupancy_revision": "linea_a_20261113_techo_y_panel_liso",
     "occupancy_preliminary": true
   },
   "distribution": {

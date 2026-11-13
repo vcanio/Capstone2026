@@ -201,3 +201,80 @@ class DualCompareAndLabelUITests(unittest.TestCase):
         assert.equal(restored[0].levelLabels['1'].label,'vacio');
         assert.equal(restored[1].levelLabels['1'].label,'suficiente');
         ''')
+
+    def test_side_by_side_auto_compare_persistence_and_batch_fill(self):
+        self.js(r'''
+        const a={id:'linea_a',name:'Línea A',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
+        const b={id:'basal',name:'Basal',method:'basal_v1_observable_columns',revision:'rb'};
+        currentModel={id:'V3',geometry_only:true,occupancy_method:'linea_a_v1_gondola_anchorage',occupancy_revision:'ra',occupancy_algorithms:[a,b]};
+        availableModels=[currentModel]; modelContext();
+        chooseBatch([
+          {name:'p1.jpg',type:'image/jpeg',size:10},
+          {name:'p2.jpg',type:'image/jpeg',size:10},
+        ]);
+        const makeA=(suf,pct,st)=>({...prediction(),model:'V3',geometry_only:true,
+          image_url:'data:image/jpeg;base64,A'+suf,occupancy_image_url:'data:image/png;base64,SA'+suf,
+          occupancy:{method:'linea_a_v1_gondola_anchorage',revision:'ra',interpretation_policy:{name:'body_fill_gap_v1',threshold_pct:52}},
+          detections:[{id:1,confidence:.9,occupancy:{pct,status:'medido'},occupancy_estimate:{pct,state:st,label:st==='reponer'?'Reponer':'Suficiente'}}]});
+        const makeB=(suf,pct,st)=>({...prediction(),model:'V3',geometry_only:true,
+          image_url:'data:image/jpeg;base64,B'+suf,occupancy_image_url:'data:image/png;base64,SB'+suf,
+          occupancy:{method:'basal_v1_observable_columns',revision:'rb',interpretation_policy:{name:'basal_visible_width_v1',threshold_pct:30}},
+          detections:[{id:1,confidence:.9,occupancy:{pct,observed_width_pct:50,status:'medido',review_required:st==='revisar'},occupancy_estimate:{pct:st==='revisar'?null:pct,state:st,label:st==='revisar'?'Revisar':'Suficiente'}}]});
+        $('analyze-both').checked=true;
+        let idxReq=0;
+        global.fetch=async(url)=>{
+          const tag=++idxReq===1?'1':'2';
+          const resA=makeA(tag,68,'suficiente');
+          const resB=makeB(tag,40,'revisar');
+          return {ok:true,json:async()=>({...resA,variants:{linea_a:resA,basal:resB}})};
+        };
+        await analyzePhoto();
+        assert.equal(currentViewMode,'compare');
+        assert.equal($('compare-mode').value,'linea_a_vs_basal');
+        assert.equal($('compare-original').src,'data:image/jpeg;base64,A1');
+        assert.equal($('compare-result').src,'data:image/jpeg;base64,B1');
+        assert.equal($('view-compare').textContent,'Línea A vs Basal');
+        assert.equal($('dual-algo-summary').hidden,false);
+        assert.match($('dual-algo-summary').innerHTML,/Línea A/);
+        assert.match($('dual-algo-summary').innerHTML,/Basal/);
+        assert.match($('compare-left-stats').innerHTML,/Suficiente/i);
+        assert.match($('compare-right-stats').innerHTML,/Revisar/i);
+
+        // Segunda foto con solo Línea A, luego completar par faltante desde resumen del lote.
+        $('analyze-both').checked=false;
+        batch[1].result=makeA('2_solo',25,'reponer');
+        batch[1].variantResults={[variantKey('V3','linea_a')]:{result:batch[1].result,review:ReviewDesk.snapshot(batch[1])}};
+        await selectBatch(1);
+        assert.equal(currentViewMode,'compare');
+        assert.equal($('compare-mode').value,'original_vs_result');
+        assert.match($('batch-compare-summary').innerHTML,/data-analyze-missing-pair/);
+
+        $('batch-compare-summary').listeners.click({target:{closest:sel=>sel==='[data-analyze-missing-pair]'?{dataset:{analyzeMissingPair:'1'}}:null}});
+        await new Promise(r=>setTimeout(r,20));
+        assert.equal(currentViewMode,'compare');
+        assert.equal($('compare-mode').value,'linea_a_vs_basal');
+        assert.equal($('compare-original').src,'data:image/jpeg;base64,A2');
+        assert.equal($('compare-result').src,'data:image/jpeg;base64,B2');
+
+        // Cambiar a bordes con las píldoras y alternar algoritmo activo conservando vista dual.
+        $('compare-mode-pills').listeners.click({target:{closest:sel=>sel==='[data-compare-mode]'?{dataset:{compareMode:'edges_linea_a_vs_basal'}}:null}});
+        assert.equal($('compare-original').src,'data:image/png;base64,SA2');
+        assert.equal($('compare-result').src,'data:image/png;base64,SB2');
+        $('dual-algo-summary').listeners.click({target:{closest:sel=>sel==='[data-switch-algo]'?{dataset:{switchAlgo:'basal'}}:null}});
+        assert.equal(occupancyAlgorithm,'basal');
+        assert.equal(currentViewMode,'compare');
+
+        // Alternar zoom de comparación 150% / 100%.
+        let zoomedToggle=null;
+        $('comparison').classList.toggle=(cls,force)=>{if(cls==='is-zoomed')zoomedToggle=force};
+        $('compare-zoom').value='150';
+        $('compare-zoom').listeners.input();
+        assert.equal($('compare-zoom-value').textContent,'150 %');
+        assert.equal($('comparison').style['--compare-zoom'],'150%');
+        assert.equal(zoomedToggle,true);
+        $('compare-zoom').value='100';
+        $('compare-zoom').listeners.input();
+        assert.equal($('compare-zoom-value').textContent,'100 %');
+        assert.equal($('comparison').style['--compare-zoom'],'100%');
+        assert.equal(zoomedToggle,false);
+        ''')

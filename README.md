@@ -148,7 +148,7 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 ## Interpretar los resultados
 
-Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando comparten fila. La versión actual usa **Línea A**, revisión `linea_a_20261108_contornos_conservados`, para un índice visual de **0 a 100**, con umbral **52**.
+Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando comparten fila. La versión actual usa **Línea A**, revisión `linea_a_20261113_techo_y_panel_liso`, para un índice visual de **0 a 100**, con umbral **52**.
 
 | Resultado | Significado |
 |---|---|

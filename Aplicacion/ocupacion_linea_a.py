@@ -22,7 +22,7 @@ import numpy as np
 from ocupacion_paulo import Analyzer
 
 METHOD_LINEA_A = 'linea_a_v1_gondola_anchorage'
-REVISION_LINEA_A = 'linea_a_20261108_contornos_conservados'
+REVISION_LINEA_A = 'linea_a_20261113_techo_y_panel_liso'
 INTERPRETATION_POLICY = 'body_fill_gap_v1'
 CALIBRATED_THRESHOLD_PCT = 52.0
 
@@ -36,7 +36,27 @@ ABS_EDGE_DENSITY = 0.018
 ABS_GRADIENT = 20.0
 ABS_TEXTURE_STD = 10.5
 ABS_COLOR_DENSITY = 0.25
+# Color saturado requiere respaldo mínimo de borde/textura para no contar tableros lisos vacíos.
+ABS_COLOR_MIN_EDGE = 0.012
+ABS_COLOR_MIN_GRAD = 16.0
+ABS_COLOR_MIN_STD = 7.5
 HYBRID_SCORE_MIN = 0.36
+
+# Descarte de cielo abierto en estantes superiores sin producto (solo cuando hay mapas direccionales).
+VERT_EDGE_MIN = 22.0
+BRIGHT_CEILING_MIN_V = 145
+BRIGHT_CEILING_MAX_S = 45
+CEILING_LEVEL_MIN_BRIGHT = 0.35
+CEILING_LEVEL_MAX_GX = 22.0
+CEILING_LEVEL_MAX_GX_GY_RATIO = 0.72
+CEILING_LEVEL_MAX_COLOR = 0.18
+CEILING_LEVEL_MAX_LOW_VX = 0.25
+CEILING_LOW_Y_RANGE = (0.50, 0.92)
+CEILING_CELL_MAX_COLOR = 0.20
+CEILING_CELL_MAX_GX = 24.0
+CEILING_CELL_MIN_BRIGHT = 0.25
+CEILING_CELL_MAX_GX_GY_RATIO = 0.85
+CEILING_SCORE_FACTOR = 0.25
 
 # Zonas verticales dentro de la grilla (fracción 0–1 de alto de la máscara).
 BODY_Y_RANGE = (0.22, 0.90)
@@ -87,9 +107,21 @@ def extract_cell_features(analyzer: Analyzer, mask: np.ndarray) -> dict | None:
     signals = analyzer._measure_cells(level)
     x, y, w, h = level.bounds
     hsv = analyzer.hsv[y:y + h, x:x + w]
-    color = ((hsv[..., 1] > analyzer.p.saturation) & (hsv[..., 2] > analyzer.p.min_color_value)).astype(np.float32)
+    gray = analyzer.gray_texture[y:y + h, x:x + w]
+    gx = np.abs(cv2.Sobel(gray, cv2.CV_32F, 1, 0, ksize=3))
+    gy = np.abs(cv2.Sobel(gray, cv2.CV_32F, 0, 1, ksize=3))
     denom = np.maximum(signals.observed_coverage, 1e-6)
-    color_density = cv2.resize(color * signals.observed, level.grid_size, interpolation=cv2.INTER_AREA) / denom
+    raw_signals = {
+        'color_density': ((hsv[..., 1] > analyzer.p.saturation) & (hsv[..., 2] > analyzer.p.min_color_value)).astype(np.float32),
+        'gx': gx,
+        'gy': gy,
+        'vx': (gx > VERT_EDGE_MIN).astype(np.float32),
+        'bu': ((hsv[..., 2] > BRIGHT_CEILING_MIN_V) & (hsv[..., 1] < BRIGHT_CEILING_MAX_S)).astype(np.float32),
+    }
+    cell_maps = {
+        name: (cv2.resize(arr * signals.observed, level.grid_size, interpolation=cv2.INTER_AREA) / denom).astype(np.float32)
+        for name, arr in raw_signals.items()
+    }
     return {
         'valid': True,
         'valid_cells': int(level.usable.sum()),
@@ -100,8 +132,8 @@ def extract_cell_features(analyzer: Analyzer, mask: np.ndarray) -> dict | None:
         'observed': signals.observed,
         'density': signals.density.astype(np.float32),
         'gradient': signals.gradient.astype(np.float32),
-        'color_density': color_density.astype(np.float32),
         'deviation': signals.deviation.astype(np.float32),
+        **cell_maps,
     }
 
 
@@ -157,6 +189,38 @@ def _detect_hollow_banner(hyb_ev: np.ndarray, usable: np.ndarray) -> bool:
             sum(val <= HOLLOW_LOWER_ROW_MAX for val in low_rows) >= 2)
 
 
+def _open_ceiling_mask(feat: dict, body: np.ndarray, usable: np.ndarray, color_density: np.ndarray) -> np.ndarray | None:
+    """Identificar celdas de techo abierto cuando el nivel completo muestra estructura de techo sin producto."""
+    if any(feat.get(k) is None for k in ('gx', 'gy', 'vx', 'bu')):
+        return None
+    gx = np.asarray(feat['gx'], dtype=np.float32)
+    gy = np.asarray(feat['gy'], dtype=np.float32)
+    vx = np.asarray(feat['vx'], dtype=np.float32)
+    bu = np.asarray(feat['bu'], dtype=np.float32)
+    h = usable.shape[0]
+    rows = np.arange(h)[:, None]
+    low = usable & (rows >= CEILING_LOW_Y_RANGE[0] * h) & (rows <= CEILING_LOW_Y_RANGE[1] * h)
+    if int(low.sum()) < 2:
+        low = body
+
+    gx_mean = float(gx[body].mean())
+    gy_mean = float(gy[body].mean())
+    is_open_ceiling = (
+        float(bu[body].mean()) >= CEILING_LEVEL_MIN_BRIGHT
+        and gx_mean < CEILING_LEVEL_MAX_GX
+        and gx_mean < CEILING_LEVEL_MAX_GX_GY_RATIO * max(gy_mean, 1e-3)
+        and float(color_density[body].mean()) < CEILING_LEVEL_MAX_COLOR
+        and float(vx[low].mean()) <= CEILING_LEVEL_MAX_LOW_VX
+    )
+    if not is_open_ceiling:
+        return None
+    return (
+        (color_density < CEILING_CELL_MAX_COLOR)
+        & (gx < CEILING_CELL_MAX_GX)
+        & ((bu > CEILING_CELL_MIN_BRIGHT) | (gx < CEILING_CELL_MAX_GX_GY_RATIO * gy))
+    )
+
+
 def compute_cell_maps(feat: dict, gondola_bounds: tuple | None = None) -> dict:
     """Calcular mapas en grilla de intensidad, evidencia híbrida y cobertura de columnas."""
     usable = np.asarray(feat['usable'], dtype=bool)
@@ -176,12 +240,14 @@ def compute_cell_maps(feat: dict, gondola_bounds: tuple | None = None) -> dict:
     w_d, w_g, w_c, w_t = FEATURE_WEIGHTS
     cell_score = w_d * dn + w_g * gn + w_c * cn + w_t * tn
 
-    abs_ev = (
-        (density > ABS_EDGE_DENSITY) |
-        ((gradient > ABS_GRADIENT) & (deviation > ABS_TEXTURE_STD)) |
-        (color_density > ABS_COLOR_DENSITY)
+    color_ev = (color_density > ABS_COLOR_DENSITY) & (
+        (density > ABS_COLOR_MIN_EDGE) | ((gradient > ABS_COLOR_MIN_GRAD) & (deviation > ABS_COLOR_MIN_STD))
     )
-    hyb_ev = abs_ev | (cell_score >= HYBRID_SCORE_MIN)
+    abs_ev = (
+        (density > ABS_EDGE_DENSITY)
+        | ((gradient > ABS_GRADIENT) & (deviation > ABS_TEXTURE_STD))
+        | color_ev
+    )
 
     h = usable.shape[0]
     rows = np.arange(h)[:, None]
@@ -192,13 +258,19 @@ def compute_cell_maps(feat: dict, gondola_bounds: tuple | None = None) -> dict:
     if int(support.sum()) < 4:
         support = usable
 
+    ceil_mask = _open_ceiling_mask(feat, body, usable, color_density)
+    if ceil_mask is not None:
+        abs_ev = abs_ev & (~ceil_mask)
+        cell_score = np.where(ceil_mask, cell_score * CEILING_SCORE_FACTOR, cell_score)
+        hyb_ev = abs_ev | ((cell_score >= HYBRID_SCORE_MIN) & (~ceil_mask))
+    else:
+        hyb_ev = abs_ev | (cell_score >= HYBRID_SCORE_MIN)
+
     row_cnt = support.sum(axis=0)
-    valid_cols = row_cnt >= 2
-    if not valid_cols.any():
-        valid_cols = row_cnt >= 1
+    valid_cols = usable.any(axis=0) & (row_cnt >= 1)
     col_covered_full = np.zeros(usable.shape[1], dtype=bool)
     if valid_cols.any():
-        col_frac = (hyb_ev & support).sum(axis=0)[valid_cols] / row_cnt[valid_cols]
+        col_frac = (hyb_ev & support).sum(axis=0)[valid_cols] / np.maximum(row_cnt[valid_cols], 1)
         col_covered_full[valid_cols] = col_frac >= SUPPORT_COL_MIN_FRAC
 
     return {

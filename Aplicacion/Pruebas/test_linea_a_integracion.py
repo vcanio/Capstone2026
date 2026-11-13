@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 
 from inferencia import analyze_edges
-from ocupacion_linea_a import analyze_gondola_rgb, METHOD_LINEA_A, INTERPRETATION_POLICY
+from ocupacion_linea_a import analyze_gondola_rgb, compute_cell_maps, METHOD_LINEA_A, INTERPRETATION_POLICY
 from presentacion_niveles import occupancy_estimate
 from vision_v3 import apply_scope
 
@@ -62,3 +62,52 @@ class LineaAIntegrationTests(unittest.TestCase):
         apply_scope([level], 100, 100)
         self.assertEqual(level['occupancy_estimate']['state'], 'revisar')
         self.assertEqual(level['display_polygon'], saved)
+
+    def test_flat_saturated_backboard_without_texture_is_reponer(self):
+        rgb = np.full((600, 900, 3), 215, np.uint8)
+        # Tablero azul completamente liso sin bordes ni envases dentro del nivel superior.
+        rgb[50:220, 120:780] = (35, 105, 195)
+        for x in range(80, 800, 90):
+            cv2.rectangle(rgb, (x, 370), (x + 65, 540), (220, 50, 50), -1)
+            cv2.rectangle(rgb, (x + 10, 410), (x + 55, 470), (245, 245, 245), -1)
+        masks = np.zeros((2, 600, 900), np.uint8)
+        masks[0, 30:260, 30:870] = 1
+        masks[1, 330:570, 30:870] = 1
+        out = analyze_gondola_rgb(rgb, [masks[1], masks[0]])
+        self.assertEqual(out[0]['state'], 'suficiente')
+        self.assertEqual(out[1]['state'], 'reponer')
+
+    def test_open_ceiling_horizontal_trusses_are_reponer(self):
+        rgb = np.full((600, 900, 3), 205, np.uint8)
+        # Franjas horizontales tipo cielo raso y luminarias en el nivel superior vacío.
+        for y in range(45, 235, 24):
+            cv2.line(rgb, (35, y), (865, y), (110, 110, 110), 2)
+        for x in range(80, 800, 90):
+            cv2.rectangle(rgb, (x, 370), (x + 65, 540), (200, 60, 50), -1)
+            cv2.rectangle(rgb, (x + 12, 405), (x + 54, 480), (245, 245, 245), -1)
+        masks = np.zeros((2, 600, 900), np.uint8)
+        masks[0, 30:250, 30:870] = 1
+        masks[1, 330:570, 30:870] = 1
+        out = analyze_gondola_rgb(rgb, [masks[1], masks[0]])
+        self.assertEqual(out[0]['state'], 'suficiente')
+        self.assertEqual(out[1]['state'], 'reponer')
+
+    def test_tilted_shelf_preserves_empty_right_columns_in_valid_cols(self):
+        usable = np.ones((4, 20), dtype=bool)
+        # El extremo derecho cae parcialmente del estante y deja solo 1 fila usable en soporte.
+        usable[0:2, 12:] = False
+        usable[3, 12:] = False
+        stocked_cols = np.broadcast_to(np.arange(20)[None, :] < 12, (4, 20))
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((4, 20), dtype=np.float32),
+            'density': np.where(stocked_cols, 0.08, 0.0).astype(np.float32),
+            'gradient': np.where(stocked_cols, 48.0, 4.0).astype(np.float32),
+            'color_density': np.where(stocked_cols, 0.5, 0.0).astype(np.float32),
+            'deviation': np.where(stocked_cols, 24.0, 2.0).astype(np.float32),
+        }
+        maps = compute_cell_maps(feat)
+        self.assertTrue(bool(maps['valid_cols'].all()))
+        self.assertFalse(bool(maps['col_covered_full'][12:].any()))

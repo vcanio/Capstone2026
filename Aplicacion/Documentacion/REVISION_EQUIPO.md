@@ -2,7 +2,7 @@
 
 Versión: `revision_equipo_20261109_v1` · 9 de noviembre de 2026.
 
-Esta entrega es la mesa de pruebas de desarrollo. La aplicación cliente está separada. Usa el modelo V3 oficial y Línea A `linea_a_20261108_contornos_conservados`, índice visual 0–100 con umbral 52. Su ajuste sigue siendo preliminar; el índice no es porcentaje físico de stock. No detecta automáticamente personas ni obstáculos.
+Esta entrega es la mesa de pruebas de desarrollo. La aplicación cliente está separada. Usa el modelo V3 oficial y Línea A `linea_a_20261113_techo_y_panel_liso`, índice visual 0–100 con umbral 52. Su ajuste sigue siendo preliminar; el índice no es porcentaje físico de stock. No detecta automáticamente personas ni obstáculos.
 
 ## Empezar en otro equipo
 
