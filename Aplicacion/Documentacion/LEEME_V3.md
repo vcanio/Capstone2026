@@ -2,15 +2,15 @@
 
 ## Mesa de revisión del equipo · 9/11/2026
 
-Esta entrega incluye revisión rápida por foto, nivel o zona, varios fallos por imagen, atajos A/F/Enter/Z y revisión durante el análisis del lote. Abre **REVISION_EQUIPO.md** (en Documentacion/ en la copia de desarrollo) para el flujo completo y la comparación antes/después. **Descargar lote** guarda originales, incidencias, resultados y resumen; **Abrir lote de revisión** permite recuperarlos en otro equipo o versión. Las marcas se guardan localmente y no se envían al entrenamiento.
+Esta entrega incluye revisión rápida por foto, nivel o zona, varios fallos por imagen, atajos A/F/Enter/Z y revisión durante el análisis del lote. Consulta la [guía de revisión](REVISION_EQUIPO.md) para el flujo completo y la comparación antes/después. **Descargar lote** guarda originales, incidencias, resultados y resumen; **Abrir lote de revisión** permite recuperarlos en otro equipo o versión. Las marcas se guardan localmente y no se envían al entrenamiento.
 
-Walmart Visión detecta niveles en fotografías de góndolas y muestra una estimación experimental de cobertura del frente. Incluye el modelo V3 vigente y funciona localmente.
+Walmart Visión detecta niveles en fotografías de góndolas y muestra el índice visual experimental Línea A. Incluye el modelo V3 vigente y funciona localmente.
 
 ## Iniciar
 
 **Windows:** extrae todo el ZIP y abre `iniciar.cmd`. La primera preparación necesita Internet para instalar las dependencias. Después abre http://127.0.0.1:8095 si no se abre automáticamente.
 
-**macOS:** instala y abre Docker Desktop, extrae el ZIP y sigue los pasos de `DOCKER.md`. La primera construcción necesita Internet.
+**macOS:** instala y abre Docker Desktop, extrae el ZIP y sigue la [guía Docker](DOCKER_V3.md). La primera construcción necesita Internet.
 
 ## Analizar fotos
 

@@ -1,23 +1,34 @@
-name: Comprobar código y preparador
+name: Comprobar apps y distribución
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
-  codigo:
+  producto:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install pillow==12.3.0 numpy==1.26.4 opencv-python==4.11.0.86 shapely==2.1.2 PyYAML==6.0.3
-      - run: python -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pip install ultralytics==8.4.174
-      - run: python -m compileall -q Laboratorio/Modelos Laboratorio/Datos Aplicacion Aplicacion_Cliente Laboratorio/Reproducibilidad Laboratorio/Ocupacion
-      - run: python -m unittest discover -s Laboratorio/Datos -v
-      - run: python -m unittest discover -s Laboratorio/Reproducibilidad/tests -v
-      - run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
-      - run: PYTHONPATH=Aplicacion:Aplicacion_Cliente python -m unittest discover -s Aplicacion_Cliente/Pruebas -v
-      - run: PYTHONPATH=Laboratorio/Modelos:Aplicacion python -m unittest discover -s Laboratorio/Modelos/tests -v
-      - run: PYTHONPATH=Laboratorio/Modelos python -m unittest discover -s Laboratorio/Ocupacion -v
-      - run: python Laboratorio/Reproducibilidad/verificar_publicacion.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar runtime CPU
+        run: |
+          python -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r Aplicacion/requirements.txt
+          python -m pip check
+      - name: Verificar producto, modelo, enlaces y fases académicas
+        run: python Distribucion/verificar.py
+      - name: Comprobar sintaxis
+        run: python -m compileall -q Aplicacion Aplicacion_Cliente Distribucion
+      - name: Probar app del equipo y ocupación portable
+        run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
+      - name: Probar cliente
+        run: PYTHONPATH=Aplicacion:Aplicacion_Cliente python -m unittest discover -s Aplicacion_Cliente/Pruebas -v
+      - name: Probar integridad y empaquetado autónomo
+        run: python -m unittest discover -s Distribucion/tests -v
+      - name: Construir y comprobar paquete aislado por HTTP e inferencia CPU
+        run: |
+          python Distribucion/empaquetar.py --output "$RUNNER_TEMP/Walmart_Vision_verificacion.zip"
+          python Distribucion/comprobar_paquete.py --zip "$RUNNER_TEMP/Walmart_Vision_verificacion.zip"

@@ -37,7 +37,7 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 **La app no recalcula ni fuerza la mediana al analizar una foto.** YOLO predice sus propias máscaras a partir de lo aprendido; puede omitir un superior o delimitarlo mal. Esos errores se conservan como limitaciones y deben revisarse visualmente.
 
-[Criterio de anotación V3](Desarrollo/Criterio_V3_niveles.md) · [Regla completa de mediana](Desarrollo/Regla_nivel_superior_mediana_V3.md)
+[Criterio de anotación V3](Criterio_de_niveles.md) · [Regla completa de mediana](Criterio_de_niveles.md)
 
 ### Qué significan los bordes y cómo se calcula el índice
 

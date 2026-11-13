@@ -1,50 +1,23 @@
-# Walmart Visión en macOS con Docker
+# Ejecutar las apps con Docker
 
-El mismo paquete sirve para Windows y macOS. En Mac, Docker ejecuta la aplicación localmente en CPU, tanto en Apple Silicon como en Intel.
-
-## Preparar e iniciar
-
-1. Instala [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/) para tu equipo, ábrelo y espera a que esté listo.
-2. Extrae todo el ZIP en una carpeta local.
-3. Abre Terminal, escribe `cd `, arrastra la carpeta extraída **Walmart_Vision** a la ventana y pulsa Intro.
-4. Ejecuta:
-
-   ```bash
-   docker compose up --build -d --wait
-   ```
-
-5. Abre http://127.0.0.1:8095 en el navegador. La primera construcción necesita Internet y puede tardar varios minutos. No necesitas instalar Python.
-
-Consulta `LEEME.md` para el uso y las limitaciones de los resultados. Las fotos se procesan localmente; la sesión del lote, incluidas las fotos, puede guardarse en el navegador y borrarse desde las opciones de la galería.
-
-## Detener y volver a iniciar
-
-Desde la carpeta `Walmart_Vision`, detén la aplicación con:
+Con Docker Desktop abierto, desde la raíz del clon o de Walmart_Vision extraído:
 
 ```bash
-docker compose down
+docker compose -f compose.apps.yaml up --build -d --wait
 ```
 
-Para volver a iniciarla con la imagen ya construida, abre Docker Desktop y ejecuta:
+Cliente: http://127.0.0.1:8098. Equipo: http://127.0.0.1:8095. Las apps ejecutan inferencia en CPU y comparten un modelo oficial. No necesitan CVAT ni el laboratorio.
+
+Para detener ambas:
 
 ```bash
-docker compose up -d --wait --pull never --no-build
+docker compose -f compose.apps.yaml down
 ```
 
-## Resolver problemas
+Para ejecutar solo la app del equipo, entrar en Aplicacion/ y usar `docker compose up --build -d --wait`.
 
-| Situación | Acción |
-|---|---|
-| Docker no responde | Abre Docker Desktop y espera a que esté listo. |
-| No se encuentra `compose.yaml` | Entra con `cd` a la carpeta `Walmart_Vision` extraída. |
-| Falla una descarga | Comprueba Internet y repite el comando de construcción. |
-| El servicio no inicia | Ejecuta `docker compose logs --tail=100 vision` para consultar el error. |
-| El puerto 8095 está ocupado | Usa los comandos siguientes para iniciar en 8096. |
+La primera construcción necesita Internet. El Dockerfile declara dependencias CPU para amd64 y arm64; la compatibilidad declarada no sustituye una prueba física en Mac. La entrega del 11/11 validó Compose sin construir la imagen ni probarla físicamente en macOS. Las verificaciones de otras fechas mantienen su propio alcance.
 
-```bash
-docker compose down
-export VISION_PORT=8096
-docker compose up -d --wait
-```
+Las fotos se procesan localmente y no entrenan el modelo. Revisa contornos y visibilidad: Línea A es un índice visual preliminar 0–100 con umbral 52, no stock físico.
 
-Abre http://127.0.0.1:8096. Mantén `VISION_PORT` en esa sesión para los comandos posteriores. Para volver al puerto predeterminado, ejecuta `docker compose down`, luego `unset VISION_PORT` y vuelve a iniciar.
+[Manual](../../Documentacion/Usar_Walmart_Vision.md) · [Apps y descarga](../../Entregables/README.md) · [Pruebas y empaquetado](../../Distribucion/README.md).

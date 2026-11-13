@@ -15,9 +15,6 @@
 *.docx binary
 *.zip binary
 
-# Registro congelado: SHA-256 sobre sus bytes originales.
-Datos/Registros/Particiones/v3_458_20261023/grupos_escena.json -text whitespace=cr-at-eol
-
 # Licencias de uv: conservar los bytes LF comprobados por fuente_uv.json.
 Aplicacion/herramientas/licencias/LICENSE-* text eol=lf
 

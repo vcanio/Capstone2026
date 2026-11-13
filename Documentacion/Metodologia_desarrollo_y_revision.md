@@ -1,31 +1,29 @@
 # Metodología de desarrollo y revisión
 
-El desarrollo de Walmart Visión combinó anotación en CVAT, un laboratorio interno para seguir los ensayos y una aplicación de revisión del equipo para inspeccionar las predicciones. La app cliente es el producto principal que se entrega; la app del equipo apoya su revisión. El laboratorio se conserva como herramienta interna y evidencia técnica del proceso.
+Walmart Visión se desarrolló mediante ciclos de captura, anotación, entrenamiento, inspección y ajuste. El equipo mantuvo dos reuniones semanales para revisar avances y acordar el siguiente trabajo. Se aplicaron prácticas ágiles de inspección y adaptación, sin atribuir roles, sprints o una implantación formal completa de Scrum.
 
-## 1. Anotación de los niveles en CVAT
+## Anotación del dataset propio con CVAT
 
-El equipo utilizó **CVAT para marcar y revisar los niveles de las góndolas mediante polígonos de la clase `Nivel`**. Cada polígono delimita el área útil de una repisa del mismo tramo, incluidos productos y huecos; no representa una máscara por producto ni una etiqueta de stock.
+El equipo utilizó **CVAT para marcar y revisar polígonos de la clase Nivel**. Cada región incluye el área útil de una repisa, productos y huecos; no representa una máscara por producto ni una etiqueta de stock. La base se sitúa sobre el portaprecio y el superior abierto sigue la mediana de las alturas inferiores cuando corresponde. Los atributos de delimitación y oclusión registran revisión; no son clases predichas por el modelo. [Criterio completo](Criterio_de_niveles.md).
 
-Se aplicó un criterio común: apoyo sobre el portaprecio, exclusión de su franja y respeto del techo físico cuando existe. En superiores abiertos se utilizó la mediana de las alturas inferiores cuando correspondía, con las excepciones y recortes documentados. Los atributos de delimitación y oclusión registran información de la anotación; no son clases que el modelo prediga.
+Se conservaron las revisiones manuales y las correcciones geométricas asistidas. Una preanotación o predicción no se considera etiqueta humana aprobada por sí sola. La autoría de las capturas y anotaciones fue confirmada por Vicente; ello no concede una licencia pública al dataset ni acredita permisos institucionales adicionales. Las variantes sintéticas se identifican como tales. [Licencias y procedencia](../LICENCIAS.md).
 
-Las anotaciones pertenecen al equipo, según lo confirmado por Vicente. Se conservaron las revisiones y los registros de correcciones geométricas asistidas. Esta descripción no convierte una preanotación o una predicción sin revisión en una etiqueta humana aprobada. [Criterio de niveles](Desarrollo/Criterio_V3_niveles.md) · [Regla de superiores](Desarrollo/Regla_nivel_superior_mediana_V3.md) · [Autoría y condiciones](../LICENCIAS.md).
+## Laboratorio y GPU local
 
-## 2. Preparación y seguimiento en el laboratorio interno
+Se construyó un laboratorio interno para preparar exportaciones, configurar ensayos y consultar métricas, curvas por época y resultados. Se utilizó la GPU propia para entrenar sin depender de sesiones de Google Colab. Este fue un medio de desarrollo del modelo, no una función requerida por el cliente.
 
-Se construyó un laboratorio con interfaz visual para organizar la preparación de datos, configurar los ensayos y consultar métricas, curvas por época, resultados y decisiones sobre los modelos. Esto permitió seguir el progreso de los experimentos y conservar sus parámetros y referencias.
+Las imágenes y variantes relacionadas se agruparon por escena/familia; no se repartieron al azar para aparentar independencia. Las selecciones, exclusiones y exportaciones se registraron con hashes. Los datos reales y sintéticos se informaron por separado. La cadena V3, el último ensayo y los límites de comparación están en [Entrenamiento y datos](Entrenamiento_y_datos.md).
 
-El código de preparación, entrenamiento y evaluación se mantiene en GitHub para facilitar la revisión técnica y la continuidad del proyecto. La interfaz del laboratorio es una ayuda de desarrollo: no se requiere para usar las apps y no forma parte del ZIP cliente/equipo. El clon público tampoco incluye los activos privados necesarios para repetir todos los ensayos.
+El localizador quedó cerrado de momento con el peso adoptado el 10/11. Un futuro refuerzo requiere un plan nuevo desde ese oficial; **solo Vicente inicia entrenamiento desde el panel local**. No usar test para inferencia, selección o ajustes. R254 permanece excluida. La retirada de herramientas de main no autoriza nuevos ensayos ni modifica el entorno local.
 
-El localizador está cerrado de momento con el peso adoptado el 10/11. Un futuro refuerzo requiere un plan nuevo; **solo Vicente inicia entrenamiento desde el panel**. Consultar curvas o preparar archivos no inicia un entrenamiento. [Laboratorio interno](../Laboratorio/README.md) · [Entrenamiento documentado](Desarrollo/Entrenamiento_geometrico_V3.md).
+## Revisión visual con la app del equipo
 
-## 3. Revisión visual en la app del equipo
+La app del equipo permite comparar la fotografía con contornos y mapas de señal, registrar niveles omitidos, detecciones adicionales y contornos incorrectos por nivel o zona, y exportar lotes de revisión. Sus observaciones no modifican automáticamente CVAT, los pesos ni el entrenamiento.
 
-Las predicciones se inspeccionaron mediante la aplicación de revisión del equipo, comparando la fotografía con los contornos y mapas de señal. Sus herramientas permiten registrar niveles omitidos, detecciones adicionales y contornos incorrectos por foto, nivel o zona, y exportar lotes de revisión.
+Esta revisión complementa las métricas cuantitativas, pero **no equivale a mAP, recall o exactitud de ocupación**. Las 68 fotos de Ohiggins 3 tienen revisión visual humana, siguen fuera de train y no deben reutilizarse para ajustar mientras se presentan como prueba independiente. [Modelo y resultados](Modelo_V3_actual.md) · [Guía de revisión](../Aplicacion/Documentacion/REVISION_EQUIPO.md).
 
-Estas observaciones no modifican automáticamente CVAT, los pesos o los datos de entrenamiento. La revisión visual humana complementa las métricas cuantitativas, pero **no equivale a mAP, recall ni exactitud de ocupación**. Las métricas se informan con su partición y condiciones de evaluación. [Guía de revisión](../Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Modelo, resultados y límites](Modelo_V3_actual.md).
+## Producto y trabajo de ocupación
 
-## 4. Entrega de las aplicaciones
+La app cliente presenta alertas visuales, revisión humana y CSV. La app del equipo aporta comparación, diagnóstico y lotes de revisión. Ambas comparten el peso oficial y Línea A; no necesitan CVAT ni el laboratorio. Las fotos cargadas no se incorporan automáticamente al entrenamiento.
 
-El cliente presenta alertas visuales, revisión humana y CSV. La app del equipo aporta los controles de inspección y los lotes de revisión. Ambas comparten el modelo oficial y el motor de ocupación Línea A. Para utilizarlas no se necesita CVAT ni el laboratorio.
-
-Las fotos cargadas y las marcas guardadas en las apps no se incorporan automáticamente al entrenamiento. El índice de ocupación sigue siendo preliminar; las pruebas funcionales y la inspección visual no constituyen una evaluación final del sistema. [Descarga de las apps](../Entregables/README.md) · [Funcionamiento](Guia_para_entender_el_proyecto.md).
+Localización de niveles y estimación de ocupación son evaluaciones distintas. El índice 0–100 y umbral 52 son preliminares y no miden stock físico. Las limitaciones reales y las pruebas funcionales se conservan sin presentarlas como evaluación final. Las herramientas internas y antecedentes pueden consultarse en [Archivo del desarrollo](Archivo_del_desarrollo.md).

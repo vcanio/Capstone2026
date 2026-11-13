@@ -1,8 +1,0 @@
-*
-!*.py
-!panel.html
-!docker/
-!docker/Dockerfile
-!docker/requirements.txt
-test_*.py
-servidor_prueba_interfaz.py

@@ -8,7 +8,7 @@ Esta entrega es la mesa de pruebas de desarrollo. La aplicación cliente está s
 
 1. Extrae **todo** el ZIP a una carpeta con permiso de escritura. No ejecutes desde dentro del ZIP.
 2. En Windows, abre `iniciar.cmd`. El primer inicio necesita Internet para preparar Python y las dependencias. Después abre `http://127.0.0.1:8095`.
-3. En macOS/Linux, usa las instrucciones de `DOCKER.md` incluidas en el paquete.
+3. En macOS/Linux, usa la [guía Docker](DOCKER_V3.md) incluida en el paquete.
 4. Escribe tu nombre en **Revisor** y selecciona hasta 50 fotos JPG, PNG o WebP, de hasta 10 MB cada una y 500 MB por lote.
 5. Pulsa **Analizar fotos**. La confianza inicial es 0,60. Puedes revisar las fotos terminadas mientras se analizan las siguientes; la cola no cambia la foto seleccionada.
 

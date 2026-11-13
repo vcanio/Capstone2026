@@ -8,7 +8,6 @@ El modelo oficial local es el **best.pt del cierre con contornos revisados termi
 
 - **Usar en Windows:** abrir [iniciar.cmd](iniciar.cmd). El primer inicio prepara las dependencias.
 - **Usar con Docker:** ejecutar `docker compose up --build -d --wait` desde esta carpeta y abrir http://127.0.0.1:8095.
-- **Usar el entorno de desarrollo existente:** ejecutar `..\.venv-modelo\Scripts\python.exe app.py --open` desde esta carpeta.
 - [Manual de usuario](../Documentacion/Usar_Walmart_Vision.md) · [Guía V3](Documentacion/LEEME_V3.md) · [Modelo y límites](../Documentacion/Modelo_V3_actual.md).
 - [ZIP V3 publicado y SHA-256](../Entregables/README.md).
 - [Cómo leer el código de niveles y ocupación](Documentacion/LEER_CODIGO.md).
@@ -18,7 +17,7 @@ La app usa **Línea A** para el índice de disponibilidad visual por nivel: norm
 
 La confianza inicial de YOLO es 0,60 y puede ajustarse desde 0,25. La app no detecta automáticamente personas ni obstáculos: revisa la visibilidad y los contornos. La sesión se guarda en el navegador y no se incorpora al entrenamiento.
 
-La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) conserva el modelo oficial y el estimador de su publicación; esta actualización local a Línea A todavía no está en esa release.
+La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga histórica del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) conserva el peso y el estimador de su propia publicación. La entrega conjunta del 11/11 incorpora el oficial del 10/11 y Línea A.
 
 Los archivos del programa y el modelo se conservaron durante el traslado. Los documentos de verificación con fecha anterior describen su propia entrega.
 
@@ -28,7 +27,7 @@ El repositorio incluye el manifiesto, el peso oficial y el preparador de Windows
 
 La corrección de barandas sigue pendiente de revisión visual y el mapa de señal se muestra en fucsia. Tras modificar los módulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicación pueda verificar su integridad.
 
-Para ejecutar las pruebas desde `Aplicacion` en Windows: `..\.venv-modelo\Scripts\python.exe -m unittest discover -s Pruebas`.
+Para comprobar el código y construir paquetes desde un clon, consulta [Distribución y pruebas](../Distribucion/README.md). No se necesita el laboratorio interno.
 
 Tras actualizar, vuelve a analizar las fotos guardadas en el navegador para obtener resultados del modelo oficial.
 

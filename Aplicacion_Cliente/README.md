@@ -32,7 +32,7 @@ La limpieza borra las fotos, resultados y revisiones del recorrido de la memoria
 y del guardado local, sin deshacer ni copia de recuperación. También descarta
 las antiguas reservas de deshacer al recuperar sesiones de versiones anteriores.
 No borra los archivos originales del computador ni la preferencia de tema.
-La distribución y los cambios visuales están documentados en [Diseño del cliente](../Documentacion/Desarrollo/Cliente_diseno_20261111.md).
+La distribución y los cambios visuales están documentados en [Diseño del cliente](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Desarrollo/Cliente_diseno_20261111.md).
 
 Modelo oficial adoptado el 10/11: **cierre con contornos revisados**, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`. Cliente y revisión toman el mismo predeterminado de `Aplicacion/modelos.json`; no hay otra copia de pesos del cliente. La entrega del 11/11 incluye este peso; los ZIP anteriores conservan sus pesos originales. [Ficha vigente](../Documentacion/Modelo_V3_actual.md).
 

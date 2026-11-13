@@ -1,21 +1,17 @@
 # Documentación de Walmart Visión
 
-La documentación principal explica **las apps del 11 de noviembre de 2026**, con el cierre V3 revisado adoptado el 10/11 y Línea A del 8/11. Las releases anteriores conservan sus propios modelos, interfaces y estimadores. [Mapa de carpetas](Desarrollo/Mapa_del_proyecto.md) · [Aplicación local](../Aplicacion/README.md) · [Modelo vigente](../Modelos/Actual/README.md).
+El repositorio se centra en el modelo oficial y las dos aplicaciones. CVAT y el laboratorio GPU fueron herramientas internas del desarrollo; no se requieren para ejecutar las apps.
 
-| Lectura | Qué resuelve |
+| Necesidad | Documento |
 |---|---|
-| [Usar Walmart Visión](Usar_Walmart_Vision.md) | Abrir la app, analizar una foto y revisar los resultados. |
-| [Cómo funciona](Guia_para_entender_el_proyecto.md) | Niveles, ocupación, mapa de señal, visibilidad y regla de mediana. |
-| [Modelo actual V3](Modelo_V3_actual.md) | Identidad, datos, entrenamiento, resultados y limitaciones. |
-| [Estado de distribución](../Entregables/README.md) | ZIP V3 vigente, SHA-256 y release publicada. |
-| [Datos actuales](../Datos/README.md) | Catálogo V3, partición y selección del último afinado. |
+| Instalar y usar las apps | [Manual](Usar_Walmart_Vision.md) |
+| Comprender niveles y ocupación | [Funcionamiento](Guia_para_entender_el_proyecto.md) |
+| Identificar el peso y sus límites | [Modelo oficial](Modelo_V3_actual.md) |
+| Conocer los datos y las tres etapas | [Entrenamiento y procedencia](Entrenamiento_y_datos.md) |
+| Entender cómo se trabajó | [Metodología](Metodologia_desarrollo_y_revision.md) · [Evolución y planificación](Planificacion_y_metodologia.md) |
+| Consultar el objetivo de anotación | [Criterio de niveles V3](Criterio_de_niveles.md) |
+| Mantener, comprobar y empaquetar | [Distribución](../Distribucion/README.md) |
+| Descargar la entrega publicada | [Entregables](../Entregables/README.md) |
+| Consultar las comprobaciones | [Evidencias](Evidencias/README.md) |
 
-## Consulta técnica y académica
-
-La [metodología de desarrollo y revisión](Metodologia_desarrollo_y_revision.md) explica el uso de CVAT para anotar niveles, el laboratorio interno para preparar y seguir ensayos y la app del equipo para revisar predicciones. Las apps constituyen la entrega de uso; el laboratorio se conserva como apoyo técnico.
-
-El [índice de desarrollo](Desarrollo/README.md) reúne criterios de anotación, laboratorio y colaboración. La [planificación](Planificacion_y_metodologia.md) y el [informe intermedio](Informe_Intermedio_Avance_20261020.md) conservan su alcance académico y sus fechas.
-
-Los documentos de etapas anteriores se consultan en el [archivo histórico](../Historico/Documentacion/README.md). Sus modelos, métricas e instrucciones no describen la app V3 actual.
-
-[Volver al inicio](../README.md)
+Los antecedentes completos y el alcance de la simplificación están en [Archivo del desarrollo](Archivo_del_desarrollo.md). Fase 1 y Fase 2 se conservan sin cambios.

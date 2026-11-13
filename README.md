@@ -2,7 +2,7 @@
 
 **Análisis de disponibilidad en góndolas mediante visión por computador**
 
-Estado actualizado al **11 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 revisado.
+Estado documental actualizado al **13 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 revisado.
 
 Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo. Ambas identifican los niveles, delimitan sus áreas útiles y calculan un índice visual para ayudar a revisar posibles faltantes.
 
@@ -23,9 +23,9 @@ La entrega del 11/11 incluye **V3-cierre-revisado-20261110**, el único modelo o
 
 ## Explorar las carpetas
 
-[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Modelo vigente**](Modelos/Actual/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
+[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Modelo vigente**](Documentacion/Modelo_V3_actual.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
-Las fuentes actuales se organizan por función y los antecedentes se reúnen en Histórico. Consulta el [mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md).
+El repositorio se centra en las dos apps, el modelo oficial y su documentación. CVAT y el laboratorio GPU se explican en la [metodología](Documentacion/Metodologia_desarrollo_y_revision.md); sus fuentes anteriores siguen accesibles en el [archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md). Fase 1 y Fase 2 permanecen intactas.
 
 ## Contenido
 
@@ -144,7 +144,7 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 **La app no recalcula ni fuerza la mediana al analizar una foto.** YOLO predice sus propias máscaras a partir de lo aprendido; puede omitir un superior o delimitarlo mal. Esos errores se conservan como limitaciones y deben revisarse visualmente.
 
-[Criterio de anotación V3](Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla completa de mediana](Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md)
+[Criterio de anotación V3](Documentacion/Criterio_de_niveles.md) · [Regla completa de mediana](Documentacion/Criterio_de_niveles.md)
 
 ## Interpretar los resultados
 
@@ -219,7 +219,7 @@ El modelo conserva sus máscaras originales. La estimación se calcula sobre los
 
 En las anotaciones, el superior abierto se delimita por la mediana de las alturas inferiores cuando no hay un techo físico claro. **La app no impone esa mediana durante la predicción**: el modelo puede desviarse del criterio aprendido.
 
-[Explicación del funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) · [Criterio de niveles V3](Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla de mediana](Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md)
+[Explicación del funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) · [Criterio de niveles V3](Documentacion/Criterio_de_niveles.md) · [Regla de mediana](Documentacion/Criterio_de_niveles.md)
 
 ### Componentes de la aplicación
 
@@ -262,7 +262,7 @@ El último afinado utilizó **256 imágenes de entrenamiento: 203 reales y 53 si
 
 El peso deriva de **tres etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. La cadena reúne **519 fuentes distintas de train por SHA-256: 299 reales y 220 sintéticas**. Las 256 del último ensayo no representan toda su experiencia previa; estas cifras tampoco cuentan escenas independientes, aumentos internos ni preentrenamiento general.
 
-[Catálogo vigente y alcance del recuento](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Antecedentes de entrenamiento, comparaciones y distribuciones](Historico/Documentacion/Desarrollo/Antecedentes_modelo_V3_20261111.md).
+[Catálogo vigente y alcance del recuento](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Entrenamiento, procedencia y límites](Documentacion/Entrenamiento_y_datos.md).
 
 ### Autoría, anotación y preparación
 
@@ -278,7 +278,7 @@ Las nuevas fotos y revisiones no cambian por sí solas el modelo publicado. Requ
 
 ### Herramientas internas de desarrollo y revisión
 
-El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos de la clase `Nivel`**. Se construyó además un **laboratorio interno con interfaz visual** para preparar datos, configurar los entrenamientos y seguir métricas, curvas y resultados de los ensayos. Su código se conserva como apoyo técnico y trazabilidad del desarrollo; no forma parte del ZIP cliente/equipo.
+El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos de la clase `Nivel`**. Se construyó además un **laboratorio interno con interfaz visual** para preparar datos, configurar los entrenamientos y seguir métricas, curvas y resultados de los ensayos. Se utilizó la GPU propia para entrenar sin depender de Colab. Sus fuentes y registros se conservan en una revisión histórica; no son dependencias de las apps actuales.
 
 Las predicciones del modelo se inspeccionaron en la **app de revisión del equipo**, comparando fotos y contornos y registrando errores por nivel o zona. Esta revisión visual complementa la evaluación cuantitativa; no equivale a mAP o recall ni demuestra por sí sola exactitud de ocupación. [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md).
 
@@ -315,38 +315,32 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 
 | Necesidad | Recurso |
 |---|---|
-| Usar las apps actuales | [Cliente](Aplicacion_Cliente/README.md) · [Revisión del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) |
-| Consultar el manual general y antecedentes | [Manual de Walmart Visión](Documentacion/Usar_Walmart_Vision.md) |
-| Entender el cálculo y sus límites | [Guía de funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) |
-| Consultar entrenamiento y métricas vigentes | [Modelo V3 actual](Documentacion/Modelo_V3_actual.md) |
-| Ubicar datos, herramientas y documentos | [Mapa del proyecto](Documentacion/Desarrollo/Mapa_del_proyecto.md) |
-| Consultar estado de distribución | [Entregables](Entregables/README.md) |
-| Consultar cómo se anotó, entrenó y revisó el modelo | [Metodología de desarrollo](Documentacion/Metodologia_desarrollo_y_revision.md) |
-| Continuar el desarrollo o preparar el laboratorio interno | [Referencia técnica](Documentacion/Desarrollo/README.md) |
-| Revisar decisiones y etapas anteriores | [Archivo documental](Historico/Documentacion/README.md) |
+| Usar las apps | [Cliente](Aplicacion_Cliente/README.md) · [Equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Manual](Documentacion/Usar_Walmart_Vision.md) |
+| Entender el cálculo y sus límites | [Funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) |
+| Identificar modelo, datos y métricas | [Modelo oficial](Documentacion/Modelo_V3_actual.md) · [Entrenamiento](Documentacion/Entrenamiento_y_datos.md) |
+| Conocer cómo se trabajó | [Metodología](Documentacion/Metodologia_desarrollo_y_revision.md) · [Criterio V3](Documentacion/Criterio_de_niveles.md) |
+| Comprobar o construir la entrega | [Distribución y pruebas](Distribucion/README.md) |
+| Descargar versiones | [Entregables](Entregables/README.md) |
+| Consultar herramientas y antecedentes | [Archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md) |
 
 ### Carpetas principales
 
 | Ruta | Contenido |
 |---|---|
-| [`Aplicacion/`](Aplicacion/README.md) | Mesa del equipo (8095), motor compartido, modelo oficial, revisión y lotes ZIP. |
-| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | Cliente de prueba (8098), alertas visuales, revisión humana y hoja CSV. |
-| [`Datos/`](Datos/README.md) | Procedencias, anotaciones, particiones y selección del afinado. |
-| [`Documentacion/`](Documentacion/README.md) | Guías de uso, criterios V3, decisiones técnicas y documentación de desarrollo. |
-| [`Entregables/`](Entregables/README.md) | Acceso a la distribución publicada de la app y entregas académicas. |
-| [`Fase 1/`](Fase%201/) | Material académico de la primera fase, conservado en su ubicación original. |
-| [`Fase 2/`](Fase%202/) | Material académico de la segunda fase, conservado en su ubicación original. |
-| [`Historico/`](Historico/README.md) | Documentación, experimentos y registros de reproducibilidad de etapas anteriores. |
-| [`Infraestructura/`](Infraestructura/README.md) | Configuración técnica de servicios y entornos. |
-| [`Laboratorio/`](Laboratorio/README.md) | Herramientas internas de desarrollo y trazabilidad: datos, CVAT, entrenamiento, evaluación y reproducibilidad; incluye [experimentos](Laboratorio/Experimentos/README.md). |
-| [`Modelos/`](Modelos/README.md) | Referencia del modelo V3 vigente y preentrenados generales para desarrollo. |
+| [Aplicacion](Aplicacion/README.md) | Mesa del equipo (8095), motor compartido, único peso oficial y pruebas. |
+| [Aplicacion_Cliente](Aplicacion_Cliente/README.md) | Cliente (8098), alertas, revisión humana, CSV y pruebas. |
+| [Documentacion](Documentacion/README.md) | Uso, modelo, criterios, metodología, resultados y límites. |
+| [Distribucion](Distribucion/README.md) | Verificador y empaquetador autónomos de las dos apps. |
+| [Entregables](Entregables/README.md) | Enlaces a releases e informe académico fechado. |
+| [Fase 1](Fase%201/) | Material académico conservado sin cambios. |
+| [Fase 2](Fase%202/) | Material académico conservado sin cambios. |
 
 ### Material académico y demostración
 
 - 🎬 [**Demostración funcional (7 min 01 s)**](https://youtu.be/sN_6XPdxtKk): recorrido de la app y casos del informe en la versión anterior V2. Conserva valor como demostración del proyecto; no muestra la interfaz V3 actual.
-- 📄 [**Informe intermedio en PDF**](Entregables/Informe_Intermedio_Avance_20261020.pdf) · [fuente del informe](Documentacion/Informe_Intermedio_Avance_20261020.md): resultados y casos fechados, conservados como antecedente académico.
+- 📄 [**Informe intermedio en PDF**](Entregables/Informe_Intermedio_Avance_20261020.pdf) · [fuente del informe](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Informe_Intermedio_Avance_20261020.md): resultados y casos fechados, conservados como antecedente académico.
 - 📅 [**Planificación y metodología**](Documentacion/Planificacion_y_metodologia.md): hitos y organización del trabajo.
-- 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) · [procedencia](Documentacion/Ejemplos/README.md): selección real y sintética de la demostración anterior.
+- 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) · [procedencia](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Ejemplos/README.md): selección real y sintética de la demostración anterior.
 
 ## Estado actual de la implementación
 

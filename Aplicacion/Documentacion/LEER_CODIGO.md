@@ -57,13 +57,9 @@ píxeles y cuáles están en filas × columnas de la grilla.
 
 ## Lectura vigente y diagnóstico anterior
 
-V3 usa `front_signal_pct`: columnas del frente respaldadas por señal visual.
-Asume lleno detrás del producto visible. La combinación antigua 70/30 sigue
-disponible como `combined_signal_pct`, pero no determina el porcentaje mostrado
-en V3. V1 y V2 mantienen sus lecturas anteriores por compatibilidad.
+La lectura vigente de V3 es Línea A: índice visual 0–100 y umbral 52 con ajuste preliminar, según `ocupacion_linea_a.py`. `front_signal_pct` y `combined_signal_pct` pertenecen a diagnósticos anteriores y compatibilidad; no sustituyen la lectura vigente.
 
-Las reglas de revisión pueden impedir presentar un porcentaje. La señal visual
-no reconoce productos semánticamente y los umbrales requieren calibración.
+Las reglas de revisión pueden impedir presentar el índice. La señal visual no reconoce productos semánticamente ni mide stock físico. El módulo portable incluye sus dependencias y no requiere el laboratorio.
 
 El cuadrilátero de `geometria_niveles.py` es solo para el dibujo. La ocupación
 siempre usa los píxeles de la máscara original, sin etiquetas superpuestas.
