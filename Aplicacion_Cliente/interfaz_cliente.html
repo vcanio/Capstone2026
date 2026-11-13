@@ -66,8 +66,6 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .filter-btn[aria-pressed="true"] { color: #fff; background: var(--brand-blue); border-color: var(--brand-blue); font-weight: 600; }
 .filter-count { padding: 0 5px; border-radius: 10px; font-size: 12px; background: var(--surface-subtle); font-variant-numeric: tabular-nums; }
 .filter-btn[aria-pressed="true"] .filter-count { background: #ffffff26; }
-.aisle-right { display: flex; align-items: center; gap: 10px; }
-.sort-select { padding: 7px 12px; max-width: 100%; min-height: 36px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); font-size: 14px; }
 .workspace { display: grid; grid-template-columns: clamp(220px, 14.7vw, 280px) minmax(0, 1fr) clamp(300px, 18.8vw, 360px); gap: 16px; padding: 16px 20px 10px; flex: 1; min-height: 0; }
 .panel { display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
 .panel-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; flex-shrink: 0; }
@@ -93,10 +91,9 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .banner-text { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .banner-heading { min-width: 0; display: flex; align-items: baseline; gap: 10px; }
 .banner-headline { margin: 0; font-size: 17px; font-weight: 700; white-space: nowrap; }
-.banner-sub { color: var(--ink-muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 24ch; }
-.stage-nav { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.nav-btn { border: 0; background: transparent; padding: 4px 0; font-size: 13px; }
-.nav-btn:hover:not(:disabled) { color: var(--brand-blue); }
+.stage-nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.nav-btn { border: 0; background: transparent; padding: 4px 6px; min-width: 28px; min-height: 28px; font-size: 14px; line-height: 1; border-radius: 6px; }
+.nav-btn:hover:not(:disabled) { color: var(--brand-blue); background: var(--surface-subtle); }
 #stagePos { color: var(--ink-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .stage-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 14px; border-top: 1px solid var(--border); order: 3; flex-shrink: 0; }
 .seg-group { display: inline-flex; padding: 2px; gap: 2px; border-radius: 8px; background: var(--bg); }
@@ -161,17 +158,16 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .camera-modal { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; gap: 12px; color: #fff; background: #080e16f5; }
 .camera-frame { position: relative; max-width: 720px; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #ffffff60; background: #000; }
 .camera-frame video { display: block; width: 100%; max-height: 70vh; object-fit: contain; }
+.mobile-steps, .mobile-only-action { display: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (min-width: 1600px) { .level-card { gap: 8px; padding: 12px; } }
 @media (max-width: 1400px) {
   .workspace { grid-template-columns: 210px minmax(0, 1fr) 300px; gap: 12px; padding: 12px 16px 8px; }
   .session-status { display: none; }
-  .banner-heading { flex-direction: column; gap: 2px; }
   .stage-banner { gap: 8px; padding: 12px; }
   .banner-text { gap: 8px; }
-  .stage-nav { gap: 8px; }
+  .stage-nav { gap: 4px; }
   .banner-headline { font-size: 15px; }
-  .banner-sub { font-size: 12px; max-width: 18ch; }
 }
 @media (max-width: 1100px) {
   body { overflow: auto; height: auto; min-height: 100%; }
@@ -186,32 +182,42 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   .queue-panel .panel-header { padding: 10px 16px; }
   .aisle-bar { padding: 12px 16px; flex-wrap: wrap; }
   .filter-btn { font-size: 13px; }
-  .stage-banner { align-items: flex-start; flex-direction: column; }
+  .stage-banner { flex-direction: row; flex-wrap: wrap; align-items: center; }
   .banner-heading { flex-direction: row; align-items: baseline; gap: 8px; }
-  .stage-nav { width: 100%; justify-content: flex-end; }
 }
 @media (max-width: 700px) {
-  .topbar { align-items: flex-start; flex-direction: column; gap: 14px; padding: 16px; }
-  .top-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr 38px; gap: 8px; }
-  .top-actions > label { grid-column: 1 / -1; grid-row: 1; }
-  .btn-top { min-height: 40px; font-size: 13px; border-radius: 10px; }
-  .more-actions > summary { padding: 9px; }
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  .topbar { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; min-height: 58px; padding: 10px 14px; }
+  .brand { gap: 10px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .brand-title { font-size: 17px; }
+  .top-actions { width: auto; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  #exportCsvBtn, .top-actions > label[for="fileInput"] { display: none; }
+  #cameraBtn { background: var(--brand-spark); border-color: var(--brand-spark); color: #0b1b32; font-weight: 700; }
+  #cameraBtn:hover:not(:disabled) { background: #ffd153; }
+  .mobile-only-action { display: block; }
+  .actions-menu { width: min(260px, calc(100vw - 24px)); }
+  .btn-top { min-height: 38px; padding: 7px 11px; font-size: 13px; border-radius: 10px; }
+  .more-actions > summary { padding: 8px; width: 38px; }
   .filter-pills { width: 100%; overflow-x: auto; padding-bottom: 3px; gap: 6px; }
   .filter-btn { font-size: 12px; padding: 6px 10px; }
-  .aisle-right { width: 100%; justify-content: flex-end; }
-  .sort-select { font-size: 12px; }
   .workspace { display: flex; flex-direction: column; padding: 12px; gap: 12px; }
   .queue-panel { flex: none; }
+  .queue-list { flex-direction: column; overflow-x: visible; overflow-y: auto; max-height: 62svh; padding: 0 8px 8px; }
+  .queue-item { width: 100%; flex-shrink: 1; }
+  .queue-footer { display: block; }
   .stage-panel { height: 70svh; min-height: 440px; flex: none; }
   .plan-panel { flex: none; }
-  .stage-banner { gap: 10px; }
-  .banner-text { width: 100%; }
-  .banner-heading { flex-direction: column; gap: 2px; }
-  .banner-sub { max-width: 24ch; }
-  .viewer-wrap { padding: 12px; }
-  .stage-toolbar { flex-wrap: wrap; padding: 8px; }
-  .seg-group { width: 100%; justify-content: space-between; }
-  .seg-btn { flex: 1; padding: 6px; font-size: 11px; }
+  body[data-mobile-step="queue"] .stage-panel,
+  body[data-mobile-step="queue"] .plan-panel,
+  body[data-mobile-step="stage"] .queue-panel,
+  body[data-mobile-step="stage"] .plan-panel,
+  body[data-mobile-step="plan"] .queue-panel,
+  body[data-mobile-step="plan"] .stage-panel { display: none; }
+  .stage-banner { gap: 8px; }
+  .banner-text { width: auto; }
+  .viewer-wrap { padding: 8px; }
+  .stage-toolbar { display: none; }
   .empty-state { padding: 16px 8px; }
   .empty-mark { width: 44px; height: 44px; margin-bottom: 12px; }
   .empty-state h2 { font-size: 21px; }
@@ -221,12 +227,27 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   .levels-list { overflow: visible; }
   .review-switch button { min-height: 36px; }
   .app-footer { padding: 4px 12px 12px; }
+  .mobile-steps {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 35;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 4px 8px calc(6px + env(safe-area-inset-bottom));
+    background: var(--surface); border-top: 1px solid var(--border);
+    box-shadow: 0 -6px 20px #00000024;
+  }
+  .mobile-step-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    min-height: 50px; padding: 6px 4px; border: 0; border-radius: 10px;
+    background: transparent; color: var(--ink-muted); font-size: 12px; font-weight: 500;
+  }
+  .mobile-step-btn:hover { background: var(--surface-subtle); }
+  .mobile-step-btn[aria-current="step"] { color: var(--brand-blue); font-weight: 700; }
+  :root[data-theme="dark"] .mobile-step-btn[aria-current="step"] { color: #5aa9ff; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
 
 </style>
 </head>
-<body>
+<body data-mobile-step="queue">
 
 <header class="topbar">
   <div class="brand">
@@ -245,6 +266,8 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
     <details class="more-actions" id="moreActions">
       <summary class="btn-top" aria-label="Más opciones" title="Más opciones"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></summary>
       <div class="actions-menu">
+        <button id="mobileUploadBtn" type="button" class="mobile-only-action">Subir fotos de pasillo</button>
+        <button id="mobileExportCsvBtn" type="button" class="mobile-only-action" disabled>Exportar todo (CSV)</button>
         <button id="exportSelectionBtn" type="button" disabled>Exportar filtro actual (CSV)</button>
         <button id="demoBtn" type="button">Cargar pasillo de ejemplo</button>
         <button id="themeBtn" type="button">Cambiar tema claro u oscuro</button>
@@ -266,14 +289,6 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
     <button type="button" class="filter-btn" data-filter="reponer" aria-pressed="false">Con alertas <span class="filter-count" id="countReponer">0</span></button>
     <button type="button" class="filter-btn" data-filter="verificar" aria-pressed="false">Requieren revisión <span class="filter-count" id="countVerificar">0</span></button>
     <button type="button" class="filter-btn" data-filter="suficiente" aria-pressed="false">Sin alertas <span class="filter-count" id="countSuficiente">0</span></button>
-  </div>
-
-  <div class="aisle-right">
-    <label for="sortSelect" class="sr-only">Orden de las góndolas</label>
-    <select id="sortSelect" class="sort-select">
-      <option value="priority">Con alertas primero</option>
-      <option value="order">Orden de recorrido</option>
-    </select>
   </div>
 </section>
 
@@ -299,13 +314,12 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
         <span class="status-pill" id="stagePill"></span>
         <div class="banner-heading">
           <h2 class="banner-headline" id="stageHeadline"></h2>
-          <span class="banner-sub" id="stageSub"></span>
         </div>
       </div>
       <nav class="stage-nav" aria-label="Recorrer góndolas">
-        <button type="button" class="nav-btn" id="prevGondolaBtn" title="Foto anterior (←)" aria-keyshortcuts="ArrowLeft">← Anterior</button>
+        <button type="button" class="nav-btn" id="prevGondolaBtn" aria-label="Foto anterior" title="Foto anterior (←)" aria-keyshortcuts="ArrowLeft">←</button>
         <span id="stagePos"></span>
-        <button type="button" class="nav-btn" id="nextGondolaBtn" title="Foto siguiente (→)" aria-keyshortcuts="ArrowRight">Siguiente →</button>
+        <button type="button" class="nav-btn" id="nextGondolaBtn" aria-label="Foto siguiente" title="Foto siguiente (→)" aria-keyshortcuts="ArrowRight">→</button>
       </nav>
 
     </div>
@@ -381,6 +395,21 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-apps-prueba-2026-11-10-r2/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
 </footer>
 
+<nav class="mobile-steps" id="mobileSteps" aria-label="Pasos en móvil">
+  <button type="button" class="mobile-step-btn" data-mobile-step="queue" aria-current="step">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <span>Góndolas</span>
+  </button>
+  <button type="button" class="mobile-step-btn" data-mobile-step="stage" aria-current="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8.5" y="8.5" width="7" height="7" rx="1"/></svg>
+    <span>Foto</span>
+  </button>
+  <button type="button" class="mobile-step-btn" data-mobile-step="plan" aria-current="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+    <span>Plan</span>
+  </button>
+</nav>
+
 <!-- Modal de cámara -->
 <section class="camera-modal" id="cameraModal" role="dialog" aria-modal="true" aria-labelledby="camTitle" hidden>
   <div style="display:flex;justify-content:space-between;align-items:center;max-width:720px;width:100%">
@@ -391,7 +420,12 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
     <video id="camVideo" autoplay playsinline muted></video>
   </div>
   <p id="camStatus" style="margin:0;font-size:0.8125rem;color:#cbd5e1">Encuadra toda la altura del módulo de estantes.</p>
-  <button type="button" class="btn btn-primary" id="camSnapBtn" disabled>Capturar y analizar</button>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px">
+    <button type="button" class="btn btn-primary" id="camSnapBtn" disabled>Capturar y analizar</button>
+    <button type="button" class="btn" id="camSwitchBtn" hidden>Cambiar lente</button>
+    <label for="nativeCamInput" class="btn" tabindex="0" role="button">Cámara del teléfono</label>
+    <input id="nativeCamInput" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" capture="environment" hidden>
+  </div>
 </section>
 
 <script>
@@ -404,10 +438,23 @@ const state = {
   items: [],          // [{ id, name, file, origUrl, result, reviews, analyzing, error }]
   selectedId: null,
   filter: 'all',
-  sort: 'priority',
   viewMode: 'result',
   highlightedLevel: null,
+  mobileStep: 'queue',
 };
+const isMobileLayout = () => window.matchMedia('(max-width: 700px)').matches;
+function setMobileStep(step) {
+  if (!['queue', 'stage', 'plan'].includes(step)) return;
+  state.mobileStep = step;
+  document.body.dataset.mobileStep = step;
+  document.querySelectorAll('.mobile-step-btn').forEach(btn => {
+    btn.setAttribute('aria-current', btn.dataset.mobileStep === step ? 'step' : 'false');
+  });
+  if (isMobileLayout()) window.scrollTo(0, 0);
+}
+document.querySelectorAll('.mobile-step-btn').forEach(btn => {
+  btn.addEventListener('click', () => setMobileStep(btn.dataset.mobileStep));
+});
 let analysisReady = null;
 let aisleGeneration = 0;
 const EMPTY_THUMB = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -566,19 +613,15 @@ function visibleItems() {
   if (state.filter !== 'all') {
     list = list.filter(it => effectiveGondolaState(it) === state.filter);
   }
-  if (state.sort === 'priority') {
-    const rank = { reponer: 0, verificar: 1, pendiente: 2, suficiente: 3 };
-    list.sort((a, b) => {
-      const ra = rank[effectiveGondolaState(a)] ?? 9;
-      const rb = rank[effectiveGondolaState(b)] ?? 9;
-      if (ra !== rb) return ra - rb;
-      const diff = visualAlertCount(b) - visualAlertCount(a);
-      if (diff !== 0) return diff;
-      return a.order - b.order;
-    });
-  } else {
-    list.sort((a, b) => a.order - b.order);
-  }
+  const rank = { reponer: 0, verificar: 1, pendiente: 2, suficiente: 3 };
+  list.sort((a, b) => {
+    const ra = rank[effectiveGondolaState(a)] ?? 9;
+    const rb = rank[effectiveGondolaState(b)] ?? 9;
+    if (ra !== rb) return ra - rb;
+    const diff = visualAlertCount(b) - visualAlertCount(a);
+    if (diff !== 0) return diff;
+    return a.order - b.order;
+  });
   return list;
 }
 
@@ -605,6 +648,7 @@ function updateAisleBar() {
 
   const hasAnalyzed = state.items.some(i => i.result);
   $('exportCsvBtn').disabled = !hasAnalyzed;
+  $('mobileExportCsvBtn').disabled = !hasAnalyzed;
   $('exportSelectionBtn').disabled = !visibleItems().some(i => i.result);
   const analyzed = state.items.filter(i => i.result).length;
   const errors = state.items.filter(i => i.error).length;
@@ -667,7 +711,10 @@ function renderQueue() {
   }).join('');
 
   listEl.querySelectorAll('.queue-item').forEach(btn => {
-    btn.addEventListener('click', () => selectItem(btn.dataset.id));
+    btn.addEventListener('click', () => {
+      selectItem(btn.dataset.id);
+      if (isMobileLayout()) setMobileStep('stage');
+    });
   });
   observeThumbnails();
 }
@@ -747,11 +794,10 @@ function renderStageAndLevels() {
   }
 
   $('stageHeadline').textContent = `Góndola ${String(item.order).padStart(2, '0')}`;
-  $('stageSub').textContent = item.name;
-  $('stageSub').title = item.name;
 
   $('stageToolbar').hidden = false;
-  if (state.viewMode === 'compare') {
+  const activeView = isMobileLayout() ? 'result' : state.viewMode;
+  if (activeView === 'compare') {
     $('singleView').hidden = true;
     $('compareView').hidden = false;
     $('compareOrigImg').src = item.origUrl;
@@ -760,7 +806,7 @@ function renderStageAndLevels() {
     $('singleView').hidden = false;
     $('compareView').hidden = true;
     $('mainPhoto').src = item.origUrl;
-    $('polyOverlay').toggleAttribute('hidden', state.viewMode === 'original');
+    $('polyOverlay').toggleAttribute('hidden', activeView === 'original');
     renderPolygonOverlay(item);
   }
 
@@ -888,6 +934,7 @@ function renderPolygonOverlay(item) {
     poly.addEventListener('mouseleave', () => highlightLevel(null));
     poly.addEventListener('click', () => {
       highlightLevel(lv);
+      if (isMobileLayout()) setMobileStep('plan');
       const card = $('levelsList').querySelector(`.level-card[data-level="${lv}"]`);
       card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
@@ -1037,7 +1084,7 @@ async function loadDemoAisle() {
 $('demoBtn').addEventListener('click', loadDemoAisle);
 $('emptyDemoBtn').addEventListener('click', loadDemoAisle);
 
-// Filtros y orden
+// Filtros
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
@@ -1050,12 +1097,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     renderQueue();
     renderStageAndLevels();
   });
-});
-
-$('sortSelect').addEventListener('change', e => {
-  state.sort = e.target.value;
-  renderQueue();
-  renderStageAndLevels();
 });
 
 // Conmutador de vistas
@@ -1162,6 +1203,8 @@ function exportCsv(selectionOnly) {
   setTimeout(() => URL.revokeObjectURL(url), 1500);
 }
 $('exportCsvBtn').addEventListener('click', () => exportCsv(false));
+$('mobileExportCsvBtn').addEventListener('click', () => exportCsv(false));
+$('mobileUploadBtn').addEventListener('click', () => $('fileInput').click());
 $('exportSelectionBtn').addEventListener('click', () => exportCsv(true));
 
 // Cada foto se guarda por separado: navegar no vuelve a copiar imágenes del recorrido.
@@ -1336,9 +1379,9 @@ try {
   if (saved === 'dark' || saved === 'light') setTheme(saved);
 } catch {}
 
-document.querySelectorAll('label[for="fileInput"]').forEach(label => {
+document.querySelectorAll('label[for="fileInput"], label[for="nativeCamInput"]').forEach(label => {
   label.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('fileInput').click(); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $(label.getAttribute('for')).click(); }
   });
 });
 document.addEventListener('click', e => {
@@ -1354,25 +1397,95 @@ document.addEventListener('keydown', e => {
 
 // Cámara
 let camStream = null;
+let camBackDevices = [];
+let camActiveId = null;
 function stopCamera() {
   if (camStream) camStream.getTracks().forEach(t => t.stop());
   camStream = null;
   $('camVideo').srcObject = null;
   $('cameraModal').hidden = true;
 }
-$('cameraBtn').addEventListener('click', async () => {
-  $('cameraModal').hidden = false;
+function rankBackCamera(label, index) {
+  const text = String(label || '').toLowerCase();
+  let score = index;
+  if (/ultra|wide|0\.5|0\.6|macro|depth|tele|tof|mono|ir/.test(text)) score += 20;
+  if (/\bcamera2?\s*0\b|\bmain\b|\bprimary\b|\bstandard\b|\b1x\b/.test(text)) score -= 10;
+  return score;
+}
+async function listBackCameras() {
+  if (!navigator.mediaDevices?.enumerateDevices) return [];
+  const all = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'videoinput');
+  const backs = all.filter(d => /back|rear|trasera|environment/i.test(d.label));
+  const candidates = backs.length ? backs : all.filter(d => !/front|user|selfie|frontal/i.test(d.label));
+  return (candidates.length ? candidates : all)
+    .map((d, idx) => ({ device: d, score: rankBackCamera(d.label, idx) }))
+    .sort((a, b) => a.score - b.score)
+    .map(entry => entry.device);
+}
+async function startCamera(requestedId = null, allowAutoPick = true) {
+  if (camStream) camStream.getTracks().forEach(t => t.stop());
+  camStream = null;
   $('camSnapBtn').disabled = true;
   $('camStatus').textContent = 'Iniciando cámara…';
-  try {
-    camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
-    $('camVideo').srcObject = camStream;
-    await $('camVideo').play();
-    $('camSnapBtn').disabled = false;
-    $('camStatus').textContent = 'Alinea toda la góndola dentro del recuadro.';
-  } catch {
-    $('camStatus').textContent = 'No se pudo acceder a la cámara en este dispositivo. Usa "Subir fotos de pasillo".';
+  const baseVideo = { width: { ideal: 1920 }, height: { ideal: 1440 } };
+  const videoConstraint = requestedId
+    ? { ...baseVideo, deviceId: { exact: requestedId } }
+    : { ...baseVideo, facingMode: { ideal: 'environment' } };
+  camStream = await navigator.mediaDevices.getUserMedia({ video: videoConstraint, audio: false });
+  const track = camStream.getVideoTracks()[0];
+  const caps = track?.getCapabilities?.();
+  if (caps?.zoom && caps.zoom.min <= 1 && caps.zoom.max >= 1) {
+    track.applyConstraints({ advanced: [{ zoom: 1 }] }).catch(() => {});
   }
+  camActiveId = track?.getSettings?.().deviceId || requestedId || null;
+  camBackDevices = await listBackCameras();
+  $('camSwitchBtn').hidden = camBackDevices.length < 2;
+  if (allowAutoPick && !requestedId && camBackDevices.length > 1 && camActiveId && camBackDevices[0].deviceId !== camActiveId) {
+    const activeInfo = camBackDevices.find(d => d.deviceId === camActiveId);
+    if (activeInfo && rankBackCamera(activeInfo.label, 1) > rankBackCamera(camBackDevices[0].label, 0)) {
+      return startCamera(camBackDevices[0].deviceId, false);
+    }
+  }
+  $('camVideo').srcObject = camStream;
+  await $('camVideo').play();
+  $('camSnapBtn').disabled = false;
+  $('camStatus').textContent = 'Alinea toda la góndola dentro del recuadro.';
+}
+$('cameraBtn').addEventListener('click', async () => {
+  $('cameraModal').hidden = false;
+  $('camSwitchBtn').hidden = true;
+  let savedId = null;
+  try { savedId = localStorage.getItem('walmart-cliente-cam-id'); } catch {}
+  try {
+    await startCamera(savedId || null, true);
+  } catch {
+    if (savedId) {
+      try { localStorage.removeItem('walmart-cliente-cam-id'); } catch {}
+      try { await startCamera(null, true); return; } catch {}
+    }
+    $('camStatus').textContent = 'No se pudo acceder a la cámara en este dispositivo. Usa "Cámara del teléfono" o "Subir fotos de pasillo".';
+  }
+});
+$('camSwitchBtn').addEventListener('click', async () => {
+  if (camBackDevices.length < 2) return;
+  const idx = camBackDevices.findIndex(d => d.deviceId === camActiveId);
+  const next = camBackDevices[(idx + 1) % camBackDevices.length];
+  try {
+    await startCamera(next.deviceId, false);
+    try { localStorage.setItem('walmart-cliente-cam-id', next.deviceId); } catch {}
+    if (next.label) $('camStatus').textContent = `Lente activo (${(idx + 1) % camBackDevices.length + 1}/${camBackDevices.length}).`;
+  } catch {
+    $('camStatus').textContent = 'No se pudo cambiar de lente.';
+  }
+});
+$('nativeCamInput').addEventListener('change', e => {
+  const files = e.target.files;
+  if (files?.length) {
+    stopCamera();
+    addFiles(files);
+    if (isMobileLayout()) setMobileStep('stage');
+  }
+  e.target.value = '';
 });
 $('camCloseBtn').addEventListener('click', stopCamera);
 $('camSnapBtn').addEventListener('click', () => {
@@ -1387,6 +1500,7 @@ $('camSnapBtn').addEventListener('click', () => {
     if (blob) {
       const f = new File([blob], `pasillo_${new Date().toTimeString().slice(0, 8).replace(/:/g, '')}.jpg`, { type: 'image/jpeg' });
       addFiles([f]);
+      if (isMobileLayout()) setMobileStep('stage');
     }
   }, 'image/jpeg', 0.9);
 });

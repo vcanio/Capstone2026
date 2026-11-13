@@ -45,5 +45,8 @@
   "official": true,
   "occupancy_method": "linea_a_v1_gondola_anchorage",
   "occupancy_threshold": 52.0,
-  "occupancy_revision": "linea_a_20261108_contornos_conservados"
+  "occupancy_revision": "linea_a_20261108_contornos_conservados",
+  "experimental_sources": {
+    "ocupacion_basal.py": "bd24bf326595d4cc07fbd7a4658b5f47cbc1e468f31f180444b04f29976be2f8"
+  }
 }

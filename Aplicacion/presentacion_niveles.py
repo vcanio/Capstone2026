@@ -43,7 +43,7 @@ def occupancy_estimate(measurement, version='v1'):
     V3 usa front_signal_pct; los métodos anteriores conservan combinado o área.
     Una revisión pendiente tiene prioridad sobre el umbral de reposición.
     """
-    linea_a = measurement.get('interpretation_policy') == 'body_fill_gap_v1'
+    linea_a = measurement.get('interpretation_policy') in ('body_fill_gap_v1', 'basal_visible_width_v1')
     field = ('pct' if linea_a else
              'front_signal_pct' if measurement.get('interpretation_policy') == 'front_coverage_v1' else
              'combined_signal_pct' if version == 'v2' else 'area_signal_pct')

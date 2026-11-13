@@ -1,10 +1,12 @@
-**Prueba de ambas apps del 11/11:** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+**Entrega vigente de ambas apps (13/11):** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+
+**Comparación experimental en revisión:** [comparar Línea A y franja basal](Documentacion/COMPARACION_BASAL_20261112.md) desde los ajustes del visor (incluye modo «Ambos» y etiquetado por nivel). Línea A sigue predeterminada; basal es experimental y aún no está calibrada.
 
 # Walmart Vision · Aplicación V3
 
-Mesa de revisión del equipo (9/11): marcado por nivel o zona, atajos, revisión durante el análisis, comparación de ejecuciones y lotes ZIP recuperables. Ver [guía de revisión](Documentacion/REVISION_EQUIPO.md).
+Mesa de revisión del equipo (9/11, ampliada el 12/11): marcado por nivel o zona, atajos, revisión durante el análisis, comparación de ejecuciones y algoritmos (`Línea A`, `Basal · experimental`, `Ambos`), etiquetado por nivel y lotes ZIP recuperables. Ver [guía de revisión](Documentacion/REVISION_EQUIPO.md) y [comparación basal](Documentacion/COMPARACION_BASAL_20261112.md).
 
-El modelo oficial local es el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, adoptado por Vicente y predeterminado en ambas apps. Su SHA-256 es `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`; la copia compartida está en `modelos/V3-cierre-revisado-20261110.pt`. La entrega del 11/11 incluye este peso; los ZIP anteriores conservan sus pesos originales. La ocupación sigue siendo experimental y no cambió con esta adopción.
+El modelo oficial local es el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, adoptado por Vicente y predeterminado en ambas apps. Su SHA-256 es `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`; la copia compartida está en `modelos/V3-cierre-revisado-20261110.pt`. La entrega vigente del 13/11 y la prueba del 11/11 incluyen este peso; los ZIP anteriores conservan sus pesos originales. La ocupación sigue siendo experimental y Línea A permanece predeterminada.
 
 - **Usar en Windows:** abrir [iniciar.cmd](iniciar.cmd). El primer inicio prepara las dependencias.
 - **Usar con Docker:** ejecutar `docker compose up --build -d --wait` desde esta carpeta y abrir http://127.0.0.1:8095.

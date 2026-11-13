@@ -198,6 +198,7 @@ fieldset{border:0;padding:0;margin:0;min-width:0}
 .occupancy-panel{background:var(--card);border:1px solid var(--card-border);border-radius:11px;padding:14px 16px;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .occupancy-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-shrink:0}
 .occupancy-header h3{font-size:13.5px;font-weight:700;margin:0;color:var(--ink)}
+#algorithm-result-label{margin:0 0 10px;font-size:12px;line-height:1.4;color:var(--muted);flex-shrink:0}
 #occupancy-help{display:none!important}
 .occupancy-empty-text{font-size:12.5px;color:var(--muted);line-height:1.45;margin:0}
 .occupancy-results{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
@@ -556,6 +557,28 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
 .viewer{padding:8px}
 @media(min-width:861px){.app-grid{grid-template-columns:220px minmax(0,1fr)}.content-split .occupancy-panel{width:280px}}
 @media(max-width:860px){.gallery-card:has(#gallery-empty[hidden]){display:none}.review-strip{gap:8px}.viewer{min-height:55vh}#gallery-mobile-slot:not(:empty){margin-top:12px}}
+.compare-both-option{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:12px;color:var(--ink);cursor:pointer}
+.algo-status-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:2px 0 8px}
+.algo-status-row p{margin:0}
+.btn-compare-both{padding:4px 9px;border:1px solid var(--card-border);border-radius:7px;background:var(--surface);color:var(--ink);font-size:11.5px;font-weight:600;cursor:pointer}
+.btn-compare-both:hover:not(:disabled){background:var(--surface-hover)}
+.btn-compare-both:disabled{opacity:.5;cursor:not-allowed}
+.batch-compare-summary{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding:8px 12px;margin-bottom:8px;background:var(--surface);border:1px solid var(--card-border);border-radius:9px;font-size:12px;color:var(--ink)}
+.batch-compare-summary[hidden]{display:none!important}
+.batch-compare-pill{padding:2px 8px;border-radius:999px;background:var(--card);border:1px solid var(--card-border);font-weight:600}
+.batch-compare-pill.is-diff{border-color:var(--amber);color:var(--amber);cursor:pointer}
+.compare-alt-row{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;padding:4px 7px;margin-top:2px;border-radius:6px;background:var(--surface);border:1px solid var(--card-border);font-size:11.5px;color:var(--muted)}
+.compare-alt-row.is-diff{border-color:var(--amber);color:var(--ink)}
+.compare-alt-diff-pill{padding:1px 6px;border-radius:999px;background:var(--amber-bg);color:var(--amber);font-size:10.5px;font-weight:700}
+.occ-gt-group{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:4px}
+.occ-gt-btn{padding:4px 4px;border:1px solid var(--card-border);border-radius:6px;background:var(--surface);color:var(--muted);font-size:10.5px;font-weight:600;cursor:pointer;text-align:center}
+.occ-gt-btn:hover{color:var(--ink);background:var(--surface-hover)}
+.occ-gt-btn[aria-pressed=true]{color:#fff}
+.occ-gt-btn[data-occ-label=suficiente][aria-pressed=true]{background:var(--green);border-color:var(--green)}
+.occ-gt-btn[data-occ-label=baja_disponibilidad][aria-pressed=true]{background:var(--amber);border-color:var(--amber);color:#0c1723}
+.occ-gt-btn[data-occ-label=vacio][aria-pressed=true]{background:var(--red);border-color:var(--red)}
+.occ-gt-btn[data-occ-label=no_evaluable][aria-pressed=true]{background:#475569;border-color:#475569}
+#compare-mode{background:var(--input-bg);border:1px solid var(--input-border);border-radius:6px;padding:4px 8px;color:var(--ink);font:inherit;font-size:12px}
 </style>
 </head>
 <body>
@@ -615,6 +638,12 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
             <button class="camera-open" id="camera-open" type="button" hidden>Tomar foto con guía</button>
 
             <details class="settings-disclosure"><summary>Ajustes de análisis</summary>
+            <div class="model-choice" id="algorithm-choice-wrap" hidden>
+              <label for="algorithm-choice" class="confidence-title">Algoritmo de ocupación</label>
+              <select id="algorithm-choice" aria-describedby="algorithm-help"></select>
+              <label class="compare-both-option"><input type="checkbox" id="analyze-both"> Calcular ambos al analizar (1 pasada YOLO)</label>
+              <p id="algorithm-help">Línea A conserva el cálculo actual. Cambia de opción para probar la misma foto.</p>
+            </div>
             <div class="model-choice" id="model-choice-wrap" hidden>
               <label for="model-choice" class="confidence-title">Modelo de segmentación</label>
               <select id="model-choice" aria-describedby="model-choice-help"></select>
@@ -650,7 +679,7 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
               <div class="batch-progress"><progress id="batch-progress" max="1" value="0" aria-label="Progreso del lote"></progress><span class="batch-progress-text" id="batch-progress-text" role="status" aria-live="polite"></span><button type="button" id="batch-pause" hidden>Pausar</button><button type="button" id="batch-cancel" hidden>Cancelar</button><span class="batch-stop-status" id="batch-stop-status" role="status" aria-live="polite" hidden></span></div>
               <div class="batch-head"><h2>Galería de fotos</h2><span id="batch-count" class="batch-count hint"></span><button type="button" id="batch-toggle" aria-expanded="false" aria-controls="batch-details">Ver opciones</button></div>
               <div id="batch-details" hidden>
-                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="marked">Para revisi&#243;n</option><option value="correct">Correctas</option><option value="unreviewed">Sin revisar</option><option value="pending">Sin analizar</option><option value="failed">Con error</option></select></div>
+                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="discrepancies">Discrepancias (Línea A &#8800; Basal)</option><option value="alerts">Con alertas o revisar</option><option value="labeled">Con etiquetas de ocupaci&#243;n</option><option value="unlabeled">Sin etiquetas de ocupaci&#243;n</option><option value="marked">Para revisi&#243;n</option><option value="correct">Correctas</option><option value="unreviewed">Sin revisar</option><option value="pending">Sin analizar</option><option value="failed">Con error</option></select></div>
                 <div class="batch-actions"><button type="button" id="batch-analyze">Analizar pendientes</button><button type="button" id="batch-retry">Reintentar fallidas</button></div>
                 <p class="batch-help" id="batch-help">Clasifica cada foto y descarga el lote completo. Usa las flechas para navegar y F para registrar fallos y A para marcar correcta.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
               </div>
@@ -695,6 +724,7 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
           <details class="review-shortcuts"><summary>Atajos de teclado</summary><p><kbd>A</kbd> Correcta · <kbd>F</kbd> Fallo · <kbd>1–7</kbd> Motivo · <kbd>Enter</kbd> Guardar · <kbd>← →</kbd> Foto · <kbd>C</kbd> Comparar · <kbd>Z</kbd> Deshacer</p></details>
           <p class="review-feedback" id="review-feedback" role="status"></p>
         </div>
+        <div class="batch-compare-summary" id="batch-compare-summary" role="status" hidden></div>
         <!-- Alert Banner / Summary Container -->
         <div class="summary" id="summary" role="status" aria-live="polite" hidden></div>
 
@@ -738,7 +768,7 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
                 <p id="edge-note" class="edge-note hint">Fucsia: señal experimental dentro de los niveles.</p>
               </div>
 
-              <div class="compare-zoom" id="compare-zoom-controls" hidden><label for="compare-zoom">Zoom sincronizado</label><input type="range" id="compare-zoom" min="100" max="300" step="25" value="100"><output id="compare-zoom-value">100 %</output></div>
+              <div class="compare-zoom" id="compare-zoom-controls" hidden><label for="compare-zoom">Zoom sincronizado</label><input type="range" id="compare-zoom" min="100" max="300" step="25" value="100"><output id="compare-zoom-value">100 %</output><select id="compare-mode" aria-label="Modo de comparación" hidden><option value="original_vs_result">Original vs resultado</option><option value="linea_a_vs_basal">Línea A vs Basal (niveles)</option><option value="edges_linea_a_vs_basal">Señal: Línea A vs Basal</option></select></div>
               <div class="photo-zoom-tools" id="photo-zoom-tools" hidden><span id="photo-zoom-label">Zoom 100 %</span><span>Usa la rueda y arrastra para moverte</span></div>
               <div class="viewer">
                 <button type="button" class="photo-nav photo-nav-prev" id="batch-prev" aria-label="Foto anterior" title="Foto anterior" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -759,7 +789,7 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
                 </div>
                 <div id="comparison" hidden>
                   <figure>
-                    <figcaption>Original</figcaption>
+                    <figcaption id="compare-left-caption">Original</figcaption>
                     <img id="compare-original" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Foto original de la góndola">
                   </figure>
                   <figure>
@@ -792,11 +822,12 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
               <div class="occupancy-avg-badge" id="occupancy-avg-badge" title="Ocupación media calculada" hidden>
                 <div class="avg-label">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span>Media</span>
+                  <span id="occupancy-average-label">Media</span>
                 </div>
                 <span class="avg-val" id="kpi-ocupacion">—</span>
               </div>
             </div>
+            <div class="algo-status-row"><p id="algorithm-result-label" aria-live="polite">Línea A · actual</p><button type="button" id="compare-both-now" class="btn-compare-both" hidden>Comparar ambos</button></div>
             <p class="occupancy-empty-text" id="occupancy-empty">Sube una foto para ver la ocupación de cada nivel.</p>
             <section id="level-occupancy" class="occupancy-results" aria-labelledby="occupancy-heading" hidden>
 <p id="kpi-count" class="hint"></p>
@@ -806,7 +837,7 @@ textarea:focus-visible,canvas:focus-visible{outline:2px solid var(--blue-bright)
               </table>
 
               <div class="result-tools" id="result-tools" hidden>
-                <p class="result-note">Índice visual experimental; no representa stock físico. Revisa siempre la foto.</p>
+                <p class="result-note" id="algorithm-result-note">Índice visual experimental; no representa stock físico. Revisa siempre la foto.</p>
                 <a class="download" id="download">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                   Descargar resultado
@@ -890,6 +921,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const ANALYSIS_METHOD='yolo_paulo_v2';
 const VISIBILITY_EXPERIMENTAL=new URLSearchParams(globalThis.location?.search||'').get('visibilidad')==='experimental';
 let visibilityRevision=null;
+let occupancyAlgorithm='linea_a';
 $('visibility-experimental-notice').hidden=!VISIBILITY_EXPERIMENTAL;
 let file=null,originalUrl=null,result=null,running=false,ready=false,states=defaultStates,currentModel=null,availableModels=[];
 let batch=[],batchIndex=-1,batchRunning=false,batchStop='',batchFilter='all',dirtySelection=false;
@@ -906,8 +938,51 @@ placeGallery();galleryMedia.addEventListener?.('change',placeGallery);
 
 function isV3(){return Boolean(currentModel?.geometry_only)}
 
+function algorithmModel(model=currentModel,algorithm=occupancyAlgorithm){
+  const option=model?.occupancy_algorithms?.find(a=>a.id===algorithm);
+  return option?{...model,occupancy_method:option.method,occupancy_revision:option.revision,occupancy_source_sha256:option.source_sha256}:model;
+}
+function variantKey(model=currentModel?.id,algorithm=occupancyAlgorithm){return JSON.stringify([model,algorithm])}
+function stashVariant(item){
+  item.variantResults ||= {};
+  item.variantResults[variantKey()]={result:item.result||null,analyzedConfidence:item.analyzedConfidence??null,
+    failure:item.failure||'',review:ReviewDesk.snapshot(item),previousAnalysis:item.previousAnalysis||null};
+}
+function activateVariant(item,model,algorithm,resetReview=false){
+  const saved=item.variantResults?.[variantKey(model.id,algorithm)];
+  const previous=item.result?{result:item.result,confidence:item.analyzedConfidence,review:ReviewDesk.snapshot(item),analysis_id:ReviewDesk.analysisId(item.result)}:item.previousAnalysis;
+  if(saved?.review)Object.assign(item,ReviewDesk.snapshot(saved.review));
+  else if(resetReview)Object.assign(item,{marked:false,correct:false,reason:'',note:'',issues:[],reviewEvents:[],reviewStale:false,reviewer:'',reviewedAt:null,reviewAnalysisId:null,comparison:null});
+  else if(item.marked||item.correct||item.issues?.length)item.reviewStale=true;
+  item.result=saved?.result||null;item.analyzedConfidence=saved?.analyzedConfidence??null;item.failure=saved?.failure||'';
+  item.previousAnalysis=saved?(saved.previousAnalysis||null):(previous||null);
+  item.reanalysisPending=false;item.lastAnalysisError='';
+  if(item.result&&!resultMatchesAlgorithm(item.result,model,algorithm)){
+    item.previousAnalysis={result:item.result,confidence:item.analyzedConfidence,review:ReviewDesk.snapshot(item),analysis_id:ReviewDesk.analysisId(item.result)};
+    item.result=null;item.analyzedConfidence=null;item.reviewStale=true;
+  }
+}
+function changeAlgorithm(id){
+  if(running||batchRunning||id===occupancyAlgorithm||!currentModel?.occupancy_algorithms?.some(a=>a.id===id))return;
+  for(const item of batch){stashVariant(item);activateVariant(item,currentModel,id,true)}
+  occupancyAlgorithm=id;reviewUndoStack=[];resetResult();modelContext();
+  if(batchIndex>=0&&batch[batchIndex]?.result){show(batch[batchIndex].result);showAppliedConfidence(batch[batchIndex].analyzedConfidence)}
+  else if(file)$('photo-info').textContent='Algoritmo cambiado. Analiza esta foto para compararlo; el otro resultado se conserva.';
+  if(file&&!result)$('occupancy-empty').textContent='Analiza esta foto con el algoritmo seleccionado. El otro resultado se conserva.';
+  markDirty();renderBatch();saveSession();
+}
+$('algorithm-choice').addEventListener('change',()=>changeAlgorithm($('algorithm-choice').value));
+
 function modelContext(){
-  const lineaA=currentModel?.occupancy_method==='linea_a_v1_gondola_anchorage';
+  const options=currentModel?.occupancy_algorithms||[];
+  $('algorithm-choice-wrap').hidden=options.length<2;
+  $('algorithm-choice').innerHTML=options.map(a=>`<option value="${esc(a.id)}">${esc(a.name)}</option>`).join('');
+  $('algorithm-choice').value=occupancyAlgorithm;
+  if($('analyze-both'))$('analyze-both').disabled=options.length<2;
+  $('algorithm-help').textContent=occupancyAlgorithm==='basal'?'Mide cobertura del frente observable. Umbral de prueba: 30 %. Pendiente de calibración; no mide stock.':'Índice visual actual, umbral 52 / 100. Los resultados de cada algoritmo se guardan por separado.';
+  $('algorithm-result-label').textContent=occupancyAlgorithm==='basal'?'Franja basal · experimental':'Línea A · actual';
+  $('occupancy-heading').textContent=occupancyAlgorithm==='basal'?'Frente por nivel':'Ocupación por nivel';
+  const lineaA=algorithmModel()?.occupancy_method==='linea_a_v1_gondola_anchorage';
   $('legend-enough-range').textContent=lineaA?'≥ 52 / 100':'≥ 30 %';
   $('legend-low-range').textContent=lineaA?'< 52 / 100':'< 30 %';
   states=currentModel?.states?.map(s=>[s.key,s.label,s.color])||defaultStates;
@@ -919,14 +994,11 @@ function modelContext(){
 function changeModel(id){
   const next=availableModels.find(model=>model.id===id);
   if(!next||next.id===currentModel?.id||running||batchRunning)return;
-  const previous=currentModel?.id;
+  const nextAlgorithm=occupancyAlgorithm==='basal'&&!next.occupancy_algorithms?.some(a=>a.id==='basal')?'linea_a':occupancyAlgorithm;
   for(const item of batch){
-    item.modelResults=item.modelResults||{};
-    if(previous)item.modelResults[previous]={result:item.result||null,analyzedConfidence:item.analyzedConfidence??null,failure:item.failure||''};
-    const saved=item.modelResults[next.id];
-    item.result=saved?.result||null;item.analyzedConfidence=saved?.analyzedConfidence??null;item.failure=saved?.failure||'';
+    stashVariant(item);activateVariant(item,next,nextAlgorithm);
   }
-  currentModel=next;resetResult();modelContext();
+  occupancyAlgorithm=nextAlgorithm;currentModel=next;reviewUndoStack=[];resetResult();modelContext();
   if(batchIndex>=0&&batch[batchIndex]?.result){show(batch[batchIndex].result);showAppliedConfidence(batch[batchIndex].analyzedConfidence)}
   else if(file)$('photo-info').textContent='Modelo cambiado. Analiza la foto para ver sus resultados.';
   renderBatch();saveSession();
@@ -951,6 +1023,7 @@ function syncOccupancyPanel(){
   if($('occupancy-avg-badge'))$('occupancy-avg-badge').hidden=!hasOcc;
 }
 
+let compareBothAction='run';
 function availability(){
   $('fields').disabled=!ready||running||batchRunning;
   $('batch-analyze').disabled=running||batchRunning||!ready||!batch.some(item=>item.reanalysisPending||(!item.result&&!item.failure));
@@ -970,6 +1043,18 @@ function availability(){
   $('reanalyze-current').textContent=running?'Analizando esta foto...':result?'Reanalizar esta foto':'Analizar esta foto';
   $('batch-confirm-wrap').hidden=true;
   $('analyze').textContent=running||batchRunning?'Analizando…':batch.length>1?`Analizar ${batch.length} fotos`:'Analizar fotos';
+  const canCompareBoth=isV3()&&(currentModel?.occupancy_algorithms?.length||0)>=2;
+  const curCompareItem=batchIndex>=0?batch[batchIndex]:null;
+  const altAlgoId=occupancyAlgorithm==='basal'?'linea_a':'basal';
+  const altCompareRes=canCompareBoth&&curCompareItem?ReviewDesk.variantResultFor(curCompareItem,altAlgoId,currentModel?.id,occupancyAlgorithm):null;
+  const hasAltReady=Boolean(altCompareRes&&resultMatchesAlgorithm(altCompareRes,currentModel,altAlgoId));
+  if($('compare-both-now')){
+    $('compare-both-now').hidden=!canCompareBoth||!file;
+    $('compare-both-now').disabled=running||batchRunning||!ready||!file;
+    $('compare-both-now').textContent=hasAltReady?(occupancyAlgorithm==='basal'?'Ver Línea A':'Ver Basal'):'Comparar ambos (1 pasada)';
+    compareBothAction=hasAltReady?'switch':'run';
+    $('compare-both-now').setAttribute('data-action',compareBothAction);
+  }
 }
 
 let mobileStep='1';
@@ -1024,6 +1109,15 @@ function resultDescription(data){
   return data.geometry_only?'Niveles detectados y alcance de la medición. Consulta los avisos por nivel.':data.occupancy?'Ocupación estimada por nivel. Rojo bajo el 30 %; verde desde el 30 %.':'Niveles detectados';
 }
 
+function currentComparisonPair(){
+  const item=batchIndex>=0?batch[batchIndex]:null;
+  if(!item||!isV3()||(currentModel?.occupancy_algorithms?.length||0)<2)return null;
+  const resA=ReviewDesk.variantResultFor(item,'linea_a',currentModel?.id,occupancyAlgorithm);
+  const resB=ReviewDesk.variantResultFor(item,'basal',currentModel?.id,occupancyAlgorithm);
+  if(resA&&resB&&resultMatchesAlgorithm(resA,currentModel,'linea_a')&&resultMatchesAlgorithm(resB,currentModel,'basal'))return {resA,resB};
+  return null;
+}
+
 function view(mode){
   if(mode!=='original'&&($('view-'+mode).disabled||!result))return;
   const comparing=mode==='compare';
@@ -1037,10 +1131,35 @@ function view(mode){
     $('photo').alt=mode==='result'?resultDescription(result):mode==='edges'?$('edge-view').selectedOptions[0].textContent:'Foto original de la góndola';
   }
   if(comparing){
-    $('compare-original').src=originalUrl;
-    $('compare-result').src=result.image_url;
-    $('compare-result').alt=resultDescription(result);
-    $('compare-caption').textContent=result.occupancy?'Ocupación estimada':'Niveles detectados';
+    const pair=currentComparisonPair();
+    if($('compare-mode'))$('compare-mode').hidden=!pair;
+    let compareMode=$('compare-mode')?.value||'original_vs_result';
+    if(!pair&&compareMode!=='original_vs_result'){
+      compareMode='original_vs_result';
+      if($('compare-mode'))$('compare-mode').value=compareMode;
+    }
+    if(pair&&compareMode==='linea_a_vs_basal'){
+      if($('compare-left-caption'))$('compare-left-caption').textContent='Línea A · índice 0–100';
+      $('compare-original').src=pair.resA.image_url;
+      $('compare-original').alt='Resultado Línea A';
+      $('compare-caption').textContent='Basal · frente observable';
+      $('compare-result').src=pair.resB.image_url;
+      $('compare-result').alt='Resultado Basal experimental';
+    }else if(pair&&compareMode==='edges_linea_a_vs_basal'){
+      if($('compare-left-caption'))$('compare-left-caption').textContent='Señal Línea A (cuerpo)';
+      $('compare-original').src=pair.resA.occupancy_image_url||pair.resA.image_url;
+      $('compare-original').alt='Mapa de señal Línea A';
+      $('compare-caption').textContent='Señal Basal (franja apoyo)';
+      $('compare-result').src=pair.resB.occupancy_image_url||pair.resB.image_url;
+      $('compare-result').alt='Mapa de señal Basal';
+    }else{
+      if($('compare-left-caption'))$('compare-left-caption').textContent='Original';
+      $('compare-original').src=originalUrl;
+      $('compare-original').alt='Foto original de la góndola';
+      $('compare-result').src=result.image_url;
+      $('compare-result').alt=resultDescription(result);
+      $('compare-caption').textContent=result.occupancy?'Ocupación estimada':'Niveles detectados';
+    }
   }
   for(const name of viewModes){
     const selected=name===mode;
@@ -1152,7 +1271,10 @@ function showV3(data){
     $('occupancy-help').textContent='Rojo: menos del 30 %. Verde: 30 % o más. Estimación visual experimental, pendiente de calibración.';
     return;
   }
+  const basal=data.occupancy?.interpretation_policy?.name==='basal_visible_width_v1';
+  $('algorithm-result-note').textContent=basal?'Cobertura del frente observable, no stock físico. Umbral experimental sin calibrar.':'Índice visual experimental; no representa stock físico. Revisa siempre la foto.';
   const lineaA=data.occupancy?.interpretation_policy?.name==='body_fill_gap_v1';
+  $('algorithm-result-label').textContent=basal?'Franja basal · experimental · umbral 30 %':lineaA?'Línea A · actual · umbral 52 / 100':'Ocupación experimental';
   const threshold=lineaA?data.occupancy.interpretation_policy.threshold_pct:30;
   $('legend-enough-range').textContent=lineaA?`≥ ${threshold} / 100`:'≥ 30 %';
   $('legend-low-range').textContent=lineaA?`< ${threshold} / 100`:'< 30 %';
@@ -1166,6 +1288,7 @@ function showV3(data){
   const reponerLevels=data.detections.filter(d=>d.occupancy_estimate?.state==='reponer').map(d=>d.id);
 
   renderKPIs(total, low, review, avgPct, lineaA);
+  $('occupancy-average-label').textContent=basal?`Media (${measured.length}/${total})`:'Media';
 
   if(data.photo_status==='gondola_tapada'||data.photo_status==='no_evaluable'){
     $('summary').hidden=false;
@@ -1173,7 +1296,7 @@ function showV3(data){
   }else if(low>0){
     $('summary').hidden=false;
     const lvlText=reponerLevels.length===1?`nivel ${reponerLevels[0]}`:`niveles ${reponerLevels.join(', ')}`;
-    $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>Quiebre detectado en ${lvlText}.</strong> Prioriza la reposición.</span></div>`;
+    $('summary').innerHTML=`<div class="banner-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>${basal?'Señal basal baja':'Quiebre detectado'} en ${lvlText}.</strong> ${basal?'Revisa la foto para confirmar la alerta experimental.':'Prioriza la reposición.'}</span></div>`;
   }else{
     $('summary').hidden=true;
     $('summary').innerHTML='';
@@ -1181,9 +1304,17 @@ function showV3(data){
 
   $('occupancy-columns').innerHTML=`<tr><th>Nivel</th><th>${lineaA?'Índice de disponibilidad':'Ocupación estimada'}</th><th>Alcance</th><th>Resultado</th><th>Aviso / acción</th></tr>`;
   const front=data.occupancy?.interpretation_policy?.name==='front_coverage_v1';
-  $('occupancy-help').textContent=!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':lineaA?`Línea A: reponer con índice menor a ${threshold}; suficiente desde ${threshold}. Escala de 0 a 100, no porcentaje físico de stock. Los recortes requieren revisión.`:front?'Cobertura estimada del frente: reponer bajo el 30 %, suficiente desde el 30 %. Se asume lleno detrás del producto visible. Los recortes requieren revisión.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
+  $('occupancy-help').textContent=basal?'Cobertura del frente observable. Umbral experimental 30 %, pendiente de calibración. Las bases poco observables requieren revisión.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':lineaA?`Línea A: reponer con índice menor a ${threshold}; suficiente desde ${threshold}. Escala de 0 a 100, no porcentaje físico de stock. Los recortes requieren revisión.`:front?'Cobertura estimada del frente: reponer bajo el 30 %, suficiente desde el 30 %. Se asume lleno detrás del producto visible. Los recortes requieren revisión.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
   $('level-occupancy').hidden=!total;
   syncOccupancyPanel();
+
+  const curItem=batchIndex>=0?batch[batchIndex]:null;
+  const altAlgo=occupancyAlgorithm==='basal'?'linea_a':'basal';
+  const altRaw=curItem&&(currentModel?.occupancy_algorithms?.length||0)>=2?ReviewDesk.variantResultFor(curItem,altAlgo,currentModel?.id,occupancyAlgorithm):null;
+  const altResult=altRaw&&resultMatchesAlgorithm(altRaw,currentModel,altAlgo)?altRaw:null;
+  const stateLabel=st=>st==='reponer'?'Reponer':st==='suficiente'?'Suficiente':st==='revisar'?'Revisar':'Sin medición';
+  const gtLabels=curItem?.levelLabels||{};
+  const gtOptions=[['suficiente','Suficiente'],['baja_disponibilidad','Baja'],['vacio','Vacío'],['no_evaluable','No eval.']];
 
   const priority=d=>d.occupancy_estimate?.state==='reponer'?0:d.occupancy_estimate?.state==='suficiente'?2:1;
   $('occupancy-rows').innerHTML=[...data.detections].sort((a,b)=>priority(a)-priority(b)).map(d=>{
@@ -1193,6 +1324,14 @@ function showV3(data){
     const fillWidth=valid?Math.max(2,Math.min(100,Math.round(o.pct))):0;
     const pctText=valid?Math.round(o.pct)+(lineaA?' / 100':' %'):'—';
     const scopeNotice=d.scope==='Solo zona visible'?'Solo zona visible - revisa la foto':(d.notice||(d.scope||'Área detectada'));
+    const altDet=altResult?.detections?.find(x=>x.id===d.id);
+    const altEst=altDet?.occupancy_estimate;
+    const altPct=Number.isFinite(altEst?.pct)?Math.round(altEst.pct)+(altAlgo==='linea_a'?' / 100':' %'):'—';
+    const altState=altEst?.state||'sin_medicion';
+    const altDiff=Boolean(altDet&&altState!==(o?.state||'sin_medicion'));
+    const altHtml=altDet?`<div class="compare-alt-row${altDiff?' is-diff':''}"><span>${altAlgo==='basal'?'Basal':'Línea A'}: <b>${esc(altPct)}</b> · ${esc(stateLabel(altState))}</span>${altDiff?'<span class="compare-alt-diff-pill">Discrepan</span>':''}</div>`:'';
+    const activeGt=gtLabels[String(d.id)]?.label||'';
+    const gtHtml=curItem?`<div class="occ-gt-group" role="group" aria-label="Etiqueta humana nivel ${d.id}">${gtOptions.map(([val,txt])=>`<button type="button" class="occ-gt-btn" data-occ-level="${d.id}" data-occ-label="${val}" aria-pressed="${activeGt===val}">${txt}</button>`).join('')}</div>`:'';
 
     return `<tr class="occupancy-item occupancy-${tone}"><td class="occupancy-cell">
       <div class="occupancy-item-header">
@@ -1206,16 +1345,18 @@ function showV3(data){
         </div>
         <span class="occupancy-pct occupancy-value occupancy-${tone}">${pctText}</span>
       </div>
-      <details class="level-details"><summary>Detalle del nivel</summary><div class="detection-confidence">${detectionConfidence(d.confidence)}</div></details>
+      ${altHtml}
+      <details class="level-details"><summary>Detalle del nivel</summary><div class="detection-confidence">${detectionConfidence(d.confidence)}</div>${basal?`<div class="detection-confidence">Ancho observable: ${Number.isFinite(d.occupancy?.observed_width_pct)?Math.round(d.occupancy.observed_width_pct)+' %':'sin medición'}. Umbral 30 %, pendiente de calibración.</div>`:''}</details>
       <div class="occupancy-item-footer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         <span>${esc(scopeNotice)}</span>
       </div>
+      ${gtHtml}
       <button type="button" class="level-review-button" data-review-level="${d.id}">Señalar fallo en nivel ${d.id}</button>
     </td></tr>`;
   }).join('');
 
-  if(data.occupancy)$('edge-description').textContent=lineaA?'Línea A combina evidencia de bordes, color y textura con normalización por góndola y penalización por hueco continuo. El mapa fucsia muestra evidencia visual, no productos confirmados. Índice experimental de 0 a 100.':front?'Cobertura estimada del frente con señal respaldada por bordes o textura. El espacio libre sobre los productos no reduce la cobertura. Se asume lleno detrás del producto visible. Estimación experimental, pendiente de calibración.':'Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
+  if(data.occupancy)$('edge-description').textContent=basal?'Franja basal experimental: señal de bordes, color y textura cerca del apoyo. El mapa fucsia muestra evidencia en la base. El porcentaje se refiere al frente observable, no al stock. Umbral de prueba: 30 %, sin calibrar.':lineaA?'Línea A combina evidencia de bordes, color y textura con normalización por góndola y penalización por hueco continuo. El mapa fucsia muestra evidencia visual, no productos confirmados. Índice experimental de 0 a 100.':front?'Cobertura estimada del frente con señal respaldada por bordes o textura. El espacio libre sobre los productos no reduce la cobertura. Se asume lleno detrás del producto visible. Estimación experimental, pendiente de calibración.':'Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
   if(data.photo_status==='gondola_tapada'||data.photo_status==='no_evaluable'){
     $('result-tools').hidden=true;
     $('view-result').disabled=true;
@@ -1296,14 +1437,17 @@ function show(data){
   $('download').download='resultado_gondola.jpg';
 
   if(data.occupancy){
+    const basal=data.occupancy.interpretation_policy?.name==='basal_visible_width_v1';
     const lineaA=data.occupancy.interpretation_policy?.name==='body_fill_gap_v1';
     const front=data.occupancy.interpretation_policy?.name==='front_coverage_v1',weighted=data.occupancy.method==='paulo_mascara_v2_combinacion_ponderada',pct=value=>value==null?'Sin medición':Number(value).toLocaleString('es-CL',{maximumFractionDigits:2})+' %';
     $('edge-summary').textContent='Cómo se estima la ocupación';
     $('edge-description').textContent=(weighted?'Ocupación estimada = 70 % de superficie + 30 % de ancho. ':'Ocupación estimada = área con señal. ')+'La estimación usa bordes, color y textura. No mide el stock detrás de los productos.';
     $('edge-columns').innerHTML=`<tr><th>Nivel</th>${front?'<th>Cobertura del frente</th>':''}${weighted?'<th>Combinado de área y ancho</th>':''}<th>Área con señal</th><th>Ancho con señal</th><th>Medición</th></tr>`;
+    if(basal)$('edge-columns').innerHTML='<tr><th>Nivel</th><th>Frente cubierto</th><th>Ancho observable</th><th>Mayor hueco conocido</th><th>Medición</th></tr>';
     if(lineaA)$('edge-columns').innerHTML='<tr><th>Nivel</th><th>Índice / 100</th><th>Evidencia del cuerpo</th><th>Mayor hueco</th><th>Medición</th></tr>';
     $('edge-rows').innerHTML=data.detections.map(d=>{
       const o=d.occupancy||{};
+      if(basal)return `<tr><td>${d.id}</td><td>${o.review_required?'Revisar':pct(o.pct)}</td><td>${pct(o.observed_width_pct)}</td><td>${pct(o.max_gap_pct)}</td><td>${esc(o.review_reason||'Basal experimental; umbral sin calibrar')}</td></tr>`;
       if(lineaA)return `<tr><td>${d.id}</td><td>${Number.isFinite(o.pct)?o.pct.toLocaleString('es-CL')+' / 100':'Sin medición'}</td><td>${pct(o.hyb_body_pct)}</td><td>${pct(o.max_gap_pct)}</td><td>${esc(o.review_reason||(o.status==='medido'?'Índice experimental':'Sin medición'))}</td></tr>`;
       return `<tr><td>${d.id}</td>${front?`<td>${pct(o.front_signal_pct)}</td>`:''}${weighted?`<td>${pct(o.combined_signal_pct)}</td>`:''}<td>${pct(o.area_signal_pct)}</td><td>${pct(o.width_signal_pct)}</td><td>${esc(o.reason||(o.status==='medido'?'Señal experimental':'Sin medición'))}</td></tr>`;
     }).join('');
@@ -1356,11 +1500,42 @@ $('mobile-new-photo')?.addEventListener('click',()=>{
   $('file')?.click();
 });
 
+function renderBatchCompareSummary(){
+  const box=$('batch-compare-summary');
+  if(!box)return;
+  if(!batch.length){box.hidden=true;box.innerHTML='';return;}
+  const stats=ReviewDesk.computeComparisonMetrics(batch,currentModel?.id,occupancyAlgorithm);
+  if(!stats.comparedPhotos&&!stats.labeledLevels){box.hidden=true;box.innerHTML='';return;}
+  const parts=[];
+  if(stats.comparedPhotos){
+    const agreePct=stats.comparedLevels?Math.round(100*stats.agreements/stats.comparedLevels):0;
+    const revA=stats.lineaAReviewRate!=null?Math.round(stats.lineaAReviewRate):0;
+    const revB=stats.basalReviewRate!=null?Math.round(stats.basalReviewRate):0;
+    parts.push(`<span class="batch-compare-pill">Comparadas: ${stats.comparedPhotos} fotos (${stats.comparedLevels} niveles)</span>`);
+    parts.push(`<span class="batch-compare-pill">Acuerdo: ${agreePct}%</span>`);
+    parts.push(`<button type="button" class="batch-compare-pill is-diff" data-filter-discrepancies="1">Discrepancias: ${stats.discrepancies} niveles (${stats.discrepancyIndices.size} fotos)</button>`);
+    parts.push(`<span class="batch-compare-pill">Revisar: Línea A ${revA}% · Basal ${revB}%</span>`);
+  }
+  if(stats.labeledLevels){
+    const fmtM=(m,name)=>{
+      if(!m.evaluable)return '';
+      const f1=m.f1!=null?Math.round(m.f1)+'%':'—',p=m.precision!=null?Math.round(m.precision)+'%':'—',r=m.recall!=null?Math.round(m.recall)+'%':'—';
+      return `${name}: F1 ${f1} (P ${p} · R ${r})`;
+    };
+    const mA=fmtM(stats.metrics.linea_a,'Línea A'),mB=fmtM(stats.metrics.basal,'Basal');
+    parts.push(`<span class="batch-compare-pill">Etiquetas: ${stats.labeledLevels} niveles (${stats.labeledPhotos} fotos)</span>`);
+    if(mA)parts.push(`<span class="batch-compare-pill">${mA}</span>`);
+    if(mB)parts.push(`<span class="batch-compare-pill">${mB}</span>`);
+  }
+  box.innerHTML=parts.join('');
+  box.hidden=!parts.length;
+}
+
 function renderBatch(){
   const active=batchIndex>=0;
   $('batch-gallery').hidden=!active;
   syncGalleryHeader();
-  if(!active){renderReviewDesk();return;}
+  if(!active){renderBatchCompareSummary();renderReviewDesk();return;}
   const marked=batch.filter(item=>item.marked).length,done=batch.filter(item=>item.result).length,failed=batch.filter(item=>item.failure).length;
   $('batch-progress').max=batch.length;$('batch-progress').value=done+failed;
   $('batch-progress-text').textContent=`${done} analizadas, ${failed} con error, ${batch.length-done-failed} pendientes`;
@@ -1386,7 +1561,7 @@ function renderBatch(){
   $('batch-correct').setAttribute('aria-pressed',String(reviewState==='correcta'));
   $('batch-mark').textContent=selected.marked?'Añadir fallo (F)':'Registrar fallo (F)';
   $('batch-mark').setAttribute('aria-pressed',String(reviewState==='para_revision'));
-  availability();renderReviewDesk();
+  renderBatchCompareSummary();availability();renderReviewDesk();
 }
 
 // Generate one small gallery image at a time; the source file remains untouched.
@@ -1442,9 +1617,11 @@ async function verifyVisibilityRevision(){
   visibilityRevision=data.revision;
   return data.revision;
 }
-function resultMatchesAlgorithm(data, model=currentModel){
+function resultMatchesAlgorithm(data, model=currentModel, algorithm=occupancyAlgorithm){
+  model=algorithmModel(model,algorithm);
   return (!model?.occupancy_method||data?.occupancy?.method===model.occupancy_method)
     &&(!model?.occupancy_revision||data?.occupancy?.revision===model.occupancy_revision)
+    &&(!model?.occupancy_source_sha256||data?.occupancy?.source_sha256===model.occupancy_source_sha256)
     &&(!model?.model_sha256||(data?.model===model.id&&data?.analysis_context?.model_sha256===model.model_sha256))
     &&(!model?.inference_sha256||data?.analysis_context?.source_sha256?.['inferencia.py']===model.inference_sha256);
 }
@@ -1538,7 +1715,25 @@ $('batch-download').addEventListener('click',exportReviewLot);
 
 $('batch-toggle').addEventListener('click',()=>{const expanded=$('batch-details').hidden;$('batch-details').hidden=!expanded;$('batch-toggle').setAttribute('aria-expanded',String(expanded));$('batch-toggle').textContent=expanded?'Ocultar opciones':'Ver opciones'});
 $('batch-filter').addEventListener('change',()=>{batchFilter=$('batch-filter').value;renderBatch()});
-function filteredBatchIndices(){return batch.map((item,i)=>({item,i})).filter(({item})=>batchFilter==='all'||(batchFilter==='marked'&&ReviewDesk.status(item)==='para_revision')||(batchFilter==='correct'&&ReviewDesk.status(item)==='correcta')||(batchFilter==='unreviewed'&&ReviewDesk.status(item)==='sin_revisar')||(batchFilter==='failed'&&item.failure)||(batchFilter==='pending'&&!item.result&&!item.failure)).map(x=>x.i)}
+$('batch-compare-summary')?.addEventListener('click',event=>{
+  if(event.target?.closest?.('[data-filter-discrepancies]')){$('batch-filter').value='discrepancies';batchFilter='discrepancies';renderBatch();}
+});
+function filteredBatchIndices(){
+  const discrepancies=batchFilter==='discrepancies'?ReviewDesk.computeComparisonMetrics(batch,currentModel?.id,occupancyAlgorithm).discrepancyIndices:null;
+  return batch.map((item,i)=>({item,i})).filter(({item,i})=>{
+    if(batchFilter==='all')return true;
+    if(batchFilter==='discrepancies')return discrepancies.has(i);
+    if(batchFilter==='alerts'){const c=ReviewDesk.summary(item.result);return Boolean(item.result&&(c.reponer||c.revisar));}
+    if(batchFilter==='labeled')return ReviewDesk.levelLabelCount(item)>0;
+    if(batchFilter==='unlabeled')return ReviewDesk.levelLabelCount(item)===0;
+    if(batchFilter==='marked')return ReviewDesk.status(item)==='para_revision';
+    if(batchFilter==='correct')return ReviewDesk.status(item)==='correcta';
+    if(batchFilter==='unreviewed')return ReviewDesk.status(item)==='sin_revisar';
+    if(batchFilter==='failed')return Boolean(item.failure);
+    if(batchFilter==='pending')return !item.result&&!item.failure;
+    return true;
+  }).map(x=>x.i);
+}
 function moveBatch(delta){const indices=filteredBatchIndices();const next=delta<0?indices.filter(i=>i<batchIndex).at(-1):indices.find(i=>i>batchIndex);if(next!==undefined)selectBatch(next)}
 $('batch-prev').addEventListener('click',()=>moveBatch(-1));$('batch-next').addEventListener('click',()=>moveBatch(1));
 $('batch-pause').addEventListener('click',()=>{if(!batchRunning||batchStop)return;batchStop='pause';renderBatch()});
@@ -1562,8 +1757,53 @@ const compareFigures=document.querySelectorAll?document.querySelectorAll('#compa
 for(const figure of compareFigures)figure.addEventListener('scroll',()=>{for(const other of compareFigures)if(other!==figure){other.scrollLeft=figure.scrollLeft;other.scrollTop=figure.scrollTop}});
 // Guardado local en IndexedDB, limitado a este navegador y eliminable por el usuario.
 function sessionDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB){reject(Error('Almacenamiento no disponible'));return}const request=window.indexedDB.open('walmart-vision-session',1);request.onupgradeneeded=()=>request.result.createObjectStore('session');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
-function saveSession(){if(!window.indexedDB)return;const snapshot={reviewer:$('reviewer-name').value,autoNext:$('review-auto-next').checked,items:batch.map(({thumb,analyzing,...item})=>item),index:batchIndex,dirty:dirtySelection,confirmed:$('batch-confirm').checked,analysisVersion:VISIBILITY_EXPERIMENTAL?3:2,model:currentModel?.id};saveQueue=saveQueue.catch(()=>{}).then(async()=>{const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').put(snapshot,'current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close();$('storage-status').hidden=true;$('storage-status').textContent='Sesión guardada en este navegador.'}).catch(()=>{$('storage-status').hidden=false;$('storage-status').textContent='No se pudo guardar la sesión. Descarga las fotos antes de cerrar.'});}
-async function restoreSession(){if(!window.indexedDB)return;try{await saveQueue;const db=await sessionDB();const snapshot=await new Promise((resolve,reject)=>{const req=db.transaction('session').objectStore('session').get('current');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});db.close();if(batch.length||!snapshot?.items?.length)return;batch=snapshot.items.map(({thumb,...item})=>{const saved=!VISIBILITY_EXPERIMENTAL&&snapshot.analysisVersion===2?{...(item.modelResults||{})}:{};if(!VISIBILITY_EXPERIMENTAL&&snapshot.analysisVersion===2&&snapshot.model)saved[snapshot.model]={result:item.result||null,analyzedConfidence:item.analyzedConfidence??null,failure:item.failure||''};for(const [id,entry] of Object.entries(saved)){const model=availableModels.find(m=>m.id===id);if(entry.result&&!resultMatchesAlgorithm(entry.result,model))delete saved[id]}const active=saved[currentModel?.id];const stale=Boolean(item.result&&!active?.result);return {...item,analyzing:false,reviewStale:item.reviewStale||stale,previousAnalysis:stale?{result:item.result,confidence:item.analyzedConfidence,analysis_id:ReviewDesk.analysisId(item.result)}:item.previousAnalysis,thumb:null,modelResults:saved,result:active?.result||null,analyzedConfidence:active?.analyzedConfidence??null,failure:active?.failure||''}});if(snapshot.reviewer)$('reviewer-name').value=snapshot.reviewer;if(typeof snapshot.autoNext==='boolean')$('review-auto-next').checked=snapshot.autoNext;dirtySelection=!!snapshot.dirty;$('batch-confirm').checked=true;selectBatch(Math.min(snapshot.index||0,batch.length-1));buildThumbnails(batch);$('storage-status').textContent='Sesión recuperada de este navegador.'}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo recuperar la sesión guardada.'}}
+function saveSession(){
+  if(!window.indexedDB)return;
+  for(const item of batch)stashVariant(item);
+  const snapshot={reviewer:$('reviewer-name').value,autoNext:$('review-auto-next').checked,
+    items:batch.map(({thumb,analyzing,...item})=>item),index:batchIndex,dirty:dirtySelection,
+    confirmed:$('batch-confirm').checked,analysisVersion:VISIBILITY_EXPERIMENTAL?3:2,
+    model:currentModel?.id,algorithm:occupancyAlgorithm,analyzeBoth:Boolean($('analyze-both')?.checked)};
+  saveQueue=saveQueue.catch(()=>{}).then(async()=>{
+    const db=await sessionDB();await new Promise((resolve,reject)=>{
+      const tx=db.transaction('session','readwrite');tx.objectStore('session').put(snapshot,'current');
+      tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});
+    db.close();$('storage-status').hidden=true;$('storage-status').textContent='Sesión guardada en este navegador.';
+  }).catch(()=>{$('storage-status').hidden=false;$('storage-status').textContent='No se pudo guardar la sesión. Descarga las fotos antes de cerrar.'});
+}
+async function restoreSession(){
+  if(!window.indexedDB)return;
+  try{
+    await saveQueue;const db=await sessionDB();
+    const snapshot=await new Promise((resolve,reject)=>{const req=db.transaction('session').objectStore('session').get('current');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
+    db.close();if(batch.length||!snapshot?.items?.length)return;
+    const savedModel=availableModels.find(m=>m.id===snapshot.model);
+    if(savedModel){currentModel=savedModel;$('model-choice').value=currentModel.id;}
+    occupancyAlgorithm=currentModel?.occupancy_algorithms?.some(a=>a.id===snapshot.algorithm)?snapshot.algorithm:'linea_a';
+    if($('analyze-both'))$('analyze-both').checked=Boolean(snapshot.analyzeBoth);
+    modelContext();
+    batch=snapshot.items.map(({thumb,...item})=>{
+      item.variantResults ||= {};
+      // Migrar sesiones anteriores sin borrar sus resultados ni marcas humanas.
+      if(!item.variantResults[variantKey(snapshot.model,snapshot.algorithm||'linea_a')]){
+        for(const [id,entry] of Object.entries(item.modelResults||{}))item.variantResults[variantKey(id,'linea_a')]=entry;
+        if(snapshot.model)item.variantResults[variantKey(snapshot.model,snapshot.algorithm||'linea_a')]={result:item.result||null,
+          analyzedConfidence:item.analyzedConfidence??null,failure:item.failure||'',review:ReviewDesk.snapshot(item),previousAnalysis:item.previousAnalysis||null};
+      }
+      activateVariant(item,currentModel,occupancyAlgorithm);
+      if(snapshot.analysisVersion!==(VISIBILITY_EXPERIMENTAL?3:2)&&item.result){
+        item.previousAnalysis={result:item.result,confidence:item.analyzedConfidence,review:ReviewDesk.snapshot(item),analysis_id:ReviewDesk.analysisId(item.result)};
+        item.result=null;item.analyzedConfidence=null;item.reviewStale=true;
+      }
+      return {...item,thumb:null,analyzing:false};
+    });
+    if(snapshot.reviewer)$('reviewer-name').value=snapshot.reviewer;
+    if(typeof snapshot.autoNext==='boolean')$('review-auto-next').checked=snapshot.autoNext;
+    dirtySelection=!!snapshot.dirty;$('batch-confirm').checked=true;
+    selectBatch(Math.min(snapshot.index||0,batch.length-1));buildThumbnails(batch);
+    $('storage-status').textContent='Sesión recuperada de este navegador.';
+  }catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo recuperar la sesión guardada.'}
+}
 $('batch-forget').addEventListener('click',async()=>{if(!confirm('Se borrará la sesión guardada y el lote actual. ¿Continuar?'))return;try{await saveQueue;if(window.indexedDB){const db=await sessionDB();await new Promise((resolve,reject)=>{const tx=db.transaction('session','readwrite');tx.objectStore('session').delete('current');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});db.close()}clearBatch();dirtySelection=false;location.reload()}catch(e){$('storage-status').hidden=false;$('storage-status').textContent='No se pudo borrar la sesión guardada. Intenta nuevamente.'}});
 window.addEventListener('beforeunload',event=>{if(dirtySelection){event.preventDefault();event.returnValue=''}});
 
@@ -1573,6 +1813,15 @@ $('file').addEventListener('change',()=>chooseBatch(Array.from($('file').files))
 
 for(const mode of viewModes)$('view-'+mode).addEventListener('click',()=>view(mode));
 $('edge-view').addEventListener('change',()=>view('edges'));
+$('compare-mode')?.addEventListener('change',()=>view('compare'));
+$('analyze-both')?.addEventListener('change',()=>saveSession());
+$('compare-both-now')?.addEventListener('click',()=>{
+  if(running||batchRunning)return;
+  if(compareBothAction==='switch'){changeAlgorithm(occupancyAlgorithm==='basal'?'linea_a':'basal');return;}
+  if($('analyze-both'))$('analyze-both').checked=true;
+  saveSession();
+  analyzePhoto(null,{both:true});
+});
 
 document.querySelector('[role=tablist]').addEventListener('keydown',event=>{
   if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
@@ -1610,17 +1859,39 @@ async function analyzePhoto(target=null,options={}){
   }
   renderBatch();availability();
   try{
-    const params=new URLSearchParams({model:selectedModel,confidence:selectedConfidence,method:ANALYSIS_METHOD});
+    const runBoth=Boolean((options.both||$('analyze-both')?.checked)&&isV3()&&(currentModel?.occupancy_algorithms?.length||0)>=2);
+    const params=new URLSearchParams({model:selectedModel,confidence:selectedConfidence,method:ANALYSIS_METHOD,ocupacion:runBoth?'ambos':occupancyAlgorithm});
+    if(runBoth)params.set('primario',occupancyAlgorithm);
     if(VISIBILITY_EXPERIMENTAL)params.set('visibilidad','experimental');
     const response=await fetch('/api/predict?'+params,{method:'POST',headers:{'Content-Type':selectedFile.type||'application/octet-stream'},body:selectedFile,signal:AbortSignal.timeout(300000)});
     const data=await response.json();if(!response.ok)throw Error(data.error||'No se pudo analizar la foto.');
+    const variants=data.variants;
+    if(variants)delete data.variants;
     if(VISIBILITY_EXPERIMENTAL&&data.evaluabilidad?.revision){
       if(visibilityRevision&&visibilityRevision!==data.evaluabilidad.revision){
         for(const other of batch){other.reviewStale=true;if(other!==item){other.result=null;other.analyzedConfidence=null;}}
       }
       visibilityRevision=data.evaluabilidad.revision;
     }
-    if(item){ReviewDesk.accept(item,data,Number(selectedConfidence));markDirty();}
+    if(item){
+      ReviewDesk.accept(item,data,Number(selectedConfidence));
+      if(variants&&typeof variants==='object'){
+        item.variantResults ||= {};
+        for(const [algo,vdata] of Object.entries(variants)){
+          const vkey=variantKey(selectedModel,algo);
+          const prev=item.variantResults[vkey];
+          if(algo===occupancyAlgorithm){
+            item.variantResults[vkey]={result:data,analyzedConfidence:Number(selectedConfidence),failure:'',review:ReviewDesk.snapshot(item),previousAnalysis:item.previousAnalysis||null};
+          }else{
+            const prevRev=prev?.review?ReviewDesk.snapshot(prev.review):{marked:false,correct:false,reason:'',note:'',issues:[],reviewEvents:[],reviewStale:false,reviewer:'',reviewedAt:null,reviewAnalysisId:null,comparison:null};
+            if(prevRev.marked||prevRev.correct||prevRev.issues?.length)prevRev.reviewStale=true;
+            const prevAnalysis=prev?.result?{result:prev.result,confidence:prev.analyzedConfidence,review:prev.review||null,analysis_id:ReviewDesk.analysisId(prev.result)}:(prev?.previousAnalysis||null);
+            item.variantResults[vkey]={result:vdata,analyzedConfidence:Number(selectedConfidence),failure:'',review:prevRev,previousAnalysis:prevAnalysis};
+          }
+        }
+      }
+      markDirty();
+    }
     if(!background||batch[batchIndex]===item){show(data);showAppliedConfidence(selectedConfidence);}
     saveSession();
   }catch(err){

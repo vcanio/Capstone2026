@@ -5,6 +5,7 @@ niveles; ocupacion_paulo mide señal dentro de ellas y presentacion_niveles
 prepara la lectura y la imagen. Las fotos se procesan en memoria.
 """
 from collections import Counter
+from copy import deepcopy
 from io import BytesIO
 import hashlib
 import json
@@ -80,6 +81,13 @@ class ModelRunner:
         self.models = {}
         self.manifest = json.loads((self.root / 'modelos.json').read_text(encoding='utf-8'))
         self.entries = {item['id']: item for item in self.manifest['models']}
+        experimental = self.manifest.get('experimental_sources', {})
+        if set(experimental) - {'ocupacion_basal.py'}:
+            raise ValueError('Módulo experimental no reconocido.')
+        for name, expected in experimental.items():
+            path = self.root / name
+            if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError('El algoritmo experimental está incompleto o modificado.')
         if 'edge_sources' in self.manifest:
             sources = self.manifest['edge_sources']
             legacy_sources = {'ocupacion_paulo.py', 'gondola_bordes.py'}
@@ -122,7 +130,28 @@ class ModelRunner:
             models.append(value)
         return models
 
-    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable'):
+    def _build_prediction(self, image, result, original_rgb, base_detections, model_id, device,
+                          started, method, geometry, evaluability, visibility_mode, occupancy_algorithm):
+        """Calcular ocupación, alcance y dibujo para un algoritmo sobre máscaras ya predichas."""
+        detections = deepcopy(base_detections)
+        extra = {}
+        if method in ('yolo_paulo', 'yolo_paulo_v2'):
+            options = {'occupancy_algorithm': occupancy_algorithm} if occupancy_algorithm != 'linea_a' else {}
+            extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1', **options)
+            if visibility_mode == 'experimental' and any(d.get('occupancy', {}).get('status') != 'medido' for d in detections):
+                return None
+        if geometry:
+            from vision_v3 import apply_scope
+            apply_scope(detections, image.width, image.height)
+        annotated = draw_result(image, result, measurements=detections)[0] if extra else None
+        counts = Counter(d['state'] for d in detections)
+        return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
+                'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
+                'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
+                'width': image.width, 'height': image.height, 'method': method,
+                'geometry_only': geometry, **({'evaluabilidad': evaluability} if evaluability else {}), **extra}
+
+    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable', occupancy_algorithm='linea_a', primary_algorithm='linea_a'):
         """Analizar bytes de una foto y devolver imagen, detecciones y métricas.
 
         confidence filtra detecciones de niveles; no expresa ocupación.
@@ -134,6 +163,12 @@ class ModelRunner:
         if model_id not in self.entries:
             raise ValueError('Elige uno de los modelos incluidos.')
         geometry = self.entries[model_id].get('classes') == ['Nivel']
+        if occupancy_algorithm not in ('linea_a', 'basal', 'ambos'):
+            raise ValueError('Elige Línea A, Franja basal experimental o Ambos.')
+        if primary_algorithm not in ('linea_a', 'basal'):
+            raise ValueError('El algoritmo principal debe ser Línea A o Franja basal experimental.')
+        if occupancy_algorithm in ('basal', 'ambos') and (not geometry or method != 'yolo_paulo_v2'):
+            raise ValueError('La franja basal requiere niveles V3 y análisis de bordes V2.')
         if confidence is None:
             confidence = .6 if geometry else .25
         if isinstance(confidence, bool) or not isinstance(confidence, (int, float)) or not math.isfinite(confidence) or not .01 <= confidence <= .99:
@@ -163,6 +198,7 @@ class ModelRunner:
                 evaluability = assess(image, self.root)
                 if evaluability['estado'] != 'apta':
                     return blocked(evaluability['estado'], 'No se puede evaluar la góndola con esta foto. Toma otra imagen despejada.')
+            original_rgb = None
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
@@ -182,24 +218,28 @@ class ModelRunner:
                          and not any(d.get('near_frame', False) for d in detections))
                 if not valid:
                     return blocked('dudosa', 'No se pudieron delimitar los niveles con suficiente alcance. Toma otra foto.')
-            extra = {}
             # 3. Medir las máscaras originales y revisar el alcance visible.
-            if method in ('yolo_paulo', 'yolo_paulo_v2'):
-                extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1')
-                if visibility_mode == 'experimental' and any(d.get('occupancy', {}).get('status') != 'medido' for d in detections):
-                    return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
-            if geometry:
-                from vision_v3 import apply_scope
-                apply_scope(detections, image.width, image.height)
-            if extra:
-                # 4. Dibujar las lecturas definitivas sobre una copia de la foto.
-                annotated, _ = draw_result(image, result, measurements=detections)
-            counts = Counter(d['state'] for d in detections)
-            return {'image': annotated, 'model': model_id, 'device': 'GPU' if device == 0 else 'CPU',
-                    'seconds': round(time.perf_counter() - started, 2), 'detections': detections,
-                    'counts': {STATES[c][0]: counts[STATES[c][0]] for c in self.entries[model_id].get('classes', V1_CLASSES)},
-                    'width': image.width, 'height': image.height, 'method': method,
-                    'geometry_only': geometry, **({'evaluabilidad': evaluability} if evaluability else {}), **extra}
+            if occupancy_algorithm == 'ambos':
+                variants = {}
+                for algo in ('linea_a', 'basal'):
+                    payload = self._build_prediction(
+                        image, result, original_rgb, detections, model_id, device,
+                        started, method, geometry, evaluability, visibility_mode, algo)
+                    if payload is None:
+                        return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
+                    if algo != primary_algorithm:
+                        payload.pop('edges_image', None)
+                        payload.pop('filtered_edges_image', None)
+                    variants[algo] = payload
+                return {**variants[primary_algorithm], 'variant_results': variants}
+            payload = self._build_prediction(
+                image, result, original_rgb, detections, model_id, device,
+                started, method, geometry, evaluability, visibility_mode, occupancy_algorithm)
+            if payload is None:
+                return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
+            if payload['image'] is None:
+                payload['image'] = annotated
+            return payload
         finally:
             self.lock.release()
 
@@ -220,7 +260,7 @@ class ModelRunner:
         return self.models[model_id], device
 
 
-def analyze_edges(original_rgb, result, detections, version='v1'):
+def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algorithm='linea_a'):
     """Medir cada máscara en orden espacial y añadir su lectura a detections.
 
     original_rgb: arreglo RGB sin contornos ni etiquetas dibujados.
@@ -254,6 +294,10 @@ def analyze_edges(original_rgb, result, detections, version='v1'):
         from ocupacion_linea_a import (extract_cell_features, gondola_feature_bounds,
                                       score_level_from_features, compute_cell_maps,
                                       provenance as linea_a_provenance)
+        if occupancy_algorithm == 'basal':
+            from ocupacion_basal import (extract_cell_features, feature_bounds as gondola_feature_bounds,
+                                        score_level_from_features, compute_cell_maps,
+                                        provenance as linea_a_provenance)
         # Compartir el anclaje de todos los niveles; medir las máscaras YOLO originales.
         features = [extract_cell_features(analyzer, (masks[i] > .5).astype('uint8')
                     if i < len(masks) else None) for i in range(len(detections))]

@@ -19,6 +19,31 @@ ROOT = Path(__file__).resolve().parent
 REVIEW_VERSION = 'revision_equipo_20261109_v1'
 
 
+def _encode_prediction_payload(prediction, algorithm_id, base_context, shared_edges=None):
+    """Adjuntar contexto de análisis y serializar imágenes PIL a data URLs."""
+    prediction['analysis_context'] = {
+        **base_context,
+        'id': str(uuid.uuid4()),
+        'completed_at_utc': datetime.now(timezone.utc).isoformat(),
+        'occupancy_algorithm': algorithm_id,
+        'estimator_revision': (prediction.get('occupancy') or {}).get('revision'),
+    }
+    buffer = BytesIO()
+    prediction.pop('image').save(buffer, format='JPEG', quality=92)
+    prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
+    for field in ('occupancy_image', 'edges_image', 'filtered_edges_image'):
+        if field in prediction:
+            buffer = BytesIO()
+            prediction.pop(field).save(buffer, format='PNG')
+            url = 'data:image/png;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
+            prediction[field + '_url'] = url
+            if shared_edges is not None and field in ('edges_image', 'filtered_edges_image'):
+                shared_edges[field + '_url'] = url
+        elif shared_edges and field + '_url' in shared_edges:
+            prediction[field + '_url'] = shared_edges[field + '_url']
+    return prediction
+
+
 class Handler(BaseHTTPRequestHandler):
     def local_request(self):
         host = self.headers.get('Host', '')
@@ -55,6 +80,16 @@ class Handler(BaseHTTPRequestHandler):
                     item['model_sha256'] = entry['sha256']
                     item['inference_sha256'] = hashlib.sha256((ROOT / 'inferencia.py').read_bytes()).hexdigest()
             default = getattr(self.server.runner, 'manifest', {}).get('default_model')
+            from ocupacion_basal import METHOD, REVISION, THRESHOLD
+            for item in models:
+                if item.get('geometry_only'):
+                    item['occupancy_algorithms'] = [
+                        {'id': 'linea_a', 'name': 'Línea A · actual', 'method': item['occupancy_method'],
+                         'revision': item['occupancy_revision'], 'threshold': 52,
+                         'source_sha256': hashlib.sha256((ROOT / 'ocupacion_linea_a.py').read_bytes()).hexdigest()},
+                        {'id': 'basal', 'name': 'Basal · experimental', 'method': METHOD,
+                         'revision': REVISION, 'threshold': THRESHOLD,
+                         'source_sha256': hashlib.sha256((ROOT / 'ocupacion_basal.py').read_bytes()).hexdigest()}]
             return self.send({'models': models, 'default_model': default or (models[0]['id'] if models else None)})
         if path == '/api/visibilidad/config':
             try:
@@ -87,29 +122,44 @@ class Handler(BaseHTTPRequestHandler):
             confidence = float(params['confidence'][0]) if 'confidence' in params else None
             method = params.get('method', ['yolo'])[0]
             visibility_mode = params.get('visibilidad', ['stable'])[0]
+            occupancy_algorithm = params.get('ocupacion', ['linea_a'])[0]
+            if occupancy_algorithm not in ('linea_a', 'basal', 'ambos'):
+                raise ValueError('Algoritmo de ocupación no disponible.')
+            primary_algorithm = params.get('primario', ['linea_a'])[0]
+            if primary_algorithm not in ('linea_a', 'basal'):
+                raise ValueError('Algoritmo principal no disponible.')
             body = self.rfile.read(length)
             if len(body) != length:
                 raise ValueError('La carga quedó incompleta. Vuelve a seleccionar la foto.')
-            prediction = (self.server.runner.analyze(body, model, confidence, method) if visibility_mode == 'stable'
-                          else self.server.runner.analyze(body, model, confidence, method, visibility_mode=visibility_mode))
+            options = {}
+            if visibility_mode != 'stable':
+                options['visibility_mode'] = visibility_mode
+            if occupancy_algorithm != 'linea_a':
+                options['occupancy_algorithm'] = occupancy_algorithm
+            if occupancy_algorithm == 'ambos' and primary_algorithm != 'linea_a':
+                options['primary_algorithm'] = primary_algorithm
+            prediction = self.server.runner.analyze(body, model, confidence, method, **options)
             entry = getattr(self.server.runner, 'entries', {}).get(model, {})
-            prediction['analysis_context'] = {
-                'id': str(uuid.uuid4()), 'completed_at_utc': datetime.now(timezone.utc).isoformat(),
+            base_context = {
                 'input_sha256': hashlib.sha256(body).hexdigest(), 'model_sha256': entry.get('sha256'),
                 'confidence': confidence if confidence is not None else (.6 if entry.get('classes') == ['Nivel'] else .25),
                 'method': method, 'visibility_mode': visibility_mode, 'review_version': REVIEW_VERSION,
-                'estimator_revision': (prediction.get('occupancy') or {}).get('revision'),
                 'source_sha256': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
                                   for name in ('app.py', 'inferencia.py', 'revision_rapida.js', 'interfaz.html')},
             }
-            buffer = BytesIO()
-            prediction.pop('image').save(buffer, format='JPEG', quality=92)
-            prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
-            for field in ('occupancy_image', 'edges_image', 'filtered_edges_image'):
-                if field in prediction:
-                    buffer = BytesIO()
-                    prediction.pop(field).save(buffer, format='PNG')
-                    prediction[field + '_url'] = 'data:image/png;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
+            variant_results = prediction.pop('variant_results', None)
+            active_algo = primary_algorithm if occupancy_algorithm == 'ambos' else occupancy_algorithm
+            shared_edges = {}
+            _encode_prediction_payload(prediction, active_algo, base_context, shared_edges)
+            if variant_results:
+                encoded_variants = {}
+                for algo_id, variant_pred in variant_results.items():
+                    if algo_id == active_algo:
+                        encoded_variants[algo_id] = dict(prediction)
+                    else:
+                        encoded_variants[algo_id] = _encode_prediction_payload(
+                            variant_pred, algo_id, base_context, shared_edges)
+                prediction['variants'] = encoded_variants
             self.send(prediction)
         except BusyError as error:
             self.send({'error': str(error)}, 409)

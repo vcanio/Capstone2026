@@ -7,11 +7,6 @@ const root = path.resolve(__dirname, '../..');
 const work = path.join(root, '.tmp/cliente_alertas_20261111');
 fs.mkdirSync(work, { recursive: true });
 const html = fs.readFileSync(path.join(root, 'Aplicacion_Cliente/interfaz_cliente.html'), 'utf8');
-const before = path.join(work, 'antes/interfaz_cliente.html');
-if (fs.existsSync(before)) {
-  assert.equal(html.match(/<style>([\s\S]*?)<\/style>/)[1],
-    fs.readFileSync(before, 'utf8').match(/<style>([\s\S]*?)<\/style>/)[1], 'El CSS debe conservarse íntegro');
-}
 
 (async () => {
   const browser = await chromium.launch({
@@ -87,8 +82,12 @@ if (fs.existsSync(before)) {
     await page.keyboard.press('ArrowLeft'); assert.equal(await selected(), initial.order.at(-2));
     await page.locator('#prevGondolaBtn').click(); assert.equal(await selected(), initial.order[1]);
     await page.locator('#nextGondolaBtn').click(); assert.equal(await selected(), initial.order[2]);
-    await page.locator('#sortSelect').focus();
+    await page.evaluate(() => {
+      const sel = document.createElement('select'); sel.id = 'keyboardSelectTest';
+      sel.add(new Option('a', 'a')); document.body.append(sel); sel.focus();
+    });
     await page.keyboard.press('ArrowLeft'); assert.equal(await selected(), initial.order[2]);
+    await page.evaluate(() => $('keyboardSelectTest').remove());
     await page.evaluate(() => {
       const field = document.createElement('input'); field.id = 'keyboardTest';
       field.value = 'texto'; document.body.append(field); field.focus();
@@ -115,11 +114,8 @@ if (fs.existsSync(before)) {
     await page.keyboard.press('ArrowRight'); assert.equal(await selected(), filtered[1]);
     await page.keyboard.press('ArrowLeft'); assert.equal(await selected(), filtered[0]);
     await page.locator('[data-filter="all"]').click();
-    await page.locator('#sortSelect').selectOption('order');
-    await page.evaluate(() => { document.activeElement.blur(); selectItem(state.items[0].id); });
-    await page.keyboard.press('ArrowRight');
-    assert.equal(await selected(), await page.evaluate(() => state.items[1].id));
-    await page.locator('#sortSelect').selectOption('priority');
+    assert.deepEqual(await page.evaluate(() => visibleItems().map(item => effectiveGondolaState(item))),
+      ['reponer', 'verificar', 'verificar', 'suficiente']);
     await page.evaluate(id => selectItem(id), initial.selected);
     async function unchanged() {
       assert.deepEqual(await page.evaluate(() => [
@@ -185,17 +181,50 @@ if (fs.existsSync(before)) {
       analysisState({ occupancy_estimate: { state: 'reponer', pct: NaN } }),
       analysisState({ occupancy_estimate: { state: 'desconocido', pct: 90 } }),
     ]), ['revisar', 'revisar', 'revisar']);
-    // Las etiquetas nuevas deben caber usando exclusivamente el CSS existente.
+    // Comprobar las cinco vistas y los 3 pasos en móvil (Góndolas, Foto, Plan).
     for (const [name, width, height, theme] of [
       ['escritorio', 1440, 900, 'dark'], ['escritorio_claro', 1440, 900, 'light'],
       ['tablet', 1024, 768, 'dark'], ['movil', 390, 844, 'dark'], ['movil_estrecho', 320, 740, 'dark'],
     ]) {
       await page.setViewportSize({ width, height });
       await page.evaluate(theme => setTheme(theme), theme);
-      await page.screenshot({ path: path.join(work, `${name}.png`), fullPage: true, animations: 'disabled' });
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, name);
-      const overflow = await page.locator('.level-top').evaluateAll(nodes => nodes.some(node => node.scrollWidth > node.clientWidth));
-      assert.equal(overflow, false, `Las etiquetas deben caber: ${name}`);
+      const navVisible = await page.locator('#mobileSteps').isVisible();
+      if (width <= 700) {
+        assert.equal(navVisible, true, `Navegación móvil visible en ${name}`);
+        assert.equal(await page.locator('#cameraBtn').isVisible(), true, `Tomar foto visible en ${name}`);
+        assert.equal(await page.locator('#exportCsvBtn').isVisible(), false, `Exportar CSV fuera de barra en ${name}`);
+        assert.equal(await page.locator('.top-actions > label[for="fileInput"]').isVisible(), false, `Subir fotos fuera de barra en ${name}`);
+        for (const [step, activeSelector, hiddenSelectors] of [
+          ['queue', '.queue-panel', ['.stage-panel', '.plan-panel']],
+          ['stage', '.stage-panel', ['.queue-panel', '.plan-panel']],
+          ['plan', '.plan-panel', ['.queue-panel', '.stage-panel']],
+        ]) {
+          await page.locator(`#mobileSteps [data-mobile-step="${step}"]`).click();
+          assert.equal(await page.locator(activeSelector).isVisible(), true, `${activeSelector} visible en ${name}/${step}`);
+          for (const hiddenSel of hiddenSelectors) {
+            assert.equal(await page.locator(hiddenSel).isVisible(), false, `${hiddenSel} oculto en ${name}/${step}`);
+          }
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${name}/${step}`);
+          if (step === 'stage') {
+            assert.equal(await page.locator('#stageToolbar').isVisible(), false, `Toolbar oculta en ${name}/${step}`);
+          }
+          if (step === 'plan') {
+            const overflow = await page.locator('.level-top').evaluateAll(nodes => nodes.some(node => node.scrollWidth > node.clientWidth));
+            assert.equal(overflow, false, `Las etiquetas deben caber: ${name}/${step}`);
+          }
+          await page.screenshot({ path: path.join(work, `${name}_${step}.png`), fullPage: true, animations: 'disabled' });
+        }
+        await page.locator('#mobileSteps [data-mobile-step="queue"]').click();
+        await page.locator('.queue-item').first().click();
+        assert.equal(await page.locator('.stage-panel').isVisible(), true, `Tocar góndola avanza a Foto en ${name}`);
+        await page.locator('#mobileSteps [data-mobile-step="queue"]').click();
+      } else {
+        assert.equal(navVisible, false, `Navegación móvil oculta en ${name}`);
+        await page.screenshot({ path: path.join(work, `${name}.png`), fullPage: true, animations: 'disabled' });
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, name);
+        const overflow = await page.locator('.level-top').evaluateAll(nodes => nodes.some(node => node.scrollWidth > node.clientWidth));
+        assert.equal(overflow, false, `Las etiquetas deben caber: ${name}`);
+      }
     }
     assert.equal(predictionsSent, 4, 'Las revisiones y recargas no deben volver a inferir');
     // Borrado atómico, revocación de URLs y reintento cuando IndexedDB falla.
@@ -294,12 +323,12 @@ if (fs.existsSync(before)) {
     assert.equal(await photoCount(), 0);
     assert.deepEqual(errors, []);
     fs.writeFileSync(path.join(work, 'resultado_alertas.json'), JSON.stringify({
-      status: 'OK', cssIntacto: true, predictionsSimulated: predictionsSent,
+      status: 'OK', mobileThreeSteps: true, predictionsSimulated: predictionsSent,
       checks: ['filtros', 'alertas independientes de revisión', 'recarga', 'marcas anteriores conservadas',
         'flechas: limites/filtro/orden/controles', 'limpieza definitiva', 'borrado fallido y reintento', 'respuesta tardia cancelada',
-        'CSV', 'sin niveles', 'no evaluable', 'escritorio claro/oscuro', 'tablet', 'móvil 390/320'],
+        'CSV', 'sin niveles', 'no evaluable', 'escritorio claro/oscuro', 'tablet', 'móvil 3 pasos 390/320'],
     }, null, 2));
-    console.log('OK: alertas, revisión independiente, persistencia, CSV y cinco vistas; CSS intacto.');
+    console.log('OK: alertas, revisión independiente, persistencia, CSV y móvil en 3 pasos.');
     await context.close();
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

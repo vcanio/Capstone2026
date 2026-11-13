@@ -47,6 +47,9 @@ def verify_model(root=ROOT):
             raise ValueError('El motor no coincide con edge_sources: ' + name)
     if set(value.get('edge_sources', {})) != {'ocupacion_paulo.py', 'ocupacion_linea_a.py', 'gondola_bordes.py', 'gondola_combinacion_ponderada.py'}:
         raise ValueError('El manifiesto no identifica todos los módulos del motor.')
+    for name, expected in value.get('experimental_sources', {}).items():
+        if PurePosixPath(name).name != name or sha256(safe_file(app, name)) != expected:
+            raise ValueError('El algoritmo experimental no coincide con experimental_sources: ' + name)
     for name in ('inferencia.py', 'presentacion_niveles.py', 'geometria_niveles.py', 'vision_v3.py',
                  'visibilidad_experimental.py', 'revision_rapida.js'):
         safe_file(app, name)

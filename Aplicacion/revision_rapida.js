@@ -2,6 +2,13 @@
 'use strict';
 const ReviewDesk = (() => {
   const VERSION = 'revision_equipo_20261109_v1';
+  const LEVEL_LABELS = ['suficiente', 'baja_disponibilidad', 'vacio', 'no_evaluable'];
+  const LEVEL_LABEL_META = {
+    suficiente: {short: 'Suficiente', alert: 0},
+    baja_disponibilidad: {short: 'Baja', alert: 1},
+    vacio: {short: 'Vacío', alert: 1},
+    no_evaluable: {short: 'No eval.', alert: null},
+  };
   const reasons = ['Falso nivel detectado', 'Nivel omitido', 'Contorno incorrecto',
     'Pidió reponer y era suficiente', 'Indicó suficiente y faltaba producto',
     'Debía pedir revisión', 'Otro'];
@@ -15,11 +22,105 @@ const ReviewDesk = (() => {
   function ensure(item) {
     item.issues ||= [];
     item.reviewEvents ||= [];
+    if (!item.levelLabels || typeof item.levelLabels !== 'object' || Array.isArray(item.levelLabels)) item.levelLabels = {};
     if (item.marked && !item.issues.length && item.reason) {
       item.issues.push({id: uid(), reason: item.reason, note: item.note || '',
         level_id: null, zone: null, expected: '', analysis_id: analysisId(item.result), legacy: true});
     }
     return item;
+  }
+  function setLevelLabel(item, levelId, label, reviewer) {
+    ensure(item);
+    const key = String(levelId);
+    if (!label || item.levelLabels[key]?.label === label) {
+      delete item.levelLabels[key];
+      event(item, 'etiqueta_nivel_retirada', reviewer);
+      return null;
+    }
+    if (!LEVEL_LABELS.includes(label)) throw Error('Etiqueta de nivel no válida.');
+    const detection = item.result?.detections?.find(d => d.id === Number(levelId));
+    const entry = {level_id: Number(levelId), label, reviewer, at: new Date().toISOString(),
+      analysis_id: analysisId(item.result), confidence: detection?.confidence ?? null};
+    item.levelLabels[key] = entry;
+    event(item, 'etiqueta_nivel', reviewer);
+    return entry;
+  }
+  function levelLabelCount(item) {
+    return Object.keys(item?.levelLabels || {}).length;
+  }
+  function variantResultFor(item, algo, modelId, activeAlgo) {
+    if (!item) return null;
+    if (algo === activeAlgo) return item.result || null;
+    if (!modelId) return null;
+    return item.variantResults?.[JSON.stringify([modelId, algo])]?.result || null;
+  }
+  function emptyMetricBucket() {
+    return {evaluable: 0, tp: 0, fp: 0, tn: 0, fn: 0, revisar: 0, omitidos: 0};
+  }
+  function finalizeMetricBucket(b) {
+    const decided = b.tp + b.fp + b.tn + b.fn;
+    const total = decided + b.revisar + b.omitidos;
+    const precision = (b.tp + b.fp) ? 100 * b.tp / (b.tp + b.fp) : null;
+    const recall = (b.tp + b.fn + b.revisar) ? 100 * b.tp / (b.tp + b.fn + b.revisar) : null;
+    const f1 = (precision != null && recall != null && (precision + recall) > 0) ? 2 * precision * recall / (precision + recall) : null;
+    const reviewRate = total ? 100 * b.revisar / total : null;
+    return {...b, precision, recall, f1, reviewRate};
+  }
+  function computeComparisonMetrics(items, modelId, activeAlgo) {
+    let comparedPhotos = 0, comparedLevels = 0, agreements = 0, discrepancies = 0;
+    let lineaAReview = 0, basalReview = 0, labeledPhotos = 0, labeledLevels = 0;
+    const labelCounts = {suficiente: 0, baja_disponibilidad: 0, vacio: 0, no_evaluable: 0};
+    const discrepancyIndices = new Set();
+    const evalBuckets = {linea_a: emptyMetricBucket(), basal: emptyMetricBucket()};
+    for (const [idx, item] of (items || []).entries()) {
+      const resA = variantResultFor(item, 'linea_a', modelId, activeAlgo);
+      const resB = variantResultFor(item, 'basal', modelId, activeAlgo);
+      if (resA && resB && Array.isArray(resA.detections) && Array.isArray(resB.detections)) {
+        comparedPhotos++;
+        const byIdB = new Map(resB.detections.map(d => [d.id, d]));
+        for (const detA of resA.detections) {
+          const detB = byIdB.get(detA.id);
+          if (!detB) continue;
+          comparedLevels++;
+          const stA = detA.occupancy_estimate?.state || 'sin_medicion';
+          const stB = detB.occupancy_estimate?.state || 'sin_medicion';
+          if (stA === 'revisar') lineaAReview++;
+          if (stB === 'revisar') basalReview++;
+          if (stA === stB) agreements++;
+          else {discrepancies++; discrepancyIndices.add(idx);}
+        }
+      }
+      const labels = item?.levelLabels || {};
+      const entries = Object.values(labels);
+      if (entries.length) {
+        labeledPhotos++;
+        for (const entry of entries) {
+          if (!Object.hasOwn(labelCounts, entry.label)) continue;
+          labeledLevels++;
+          labelCounts[entry.label]++;
+          const alert = LEVEL_LABEL_META[entry.label]?.alert;
+          if (alert === null) continue;
+          for (const [algo, res] of [['linea_a', resA], ['basal', resB]]) {
+            if (!res) continue;
+            const det = res.detections?.find(d => d.id === Number(entry.level_id));
+            const bucket = evalBuckets[algo];
+            bucket.evaluable++;
+            if (!det) {bucket.omitidos++; continue;}
+            const st = det.occupancy_estimate?.state;
+            if (st === 'revisar' || st === 'sin_medicion' || !st) bucket.revisar++;
+            else if (st === 'reponer') {if (alert === 1) bucket.tp++; else bucket.fp++;}
+            else if (st === 'suficiente') {if (alert === 0) bucket.tn++; else bucket.fn++;}
+          }
+        }
+      }
+    }
+    return {
+      comparedPhotos, comparedLevels, agreements, discrepancies, discrepancyIndices,
+      lineaAReviewRate: comparedLevels ? 100 * lineaAReview / comparedLevels : null,
+      basalReviewRate: comparedLevels ? 100 * basalReview / comparedLevels : null,
+      labeledPhotos, labeledLevels, labelCounts,
+      metrics: {linea_a: finalizeMetricBucket(evalBuckets.linea_a), basal: finalizeMetricBucket(evalBuckets.basal)},
+    };
   }
   function status(item) {
     if (item.reviewStale || !item.result) return 'sin_revisar';
@@ -91,6 +192,7 @@ const ReviewDesk = (() => {
       revision_estimador: item.result?.occupancy?.revision || null, revision_pendiente: Boolean(item.reviewStale),
       revisor: item.reviewer || '', revisado_en: item.reviewedAt || null,
       revision_analysis_id: item.reviewAnalysisId || null, incidencias: item.issues,
+      etiquetas_ocupacion: item.levelLabels || {},
       comparacion: item.comparison || null, historial: item.reviewEvents};
   }
   function csv(rows) {
@@ -142,8 +244,17 @@ const ReviewDesk = (() => {
         }
       };
       const saved = rec.resultado ? json(rec.resultado) : null; validateResult(saved);
+      const variants = rec.variantes ? json(rec.variantes) : {};
+      if (!variants || typeof variants !== 'object' || Array.isArray(variants) || Object.keys(variants).length > 20) throw Error('Variantes no válidas.');
+      for (const [key, entry] of Object.entries(variants)) {
+        const identity = JSON.parse(key);
+        if (!Array.isArray(identity) || identity.length !== 2 || typeof identity[0] !== 'string' || !['linea_a', 'basal'].includes(identity[1]) || !entry || typeof entry !== 'object') throw Error('Variante no válida.');
+        validateResult(entry.result); validateResult(entry.previousAnalysis?.result);
+        if (entry.result && entry.result.model !== identity[0]) throw Error('Modelo de variante incoherente.');
+      }
       const compatible = saved && saved.model === model?.id && (!model.occupancy_revision || saved.occupancy?.revision === model.occupancy_revision)
         && (!model.occupancy_method || saved.occupancy?.method === model.occupancy_method)
+        && (!model.occupancy_source_sha256 || saved.occupancy?.source_sha256 === model.occupancy_source_sha256)
         && (!model.model_sha256 || saved.analysis_context?.model_sha256 === model.model_sha256)
         && (!model.inference_sha256 || saved.analysis_context?.source_sha256?.['inferencia.py'] === model.inference_sha256);
       const previous = rec.anterior ? json(rec.anterior) : null;
@@ -156,23 +267,36 @@ const ReviewDesk = (() => {
         return true;
       };
       if (rec.incidencias != null && (!Array.isArray(rec.incidencias) || rec.incidencias.length > 1000 || !rec.incidencias.every(validIssue))) throw Error('Incidencias guardadas no válidas.');
+      if (rec.etiquetas_ocupacion != null) {
+        if (!rec.etiquetas_ocupacion || typeof rec.etiquetas_ocupacion !== 'object' || Array.isArray(rec.etiquetas_ocupacion)) throw Error('Etiquetas de ocupación no válidas.');
+        for (const entry of Object.values(rec.etiquetas_ocupacion)) {
+          if (!entry || typeof entry !== 'object' || !LEVEL_LABELS.includes(entry.label)) throw Error('Etiqueta de ocupación no válida.');
+        }
+      }
+      for (const entry of Object.values(variants)) {
+        if (entry.review?.issues != null && (!Array.isArray(entry.review.issues) || entry.review.issues.length > 1000 || !entry.review.issues.every(validIssue))) throw Error('Incidencias de variante no válidas.');
+        if (entry.review?.reviewEvents != null && !Array.isArray(entry.review.reviewEvents)) throw Error('Historial de variante no válido.');
+      }
       return {file: new File([body], name, {type}), thumb: null, result: compatible ? saved : null,
+        variantResults: variants,
         previousAnalysis: compatible ? previous : saved ? {result: saved, confidence: rec.confianza, analysis_id: analysisId(saved)} : previous,
         analyzedConfidence: compatible ? rec.confianza : null, marked: rec.estado === 'para_revision', correct: rec.estado === 'correcta',
         reason: rec.motivo || '', note: rec.nota || '', failure: '', issues: Array.isArray(rec.incidencias) ? rec.incidencias : [],
+        levelLabels: rec.etiquetas_ocupacion || {},
         reviewEvents: Array.isArray(rec.historial) ? rec.historial : [], reviewer: rec.revisor || '', reviewedAt: rec.revisado_en,
         reviewAnalysisId: rec.revision_analysis_id, reviewStale: !compatible || Boolean(rec.revision_pendiente), comparison: rec.comparacion || null};
     });
   }
-  return {VERSION, reasons, uid, clone, analysisId, ensure, status, summary, snapshot, event, accept,
-    addIssue, correct, inPolygon, zone, exportRecord, csv, readZip, importRecords};
+  return {VERSION, LEVEL_LABELS, LEVEL_LABEL_META, reasons, uid, clone, analysisId, ensure, status, summary, snapshot, event, accept,
+    addIssue, correct, setLevelLabel, levelLabelCount, variantResultFor, computeComparisonMetrics,
+    inPolygon, zone, exportRecord, csv, readZip, importRecords};
 })();
 
 let reviewUndoStack = [], reviewBitmap = null, reviewCanvasToken = 0, reviewZone = null, reviewDrag = null, reviewOpenedAnalysis = null;
 function reviewerName() {return $('reviewer-name').value.trim() || 'Sin identificar';}
 function reviewMessage(message) {$('review-feedback').textContent = message;}
 function rememberReview(item) {
-  reviewUndoStack.push({item, analysis: ReviewDesk.analysisId(item.result), before: ReviewDesk.snapshot(item)});
+  reviewUndoStack.push({item, analysis: ReviewDesk.analysisId(item.result), before: ReviewDesk.snapshot(item), levelLabels: ReviewDesk.clone(item.levelLabels || {})});
   if (reviewUndoStack.length > 50) reviewUndoStack.shift();
 }
 function nextUnreviewed() {
@@ -192,7 +316,7 @@ function undoReview() {
   if (!batch.includes(entry.item) || entry.item.analyzing || ReviewDesk.analysisId(entry.item.result) !== entry.analysis) {
     reviewUndoStack.pop(); renderBatch(); reviewMessage('Esa marca pertenece a un resultado anterior; se conserva en el historial.'); return;
   }
-  reviewUndoStack.pop(); Object.assign(entry.item, entry.before); markDirty();
+  reviewUndoStack.pop(); Object.assign(entry.item, entry.before); if (entry.levelLabels) entry.item.levelLabels = entry.levelLabels; markDirty();
   selectBatch(batch.indexOf(entry.item)); renderBatch(); saveSession(); reviewMessage('Última marca deshecha.');
 }
 function renderReviewDesk() {
@@ -290,13 +414,17 @@ async function importReviewLot(selected) {
   if (!selected || running || batchRunning) return;
   try {
     if (selected.size > 750 * 1024 * 1024) throw Error('El ZIP supera 750 MB. Divide la revisión en lotes menores.');
-    const imported = ReviewDesk.importRecords(ReviewDesk.readZip(await selected.arrayBuffer()), currentModel);
+    const imported = ReviewDesk.importRecords(ReviewDesk.readZip(await selected.arrayBuffer()), algorithmModel());
     for (const item of imported) {
       const expected = (item.result || item.previousAnalysis?.result)?.analysis_context?.input_sha256;
       if (expected && globalThis.crypto?.subtle) {
         const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', await item.file.arrayBuffer()))].map(n => n.toString(16).padStart(2, '0')).join('');
         if (hash !== expected) throw Error(`El original ${item.file.name} no coincide con su resultado guardado.`);
+        for (const entry of Object.values(item.variantResults || {})) {
+          if (entry.result?.analysis_context?.input_sha256 && entry.result.analysis_context.input_sha256 !== hash) throw Error('Una variante no corresponde a la foto original.');
+        }
       }
+      if (item.variantResults?.[variantKey()]) activateVariant(item,currentModel,occupancyAlgorithm,true);
     }
     if (dirtySelection && !confirm('Hay cambios sin descargar. ¿Reemplazar el lote actual?')) return;
     clearBatch(); batch = imported; dirtySelection = false; reviewUndoStack = []; batchFilter = 'all'; $('batch-filter').value = 'all';
@@ -347,7 +475,23 @@ function setupReviewDesk() {
   canvas.addEventListener('pointermove', event => {if (reviewDrag) {reviewZone = ReviewDesk.zone(reviewDrag, canvasPoint(event)); drawReviewCanvas();}});
   canvas.addEventListener('pointerup', event => {if (reviewDrag) {reviewZone = ReviewDesk.zone(reviewDrag, canvasPoint(event)); reviewDrag = null; drawReviewCanvas(); $('review-zone-status').textContent = 'Zona señalada. Elige el motivo y guarda.';}});
   canvas.addEventListener('pointercancel', () => {reviewDrag = null; reviewZone = null; drawReviewCanvas();});
-  $('occupancy-rows').addEventListener('click', event => {const button = event.target.closest('[data-review-level]'); if (button) openReview(Number(button.dataset.reviewLevel));});
+  $('occupancy-rows').addEventListener('click', event => {
+    const occBtn = event.target.closest?.('[data-occ-level]');
+    if (occBtn) {
+      const item = batch[batchIndex];
+      if (!item?.result || item.analyzing || running) return;
+      rememberReview(item);
+      const saved = ReviewDesk.setLevelLabel(item, Number(occBtn.dataset.occLevel), occBtn.dataset.occLabel, reviewerName());
+      markDirty();
+      show(item.result);
+      renderBatch();
+      saveSession();
+      reviewMessage(`${item.file.name} · Nivel ${occBtn.dataset.occLevel}: ${saved ? ReviewDesk.LEVEL_LABEL_META[saved.label].short : 'etiqueta retirada'}.`);
+      return;
+    }
+    const button = event.target.closest?.('[data-review-level]');
+    if (button) openReview(Number(button.dataset.reviewLevel));
+  });
   $('review-issues').addEventListener('click', event => {
     const button = event.target.closest('[data-remove-issue]'), item = batch[batchIndex]; if (!button || !item || item.analyzing) return;
     rememberReview(item); item.issues = item.issues.filter(issue => issue.id !== button.dataset.removeIssue);
@@ -394,6 +538,7 @@ async function markedEvidence(item, warnings = []) {
 let exportingReviewLot = false;
 async function exportReviewLot() {
   if (exportingReviewLot || !batch.length || running || batchRunning) return;
+  for (const item of batch) stashVariant(item);
   const sourceBatch = batch, version = changeVersion;
   const selected = batch.map(({file, thumb, ...item}) => ({...ReviewDesk.clone(item), file}));
   const pending = selected.filter(item => ReviewDesk.status(item) === 'sin_revisar').length;
@@ -404,20 +549,49 @@ async function exportReviewLot() {
   try {
     const entries = [], records = [], warnings = [], reasons = new Map(), comparisons = {pendiente: 0, corregido: 0, persiste: 0, empeoro: 0};
     const csvRows = [['Archivo', 'Estado de revisión', 'Motivo', 'Nivel', 'Resultado esperado', 'Obtenido', 'Revisor', 'Fecha UTC', 'Comparación', 'Nota']];
+    const labelRows = [['Archivo', 'SHA256_original', 'Nivel', 'Etiqueta_humana', 'Alerta_humana', 'LineaA_pct', 'LineaA_estado', 'Basal_pct', 'Basal_estado', 'Basal_ancho_obs', 'Confianza_YOLO', 'Revisor', 'Fecha_UTC']];
+    const labelJson = [];
     const addJSON = (name, value) => entries.push({name, bytes: new TextEncoder().encode(JSON.stringify(value, null, 2))});
+    const activeModelId = currentModel?.id || null;
     for (const [i, item] of selected.entries()) {
       ReviewDesk.ensure(item);
       const prefix = String(i + 1).padStart(3, '0'), safe = item.file.name.replace(/[\\/\x00-\x1f]/g, '_');
       const original = `originales/${prefix}_${safe}`, contour = `contornos/${prefix}_contornos.jpg`;
       const resultPath = `resultados/${prefix}.json`, previousPath = `anteriores/${prefix}.json`, marks = `marcas/${prefix}_fallos.jpg`;
-      entries.push({name: original, bytes: new Uint8Array(await item.file.arrayBuffer())});
+      const originalBytes = new Uint8Array(await item.file.arrayBuffer());
+      entries.push({name: original, bytes: originalBytes});
+      let inputSha = item.result?.analysis_context?.input_sha256 || null;
+      if (!inputSha && globalThis.crypto?.subtle) {
+        inputSha = [...new Uint8Array(await crypto.subtle.digest('SHA-256', originalBytes))].map(n => n.toString(16).padStart(2, '0')).join('');
+      }
       if (item.result) {entries.push({name: contour, bytes: await contourEvidence(item)}); addJSON(resultPath, item.result);}
       if (item.previousAnalysis) addJSON(previousPath, item.previousAnalysis);
+      const variantsPath = `variantes/${prefix}.json`;
+      addJSON(variantsPath, item.variantResults || {});
       const marked = await markedEvidence(item, warnings); if (marked) entries.push({name: marks, bytes: marked});
       records.push(ReviewDesk.exportRecord(item, {archivo: original, contornos: item.result ? contour : null,
         resultado: item.result ? resultPath : null, anterior: item.previousAnalysis ? previousPath : null, marcas: marked ? marks : null,
+        variantes: variantsPath,
         ultimo_error_analisis: item.lastAnalysisError || null}));
       if (item.comparison && Object.hasOwn(comparisons, item.comparison.status)) comparisons[item.comparison.status]++;
+      const resA = ReviewDesk.variantResultFor(item, 'linea_a', activeModelId, occupancyAlgorithm);
+      const resB = ReviewDesk.variantResultFor(item, 'basal', activeModelId, occupancyAlgorithm);
+      for (const entry of Object.values(item.levelLabels || {})) {
+        const lvl = Number(entry.level_id);
+        const detA = resA?.detections?.find(d => d.id === lvl);
+        const detB = resB?.detections?.find(d => d.id === lvl);
+        const alertVal = ReviewDesk.LEVEL_LABEL_META[entry.label]?.alert;
+        const pctA = detA?.occupancy_estimate?.pct ?? '', stA = detA?.occupancy_estimate?.state ?? '';
+        const pctB = detB?.occupancy_estimate?.pct ?? '', stB = detB?.occupancy_estimate?.state ?? '';
+        const obsB = detB?.occupancy?.observed_width_pct ?? '';
+        const conf = detA?.confidence ?? detB?.confidence ?? entry.confidence ?? '';
+        labelRows.push([item.file.name, inputSha || '', lvl, entry.label, alertVal === null ? '' : alertVal,
+          pctA, stA, pctB, stB, obsB, conf, entry.reviewer || '', entry.at || '']);
+        labelJson.push({archivo: item.file.name, input_sha256: inputSha, level_id: lvl, label: entry.label,
+          alerta_humana: alertVal, linea_a: detA ? {pct: detA.occupancy_estimate?.pct ?? null, state: detA.occupancy_estimate?.state ?? null} : null,
+          basal: detB ? {pct: detB.occupancy_estimate?.pct ?? null, state: detB.occupancy_estimate?.state ?? null, observed_width_pct: detB.occupancy?.observed_width_pct ?? null} : null,
+          confidence: conf === '' ? null : conf, reviewer: entry.reviewer || '', at: entry.at || null});
+      }
       for (const issue of item.issues) {
         reasons.set(issue.reason, (reasons.get(issue.reason) || 0) + 1);
         csvRows.push([item.file.name, ReviewDesk.status(item), issue.reason, issue.level_id ?? (issue.zone ? 'Zona' : 'Foto'),
@@ -425,11 +599,17 @@ async function exportReviewLot() {
       }
       if (!item.issues.length) csvRows.push([item.file.name, ReviewDesk.status(item), '', '', '', '', item.reviewer, item.reviewedAt, item.comparison?.status, '']);
     }
+    const compareSummary = ReviewDesk.computeComparisonMetrics(selected, activeModelId, occupancyAlgorithm);
     addJSON('revision.json', {schema_version: 2, app_version: ReviewDesk.VERSION, exported_at_utc: new Date().toISOString(), fotos: records});
     addJSON('resumen.json', {fotos: records.length, revisadas: records.length - pending, pendientes: pending, advertencias: warnings,
-      incidencias_por_motivo: Object.fromEntries([...reasons].sort((a, b) => b[1] - a[1])), comparaciones: comparisons});
+      incidencias_por_motivo: Object.fromEntries([...reasons].sort((a, b) => b[1] - a[1])), comparaciones: comparisons,
+      etiquetas_ocupacion_totales: compareSummary.labeledLevels, etiquetas_por_clase: compareSummary.labelCounts});
     entries.push({name: 'resumen.csv', bytes: new TextEncoder().encode(ReviewDesk.csv(csvRows))});
-    entries.push({name: 'LEEME.txt', bytes: new TextEncoder().encode('Lote de revisión humana de desarrollo. Abrir este ZIP sin recomprimir desde «Abrir lote de revisión». Los originales conservan sus bytes. marcas/ identifica las incidencias F1, F2… en el orden de revision.json; puede incluir ejecuciones anteriores. resultados/ y anteriores/ conservan los resultados para comparar. Una marca no modifica CVAT, no inicia entrenamiento ni certifica exactitud. El índice visual 0–100 no es porcentaje físico de stock. Las comparaciones son confirmaciones humanas. resumen.json incluye motivos históricos; consultar analysis_id para su ejecución de origen.')} );
+    if (labelJson.length) {
+      addJSON('etiquetas_ocupacion.json', labelJson);
+      entries.push({name: 'etiquetas_ocupacion.csv', bytes: new TextEncoder().encode(ReviewDesk.csv(labelRows))});
+    }
+    entries.push({name: 'LEEME.txt', bytes: new TextEncoder().encode('Lote de revisión humana de desarrollo. Abrir este ZIP sin recomprimir desde «Abrir lote de revisión». Los originales conservan sus bytes. marcas/ identifica las incidencias F1, F2… en el orden de revision.json; puede incluir ejecuciones anteriores. resultados/ y anteriores/ conservan los resultados para comparar. variantes/ conserva cada algoritmo y sus revisiones por separado; revision_estimador identifica cuál estaba activo al exportar. Una marca no modifica CVAT, no inicia entrenamiento ni certifica exactitud. El índice visual 0–100 no es porcentaje físico de stock. Las comparaciones son confirmaciones humanas. resumen.json incluye motivos históricos; consultar analysis_id para su ejecución de origen.')} );
     const totalBytes = entries.reduce((total, entry) => total + entry.bytes.length, 0);
     if (totalBytes > 740 * 1024 * 1024) throw Error('El lote con evidencias supera 740 MB. Descarga lotes menores.');
     const blob = zipSelected(entries), url = URL.createObjectURL(blob), link = document.createElement('a');

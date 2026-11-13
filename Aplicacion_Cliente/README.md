@@ -4,9 +4,10 @@ Visor de prueba de alertas de baja disponibilidad: análisis de fotos,
 resultados por nivel, revisión humana y exportación CSV para Excel.
 Comparte el modelo V3 oficial y el motor de [Aplicacion](../Aplicacion/README.md).
 
-Diseño actualizado el 11/11 siguiendo la referencia de Vicente: recorrido de
+Diseño actualizado el 11–12/11 siguiendo la referencia de Vicente: recorrido de
 góndolas a la izquierda, fotografía central y resultados por nivel a la derecha. En móvil
-el recorrido pasa a una lista horizontal y los resultados quedan debajo de la foto. El logo
+usa navegación de tres pasos («Góndolas», «Foto», «Plan») y selector de lente trasera
+cuando el dispositivo expone varias cámaras. El logo
 vectorial se comparte con el icono de la pestaña. Los contornos se dibujan desde
 `display_polygon` del modelo, conservando la geometría y los puntajes reales.
 «Foto original» oculta los contornos y «Comparar» mantiene ambas vistas.
@@ -47,7 +48,7 @@ Esta entrega no constituye una evaluación final del flujo operativo.
 
 ## Descargar e iniciar
 
-La [versión de prueba del 11/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11)
+La [entrega vigente del 13/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13)
 incluye ambas apps y el modelo. Extrae todo el ZIP.
 
 En Windows x64, abre `iniciar_cliente.cmd` en la raíz del paquete o

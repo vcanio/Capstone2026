@@ -8,18 +8,18 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
 |:---:|:---:|:---:|:---:|
-| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Prueba del 11/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
+| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Release del 13/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
 
-## Prueba de cliente y equipo · 11 de noviembre
+## Entrega de cliente y equipo · 13 de noviembre
 
-[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11).
+[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13).
 
 Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart_Vision/iniciar_equipo.cmd` (8095). El primer inicio prepara Python/dependencias y requiere Internet. Docker: `docker compose -f compose.apps.yaml up --build -d --wait` desde `Walmart_Vision`.
 
-[App cliente](Aplicacion_Cliente/README.md): alertas visuales, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación, marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
+[App cliente](Aplicacion_Cliente/README.md): alertas visuales, navegación móvil en tres pasos, selector de lente trasera, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación de ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
 
-La entrega del 11/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente, compartido por ambas apps, y el cliente actualizado el 11/11. El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A mantiene índice visual preliminar 0–100 y umbral 52. No mide porcentaje físico de stock ni detecta personas u obstáculos. Requiere revisión visual; la evaluación final del sistema sigue pendiente.
+La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente, compartido por ambas apps, la versión cliente actualizada (12/11) y la mesa de revisión del equipo. El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A (predeterminada en ambas apps) mantiene índice visual preliminar 0–100 y umbral 52; la opción basal en la app del equipo es experimental (umbral 30 %, sin calibrar). No miden porcentaje físico de stock ni detectan personas u obstáculos. Requiere revisión visual; la evaluación final del sistema sigue pendiente.
 
 ## Explorar las carpetas
 
@@ -69,11 +69,11 @@ Las dos apps comparten motor y modelo:
 
 ## Inicio rápido: Walmart Visión
 
-La entrega actual es la [**prueba de cliente y equipo del 11/11**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11). Incluye ambas apps, un único modelo oficial y los textos de licencia. Cada persona ejecuta su copia local; GitHub distribuye los archivos y no aloja un servicio de análisis ni sincroniza sesiones.
+La entrega actual es la [**release de cliente y equipo del 13/11**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13). Incluye ambas apps, un único modelo oficial y los textos de licencia. Cada persona ejecuta su copia local; GitHub distribuye los archivos y no aloja un servicio de análisis ni sincroniza sesiones.
 
 ### Windows x64
 
-1. Descarga [Walmart_Vision_Cliente_y_Equipo_20261111.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip) y extrae **todo** el contenido.
+1. Descarga [Walmart_Vision_Cliente_y_Equipo_20261113.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) y extrae **todo** el contenido.
 2. Abre `Walmart_Vision/iniciar_cliente.cmd` para la app cliente, o `Walmart_Vision/iniciar_equipo.cmd` para la app del equipo.
 3. El primer inicio prepara Python 3.12 y las dependencias dentro de la carpeta; necesita Internet. Deja abierta la consola mientras uses la app.
 4. Carga fotos JPG, PNG o WebP de hasta **10 MB cada una** y 24 megapíxeles. Revisa los contornos y la visibilidad antes de interpretar la lectura.
@@ -182,7 +182,7 @@ Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**
 
 | Modelo vigente | Último afinado | Validación | Distribución |
 |---|---|---|---|
-| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | Prueba de cliente y equipo del 11/11 |
+| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | Release de cliente y equipo del 13/11 |
 
 | Máscaras | Fotos | mAP50 | mAP50–95 |
 |---|---:|---:|---:|
@@ -346,8 +346,8 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 
 | Componente | Estado actual | Alcance o pendiente |
 |---|---|---|
-| App cliente | **Prueba del 11/11** | Carga de fotos, filtros de alertas, revisión humana y CSV. Miniaturas y persistencia por foto; limpieza definitiva del recorrido. |
-| Mesa del equipo | **Prueba del 11/11** | Comparación, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
+| App cliente | **Release del 13/11** | Carga de fotos, cámara con selector de lente, flujo móvil en tres pasos, filtros de alertas, revisión humana y CSV. Miniaturas y persistencia por foto; limpieza definitiva del recorrido. |
+| Mesa del equipo | **Release del 13/11** | Comparación de ejecuciones y algoritmos (`Línea A` predeterminada / `Basal · experimental`), etiquetado por nivel, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
 | Segmentación de niveles | **Operativa** | Modelo V3 oficial, clase Nivel. Puede omitir o delimitar mal; no se impone la mediana al predecir. |
 | Línea A | **Operativa, preliminar** | Índice visual 0–100 y umbral 52; guardas de ambigüedad/recorte. Validación limitada, con fallos reales pendientes. |
 | Personas y obstáculos | **Revisión humana** | No hay detector automático en el flujo estable. |
