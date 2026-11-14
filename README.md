@@ -2,206 +2,155 @@
 
 **Análisis de disponibilidad en góndolas mediante visión por computador**
 
-Estado documental actualizado al **14 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 y evaluación independiente en `Ohiggins 3`.
+Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo: ambas detectan niveles de góndola, delimitan su área útil y calculan un índice visual para ayudar a identificar posibles faltantes.
 
-Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo. Ambas identifican los niveles, delimitan sus áreas útiles y calculan un índice visual para ayudar a revisar posibles faltantes.
-
-| 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Explorar los resultados |
+| 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
 | [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Release del 13/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13) | Recorrido de la versión anterior V2; la interfaz V3 ya cambió | Niveles, ocupación, señal y visibilidad | Último afinado V3 · evaluación y límites |
+| Windows x64 · Docker · [Notas de la versión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13) | Recorrido V2; la interfaz V3 ya cambió | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
 
-## Entrega de cliente y equipo · 13 de noviembre
-
-[**Descargar ambas apps con el modelo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) · [Notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13).
-
-Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart_Vision/iniciar_equipo.cmd` (8095). El primer inicio prepara Python/dependencias y requiere Internet. Docker: `docker compose -f compose.apps.yaml up --build -d --wait` desde `Walmart_Vision`.
-
-[App cliente](Aplicacion_Cliente/README.md): alertas visuales, navegación móvil en tres pasos, selector de lente trasera, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación de ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
-
-La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente compartido por ambas apps, la revisión **Línea A (`linea_a_20261113_techo_y_panel_liso`)** —con filtro textural para tableros lisos, descarte de techo abierto sin producto y conservación de extremos vacíos en estantes inclinados—, la app cliente (12/11) y la mesa de revisión del equipo actualizada (`interfaz.html` y autocompletado dual por lotes). Sobre esa base de `main`, hoy se suman: (1) el **cierre de evaluación cuantitativa en `Ohiggins 3`** (68 fotos, 354 niveles: **YOLO `mAP50 99,50 %`** / **`354 TP, 0 FP, 0 FN`**; **Línea A `Accuracy 97,74 %`**, **`F1 88,24 %`** por nivel y **`89,80 %`** por foto — [evidencia completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)), y (2) el **filtro automático de calidad fotográfica** ([`calidad_foto.py`](Aplicacion/calidad_foto.py)) que marca como `no_evaluable` capturas muy borrosas, oscuras o quemadas antes de inferir. Las obstrucciones por personas o carros siguen bajo revisión humana, y ningún índice mide porcentaje físico de stock.
-
-## Explorar las carpetas
-
-[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Modelo vigente**](Documentacion/Modelo_V3_actual.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
-
-El repositorio se centra en las dos apps, el modelo oficial y su documentación. CVAT y el laboratorio GPU se explican en la [metodología](Documentacion/Metodologia_desarrollo_y_revision.md); sus fuentes anteriores siguen accesibles en el [archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md). Fase 1 y Fase 2 permanecen intactas.
+[**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
 ## Contenido
 
 - [¿Qué hace el sistema?](#qué-hace-el-sistema)
-- [Inicio rápido: Walmart Visión](#inicio-rápido-walmart-visión)
-- [Qué consideramos un nivel](#qué-consideramos-un-nivel)
-- [Interpretar los resultados](#interpretar-los-resultados)
-- [Modelo actual y resultados](#modelo-actual-y-resultados)
-- [Arquitectura y funcionamiento](#arquitectura-y-funcionamiento)
+- [Descarga e inicio rápido](#descarga-e-inicio-rápido)
+- [Cómo se define un nivel](#cómo-se-define-un-nivel)
+- [Cómo interpretar los resultados](#cómo-interpretar-los-resultados)
+- [Modelo y evaluación](#modelo-y-evaluación)
+- [Arquitectura](#arquitectura)
 - [Datos y entrenamiento](#datos-y-entrenamiento)
 - [Tecnologías](#tecnologías)
-- [Decisiones técnicas y alternativas](#decisiones-técnicas-y-alternativas)
-- [Documentación y recursos](#documentación-y-recursos)
-- [Estado actual de la implementación](#estado-actual-de-la-implementación)
+- [Documentación y estructura](#documentación-y-estructura)
 - [Limitaciones y próximos pasos](#limitaciones-y-próximos-pasos)
-- [Equipo](#equipo)
-- [Licencia y autoría](#licencia-y-autoría)
+- [Equipo y licencia](#equipo-y-licencia)
 
 ---
 
 ## ¿Qué hace el sistema?
 
-El objetivo es **facilitar la revisión de niveles con posibles faltantes visibles**. A partir de una fotografía, el sistema:
+A partir de una fotografía frontal de góndola, el sistema:
 
-1. **Detecta** cada nivel y **segmenta** su área útil, incluidos los espacios sin producto.
-2. **Analiza** bordes, color y textura dentro de los niveles detectados.
-3. **Estima** la ocupación visual y señala posibles necesidades de reposición.
-4. **Muestra** contornos, índices y avisos para que una persona revise el resultado.
-5. **Organiza el trabajo:** el cliente filtra alertas, registra la revisión humana y genera una hoja CSV; el equipo compara resultados, marca fallos y exporta lotes de revisión.
+1. **Valida calidad básica:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) filtra capturas severamente borrosas, oscuras o quemadas (`no_evaluable`) antes de inferir.
+2. **Detecta y segmenta niveles:** delimita el área útil de cada repisa, incluidos los huecos sin producto.
+3. **Analiza señal visual:** combina bordes, gradiente, color y textura dentro de cada máscara para estimar ocupación.
+4. **Muestra alertas y facilita la revisión:** el cliente filtra alertas, guía la captura móvil en tres pasos, registra la revisión humana y exporta CSV; la app del equipo compara algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marca errores y exporta lotes ZIP.
 
-Trabajamos por nivel de góndola para ubicar posibles faltantes en una repisa completa. El sistema **no cuenta unidades, no identifica SKU, no mide profundidad ni consulta inventario**.
+El sistema trabaja por repisa completa para ubicar faltantes visibles: **no cuenta unidades, no identifica SKU, no mide profundidad, no consulta inventario ni detecta personas o carros de forma automática**.
 
-Las dos apps comparten motor y modelo:
+| Aplicación | Puerto | Público y uso principal |
+|---|---:|---|
+| **App cliente** | `8098` | Supervisores y reposición: alertas visuales, cámara móvil con selector de lente, revisión humana y CSV. |
+| **App del equipo** | `8095` | Desarrollo y evaluación: comparación de ejecuciones y algoritmos, autocompletado por lotes, mapas, marcado por nivel/zona y lotes ZIP. |
 
-| Componente | Para qué sirve | Público |
-|---|---|---|
-| **App cliente · 8098** | Consultar alertas, revisar niveles, registrar la revisión humana y descargar hoja CSV. | Supervisores y equipos de reposición, en pruebas. |
-| **App del equipo · 8095** | Comparar análisis, revisar bordes, marcar fallos por nivel/zona y exportar lotes ZIP. | Equipo de desarrollo y evaluadores. |
+---
 
-**Para usar la app no necesitas instalar el laboratorio ni CVAT.**
+## Descarga e inicio rápido
 
-## Inicio rápido: Walmart Visión
+Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261113.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
 
-La entrega actual es la [**release de cliente y equipo del 13/11**](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13). Incluye ambas apps, un único modelo oficial y los textos de licencia. Cada persona ejecuta su copia local; GitHub distribuye los archivos y no aloja un servicio de análisis ni sincroniza sesiones.
+> El paquete publicado incluye el modelo oficial **`V3-cierre-revisado-20261110`** y la regla **Línea A** (`linea_a_20261113_techo_y_panel_liso`). El filtro previo de calidad (`calidad_foto.py`) está integrado en el código fuente actual del repositorio.
 
 ### Windows x64
 
-1. Descarga [Walmart_Vision_Cliente_y_Equipo_20261113.zip](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) y extrae **todo** el contenido.
-2. Abre `Walmart_Vision/iniciar_cliente.cmd` para la app cliente, o `Walmart_Vision/iniciar_equipo.cmd` para la app del equipo.
-3. El primer inicio prepara Python 3.12 y las dependencias dentro de la carpeta; necesita Internet. Deja abierta la consola mientras uses la app.
-4. Carga fotos JPG, PNG o WebP de hasta **10 MB cada una** y 24 megapíxeles. Revisa los contornos y la visibilidad antes de interpretar la lectura.
+1. Ejecuta `Walmart_Vision/iniciar_cliente.cmd` (`8098`) o `Walmart_Vision/iniciar_equipo.cmd` (`8095`).
+2. El primer inicio prepara Python 3.12 y sus dependencias dentro de la carpeta (requiere Internet). Mantén la consola abierta mientras uses la app.
+3. Abre en el navegador [http://127.0.0.1:8098](http://127.0.0.1:8098) (cliente) o [http://127.0.0.1:8095](http://127.0.0.1:8095) (equipo).
+4. Carga imágenes **JPG, PNG o WebP** de hasta **10 MB** y 24 megapíxeles.
 
-| Aplicación | Dirección | Flujo principal |
-|---|---|---|
-| Cliente | [http://127.0.0.1:8098](http://127.0.0.1:8098) | Alertas visuales, detalle por nivel, revisión humana y CSV. |
-| Equipo | [http://127.0.0.1:8095](http://127.0.0.1:8095) | Original/Niveles/Bordes/Comparar, marcado por nivel o zona y lotes ZIP. |
+### Docker (incluido macOS)
 
-En ambas apps la confianza inicial de YOLO es **0,60**. El cliente la usa preconfigurada; la app del equipo permite ajustarla desde **0,25**. No es el índice visual ni una medida de stock.
-
-### Docker, incluido macOS
-
-Con Docker Desktop abierto, desde la carpeta `Walmart_Vision` extraída:
+Desde la carpeta `Walmart_Vision` extraída (o desde la raíz de un clon con `compose.apps.yaml`):
 
 ```bash
 docker compose -f compose.apps.yaml up --build -d --wait
 ```
 
-Abre las dos direcciones de la tabla. Para detener ambas apps:
+Para detener ambas apps:
 
 ```bash
 docker compose -f compose.apps.yaml down
 ```
 
-La entrega del 11/11 se comprobó mediante HTTP e inferencia CPU de ambas apps desde una extracción limpia, con una foto de train y cinco niveles por app. Se validó Compose; no se construyó Docker ni se probó físicamente en Mac porque el daemon estaba apagado. [Evidencia y alcance](Documentacion/Evidencias/alineacion_github_20261111.json). Las pruebas de macOS de releases anteriores siguen siendo antecedentes, no una verificación nueva de esta entrega.
+La configuración de Compose está validada y la ejecución HTTP/CPU comprobada en Linux/Windows desde paquete limpio; queda pendiente la prueba física en macOS.
 
-### Desde un clon
+### Desde un clon del repositorio
 
-El repositorio incluye el peso oficial y el preparador Windows. Ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. En Docker, ejecuta el comando anterior desde la raíz del clon, donde está `compose.apps.yaml`.
+En Windows, ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. La confianza inicial de YOLO es **0,60** (fija en cliente; ajustable desde **0,25** en la app del equipo).
 
-### Fotografías y privacidad
+### Recomendaciones de captura y privacidad
 
-Toma fotos **frontales o casi frontales**, con la cámara nivelada, ambos extremos del tramo y las superficies de apoyo visibles. Evita desenfoque, reflejos fuertes y tomas oblicuas. Para una góndola larga, utiliza varias tomas de tramos completos. No existe un ángulo máximo validado ni un detector automático que certifique la visibilidad.
+- Usa tomas **frontales o casi frontales**, con ambos extremos del tramo visibles y evitando reflejos fuertes o desenfoque.
+- Las fotos se procesan **localmente** en tu equipo y no se envían a servidores externos ni se añaden al entrenamiento.
+- Cada navegador guarda localmente su sesión (`IndexedDB` en cliente, con botón *Limpiar pasillo* para borrarla). No hay sincronización entre equipos.
+- Para probar sin fotos propias existe una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
 
-Las fotos se procesan en el equipo y no se incorporan al entrenamiento. La app del equipo guarda la sesión del lote en el navegador local y permite eliminarla; el cliente conserva fotos, resultados y revisión humana por foto en IndexedDB y los recupera al recargar. «Limpiar pasillo» borra definitivamente ese recorrido guardado. No hay sincronización entre computadores. Para devolver observaciones del modelo se comparte manualmente el lote ZIP exportado por la app del equipo.
+---
 
-El dataset y el catálogo local de demostración no vienen en el ZIP: carga fotos propias. Hay una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing), tres reales y tres sintéticas, para explorar casos de la demostración anterior; no acredita precisión de la versión actual.
+## Cómo se define un nivel
 
-[Guía cliente](Aplicacion_Cliente/README.md) · [Guía de revisión del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Descargas e historial](Entregables/README.md).
+Un **nivel** es el área útil completa de una repisa dentro de un tramo de góndola, incluyendo tanto productos como huecos vacíos:
 
-## ¿Qué consideramos un nivel?
+- **Base inferior:** superficie de apoyo del producto, **por encima del portaprecio** (excluye franja de precio y espesor frontal del estante).
+- **Límite superior:** cara inferior de la repisa superior cuando existe. Si el último nivel es abierto y no tiene techo físico claro, las anotaciones proyectan la **mediana de altura** de los niveles inferiores del mismo tramo para mantener consistencia entre fotos llenas y vacías.
+- **Laterales:** límites interiores del mismo tramo.
 
-Un **nivel** es el área útil de una repisa donde pueden existir **productos y huecos**. Se dibuja un polígono para el espacio completo del mismo tramo de góndola, siguiendo su perspectiva; no se dibuja una máscara por envase ni solo la banda frontal del estante.
+**Importante:** durante la inferencia, la app **no impone la mediana** de forma automática; YOLO predice sus propias máscaras y puede omitir o delimitar mal un nivel superior.
 
-| Límite | Criterio de anotación |
-|---|---|
-| Inferior | Superficie donde apoyan los productos, **por encima del portaprecio**. Se excluyen la franja del precio y el espesor frontal del estante. |
-| Superior, cuando existe | Cara inferior de la repisa o cubierta física que cierra el espacio. |
-| Laterales | Límites interiores del mismo tramo; no se amplía la zona hasta pilares, suelo u otras góndolas. |
-| Huecos | Forman parte del área útil, aunque no haya productos. Un nivel vacío sigue siendo un nivel. |
+---
 
-La región se define por la estructura y la convención de anotación, sin ajustarla a la altura de los envases. Un cartel o panel sin una superficie de apoyo asociada no crea otro nivel. Las barandas que atraviesan un nivel pueden quedar dentro de su región y deben tratarse en el análisis de señal; su exclusión automática todavía es imperfecta.
+## Cómo interpretar los resultados
 
-### Superior abierto: por qué acordamos usar la mediana
-
-En una repisa superior sin techo claro era difícil fijar un límite consistente: una persona podía seguir las tapas de los envases, otra un cartel y otra una altura elegida a ojo. Al retirar los productos, esas referencias desaparecían y el mismo nivel lleno o vacío podía terminar con áreas diferentes. Eso introduce una contradicción en los ejemplos usados para enseñar al modelo.
-
-La solución acordada fue una **convención de anotación reproducible**:
-
-1. Si hay una cubierta o un límite físico superior claro, se respeta.
-2. Si falta, se miden las alturas verticales de los niveles inferiores del **mismo tramo**. Con perspectiva se mide la altura en el centro de cada polígono.
-3. Se calcula la **mediana**, conservando decimales. Con cuatro referencias de 190, 195, 210 y 220 píxeles, la mediana es **202,5 píxeles**.
-4. Desde el apoyo del superior, situado **sobre el portaprecio**, se proyecta esa altura hacia arriba. No se utiliza como base, sin comprobarlo, el borde del polígono de abajo: puede representar la cara inferior del estante.
-5. Se mantiene el criterio en el original y sus variantes llenas o vacías. Si la proyección sale de la foto, se recorta al encuadre y se marca **parcial**; no se reduce la altura para hacerla caber.
-
-La mediana reduce la influencia de una altura inferior excepcional frente a un promedio simple. **No demuestra la altura física real de un espacio abierto:** fija una región comparable para anotar. Se utilizan habitualmente al menos tres inferiores medibles; las excepciones autorizadas con dos referencias son casos documentados, no una regla general.
-
-**La app no recalcula ni fuerza la mediana al analizar una foto.** YOLO predice sus propias máscaras a partir de lo aprendido; puede omitir un superior o delimitarlo mal. Esos errores se conservan como limitaciones y deben revisarse visualmente.
-
-[Criterio de anotación V3](Documentacion/Criterio_de_niveles.md) · [Regla completa de mediana](Documentacion/Criterio_de_niveles.md)
-
-## Interpretar los resultados
-
-Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando comparten fila. La versión actual usa **Línea A**, revisión `linea_a_20261113_techo_y_panel_liso`, para un índice visual de **0 a 100**, con umbral **52**.
+Los niveles se numeran **de abajo hacia arriba** (y de izquierda a derecha si comparten fila). La regla vigente (**Línea A**, `linea_a_20261113_techo_y_panel_liso`) calcula un índice visual de **0 a 100** con umbral **52**:
 
 | Resultado | Significado |
 |---|---|
-| **Reponer** | Índice menor a 52, cuando la señal permite decidir. |
-| **Suficiente** | Índice desde 52, sujeto a las reglas de revisión; no certifica stock físico. |
-| **Revisar / Verificar** | Señal ambigua, contorno recortado o falta de medición; requiere revisión humana. |
-| **Sin niveles detectados** | Se solicita otra toma. No detectar un nivel no significa que esté vacío. |
+| **Reponer** | Índice menor a 52 cuando la señal visual permite decidir. |
+| **Suficiente** | Índice desde 52 sin señales de alerta; no certifica stock físico oculto. |
+| **Revisar / Verificar** | Señal ambigua, contorno recortado o falta de medición; requiere revisar la foto. |
+| **Sin niveles / No evaluable** | Captura bloqueada por baja calidad (`calidad_foto.py`) o sin niveles detectados; solicita otra toma. |
 
-La app cliente presenta alertas visuales y permite registrar una revisión humana independiente del análisis. La app del equipo conserva el detalle técnico, los mapas y las herramientas de revisión. Los mensajes sobre huecos o frentes son interpretaciones de señal visible y requieren comprobar la foto.
+### Cómo funciona Línea A paso a paso
 
-### Cómo funciona Línea A (y por qué se llama así)
+1. **Filtro previo de captura ([`calidad_foto.py`](Aplicacion/calidad_foto.py)):** evalúa nitidez (Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos en `294` capturas reales). Si la toma está severamente borrosa, oscura o quemada, la devuelve como `no_evaluable` antes de inferir.
+2. **Segmentación y exclusión de rieles:** YOLO26n-seg obtiene las máscaras de cada repisa y [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) lee los píxeles originales dentro de cada área, conservando Canny y excluyendo rieles/barandas horizontales.
+3. **Normalización compartida y evidencia híbrida ([`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py)):** normaliza `P10–P90` entre todos los niveles de la misma góndola, combina bordes, gradiente Sobel, saturación con respaldo textural (evita contar tableros lisos vacíos) y desviación local, además de descartar techo abierto sin producto.
+4. **Penalización por hueco y guardas:** acota la lectura según el tramo vacío continuo más largo (`100 - max_gap_pct`), compara contra **52** y deriva a `Revisar` si hay recorte al encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o señal ambigua.
 
-**Por qué se llama «Línea A»:** tras cerrar la segmentación geométrica V3, el equipo separó el problema en líneas independientes de estimación de disponibilidad para reemplazar el estimador basal heredado de V2 (porcentaje simple de área/ancho y umbral `30 %` sin calibrar). **Línea A** (`linea_a_v1_gondola_anchorage`, revisión `linea_a_20261113_techo_y_panel_liso`) corresponde a la **primera rama de diseño**: reglas deterministas explicables de visión clásica sobre bordes, color y textura dentro de las máscaras de YOLO. En la app del equipo coexiste frente a la opción **«Basal · experimental»** para comparar criterios sin tocar los pesos de YOLO.
+Un valor como `70/100` indica evidencia visual de cobertura frontal, **no 70 % de inventario real**. En la app del equipo coexiste frente a la opción experimental **Basal** ([comparación](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)).
 
-**Cómo calcula la lectura paso a paso:**
+[Línea A](Aplicacion/ocupacion_linea_a.py) · [Señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md)
 
-1. **Filtro previo de captura ([`calidad_foto.py`](Aplicacion/calidad_foto.py)):** antes de inferir, evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales de desarrollo y test). Si la foto está severamente borrosa, oscura o quemada, bloquea el análisis y la devuelve como **`no_evaluable`** sin generar falsas alertas.
-2. **YOLO delimita niveles y se excluyen rieles:** YOLO26n-seg entrega las máscaras de cada repisa. Sobre los píxeles originales dentro de cada máscara, [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) conserva Canny, excluye rieles/barandas horizontales y acota la grilla al cuerpo útil vertical (sin cabeza superior vacía ni portaprecio).
-3. **Normalización compartida y evidencia híbrida ([`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py)):** calcula los límites `P10–P90` de forma conjunta entre todos los niveles de la **misma góndola** (con pisos físicos de ruido y techos mínimos para no sobrevalorar estantes casi vacíos ni penalizar envases lisos). Cada celda combina densidad de bordes, gradiente Sobel, saturación de color (exigiendo respaldo mínimo de borde/textura para no contar tableros lisos vacíos) y desviación local, además de descartar cielo/techo abierto sin producto.
-4. **Penalización por hueco continuo y guardas de visibilidad:** mide el tramo horizontal vacío más largo (`max_gap_pct`), acota la disponibilidad por `100 - max_gap_pct` y compara contra el umbral **`52`**. Si el contorno toca los bordes de la foto (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o presenta señal espacial ambigua, deriva automáticamente a **`Revisar`**.
+---
 
-El fucsia de la vista Bordes representa la evidencia visual combinada. No confirma por sí mismo la presencia de producto. El índice no cuenta unidades, no reconstruye profundidad ni mide el inventario detrás de lo visible. Un valor 70/100 **no significa 70 % físico de stock**. La confianza YOLO de 0,60 es otro parámetro.
+## Modelo y evaluación
 
-[Implementación portable de Línea A](Aplicacion/ocupacion_linea_a.py) · [Extracción de señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md).
+Ambas aplicaciones comparten el modelo oficial **`V3-cierre-revisado-20261110`** (`YOLO26n-seg`, clase única `Nivel`, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`).
 
-### Evidencia disponible y límites
+### Segmentación de niveles (`YOLO26n-seg`)
 
-El umbral **52** se fijó en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y se validó en frío el **14/11** en evaluación ciega sobre **Ohiggins 3** (68 fotos independientes, 354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**30 TP, 2 FP, 6 FN, 316 TN**), y **F1 89,80 %** por foto completa (**92,65 %** accuracy). Latencia E2E promedio en producción (`YOLO + Línea A`): **1.371,9 ms/foto** en GPU (`GTX 1660 SUPER`) y **1.442,5 ms/foto** en CPU (`AMD Ryzen 5 3600`, muestra 15 fotos). Ver [evaluación completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md).
-
-Carteles, fondos, barandas, productos lisos y niveles inferiores en ángulo picado (`4/6 FN` en `N5/N6` con `max_gap_pct = 0,0 %`) todavía pueden confundir la señal. Las guardas de ambigüedad no son detectores automáticos de personas, obstáculos o carteles. El modelo tampoco determina si la góndola está completa.
-
-## Modelo actual y resultados
-
-Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**, el `best.pt` del cierre con contornos revisados adoptado el 10 de noviembre. Su clase aprendida es **Nivel**; la ocupación se calcula después mediante Línea A (evaluada el 14/11 sobre `Ohiggins 3`).
-
-| Modelo vigente | Último afinado | Validación | Test independiente (`Ohiggins 3`) | Distribución |
-|---|---|---|---|---|
-| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | 68 fotos / 354 niveles (`0` en train) | Release de cliente y equipo del 13/11 |
-
-| Máscaras | Fotos | Niveles | mAP50 | mAP50–95 (M) | Emparejamiento operativo (`conf = 0,60`) |
+| Conjunto | Fotos | Niveles | mAP50 | mAP50–95 (M) | Emparejamiento (`conf = 0,60`) |
 |---|---:|---:|---:|---:|---|
-| Validación real | 11 | 55 | 99,50 % | 90,04 % | 54 TP, 0 FP, 1 FN |
-| **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **354 TP, 0 FP, 0 FN** (`68/68` exactos · `IoU` media `0,9390`) |
+| Validación real | 11 | 55 | 99,50 % | 90,04 % | `54 TP, 0 FP, 1 FN` |
+| **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **`354 TP, 0 FP, 0 FN`** (`68/68` exactos · `IoU` medio `93,90 %`) |
 
-El conjunto vigente de evaluación independiente es **Ohiggins 3** (`68` fotos únicas reales / `354` polígonos `Nivel`, anotados en CVAT `task 47 / job 94` con `0` coincidencia en `train`/`val`). La latencia media de `YOLO.predict` fue **77,15 ms** en GPU y **225,94 ms** en CPU (muestra 15 fotos). La adopción no certifica ausencia de errores en escenas nuevas (`R065` conserva una omisión superior en diagnóstico de train; [detalle del reemplazo del test histórico](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)).
+El test independiente de `Ohiggins 3` (`0` fotos en `train`/`val`) obtuvo `Precision 0,9991` y `Recall 1,0000`, con latencia media de `YOLO.predict` de **77,15 ms** en GPU (`GTX 1660 SUPER`) y **225,94 ms** en CPU (`AMD Ryzen 5 3600`, muestra de 15 fotos). El test histórico de 63 fotos quedó retirado tras incorporarse parte de sus escenas a entrenamiento.
 
-SHA-256 del peso: `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
+### Clasificación de ocupación (`Línea A`, umbral 52)
 
-[Evaluación test Ohiggins 3 (14/11)](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y verificación de ambas apps](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md).
+Fijado en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y validado en frío sobre **Ohiggins 3** (68 fotos no entrenadas, 354 niveles predichos por YOLO):
 
-## Arquitectura y funcionamiento
+- **Por nivel:** Accuracy **97,74 %** · Precision **93,75 %** · Recall **83,33 %** · **F1 88,24 %** (`30 TP, 2 FP, 6 FN, 316 TN`).
+- **Por foto completa:** Accuracy **92,65 %** · **F1 89,80 %**.
+- **Latencia E2E (`YOLO + Línea A`):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
 
-Separamos **aprender a localizar niveles** de **analizar una fotografía nueva**:
+[Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
+
+---
+
+## Arquitectura
+
+El entrenamiento y la inferencia están desacoplados: CVAT, el laboratorio interno de entrenamiento y los datasets **no son dependencias** de las aplicaciones distribuidas.
 
 ```mermaid
 flowchart TB
@@ -210,7 +159,7 @@ flowchart TB
         B --> C[Partición anti-fuga por escenas]
         C --> D[Afinado YOLO26n-seg]
         D --> E[best.pt seleccionado por val real]
-        E --> T[Evaluación congelada · Test Ohiggins 3]
+        E --> T[Evaluación independiente · Test Ohiggins 3]
     end
     subgraph Aplicación
         F[Foto] --> Q[Filtro de calidad · borrosidad / luz]
@@ -219,31 +168,25 @@ flowchart TB
         E --> G
         G --> H[Exclusión de rieles + evidencia híbrida Línea A]
         H --> I[Índice visual 0–100 · umbral 52 y guardas]
-        I --> J[Revisión visual y descarga]
+        I --> J[Revisión visual y exportación]
     end
 ```
 
-El modelo conserva sus máscaras originales. La estimación se calcula sobre los píxeles de la foto dentro de esas áreas; no sobre los contornos coloreados ni los rótulos dibujados en el resultado.
+### Flujo interno de las aplicaciones
 
-En las anotaciones, el superior abierto se delimita por la mediana de las alturas inferiores cuando no hay un techo físico claro. **La app no impone esa mediana durante la predicción**: el modelo puede desviarse del criterio aprendido.
-
-[Explicación del funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) · [Criterio de niveles V3](Documentacion/Criterio_de_niveles.md) · [Regla de mediana](Documentacion/Criterio_de_niveles.md)
-
-### Componentes de la aplicación
-
-Las dos apps funcionan en el equipo del usuario. Sus servidores HTTP locales comparten `inferencia.py`, el modelo oficial y Línea A. El cliente filtra alertas, registra revisión humana y exporta CSV; la mesa del equipo permite comparar, registrar fallos y exportar lotes de revisión.
+Ambas interfaces locales comparten `inferencia.py`, el modelo oficial y el motor de ocupación:
 
 ```mermaid
 flowchart LR
     subgraph Equipo["Equipo del usuario"]
-        UI["Navegador<br/>App cliente o app del equipo"]
-        API["Servidor HTTP local<br/>app_cliente.py · 8098 / app.py · 8095"]
-        RUN["Lectura y coordinación<br/>inferencia.py · ModelRunner"]
+        UI["Navegador<br/>Cliente (8098) / Equipo (8095)"]
+        API["Servidor HTTP local<br/>app_cliente.py / app.py"]
+        RUN["Coordinación<br/>inferencia.py · ModelRunner"]
         QUAL["Filtro de calidad<br/>calidad_foto.py"]
-        MODEL["Segmentación de niveles<br/>YOLO26n-seg · best.pt"]
-        SIGNAL["Extracción y evidencia híbrida<br/>ocupacion_paulo.py + ocupacion_linea_a.py"]
-        SCOPE["Alcance de la zona detectada<br/>vision_v3.py"]
-        VIEW["Contornos, lecturas e imagen<br/>presentacion_niveles.py"]
+        MODEL["Segmentación<br/>YOLO26n-seg · best.pt"]
+        SIGNAL["Señal e índice<br/>ocupacion_paulo.py + ocupacion_linea_a.py"]
+        SCOPE["Alcance de lectura<br/>vision_v3.py"]
+        VIEW["Presentación<br/>presentacion_niveles.py"]
         UI -->|"Foto · POST /api/predict"| API
         API --> RUN
         RUN --> QUAL
@@ -254,141 +197,67 @@ flowchart LR
         MODEL -->|"Contornos"| VIEW
         RUN -->|"Contornos detectados"| SCOPE
         SIGNAL -->|"Señal y métricas"| VIEW
-        SCOPE -->|"Alcance de la lectura"| VIEW
+        SCOPE -->|"Alcance"| VIEW
         VIEW -->|"Imagen y mediciones"| API
         API -->|"Respuesta JSON"| UI
     end
-    UI -->|"Descarga solicitada"| OUTPUT["Imagen · CSV cliente · lote de revisión del equipo"]
+    UI -->|"Exportación"| OUTPUT["Imagen · CSV cliente · ZIP revisión"]
 ```
 
-El diagrama representa las responsabilidades y los datos que intercambian los módulos. `ModelRunner` localiza niveles y calcula la señal visual; la persona debe revisar obstáculos y zonas tapadas. La presentación combina geometría, métricas y alcance para mostrar la lectura final. La descarga del resultado es una acción del usuario. La mesa del equipo conserva la sesión del lote en el navegador local. El cliente conserva el recorrido por foto en el navegador y lo recupera al recargar. Los archivos se comparten solo cuando el usuario los exporta y entrega.
-
-CVAT, las particiones y el entrenador pertenecen al flujo de desarrollo del primer diagrama. **No son dependencias del visor durante la inferencia**: la app distribuida incluye el modelo y los módulos que necesita para analizar fotos.
+---
 
 ## Datos y entrenamiento
 
-### Datos del modelo vigente
+- **Último afinado (`V3-cierre-revisado-20261110`):** 40 épocas con **256 imágenes de entrenamiento** (203 reales y 53 sintéticas; **1.298 polígonos**) y **11 fotos reales de validación** (55 polígonos, 3 escenas).
+- **Procedencia acumulada:** el peso proviene de **tres etapas propias** sobre el preentrenamiento general de `yolo26n-seg.pt`, reuniendo **519 fuentes distintas de entrenamiento por SHA-256** (299 reales y 220 sintéticas).
+- **Partición y herramientas:** originales y variantes sintéticas se agrupan por escena y familia para evitar fugas entre `train`, `val` y `test`. Las anotaciones se realizaron en **CVAT** (clase única `Nivel`), con apoyo de un laboratorio interno para preparar particiones, entrenar y seguir métricas, y de la app del equipo para inspección visual. La revisión visual complementa las métricas, pero no equivale a mAP ni recall.
 
-El último afinado utilizó **256 imágenes de entrenamiento: 203 reales y 53 sintéticas**, con **1.298 polígonos**. Su validación contiene **11 fotos reales y 55 polígonos**. Las escenas y familias conservan las asignaciones documentadas; las fotos incorporadas a train dejan de ser validación independiente.
+[Catálogo del modelo oficial](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md)
 
-El peso deriva de **tres etapas de entrenamiento propias**, además del preentrenamiento general de `yolo26n-seg.pt`. La cadena reúne **519 fuentes distintas de train por SHA-256: 299 reales y 220 sintéticas**. Las 256 del último ensayo no representan toda su experiencia previa; estas cifras tampoco cuentan escenas independientes, aumentos internos ni preentrenamiento general.
-
-[Catálogo vigente y alcance del recuento](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Entrenamiento, procedencia y límites](Documentacion/Entrenamiento_y_datos.md).
-
-### Autoría, anotación y preparación
-
-Las fotografías originales fueron tomadas por el equipo y las anotaciones fueron realizadas por el equipo usando CVAT, según lo confirmado por Vicente. El corpus incluye variantes sintéticas identificadas como tales. Se conservan los registros de revisión y las correcciones asistidas de geometría. [Autoría y condiciones de datos/pesos](LICENCIAS.md).
-
-1. **Inventario y procedencia.** Se registran nombres, dimensiones y SHA-256. Las variantes y las vistas relacionadas se agrupan; un archivo diferente no se trata automáticamente como una escena independiente.
-2. **Anotación y revisión en CVAT.** Una clase `Nivel`, con polígonos del área útil completa, incluidos los huecos. Los atributos de delimitación y oclusión registran revisión; no son clases que YOLO prediga. Se aplica el apoyo sobre el portaprecio y la mediana para el superior abierto cuando corresponde.
-3. **Selección y exclusiones.** Se utilizan las decisiones y listas de la preparación congelada. Las fotos dudosas, desactivadas o excluidas no se incorporan por figurar en un catálogo más amplio.
-4. **Separación por escenas.** Originales, variantes y vistas relacionadas conservan las asignaciones documentadas. Validación real y sintética se informan por separado. Sus métricas no se comparan directamente con agregados de otra partición histórica.
-5. **Preparación reproducible.** Se exportan las imágenes y polígonos incluidos con sus hashes. La orientación EXIF se resuelve en copias de preparación, conservando los originales. No se abren los píxeles de test para preparar o ajustar los ensayos.
-
-Las nuevas fotos y revisiones no cambian por sí solas el modelo publicado. Requieren una selección y preparación posteriores; **solo Vicente inicia entrenamiento desde el panel**. Las fotos cargadas en las apps no se incorporan automáticamente al entrenamiento. El dataset completo sigue fuera de la distribución pública de las apps.
-
-### Herramientas internas de desarrollo y revisión
-
-El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos de la clase `Nivel`**. Se construyó además un **laboratorio interno con interfaz visual** para preparar datos, configurar los entrenamientos y seguir métricas, curvas y resultados de los ensayos. Se utilizó la GPU propia para entrenar sin depender de Colab. Sus fuentes y registros se conservan en una revisión histórica; no son dependencias de las apps actuales.
-
-Las predicciones del modelo se inspeccionaron en la **app de revisión del equipo**, comparando fotos y contornos y registrando errores por nivel o zona. Esta revisión visual complementa la evaluación cuantitativa; no equivale a mAP o recall ni demuestra por sí sola exactitud de ocupación. [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md).
-
-La preparación y la revisión de datos no certifican por sí solas la precisión de ocupación ni convierten las imágenes sintéticas en evidencia de generalización. La calibración en desarrollo y la evaluación ciega de Línea A en test se ejecutaron de forma independiente respecto al entrenamiento geométrico descrito aquí.
+---
 
 ## Tecnologías
 
-| Tecnología | Función actual | Por qué se utiliza |
-|---|---|---|
-| **YOLO26n-seg** | Segmentar una clase: Nivel. | Localiza el área útil de cada repisa, incluyendo espacios sin producto. |
-| **PyTorch + Ultralytics** | Afinado del modelo e inferencia. | Permiten adaptar pesos preentrenados y conservar la configuración del ensayo. |
-| **OpenCV + NumPy** | Bordes, color y textura dentro de las máscaras. | Aportan las señales visuales para estimar superficie y cobertura horizontal. |
-| **Pillow** | Lectura, orientación y presentación de fotografías. | Permite preparar la imagen y dibujar contornos, rótulos y resultados descargables. |
-| **Python + HTML/CSS/JavaScript** | Procesamiento local e interfaz de navegador. | Permiten cargar y revisar fotos sin ejecutar comandos para cada análisis. |
-| **Docker** | Alternativa de ejecución del paquete. | Agrupa las dependencias para preparar el entorno. |
-| **CVAT** | Anotación y revisión de datos durante el desarrollo. | Mantiene un criterio común de polígonos y atributos; no se necesita para usar la app. |
-
-### Decisiones técnicas y alternativas
-
-La selección técnica responde al objetivo de **revisar faltantes visibles por nivel con un conjunto acotado de imágenes y ejecución local**. Las ventajas siguientes explican el diseño; no sustituyen la evaluación de precisión ni justifican dar por resueltos los pendientes.
-
-| Decisión | Alternativa considerada | Justificación, ventaja y límite |
-|---|---|---|
-| **Segmentar el área útil del nivel** | Usar solo cajas rectangulares o delimitar únicamente el frente del estante. | Una máscara permite seguir la perspectiva y definir dónde medir, incluidos los huecos; una caja puede incorporar fondo o zonas ajenas. Una banda frontal exigiría reconstruir después el espacio de productos y no resuelve el superior abierto. La máscara predicha puede equivocarse y debe revisarse. |
-| **Una clase geométrica Nivel, separada de la reposición** | Aprender directamente estados como Reponer y Suficiente, como en V1/V2. | Permite mantener el mismo objetivo de localización en fotos llenas y vacías, e inspeccionar por separado un fallo de contorno y uno de ocupación. También permite modificar la interpretación de señal sin reentrenar el localizador. A cambio, la medición posterior necesita su propia validación: un buen mAP de niveles no acredita alertas correctas. |
-| **YOLO26n-seg y ajuste fino de pesos existentes** | Entrenar desde cero o partir siempre de una arquitectura mayor. | Se prioriza una variante pequeña para una aplicación local y se reutilizan características aprendidas para adaptarlas a las góndolas con los datos disponibles. El último afinado parte de pesos propios V3, con optimizador nuevo y repaso de escenas anteriores. Esto evita reiniciar el aprendizaje desde cero; no demuestra que YOLO26 sea universalmente superior ni que el afinado haya mejorado globalmente al padre. |
-| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y auditar alertas de forma determinista y liviana sin entrenar ni distribuir un segundo peso pesado. Línea A combina evidencia híbrida, respaldo textural, normalización por góndola y penalización por huecos; obtuvo **Accuracy `97,74 %`** y **F1 `88,24 %`** en el test ciego de **Ohiggins 3**, identificándose la vista picada en estantes inferiores (`N5/N6`) como principal brecha frente a un modelo semántico futuro. |
-| **CVAT y revisión explícita de polígonos** | Exportar preanotaciones o aceptar etiquetas automáticas sin revisión. | Hace posible mantener una clase y un criterio comunes, registrar delimitaciones y oclusiones y verificar las correcciones sin confundir borrador con aprobación. La mediana aporta consistencia al superior abierto, conservando un techo físico real cuando existe. Requiere trabajo humano y no elimina la incertidumbre del contenido oculto. |
-| **Python con PyTorch/Ultralytics y una interfaz web local** | Usar un servicio remoto para cada fotografía o exigir comandos en cada análisis. | El entorno integra entrenamiento e inferencia y permite compartir funciones de geometría y presentación entre laboratorio y visor. La interfaz de navegador facilita revisar fotos y descargar resultados; Pillow resuelve lectura/orientación y composición. Tras instalar dependencias, el análisis permanece en el equipo y no necesita enviar las imágenes a un servicio externo. La velocidad depende del hardware disponible. |
-| **Docker como vía de ejecución en macOS** | Exigir la instalación manual de cada biblioteca y sus versiones. | Agrupa el entorno y conserva el mismo visor y modelo distribuido, reduciendo diferencias de dependencias entre equipos. La entrega conjunta incorpora Compose para las dos apps. La configuración se validó; el build actual y la prueba física en Mac siguen pendientes. La primera construcción requiere conexión y los recursos del contenedor siguen dependiendo del computador. |
-| **Partición por escenas y evaluación separada de sintéticas** | Repartir cada imagen al azar y sumar todas las métricas. | Evita que variantes casi idénticas o vistas del mismo tramo inflen la evaluación al aparecer en train y val. Separar reales y sintéticas muestra qué evidencia sostiene cada resultado y protege la independencia del test en **Ohiggins 3**. Conviene seguir ampliando escenas independientes de categorías como papeles y huevos. |
-
-## Documentación y recursos
-
-| Necesidad | Recurso |
+| Tecnología | Rol en el proyecto |
 |---|---|
-| Usar las apps | [Cliente](Aplicacion_Cliente/README.md) · [Equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Manual](Documentacion/Usar_Walmart_Vision.md) |
-| Entender el cálculo y sus límites | [Funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) |
-| Identificar modelo, datos y métricas | [Modelo oficial](Documentacion/Modelo_V3_actual.md) · [Entrenamiento](Documentacion/Entrenamiento_y_datos.md) |
-| Conocer cómo se trabajó | [Metodología](Documentacion/Metodologia_desarrollo_y_revision.md) · [Criterio V3](Documentacion/Criterio_de_niveles.md) |
-| Comprobar o construir la entrega | [Distribución y pruebas](Distribucion/README.md) |
-| Descargar versiones | [Entregables](Entregables/README.md) |
-| Consultar herramientas y antecedentes | [Archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md) |
+| **YOLO26n-seg** | Segmentación de instancias para localizar cada `Nivel` con su perspectiva. |
+| **PyTorch + Ultralytics** | Entrenamiento fino e inferencia local. |
+| **OpenCV + NumPy** | Extracción de bordes, gradiente, color, textura, calidad de captura y exclusión de rieles. |
+| **Pillow** | Lectura de imágenes, corrección EXIF y renderizado de contornos/rótulos. |
+| **Python + HTML/CSS/JS** | Servidores HTTP locales e interfaces web sin dependencias externas durante el uso. |
+| **Docker** | Empaquetado multiplataforma para ejecución aislada. |
+| **CVAT** | Anotación y revisión geométrica de polígonos durante el desarrollo. |
 
-### Carpetas principales
+---
 
-| Ruta | Contenido |
+## Documentación y estructura
+
+| Carpeta / Recurso | Contenido |
 |---|---|
-| [Aplicacion](Aplicacion/README.md) | Mesa del equipo (8095), motor compartido, único peso oficial y pruebas. |
-| [Aplicacion_Cliente](Aplicacion_Cliente/README.md) | Cliente (8098), alertas, revisión humana, CSV y pruebas. |
-| [Documentacion](Documentacion/README.md) | Uso, modelo, criterios, metodología, resultados y límites. |
-| [Distribucion](Distribucion/README.md) | Verificador y empaquetador autónomos de las dos apps. |
-| [Entregables](Entregables/README.md) | Enlaces a releases e informe académico fechado. |
-| [Fase 1](Fase%201/) | Material académico conservado sin cambios. |
-| [Fase 2](Fase%202/) | Material académico conservado sin cambios. |
+| [`Aplicacion/`](Aplicacion/README.md) | Mesa del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
+| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas, cámara móvil, revisión humana, CSV y pruebas. |
+| [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo V3](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
+| [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
+| [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Material académico de etapas anteriores conservado en su ubicación original. |
 
-### Material académico y demostración
+### Material de demostración
 
-- 🎬 [**Demostración funcional (7 min 01 s)**](https://youtu.be/sN_6XPdxtKk): recorrido de la app y casos del informe en la versión anterior V2. Conserva valor como demostración del proyecto; no muestra la interfaz V3 actual.
-- 📄 [**Informe intermedio en PDF**](Entregables/Informe_Intermedio_Avance_20261020.pdf) · [fuente del informe](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Informe_Intermedio_Avance_20261020.md): resultados y casos fechados, conservados como antecedente académico.
-- 📅 [**Planificación y metodología**](Documentacion/Planificacion_y_metodologia.md): hitos y organización del trabajo.
-- 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing) · [procedencia](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Ejemplos/README.md): selección real y sintética de la demostración anterior.
+- 🎬 [**Demostración funcional en video (7 min)**](https://youtu.be/sN_6XPdxtKk): recorrido de la versión anterior V2 (la interfaz V3 actual ya cambió).
+- 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing): selección histórica real y sintética para pruebas rápidas.
 
-## Estado actual de la implementación
-
-| Componente | Estado actual | Alcance o pendiente |
-|---|---|---|
-| App cliente | **Release del 13/11** | Carga de fotos, cámara con selector de lente, flujo móvil en tres pasos, filtros de alertas, revisión humana y CSV. Miniaturas y persistencia por foto; limpieza definitiva del recorrido. |
-| Mesa del equipo | **Release del 13/11** | Interfaz actualizada (`interfaz.html`), comparación de ejecuciones y algoritmos (`Línea A` predeterminada / `Basal · experimental`) con autocompletado dual por lotes, etiquetado por nivel, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
-| Segmentación de niveles | **Operativa** | Modelo V3 oficial, clase Nivel. Puede omitir o delimitar mal; no se impone la mediana al predecir. |
-| Línea A | **Evaluada en test (`Ohiggins 3`)** | Revisión `linea_a_20261113_techo_y_panel_liso`, índice visual 0–100 y umbral 52. En 354 niveles ciegos: **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %**, **F1 88,24 %** (`F1 89,80 %` por foto; E2E `1.371,9 ms` GPU / `1.442,5 ms` CPU). |
-| Personas, calidad y obstáculos | **Automático en calidad/encuadre; humano en oclusión** | [`calidad_foto.py`](Aplicacion/calidad_foto.py) bloquea fotos borrosas, oscuras o quemadas (`no_evaluable`); `near_frame` y ambigüedad pasan a `Revisar`. Personas y carros siguen en revisión humana. |
-| Ejecución e instalación | **HTTP e inferencia CPU comprobados desde el ZIP del 13/11** | Preparador Windows incluido; primer inicio con Internet. Compose validado; sin nueva construcción Docker ni prueba física en Mac. |
-| Modelo y preparación | **Ensayo oficial terminado** | 256 train (203 reales/53 sintéticas), 11 val reales y 1.298 polígonos train. Usar las apps no inicia entrenamiento. |
-| Evaluación final | **Cerrada en `Ohiggins 3` (14/11)** | 68 fotos / 354 niveles (`0` en train): YOLO `mAP50 99,50 %`, `mAP50-95(M) 90,36 %`, `354 TP / 0 FP / 0 FN`; Línea A `F1 88,24 %`. |
-| Licencias | **Código bajo AGPL-3.0; procedencia de pesos documentada** | Autoría de datos documentada; licencia pública del dataset no concedida. Véase [LICENCIAS.md](LICENCIAS.md). |
-
-GitHub conserva las fuentes, el peso operativo y los paquetes publicados. **No constituye un respaldo completo de los datasets, fotografías privadas, entornos ni resguardos locales.** Las releases anteriores conservan sus bytes y su alcance histórico.
+---
 
 ## Limitaciones y próximos pasos
 
-- **Reducir FN en niveles inferiores y señal ambigua:** `4/6 FN` en `Ohiggins 3` ocurrieron en `N5/N6` en ángulo picado (`max_gap_pct = 0,0 %`); carteles, fondos y envases lisos también pueden confundir la señal.
-- **Completar detección automática de oclusiones (`persona` / `carro`):** [`calidad_foto.py`](Aplicacion/calidad_foto.py) ya filtra automáticamente borrosidad y luz extrema, y `vision_v3.py` envía recortes y señales ambiguas a `Revisar`, pero aún falta detector automático para personas o carros tapando niveles.
-- **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
-- **Ampliar categorías evaluadas en campo:** aunque `Ohiggins 3` cerró el test independiente base (`68` fotos / `354` niveles), sigue siendo útil sumar escenas nuevas de papeles y huevos.
-- **Probar instalación en otros equipos y Docker/macOS:** las comprobaciones de esta revisión no sustituyen una nueva prueba física de la entrega conjunta en Mac.
+- **Estantes inferiores con toma picada:** `4/6 FN` de Línea A en `Ohiggins 3` ocurrieron en el nivel inferior (`N5`/`N6`) en ángulo picado sin hueco limpio (`max_gap_pct = 0,0 %`); carteles, fondos y envases lisos también pueden confundir la señal.
+- **Oclusiones por personas o carros:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) filtra borrosidad y luz extrema, pero aún no existe detector automático para personas o carros tapando niveles.
+- **Niveles superiores y nuevas categorías:** algunas escenas concretas (`le_g10` fotos 029/030) presentan errores en el superior, y conviene sumar más escenas independientes de categorías como papeles y huevos.
+- **Persistencia compartida y macOS:** queda pendiente añadir historial persistente en servidor (SQLite) en la app cliente y validar físicamente la entrega conjunta en macOS.
 
-El prototipo orienta la revisión visual. Sus índices y avisos requieren comprobar la foto y no sustituyen una medición de inventario.
+---
 
-## Equipo
+## Equipo y licencia
 
-**Capstone DUOC UC · 2026**
+**Capstone DUOC UC · 2026** — Desarrollo: **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches** · Docente: **Arturo Vargas**.
 
-| Rol | Integrantes |
-|---|---|
-| Desarrollo | **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches** |
-| Docente | **Arturo Vargas** |
-
-
-## Licencia y autoría
-
-El código original del equipo se publica bajo [AGPL-3.0-only](LICENSE), por acuerdo confirmado el 10/11/2026. [Procedencia de fotos, anotaciones y pesos, alcance y condiciones](LICENCIAS.md) · [Avisos de terceros](NOTICE.md). El proyecto tiene finalidad académica; AGPL permite también usos comerciales sujetos a sus condiciones. Las fotografías y anotaciones no reciben una licencia pública por este acuerdo sobre el código.
+El código original del equipo se distribuye bajo [AGPL-3.0-only](LICENSE) ([alcance, autoría de datos y pesos](LICENCIAS.md) · [avisos de terceros](NOTICE.md)). Las fotografías y anotaciones mantienen su autoría y no reciben licencia pública mediante este repositorio.
