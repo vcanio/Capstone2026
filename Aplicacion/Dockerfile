@@ -22,7 +22,7 @@ RUN python -m pip install torch==2.5.1 torchvision==0.20.1 \
 WORKDIR /app/Walmart_Vision
 ENV YOLO_CONFIG_DIR=/app/Walmart_Vision/.runtime/config \
     MPLCONFIGDIR=/app/Walmart_Vision/.runtime/config/matplotlib
-COPY --chown=10001:10001 app.py inferencia.py interfaz.html revision_rapida.js modelos.json visibilidad_experimental.py \
+COPY --chown=10001:10001 app.py inferencia.py calidad_foto.py interfaz.html revision_rapida.js modelos.json visibilidad_experimental.py \
     ocupacion_paulo.py ocupacion_linea_a.py ocupacion_basal.py gondola_bordes.py gondola_combinacion_ponderada.py geometria_niveles.py presentacion_niveles.py vision_v3.py ./
 COPY --chown=10001:10001 modelos/ ./modelos/
 COPY --chown=10001:10001 LICENSE NOTICE.md LICENCIAS.md ./

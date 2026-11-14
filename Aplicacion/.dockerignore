@@ -4,6 +4,7 @@
 !requirements.txt
 !requirements-docker.txt
 !app.py
+!calidad_foto.py
 !inferencia.py
 !geometria_niveles.py
 !presentacion_niveles.py
@@ -14,6 +15,7 @@
 !modelos.json
 !ocupacion_paulo.py
 !ocupacion_linea_a.py
+!ocupacion_basal.py
 !gondola_bordes.py
 !gondola_combinacion_ponderada.py
 !modelos/
