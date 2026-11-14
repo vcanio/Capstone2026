@@ -2,7 +2,7 @@
 
 **Análisis de disponibilidad en góndolas mediante visión por computador**
 
-Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo: ambas detectan niveles de góndola, delimitan su área útil y calculan un índice visual para ayudar a identificar posibles faltantes.
+Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo: ambas segmentan niveles de góndola, delimitan su área útil y calculan un índice visual para detectar posibles faltantes y apoyar la reposición.
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
@@ -13,35 +13,36 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 ## Contenido
 
-- [¿Qué hace el sistema?](#qué-hace-el-sistema)
+- [Problemática y descripción de la solución](#problemática-y-descripción-de-la-solución)
 - [Descarga e inicio rápido](#descarga-e-inicio-rápido)
-- [Cómo se define un nivel](#cómo-se-define-un-nivel)
-- [Cómo interpretar los resultados](#cómo-interpretar-los-resultados)
-- [Modelo y evaluación](#modelo-y-evaluación)
-- [Arquitectura](#arquitectura)
-- [Datos y entrenamiento](#datos-y-entrenamiento)
-- [Tecnologías](#tecnologías)
+- [Estrategia y justificación técnica](#estrategia-y-justificación-técnica)
+- [Arquitectura de la solución](#arquitectura-de-la-solución)
+- [Datasets y preparación](#datasets-y-preparación)
+- [Evaluación y métricas](#evaluación-y-métricas)
+- [Estado actual de la implementación](#estado-actual-de-la-implementación)
 - [Documentación y estructura](#documentación-y-estructura)
-- [Limitaciones y próximos pasos](#limitaciones-y-próximos-pasos)
 - [Equipo y licencia](#equipo-y-licencia)
 
 ---
 
-## ¿Qué hace el sistema?
+## Problemática y descripción de la solución
 
-A partir de una fotografía frontal de góndola, el sistema:
+### Problemática y objetivo
 
-1. **Valida calidad básica:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) filtra capturas severamente borrosas, oscuras o quemadas (`no_evaluable`) antes de inferir.
-2. **Detecta y segmenta niveles:** delimita el área útil de cada repisa, incluidos los huecos sin producto.
-3. **Analiza señal visual:** combina bordes, gradiente, color y textura dentro de cada máscara para estimar ocupación.
-4. **Muestra alertas y facilita la revisión:** el cliente filtra alertas, guía la captura móvil en tres pasos, registra la revisión humana y exporta CSV; la app del equipo compara algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marca errores y exporta lotes ZIP.
+En supermercados, los quiebres de stock visibles a simple vista generan pérdidas de venta y una mala experiencia de compra. Inspeccionar pasillos manualmente para detectar espacios vacíos es lento, costoso y poco escalable frente a la cantidad de locales y góndolas que deben monitorearse, especialmente cuando las capturas presentan variaciones de perspectiva, ángulo, iluminación y formatos de envase.
 
-El sistema trabaja por repisa completa para ubicar faltantes visibles: **no cuenta unidades, no identifica SKU, no mide profundidad, no consulta inventario ni detecta personas o carros de forma automática**.
+El **objetivo** de este proyecto es determinar, a partir de fotografías reales de góndolas, si existe disponibilidad visual suficiente por nivel de repisa y generar alertas de reposición bajo un umbral técnicamente justificado. Queda **fuera de alcance** la integración productiva con sistemas de inventario, el conteo unitario de envases o la identificación de SKU específicos.
 
-| Aplicación | Puerto | Público y uso principal |
-|---|---:|---|
-| **App cliente** | `8098` | Supervisores y reposición: alertas visuales, cámara móvil con selector de lente, revisión humana y CSV. |
-| **App del equipo** | `8095` | Desarrollo y evaluación: comparación de ejecuciones y algoritmos, autocompletado por lotes, mapas, marcado por nivel/zona y lotes ZIP. |
+### Funcionalidades principales
+
+A partir de una fotografía frontal de góndola, el sistema ejecuta cuatro etapas:
+
+1. **Filtro previo de calidad:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) detecta capturas severamente borrosas, oscuras o quemadas y las marca como `no_evaluable` antes de inferir.
+2. **Segmentación por nivel de góndola:** `YOLO26n-seg` delimita el área útil completa de cada repisa, incluyendo tanto productos como huecos vacíos.
+3. **Estimación visual de ocupación:** **Línea A** combina bordes, gradiente, color y textura dentro de cada máscara para calcular un índice visual de `0` a `100` (umbral `52`) y derivar casos ambiguos o recortados a `Revisar`.
+4. **Flujos de operación y revisión:**
+   - **App cliente (`8098`):** consulta de alertas (`Reponer`, `Suficiente`, `Revisar`), guía móvil de captura en tres pasos con selector de lente trasera, registro de revisión humana independiente y exportación a CSV.
+   - **App del equipo (`8095`):** comparación entre ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), autocompletado por lotes, mapas de señal, marcado de errores por nivel/zona y exportación de lotes ZIP.
 
 ---
 
@@ -55,7 +56,7 @@ Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261113.zip**](https://g
 
 1. Ejecuta `Walmart_Vision/iniciar_cliente.cmd` (`8098`) o `Walmart_Vision/iniciar_equipo.cmd` (`8095`).
 2. El primer inicio prepara Python 3.12 y sus dependencias dentro de la carpeta (requiere Internet). Mantén la consola abierta mientras uses la app.
-3. Abre en el navegador [http://127.0.0.1:8098](http://127.0.0.1:8098) (cliente) o [http://127.0.0.1:8095](http://127.0.0.1:8095) (equipo).
+3. Abre [http://127.0.0.1:8098](http://127.0.0.1:8098) (cliente) o [http://127.0.0.1:8095](http://127.0.0.1:8095) (equipo).
 4. Carga imágenes **JPG, PNG o WebP** de hasta **10 MB** y 24 megapíxeles.
 
 ### Docker (incluido macOS)
@@ -72,85 +73,54 @@ Para detener ambas apps:
 docker compose -f compose.apps.yaml down
 ```
 
-La configuración de Compose está validada y la ejecución HTTP/CPU comprobada en Linux/Windows desde paquete limpio; queda pendiente la prueba física en macOS.
+### Desde un clon y recomendaciones de uso
 
-### Desde un clon del repositorio
-
-En Windows, ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. La confianza inicial de YOLO es **0,60** (fija en cliente; ajustable desde **0,25** en la app del equipo).
-
-### Recomendaciones de captura y privacidad
-
-- Usa tomas **frontales o casi frontales**, con ambos extremos del tramo visibles y evitando reflejos fuertes o desenfoque.
-- Las fotos se procesan **localmente** en tu equipo y no se envían a servidores externos ni se añaden al entrenamiento.
-- Cada navegador guarda localmente su sesión (`IndexedDB` en cliente, con botón *Limpiar pasillo* para borrarla). No hay sincronización entre equipos.
-- Para probar sin fotos propias existe una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
+- En Windows, ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. La confianza inicial de YOLO es **0,60** (fija en cliente; ajustable desde **0,25** en la app del equipo).
+- Toma fotos **frontales o casi frontales** con ambos extremos del tramo visibles, evitando reflejos fuertes o desenfoque.
+- Las fotografías se procesan **localmente** en el equipo del usuario; cada navegador guarda su sesión en local (`IndexedDB` en cliente, con botón *Limpiar pasillo*).
+- Para pruebas rápidas sin fotos propias existe una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
 
 ---
 
-## Cómo se define un nivel
+## Estrategia y justificación técnica
 
-Un **nivel** es el área útil completa de una repisa dentro de un tramo de góndola, incluyendo tanto productos como huecos vacíos:
+### Estrategia algorítmica
 
-- **Base inferior:** superficie de apoyo del producto, **por encima del portaprecio** (excluye franja de precio y espesor frontal del estante).
-- **Límite superior:** cara inferior de la repisa superior cuando existe. Si el último nivel es abierto y no tiene techo físico claro, las anotaciones proyectan la **mediana de altura** de los niveles inferiores del mismo tramo para mantener consistencia entre fotos llenas y vacías.
-- **Laterales:** límites interiores del mismo tramo.
+1. **Definición geométrica de `Nivel`:** cada polígono cubre el área útil de una repisa desde la superficie de apoyo **sobre el portaprecio** hasta la cara inferior del estante superior (o la **mediana de altura** de los inferiores del mismo tramo cuando el superior es abierto, para mantener consistencia entre fotos llenas y vacías). Durante la inferencia, la app no fuerza la mediana de forma artificial.
+2. **Filtro de calidad y zonas no evaluables:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales) para bloquear fotos ilegibles como `no_evaluable`. Si un contorno toca el encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o tiene señal ambigua, pasa a `Revisar`. Las obstrucciones por personas o carros quedan sujetas a revisión humana, sin interpretarse ni como falta de producto ni como stock suficiente.
+3. **Cálculo de ocupación (`Línea A`, revisión `linea_a_20261113_techo_y_panel_liso`):**
+   - [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) lee los píxeles originales dentro de cada máscara, conserva bordes Canny y excluye rieles/barandas horizontales.
+   - [`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py) normaliza `P10–P90` entre todos los niveles de la **misma góndola**, combina bordes, gradiente Sobel, saturación con respaldo textural (evita contar tableros lisos vacíos) y desviación local, descarta techo abierto sin producto y penaliza el hueco horizontal continuo más largo (`100 - max_gap_pct`).
+   - Se compara el índice visual (`0–100`) contra el umbral **`52`**: `< 52` dispara alerta **Reponer**; `≥ 52` indica **Suficiente** (evidencia visual frontal, no porcentaje de inventario físico).
 
-**Importante:** durante la inferencia, la app **no impone la mediana** de forma automática; YOLO predice sus propias máscaras y puede omitir o delimitar mal un nivel superior.
+[Implementación de Línea A](Aplicacion/ocupacion_linea_a.py) · [Extracción de señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md)
 
----
+### Justificación de decisiones técnicas
 
-## Cómo interpretar los resultados
+| Decisión técnica | Alternativa descartada | Por qué se eligió y qué ventaja aporta |
+|---|---|---|
+| **Segmentación por máscaras de clase única `Nivel`** | Cajas rectangulares (`bbox`) o clasificar directamente `Reponer`/`Suficiente` en YOLO. | Las máscaras siguen la perspectiva de la góndola y excluyen zonas ajenas. Separar geometría (`Nivel`) de ocupación permite anotar con el mismo criterio repisas llenas o vacías, auditar por separado errores de contorno y ocupación, y ajustar reglas de alerta sin reentrenar YOLO. |
+| **`YOLO26n-seg` con ajuste fino** | Entrenar desde cero o usar modelos pesados dependientes de servidor GPU. | Su tamaño liviano permite inferencia local rápida tanto en CPU como en GPU (`77 ms` GPU / `226 ms` CPU) y aprovecha pesos preentrenados para adaptarse con un dataset acotado de tienda. |
+| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. El umbral `52` fue calibrado en desarrollo (`112` niveles) y validado en ciego (`Ohiggins 3`, `F1 88,24 %`), conservando el basal de `30 %` como referencia experimental en la app del equipo. |
+| **Compuerta de calidad (`calidad_foto.py`) y estado `Revisar`** | Inferir todas las fotos por igual y emitir siempre `Reponer` o `Suficiente`. | Evita generar falsas alertas de quiebre sobre fotografías borrosas, quemadas, oscuras o recortadas, diferenciando falta de evidencia visual de falta de producto. |
+| **Ejecución web local (`Python` + `Docker`)** | Servicio externo en la nube o ejecución solo por consola. | Mantiene las fotografías en el equipo sin latencia de red ni envío a terceros, ofrece interfaz visual directa para supervisores y empaqueta dependencias reproducibles entre equipos. |
 
-Los niveles se numeran **de abajo hacia arriba** (y de izquierda a derecha si comparten fila). La regla vigente (**Línea A**, `linea_a_20261113_techo_y_panel_liso`) calcula un índice visual de **0 a 100** con umbral **52**:
+### Tecnologías utilizadas
 
-| Resultado | Significado |
-|---|---|
-| **Reponer** | Índice menor a 52 cuando la señal visual permite decidir. |
-| **Suficiente** | Índice desde 52 sin señales de alerta; no certifica stock físico oculto. |
-| **Revisar / Verificar** | Señal ambigua, contorno recortado o falta de medición; requiere revisar la foto. |
-| **Sin niveles / No evaluable** | Captura bloqueada por baja calidad (`calidad_foto.py`) o sin niveles detectados; solicita otra toma. |
-
-### Cómo funciona Línea A paso a paso
-
-1. **Filtro previo de captura ([`calidad_foto.py`](Aplicacion/calidad_foto.py)):** evalúa nitidez (Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos en `294` capturas reales). Si la toma está severamente borrosa, oscura o quemada, la devuelve como `no_evaluable` antes de inferir.
-2. **Segmentación y exclusión de rieles:** YOLO26n-seg obtiene las máscaras de cada repisa y [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) lee los píxeles originales dentro de cada área, conservando Canny y excluyendo rieles/barandas horizontales.
-3. **Normalización compartida y evidencia híbrida ([`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py)):** normaliza `P10–P90` entre todos los niveles de la misma góndola, combina bordes, gradiente Sobel, saturación con respaldo textural (evita contar tableros lisos vacíos) y desviación local, además de descartar techo abierto sin producto.
-4. **Penalización por hueco y guardas:** acota la lectura según el tramo vacío continuo más largo (`100 - max_gap_pct`), compara contra **52** y deriva a `Revisar` si hay recorte al encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o señal ambigua.
-
-Un valor como `70/100` indica evidencia visual de cobertura frontal, **no 70 % de inventario real**. En la app del equipo coexiste frente a la opción experimental **Basal** ([comparación](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)).
-
-[Línea A](Aplicacion/ocupacion_linea_a.py) · [Señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md)
-
----
-
-## Modelo y evaluación
-
-Ambas aplicaciones comparten el modelo oficial **`V3-cierre-revisado-20261110`** (`YOLO26n-seg`, clase única `Nivel`, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`).
-
-### Segmentación de niveles (`YOLO26n-seg`)
-
-| Conjunto | Fotos | Niveles | mAP50 | mAP50–95 (M) | Emparejamiento (`conf = 0,60`) |
-|---|---:|---:|---:|---:|---|
-| Validación real | 11 | 55 | 99,50 % | 90,04 % | `54 TP, 0 FP, 1 FN` |
-| **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **`354 TP, 0 FP, 0 FN`** (`68/68` exactos · `IoU` medio `93,90 %`) |
-
-El test independiente de `Ohiggins 3` (`0` fotos en `train`/`val`) obtuvo `Precision 0,9991` y `Recall 1,0000`, con latencia media de `YOLO.predict` de **77,15 ms** en GPU (`GTX 1660 SUPER`) y **225,94 ms** en CPU (`AMD Ryzen 5 3600`, muestra de 15 fotos). El test histórico de 63 fotos quedó retirado tras incorporarse parte de sus escenas a entrenamiento.
-
-### Clasificación de ocupación (`Línea A`, umbral 52)
-
-Fijado en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y validado en frío sobre **Ohiggins 3** (68 fotos no entrenadas, 354 niveles predichos por YOLO):
-
-- **Por nivel:** Accuracy **97,74 %** · Precision **93,75 %** · Recall **83,33 %** · **F1 88,24 %** (`30 TP, 2 FP, 6 FN, 316 TN`).
-- **Por foto completa:** Accuracy **92,65 %** · **F1 89,80 %**.
-- **Latencia E2E (`YOLO + Línea A`):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
-
-[Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
+| Tecnología | Función en el sistema | Justificación |
+|---|---|---|
+| **YOLO26n-seg (`PyTorch` + `Ultralytics`)** | Segmentación de instancias de cada `Nivel` y ajuste fino de pesos. | Baja latencia local en CPU/GPU y compatibilidad directa entre entrenamiento e inferencia. |
+| **OpenCV + NumPy** | Calidad de captura (`calidad_foto.py`), bordes, gradientes, color/textura y exclusión de rieles. | Procesamiento matricial determinista, liviano y auditable por repisa. |
+| **Pillow** | Lectura de imágenes, normalización EXIF y renderizado de contornos/rótulos. | Manejo consistente de orientación de cámara móvil y generación rápida de salidas visuales. |
+| **Python + HTML/CSS/JS** | Servidores HTTP locales (`app_cliente.py`, `app.py`) e interfaces web. | Flujo interactivo en navegador sin dependencias externas ni instalación compleja para el usuario final. |
+| **Docker (`compose.apps.yaml`)** | Contenerización conjunta de ambas aplicaciones. | Aísla versiones de Python y librerías para ejecución reproducible multiplataforma. |
+| **CVAT** | Anotación y revisión geométrica de polígonos durante el desarrollo. | Estandariza criterios de etiquetado (`Nivel`, portaprecio, oclusión) sin formar parte del runtime final. |
 
 ---
 
-## Arquitectura
+## Arquitectura de la solución
 
-El entrenamiento y la inferencia están desacoplados: CVAT, el laboratorio interno de entrenamiento y los datasets **no son dependencias** de las aplicaciones distribuidas.
+El flujo de entrenamiento y el de aplicación están desacoplados: CVAT, el laboratorio de entrenamiento y los datasets **no son dependencias** en tiempo de ejecución.
 
 ```mermaid
 flowchart TB
@@ -172,9 +142,9 @@ flowchart TB
     end
 ```
 
-### Flujo interno de las aplicaciones
+### Módulos internos en ejecución local
 
-Ambas interfaces locales comparten `inferencia.py`, el modelo oficial y el motor de ocupación:
+Ambas aplicaciones comparten `inferencia.py`, el modelo oficial y el motor de ocupación:
 
 ```mermaid
 flowchart LR
@@ -206,27 +176,60 @@ flowchart LR
 
 ---
 
-## Datos y entrenamiento
+## Datasets y preparación
 
-- **Último afinado (`V3-cierre-revisado-20261110`):** 40 épocas con **256 imágenes de entrenamiento** (203 reales y 53 sintéticas; **1.298 polígonos**) y **11 fotos reales de validación** (55 polígonos, 3 escenas).
-- **Procedencia acumulada:** el peso proviene de **tres etapas propias** sobre el preentrenamiento general de `yolo26n-seg.pt`, reuniendo **519 fuentes distintas de entrenamiento por SHA-256** (299 reales y 220 sintéticas).
-- **Partición y herramientas:** originales y variantes sintéticas se agrupan por escena y familia para evitar fugas entre `train`, `val` y `test`. Las anotaciones se realizaron en **CVAT** (clase única `Nivel`), con apoyo de un laboratorio interno para preparar particiones, entrenar y seguir métricas, y de la app del equipo para inspección visual. La revisión visual complementa las métricas, pero no equivale a mAP ni recall.
+- **Origen de los datos:** fotografías reales de góndolas capturadas por el equipo en tienda y variantes sintéticas controladas (generadas e identificadas explícitamente como apoyo al entrenamiento, sin asumirlas como evidencia de generalización real).
+- **Cantidades utilizadas:**
+  - **Cadena acumulada (3 etapas propias sobre `yolo26n-seg.pt`):** **519 fuentes de entrenamiento** distintas por SHA-256 (`299` reales y `220` sintéticas).
+  - **Último afinado (`V3-cierre-revisado-20261110`, 40 épocas):** **256 imágenes de `train`** (`203` reales / `53` sintéticas, **1.298 polígonos**) y **11 fotos reales de `val`** (`55` polígonos, 3 escenas).
+  - **Test independiente (`Ohiggins 3`):** **68 fotos reales** y **354 polígonos `Nivel`** con `0` coincidencia en `train` o `val`.
+- **Limpieza, etiquetado y preparación:**
+  1. **Integridad y deduplicación:** registro de dimensiones y huella SHA-256 para evitar duplicados exactos entre particiones.
+  2. **Limpieza y normalización:** exclusión documentada de tomas dudosas o no aptas y resolución de orientación EXIF en copias de preparación conservando originales intactos.
+  3. **Partición anti-fuga por escenas:** originales, vistas cercanas y variantes sintéticas se agrupan por escena/familia para no filtrar el mismo tramo entre `train`, `val` y `test`.
+  4. **Etiquetado en CVAT:** clase única `Nivel`, delimitada sobre el portaprecio, excluyendo espesor frontal y aplicando la mediana en niveles superiores abiertos.
 
 [Catálogo del modelo oficial](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md)
 
 ---
 
-## Tecnologías
+## Evaluación y métricas
 
-| Tecnología | Rol en el proyecto |
-|---|---|
-| **YOLO26n-seg** | Segmentación de instancias para localizar cada `Nivel` con su perspectiva. |
-| **PyTorch + Ultralytics** | Entrenamiento fino e inferencia local. |
-| **OpenCV + NumPy** | Extracción de bordes, gradiente, color, textura, calidad de captura y exclusión de rieles. |
-| **Pillow** | Lectura de imágenes, corrección EXIF y renderizado de contornos/rótulos. |
-| **Python + HTML/CSS/JS** | Servidores HTTP locales e interfaces web sin dependencias externas durante el uso. |
-| **Docker** | Empaquetado multiplataforma para ejecución aislada. |
-| **CVAT** | Anotación y revisión geométrica de polígonos durante el desarrollo. |
+Modelo oficial vigente: **`V3-cierre-revisado-20261110`** (SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`).
+
+### Segmentación de niveles (`YOLO26n-seg`)
+
+| Conjunto | Fotos | Niveles | mAP50 | mAP50–95 (M) | Emparejamiento (`conf = 0,60`) |
+|---|---:|---:|---:|---:|---|
+| Validación real | 11 | 55 | 99,50 % | 90,04 % | `54 TP, 0 FP, 1 FN` |
+| **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **`354 TP, 0 FP, 0 FN`** (`68/68` exactos · `IoU` medio `93,90 %`) |
+
+En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, con latencia media de `YOLO.predict` de **77,15 ms** en GPU (`GTX 1660 SUPER`) y **225,94 ms** en CPU (`AMD Ryzen 5 3600`, muestra de 15 fotos).
+
+### Clasificación de ocupación (`Línea A`, umbral 52)
+
+Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada en frío sobre los **354 niveles predichos por YOLO en `Ohiggins 3`**:
+
+- **Por nivel:** Accuracy **97,74 %** · Precision **93,75 %** · Recall **83,33 %** · **F1 88,24 %** (`30 TP, 2 FP, 6 FN, 316 TN`).
+- **Por foto completa:** Accuracy **92,65 %** · **F1 89,80 %**.
+- **Latencia E2E (`YOLO + Línea A`):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
+
+[Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
+
+---
+
+## Estado actual de la implementación
+
+| Componente / Capacidad | Estado | Alcance operativo o pendiente |
+|---|---|---|
+| **App cliente (`8098`)** | **Operativa** | Alertas visuales, flujo móvil en 3 pasos, selector de lente trasera, revisión humana, persistencia en navegador (`IndexedDB`) y exportación CSV. |
+| **App del equipo (`8095`)** | **Operativa** | Comparación `Línea A` vs `Basal · experimental`, autocompletado por lotes, mapas de bordes, marcado por nivel/zona y lotes ZIP. |
+| **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); en escenas puntuales (`le_g10` 029/030) aún puede fallar el nivel superior. |
+| **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
+| **Ocupación `Línea A` (umbral `52`)** | **Operativa** | Evaluada en ciego sobre `Ohiggins 3` (`F1 88,24 %` por nivel); `4/6 FN` ocurrieron en estantes inferiores (`N5`/`N6`) con toma picada sin hueco limpio (`max_gap_pct = 0,0 %`). |
+| **Empaquetado Windows y Docker** | **Operativo / parcial en Mac** | Instalador Windows y Docker Compose verificados en Windows/Linux; pendiente prueba física de la entrega conjunta en macOS. |
+| **Detector de oclusiones (`persona` / `carro`)** | **Pendiente** | Las obstrucciones parciales por personas o carros siguen dependiendo de revisión visual humana. |
+| **Persistencia compartida y más categorías** | **Pendiente** | Falta historial persistente en servidor (`SQLite`) para la app cliente y ampliar el test independiente a nuevas tiendas y categorías (papeles, huevos). |
 
 ---
 
@@ -234,7 +237,7 @@ flowchart LR
 
 | Carpeta / Recurso | Contenido |
 |---|---|
-| [`Aplicacion/`](Aplicacion/README.md) | Mesa del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
+| [`Aplicacion/`](Aplicacion/README.md) | App del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
 | [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas, cámara móvil, revisión humana, CSV y pruebas. |
 | [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo V3](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
@@ -244,15 +247,6 @@ flowchart LR
 
 - 🎬 [**Demostración funcional en video (7 min)**](https://youtu.be/sN_6XPdxtKk): recorrido de la versión anterior V2 (la interfaz V3 actual ya cambió).
 - 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing): selección histórica real y sintética para pruebas rápidas.
-
----
-
-## Limitaciones y próximos pasos
-
-- **Estantes inferiores con toma picada:** `4/6 FN` de Línea A en `Ohiggins 3` ocurrieron en el nivel inferior (`N5`/`N6`) en ángulo picado sin hueco limpio (`max_gap_pct = 0,0 %`); carteles, fondos y envases lisos también pueden confundir la señal.
-- **Oclusiones por personas o carros:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) filtra borrosidad y luz extrema, pero aún no existe detector automático para personas o carros tapando niveles.
-- **Niveles superiores y nuevas categorías:** algunas escenas concretas (`le_g10` fotos 029/030) presentan errores en el superior, y conviene sumar más escenas independientes de categorías como papeles y huevos.
-- **Persistencia compartida y macOS:** queda pendiente añadir historial persistente en servidor (SQLite) en la app cliente y validar físicamente la entrega conjunta en macOS.
 
 ---
 
