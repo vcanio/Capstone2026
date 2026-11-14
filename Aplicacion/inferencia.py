@@ -151,13 +151,15 @@ class ModelRunner:
                 'width': image.width, 'height': image.height, 'method': method,
                 'geometry_only': geometry, **({'evaluabilidad': evaluability} if evaluability else {}), **extra}
 
-    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable', occupancy_algorithm='linea_a', primary_algorithm='linea_a'):
+    def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable', occupancy_algorithm='linea_a', primary_algorithm='linea_a', quality_check=None):
         """Analizar bytes de una foto y devolver imagen, detecciones y métricas.
 
         confidence filtra detecciones de niveles; no expresa ocupación.
         visibility se acepta por compatibilidad con llamadas antiguas y se
         ignora: las personas y los obstáculos requieren revisión visual.
         """
+        if quality_check is not None and not isinstance(quality_check, bool):
+            raise ValueError('quality_check debe ser booleano o None.')
         if model_id is None:
             model_id = self.manifest['default_model']
         if model_id not in self.entries:
@@ -198,6 +200,11 @@ class ModelRunner:
                 evaluability = assess(image, self.root)
                 if evaluability['estado'] != 'apta':
                     return blocked(evaluability['estado'], 'No se puede evaluar la góndola con esta foto. Toma otra imagen despejada.')
+            from calidad_foto import MIN_AUTO_CHECK_SIDE, assess_photo_quality
+            run_quality = (min(image.size) >= MIN_AUTO_CHECK_SIDE) if quality_check is None else quality_check
+            quality_result = assess_photo_quality(image) if run_quality else None
+            if quality_result and not quality_result['usable']:
+                return {**blocked(quality_result['status'], quality_result['reason']), 'calidad': quality_result}
             original_rgb = None
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
@@ -231,7 +238,10 @@ class ModelRunner:
                         payload.pop('edges_image', None)
                         payload.pop('filtered_edges_image', None)
                     variants[algo] = payload
-                return {**variants[primary_algorithm], 'variant_results': variants}
+                merged = {**variants[primary_algorithm], 'variant_results': variants}
+                if quality_result:
+                    merged['calidad'] = quality_result
+                return merged
             payload = self._build_prediction(
                 image, result, original_rgb, detections, model_id, device,
                 started, method, geometry, evaluability, visibility_mode, occupancy_algorithm)
@@ -239,6 +249,8 @@ class ModelRunner:
                 return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
             if payload['image'] is None:
                 payload['image'] = annotated
+            if quality_result:
+                payload['calidad'] = quality_result
             return payload
         finally:
             self.lock.release()

@@ -19,7 +19,7 @@ Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart
 
 [App cliente](Aplicacion_Cliente/README.md): alertas visuales, navegación móvil en tres pasos, selector de lente trasera, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación de ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
 
-La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente compartido por ambas apps, la revisión **Línea A (`linea_a_20261113_techo_y_panel_liso`)** —con filtro textural para tableros lisos, descarte de techo abierto sin producto y conservación de extremos vacíos en estantes inclinados—, la app cliente (12/11) y la mesa de revisión del equipo actualizada (`interfaz.html` y autocompletado dual por lotes). El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A (predeterminada en ambas apps, umbral 52) quedó evaluada el 14/11 en el test ciego de **Ohiggins 3** (68 fotos, 354 niveles): **F1 88,24 %** por nivel (**Accuracy 97,74 %**) y **F1 89,80 %** por foto ([evidencia completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)). La opción basal en la app del equipo es experimental (umbral 30 %, sin calibrar). No miden porcentaje físico de stock ni detectan personas u obstáculos de forma automática.
+La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente compartido por ambas apps, la revisión **Línea A (`linea_a_20261113_techo_y_panel_liso`)** —con filtro textural para tableros lisos, descarte de techo abierto sin producto y conservación de extremos vacíos en estantes inclinados—, la app cliente (12/11) y la mesa de revisión del equipo actualizada (`interfaz.html` y autocompletado dual por lotes). Sobre esa base de `main`, hoy se suman: (1) el **cierre de evaluación cuantitativa en `Ohiggins 3`** (68 fotos, 354 niveles: **YOLO `mAP50 99,50 %`** / **`354 TP, 0 FP, 0 FN`**; **Línea A `Accuracy 97,74 %`**, **`F1 88,24 %`** por nivel y **`89,80 %`** por foto — [evidencia completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)), y (2) el **filtro automático de calidad fotográfica** ([`calidad_foto.py`](Aplicacion/calidad_foto.py)) que marca como `no_evaluable` capturas muy borrosas, oscuras o quemadas antes de inferir. Las obstrucciones por personas o carros siguen bajo revisión humana, y ningún índice mide porcentaje físico de stock.
 
 ## Explorar las carpetas
 
@@ -159,16 +159,20 @@ Los niveles se numeran **de abajo hacia arriba** y de izquierda a derecha cuando
 
 La app cliente presenta alertas visuales y permite registrar una revisión humana independiente del análisis. La app del equipo conserva el detalle técnico, los mapas y las herramientas de revisión. Los mensajes sobre huecos o frentes son interpretaciones de señal visible y requieren comprobar la foto.
 
-### Cómo se obtiene el índice
+### Cómo funciona Línea A (y por qué se llama así)
 
-1. **YOLO delimita niveles** mediante máscaras. El análisis utiliza los píxeles originales dentro de esas áreas, sin medir los colores o rótulos dibujados sobre el resultado.
-2. **Se extraen bordes, gradiente, color y textura.** Se conserva Canny y la exclusión estructural de rieles para reducir su contribución a la señal.
-3. **Línea A comparte la normalización entre niveles de la misma góndola**, combina evidencia híbrida y penaliza huecos continuos.
-4. **Se aplican las guardas de señal ambigua y de encuadre.** Cuando la lectura lo permite, se compara el índice con 52; en los casos ambiguos se solicita revisión.
+**Por qué se llama «Línea A»:** tras cerrar la segmentación geométrica V3, el equipo separó el problema en líneas independientes de estimación de disponibilidad para reemplazar el estimador basal heredado de V2 (porcentaje simple de área/ancho y umbral `30 %` sin calibrar). **Línea A** (`linea_a_v1_gondola_anchorage`, revisión `linea_a_20261113_techo_y_panel_liso`) corresponde a la **primera rama de diseño**: reglas deterministas explicables de visión clásica sobre bordes, color y textura dentro de las máscaras de YOLO. En la app del equipo coexiste frente a la opción **«Basal · experimental»** para comparar criterios sin tocar los pesos de YOLO.
+
+**Cómo calcula la lectura paso a paso:**
+
+1. **Filtro previo de captura ([`calidad_foto.py`](Aplicacion/calidad_foto.py)):** antes de inferir, evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales de desarrollo y test). Si la foto está severamente borrosa, oscura o quemada, bloquea el análisis y la devuelve como **`no_evaluable`** sin generar falsas alertas.
+2. **YOLO delimita niveles y se excluyen rieles:** YOLO26n-seg entrega las máscaras de cada repisa. Sobre los píxeles originales dentro de cada máscara, [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) conserva Canny, excluye rieles/barandas horizontales y acota la grilla al cuerpo útil vertical (sin cabeza superior vacía ni portaprecio).
+3. **Normalización compartida y evidencia híbrida ([`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py)):** calcula los límites `P10–P90` de forma conjunta entre todos los niveles de la **misma góndola** (con pisos físicos de ruido y techos mínimos para no sobrevalorar estantes casi vacíos ni penalizar envases lisos). Cada celda combina densidad de bordes, gradiente Sobel, saturación de color (exigiendo respaldo mínimo de borde/textura para no contar tableros lisos vacíos) y desviación local, además de descartar cielo/techo abierto sin producto.
+4. **Penalización por hueco continuo y guardas de visibilidad:** mide el tramo horizontal vacío más largo (`max_gap_pct`), acota la disponibilidad por `100 - max_gap_pct` y compara contra el umbral **`52`**. Si el contorno toca los bordes de la foto (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o presenta señal espacial ambigua, deriva automáticamente a **`Revisar`**.
 
 El fucsia de la vista Bordes representa la evidencia visual combinada. No confirma por sí mismo la presencia de producto. El índice no cuenta unidades, no reconstruye profundidad ni mide el inventario detrás de lo visible. Un valor 70/100 **no significa 70 % físico de stock**. La confianza YOLO de 0,60 es otro parámetro.
 
-[Implementación portable de Línea A](Aplicacion/ocupacion_linea_a.py) · [Extracción de señal](Aplicacion/ocupacion_paulo.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md).
+[Implementación portable de Línea A](Aplicacion/ocupacion_linea_a.py) · [Extracción de señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md).
 
 ### Evidencia disponible y límites
 
@@ -189,7 +193,7 @@ Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**
 | Validación real | 11 | 55 | 99,50 % | 90,04 % | 54 TP, 0 FP, 1 FN |
 | **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **354 TP, 0 FP, 0 FN** (`68/68` exactos · `IoU` media `0,9390`) |
 
-El test histórico de **63 fotos** (`v3_458_20261023`) quedó formalmente retirado el 14/11 (19 entraron a `train` y 44 pertenecen a escenas ya vistas sin polígonos CVAT), reemplazado por las 68 fotos independientes de **Ohiggins 3** (`task 47 / job 94` en CVAT). La latencia media de `YOLO.predict` fue **77,15 ms** en GPU y **225,94 ms** en CPU (muestra 15 fotos). La adopción no certifica ausencia de errores en escenas nuevas (`R065` conserva una omisión superior en diagnóstico de train).
+El conjunto vigente de evaluación independiente es **Ohiggins 3** (`68` fotos únicas reales / `354` polígonos `Nivel`, anotados en CVAT `task 47 / job 94` con `0` coincidencia en `train`/`val`). La latencia media de `YOLO.predict` fue **77,15 ms** en GPU y **225,94 ms** en CPU (muestra 15 fotos). La adopción no certifica ausencia de errores en escenas nuevas (`R065` conserva una omisión superior en diagnóstico de train; [detalle del reemplazo del test histórico](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)).
 
 SHA-256 del peso: `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
 
@@ -203,15 +207,18 @@ Separamos **aprender a localizar niveles** de **analizar una fotografía nueva**
 flowchart TB
     subgraph Desarrollo
         A[Fotografías y variantes] --> B[Anotación y revisión en CVAT]
-        B --> C[Partición por escenas y familias]
+        B --> C[Partición anti-fuga por escenas]
         C --> D[Afinado YOLO26n-seg]
-        D --> E[best.pt seleccionado por validación]
+        D --> E[best.pt seleccionado por val real]
+        E --> T[Evaluación congelada · Test Ohiggins 3]
     end
     subgraph Aplicación
-        F[Foto] --> G[Máscaras de niveles]
+        F[Foto] --> Q[Filtro de calidad · borrosidad / luz]
+        Q -->|No apta| NE[No evaluable · solicitar otra toma]
+        Q -->|Apta| G[Máscaras de niveles]
         E --> G
-        G --> H[Bordes, color y textura]
-        H --> I[Índice visual Línea A y avisos]
+        G --> H[Exclusión de rieles + evidencia híbrida Línea A]
+        H --> I[Índice visual 0–100 · umbral 52 y guardas]
         I --> J[Revisión visual y descarga]
     end
 ```
@@ -232,13 +239,16 @@ flowchart LR
         UI["Navegador<br/>App cliente o app del equipo"]
         API["Servidor HTTP local<br/>app_cliente.py · 8098 / app.py · 8095"]
         RUN["Lectura y coordinación<br/>inferencia.py · ModelRunner"]
+        QUAL["Filtro de calidad<br/>calidad_foto.py"]
         MODEL["Segmentación de niveles<br/>YOLO26n-seg · best.pt"]
         SIGNAL["Extracción y evidencia híbrida<br/>ocupacion_paulo.py + ocupacion_linea_a.py"]
         SCOPE["Alcance de la zona detectada<br/>vision_v3.py"]
         VIEW["Contornos, lecturas e imagen<br/>presentacion_niveles.py"]
         UI -->|"Foto · POST /api/predict"| API
         API --> RUN
-        RUN -->|"Foto validada"| MODEL
+        RUN --> QUAL
+        QUAL -->|"Mala captura · no_evaluable"| API
+        QUAL -->|"Foto apta"| MODEL
         RUN -->|"Píxeles originales"| SIGNAL
         MODEL -->|"Máscaras"| SIGNAL
         MODEL -->|"Contornos"| VIEW
@@ -283,7 +293,7 @@ El equipo utilizó **CVAT para marcar y revisar los niveles mediante polígonos 
 
 Las predicciones del modelo se inspeccionaron en la **app de revisión del equipo**, comparando fotos y contornos y registrando errores por nivel o zona. Esta revisión visual complementa la evaluación cuantitativa; no equivale a mAP o recall ni demuestra por sí sola exactitud de ocupación. [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md).
 
-La preparación y la revisión de datos no certifican por sí solas la precisión de ocupación ni convierten las imágenes sintéticas en evidencia de generalización. El ajuste de Línea A y la evaluación final del sistema son trabajos distintos del entrenamiento geométrico descrito aquí.
+La preparación y la revisión de datos no certifican por sí solas la precisión de ocupación ni convierten las imágenes sintéticas en evidencia de generalización. La calibración en desarrollo y la evaluación ciega de Línea A en test se ejecutaron de forma independiente respecto al entrenamiento geométrico descrito aquí.
 
 ## Tecnologías
 
@@ -306,11 +316,11 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | **Segmentar el área útil del nivel** | Usar solo cajas rectangulares o delimitar únicamente el frente del estante. | Una máscara permite seguir la perspectiva y definir dónde medir, incluidos los huecos; una caja puede incorporar fondo o zonas ajenas. Una banda frontal exigiría reconstruir después el espacio de productos y no resuelve el superior abierto. La máscara predicha puede equivocarse y debe revisarse. |
 | **Una clase geométrica Nivel, separada de la reposición** | Aprender directamente estados como Reponer y Suficiente, como en V1/V2. | Permite mantener el mismo objetivo de localización en fotos llenas y vacías, e inspeccionar por separado un fallo de contorno y uno de ocupación. También permite modificar la interpretación de señal sin reentrenar el localizador. A cambio, la medición posterior necesita su propia validación: un buen mAP de niveles no acredita alertas correctas. |
 | **YOLO26n-seg y ajuste fino de pesos existentes** | Entrenar desde cero o partir siempre de una arquitectura mayor. | Se prioriza una variante pequeña para una aplicación local y se reutilizan características aprendidas para adaptarlas a las góndolas con los datos disponibles. El último afinado parte de pesos propios V3, con optimizador nuevo y repaso de escenas anteriores. Esto evita reiniciar el aprendizaje desde cero; no demuestra que YOLO26 sea universalmente superior ni que el afinado haya mejorado globalmente al padre. |
-| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y ajustar reglas sin entrenar otro modelo, antes de contar con una evaluación específica de ocupación suficientemente revisada. Línea A combina evidencia híbrida con normalización por góndola y penalización por huecos; sigue siendo sensible a carteles, fondos y envases lisos. Su índice 0–100 y umbral 52 tienen ajuste preliminar. |
+| **Señal clásica con OpenCV y NumPy** | Entrenar otro modelo específico de ocupación o de productos. | Permite inspeccionar bordes, color y textura y auditar alertas de forma determinista y liviana sin entrenar ni distribuir un segundo peso pesado. Línea A combina evidencia híbrida, respaldo textural, normalización por góndola y penalización por huecos; obtuvo **Accuracy `97,74 %`** y **F1 `88,24 %`** en el test ciego de **Ohiggins 3**, identificándose la vista picada en estantes inferiores (`N5/N6`) como principal brecha frente a un modelo semántico futuro. |
 | **CVAT y revisión explícita de polígonos** | Exportar preanotaciones o aceptar etiquetas automáticas sin revisión. | Hace posible mantener una clase y un criterio comunes, registrar delimitaciones y oclusiones y verificar las correcciones sin confundir borrador con aprobación. La mediana aporta consistencia al superior abierto, conservando un techo físico real cuando existe. Requiere trabajo humano y no elimina la incertidumbre del contenido oculto. |
 | **Python con PyTorch/Ultralytics y una interfaz web local** | Usar un servicio remoto para cada fotografía o exigir comandos en cada análisis. | El entorno integra entrenamiento e inferencia y permite compartir funciones de geometría y presentación entre laboratorio y visor. La interfaz de navegador facilita revisar fotos y descargar resultados; Pillow resuelve lectura/orientación y composición. Tras instalar dependencias, el análisis permanece en el equipo y no necesita enviar las imágenes a un servicio externo. La velocidad depende del hardware disponible. |
 | **Docker como vía de ejecución en macOS** | Exigir la instalación manual de cada biblioteca y sus versiones. | Agrupa el entorno y conserva el mismo visor y modelo distribuido, reduciendo diferencias de dependencias entre equipos. La entrega conjunta incorpora Compose para las dos apps. La configuración se validó; el build actual y la prueba física en Mac siguen pendientes. La primera construcción requiere conexión y los recursos del contenedor siguen dependiendo del computador. |
-| **Partición por escenas y evaluación separada de sintéticas** | Repartir cada imagen al azar y sumar todas las métricas. | Evita que variantes casi idénticas o vistas del mismo tramo inflen la evaluación al aparecer en train y val. Separar reales y sintéticas muestra qué evidencia sostiene cada resultado, mientras el test permanece reservado. Faltan escenas independientes de papeles y huevos para evaluar su generalización. |
+| **Partición por escenas y evaluación separada de sintéticas** | Repartir cada imagen al azar y sumar todas las métricas. | Evita que variantes casi idénticas o vistas del mismo tramo inflen la evaluación al aparecer en train y val. Separar reales y sintéticas muestra qué evidencia sostiene cada resultado y protege la independencia del test en **Ohiggins 3**. Conviene seguir ampliando escenas independientes de categorías como papeles y huevos. |
 
 ## Documentación y recursos
 
@@ -351,10 +361,10 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | Mesa del equipo | **Release del 13/11** | Interfaz actualizada (`interfaz.html`), comparación de ejecuciones y algoritmos (`Línea A` predeterminada / `Basal · experimental`) con autocompletado dual por lotes, etiquetado por nivel, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
 | Segmentación de niveles | **Operativa** | Modelo V3 oficial, clase Nivel. Puede omitir o delimitar mal; no se impone la mediana al predecir. |
 | Línea A | **Evaluada en test (`Ohiggins 3`)** | Revisión `linea_a_20261113_techo_y_panel_liso`, índice visual 0–100 y umbral 52. En 354 niveles ciegos: **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %**, **F1 88,24 %** (`F1 89,80 %` por foto; E2E `1.371,9 ms` GPU / `1.442,5 ms` CPU). |
-| Personas y obstáculos | **Revisión humana** | No hay detector automático en el flujo estable. |
+| Personas, calidad y obstáculos | **Automático en calidad/encuadre; humano en oclusión** | [`calidad_foto.py`](Aplicacion/calidad_foto.py) bloquea fotos borrosas, oscuras o quemadas (`no_evaluable`); `near_frame` y ambigüedad pasan a `Revisar`. Personas y carros siguen en revisión humana. |
 | Ejecución e instalación | **HTTP e inferencia CPU comprobados desde el ZIP del 13/11** | Preparador Windows incluido; primer inicio con Internet. Compose validado; sin nueva construcción Docker ni prueba física en Mac. |
 | Modelo y preparación | **Ensayo oficial terminado** | 256 train (203 reales/53 sintéticas), 11 val reales y 1.298 polígonos train. Usar las apps no inicia entrenamiento. |
-| Evaluación final | **Cerrada en `Ohiggins 3` (14/11)** | 68 fotos / 354 niveles (`0` en train): YOLO `mAP50 99,50 %`, `mAP50-95(M) 90,36 %`, `354 TP / 0 FP / 0 FN`; Línea A `F1 88,24 %`. El histórico de 63 fotos quedó retirado. |
+| Evaluación final | **Cerrada en `Ohiggins 3` (14/11)** | 68 fotos / 354 niveles (`0` en train): YOLO `mAP50 99,50 %`, `mAP50-95(M) 90,36 %`, `354 TP / 0 FP / 0 FN`; Línea A `F1 88,24 %`. |
 | Licencias | **Código bajo AGPL-3.0; procedencia de pesos documentada** | Autoría de datos documentada; licencia pública del dataset no concedida. Véase [LICENCIAS.md](LICENCIAS.md). |
 
 GitHub conserva las fuentes, el peso operativo y los paquetes publicados. **No constituye un respaldo completo de los datasets, fotografías privadas, entornos ni resguardos locales.** Las releases anteriores conservan sus bytes y su alcance histórico.
@@ -362,9 +372,9 @@ GitHub conserva las fuentes, el peso operativo y los paquetes publicados. **No c
 ## Limitaciones y próximos pasos
 
 - **Reducir FN en niveles inferiores y señal ambigua:** `4/6 FN` en `Ohiggins 3` ocurrieron en `N5/N6` en ángulo picado (`max_gap_pct = 0,0 %`); carteles, fondos y envases lisos también pueden confundir la señal.
-- **Automatizar y validar la visibilidad:** actualmente no se detectan personas u obstáculos de forma automática.
+- **Completar detección automática de oclusiones (`persona` / `carro`):** [`calidad_foto.py`](Aplicacion/calidad_foto.py) ya filtra automáticamente borrosidad y luz extrema, y `vision_v3.py` envía recortes y señales ambiguas a `Revisar`, pero aún falta detector automático para personas o carros tapando niveles.
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
-- **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.
+- **Ampliar categorías evaluadas en campo:** aunque `Ohiggins 3` cerró el test independiente base (`68` fotos / `354` niveles), sigue siendo útil sumar escenas nuevas de papeles y huevos.
 - **Probar instalación en otros equipos y Docker/macOS:** las comprobaciones de esta revisión no sustituyen una nueva prueba física de la entrega conjunta en Mac.
 
 El prototipo orienta la revisión visual. Sus índices y avisos requieren comprobar la foto y no sustituyen una medición de inventario.

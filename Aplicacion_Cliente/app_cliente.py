@@ -109,7 +109,11 @@ def enrich_for_store(prediction: dict) -> dict:
         else:
             suficiente_ids.append(det['id'])
 
-    if not detections:
+    if prediction.get('photo_status') == 'no_evaluable':
+        aisle_state = 'verificar'
+        aisle_label = 'Foto no evaluable'
+        aisle_summary = prediction.get('message') or 'La calidad o visibilidad de la foto impide evaluar la góndola.'
+    elif not detections:
         aisle_state = 'verificar'
         aisle_label = 'Sin niveles detectados'
         aisle_summary = 'Toma la foto de frente incluyendo toda la góndola.'

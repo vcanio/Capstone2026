@@ -111,11 +111,13 @@
     "minimum_confidence": 0.25,
     "occupancy_calibrated": false,
     "occupancy_evaluated_on_test": true,
+    "quality_gate_automatic": true,
+    "quality_gate_policy": "calidad_foto_v1",
     "visibility_automatic": false,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
     "occupancy_revision": "linea_a_20261113_techo_y_panel_liso",
-    "occupancy_preliminary": true
+    "occupancy_preliminary": false
   },
   "distribution": {
     "status": "github_release",

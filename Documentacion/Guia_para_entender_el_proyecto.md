@@ -56,7 +56,7 @@ Línea A se validó inicialmente en desarrollo (112 niveles con máscaras humana
 
 ## Visibilidad y alcance
 
-La app del equipo permite indicar si la góndola está despejada, recortada, tapada por un objeto o por una persona. El cliente registra la revisión humana por nivel de forma separada del diagnóstico. No se detectan automáticamente estos casos. El recorte limita el porcentaje a la zona visible y marca Revisar; el objeto suspende la medición; una persona tapando muestra Góndola tapada y pide otra foto sin contornos ni ocupación.
+La app incorpora además un filtro automático de calidad de captura (`calidad_foto.py`): si una foto está severamente borrosa, muy oscura o quemada por reflejos, se marca como **`no_evaluable`** antes de inferir para evitar falsas alertas de reposición. Para oclusiones por personas o carros, la app del equipo permite indicar manualmente si la góndola está despejada, recortada o tapada y el cliente registra revisión humana por nivel (`No evaluable`). El recorte al borde (`near_frame`) marca `Revisar`; una foto bloqueada muestra el motivo y pide otra toma sin contornos ni ocupación.
 
 La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar por sí solas precisión de ocupación; por eso **Línea A** se evaluó por separado en el test ciego de **Ohiggins 3** (14/11/2026; el histórico de 63 fotos quedó retirado). Ver [Evaluación test Ohiggins 3](Evidencias/evaluacion_test_ohiggins3_20261114.md).
 

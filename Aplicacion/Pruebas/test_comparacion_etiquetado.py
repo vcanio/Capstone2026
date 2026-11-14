@@ -52,7 +52,7 @@ class DualAnalysisBackendTests(unittest.TestCase):
         runner._load_model = lambda model_id: (FakeModel(), 'cpu')
         default_model = runner.manifest['default_model']
         out = runner.analyze(_jpeg_bytes(), default_model, 0.6, 'yolo_paulo_v2',
-                             occupancy_algorithm='ambos', primary_algorithm='basal')
+                             occupancy_algorithm='ambos', primary_algorithm='basal', quality_check=False)
         self.assertEqual(len(calls), 1)
         self.assertIn('variant_results', out)
         self.assertEqual(set(out['variant_results']), {'linea_a', 'basal'})
