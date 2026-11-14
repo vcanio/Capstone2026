@@ -20,7 +20,7 @@ El localizador quedó cerrado de momento con el peso adoptado el 10/11. Un futur
 
 La app del equipo permite comparar la fotografía con contornos y mapas de señal, registrar niveles omitidos, detecciones adicionales y contornos incorrectos por nivel o zona, y exportar lotes de revisión. Sus observaciones no modifican automáticamente CVAT, los pesos ni el entrenamiento.
 
-Esta revisión complementa las métricas cuantitativas, pero **no equivale a mAP, recall o exactitud de ocupación**. Las 68 fotos de Ohiggins 3 tienen revisión visual humana, siguen fuera de train y no deben reutilizarse para ajustar mientras se presentan como prueba independiente. [Modelo y resultados](Modelo_V3_actual.md) · [Guía de revisión](../Aplicacion/Documentacion/REVISION_EQUIPO.md).
+Esta revisión complementa las métricas cuantitativas, pero **no equivale por sí sola a mAP, recall o exactitud de ocupación**. El lote de **Ohiggins 3** (68 fotos) quedó posteriormente anotado en CVAT y evaluado en frío de forma cuantitativa el 14/11/2026 ([Evidencia de test](Evidencias/evaluacion_test_ohiggins3_20261114.md)), manteniéndose fuera de `train` para evitar fugas. [Modelo y resultados](Modelo_V3_actual.md) · [Guía de revisión](../Aplicacion/Documentacion/REVISION_EQUIPO.md).
 
 ## Producto y trabajo de ocupación
 

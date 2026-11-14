@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "evaluated_at": "2026-11-14",
+  "dataset": {
+    "name": "Ohiggins 3",
+    "photos": 68,
+    "unique_sha256": 68,
+    "overlap_with_train_or_val": 0,
+    "cvat_project_id": 11,
+    "cvat_task_id": 47,
+    "cvat_job_id": 94,
+    "cvat_subset": "test",
+    "gt_polygons_nivel": 354,
+    "delimitacion_completa": 354
+  },
+  "historical_63_test_status": {
+    "partition_origin": "v3_458_20261023",
+    "retired_as_test": true,
+    "entered_official_train": 19,
+    "unannotated_in_seen_scenes": 44
+  },
+  "yolo_segmentation": {
+    "model_id": "V3-cierre-revisado-20261110",
+    "weights_sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5",
+    "hardware": "NVIDIA GeForce GTX 1660 SUPER",
+    "ultralytics_val_imgsz640": {
+      "metrics/precision(B)": 0.999073637013891,
+      "metrics/recall(B)": 1.0,
+      "metrics/mAP50(B)": 0.995,
+      "metrics/mAP50-95(B)": 0.9197077399332356,
+      "metrics/precision(M)": 0.999073637013891,
+      "metrics/recall(M)": 1.0,
+      "metrics/mAP50(M)": 0.995,
+      "metrics/mAP50-95(M)": 0.9035652060564463,
+      "fitness": 1.823272945989682,
+      "speed_ms": {
+        "preprocess": 3.0,
+        "inference": 54.8,
+        "postprocess": 8.1
+      }
+    },
+    "operational_matching_iou_0_50": {
+      "conf_0_60": {
+        "tp": 354,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "exact_count_rate": 1.0,
+        "mean_matched_iou": 0.939,
+        "median_matched_iou": 0.9498,
+        "min_matched_iou": 0.7298,
+        "latency_ms_mean": 77.15,
+        "latency_ms_p50": 80.34,
+        "latency_ms_p95": 101.33
+      },
+      "conf_0_25": {
+        "tp": 354,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "exact_count_rate": 1.0,
+        "mean_matched_iou": 0.939,
+        "latency_ms_mean": 72.35,
+        "latency_ms_p50": 80.31,
+        "latency_ms_p95": 100.08
+      }
+    }
+  },
+  "linea_a_occupancy_blind_test": {
+    "method": "linea_a_v1_gondola_anchorage",
+    "revision": "linea_a_20261113_techo_y_panel_liso",
+    "threshold_pct": 52.0,
+    "threshold_frozen_before_test": true,
+    "human_labels_distribution": {
+      "reponer": 36,
+      "suficiente": 318,
+      "no_evaluable": 0
+    },
+    "human_label_audit_note": "Incluye 2 correcciones de etiqueta humana tras auditoría de discrepancias (20261109_133933.jpg Nivel 3 y 20261109_134039.jpg Nivel 2: suficiente -> reponer).",
+    "predicted_distribution": {
+      "reponer": 32,
+      "suficiente": 322,
+      "revisar": 0
+    },
+    "level_metrics": {
+      "total_levels": 354,
+      "tp": 30,
+      "fp": 2,
+      "fn": 6,
+      "tn": 316,
+      "accuracy": 0.9774,
+      "precision_reponer": 0.9375,
+      "recall_reponer": 0.8333,
+      "f1_reponer": 0.8824,
+      "specificity_suficiente": 0.9937
+    },
+    "photo_level_alert_metrics": {
+      "total_photos": 68,
+      "tp": 22,
+      "fp": 2,
+      "fn": 3,
+      "tn": 41,
+      "accuracy": 0.9265,
+      "precision": 0.9167,
+      "recall": 0.88,
+      "f1": 0.898
+    },
+    "e2e_app_latency_ms_mean": 1371.9,
+    "cpu_benchmark_sample_15": {
+      "hardware_cpu": "AMD Ryzen 5 3600 6-Core Processor",
+      "sample_photos": 15,
+      "yolo_predict_conf_0_60_ms": {
+        "mean": 225.94,
+        "median": 221.08,
+        "p95": 241.36
+      },
+      "e2e_app_ms": {
+        "mean": 1442.5,
+        "median": 1425.0,
+        "p95": 1576.93
+      }
+    },
+    "false_negatives": [
+      { "name": "20261109_133159.jpg", "level_index": 2, "pct": 60.57, "max_gap_pct": 35.29 },
+      { "name": "20261109_134033.jpg", "level_index": 6, "pct": 79.28, "max_gap_pct": 0.0 },
+      { "name": "20261109_134039.jpg", "level_index": 6, "pct": 75.07, "max_gap_pct": 0.0 },
+      { "name": "20261109_134153.jpg", "level_index": 4, "pct": 55.84, "max_gap_pct": 41.18 },
+      { "name": "20261109_134245.jpg", "level_index": 6, "pct": 74.87, "max_gap_pct": 0.0 },
+      { "name": "20261109_134336.jpg", "level_index": 5, "pct": 67.2, "max_gap_pct": 0.0 }
+    ],
+    "false_positives": [
+      { "name": "20261109_133300.jpg", "level_index": 4, "pct": 38.66, "max_gap_pct": 32.35 },
+      { "name": "20261109_133413.jpg", "level_index": 6, "pct": 47.35, "max_gap_pct": 15.15 }
+    ]
+  }
+}

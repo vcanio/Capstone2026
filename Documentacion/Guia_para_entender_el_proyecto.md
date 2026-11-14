@@ -50,7 +50,7 @@ Los bordes son cambios de intensidad que pueden coincidir con envases, carteles 
 
 El mapa fucsia representa evidencia híbrida. No certifica presencia de productos ni mide porcentaje físico de stock. La confianza de YOLO y el índice de disponibilidad son medidas distintas.
 
-Línea A tiene ajuste preliminar en desarrollo: en 112 niveles etiquetados de validación con máscaras humanas se conservaron 15/16 alertas y cero falsas alertas; solo 1/2 críticos reales fue detectado. No acredita precisión final del flujo completo. El ZIP publicado del 5/11 conserva el estimador anterior y su umbral 30.
+Línea A se validó inicialmente en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y posteriormente en test ciego completo sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO, umbral 52,0 congelado): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). El ZIP publicado del 5/11 conserva el estimador anterior y su umbral 30.
 
 [Detalle actual](../Aplicacion/Documentacion/LINEA_A_20261108.md).
 
@@ -58,6 +58,6 @@ Línea A tiene ajuste preliminar en desarrollo: en 112 niveles etiquetados de va
 
 La app del equipo permite indicar si la góndola está despejada, recortada, tapada por un objeto o por una persona. El cliente registra la revisión humana por nivel de forma separada del diagnóstico. No se detectan automáticamente estos casos. El recorte limita el porcentaje a la zona visible y marca Revisar; el objeto suspende la medición; una persona tapando muestra Góndola tapada y pide otra foto sin contornos ni ocupación.
 
-La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar precisión de ocupación. Las 63 fotos de test siguen reservadas.
+La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar por sí solas precisión de ocupación; por eso **Línea A** se evaluó por separado en el test ciego de **Ohiggins 3** (14/11/2026; el histórico de 63 fotos quedó retirado). Ver [Evaluación test Ohiggins 3](Evidencias/evaluacion_test_ohiggins3_20261114.md).
 
 [Usar la app](Usar_Walmart_Vision.md) · [Modelo y métricas](Modelo_V3_actual.md) · [Inicio](../README.md)

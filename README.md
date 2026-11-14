@@ -2,7 +2,7 @@
 
 **Análisis de disponibilidad en góndolas mediante visión por computador**
 
-Estado documental actualizado al **13 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 revisado.
+Estado documental actualizado al **14 de noviembre de 2026** · proyecto académico · versión de prueba con cierre V3 y evaluación independiente en `Ohiggins 3`.
 
 Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de góndolas a partir de fotografías. **Walmart Visión** reúne una app cliente y una mesa de revisión del equipo. Ambas identifican los niveles, delimitan sus áreas útiles y calculan un índice visual para ayudar a revisar posibles faltantes.
 
@@ -19,7 +19,7 @@ Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart
 
 [App cliente](Aplicacion_Cliente/README.md): alertas visuales, navegación móvil en tres pasos, selector de lente trasera, revisión humana y CSV. [App del equipo](Aplicacion/Documentacion/REVISION_EQUIPO.md): comparación de ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), marcado por nivel/zona y lotes de revisión. Cada colega ejecuta su copia local; no hay sincronización ni alojamiento web. Carga fotos propias: el dataset no se incluye.
 
-La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente compartido por ambas apps, la revisión **Línea A (`linea_a_20261113_techo_y_panel_liso`)** —con filtro textural para tableros lisos, descarte de techo abierto sin producto y conservación de extremos vacíos en estantes inclinados—, la app cliente (12/11) y la mesa de revisión del equipo actualizada (`interfaz.html` y autocompletado dual por lotes). El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A (predeterminada en ambas apps) mantiene índice visual preliminar 0–100 y umbral 52; la opción basal en la app del equipo es experimental (umbral 30 %, sin calibrar). No miden porcentaje físico de stock ni detectan personas u obstáculos. Requiere revisión visual; la evaluación final del sistema sigue pendiente.
+La entrega del 13/11 incluye **V3-cierre-revisado-20261110**, el único modelo oficial vigente compartido por ambas apps, la revisión **Línea A (`linea_a_20261113_techo_y_panel_liso`)** —con filtro textural para tableros lisos, descarte de techo abierto sin producto y conservación de extremos vacíos en estantes inclinados—, la app cliente (12/11) y la mesa de revisión del equipo actualizada (`interfaz.html` y autocompletado dual por lotes). El peso se identifica por su SHA-256 en la [ficha vigente](Documentacion/Modelo_V3_actual.md). Línea A (predeterminada en ambas apps, umbral 52) quedó evaluada el 14/11 en el test ciego de **Ohiggins 3** (68 fotos, 354 niveles): **F1 88,24 %** por nivel (**Accuracy 97,74 %**) y **F1 89,80 %** por foto ([evidencia completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)). La opción basal en la app del equipo es experimental (umbral 30 %, sin calibrar). No miden porcentaje físico de stock ni detectan personas u obstáculos de forma automática.
 
 ## Explorar las carpetas
 
@@ -172,27 +172,28 @@ El fucsia de la vista Bordes representa la evidencia visual combinada. No confir
 
 ### Evidencia disponible y límites
 
-El umbral tiene **ajuste preliminar**. En 112 niveles etiquetados de validación con máscaras humanas se detectaron 15 de 16 alertas, sin falsas alertas en esa muestra; se detectó solo **1 de 2 críticos reales**. La muestra incluye casos sintéticos y usa máscaras humanas: no acredita por sí sola el flujo completo con máscaras predichas por YOLO, ni equivalencia con el baseline histórico.
+El umbral **52** se fijó en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y se validó en frío el **14/11** en evaluación ciega sobre **Ohiggins 3** (68 fotos independientes, 354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**30 TP, 2 FP, 6 FN, 316 TN**), y **F1 89,80 %** por foto completa (**92,65 %** accuracy). Latencia E2E promedio en producción (`YOLO + Línea A`): **1.371,9 ms/foto** en GPU (`GTX 1660 SUPER`) y **1.442,5 ms/foto** en CPU (`AMD Ryzen 5 3600`, muestra 15 fotos). Ver [evaluación completa](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md).
 
-Carteles, fondos, barandas y envases lisos todavía pueden confundir la señal. Las guardas de ambigüedad no son detectores automáticos de personas, obstáculos o carteles. El modelo tampoco determina si la góndola está completa. El test final permanece reservado y no se presenta una evaluación final del sistema.
+Carteles, fondos, barandas, productos lisos y niveles inferiores en ángulo picado (`4/6 FN` en `N5/N6` con `max_gap_pct = 0,0 %`) todavía pueden confundir la señal. Las guardas de ambigüedad no son detectores automáticos de personas, obstáculos o carteles. El modelo tampoco determina si la góndola está completa.
 
 ## Modelo actual y resultados
 
-Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**, el `best.pt` del cierre con contornos revisados adoptado el 10 de noviembre. Su clase aprendida es **Nivel**; la ocupación se calcula después mediante Línea A y sigue siendo experimental. El localizador queda cerrado de momento para centrar el trabajo en ocupación.
+Ambas apps comparten un único modelo oficial: **`V3-cierre-revisado-20261110`**, el `best.pt` del cierre con contornos revisados adoptado el 10 de noviembre. Su clase aprendida es **Nivel**; la ocupación se calcula después mediante Línea A (evaluada el 14/11 sobre `Ohiggins 3`).
 
-| Modelo vigente | Último afinado | Validación | Distribución |
-|---|---|---|---|
-| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | Release de cliente y equipo del 13/11 |
+| Modelo vigente | Último afinado | Validación | Test independiente (`Ohiggins 3`) | Distribución |
+|---|---|---|---|---|
+| YOLO26n-seg V3 · cierre revisado 10/11 | 256 fotos, 40 épocas | 11 reales de tres escenas | 68 fotos / 354 niveles (`0` en train) | Release de cliente y equipo del 13/11 |
 
-| Máscaras | Fotos | mAP50 | mAP50–95 |
-|---|---:|---:|---:|
-| Validación real | 11 | 99,50 % | 90,04 % |
+| Máscaras | Fotos | Niveles | mAP50 | mAP50–95 (M) | Emparejamiento operativo (`conf = 0,60`) |
+|---|---:|---:|---:|---:|---|
+| Validación real | 11 | 55 | 99,50 % | 90,04 % | 54 TP, 0 FP, 1 FN |
+| **Test independiente (`Ohiggins 3`)** | **68** | **354** | **99,50 %** | **90,36 %** | **354 TP, 0 FP, 0 FN** (`68/68` exactos · `IoU` media `0,9390`) |
 
-Estas cifras evalúan la geometría de los niveles. En las 11 fotos de validación se detectaron **54 de 55 niveles, con cero falsos positivos**. La muestra es pequeña y corresponde a tres escenas; no acredita por sí sola generalización ni precisión de ocupación. En las 68 fotos de Ohiggins 3, Vicente aceptó 65 y marcó tres con siete contornos incorrectos: es revisión visual, no mAP o recall. La reserva de **63 fotos de test permanece sin utilizar**. La adopción no certifica ausencia de errores ni superioridad global.
+El test histórico de **63 fotos** (`v3_458_20261023`) quedó formalmente retirado el 14/11 (19 entraron a `train` y 44 pertenecen a escenas ya vistas sin polígonos CVAT), reemplazado por las 68 fotos independientes de **Ohiggins 3** (`task 47 / job 94` en CVAT). La latencia media de `YOLO.predict` fue **77,15 ms** en GPU y **225,94 ms** en CPU (muestra 15 fotos). La adopción no certifica ausencia de errores en escenas nuevas (`R065` conserva una omisión superior en diagnóstico de train).
 
 SHA-256 del peso: `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`.
 
-[Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y verificación de ambas apps](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md).
+[Evaluación test Ohiggins 3 (14/11)](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Adopción y verificación de ambas apps](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md).
 
 ## Arquitectura y funcionamiento
 
@@ -349,18 +350,18 @@ La selección técnica responde al objetivo de **revisar faltantes visibles por 
 | App cliente | **Release del 13/11** | Carga de fotos, cámara con selector de lente, flujo móvil en tres pasos, filtros de alertas, revisión humana y CSV. Miniaturas y persistencia por foto; limpieza definitiva del recorrido. |
 | Mesa del equipo | **Release del 13/11** | Interfaz actualizada (`interfaz.html`), comparación de ejecuciones y algoritmos (`Línea A` predeterminada / `Basal · experimental`) con autocompletado dual por lotes, etiquetado por nivel, mapas, marcado por nivel/zona, atajos, recuperación de sesión y lotes ZIP. |
 | Segmentación de niveles | **Operativa** | Modelo V3 oficial, clase Nivel. Puede omitir o delimitar mal; no se impone la mediana al predecir. |
-| Línea A | **Operativa, preliminar** | Revisión `linea_a_20261113_techo_y_panel_liso` con índice visual 0–100, umbral 52, respaldo textural para color, descarte de techo abierto sin producto y guardas de ambigüedad/recorte. |
+| Línea A | **Evaluada en test (`Ohiggins 3`)** | Revisión `linea_a_20261113_techo_y_panel_liso`, índice visual 0–100 y umbral 52. En 354 niveles ciegos: **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %**, **F1 88,24 %** (`F1 89,80 %` por foto; E2E `1.371,9 ms` GPU / `1.442,5 ms` CPU). |
 | Personas y obstáculos | **Revisión humana** | No hay detector automático en el flujo estable. |
 | Ejecución e instalación | **HTTP e inferencia CPU comprobados desde el ZIP del 13/11** | Preparador Windows incluido; primer inicio con Internet. Compose validado; sin nueva construcción Docker ni prueba física en Mac. |
 | Modelo y preparación | **Ensayo oficial terminado** | 256 train (203 reales/53 sintéticas), 11 val reales y 1.298 polígonos train. Usar las apps no inicia entrenamiento. |
-| Evaluación final | **Pendiente** | Test de 63 fotos reservado; hacen falta escenas independientes. |
+| Evaluación final | **Cerrada en `Ohiggins 3` (14/11)** | 68 fotos / 354 niveles (`0` en train): YOLO `mAP50 99,50 %`, `mAP50-95(M) 90,36 %`, `354 TP / 0 FP / 0 FN`; Línea A `F1 88,24 %`. El histórico de 63 fotos quedó retirado. |
 | Licencias | **Código bajo AGPL-3.0; procedencia de pesos documentada** | Autoría de datos documentada; licencia pública del dataset no concedida. Véase [LICENCIAS.md](LICENCIAS.md). |
 
 GitHub conserva las fuentes, el peso operativo y los paquetes publicados. **No constituye un respaldo completo de los datasets, fotografías privadas, entornos ni resguardos locales.** Las releases anteriores conservan sus bytes y su alcance histórico.
 
 ## Limitaciones y próximos pasos
 
-- **Ampliar la validación de Línea A:** carteles, fondos y envases pueden confundir la señal. El umbral 52 sigue siendo preliminar; la validación disponible solo detectó 1 de 2 críticos reales.
+- **Reducir FN en niveles inferiores y señal ambigua:** `4/6 FN` en `Ohiggins 3` ocurrieron en `N5/N6` en ángulo picado (`max_gap_pct = 0,0 %`); carteles, fondos y envases lisos también pueden confundir la señal.
 - **Automatizar y validar la visibilidad:** actualmente no se detectan personas u obstáculos de forma automática.
 - **Revisar superiores:** en la familia `le_g10`, la foto 029 puede quedar sobredelimitada y la 030 omitir el superior.
 - **Evaluar generalización:** faltan escenas independientes de papeles y huevos. El test se mantiene reservado.

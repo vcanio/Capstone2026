@@ -37,9 +37,8 @@ La distribución y los cambios visuales están documentados en [Diseño del clie
 
 Modelo oficial adoptado el 10/11: **cierre con contornos revisados**, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`. Cliente y revisión toman el mismo predeterminado de `Aplicacion/modelos.json`; no hay otra copia de pesos del cliente. La entrega del 11/11 incluye este peso; los ZIP anteriores conservan sus pesos originales. [Ficha vigente](../Documentacion/Modelo_V3_actual.md).
 
-Línea A usa un **índice visual preliminar de 0 a 100, con umbral 52**. No es porcentaje
-físico de stock ni detector de personas u obstáculos. Revisa los contornos y la foto.
-Esta entrega no constituye una evaluación final del flujo operativo.
+Línea A usa un **índice visual de 0 a 100 con umbral 52**, evaluado posteriormente en test ciego sobre `Ohiggins 3` (**Accuracy 97,74 %**, **F1 88,24 %** por nivel y **89,80 %** por foto; [evaluación del 14/11](../Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)). No mide porcentaje físico de stock ni detecta personas u obstáculos. Revisa los contornos y la foto.
+La entrega del 13/11 incluye el paquete operativo previo a esa evaluación documental del 14/11.
 
 | Aplicación | Uso | Dirección local |
 |---|---|---|

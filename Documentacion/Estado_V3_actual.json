@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-13",
+  "updated": "2026-11-14",
   "model": {
     "id": "V3-cierre-revisado-20261110",
     "architecture": "YOLO26n-seg",
@@ -18,13 +18,16 @@
     "selected_train": 256,
     "val_real": 11,
     "val_synthetic": 0,
-    "test_reserved": 63,
+    "test_reserved": 0,
+    "historical_63_test_retired": true,
+    "historical_63_test_notes": "Retirado formalmente el 2026-11-14: 19 fotos reales entraron al train de v3_cierre_revisado_20261110 y 44 pertenecen a escenas ya vistas sin polígonos CVAT.",
     "R254_excluded": true,
     "train_real": 203,
     "train_synthetic": 53,
     "train_levels": 1298,
     "val_levels": 55,
-    "ohiggins3_visual_review_photos": 68,
+    "ohiggins3_test_photos": 68,
+    "ohiggins3_test_levels": 354,
     "ohiggins3_in_train": false
   },
   "validation": {
@@ -40,16 +43,74 @@
         "metrics/mAP50(M)": 0.995,
         "metrics/mAP50-95(M)": 0.9003993073795227,
         "fitness": 1.8125388484358256
+      },
+      "test_ohiggins3": {
+        "photos": 68,
+        "levels": 354,
+        "metrics/precision(M)": 0.999073637013891,
+        "metrics/recall(M)": 1.0,
+        "metrics/mAP50(B)": 0.995,
+        "metrics/mAP50-95(B)": 0.9197077399332356,
+        "metrics/mAP50(M)": 0.995,
+        "metrics/mAP50-95(M)": 0.9035652060564463,
+        "fitness": 1.823272945989682,
+        "operational_conf_0_60": {
+          "tp": 354,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "mean_matched_iou": 0.939,
+          "exact_count_rate": 1.0
+        }
       }
     },
-    "test_used": false,
+    "test_used": true,
+    "test_document": "Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md",
     "selection": "best.pt por validación real; sintéticas como diagnóstico separado",
-    "occupancy_evaluated": false
+    "occupancy_evaluated": true,
+    "occupancy_test_ohiggins3": {
+      "blind_evaluation": true,
+      "threshold_pct": 52.0,
+      "revision": "linea_a_20261113_techo_y_panel_liso",
+      "by_level": {
+        "total": 354,
+        "tp": 30,
+        "fp": 2,
+        "fn": 6,
+        "tn": 316,
+        "accuracy": 0.9774,
+        "precision": 0.9375,
+        "recall": 0.8333,
+        "f1": 0.8824
+      },
+      "by_photo": {
+        "total": 68,
+        "tp": 22,
+        "fp": 2,
+        "fn": 3,
+        "tn": 41,
+        "accuracy": 0.9265,
+        "precision": 0.9167,
+        "recall": 0.88,
+        "f1": 0.898
+      },
+      "e2e_ms_mean": 1371.9,
+      "cpu_sample_15": {
+        "hardware": "AMD Ryzen 5 3600 6-Core Processor",
+        "yolo_predict_ms_mean": 225.94,
+        "e2e_ms_mean": 1442.5,
+        "e2e_ms_median": 1425.0,
+        "e2e_ms_p95": 1576.93
+      }
+    }
   },
   "app": {
     "default_confidence": 0.6,
     "minimum_confidence": 0.25,
     "occupancy_calibrated": false,
+    "occupancy_evaluated_on_test": true,
     "visibility_automatic": false,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
