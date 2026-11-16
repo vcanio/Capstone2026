@@ -1,6 +1,6 @@
 # Cómo funciona Walmart Visión
 
-V3 aprende una clase, Nivel, para localizar áreas útiles. Las dos apps del 11/11 comparten el cierre revisado adoptado el 10/11 y Línea A del 8/11: índice visual 0–100 con umbral 52. Los ZIP anteriores conservan su contenido histórico.
+V3 aprende una clase, Nivel, para localizar áreas útiles. Las dos apps vigentes ([entrega 16/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16)) comparten el cierre revisado adoptado el 10/11, el filtro previo `calidad_foto.py` y **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`): índice visual 0–100 con umbral 52, severidad operativa e índice bruto. Los ZIP anteriores conservan su contenido histórico.
 
 ## Fotografías frontales
 
@@ -39,20 +39,21 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 [Criterio de anotación V3](Criterio_de_niveles.md) · [Regla completa de mediana](Criterio_de_niveles.md)
 
-### Qué significan los bordes y cómo se calcula el índice
+### Qué significan los bordes y cómo funciona Línea A v2.2
 
-Los bordes son cambios de intensidad que pueden coincidir con envases, carteles o estructuras. YOLO delimita el nivel; Línea A analiza la imagen original dentro de esas máscaras.
+Los bordes son cambios de intensidad que pueden coincidir con envases, carteles o estructuras. YOLO delimita cada nivel; **Línea A v2.2** ([`ocupacion_linea_a.py`](../Aplicacion/ocupacion_linea_a.py)) analiza la imagen original dentro de esas máscaras en cinco etapas:
 
-1. Conserva Canny y aplica la exclusión estructural de rieles y barandas, sin borrar genéricamente los lados rectos de los productos.
-2. Extrae la señal por celdas y comparte los límites de normalización entre niveles de la misma góndola.
-3. Combina evidencia visual y penaliza huecos continuos en el frente útil.
-4. Presenta un índice de 0 a 100: Reponer bajo 52 y Suficiente desde 52, si no hay abstención. Los recortes y señales ambiguas requieren revisión.
+1. **Grilla de celdas y señales direccionales:** conserva Canny y excluye rieles/barandas horizontales ([`ocupacion_paulo.py`](../Aplicacion/ocupacion_paulo.py)), extrayendo por celda densidad de bordes (`d`), gradiente Sobel (`g`), saturación HSV (`c`), desviación estándar local (`t`), gradientes `gx`/`gy`, bordes verticales (`vx`) y blancura (`bu`).
+2. **Anclaje intra-góndola (`P10–P90`) y puntaje por celda:** normaliza todas las máscaras de la misma góndola con límites compartidos (`cell_score = 0,35·dn + 0,28·gn + 0,17·cn + 0,20·tn`) y exige respaldo mínimo de bordes o textura al color saturado para no confundir tableros lisos vacíos.
+3. **Bandas adaptativas, filtros de fondo y protecciones `v2.2`:** sigue bandas verticales relativas en estantes inclinados, descarta **cielo abierto** en el nivel superior (`_open_ceiling_mask_v2`) y **bandeja/piso expuesto** en vista picada (`_exposed_floor_mask`), mientras protege **sacos blancos apilados bajo sombra** en niveles medios (`_is_white_stocked_packages`), **cajas máster bicolor impresas** (`_is_bicolor_printed_box`) y **productos retraídos al fondo** sobre bandeja oscura (`_has_recessed_upper_product`).
+4. **Cobertura horizontal y hueco efectivo (`analyze_column_gaps`):** una columna de soporte cubre con `≥ 22 %` de celdas activas; neutraliza islas débiles aisladas (hasta `2` columnas con `< 35 %` de apoyo) entre tramos vacíos y calcula el hueco máximo (`max_gap_pct`), los huecos significativos (`≥ 15 %`) y el hueco efectivo `max(max_gap_pct, 0,85 × significant_gaps_pct)`.
+5. **Índice visual (`0–100`), decisión combinada y severidad:** acota el relleno vertical por el hueco efectivo (`pct = min(fill_pct, 100 - effective_gap_pct)`, conservado en `raw_pct`). Dispara **Reponer** si `pct < 52` o ante quiebre parcial de frente (`max_gap_pct ≥ 35 %` con `front_hyb_pct < 68 %`, o `significant_gaps_pct ≥ 45 %`) con severidad **`critica`** (`pct ≤ 15 %` o hueco `≥ 60 %`) o **`alta`**; deriva a **Revisar** (`verificar`) recortes al encuadre, carteles altos, señal ambigua o frentes oscuros continuos de bajo contraste (`low_contrast_continuous_front`); y marca **Suficiente** (`normal`) cuando supera el umbral sin alertas ni ambigüedad.
 
 El mapa fucsia representa evidencia híbrida. No certifica presencia de productos ni mide porcentaje físico de stock. La confianza de YOLO y el índice de disponibilidad son medidas distintas.
 
-Línea A se validó inicialmente en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y posteriormente en test ciego completo sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO, umbral 52,0 congelado): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). El ZIP publicado del 5/11 conserva el estimador anterior y su umbral 30.
+La línea base de Línea A (umbral 52,0 congelado) se evaluó en ciego sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). Con las mejoras incorporadas en **Línea A v2.2**, el mismo conjunto alcanza **Accuracy 98,87 %**, **Precision 92,11 %**, **Recall 97,22 %**, **Especificidad 99,06 %** y **F1 94,59 %** (`35 TP / 3 FP / 1 FN / 315 TN`), además de probarse sobre **193 fotos / 893 niveles** en 3 capturas (`9_11 Ohiggins`, `14_11 Ohiggins` y `15_11 Marcoleta`). El ZIP histórico del 5/11 conserva el estimador anterior con umbral 30.
 
-[Detalle actual](../Aplicacion/Documentacion/LINEA_A_20261108.md).
+[Detalle inicial (8/11)](../Aplicacion/Documentacion/LINEA_A_20261108.md) · [Ficha vigente V3 y casos límite](Modelo_V3_actual.md).
 
 ## Visibilidad y alcance
 
