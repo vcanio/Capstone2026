@@ -105,10 +105,10 @@
         "e2e_ms_p95": 1576.93
       }
     },
-    "occupancy_test_ohiggins3_v2_1": {
+    "occupancy_test_ohiggins3_v2_2": {
       "blind_evaluation": true,
       "threshold_pct": 52.0,
-      "revision": "linea_a_20261116_v2_1_cielo_piso_frente",
+      "revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
       "by_level": {
         "total": 354,
         "tp": 35,
@@ -133,7 +133,7 @@
     "visibility_automatic": false,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
-    "occupancy_revision": "linea_a_20261116_v2_1_cielo_piso_frente",
+    "occupancy_revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
     "occupancy_preliminary": false
   },
   "distribution": {

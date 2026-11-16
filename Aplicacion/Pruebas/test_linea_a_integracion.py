@@ -243,3 +243,101 @@ class LineaAIntegrationTests(unittest.TestCase):
         self.assertFalse(res['ceil_mask_active'])
         self.assertFalse(res['floor_mask_active'])
         self.assertEqual(res['state'], 'suficiente')
+
+    def test_stacked_white_sacks_without_top_color_not_suppressed_as_ceiling(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 12, 20
+        usable = np.ones((h, w), dtype=bool)
+        bu = np.full((h, w), 0.20, dtype=np.float32)
+        bu[6:, :] = 0.78  # Sacos blancos en mitad inferior bajo sombra del estante superior.
+        vx = np.full((h, w), 0.14, dtype=np.float32)
+        vx[6:, :] = 0.18
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': np.full((h, w), 0.04, dtype=np.float32),
+            'gradient': np.full((h, w), 32.0, dtype=np.float32),
+            'color_density': np.full((h, w), 0.06, dtype=np.float32),
+            'deviation': np.full((h, w), 16.0, dtype=np.float32),
+            'gx': np.full((h, w), 17.0, dtype=np.float32),
+            'gy': np.full((h, w), 29.0, dtype=np.float32),
+            'vx': vx,
+            'bu': bu,
+        }
+        res = score_level_from_features(feat, None, is_top_level=False)
+        self.assertFalse(res['ceil_mask_active'])
+        self.assertFalse(res['floor_mask_active'])
+        self.assertEqual(res['state'], 'suficiente')
+
+    def test_bicolor_printed_boxes_credit_solid_color_band(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 11, 20
+        usable = np.ones((h, w), dtype=bool)
+        bu = np.full((h, w), 0.05, dtype=np.float32)
+        bu[:5, :] = 0.45
+        color_density = np.full((h, w), 0.08, dtype=np.float32)
+        color_density[6:, :] = 0.85  # Franja inferior de cartón azul/celeste liso.
+        vx = np.full((h, w), 0.10, dtype=np.float32)
+        vx[5, :] = 0.34  # Línea de logos centrales con bordes verticales.
+        density = np.full((h, w), 0.01, dtype=np.float32)
+        density[5, :] = 0.05
+        gradient = np.full((h, w), 12.0, dtype=np.float32)
+        gradient[5, :] = 40.0
+        deviation = np.full((h, w), 5.0, dtype=np.float32)
+        deviation[5, :] = 22.0
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': density,
+            'gradient': gradient,
+            'color_density': color_density,
+            'deviation': deviation,
+            'gx': np.full((h, w), 20.0, dtype=np.float32),
+            'gy': np.full((h, w), 20.0, dtype=np.float32),
+            'vx': vx,
+            'bu': bu,
+        }
+        bounds = ((0.0, 0.12), (2.0, 84.0), (0.0, 1.0), (1.0, 50.0))
+        res = score_level_from_features(feat, bounds)
+        self.assertEqual(res['state'], 'suficiente')
+        self.assertGreaterEqual(res['pct'], 52.0)
+
+    def test_recessed_upper_product_over_dark_tray_avoids_upper_band_review(self):
+        from ocupacion_linea_a import compute_cell_maps, score_level_from_features
+
+        h, w = 10, 20
+        usable = np.ones((h, w), dtype=bool)
+        density = np.full((h, w), 0.005, dtype=np.float32)
+        density[:5, :] = 0.09  # Producto retraído al fondo visible en mitad superior.
+        gradient = np.full((h, w), 8.0, dtype=np.float32)
+        gradient[:5, :] = 55.0
+        deviation = np.full((h, w), 3.0, dtype=np.float32)
+        deviation[:5, :] = 28.0
+        vx = np.full((h, w), 0.06, dtype=np.float32)
+        vx[:5, :] = 0.30
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': density,
+            'gradient': gradient,
+            'color_density': np.where(density > 0.02, 0.45, 0.01).astype(np.float32),
+            'deviation': deviation,
+            'gx': np.full((h, w), 24.0, dtype=np.float32),
+            'gy': np.full((h, w), 20.0, dtype=np.float32),
+            'vx': vx,
+            'bu': np.full((h, w), 0.02, dtype=np.float32),
+        }
+        bounds = ((0.0, 0.13), (5.0, 90.0), (0.0, 0.80), (2.0, 50.0))
+        maps = compute_cell_maps(feat, bounds)
+        self.assertTrue(maps['recessed_upper_product'])
+        res = score_level_from_features(feat, bounds)
+        self.assertEqual(res['state'], 'suficiente')
+        self.assertFalse(res['review_required'])

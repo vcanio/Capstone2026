@@ -1496,7 +1496,34 @@ const storageReady = (async () => {
   }
   renderQueue(); renderStageAndLevels();
 })();
-storageReady.then(() => analyzeQueue());
+storageReady.then(async () => {
+  try {
+    const resp = await fetch('/api/health', { cache: 'no-store' });
+    if (resp.ok) {
+      const status = await resp.json();
+      const liveRevision = typeof status.revision === 'string' && status.revision ? status.revision : null;
+      if (liveRevision) {
+        let invalidated = false;
+        for (const item of state.items) {
+          const prevRevision = item.result?.store_summary?.revision;
+          if (item.result && prevRevision && prevRevision !== liveRevision) {
+            if (item.result?.image_url?.startsWith('blob:')) URL.revokeObjectURL(item.result.image_url);
+            item.result = null;
+            item.resultImage = null;
+            item.error = null;
+            invalidated = true;
+          }
+        }
+        if (invalidated) {
+          renderQueue();
+          renderStageAndLevels();
+          saveSession();
+        }
+      }
+    }
+  } catch {}
+  analyzeQueue();
+});
 
 // Tema claro / oscuro
 function setTheme(theme) {

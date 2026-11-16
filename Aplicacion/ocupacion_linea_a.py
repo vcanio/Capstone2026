@@ -22,7 +22,7 @@ import numpy as np
 from ocupacion_paulo import Analyzer
 
 METHOD_LINEA_A = 'linea_a_v1_gondola_anchorage'
-REVISION_LINEA_A = 'linea_a_20261116_v2_1_cielo_piso_frente'
+REVISION_LINEA_A = 'linea_a_20261116_v2_2_cajas_sacos_picada'
 INTERPRETATION_POLICY = 'body_fill_gap_v1'
 CALIBRATED_THRESHOLD_PCT = 52.0
 
@@ -307,16 +307,25 @@ def _is_white_stocked_packages(
     top_u: np.ndarray,
     bot_u: np.ndarray,
     color_density: np.ndarray,
+    is_top_level: bool = False,
 ) -> bool:
-    """Reconocer paquetes blancos abastecidos (base blanca con bordes verticales y logo colorido arriba)."""
+    """Reconocer paquetes/sacos blancos abastecidos en la base sin confundirlos con techo."""
     if any(feat.get(k) is None for k in ('bu', 'vx')):
         return False
     bu = np.asarray(feat['bu'], dtype=np.float32)
     vx = np.asarray(feat['vx'], dtype=np.float32)
+    top_bu = float(bu[top_u].mean())
+    bot_bu = float(bu[bot_u].mean())
+    bot_vx = float(vx[bot_u].mean())
+    if float(color_density[top_u].mean()) >= 0.22 and bot_vx >= 0.18 and bot_bu > top_bu + 0.25:
+        return True
+    # Sacos o cajas blancas apiladas en niveles no superiores bajo sombra del estante de arriba.
     return (
-        float(color_density[top_u].mean()) >= 0.22
-        and float(vx[bot_u].mean()) >= 0.18
-        and float(bu[bot_u].mean()) > float(bu[top_u].mean()) + 0.25
+        not is_top_level
+        and top_bu < 0.28
+        and bot_bu >= 0.55
+        and bot_bu > top_bu + 0.22
+        and bot_vx >= 0.14
     )
 
 
@@ -332,7 +341,7 @@ def _open_ceiling_mask_v2(
     """Detectar cielo abierto en niveles superiores incluyendo cerchas y luminarias de techo."""
     if any(feat.get(k) is None for k in ('gx', 'gy', 'vx', 'bu')):
         return None
-    if _is_white_stocked_packages(feat, top_u, bot_u, color_density):
+    if _is_white_stocked_packages(feat, top_u, bot_u, color_density, is_top_level=is_top_level):
         return None
 
     base_ceil = _open_ceiling_mask(feat, body, usable, color_density)
@@ -421,6 +430,53 @@ def _exposed_floor_mask(
         (vx < FLOOR_CELL_MAX_VX)
         & (gx < FLOOR_CELL_MAX_GX_GY_RATIO * gy)
         & (color_density < FLOOR_CELL_MAX_COLOR)
+    )
+
+
+def _is_bicolor_printed_box(
+    feat: dict,
+    top_u: np.ndarray,
+    bot_u: np.ndarray,
+    usable: np.ndarray,
+    color_density: np.ndarray,
+) -> bool:
+    """Detectar cajas máster grandes con franja superior clara/impresa y banda inferior de color sólido."""
+    if any(feat.get(k) is None for k in ('bu', 'vx')):
+        return False
+    bu = np.asarray(feat['bu'], dtype=np.float32)
+    vx = np.asarray(feat['vx'], dtype=np.float32)
+    top_bu = float(bu[top_u].mean())
+    top_col = float(color_density[top_u].mean())
+    bot_col = float(color_density[bot_u].mean())
+    h = usable.shape[0]
+    row_vx = [float(vx[r, usable[r]].mean()) for r in range(h) if usable[r].any()]
+    max_row_vx = max(row_vx, default=0.0)
+    return top_bu >= 0.14 and bot_col >= 0.60 and (bot_col - top_col) >= 0.35 and max_row_vx >= 0.25
+
+
+def _has_recessed_upper_product(
+    feat: dict,
+    top_u: np.ndarray,
+    bot_u: np.ndarray,
+    usable: np.ndarray,
+) -> bool:
+    """Detectar producto apoyado al fondo (mitad superior) sobre bandeja oscura en vista picada."""
+    if any(feat.get(k) is None for k in ('bu', 'vx', 'gx', 'gy')):
+        return False
+    bu = np.asarray(feat['bu'], dtype=np.float32)
+    vx = np.asarray(feat['vx'], dtype=np.float32)
+    gx = np.asarray(feat['gx'], dtype=np.float32)
+    gy = np.asarray(feat['gy'], dtype=np.float32)
+    top_vx = float(vx[top_u].mean())
+    bot_vx = float(vx[bot_u].mean())
+    bot_bu = float(bu[bot_u].mean())
+    gx_m = float(gx[usable].mean())
+    gy_m = float(gy[usable].mean())
+    return (
+        top_vx >= 0.19
+        and top_vx >= 1.45 * max(bot_vx, 1e-3)
+        and bot_bu < 0.10
+        and gx_m >= 0.85 * max(gy_m, 1e-3)
     )
 
 
@@ -558,6 +614,29 @@ def compute_cell_maps(
     else:
         hyb_ev = abs_ev | (cell_score >= HYBRID_SCORE_MIN)
 
+    if (
+        ceil_mask is None
+        and floor_mask is None
+        and _is_bicolor_printed_box(feat, top_u, bot_u, usable, color_density)
+    ):
+        box_color = usable & (color_density > ABS_COLOR_DENSITY)
+        abs_ev = abs_ev | box_color
+        hyb_ev = hyb_ev | box_color
+        cell_score = np.where(box_color, np.maximum(cell_score, 0.55), cell_score)
+
+    recessed_upper = False
+    if (
+        ceil_mask is None
+        and floor_mask is None
+        and _has_recessed_upper_product(feat, top_u, bot_u, usable)
+    ):
+        rec_body = _relative_vertical_bands(usable, (0.04, 0.62))
+        rec_supp = _relative_vertical_bands(usable, (0.06, 0.65))
+        if float(hyb_ev[rec_body].mean()) > float(hyb_ev[body].mean()) + 0.10:
+            body = rec_body
+            support = rec_supp
+            recessed_upper = True
+
     row_cnt = support.sum(axis=0)
     valid_cols = usable.any(axis=0) & (row_cnt >= 1)
     col_frac_full = np.zeros(usable.shape[1], dtype=np.float32)
@@ -578,6 +657,7 @@ def compute_cell_maps(
         'col_covered_full': col_covered_full,
         'floor_mask_active': floor_mask is not None,
         'ceil_mask_active': ceil_mask is not None,
+        'recessed_upper_product': recessed_upper,
     }
 
 
@@ -656,7 +736,7 @@ def score_level_from_features(
     review_reason = None
     review_required = False
     if pct >= threshold_pct:
-        if upper_share >= UPPER_SHARE_REVIEW:
+        if upper_share >= UPPER_SHARE_REVIEW and not maps.get('recessed_upper_product'):
             review_required = True
             pattern = 'upper_band_only'
             review_reason = 'Señal concentrada en la mitad superior sobre umbral.'
