@@ -149,8 +149,18 @@ def store_diagnosis(detection: dict) -> dict:
     fill_pct = occ.get('fill_pct')
     pattern = occ.get('signal_pattern')
     near_frame = bool(detection.get('near_frame'))
+    raw_pct = occ.get('raw_pct', pct if evaluable else None)
 
     if state == 'reponer':
+        sev_occ = occ.get('operational_severity')
+        if sev_occ in ('critica', 'alta'):
+            severity = sev_occ
+        elif (isinstance(raw_pct, (int, float)) and raw_pct <= 15.0) or (
+            isinstance(max_gap, (int, float)) and max_gap >= 60.0
+        ):
+            severity = 'critica'
+        else:
+            severity = 'alta'
         if (pct is not None and pct <= 12.0) or (hyb_body is not None and hyb_body < 15.0):
             headline = 'Posible ausencia de producto visible'
         elif (
@@ -165,6 +175,8 @@ def store_diagnosis(detection: dict) -> dict:
         return {
             'operational_state': 'reponer',
             'operational_label': 'Alerta por baja disponibilidad',
+            'operational_severity': severity,
+            'raw_pct': raw_pct,
             'headline': headline,
             'action': 'Revisa la foto y los contornos para confirmar la alerta.',
         }
@@ -177,6 +189,8 @@ def store_diagnosis(detection: dict) -> dict:
         return {
             'operational_state': 'suficiente',
             'operational_label': 'Sin alerta visual',
+            'operational_severity': 'normal',
+            'raw_pct': raw_pct,
             'headline': 'Sin alerta visual detectada',
             'action': gap_note,
         }
@@ -193,6 +207,8 @@ def store_diagnosis(detection: dict) -> dict:
     return {
         'operational_state': 'revisar',
         'operational_label': 'Requiere revisión' if evaluable else 'No evaluable',
+        'operational_severity': 'verificar',
+        'raw_pct': raw_pct,
         'headline': headline,
         'action': action,
     }

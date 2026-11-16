@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-14",
+  "updated": "2026-11-16",
   "model": {
     "id": "V3-cierre-revisado-20261110",
     "architecture": "YOLO26n-seg",
@@ -104,6 +104,23 @@
         "e2e_ms_median": 1425.0,
         "e2e_ms_p95": 1576.93
       }
+    },
+    "occupancy_test_ohiggins3_v2_1": {
+      "blind_evaluation": true,
+      "threshold_pct": 52.0,
+      "revision": "linea_a_20261116_v2_1_cielo_piso_frente",
+      "by_level": {
+        "total": 354,
+        "tp": 35,
+        "fp": 3,
+        "fn": 1,
+        "tn": 315,
+        "accuracy": 0.9887,
+        "precision": 0.9211,
+        "recall": 0.9722,
+        "specificity": 0.9906,
+        "f1": 0.9459
+      }
     }
   },
   "app": {
@@ -116,7 +133,7 @@
     "visibility_automatic": false,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
-    "occupancy_revision": "linea_a_20261113_techo_y_panel_liso",
+    "occupancy_revision": "linea_a_20261116_v2_1_cielo_piso_frente",
     "occupancy_preliminary": false
   },
   "distribution": {

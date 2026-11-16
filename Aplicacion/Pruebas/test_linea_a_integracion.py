@@ -111,3 +111,135 @@ class LineaAIntegrationTests(unittest.TestCase):
         maps = compute_cell_maps(feat)
         self.assertTrue(bool(maps['valid_cols'].all()))
         self.assertFalse(bool(maps['col_covered_full'][12:].any()))
+
+    def test_exposed_floor_mask_suppresses_horizontal_tray_edges(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 10, 20
+        usable = np.ones((h, w), dtype=bool)
+        density = np.full((h, w), 0.04, dtype=np.float32)
+        density[:5, :] = 0.01  # Zonas superiores sin detalle de envases.
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': density,
+            'gradient': np.full((h, w), 45.0, dtype=np.float32),
+            'color_density': np.full((h, w), 0.05, dtype=np.float32),
+            'deviation': np.full((h, w), 20.0, dtype=np.float32),
+            'gx': np.full((h, w), 8.0, dtype=np.float32),
+            'gy': np.full((h, w), 40.0, dtype=np.float32),
+            'vx': np.full((h, w), 0.08, dtype=np.float32),
+            'bu': np.full((h, w), 0.25, dtype=np.float32),
+        }
+        res = score_level_from_features(feat, None)
+        self.assertTrue(res['floor_mask_active'])
+        self.assertEqual(res['state'], 'reponer')
+        self.assertEqual(res['operational_severity'], 'critica')
+
+    def test_facing_gap_alert_triggers_reponer_above_52_pct(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 10, 20
+        usable = np.ones((h, w), dtype=bool)
+        stocked = np.broadcast_to(np.arange(w)[None, :] < 12, (h, w))  # 60 % cubierto, 40 % hueco.
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': np.where(stocked, 0.10, 0.005).astype(np.float32),
+            'gradient': np.where(stocked, 60.0, 5.0).astype(np.float32),
+            'color_density': np.where(stocked, 0.50, 0.02).astype(np.float32),
+            'deviation': np.where(stocked, 25.0, 2.0).astype(np.float32),
+            'gx': np.where(stocked, 35.0, 5.0).astype(np.float32),
+            'gy': np.full((h, w), 20.0, dtype=np.float32),
+            'vx': np.where(stocked, 0.45, 0.05).astype(np.float32),
+            'bu': np.full((h, w), 0.35, dtype=np.float32),
+        }
+        bounds = ((0.0, 0.10), (4.0, 60.0), (0.0, 0.50), (2.0, 25.0))
+        res = score_level_from_features(feat, bounds)
+        self.assertGreaterEqual(res['raw_pct'], 52.0)
+        self.assertGreaterEqual(res['max_gap_pct'], 35.0)
+        self.assertLess(res['front_hyb_pct'], 68.0)
+        self.assertEqual(res['state'], 'reponer')
+        self.assertEqual(res['operational_severity'], 'alta')
+
+    def test_weak_two_column_island_is_bridged_by_gap_analyzer(self):
+        from ocupacion_linea_a import analyze_column_gaps
+
+        covered = np.zeros(20, dtype=bool)
+        covered[:5] = True
+        covered[9:11] = True  # Isla aislada de 2 columnas entre tramos vacíos.
+        weak_frac = np.where(covered, 0.80, 0.05).astype(np.float32)
+        weak_frac[9:11] = 0.25
+        weak_gap = analyze_column_gaps(covered, col_frac=weak_frac, bridge_single=True)
+        self.assertAlmostEqual(weak_gap['max_gap_pct'], 75.0, places=2)
+        self.assertFalse(bool(weak_gap['filtered_covered'][9:11].any()))
+
+        strong_frac = weak_frac.copy()
+        strong_frac[9:11] = 0.70
+        strong_gap = analyze_column_gaps(covered, col_frac=strong_frac, bridge_single=True)
+        self.assertAlmostEqual(strong_gap['max_gap_pct'], 45.0, places=2)
+        self.assertAlmostEqual(strong_gap['significant_gaps_pct'], 65.0, places=2)
+        self.assertAlmostEqual(strong_gap['effective_gap_pct'], 0.85 * 65.0, places=2)
+
+    def test_low_contrast_dark_front_triggers_review_and_requires_bu(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 10, 20
+        usable = np.ones((h, w), dtype=bool)
+        active = np.zeros((h, w), dtype=bool)
+        active[4:7, :] = True  # 3/7 filas de body cubiertas en todo el frente (sin hueco horizontal).
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': np.where(active, 0.04, 0.005).astype(np.float32),
+            'gradient': np.where(active, 30.0, 10.0).astype(np.float32),
+            'color_density': np.where(active, 0.25, 0.05).astype(np.float32),
+            'deviation': np.where(active, 15.0, 4.0).astype(np.float32),
+            'bu': np.full((h, w), 0.05, dtype=np.float32),
+        }
+        bounds = ((0.0, 0.12), (5.0, 80.0), (0.0, 0.50), (2.0, 35.0))
+        res_dark = score_level_from_features(feat, bounds)
+        self.assertEqual(res_dark['state'], 'revisar')
+        self.assertEqual(res_dark['signal_pattern'], 'low_contrast_continuous_front')
+        self.assertTrue(res_dark['review_required'])
+        self.assertEqual(res_dark['operational_severity'], 'verificar')
+        self.assertGreaterEqual(res_dark['raw_pct'], 36.0)
+        self.assertLess(res_dark['raw_pct'], 52.0)
+
+        feat_no_bu = {k: v for k, v in feat.items() if k != 'bu'}
+        res_no_bu = score_level_from_features(feat_no_bu, bounds)
+        self.assertEqual(res_no_bu['state'], 'reponer')
+
+    def test_white_stocked_packages_protected_on_top_level(self):
+        from ocupacion_linea_a import score_level_from_features
+
+        h, w = 10, 20
+        usable = np.ones((h, w), dtype=bool)
+        bu = np.full((h, w), 0.25, dtype=np.float32)
+        bu[5:, :] = 0.85  # Base blanca brillante con logos coloridos arriba.
+        color_density = np.full((h, w), 0.08, dtype=np.float32)
+        color_density[:5, :] = 0.40
+        feat = {
+            'valid': True,
+            'valid_cells': int(usable.sum()),
+            'usable': usable,
+            'observed_coverage': np.ones((h, w), dtype=np.float32),
+            'density': np.full((h, w), 0.08, dtype=np.float32),
+            'gradient': np.full((h, w), 45.0, dtype=np.float32),
+            'color_density': color_density,
+            'deviation': np.full((h, w), 22.0, dtype=np.float32),
+            'gx': np.full((h, w), 22.0, dtype=np.float32),
+            'gy': np.full((h, w), 35.0, dtype=np.float32),
+            'vx': np.full((h, w), 0.30, dtype=np.float32),
+            'bu': bu,
+        }
+        res = score_level_from_features(feat, None, is_top_level=True)
+        self.assertFalse(res['ceil_mask_active'])
+        self.assertFalse(res['floor_mask_active'])
+        self.assertEqual(res['state'], 'suficiente')

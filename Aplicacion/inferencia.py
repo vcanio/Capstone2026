@@ -305,6 +305,7 @@ def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algo
         import numpy as np
         from ocupacion_linea_a import (extract_cell_features, gondola_feature_bounds,
                                       score_level_from_features, compute_cell_maps,
+                                      _top_level_flags,
                                       provenance as linea_a_provenance)
         if occupancy_algorithm == 'basal':
             from ocupacion_basal import (extract_cell_features, feature_bounds as gondola_feature_bounds,
@@ -314,12 +315,15 @@ def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algo
         features = [extract_cell_features(analyzer, (masks[i] > .5).astype('uint8')
                     if i < len(masks) else None) for i in range(len(detections))]
         bounds = gondola_feature_bounds(features)
-        for detection, feat in zip(detections, features):
-            measurement = score_level_from_features(feat, bounds)
+        top_flags = ([False] * len(features) if occupancy_algorithm == 'basal'
+                     else _top_level_flags(features))
+        for detection, feat, is_top in zip(detections, features, top_flags):
+            extra = {} if occupancy_algorithm == 'basal' else {'is_top_level': bool(is_top)}
+            measurement = score_level_from_features(feat, bounds, **extra)
             detection['occupancy'] = measurement
             detection['occupancy_estimate'] = occupancy_estimate(measurement, version)
             if feat is not None:
-                maps = compute_cell_maps(feat, bounds)
+                maps = compute_cell_maps(feat, bounds, **extra)
                 x, y, w, h = feat['bounds']
                 evidence = maps['hyb_ev'] & feat['usable']
                 analyzer.signal[y:y+h, x:x+w] |= (

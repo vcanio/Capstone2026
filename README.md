@@ -50,7 +50,7 @@ A partir de una fotografía frontal de góndola, el sistema ejecuta cuatro etapa
 
 Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261113.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
 
-> El paquete publicado incluye el modelo oficial **`V3-cierre-revisado-20261110`** y la regla **Línea A** (`linea_a_20261113_techo_y_panel_liso`). El filtro previo de calidad (`calidad_foto.py`) está integrado en el código fuente actual del repositorio.
+> El paquete publicado (`2026-11-13`) incluye el modelo oficial **`V3-cierre-revisado-20261110`** y la revisión base `linea_a_20261113_techo_y_panel_liso`. El código fuente actual del repositorio (y el arranque por Docker desde un clon) ya integra el filtro previo de calidad (`calidad_foto.py`) y **Línea A v2.1** (`linea_a_20261116_v2_1_cielo_piso_frente`).
 
 ### Windows x64
 
@@ -88,10 +88,10 @@ docker compose -f compose.apps.yaml down
 
 1. **Definición geométrica de `Nivel`:** cada polígono cubre el área útil de una repisa desde la superficie de apoyo **sobre el portaprecio** hasta la cara inferior del estante superior (o la **mediana de altura** de los inferiores del mismo tramo cuando el superior es abierto, para mantener consistencia entre fotos llenas y vacías). Durante la inferencia, la app no fuerza la mediana de forma artificial.
 2. **Filtro de calidad y zonas no evaluables:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales) para bloquear fotos ilegibles como `no_evaluable`. Si un contorno toca el encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o tiene señal ambigua, pasa a `Revisar`. Las obstrucciones por personas o carros quedan sujetas a revisión humana, sin interpretarse ni como falta de producto ni como stock suficiente.
-3. **Cálculo de ocupación (`Línea A`, revisión `linea_a_20261113_techo_y_panel_liso`):**
+3. **Cálculo de ocupación (`Línea A`, revisión `linea_a_20261116_v2_1_cielo_piso_frente`):**
    - [`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) lee los píxeles originales dentro de cada máscara, conserva bordes Canny y excluye rieles/barandas horizontales.
-   - [`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py) normaliza `P10–P90` entre todos los niveles de la **misma góndola**, combina bordes, gradiente Sobel, saturación con respaldo textural (evita contar tableros lisos vacíos) y desviación local, descarta techo abierto sin producto y penaliza el hueco horizontal continuo más largo (`100 - max_gap_pct`).
-   - Se compara el índice visual (`0–100`) contra el umbral **`52`**: `< 52` dispara alerta **Reponer**; `≥ 52` indica **Suficiente** (evidencia visual frontal, no porcentaje de inventario físico).
+   - [`ocupacion_linea_a.py`](Aplicacion/ocupacion_linea_a.py) normaliza `P10–P90` entre todos los niveles de la **misma góndola**, sigue bandas verticales relativas en estantes inclinados, protege paquetes blancos con logo superior (`_is_white_stocked_packages`), suprime cielo abierto en el nivel superior (`_open_ceiling_mask_v2`) y bandejas/pisos expuestos en vista picada (`_exposed_floor_mask`), y neutraliza islas débiles de hasta 2 columnas entre huecos (`analyze_column_gaps`).
+   - El criterio combinado dispara **Reponer** cuando el índice visual (`0–100`) cae bajo **`52`** o ante quiebre parcial de frente (`max_gap_pct ≥ 35 %` con `front_hyb_pct < 68 %`, o `significant_gaps_pct ≥ 45 %`), deriva frentes oscuros continuos de bajo contraste a **Revisar** (`low_contrast_continuous_front` conservando `raw_pct`), y asigna `operational_severity` (`critica`, `alta`, `verificar`, `normal`).
 
 [Implementación de Línea A](Aplicacion/ocupacion_linea_a.py) · [Extracción de señal](Aplicacion/ocupacion_paulo.py) · [Filtro de calidad](Aplicacion/calidad_foto.py) · [Integración y límites](Aplicacion/Documentacion/LINEA_A_20261108.md)
 
@@ -101,7 +101,7 @@ docker compose -f compose.apps.yaml down
 |---|---|---|
 | **Segmentación por máscaras de clase única `Nivel`** | Cajas rectangulares (`bbox`) o clasificar directamente `Reponer`/`Suficiente` en YOLO. | Las máscaras siguen la perspectiva de la góndola y excluyen zonas ajenas. Separar geometría (`Nivel`) de ocupación permite anotar con el mismo criterio repisas llenas o vacías, auditar por separado errores de contorno y ocupación, y ajustar reglas de alerta sin reentrenar YOLO. |
 | **`YOLO26n-seg` con ajuste fino** | Entrenar desde cero o usar modelos pesados dependientes de servidor GPU. | Su tamaño liviano permite inferencia local rápida tanto en CPU como en GPU (`77 ms` GPU / `226 ms` CPU) y aprovecha pesos preentrenados para adaptarse con un dataset acotado de tienda. |
-| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. El umbral `52` fue calibrado en desarrollo (`112` niveles) y validado en ciego (`Ohiggins 3`, `F1 88,24 %`), conservando el basal de `30 %` como referencia experimental en la app del equipo. |
+| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. Sobre el umbral `52` calibrado en desarrollo (`112` niveles), la evaluación ciega en `Ohiggins 3` pasó de `F1 88,24 %` en la línea base a `F1 94,59 %` (`Recall 97,22 %`) con la revisión `v2.1` (`193` fotos / `893` niveles revisados en 3 capturas de tienda), conservando el basal de `30 %` como referencia experimental en la app del equipo. |
 | **Compuerta de calidad (`calidad_foto.py`) y estado `Revisar`** | Inferir todas las fotos por igual y emitir siempre `Reponer` o `Suficiente`. | Evita generar falsas alertas de quiebre sobre fotografías borrosas, quemadas, oscuras o recortadas, diferenciando falta de evidencia visual de falta de producto. |
 | **Ejecución web local (`Python` + `Docker`)** | Servicio externo en la nube o ejecución solo por consola. | Mantiene las fotografías en el equipo sin latencia de red ni envío a terceros, ofrece interfaz visual directa para supervisores y empaqueta dependencias reproducibles entre equipos. |
 
@@ -208,11 +208,15 @@ En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, co
 
 ### Clasificación de ocupación (`Línea A`, umbral 52)
 
-Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada en frío sobre los **354 niveles predichos por YOLO en `Ohiggins 3`**:
+Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
 
-- **Por nivel:** Accuracy **97,74 %** · Precision **93,75 %** · Recall **83,33 %** · **F1 88,24 %** (`30 TP, 2 FP, 6 FN, 316 TN`).
-- **Por foto completa:** Accuracy **92,65 %** · **F1 89,80 %**.
-- **Latencia E2E (`YOLO + Línea A`):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
+| Revisión Línea A (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
+|---|---|---:|---:|---:|---:|
+| Línea base ciega (`linea_a_20261113_techo_y_panel_liso`) | `30 / 2 / 6 / 316` | 97,74 % | 93,75 % | 83,33 % | 88,24 % |
+| **Vigente v2.1 (`linea_a_20261116_v2_1_cielo_piso_frente`)** | **`35 / 3 / 1 / 315`** | **98,87 %** | **92,11 %** | **97,22 %** | **94,59 %** |
+
+- **Por foto completa (línea base ciega `2026-11-13`):** Accuracy **92,65 %** · **F1 89,80 %**.
+- **Latencia E2E (`YOLO + Línea A` línea base):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
 
 [Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
 
@@ -226,7 +230,7 @@ Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 fal
 | **App del equipo (`8095`)** | **Operativa** | Comparación `Línea A` vs `Basal · experimental`, autocompletado por lotes, mapas de bordes, marcado por nivel/zona y lotes ZIP. |
 | **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); en escenas puntuales (`le_g10` 029/030) aún puede fallar el nivel superior. |
 | **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
-| **Ocupación `Línea A` (umbral `52`)** | **Operativa** | Evaluada en ciego sobre `Ohiggins 3` (`F1 88,24 %` por nivel); `4/6 FN` ocurrieron en estantes inferiores (`N5`/`N6`) con toma picada sin hueco limpio (`max_gap_pct = 0,0 %`). |
+| **Ocupación `Línea A` (`v2.1`, umbral `52`)** | **Operativa** | Revisión `linea_a_20261116_v2_1_cielo_piso_frente` con filtro de bandejas/pisos expuestos en vista picada, criterio de frente parcial y severidad operativa (`Ohiggins 3`: **F1 94,59 %**, **Recall 97,22 %**, `35 TP / 3 FP / 1 FN / 315 TN`). |
 | **Empaquetado Windows y Docker** | **Operativo / parcial en Mac** | Instalador Windows y Docker Compose verificados en Windows/Linux; pendiente prueba física de la entrega conjunta en macOS. |
 | **Detector de oclusiones (`persona` / `carro`)** | **Pendiente** | Las obstrucciones parciales por personas o carros siguen dependiendo de revisión visual humana. |
 | **Persistencia compartida y más categorías** | **Pendiente** | Falta historial persistente en servidor (`SQLite`) para la app cliente y ampliar el test independiente a nuevas tiendas y categorías (papeles, huevos). |
