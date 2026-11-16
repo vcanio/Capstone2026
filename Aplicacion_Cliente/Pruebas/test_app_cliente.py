@@ -18,7 +18,7 @@ for p in (str(CLIENT_DIR), str(APP_DIR)):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from app_cliente import ClientHandler, demo_catalog, enrich_for_store, store_diagnosis  # noqa: E402
+from app_cliente import ClientHandler, _attach_gap_spans, demo_catalog, enrich_for_store, store_diagnosis  # noqa: E402
 
 
 class FakeClientRunner:
@@ -185,6 +185,27 @@ class StoreDiagnosisTest(unittest.TestCase):
             norm_path = rec['path'].replace('\\', '/').lower()
             self.assertNotIn('/images/test/', norm_path, f'Demo {item_id} apunta a partición test reservada')
 
+    def test_attach_gap_spans_locates_empty_right_half(self):
+        from PIL import ImageDraw
+
+        img = Image.new('RGB', (400, 140), (228, 232, 236))
+        draw = ImageDraw.Draw(img)
+        for x in range(25, 190, 26):
+            draw.rectangle((x, 28, x + 20, 118), fill=(215, 45, 45), outline=(25, 25, 25), width=2)
+            draw.rectangle((x + 4, 42, x + 16, 75), fill=(250, 215, 40))
+        buf = io.BytesIO()
+        img.save(buf, format='JPEG', quality=95)
+        detections = [{
+            'id': 1,
+            'display_polygon': [[10.0, 10.0], [390.0, 10.0], [390.0, 130.0], [10.0, 130.0]],
+        }]
+        _attach_gap_spans(buf.getvalue(), detections)
+        spans = detections[0].get('gap_spans', [])
+        self.assertTrue(spans, 'Debe detectar el hueco en la mitad derecha vacía')
+        self.assertGreaterEqual(spans[-1]['end'], 0.8)
+        self.assertGreaterEqual(spans[-1]['start'], 0.35)
+        self.assertEqual(len(spans[-1]['polygon']), 4)
+
 
 class ClientHttpServerTest(unittest.TestCase):
     def setUp(self):
@@ -208,6 +229,16 @@ class ClientHttpServerTest(unittest.TestCase):
         with urlopen(f'{self.base_url}/logo.svg') as resp:
             self.assertEqual(resp.headers.get_content_type(), 'image/svg+xml')
             self.assertEqual(resp.read(), (CLIENT_DIR / 'logo.svg').read_bytes())
+
+    def test_level_hover_uses_contour_state_color(self):
+        html = (CLIENT_DIR / 'interfaz_cliente.html').read_text(encoding='utf-8')
+        hover_line = next(
+            (line for line in html.splitlines() if '.shelf-poly:hover' in line),
+            '',
+        )
+        self.assertIn('var(--contour-color)', hover_line)
+        self.assertNotIn('#ffc220', hover_line.lower())
+        self.assertIn('data-view="gaps"', html)
 
     def test_health_and_demo_catalog_endpoints(self):
         with urlopen(f'{self.base_url}/api/health') as resp:

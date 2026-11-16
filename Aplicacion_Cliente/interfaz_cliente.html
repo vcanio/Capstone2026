@@ -103,8 +103,16 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .photo-canvas { position: relative; display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 100%; }
 .photo-canvas img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100cqh; border-radius: 12px; user-select: none; }
 .interactive-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.shelf-poly { fill: transparent; stroke: var(--contour-color); stroke-width: 1.2; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill 150ms ease-out, stroke 150ms ease-out; }
-.shelf-poly:hover, .shelf-poly.is-active { fill: #ffc22022; stroke: #ffc220; stroke-width: 2; }
+.shelf-poly { fill: var(--contour-color); fill-opacity: 0; stroke: var(--contour-color); stroke-width: 1.2; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill-opacity 150ms ease-out, stroke-width 150ms ease-out; }
+.shelf-poly:hover, .shelf-poly.is-active { fill-opacity: .14; stroke: var(--contour-color); stroke-width: 2; }
+.shelf-poly.is-gap-mode { stroke-opacity: .42; }
+.shelf-poly.is-gap-mode:hover, .shelf-poly.is-gap-mode.is-active { stroke-opacity: .95; fill-opacity: .06; }
+.gap-poly { stroke: var(--gap-stroke); stroke-width: 1.8; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill-opacity 150ms ease-out, stroke-width 150ms ease-out; }
+.gap-poly.is-active, .gap-poly:hover { stroke-width: 2.5; }
+.gap-label { pointer-events: none; }
+.gap-label rect { fill: #07131de8; stroke: var(--gap-stroke); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.gap-label text { fill: var(--gap-stroke); font-family: "Segoe UI", sans-serif; font-weight: 700; }
+.gap-summary { font-size: 12px; color: var(--ink-muted); white-space: nowrap; }
 .contour-label { pointer-events: none; }
 .contour-label rect { fill: #07131ddd; stroke: var(--contour-color); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .contour-label text { fill: var(--contour-color); font-family: "Segoe UI", sans-serif; font-weight: 600; }
@@ -151,9 +159,17 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .link-reset { padding: 6px; border: 0; background: transparent; color: var(--ink-muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
 .app-footer { padding: 0 20px 5px; color: var(--ink-muted); font-size: 11px; text-align: center; }
 .app-footer a { color: inherit; text-underline-offset: 3px; }
-.loading-overlay { position: absolute; inset: 0; background: #050f1ae6; display: grid; place-items: center; z-index: 15; padding: 24px; text-align: center; }
-.loading-card { color: #fff; font-weight: 600; }
-.loading-hint { max-width: 38ch; margin: 12px auto 0; color: #e2e8f0; font-size: 14px; font-weight: 400; line-height: 1.6; }
+.loading-overlay { position: absolute; inset: 0; background: #050f1aa6; backdrop-filter: blur(3px); display: grid; place-items: center; z-index: 15; padding: 24px; text-align: center; overflow: hidden; }
+.loading-card { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 220px; max-width: 300px; padding: 20px 24px; border: 1px solid #3a536c88; border-radius: 16px; background: #0c1928eb; box-shadow: 0 18px 40px #00000059; color: #f1f6fc; font-weight: 600; }
+.loading-scanner { width: 52px; height: 52px; display: grid; place-items: center; }
+.loading-scanner svg { width: 52px; height: 52px; display: block; }
+.loading-scan-line { animation: scanSweep 1.6s ease-in-out infinite; }
+.loading-bar { width: 100%; height: 3px; border-radius: 99px; background: #22364b; overflow: hidden; margin-top: 2px; }
+.loading-bar::after { content: ""; display: block; width: 42%; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--brand-blue), var(--brand-spark)); animation: barSlide 1.3s ease-in-out infinite; }
+.loading-hint { margin: 0; color: #b2c8de; font-size: 12px; font-weight: 400; line-height: 1.4; }
+@keyframes scanSweep { 0%, 100% { transform: translateY(0); opacity: .75; } 50% { transform: translateY(24px); opacity: 1; } }
+@keyframes barSlide { 0% { transform: translateX(-110%); } 100% { transform: translateX(260%); } }
+@media (prefers-reduced-motion: reduce) { .loading-scan-line, .loading-bar::after { animation: none; } }
 .error-toast { margin: 10px 20px 0; padding: 10px 14px; border: 1px solid var(--red-border); border-radius: 12px; background: var(--red-bg); color: var(--red); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .camera-modal { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; gap: 12px; color: #fff; background: #080e16f5; }
 .camera-frame { position: relative; max-width: 720px; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #ffffff60; background: #000; }
@@ -217,7 +233,8 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   .stage-banner { gap: 8px; }
   .banner-text { width: auto; }
   .viewer-wrap { padding: 8px; }
-  .stage-toolbar { display: none; }
+  .stage-toolbar { padding: 6px 10px; justify-content: center; flex-wrap: wrap; }
+  .stage-toolbar [data-view="compare"] { display: none; }
   .empty-state { padding: 16px 8px; }
   .empty-mark { width: 44px; height: 44px; margin-bottom: 12px; }
   .empty-state h2 { font-size: 21px; }
@@ -327,16 +344,28 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
     <div class="stage-toolbar" id="stageToolbar" hidden>
       <div class="seg-group" role="tablist" aria-label="Modo de vista">
         <button type="button" class="seg-btn" role="tab" data-view="result" aria-selected="true">Con niveles</button>
+        <button type="button" class="seg-btn" role="tab" data-view="gaps" aria-selected="false">Huecos</button>
         <button type="button" class="seg-btn" role="tab" data-view="compare" aria-selected="false">Comparar</button>
         <button type="button" class="seg-btn" role="tab" data-view="original" aria-selected="false">Foto original</button>
       </div>
-
+      <span class="gap-summary" id="gapSummary" hidden></span>
     </div>
 
     <div class="viewer-wrap" id="dropZone">
       <div class="loading-overlay" id="loadingOverlay" hidden>
         <div class="loading-card" role="status" aria-live="polite" aria-atomic="true">
+          <div class="loading-scanner" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M9 17V9h8M31 9h8v8M39 31v8h-8M17 39H9v-8" stroke="#ffc220" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 19h20M14 27h20M14 35h20" stroke="#94aec7" stroke-opacity=".45" stroke-width="2" stroke-linecap="round"/>
+              <rect x="16" y="13" width="6" height="5" rx="1" fill="#5aa9ff" fill-opacity=".45"/>
+              <rect x="25" y="21" width="7" height="5" rx="1" fill="#59d58d" fill-opacity=".45"/>
+              <rect x="17" y="29" width="5" height="5" rx="1" fill="#ff727c" fill-opacity=".45"/>
+              <line class="loading-scan-line" x1="11" y1="12" x2="37" y2="12" stroke="#5aa9ff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div id="loadingText">Analizando foto…</div>
+          <div class="loading-bar" aria-hidden="true"></div>
           <p class="loading-hint" id="loadingHint" hidden></p>
         </div>
       </div>
@@ -536,9 +565,9 @@ function observeThumbnails() {
 
 function renderAnalysisFeedback() {
   $('loadingText').textContent = analysisReady === false
-    ? 'Preparando y analizando la primera foto…' : 'Analizando foto…';
+    ? 'Preparando el modelo…' : 'Analizando foto…';
   $('loadingHint').hidden = analysisReady === true;
-  $('loadingHint').textContent = 'El primer análisis puede tardar más mientras se carga el modelo. Las siguientes fotos suelen ser más rápidas. Puedes seguir revisando el recorrido.';
+  $('loadingHint').textContent = 'La primera foto puede tardar un poco más.';
 }
 
 // Los códigos del motor se conservan; las marcas humanas nunca cambian sus alertas.
@@ -796,8 +825,9 @@ function renderStageAndLevels() {
   $('stageHeadline').textContent = `Góndola ${String(item.order).padStart(2, '0')}`;
 
   $('stageToolbar').hidden = false;
-  const activeView = isMobileLayout() ? 'result' : state.viewMode;
+  const activeView = isMobileLayout() && state.viewMode === 'compare' ? 'result' : state.viewMode;
   if (activeView === 'compare') {
+    $('gapSummary').hidden = true;
     $('singleView').hidden = true;
     $('compareView').hidden = false;
     $('compareOrigImg').src = item.origUrl;
@@ -807,7 +837,7 @@ function renderStageAndLevels() {
     $('compareView').hidden = true;
     $('mainPhoto').src = item.origUrl;
     $('polyOverlay').toggleAttribute('hidden', activeView === 'original');
-    renderPolygonOverlay(item);
+    renderPolygonOverlay(item, activeView);
   }
 
   // Renderizar tarjetas de niveles de arriba hacia abajo (mayor ID arriba)
@@ -897,15 +927,47 @@ function renderStageAndLevels() {
   });
 }
 
-function renderPolygonOverlay(item) {
+function renderPolygonOverlay(item, activeView = 'result') {
   const svg = $('polyOverlay');
+  const summaryEl = $('gapSummary');
   const res = item?.result;
   if (!res || !res.width || !res.height) {
     svg.innerHTML = '';
+    summaryEl.hidden = true;
     return;
   }
+  const gapMode = activeView === 'gaps';
+  const dets = res.detections || [];
+  const hasGapData = dets.some(det => Array.isArray(det.gap_spans));
+  const totalGaps = dets.reduce((sum, det) => sum + (det.gap_spans?.length || 0), 0);
+  if (gapMode) {
+    summaryEl.hidden = false;
+    summaryEl.textContent = !dets.length
+      ? 'Sin niveles detectados'
+      : !hasGapData
+        ? 'Reanaliza esta foto para ubicar huecos'
+        : totalGaps
+          ? `${totalGaps} ${totalGaps === 1 ? 'hueco ubicado' : 'huecos ubicados'}`
+          : 'Sin huecos amplios (≥ 10%)';
+  } else {
+    summaryEl.hidden = true;
+  }
+
+  const font = Math.max(12, res.width / 65);
+  const hatchStep = Math.max(10, Math.round(res.width / 65));
+  const defs = gapMode ? `<defs>
+    <pattern id="gapHatchAlert" width="${hatchStep}" height="${hatchStep}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="${hatchStep}" height="${hatchStep}" fill="#ff4757" fill-opacity=".22"/>
+      <line x1="0" y1="0" x2="0" y2="${hatchStep}" stroke="#ff727c" stroke-opacity=".55" stroke-width="${Math.max(1.5, hatchStep * .2)}"/>
+    </pattern>
+    <pattern id="gapHatchSoft" width="${hatchStep}" height="${hatchStep}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="${hatchStep}" height="${hatchStep}" fill="#ffbf51" fill-opacity=".18"/>
+      <line x1="0" y1="0" x2="0" y2="${hatchStep}" stroke="#ffcc6b" stroke-opacity=".5" stroke-width="${Math.max(1.5, hatchStep * .2)}"/>
+    </pattern>
+  </defs>` : '';
+
   svg.setAttribute('viewBox', `0 0 ${res.width} ${res.height}`);
-  svg.innerHTML = (res.detections || []).map(det => {
+  svg.innerHTML = defs + dets.map(det => {
     const pts = (det.display_polygon || []).map(p => `${p[0]},${p[1]}`).join(' ');
     if (!pts) return '';
     const op = analysisState(det);
@@ -913,14 +975,42 @@ function renderPolygonOverlay(item) {
     const points = det.display_polygon;
     const x = Math.max(0, Math.min(...points.map(p => p[0])));
     const y = Math.max(0, Math.min(...points.map(p => p[1])));
-    const font = Math.max(12, res.width / 65);
     const score = det.occupancy_estimate?.pct;
     const label = `N${det.id} · ${Number.isFinite(score) ? Math.round(score) : '—'}`;
     const labelY = Math.max(font * 1.7, y);
+
+    const gapMarkup = gapMode ? (det.gap_spans || []).map(span => {
+      const gPts = (span.polygon || []).map(p => `${p[0]},${p[1]}`).join(' ');
+      if (!gPts) return '';
+      const alertGap = op === 'reponer' || span.pct >= 30;
+      const stroke = alertGap ? '#ff727c' : '#ffcc6b';
+      const fillUrl = alertGap ? 'url(#gapHatchAlert)' : 'url(#gapHatchSoft)';
+      const gx0 = Math.min(...span.polygon.map(p => p[0]));
+      const gx1 = Math.max(...span.polygon.map(p => p[0]));
+      const gy0 = Math.min(...span.polygon.map(p => p[1]));
+      const gy1 = Math.max(...span.polygon.map(p => p[1]));
+      const gw = gx1 - gx0;
+      const gapText = gw >= font * 6.5 ? `Hueco ${Math.round(span.pct)}%` : `${Math.round(span.pct)}%`;
+      const pillW = Math.min(Math.max(font * 3.1, gapText.length * font * .62 + font * .9), Math.max(font * 3.1, gw - 4));
+      const pillH = font * 1.5;
+      const pillX = Math.max(0, Math.min(res.width - pillW, (gx0 + gx1 - pillW) / 2));
+      const pillY = Math.max(0, (gy0 + gy1 - pillH) / 2);
+      return `<g style="--gap-stroke:${stroke}">
+        <polygon class="gap-poly" data-poly-level="${det.id}" points="${gPts}" fill="${fillUrl}">
+          <title>Nivel ${det.id} · Hueco estimado ${Math.round(span.pct)}% del ancho</title>
+        </polygon>
+        <g class="gap-label" transform="translate(${pillX},${pillY})">
+          <rect width="${pillW}" height="${pillH}" rx="${pillH * .45}"/>
+          <text x="${pillW / 2}" y="${font * 1.07}" font-size="${font * .92}" text-anchor="middle">${esc(gapText)}</text>
+        </g>
+      </g>`;
+    }).join('') : '';
+
     return `<g style="--contour-color:${color}">
-      <polygon class="shelf-poly" data-poly-level="${det.id}" points="${pts}">
+      <polygon class="shelf-poly${gapMode ? ' is-gap-mode' : ''}" data-poly-level="${det.id}" points="${pts}">
         <title>Nivel ${det.id} · ${esc(levelDiagnosis(det).headline)}</title>
       </polygon>
+      ${gapMarkup}
       <g class="contour-label" transform="translate(${x + font / 2},${labelY - font * 1.6})">
         <rect width="${font * 5.3}" height="${font * 1.6}" rx="${font * .7}"/>
         <text x="${font * .5}" y="${font * 1.12}" font-size="${font}">${esc(label)}</text>
@@ -928,7 +1018,7 @@ function renderPolygonOverlay(item) {
     </g>`;
   }).join('');
 
-  svg.querySelectorAll('.shelf-poly').forEach(poly => {
+  svg.querySelectorAll('.shelf-poly, .gap-poly').forEach(poly => {
     const lv = Number(poly.dataset.polyLevel);
     poly.addEventListener('mouseenter', () => highlightLevel(lv));
     poly.addEventListener('mouseleave', () => highlightLevel(null));
@@ -946,7 +1036,7 @@ function highlightLevel(levelId) {
   document.querySelectorAll('.level-card').forEach(c => {
     c.classList.toggle('is-highlighted', Number(c.dataset.level) === levelId);
   });
-  document.querySelectorAll('.shelf-poly').forEach(p => {
+  document.querySelectorAll('.shelf-poly, .gap-poly').forEach(p => {
     p.classList.toggle('is-active', Number(p.dataset.polyLevel) === levelId);
   });
 }

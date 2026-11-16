@@ -102,14 +102,6 @@ de ruido y usa un perfil aislado, sin inferencia ni acceso al recorrido del usua
 `WALMART_PLAYWRIGHT` permite indicar el módulo Playwright y `WALMART_CHROMIUM`, otro
 ejecutable Chromium. Los resultados y capturas quedan en `.tmp/cliente_memoria_20261111/`.
 
-Prueba aislada del visor de alertas: `node Aplicacion_Cliente/Pruebas/test_alertas_cliente.cjs`.
-Usa las mismas variables de Playwright/Chromium; comprueba filtros, revisión independiente,
-recarga, compatibilidad con marcas anteriores, CSV y vistas de escritorio/tablet/móvil
-con imágenes generadas y respuestas simuladas, sin inferencia ni datos reales.
-Las capturas y el resultado quedan en `.tmp/cliente_alertas_20261111/`.
-Comprueba además navegación con teclado, limpieza definitiva, reintento de borrado
-fallido y cancelación de análisis al limpiar.
-
 ## Licencia
 
 Código original del equipo: [AGPL-3.0-only](../LICENSE). Consulta [licencias y procedencia de datos/pesos](../LICENCIAS.md) y [avisos de terceros](../NOTICE.md). Los datos no reciben una licencia pública por este acuerdo sobre el código.

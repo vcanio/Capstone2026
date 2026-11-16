@@ -23,11 +23,118 @@ APP_DIR = PROJECT_ROOT / 'Aplicacion'
 if str(APP_DIR) not in sys.path:
     sys.path.insert(0, str(APP_DIR))
 
-from inferencia import BusyError, MAX_BYTES, ModelRunner  # noqa: E402
+from inferencia import BusyError, MAX_BYTES, ModelRunner, read_photo  # noqa: E402
 from ocupacion_linea_a import CALIBRATED_THRESHOLD_PCT, REVISION_LINEA_A  # noqa: E402
 
 DEFAULT_CONFIDENCE = 0.60
 DEFAULT_METHOD = 'yolo_paulo_v2'
+
+
+def _order_quadrilateral(points):
+    pts = [(float(p[0]), float(p[1])) for p in points]
+    by_y = sorted(pts, key=lambda p: p[1])
+    top = sorted(by_y[:2], key=lambda p: p[0])
+    bot = sorted(by_y[2:], key=lambda p: p[0])
+    return top[0], top[1], bot[1], bot[0]
+
+
+def _gap_polygon_for_span(display_polygon, x_gap_0: float, x_gap_1: float):
+    if len(display_polygon) == 4:
+        tl, tr, br, bl = _order_quadrilateral(display_polygon)
+        top_dx = tr[0] - tl[0]
+        bot_dx = br[0] - bl[0]
+        if top_dx <= 1 or bot_dx <= 1:
+            return None
+        t0_top = max(0.0, min(1.0, (x_gap_0 - tl[0]) / top_dx))
+        t1_top = max(0.0, min(1.0, (x_gap_1 - tl[0]) / top_dx))
+        t0_bot = max(0.0, min(1.0, (x_gap_0 - bl[0]) / bot_dx))
+        t1_bot = max(0.0, min(1.0, (x_gap_1 - bl[0]) / bot_dx))
+        if t1_top <= t0_top and t1_bot <= t0_bot:
+            return None
+        p_tl = [round(tl[0] + t0_top * top_dx, 1), round(tl[1] + t0_top * (tr[1] - tl[1]), 1)]
+        p_tr = [round(tl[0] + t1_top * top_dx, 1), round(tl[1] + t1_top * (tr[1] - tl[1]), 1)]
+        p_br = [round(bl[0] + t1_bot * bot_dx, 1), round(bl[1] + t1_bot * (br[1] - bl[1]), 1)]
+        p_bl = [round(bl[0] + t0_bot * bot_dx, 1), round(bl[1] + t0_bot * (br[1] - bl[1]), 1)]
+        return [p_tl, p_tr, p_br, p_bl]
+    xs = [float(p[0]) for p in display_polygon]
+    ys = [float(p[1]) for p in display_polygon]
+    x0 = max(min(xs), min(max(xs), x_gap_0))
+    x1 = max(min(xs), min(max(xs), x_gap_1))
+    if x1 - x0 <= 1:
+        return None
+    y0, y1 = round(min(ys), 1), round(max(ys), 1)
+    return [[round(x0, 1), y0], [round(x1, 1), y0], [round(x1, 1), y1], [round(x0, 1), y1]]
+
+
+def _attach_gap_spans(image_body: bytes, detections: list[dict], min_gap_pct: float = 10.0) -> None:
+    """Calcular tramos horizontales de hueco por nivel para el visor visual."""
+    if not detections:
+        return
+    try:
+        import cv2
+        import numpy as np
+        from ocupacion_linea_a import compute_cell_maps, extract_cell_features, gondola_feature_bounds
+        from ocupacion_paulo import Analyzer
+
+        image = read_photo(image_body)
+        rgb = np.asarray(image)
+        analyzer = Analyzer(rgb, version='v2', front_mode=True)
+        scale_x = analyzer.rgb.shape[1] / max(1, image.width)
+        features = []
+        for det in detections:
+            poly = det.get('display_polygon') or []
+            if len(poly) < 3:
+                features.append(None)
+                continue
+            mask = np.zeros((image.height, image.width), dtype='uint8')
+            pts = np.rint(np.asarray(poly, dtype=np.float32)).astype('int32')
+            cv2.fillPoly(mask, [pts], 1)
+            features.append(extract_cell_features(analyzer, mask))
+        bounds = gondola_feature_bounds([f for f in features if f is not None])
+        for det, feat in zip(detections, features):
+            det['gap_spans'] = []
+            poly = det.get('display_polygon') or []
+            if feat is None or len(poly) < 3:
+                continue
+            maps = compute_cell_maps(feat, bounds)
+            valid_cols = maps['valid_cols']
+            col_covered_full = maps['col_covered_full']
+            idxs = np.flatnonzero(valid_cols)
+            if len(idxs) == 0:
+                continue
+            arr = np.asarray(col_covered_full[idxs], dtype=bool).copy()
+            if len(arr) >= 3:
+                for idx in range(1, len(arr) - 1):
+                    if arr[idx] and (not arr[idx - 1]) and (not arr[idx + 1]):
+                        arr[idx] = False
+            n_total = max(1, col_covered_full.shape[0])
+            n_valid = len(arr)
+            bx, _, bw, _ = feat['bounds']
+            i = 0
+            while i < n_valid:
+                if not arr[i]:
+                    j = i
+                    while j < n_valid and not arr[j]:
+                        j += 1
+                    pct = 100.0 * (j - i) / n_valid
+                    if pct >= min_gap_pct:
+                        c0, c1 = int(idxs[i]), int(idxs[j - 1]) + 1
+                        x0 = (bx + (c0 / n_total) * bw) / scale_x
+                        x1 = (bx + (c1 / n_total) * bw) / scale_x
+                        gap_poly = _gap_polygon_for_span(poly, x0, x1)
+                        if gap_poly is not None:
+                            det['gap_spans'].append({
+                                'start': round(i / n_valid, 4),
+                                'end': round(j / n_valid, 4),
+                                'pct': round(pct, 1),
+                                'polygon': gap_poly,
+                            })
+                    i = j
+                else:
+                    i += 1
+    except Exception:
+        for det in detections:
+            det.setdefault('gap_spans', [])
 
 
 def store_diagnosis(detection: dict) -> dict:
@@ -251,6 +358,8 @@ class ClientHandler(BaseHTTPRequestHandler):
             prediction['image_url'] = 'data:image/jpeg;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')
             for extra_img in ('occupancy_image', 'edges_image', 'filtered_edges_image'):
                 prediction.pop(extra_img, None)
+            if prediction.get('detections'):
+                _attach_gap_spans(body, prediction['detections'])
             enrich_for_store(prediction)
             self.send(prediction)
         except BusyError as error:
