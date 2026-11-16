@@ -1,4 +1,4 @@
-**Entrega vigente de ambas apps (13/11):** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+**Entrega vigente de ambas apps (16/11):** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
 
 **Comparación experimental en revisión:** [comparar Línea A y franja basal](Documentacion/COMPARACION_BASAL_20261112.md) desde los ajustes del visor (incluye modo «Ambos» y etiquetado por nivel). Línea A sigue predeterminada; basal es experimental y aún no está calibrada.
 

@@ -420,8 +420,8 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   </aside>
 </main>
 <footer class="app-footer">
-  <a href="https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-prueba-2026-11-10-r2" target="_blank" rel="noopener noreferrer" style="color:inherit">Código fuente · AGPL-3.0</a>
-  · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-apps-prueba-2026-11-10-r2/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
+  <a href="https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-2026-11-16" target="_blank" rel="noopener noreferrer" style="color:inherit">Código fuente · AGPL-3.0</a>
+  · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-apps-2026-11-16/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
 </footer>
 
 <nav class="mobile-steps" id="mobileSteps" aria-label="Pasos en móvil">
@@ -577,22 +577,57 @@ function analysisState(det) {
   const value = estimate.state || det.store_diagnosis?.operational_state;
   return value === 'reponer' || value === 'suficiente' ? value : 'revisar';
 }
+function levelRawPct(det) {
+  const raw = det.occupancy?.raw_pct ?? det.store_diagnosis?.raw_pct;
+  if (Number.isFinite(raw)) return raw;
+  const est = det.occupancy_estimate?.pct;
+  return Number.isFinite(est) ? est : null;
+}
+function levelSeverity(det) {
+  const value = analysisState(det);
+  const sev = det.store_diagnosis?.operational_severity || det.occupancy?.operational_severity;
+  if (value === 'reponer') {
+    if (sev === 'critica' || sev === 'alta') return sev;
+    const raw = levelRawPct(det);
+    const gap = det.occupancy?.max_gap_pct;
+    return (Number.isFinite(raw) && raw <= 15) || (Number.isFinite(gap) && gap >= 60) ? 'critica' : 'alta';
+  }
+  if (value === 'suficiente') return 'normal';
+  return 'verificar';
+}
+function severityLabel(sev) {
+  return ({
+    critica: 'Crítica',
+    alta: 'Alta',
+    normal: 'Normal',
+    verificar: 'Verificar',
+  })[sev] || 'Verificar';
+}
 function levelDiagnosis(det) {
   const value = analysisState(det);
+  const severity = levelSeverity(det);
+  const rawPct = levelRawPct(det);
+  const diag = det.store_diagnosis || {};
   if (value === 'reponer') return {
-    label: 'Alerta por baja disponibilidad',
-    headline: 'Posible baja disponibilidad en el nivel',
-    action: 'Revisa la foto y los contornos para confirmar la alerta.',
+    severity,
+    rawPct,
+    label: severity === 'critica' ? 'Alerta crítica · baja disponibilidad' : 'Alerta alta · baja disponibilidad',
+    headline: diag.headline || 'Posible baja disponibilidad en el nivel',
+    action: diag.action || 'Revisa la foto y los contornos para confirmar la alerta.',
   };
   if (value === 'suficiente') return {
+    severity: 'normal',
+    rawPct,
     label: 'Sin alerta visual',
-    headline: 'Sin alerta visual detectada',
-    action: 'El análisis de esta foto no generó una alerta en este nivel.',
+    headline: diag.headline || 'Sin alerta visual detectada',
+    action: diag.action || 'El análisis de esta foto no generó una alerta en este nivel.',
   };
   return {
+    severity: 'verificar',
+    rawPct,
     label: Number.isFinite(det.occupancy_estimate?.pct) ? 'Requiere revisión' : 'No evaluable',
-    headline: 'El análisis no permite concluir sobre la disponibilidad',
-    action: 'Revisa la visibilidad del nivel y toma otra foto si hace falta.',
+    headline: diag.headline || 'El análisis no permite concluir sobre la disponibilidad',
+    action: diag.action || 'Revisa la visibilidad del nivel y toma otra foto si hace falta.',
   };
 }
 function humanReviewLabel(value) {
@@ -852,29 +887,33 @@ function renderStageAndLevels() {
     const opState = analysisState(det);
     const pct = det.occupancy_estimate?.pct;
     const validPct = Number.isFinite(pct);
+    const rawPct = diag.rawPct;
+    const hasRawOnly = !validPct && Number.isFinite(rawPct);
 
     const review = item.reviews?.[det.id]?.value || '';
     const cardTone = opState === 'reponer' ? 'card-reponer' : '';
     const pillTone = opState === 'reponer' ? 'pill-reponer' : opState === 'suficiente' ? 'pill-suficiente' : 'pill-verificar';
     const pillLabel = diag.label;
     const barTone = opState === 'reponer' ? 'tone-reponer' : opState === 'suficiente' ? 'tone-suficiente' : 'tone-verificar';
-    const fillW = validPct ? Math.max(0, Math.min(100, Math.round(pct))) : 0;
+    const barPct = validPct ? pct : (hasRawOnly ? rawPct : null);
+    const fillW = barPct !== null ? Math.max(0, Math.min(100, Math.round(barPct))) : 0;
 
     const gap = det.occupancy?.max_gap_pct;
     const front = validPct && Number.isFinite(gap) ? Math.max(0, Math.min(100, Math.round(100 - gap))) : null;
+    const rawNote = hasRawOnly ? ` · índice bruto ${Math.round(rawPct)} / 100` : '';
     const quickState = review === 'revisado' || review === 'confirmado' ? 'revisado' : review === 'no_evaluable' ? 'no_evaluable' : review ? null : 'pendiente';
     return `<article class="level-card ${cardTone}" data-level="${det.id}" aria-label="Nivel ${det.id}">
       <div class="level-top">
         <span class="level-name">Nivel ${det.id}</span>
-        <span class="status-pill ${pillTone}" title="Resultado original de la foto">${esc(opState === 'suficiente' ? 'Sin alerta visual' : pillLabel)}</span>
+        <span class="status-pill ${pillTone}" data-severity="${esc(diag.severity)}" title="Resultado original de la foto">${esc(opState === 'suficiente' ? 'Sin alerta visual' : pillLabel)}</span>
       </div>
       <div class="bar-row">
-        <div class="bar-track" role="meter" aria-label="Índice visual del nivel ${det.id}" aria-valuemin="0" aria-valuemax="100" ${validPct ? `aria-valuenow="${Math.round(pct)}"` : 'aria-valuetext="No evaluable"'} title="Índice visual preliminar · umbral 52 / 100">
+        <div class="bar-track" role="meter" aria-label="Índice visual del nivel ${det.id}" aria-valuemin="0" aria-valuemax="100" ${validPct ? `aria-valuenow="${Math.round(pct)}"` : hasRawOnly ? `aria-valuenow="${Math.round(rawPct)}" aria-valuetext="${Math.round(rawPct)} / 100 (bruto)"` : 'aria-valuetext="No evaluable"'} title="Índice visual preliminar · umbral 52 / 100">
           <div class="bar-fill ${barTone}" style="width:${fillW}%"></div>
         </div>
-        <span class="bar-val">${validPct ? Math.round(pct) + ' / 100' : 'Sin lectura'}</span>
+        <span class="bar-val">${validPct ? `${Math.round(pct)} / 100` : hasRawOnly ? `${Math.round(rawPct)} / 100 (bruto)` : 'Sin lectura'}</span>
       </div>
-      <p class="front-coverage">${front === null ? 'Frente cubierto sin lectura' : `Frente continuo cubierto ${front}%`}</p>
+      <p class="front-coverage">${front === null ? `Frente cubierto sin lectura${rawNote}` : `Frente continuo cubierto ${front}%`}</p>
       <div class="review-switch" role="group" aria-label="Verificación del nivel ${det.id}">
         <button type="button" data-quick-level="${det.id}" data-action="pendiente" aria-pressed="${quickState === 'pendiente'}" title="Retirar la revisión humana sin cambiar el análisis">Sin revisar</button>
         <button type="button" data-quick-level="${det.id}" data-action="revisado" aria-pressed="${quickState === 'revisado'}" title="Registrar que revisaste la foto; la alerta se conserva">Revisado</button>
@@ -884,6 +923,7 @@ function renderStageAndLevels() {
         <summary aria-label="Diagnóstico y opciones del nivel ${det.id}">Detalle</summary>
         ${review ? `<p class="diag-headline">Revisión humana: ${esc(humanReviewLabel(review))}</p>` : ''}
         <p class="diag-headline">${esc(diag.headline)}</p>
+        <p class="diag-action">Severidad operativa: ${esc(severityLabel(diag.severity))}${rawPct !== null ? ` · Índice bruto: ${Math.round(rawPct)} / 100` : ''}</p>
         <p class="diag-action">${esc(diag.action)}</p>
         <p class="diag-action">La revisión humana no cambia el resultado del análisis de la foto.</p>
         <label>Verificación humana
@@ -1253,7 +1293,7 @@ dropZone.addEventListener('drop', e => {
 // Exportar análisis y revisión humana por separado (CSV para Excel en español).
 function exportCsv(selectionOnly) {
   const rows = [
-    ['Góndola / Archivo', 'Resultado Góndola', 'Nivel (1=Inferior)', 'Resultado del análisis', 'Índice Visual (0-100)', 'Hueco Horizontal (%)', 'Detalle del análisis', 'Revisión humana', 'Fecha revisión']
+    ['Góndola / Archivo', 'Resultado Góndola', 'Nivel (1=Inferior)', 'Resultado del análisis', 'Severidad Operativa', 'Índice Visual (0-100)', 'Índice Bruto (0-100)', 'Hueco Horizontal (%)', 'Detalle del análisis', 'Revisión humana', 'Fecha revisión']
   ];
   for (const item of (selectionOnly ? visibleItems() : state.items)) {
     if (!item.result) continue;
@@ -1261,19 +1301,22 @@ function exportCsv(selectionOnly) {
     const gStateLabel = eff === 'reponer' ? 'Con alertas' : eff === 'verificar' ? 'Requiere revisión' : 'Sin alertas';
     const ordered = [...(item.result.detections || [])].sort((a, b) => b.id - a.id);
     if (!ordered.length) rows.push([
-      item.name, gStateLabel, '', 'No se detectaron niveles', '', '',
+      item.name, gStateLabel, '', 'No se detectaron niveles', 'Verificar', '', '', '',
       'Sin lectura evaluable. Prueba con otra foto de la góndola.', '', '',
     ]);
     for (const det of ordered) {
       const diag = levelDiagnosis(det);
       const pct = Number.isFinite(det.occupancy_estimate?.pct) ? Math.round(det.occupancy_estimate.pct) : '';
+      const rawCsv = Number.isFinite(diag.rawPct) ? Math.round(diag.rawPct) : '';
       const gap = pct !== '' && Number.isFinite(det.occupancy?.max_gap_pct) ? Math.round(det.occupancy.max_gap_pct) : '';
       rows.push([
         item.name,
         gStateLabel,
         `Nivel ${det.id}`,
         diag.label,
+        severityLabel(diag.severity),
         pct,
+        rawCsv,
         gap,
         `${diag.headline || ''} - ${diag.action || ''}`,
         humanReviewLabel(item.reviews?.[det.id]?.value),

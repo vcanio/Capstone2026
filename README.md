@@ -6,8 +6,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
-| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Notas de la versión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13) | Recorrido V2; la interfaz V3 ya cambió | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
+| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Notas de la versión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16) | Recorrido V2; la interfaz V3 ya cambió | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
 
 [**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
@@ -49,9 +49,9 @@ A partir de una fotografía frontal de góndola, el sistema ejecuta cuatro etapa
 
 ## Descarga e inicio rápido
 
-Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261113.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
+Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261116.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
 
-> El paquete publicado (`2026-11-13`) incluye el modelo oficial **`V3-cierre-revisado-20261110`** y la revisión base `linea_a_20261113_techo_y_panel_liso`. El código fuente actual del repositorio (y el arranque por Docker desde un clon) ya integra el filtro previo de calidad (`calidad_foto.py`) y **Línea A v2.1** (`linea_a_20261116_v2_1_cielo_piso_frente`).
+> El paquete publicado (`2026-11-16`) incluye el modelo oficial **`V3-cierre-revisado-20261110`**, el filtro previo de calidad ([`calidad_foto.py`](Aplicacion/calidad_foto.py)), **Línea A v2.1** (`linea_a_20261116_v2_1_cielo_piso_frente`) y la app cliente actualizada con vista *Huecos*, `operational_severity` (`Crítica` / `Alta` / `Normal` / `Verificar`) e índice bruto (`raw_pct`).
 
 ### Windows x64
 
@@ -209,12 +209,12 @@ En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, co
 
 **Desempeño operativo multi-fecha y multi-sucursal (`3` sets reales sin post-proceso, `conf = 0,60`):**
 
-| Set real | Fotos | Niveles detectados | Promedio / foto | Rango por foto | Fotos con `0` niveles |
+| Set real | Fotos | Niveles detectados | Promedio / foto | Rango por foto | Fotos con niveles segmentados |
 |---|---:|---:|---:|---:|---:|
-| `9_11 Ohiggins` (`Ohiggins 3` · CVAT) | 68 | 354 | 5,21 | 4–6 | 0 |
-| `14_11 Ohiggins` | 46 | 215 | 4,67 | 2–7 | 0 |
-| `15_11 Marcoleta` (sucursal nueva) | 79 | 324 | 4,10 | 2–6 | 0 |
-| **Total acumulado** | **193** | **893** | **4,63** | **2–7** | **0 / 193 (`100 %` segmentadas)** |
+| `9_11 Ohiggins` (`Ohiggins 3` · CVAT) | 68 | 354 | 5,21 | 4–6 | 68 / 68 |
+| `14_11 Ohiggins` | 46 | 215 | 4,67 | 2–7 | 46 / 46 |
+| `15_11 Marcoleta` (sucursal nueva) | 79 | 324 | 4,10 | 2–6 | 79 / 79 |
+| **Total acumulado** | **193** | **893** | **4,63** | **2–7** | **193 / 193 (`100 %`)** |
 
 ### Clasificación de ocupación (`Línea A`, umbral 52)
 
@@ -263,7 +263,7 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 | **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); en escenas puntuales (`le_g10` 029/030) aún puede fallar el nivel superior. |
 | **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
 | **Ocupación `Línea A` (`v2.1`, umbral `52`)** | **Operativa** | Revisión `linea_a_20261116_v2_1_cielo_piso_frente` con filtro de bandejas/pisos expuestos en vista picada, criterio de frente parcial y severidad operativa (`Ohiggins 3`: **F1 94,59 %**, **Recall 97,22 %**, `35 TP / 3 FP / 1 FN / 315 TN`). |
-| **Empaquetado Windows y Docker** | **Operativo** | Instalador Windows verificado en Windows y Docker Compose (`:8095` equipo y `:8098` cliente) verificado en Windows, Linux y macOS; el ZIP publicado del `2026-11-13` aún conserva la revisión previa de Línea A mientras `main` ya incorpora `v2.1`. |
+| **Empaquetado Windows y Docker** | **Operativo** | Entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16) empaquetada con **Línea A v2.1**, `calidad_foto.py` y UI cliente con severidad operativa; Docker Compose (`:8095` y `:8098`) verificado en Windows, Linux y macOS. |
 | **Detector de oclusiones (`persona` / `carro`)** | **Pendiente** | Las obstrucciones parciales por personas o carros siguen dependiendo de revisión visual humana. |
 | **Persistencia compartida y más categorías** | **Pendiente** | Falta historial persistente en servidor (`SQLite`) para la app cliente y ampliar el test independiente a nuevas tiendas y categorías (papeles, huevos). |
 

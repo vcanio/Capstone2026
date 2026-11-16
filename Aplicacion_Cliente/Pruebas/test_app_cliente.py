@@ -124,6 +124,8 @@ class StoreDiagnosisTest(unittest.TestCase):
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'reponer')
         self.assertEqual(diag['operational_label'], 'Alerta por baja disponibilidad')
+        self.assertEqual(diag['operational_severity'], 'critica')
+        self.assertEqual(diag['raw_pct'], 5.0)
         self.assertIn('Posible ausencia', diag['headline'])
 
     def test_wide_gap_describes_an_alert_without_replenishment_instructions(self):
@@ -134,6 +136,8 @@ class StoreDiagnosisTest(unittest.TestCase):
         }
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'reponer')
+        self.assertEqual(diag['operational_severity'], 'alta')
+        self.assertEqual(diag['raw_pct'], 39.0)
         self.assertIn('58 %', diag['headline'])
         self.assertIn('confirmar la alerta', diag['action'])
         self.assertNotIn('Reponer', diag['action'])
@@ -147,6 +151,8 @@ class StoreDiagnosisTest(unittest.TestCase):
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'suficiente')
         self.assertEqual(diag['operational_label'], 'Sin alerta visual')
+        self.assertEqual(diag['operational_severity'], 'normal')
+        self.assertEqual(diag['raw_pct'], 85.0)
         self.assertIn('90 %', diag['action'])
 
     def test_near_frame_translates_to_verificar_borde(self):
@@ -158,6 +164,8 @@ class StoreDiagnosisTest(unittest.TestCase):
         diag = store_diagnosis(det)
         self.assertEqual(diag['operational_state'], 'revisar')
         self.assertEqual(diag['operational_label'], 'No evaluable')
+        self.assertEqual(diag['operational_severity'], 'verificar')
+        self.assertIsNone(diag['raw_pct'])
         self.assertIn('borde de la foto', diag['headline'])
 
     def test_missing_reading_never_becomes_a_sufficient_or_empty_result(self):
@@ -166,6 +174,22 @@ class StoreDiagnosisTest(unittest.TestCase):
                 diag = store_diagnosis({'occupancy_estimate': {'state': state, 'pct': None}})
                 self.assertEqual(diag['operational_state'], 'revisar')
                 self.assertEqual(diag['operational_label'], 'No evaluable')
+                self.assertEqual(diag['operational_severity'], 'verificar')
+
+    def test_review_level_preserves_raw_pct_when_estimate_is_hidden(self):
+        det = {
+            'near_frame': False,
+            'occupancy': {
+                'raw_pct': 41.5,
+                'operational_severity': 'verificar',
+                'signal_pattern': 'low_contrast_continuous_front',
+            },
+            'occupancy_estimate': {'state': 'revisar', 'pct': None},
+        }
+        diag = store_diagnosis(det)
+        self.assertEqual(diag['operational_state'], 'revisar')
+        self.assertEqual(diag['operational_severity'], 'verificar')
+        self.assertEqual(diag['raw_pct'], 41.5)
 
     def test_summary_distinguishes_alerts_review_and_absent_detections(self):
         for detections, expected in (
@@ -225,6 +249,9 @@ class ClientHttpServerTest(unittest.TestCase):
             html = resp.read().decode('utf-8')
         self.assertIn('Walmart Visión · Visor de alertas', html)
         self.assertIn('Exportar todo (CSV)', html)
+        self.assertIn('Alerta crítica · baja disponibilidad', html)
+        self.assertIn('Severidad Operativa', html)
+        self.assertIn('levelRawPct', html)
         self.assertNotIn('Marcar para revisión', html)
         with urlopen(f'{self.base_url}/logo.svg') as resp:
             self.assertEqual(resp.headers.get_content_type(), 'image/svg+xml')
