@@ -19,6 +19,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 - [Arquitectura de la solución](#arquitectura-de-la-solución)
 - [Datasets y preparación](#datasets-y-preparación)
 - [Evaluación y métricas](#evaluación-y-métricas)
+  - [Casos límite y escenarios donde falla o requiere revisión](#casos-límite-y-escenarios-donde-falla-o-requiere-revisión)
 - [Estado actual de la implementación](#estado-actual-de-la-implementación)
 - [Documentación y estructura](#documentación-y-estructura)
 - [Equipo y licencia](#equipo-y-licencia)
@@ -206,6 +207,15 @@ Modelo oficial vigente: **`V3-cierre-revisado-20261110`** (SHA-256 `dc679fe73a75
 
 En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, con latencia media de `YOLO.predict` de **77,15 ms** en GPU (`GTX 1660 SUPER`) y **225,94 ms** en CPU (`AMD Ryzen 5 3600`, muestra de 15 fotos).
 
+**Desempeño operativo multi-fecha y multi-sucursal (`3` sets reales sin post-proceso, `conf = 0,60`):**
+
+| Set real | Fotos | Niveles detectados | Promedio / foto | Rango por foto | Fotos con `0` niveles |
+|---|---:|---:|---:|---:|---:|
+| `9_11 Ohiggins` (`Ohiggins 3` · CVAT) | 68 | 354 | 5,21 | 4–6 | 0 |
+| `14_11 Ohiggins` | 46 | 215 | 4,67 | 2–7 | 0 |
+| `15_11 Marcoleta` (sucursal nueva) | 79 | 324 | 4,10 | 2–6 | 0 |
+| **Total acumulado** | **193** | **893** | **4,63** | **2–7** | **0 / 193 (`100 %` segmentadas)** |
+
 ### Clasificación de ocupación (`Línea A`, umbral 52)
 
 Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
@@ -217,6 +227,28 @@ Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 fal
 
 - **Por foto completa (línea base ciega `2026-11-13`):** Accuracy **92,65 %** · **F1 89,80 %**.
 - **Latencia E2E (`YOLO + Línea A` línea base):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
+
+### Casos límite y escenarios donde falla o requiere revisión
+
+Para uso en tienda y auditoría técnica, estos son los límites observados del sistema actual:
+
+#### A. Segmentación de niveles (`YOLO26n-seg`)
+
+| Caso / Escenario | Evidencia observada | Qué ocurre y cómo lo maneja el sistema |
+|---|---|---|
+| **Nivel superior abierto sin techo físico claro** | `1 FN` en validación (`55` niveles); casos puntuales en desarrollo (`R065`, `le_g10` 029/030). | Cuando el último estante superior está vacío contra cielo raso abierto, YOLO puede omitirlo o acortar su altura porque en inferencia no impone la mediana geométrica de los niveles inferiores. |
+| **Holgura en bordes superiores o laterales** | `IoU` mínimo `72,98 %` en `20261109_133429.jpg`; `7` contornos con desajuste menor en `3/68` fotos de `Ohiggins 3`. | Aunque todas las instancias superan `IoU ≥ 0,50` (`354/354 TP`), el polígono puede abarcar una franja de cielo raso o poste lateral. `Línea A v2.1` amortigua este efecto con `_open_ceiling_mask_v2` y bandas relativas. |
+| **Repisas cortadas por el borde de la foto (`near_frame`)** | Toma cercana o descentrada que recorta un extremo. | YOLO segmenta solo la porción visible y [`vision_v3.py`](Aplicacion/vision_v3.py) deriva el nivel a `Revisar · zona visible` sin inventar stock fuera de cámara. |
+| **Perspectiva muy oblicua o captura degradada** | Tomas picadas en `N5`/`N6` o fotos movidas/oscuras. | El polígono sigue la inclinación real y puede estrecharse verticalmente hacia un extremo; si la toma está severamente borrosa, oscura o quemada, [`calidad_foto.py`](Aplicacion/calidad_foto.py) la bloquea antes de YOLO como `no_evaluable`. |
+
+#### B. Cálculo de ocupación y alertas (`Línea A v2.1`)
+
+| Caso / Escenario | Evidencia observada | Qué ocurre y cómo lo maneja el sistema |
+|---|---|---|
+| **Falta de stock en profundidad (espejado / solo primera fila)** | Restricción física de vista frontal 2D. | `Línea A` mide disponibilidad visual frontal (`0–100`), no volumen en profundidad: una primera fila completa con fondo vacío se clasifica como `Suficiente`. |
+| **Envases oscuros o baja iluminación sobre frente continuo** | `2 FP` de la línea base en `Ohiggins 3` (`20261109_133300.jpg` N4 y `20261109_133413.jpg` N6). | Productos negros o de bajo contraste interno pueden caer bajo el umbral `52`; `v2.1` los intercepta (`low_contrast_continuous_front`) y los deriva a `Revisar` conservando `raw_pct`. |
+| **Casos residuales en `Ohiggins 3`** | `1 FN` sobre `36` alertas reales y `3 FP` sobre `318` niveles abastecidos en `v2.1`. | Un hueco parcial menor a `35 %` rodeado de envases con textura muy alta puede superar `52` (`FN`), mientras sombras profundas o separadores anchos entre productos pueden disparar la alerta de frente (`FP`). |
+| **Carteles colgantes, reflejos y oclusiones (`persona` / `carro`)** | Dependiente de visibilidad humana. | Carteles altos sobre banda vacía se derivan a `Revisar` (`hollow_banner`), pero las obstrucciones parciales por personas o carros frente al estante siguen requiriendo revisión visual humana. |
 
 [Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
 
@@ -231,7 +263,7 @@ Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 fal
 | **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); en escenas puntuales (`le_g10` 029/030) aún puede fallar el nivel superior. |
 | **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
 | **Ocupación `Línea A` (`v2.1`, umbral `52`)** | **Operativa** | Revisión `linea_a_20261116_v2_1_cielo_piso_frente` con filtro de bandejas/pisos expuestos en vista picada, criterio de frente parcial y severidad operativa (`Ohiggins 3`: **F1 94,59 %**, **Recall 97,22 %**, `35 TP / 3 FP / 1 FN / 315 TN`). |
-| **Empaquetado Windows y Docker** | **Operativo / parcial en Mac** | Instalador Windows y Docker Compose verificados en Windows/Linux; pendiente prueba física de la entrega conjunta en macOS. |
+| **Empaquetado Windows y Docker** | **Operativo** | Instalador Windows verificado en Windows y Docker Compose (`:8095` equipo y `:8098` cliente) verificado en Windows, Linux y macOS; el ZIP publicado del `2026-11-13` aún conserva la revisión previa de Línea A mientras `main` ya incorpora `v2.1`. |
 | **Detector de oclusiones (`persona` / `carro`)** | **Pendiente** | Las obstrucciones parciales por personas o carros siguen dependiendo de revisión visual humana. |
 | **Persistencia compartida y más categorías** | **Pendiente** | Falta historial persistente en servidor (`SQLite`) para la app cliente y ampliar el test independiente a nuevas tiendas y categorías (papeles, huevos). |
 

@@ -10,8 +10,10 @@ El proyecto comenzó aproximadamente en agosto de 2026. El equipo trabajó de fo
 | 2 y 5/11 | Afinado y refuerzo geométrico, con particiones y resultados propios. |
 | 8/11 | Integración portable de Línea A, índice 0–100 y umbral preliminar 52. |
 | 10/11 | Cierre revisado del localizador y adopción del peso oficial tras revisión humana. |
-| 11/11 | Entrega conjunta de apps cliente/equipo con modelo y licencias. |
-| Trabajo pendiente | Validar ocupación, revisar fallos reales y probar instalación en otros equipos; evaluación final pendiente y test reservado. |
+| 11–13/11 | Entrega conjunta de apps cliente/equipo con modelo V3, interfaz de tres columnas y comparación basal experimental. |
+| 14/11 | Cierre cuantitativo en `Ohiggins 3` (`68` fotos / `354` niveles ciegos), retiro del test histórico de `63` fotos y filtro previo `calidad_foto.py`. |
+| 16/11 | Promoción de **Línea A v2.1** (`cielo, piso expuesto y frente`), severidad operativa, validación sobre `193` fotos / `893` niveles en 3 sets (`F1 94,59 %` en `Ohiggins 3`) y verificación Docker Compose en macOS. |
+| Trabajo pendiente | Actualizar paquete ZIP descargable con `v2.1`, detector de oclusiones (`persona`/`carro`) y persistencia compartida en servidor. |
 
 CVAT y el laboratorio GPU fueron herramientas internas para crear el modelo. Las apps son la entrega de uso. Los planes antiguos mantienen su fecha y no convierten propuestas en actividades completadas.
 

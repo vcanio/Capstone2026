@@ -37,8 +37,8 @@ La distribución y los cambios visuales están documentados en [Diseño del clie
 
 Modelo oficial adoptado el 10/11: **cierre con contornos revisados**, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`. Cliente y revisión toman el mismo predeterminado de `Aplicacion/modelos.json`; no hay otra copia de pesos del cliente. La entrega del 11/11 incluye este peso; los ZIP anteriores conservan sus pesos originales. [Ficha vigente](../Documentacion/Modelo_V3_actual.md).
 
-Línea A usa un **índice visual de 0 a 100 con umbral 52**, evaluado posteriormente en test ciego sobre `Ohiggins 3` (**Accuracy 97,74 %**, **F1 88,24 %** por nivel y **89,80 %** por foto; [evaluación del 14/11](../Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)). No mide porcentaje físico de stock ni detecta personas u obstáculos. Revisa los contornos y la foto.
-La entrega del 13/11 incluye el paquete operativo previo a esa evaluación documental del 14/11.
+Línea A (`v2.1`: `linea_a_20261116_v2_1_cielo_piso_frente`) usa un **índice visual de 0 a 100 con umbral 52**, evaluado inicialmente en test ciego sobre `Ohiggins 3` (**Accuracy 97,74 %**, **F1 88,24 %** por nivel; [evaluación base del 14/11](../Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md)) y mejorado en `v2.1` con filtro de bandejas expuestas, alerta de quiebre parcial, guarda por envases oscuros y severidad operativa (**Accuracy 98,87 %**, **Recall 97,22 %**, **F1 94,59 %** en los 354 niveles de `Ohiggins 3` y revisión operativa sobre **193 fotos / 893 niveles** en 3 sets reales). No mide porcentaje físico de stock ni detecta personas u obstáculos; revisa los contornos, la foto y los [casos límite documentados](../Documentacion/Modelo_V3_actual.md).
+La entrega ZIP publicada del 13/11 corresponde al paquete operativo previo a la evaluación del 14/11 y a `v2.1`.
 
 | Aplicación | Uso | Dirección local |
 |---|---|---|
