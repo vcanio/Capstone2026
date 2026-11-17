@@ -74,8 +74,10 @@ Ambas apps comparten un solo modelo oficial de niveles (`Nivel`), Línea A
 (índice visual 0–100 con umbral 52) y un detector COCO auxiliar de personas
 (`person`, clase 0): si una persona obstruye la góndola (`≥ 15 %` de un nivel),
 la foto se marca como no evaluable. Revisa contornos, carros u otros obstáculos
-sin máscara de persona; no mide stock físico. Carga fotos propias; no se incluye
-el dataset. Las fotos no entrenan el modelo. La limpieza del recorrido cliente
+sin máscara de persona; no mide stock físico. En la app cliente (8098), pulsa
+«Probar un pasillo de ejemplo» para probar 8 casos precargados (consulta
+Aplicacion_Cliente/ejemplos/README.md) o carga fotos propias; el dataset completo
+no se incluye. Las fotos no entrenan el modelo. La limpieza del recorrido cliente
 elimina su sesión guardada.
 
 Consulta README.md, Documentacion/ y las guías de cada app. Código original:

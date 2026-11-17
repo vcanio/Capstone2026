@@ -53,16 +53,16 @@ A partir de una fotografía frontal de góndola, el sistema ejecuta cuatro etapa
 
 ## Descarga e inicio rápido
 
-Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
+Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16)), extrae **todo** el contenido y abre la app cliente para usar **Probar un pasillo de ejemplo** (8 casos precargados) o cargar fotos propias (el dataset completo no se incluye).
 
-> La entrega final MVP (`walmart-vision-mvp-2026-11-16`) incluye el modelo oficial **`V3-cierre-revisado-20261110`**, el filtro previo de calidad ([`calidad_foto.py`](Aplicacion/calidad_foto.py)), detección automática de personas con `yolo26n-seg.pt` ([`oclusiones.py`](Aplicacion/oclusiones.py), bloqueando la foto como `no_evaluable` con silueta ámbar sutil si obstruye la góndola), verificación geométrica de nivel superior abierto ([`geometria_niveles.py`](Aplicacion/geometria_niveles.py)), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`), app cliente con resultados directos del modelo, persistencia compartida en `SQLite`, reportes **CSV / Excel (`.xlsx`) / PDF**, scripts reproducibles en [`Entrenamiento/`](Entrenamiento/README.md) e integración continua en [GitHub Actions](.github/workflows/comprobar.yml).
+> La entrega final MVP (`walmart-vision-mvp-2026-11-16`) incluye el modelo oficial **`V3-cierre-revisado-20261110`**, el filtro previo de calidad ([`calidad_foto.py`](Aplicacion/calidad_foto.py)), detección automática de personas con `yolo26n-seg.pt` ([`oclusiones.py`](Aplicacion/oclusiones.py), bloqueando la foto como `no_evaluable` con silueta ámbar sutil si obstruye la góndola), verificación geométrica de nivel superior abierto ([`geometria_niveles.py`](Aplicacion/geometria_niveles.py)), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`), app cliente con **8 casos de ejemplo precargados** ([`Aplicacion_Cliente/ejemplos/`](Aplicacion_Cliente/ejemplos/README.md)), resultados directos del modelo, persistencia compartida en `SQLite`, reportes **CSV / Excel (`.xlsx`) / PDF**, scripts reproducibles en [`Entrenamiento/`](Entrenamiento/README.md) e integración continua en [GitHub Actions](.github/workflows/comprobar.yml).
 
 ### Windows x64
 
 1. Ejecuta `Walmart_Vision/iniciar_cliente.cmd` (`8098`) o `Walmart_Vision/iniciar_equipo.cmd` (`8095`).
 2. El primer inicio prepara Python 3.12 y sus dependencias dentro de la carpeta (requiere Internet). Mantén la consola abierta mientras uses la app.
 3. Abre [http://127.0.0.1:8098](http://127.0.0.1:8098) (cliente) o [http://127.0.0.1:8095](http://127.0.0.1:8095) (equipo).
-4. Carga imágenes **JPG, PNG o WebP** de hasta **10 MB** y 24 megapíxeles.
+4. En la app cliente (`:8098`), pulsa **Probar un pasillo de ejemplo** para recorrer los [8 casos precargados](Aplicacion_Cliente/ejemplos/README.md) (sin alertas, alertas crítica/alta y huecos, revisión por borde, persona obstruyendo, foto oscura, sobreexpuesta, borrosa y sin niveles) o carga imágenes propias **JPG, PNG o WebP** de hasta **10 MB** y 24 megapíxeles.
 
 ### Docker (incluido macOS)
 
@@ -83,7 +83,7 @@ docker compose -f compose.apps.yaml down
 - En Windows, ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. La confianza inicial de YOLO es **0,60** (fija en cliente; ajustable desde **0,25** en la app del equipo).
 - Toma fotos **frontales o casi frontales** con ambos extremos del tramo visibles, evitando reflejos fuertes o desenfoque.
 - Las fotografías se procesan **localmente** en el equipo del usuario; cada navegador guarda su sesión en local (`IndexedDB`) y la sincroniza con el historial compartido del servidor (`SQLite` en cliente, con botón *Limpiar pasillo*).
-- Para pruebas rápidas sin fotos propias existe una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
+- Para pruebas rápidas en un clic, la app cliente ya trae **8 casos de ejemplo precargados** ([detalle](Aplicacion_Cliente/ejemplos/README.md)); adicionalmente se conserva la [selección histórica de seis imágenes en Drive](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
 
 ---
 
@@ -404,7 +404,8 @@ La organización separa la interfaz cliente, el motor compartido, los scripts de
 ### Material de demostración
 
 - 🎬 [**Demostración funcional MVP en video (6 min)**](https://youtu.be/DKAqs9dVnV8): recorrido completo de la App cliente (`:8098`), casos posibles (`Suficiente`, `Reponer` + *Huecos*, filtro de calidad, oclusiones por personas con contorno ámbar sutil, casos límite `Requieren revisión`), persistencia `SQLite` y exportación CSV/XLSX/PDF.
-- 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing): selección histórica real y sintética para pruebas rápidas.
+- 🧪 [**8 casos de ejemplo precargados en la app cliente**](Aplicacion_Cliente/ejemplos/README.md): disponibles en un clic desde **Probar un pasillo de ejemplo** dentro de la aplicación descargada o clonada.
+- 🖼️ [**Imágenes de ejemplo históricas (Drive)**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing): selección histórica real y sintética para pruebas adicionales.
 
 ---
 
