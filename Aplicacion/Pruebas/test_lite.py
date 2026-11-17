@@ -75,6 +75,9 @@ class LiteTests(unittest.TestCase):
         for body in (b'', b'not an image', photo('GIF')):
             with self.assertRaises(ValueError):
                 read_photo(body)
+        with patch('inferencia.Image.open', side_effect=ModuleNotFoundError("No module named 'pi_heif'", name='pi_heif')):
+            with self.assertRaises(ValueError):
+                read_photo(b'not an image')
         with patch('inferencia.MAX_PIXELS', 100), self.assertRaises(ValueError):
             read_photo(photo())
 

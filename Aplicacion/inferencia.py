@@ -63,6 +63,10 @@ def read_photo(body):
                 return image
     except (UnidentifiedImageError, OSError, Image.DecompressionBombError, Image.DecompressionBombWarning):
         raise ValueError('No pudimos abrir la imagen. Prueba con un JPG, PNG o WebP válido.') from None
+    except ModuleNotFoundError as error:
+        if getattr(error, 'name', None) == 'pi_heif':
+            raise ValueError('No pudimos abrir la imagen. Prueba con un JPG, PNG o WebP válido.') from None
+        raise
 
 
 class ModelRunner:
