@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "model": {
     "id": "V3-cierre-revisado-20261110",
     "architecture": "YOLO26n-seg",
@@ -19,6 +19,7 @@
     "val_real": 11,
     "val_synthetic": 0,
     "test_reserved": 0,
+    "test_reserved_scope": "Cantidad de fotos restantes del test histórico de 63. Ohiggins 3 se registra por separado.",
     "historical_63_test_retired": true,
     "historical_63_test_notes": "Retirado formalmente el 2026-11-14: 19 fotos reales entraron al train de v3_cierre_revisado_20261110 y 44 pertenecen a escenas ya vistas sin polígonos CVAT.",
     "R254_excluded": true,
@@ -106,7 +107,8 @@
       }
     },
     "occupancy_test_ohiggins3_v2_2": {
-      "blind_evaluation": true,
+      "blind_evaluation": false,
+      "evaluation_kind": "reevaluacion_posterior_en_fotos_observadas",
       "threshold_pct": 52.0,
       "revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
       "by_level": {
@@ -150,7 +152,7 @@
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
     "occupancy_revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
-    "occupancy_preliminary": false
+    "occupancy_preliminary": true
   },
   "distribution": {
     "status": "github_release",
@@ -165,7 +167,11 @@
     "release_tag": "walmart-vision-mvp-2026-11-16",
     "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16",
     "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip",
-    "source_ref": "walmart-vision-mvp-2026-11-16",
+    "source_ref": "bcdb881000f5a0f56f5a87822e081524df2f0dbb",
+    "release_tag_commit": "6243467be034d25ad8d74942f33b291fe9c127d7",
+    "package_sha256": "9b7ddba39ea3fc94b9ef90381e5c13cdcf4ba1b7d4b3ac9c22dc1ae4ed973277",
+    "package_has_training_scripts": false,
+    "client_demo_photos": 8,
     "client_revision": "mvp_sqlite_xlsx_pdf_oclusiones_modelo_20261116",
     "review_revision": "comparacion_basal_etiquetado_20261112"
   },

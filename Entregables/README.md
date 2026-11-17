@@ -4,13 +4,20 @@
 
 [Descargar ambas apps con el modelo (MVP)](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.sha256) · [Notas e instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16).
 
-Incluye el cierre V3 oficial (`V3-cierre-revisado-20261110`, SHA-256 `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`), el filtro previo [`calidad_foto.py`](../Aplicacion/calidad_foto.py), detección automática de personas con `yolo26n-seg.pt` ([`oclusiones.py`](../Aplicacion/oclusiones.py), foto `no_evaluable` con contorno ámbar sutil ante obstrucción), verificación de nivel superior abierto ([`geometria_niveles.py`](../Aplicacion/geometria_niveles.py)), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`, `F1 94,59 %` en `Ohiggins 3`), historial compartido en servidor (`SQLite`) y exportación **CSV / Excel (`.xlsx`) / PDF** con resultados directos del modelo en cliente, scripts reproducibles en [`Entrenamiento/`](../Entrenamiento/README.md) y CI en GitHub Actions.
+El paquete trae las dos apps, el peso oficial **V3-cierre-revisado-20261110** para los niveles, el peso auxiliar para detectar personas, **Línea A v2.2** y [ocho ejemplos precargados](../Aplicacion_Cliente/ejemplos/README.md). El cliente incluye historial SQLite y exportación CSV, Excel y PDF. El equipo incluye marcado de incidencias y exportación de lotes ZIP.
 
-Extrae todo. Windows x64: `Walmart_Vision/iniciar_cliente.cmd` (8098) o `Walmart_Vision/iniciar_equipo.cmd` (8095). Primera preparación con Internet. Docker: `docker compose -f compose.apps.yaml up --build -d --wait` desde `Walmart_Vision`.
+Extrae la carpeta completa. En Windows x64, abre `iniciar_cliente.cmd` (8098) o `iniciar_equipo.cmd` (8095). La primera preparación requiere Internet. [Manual de uso](../Documentacion/Usar_Walmart_Vision.md) · [Docker para el equipo](../Aplicacion/DOCKER.md).
 
-Ambas apps comparten un solo modelo y **Línea A v2.2** (predeterminada), índice visual preliminar 0–100 con umbral 52, severidad operativa (`Crítica`, `Alta`, `Normal`, `Verificar`) e índice bruto (`raw_pct`) cuando pasa a revisión. La franja basal opcional de la app del equipo (umbral de ensayo 30 %, sin calibrar) es experimental y no constituye una mejora de precisión demostrada ni mide stock físico. Dataset y fotografías privadas fuera de la distribución. [Cliente](../Aplicacion_Cliente/README.md) · [Equipo](../Aplicacion/Documentacion/REVISION_EQUIPO.md) · [Comparación basal](../Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md) · [Modelo y métricas](../Documentacion/Modelo_V3_actual.md).
+| Referencia | Valor |
+|---|---|
+| Código fuente del ZIP vigente | [`bcdb881`](https://github.com/vcanio/Capstone2026/tree/bcdb881000f5a0f56f5a87822e081524df2f0dbb), registrado en `FUENTE.json` dentro del ZIP. |
+| Tag del anuncio del MVP | [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16), creado para la revisión inicial [`6243467`](https://github.com/vcanio/Capstone2026/tree/6243467be034d25ad8d74942f33b291fe9c127d7). |
+| SHA-256 del ZIP vigente | `9b7ddba39ea3fc94b9ef90381e5c13cdcf4ba1b7d4b3ac9c22dc1ae4ed973277` |
+| SHA-256 del peso oficial | `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5` |
 
-Código original bajo [AGPL-3.0-only](../LICENSE), con [avisos](../NOTICE.md), [procedencia](../LICENCIAS.md) y fuente correspondiente en el tag de la entrega. Las verificaciones funcionales no certifican precisión adicional fuera del conjunto `Ohiggins 3`.
+Los [scripts de entrenamiento y evaluación](../Entrenamiento/README.md) están en el repositorio. El ZIP se usa para ejecutar las apps con los pesos ya preparados. El dataset completo queda fuera de la distribución. La [ficha del modelo](../Documentacion/Modelo_V3_actual.md) separa evaluación de segmentación, evaluación ciega de Línea A base y reevaluación posterior de v2.2.
+
+Código original bajo [AGPL-3.0-only](../LICENSE). Consulta [avisos y procedencia](../LICENCIAS.md) y el commit indicado para acceder al código correspondiente al ZIP.
 
 ## Distribuciones anteriores
 

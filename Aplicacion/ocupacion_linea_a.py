@@ -1,16 +1,14 @@
-"""Línea A: índice experimental de disponibilidad visual por nivel.
+"""Línea A calcula un índice de disponibilidad visual de 0 a 100 por nivel.
 
-Reutiliza el preprocesamiento de grilla y exclusión de rieles/barandas de
-`Aplicacion/ocupacion_paulo.py`, reemplazando el núcleo decisor por:
-1. Normalización anclada a nivel de góndola con pisos físicos de ruido y techos
-   mínimos de paquete abastecido (evita amplificar ruido o restar envases lisos).
-2. Evidencia híbrida (umbrales físicos absolutos + intensidad normalizada) medida
-   sobre el cuerpo vertical útil del nivel (excluyendo cabeza vacía y labio).
-3. Penalización continua por el mayor hueco horizontal vacío (`max_gap_pct`).
-4. Abstención `revisar` restringida a casos sobre umbral con señal ambigua
-   (cartel superior, periferia sin centro o cartel colgante con banda central vacía),
-   evitando atrapar niveles verdaderamente vacíos en revisión.
-5. Umbral de reposición calibrado (`CALIBRATED_THRESHOLD_PCT = 52.0`).
+Recibe la foto y las máscaras de YOLO. `ocupacion_paulo` ayuda a excluir
+rieles y barandas. En la zona útil restante, Línea A mide bordes, color y
+textura en una cuadrícula y compara esas señales con una escala común para
+todos los niveles de la góndola. Luego estima cuánto producto se ve y cuánto
+espacio del frente queda vacío.
+
+Cada nivel medible devuelve un índice, un estado y una severidad. El umbral
+principal es 52. Un hueco importante en el frente también puede activar
+`Reponer`. Si la imagen deja dudas, el estado `Revisar` indica el motivo.
 """
 import math
 from pathlib import Path
@@ -696,7 +694,14 @@ def score_level_from_features(
     apply_scope_rule: bool = False,
     is_top_level: bool = False,
 ) -> dict:
-    """Calcular métrica Línea A y clasificación final para un nivel."""
+    """Convertir la señal de un nivel en un índice y una alerta.
+
+    `feat` contiene las señales y las zonas visibles de un nivel.
+    `gondola_bounds` permite usar la misma escala en toda la góndola.
+    Devuelve el índice bruto (`raw_pct`), el estado, la severidad y los
+    datos de diagnóstico, incluido el motivo de revisión cuando aplica.
+    Si el nivel carece de señal evaluable, devuelve `sin_medicion`.
+    """
     if not feat or not feat.get('valid'):
         return {
             'method': METHOD_LINEA_A,
@@ -721,17 +726,20 @@ def score_level_from_features(
     maps = compute_cell_maps(feat, gondola_bounds, is_top_level=is_top_level)
     cell_score = maps['cell_score']
     abs_ev = maps['abs_ev']
+    # Celdas con señales que apuntan a la presencia de producto.
     hyb_ev = maps['hyb_ev']
     body = maps['body']
     valid_cols = maps['valid_cols']
     col_frac_full = maps['col_frac_full']
     col_covered_full = maps['col_covered_full']
 
+    # 1. Estimar cuánto de la zona útil muestra señales de producto.
     hyb_body_pct = 100.0 * float(hyb_ev[body].mean())
     abs_body_pct = 100.0 * float(abs_ev[body].mean())
     score_body_pct = min(100.0, 100.0 * float(cell_score[body].mean()) / FILL_SCORE_REF)
     fill_pct = 0.50 * hyb_body_pct + 0.50 * score_body_pct
 
+    # 2. Medir el ancho del frente que tiene producto y el tamaño de sus huecos.
     if valid_cols.any():
         col_covered = col_covered_full[valid_cols]
         col_frac = col_frac_full[valid_cols]
@@ -750,7 +758,7 @@ def score_level_from_features(
     if not math.isfinite(pct):
         pct = 0.0
 
-    # Abstención por señal ambigua únicamente si la lectura superaría el umbral.
+    # 3. Verificar si un índice suficiente se apoya en señales ambiguas.
     sig_w = hyb_ev.astype(np.float32) * obs_cov * usable
     tot_sig = float(sig_w.sum())
     upper_rows = (np.arange(h) + 0.5) / h <= 0.5
@@ -795,6 +803,7 @@ def score_level_from_features(
     occ_info = feat.get('occlusion_info')
     occ_review = bool(occ_info and occ_info.get('requires_review'))
 
+    # 4. Resolver las dudas de visibilidad antes de emitir una alerta de reposición.
     if apply_scope_rule and near_frame:
         state = 'revisar'
         label = 'Revisar · zona visible'

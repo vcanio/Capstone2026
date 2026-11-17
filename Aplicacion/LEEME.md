@@ -1,6 +1,6 @@
 # Walmart Visión V3
 
-## Mesa de revisión del equipo · 9/11/2026
+## Mesa de revisión del equipo
 
 Esta entrega incluye revisión rápida por foto, nivel o zona, varios fallos por imagen, atajos A/F/Enter/Z y revisión durante el análisis del lote. Abre **REVISION_EQUIPO.md** (en Documentacion/ en la copia de desarrollo) para el flujo completo y la comparación antes/después. **Descargar lote** guarda originales, incidencias, resultados y resumen; **Abrir lote de revisión** permite recuperarlos en otro equipo o versión. Las marcas se guardan localmente y no se envían al entrenamiento.
 
@@ -8,7 +8,7 @@ Walmart Visión detecta niveles en fotografías de góndolas y muestra una estim
 
 ## Iniciar
 
-**Windows:** extrae todo el ZIP y abre `iniciar.cmd`. La primera preparación necesita Internet para instalar las dependencias. Después abre http://127.0.0.1:8095 si no se abre automáticamente.
+**Windows:** extrae todo el ZIP y abre `iniciar_equipo.cmd` en la raíz del paquete conjunto. Desde un clon, usa `Aplicacion/iniciar.cmd`. La primera preparación necesita Internet para instalar las dependencias. Después abre http://127.0.0.1:8095 si no se abre automáticamente.
 
 **macOS:** instala y abre Docker Desktop, extrae el ZIP y sigue los pasos de `DOCKER.md`. La primera construcción necesita Internet.
 
@@ -24,8 +24,6 @@ Las fotos se procesan localmente y no se incorporan al entrenamiento. La sesión
 
 El modelo detecta una clase: **Nivel**. Puede omitir niveles o dibujar contornos incorrectos; revisa la fotografía antes de tomar decisiones. La confianza de detección no es ocupación. Si no hay detecciones, eso no significa que la góndola esté vacía.
 
-El algoritmo actual es **Línea A**: índice visual de 0 a 100, con umbral **52** (Reponer por debajo; Suficiente desde 52, salvo revisión). Comparte normalización entre los niveles y penaliza huecos continuos. Es un índice experimental, no porcentaje físico de stock. El ajuste preliminar se evaluó con máscaras humanas; falta validación independiente suficiente de quiebres reales y del flujo completo. Se mantienen los avisos por recorte y señal ambigua. Consulta `LINEA_A_20261108.md`.
+El algoritmo predeterminado es **Línea A v2.2**. Estima disponibilidad visible por nivel con un índice de 0 a 100. Emite **Reponer** con índice bajo 52 o un hueco importante. **Suficiente** requiere al menos 52 y una lectura clara. Usa **Revisar** si el encuadre o la señal dejan dudas.
 
-
-
-La aplicación no detecta automáticamente personas ni obstáculos. Revisa las zonas tapadas y fuera del encuadre; un resultado de «solo zona visible» no certifica el nivel completo. Se conocen omisiones de algunos superiores vacíos y contornos superiores demasiado altos. La reserva final de prueba no se ha evaluado.
+El filtro de calidad y el detector de personas pueden marcar la foto completa como no evaluable. Revisa visualmente carros, reflejos y zonas fuera del encuadre. [Manual de uso](../Documentacion/Usar_Walmart_Vision.md) · [Guía del equipo](Documentacion/REVISION_EQUIPO.md) · [Docker](DOCKER.md).

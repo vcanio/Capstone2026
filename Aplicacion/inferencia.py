@@ -1,8 +1,10 @@
-"""Recorrido de una foto: abrir → YOLO → ocupación → alcance → dibujo.
+"""Coordina el análisis de una foto en las aplicaciones cliente y equipo.
 
-ModelRunner.analyze coordina las etapas. El modelo devuelve máscaras de
-niveles; ocupacion_paulo mide señal dentro de ellas y presentacion_niveles
-prepara la lectura y la imagen. Las fotos se procesan en memoria.
+ModelRunner.analyze comprueba la calidad de la foto y ejecuta YOLO para
+delimitar los niveles. En el flujo V3 comprueba si hay personas obstruyendo
+la góndola. Línea A mide la disponibilidad visual dentro de cada máscara
+con el preprocesamiento de ocupacion_paulo. Al final se prepara la imagen
+con los contornos y se devuelven las detecciones y sus diagnósticos.
 """
 from collections import Counter
 from copy import deepcopy
@@ -170,9 +172,11 @@ class ModelRunner:
     def analyze(self, body, model_id=None, confidence=None, method='yolo', visibility=None, visibility_mode='stable', occupancy_algorithm='linea_a', primary_algorithm='linea_a', quality_check=None):
         """Analizar bytes de una foto y devolver imagen, detecciones y métricas.
 
-        confidence filtra detecciones de niveles; no expresa ocupación.
-        visibility se acepta por compatibilidad con llamadas antiguas y se
-        ignora: las personas y los obstáculos requieren revisión visual.
+        `confidence` es la confianza mínima de YOLO para aceptar un nivel.
+        `visibility` se recibe por compatibilidad con llamadas antiguas.
+        El flujo V3 con detector auxiliar comprueba automáticamente si una
+        persona tapa parte de la góndola. Si la obstrucción es importante,
+        devuelve la foto como `no_evaluable` y explica el motivo.
         """
         if quality_check is not None and not isinstance(quality_check, bool):
             raise ValueError('quality_check debe ser booleano o None.')
@@ -201,7 +205,7 @@ class ModelRunner:
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:
-            # 1. Abrir la foto y conservar los píxeles sin dibujos para medir.
+            # 1. Abrir la foto y comprobar si se ve con suficiente claridad.
             image = read_photo(body)
             started = time.perf_counter()
             evaluability = None
@@ -225,8 +229,8 @@ class ModelRunner:
             if method in ('yolo_paulo', 'yolo_paulo_v2'):
                 import numpy as np
                 original_rgb = np.asarray(image).copy()
-            # 2. Localizar niveles. retina_masks conserva máscaras alineadas
-            # con la foto; iou filtra detecciones solapadas, no mide ocupación.
+            # 2. Localizar los niveles. retina_masks mantiene las máscaras
+            # alineadas con la foto original; iou filtra detecciones solapadas.
             model, device = self._load_model(model_id)
             result = model.predict(image, imgsz=640, conf=float(confidence), iou=.7,
                                                   retina_masks=True, device=device, verbose=False, save=False)[0]
@@ -241,7 +245,7 @@ class ModelRunner:
                          and not any(d.get('near_frame', False) for d in detections))
                 if not valid:
                     return blocked('dudosa', 'No se pudieron delimitar los niveles con suficiente alcance. Toma otra foto.')
-            # 3. Medir las máscaras originales y revisar el alcance visible.
+            # 3. Si una persona tapa la góndola, comprobar si la foto sigue siendo útil.
             occlusion_masks = None
             if method == 'yolo_paulo_v2' and geometry and self.occlusion_entry:
                 occ_model = self._load_occlusion_model()
@@ -279,6 +283,7 @@ class ModelRunner:
                         return res_blocked
                     if person_mask is not None:
                         occlusion_masks = [person_mask if lm is not None else None for lm in ordered_level_masks]
+            # 4. Medir la ocupación dentro de las máscaras originales y preparar el resultado.
             if occupancy_algorithm == 'ambos':
                 variants = {}
                 for algo in ('linea_a', 'basal'):

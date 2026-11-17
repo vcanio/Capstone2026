@@ -68,12 +68,14 @@ def build(output, root=ROOT):
 
 Extrae todo. Windows x64: iniciar_cliente.cmd (8098) o iniciar_equipo.cmd (8095).
 La primera preparación descarga Python 3.12 y dependencias; requiere Internet.
-Docker: docker compose -f compose.apps.yaml up --build -d --wait.
+Para usar Equipo con Docker, entra en Aplicacion y ejecuta docker compose up --build -d --wait.
+Para Cliente usa Windows o la instalación manual del README. La definición Docker
+conjunta monta Cliente en solo lectura y SQLite necesita escritura al iniciar.
 
 Ambas apps comparten un solo modelo oficial de niveles (`Nivel`), Línea A
 (índice visual 0–100 con umbral 52) y un detector COCO auxiliar de personas
-(`person`, clase 0): si una persona obstruye la góndola (`≥ 15 %` de un nivel),
-la foto se marca como no evaluable. Revisa contornos, carros u otros obstáculos
+(`person`, clase 0): si una persona obstruye la góndola (`≥ 15 %` del área o el ancho afectado de un nivel, o `≥ 10 %` de la foto
+cuando faltan máscaras válidas de nivel), la foto se marca como no evaluable. Revisa contornos, carros u otros obstáculos
 sin máscara de persona; no mide stock físico. En la app cliente (8098), pulsa
 «Probar un pasillo de ejemplo» para probar 8 casos precargados (consulta
 Aplicacion_Cliente/ejemplos/README.md) o carga fotos propias; el dataset completo

@@ -1,14 +1,12 @@
 # Comparar Línea A y franja basal · 12 de noviembre de 2026
 
-Opción local de la **app de revisión, puerto 8095**, solicitada por Vicente.
-Línea A sigue predeterminada. La app cliente sigue usando Línea A; el oficial
-YOLO, sus pesos y el estimador anterior conservan sus bytes.
+La **app del equipo (8095)** permite comparar Línea A v2.2 con Basal. La app cliente usa Línea A v2.2. Las comprobaciones del final registran la primera comparación realizada el 12/11. [Modelo y versión vigentes](../../Documentacion/Modelo_V3_actual.md).
 
 ## Uso
 
 1. Abrir **Ajustes de análisis → Algoritmo de ocupación**.
 2. Elegir **Línea A · actual** y analizar la foto o el lote.
-3. Cambiar a **Basal · experimental** y analizar la misma foto o lote.
+3. Cambiar a **Basal · experimental** y analizar la misma foto o lote. También puedes elegir **Ambos** para calcular las dos lecturas con las mismas máscaras YOLO.
 4. Volver a la otra opción para recuperar su resultado sin repetir el análisis.
    Cada combinación de modelo y algoritmo conserva su resultado, confianza,
    incidencias e historial de revisión. La primera ejecución de cada opción sí
@@ -26,7 +24,7 @@ para alternar algoritmos se utiliza el selector de ajustes.
 
 | Opción | Medida | Umbral | Estado |
 |---|---|---|---|
-| Línea A | Índice visual 0–100: cuerpo vertical y hueco continuo | 52 | Ajuste preliminar existente, sin cambios |
+| Línea A v2.2 | Índice visual 0–100 a partir de señales de producto y huecos en la repisa | 52 | Predeterminada, con ajuste preliminar |
 | Basal | Porcentaje de columnas observables con señal respaldada cerca del apoyo | 30 % | Criterio de ensayo independiente, **sin calibrar** |
 
 Basal reutiliza Canny, gradiente, color, textura y exclusión estructural de rieles.
@@ -55,7 +53,7 @@ mide stock físico, profundidad, volumen ni cantidad de productos. La máscara d
 observación excluye estructuras detectadas: **no detecta todas las oclusiones**.
 Un cartel, una bandeja o un producto confundido con el fondo aún pueden fallar.
 
-En la prueba funcional sobre `lider_2_122_0_original.jpg`, confirmada como train
+En la prueba funcional del 12/11 sobre `lider_2_122_0_original.jpg`, confirmada como train
 en la partición vigente, ambas rutas devolvieron seis contornos idénticos. Línea A
 dio seis suficientes; basal dio dos suficientes y cuatro revisiones por cobertura
 observable insuficiente tras excluir estructuras. Se conserva esa limitación;
@@ -66,4 +64,4 @@ desconocidas, contorno inclinado, producto estrecho, conservación del cálculo
 original, API, selección, sesiones y ZIP. No equivalen a evaluación de precisión.
 
 Recibos locales: `Datos/Registros/Ocupacion/comparacion_basal_20261112/`.
-La publicación y los ZIP existentes permanecen intactos.
+Estos recibos corresponden a la comparación inicial.

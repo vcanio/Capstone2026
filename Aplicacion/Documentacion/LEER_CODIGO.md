@@ -7,12 +7,11 @@ explicaciones están en español.
 ## Recorrido de una foto
 
 1. `read_photo()` abre los bytes, valida tamaño/formato y corrige la orientación.
-2. `_load_model()` reutiliza el modelo YOLO y elige CPU o GPU disponible.
-3. `model.predict()` localiza niveles y devuelve máscaras y confianzas.
-4. `analyze_edges()` entrega cada máscara original al estimador de ocupación.
-5. `occupancy_estimate()` interpreta la medición como Reponer, Suficiente o Revisar.
-6. `apply_scope()` añade avisos cuando el nivel llega al borde de la foto.
-7. `draw_result()` dibuja la lectura final sobre una copia de la foto.
+2. `assess_photo_quality()` comprueba la nitidez y la exposición antes de YOLO.
+3. `_load_model()` reutiliza el peso y selecciona CPU o GPU. `model.predict()` devuelve las máscaras y la confianza de cada nivel.
+4. `detect_person_union_mask()` localiza personas. `photo_blocked_by_person()` decide si la foto completa queda no evaluable.
+5. `analyze_edges()` entrega las máscaras originales a Línea A. `occupancy_estimate()` prepara la lectura que se muestra en el visor.
+6. `apply_scope()` revisa el contacto con el borde y la geometría de superiores abiertos. `draw_result()` dibuja el resultado sobre una copia de la foto.
 
 La confianza filtra detecciones de niveles. El índice visual se
 calcula después y no es la confianza de YOLO ni porcentaje físico de stock.
@@ -57,7 +56,7 @@ píxeles y cuáles están en filas × columnas de la grilla.
 
 ## Lectura vigente y diagnóstico anterior
 
-La lectura vigente de V3 es Línea A: índice visual 0–100 y umbral 52 con ajuste preliminar, según `ocupacion_linea_a.py`. `front_signal_pct` y `combined_signal_pct` pertenecen a diagnósticos anteriores y compatibilidad; no sustituyen la lectura vigente.
+La lectura vigente de V3 es Línea A v2.2. `hyb_ev` indica qué celdas tienen señales de producto. `front_hyb_pct` mide la parte del ancho visible que tiene respaldo de producto y `raw_pct` conserva el índice visual antes de ocultarlo en una lectura ambigua. Las reglas de alerta usan 52, los huecos y la visibilidad. `front_signal_pct` y `combined_signal_pct` pertenecen a diagnósticos anteriores y compatibilidad; no sustituyen la lectura vigente.
 
 Las reglas de revisión pueden impedir presentar el índice. La señal visual no reconoce productos semánticamente ni mide stock físico. El módulo portable incluye sus dependencias y no requiere el laboratorio.
 

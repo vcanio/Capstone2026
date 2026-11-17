@@ -29,7 +29,7 @@ En PowerShell, establecer `$env:PYTHONPATH='Aplicacion;Aplicacion_Cliente'` ante
 python Distribucion/empaquetar.py --output /ruta/nueva/Walmart_Vision_Cliente_y_Equipo.zip
 ```
 
-Crear primero un commit de las fuentes y comprobar `git status --porcelain` vacío. El empaquetador verifica el producto, copia ambas apps, un solo motor/peso, guías, licencias, Compose y los scripts de distribución. No incluye Fase 1/Fase 2, el PDF académico, tests, fotos ni entornos. Conserva sus referencias como enlaces al commit fuente. FUENTE.json identifica la fuente y MANIFIESTO_SHA256.json identifica cada archivo; el ZIP tiene un .sha256 independiente. Se rechaza sobrescribir entregas existentes.
+Crear primero un commit de las fuentes y comprobar `git status --porcelain` vacío. El empaquetador verifica el producto y copia ambas apps, el motor compartido, el peso de niveles, el peso auxiliar para personas, los ocho ejemplos, las guías, las licencias y Compose. Fase 1/Fase 2, los scripts de entrenamiento, las pruebas, el dataset completo y los entornos quedan en el repositorio o en el entorno de desarrollo. Conserva sus referencias como enlaces al commit fuente. FUENTE.json identifica la fuente y MANIFIESTO_SHA256.json identifica cada archivo; el ZIP tiene un .sha256 independiente. Se rechaza sobrescribir entregas existentes.
 
 Comprobar el ZIP en una extracción temporal, con HTTP e inferencia CPU de ambas apps:
 
@@ -41,6 +41,6 @@ Por defecto usa una imagen blanca generada y comprueba el funcionamiento, sin me
 
 ## Publicación
 
-Hacer commit y push sin forzar; esperar el CI del commit exacto. Publicar una release solo cuando se solicite una entrega nueva, con tag y nombre de ZIP nuevos, licencia y acceso a su código fuente correspondiente. Verificar la descarga pública contra el checksum. No reemplazar activos, tags o ZIP anteriores. La simplificación del árbol no cambia la entrega publicada del 11/11.
+Hacer commit y push sin forzar; esperar el CI del commit exacto. Publicar una release solo cuando se solicite una entrega nueva, con tag y nombre de ZIP nuevos, licencia y acceso a su código fuente correspondiente. Verificar la descarga pública contra el checksum. No reemplazar activos, tags o ZIP anteriores. La [ficha de entregables](../Entregables/README.md) registra la fuente efectiva y el checksum del ZIP vigente.
 
 [Producto](../README.md) · [Modelo](../Documentacion/Modelo_V3_actual.md) · [Archivo del desarrollo](../Documentacion/Archivo_del_desarrollo.md).

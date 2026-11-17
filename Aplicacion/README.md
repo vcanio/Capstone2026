@@ -1,37 +1,29 @@
-**Entrega vigente de ambas apps (MVP final):** [descarga cliente y equipo](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16). En el ZIP, abre `iniciar_equipo.cmd`; en un clon, `Aplicacion/iniciar.cmd`. [Aplicación cliente](../Aplicacion_Cliente/README.md) (8098).
+# Walmart Visión · aplicación del equipo
 
-**Comparación experimental en revisión:** [comparar Línea A y franja basal](Documentacion/COMPARACION_BASAL_20261112.md) desde los ajustes del visor (incluye modo «Ambos» y etiquetado por nivel). Línea A sigue predeterminada; basal es experimental y aún no está calibrada.
+La app del equipo permite comprobar detecciones, registrar incidencias por foto, nivel o zona, y comparar ejecuciones. **Descargar lote** guarda las fotos, resultados y marcas en un ZIP que se puede recuperar con **Abrir lote de revisión**. Las fotos de la sesión se procesan localmente y las marcas quedan en el navegador o en el lote exportado. [Guía de revisión](Documentacion/REVISION_EQUIPO.md).
 
-# Walmart Vision · Aplicación V3
+## Abrir la app
 
-Mesa de revisión del equipo (9/11, ampliada el 12/11): marcado por nivel o zona, atajos, revisión durante el análisis, comparación de ejecuciones y algoritmos (`Línea A`, `Basal · experimental`, `Ambos`), etiquetado por nivel y lotes ZIP recuperables. Ver [guía de revisión](Documentacion/REVISION_EQUIPO.md) y [comparación basal](Documentacion/COMPARACION_BASAL_20261112.md).
+En Windows x64, extrae el [MVP publicado](../Entregables/README.md) y abre **iniciar_equipo.cmd**. Si trabajas en un clon, usa [iniciar.cmd](iniciar.cmd). Abre **http://127.0.0.1:8095** o la dirección que indique la consola. La preparación inicial requiere Internet. [Docker para el equipo](DOCKER.md).
 
-El modelo oficial local es el **best.pt del cierre con contornos revisados terminado el 10 de noviembre**, adoptado por Vicente y predeterminado en ambas apps. Su SHA-256 es `dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5`; la copia compartida está en `modelos/V3-cierre-revisado-20261110.pt`. La entrega vigente del 13/11 y la prueba del 11/11 incluyen este peso; los ZIP anteriores conservan sus pesos originales. La ocupación sigue siendo experimental y Línea A permanece predeterminada.
+## Analizar e interpretar
 
-- **Usar en Windows:** abrir [iniciar.cmd](iniciar.cmd). El primer inicio prepara las dependencias.
-- **Usar con Docker:** ejecutar `docker compose up --build -d --wait` desde esta carpeta y abrir http://127.0.0.1:8095.
-- [Manual de usuario](../Documentacion/Usar_Walmart_Vision.md) · [Guía V3](Documentacion/LEEME_V3.md) · [Modelo y límites](../Documentacion/Modelo_V3_actual.md).
-- [ZIP V3 publicado y SHA-256](../Entregables/README.md).
-- [Cómo leer el código de niveles y ocupación](Documentacion/LEER_CODIGO.md).
-- [Documentación técnica y registros](Documentacion/) · [Pruebas de la aplicación](Pruebas/).
+- Carga hasta 50 fotos JPG, PNG o WebP, de hasta 10 MB y 24 megapíxeles cada una y 500 MB en total. Puedes revisar las fotos terminadas mientras sigue el análisis.
+- El peso oficial es **V3-cierre-revisado-20261110**. La confianza de detección comienza en **0,60** y se puede ajustar desde **0,25**. [Manifiesto y hashes](modelos.json) · [Ficha del modelo](../Documentacion/Modelo_V3_actual.md).
+- **Línea A v2.2** es la opción predeterminada. Usa un índice visual de 0 a 100, con umbral 52 y una regla de huecos. En Ajustes de análisis puedes elegir **Basal · experimental** o **Ambos**. [Qué significa cada alerta](../Documentacion/Usar_Walmart_Vision.md#interpretar-los-resultados) · [Comparar con Basal](Documentacion/COMPARACION_BASAL_20261112.md).
+- El filtro de calidad y el detector de personas pueden marcar una foto como no evaluable. Un borde recortado o un superior abierto con geometría dudosa pueden requerir revisión. Revisa visualmente carros y otros obstáculos. [Recorrido del código](Documentacion/LEER_CODIGO.md).
 
-La app usa **Línea A (`v2.2`: `linea_a_20261116_v2_2_cajas_sacos_picada`)** para el índice de disponibilidad visual por nivel: normalización compartida por góndola, bandas verticales relativas (incluyendo producto retraído sobre bandeja oscura en vista picada), protección para sacos blancos apilados y cajas máster bicolor, exclusión de cielo abierto en nivel superior y de piso/bandeja expuesta, puenteo de islas débiles de 2 columnas, alerta por quiebre parcial de frente y guarda por bajo contraste (`raw_pct` y `operational_severity`). **Reponer** con índice menor a **52 / 100** o quiebre de frente (`max_gap_pct ≥ 35 %` y `front_hyb_pct < 68 %`, o `significant_gaps_pct ≥ 45 %`), **Suficiente** desde 52 cuando no hay ambigüedad y **Revisar** por señal ambigua, bajo contraste o recorte. Sobre **Ohiggins 3** (`68` fotos, `354` niveles): la línea base ciega obtuvo **Accuracy 97,74 %**, **Recall 83,33 %** y **F1 88,24 %**; la revisión **v2.2** vigente alcanza **Accuracy 98,87 %**, **Precision 92,11 %**, **Recall 97,22 %** y **F1 94,59 %** (`35 TP / 3 FP / 1 FN / 315 TN`), además de verificarse operativamente sobre **193 fotos / 893 niveles** en 3 capturas (`9_11 Ohiggins`, `14_11 Ohiggins` y `15_11 Marcoleta`). Sigue siendo un índice visual y no un porcentaje físico de stock. Los resultados previos guardados se descartan al recuperar la sesión si pertenecen al estimador anterior; las fotos y las marcas se conservan. Véase [Documentacion/LINEA_A_20261108.md](Documentacion/LINEA_A_20261108.md) y [los casos límite del modelo](../Documentacion/Modelo_V3_actual.md).
-
-La confianza inicial de YOLO es 0,60 y puede ajustarse desde 0,25. El filtro [`calidad_foto.py`](calidad_foto.py) bloquea automáticamente fotos severamente borrosas, oscuras o quemadas (`no_evaluable`); en el modo **Línea A** (`yolo_paulo_v2`), [`oclusiones.py`](oclusiones.py) segmenta personas con `yolo26n-seg.pt` (COCO clase `0`: `person`) y marca la foto como `no_evaluable` con contorno ámbar sutil si obstruyen `≥ 15 %` de algún nivel (o `≥ 10 %` sin niveles), además de verificar truncamientos de nivel superior abierto en [`geometria_niveles.py`](geometria_niveles.py). Carros u otros obstáculos sin máscara de persona aún requieren revisión humana de visibilidad y contornos. La sesión se guarda en el navegador y no se incorpora al entrenamiento.
-
-La exclusión de barandas fragmentadas sigue pendiente de revisión visual. La [descarga histórica del 5 de noviembre](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-v3-2026-11-05/Walmart_Vision_V3_20261105.zip) conserva el peso y el estimador de su propia publicación. La entrega conjunta del 11/11 incorpora el oficial del 10/11 y Línea A.
-
-Los archivos del programa y el modelo se conservaron durante el traslado. Los documentos de verificación con fecha anterior describen su propia entrega.
+Para consulta de alertas, historial compartido y reportes CSV, Excel o PDF, abre la [app cliente](../Aplicacion_Cliente/README.md) en 8098.
 
 ## Desarrollar desde un clon
 
 El repositorio incluye el manifiesto, el peso oficial y el preparador de Windows. Clona el proyecto y abre `Aplicacion/iniciar.cmd` en Windows, o ejecuta `docker compose up --build -d --wait` desde `Aplicacion` para usar Docker. La primera preparación requiere Internet. El código de main puede ser más reciente que el ZIP de la release.
 
-La corrección de barandas sigue pendiente de revisión visual y el mapa de señal se muestra en fucsia. Tras modificar los módulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicación pueda verificar su integridad.
+El mapa de evidencia de Línea A se muestra en fucsia. Tras modificar los módulos incluidos en `edge_sources`, actualiza sus SHA-256 en `modelos.json` para que la aplicación pueda verificar su integridad.
 
 Para comprobar el código y construir paquetes desde un clon, consulta [Distribución y pruebas](../Distribucion/README.md). No se necesita el laboratorio interno.
 
-Tras actualizar, vuelve a analizar las fotos guardadas en el navegador para obtener resultados del modelo oficial.
+Si el peso o el estimador cambian, vuelve a analizar las fotos guardadas para ver la lectura vigente.
 
 ## Licencia
 

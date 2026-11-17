@@ -1,14 +1,12 @@
 # Revisión de fotos · equipo de desarrollo
 
-Versión: `revision_equipo_20261109_v1` · 9 de noviembre de 2026.
-
-Esta entrega es la mesa de pruebas de desarrollo. La aplicación cliente está separada. Usa el modelo V3 oficial y Línea A `linea_a_20261113_techo_y_panel_liso`, índice visual 0–100 con umbral 52. Su ajuste sigue siendo preliminar; el índice no es porcentaje físico de stock. No detecta automáticamente personas ni obstáculos.
+La app del equipo usa el peso oficial V3 y Línea A v2.2 por defecto. El índice de 0 a 100 estima disponibilidad visual, con umbral 52 y una regla de huecos. El filtro de calidad y la detección automática de personas pueden marcar una foto como no evaluable. Revisa visualmente carros y otros obstáculos. [Modelo y límites](../../Documentacion/Modelo_V3_actual.md).
 
 ## Empezar en otro equipo
 
 1. Extrae **todo** el ZIP a una carpeta con permiso de escritura. No ejecutes desde dentro del ZIP.
-2. En Windows, abre `iniciar.cmd`. El primer inicio necesita Internet para preparar Python y las dependencias. Después abre `http://127.0.0.1:8095`.
-3. En macOS/Linux, usa la [guía Docker](DOCKER_V3.md) incluida en el paquete.
+2. En Windows, abre `iniciar_equipo.cmd` en la raíz del ZIP o `Aplicacion/iniciar.cmd` en el clon. El primer inicio necesita Internet para preparar Python y las dependencias. Después abre `http://127.0.0.1:8095`.
+3. Para Docker, consulta la [guía de la app del equipo](../DOCKER.md).
 4. Escribe tu nombre en **Revisor** y selecciona hasta 50 fotos JPG, PNG o WebP, de hasta 10 MB cada una y 500 MB por lote.
 5. Pulsa **Analizar fotos**. La confianza inicial es 0,60. Puedes revisar las fotos terminadas mientras se analizan las siguientes; la cola no cambia la foto seleccionada.
 
@@ -42,7 +40,7 @@ La zona marcada es evidencia humana de revisión, no una modificación del polí
 
 ## Comprobar un ajuste
 
-**Modelo oficial local adoptado el 10/11:** revisión y cliente usan por defecto **V3 oficial - cierre con contornos revisados 10 noviembre**, ID `V3-cierre-revisado-20261110`, manteniendo confianza inicial 60 %. Recargar la app para tomar el nuevo predeterminado y reanalizar las fotos guardadas cuando pertenezcan a otro peso. El antiguo candidato de época 12 se conserva como antecedente y no es el oficial. [Adopción y comprobación de ambas apps](../../Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md). Las releases publicadas no se actualizaron con esta adopción local.
+**Modelo oficial local adoptado el 10/11:** revisión y cliente usan por defecto **V3 oficial - cierre con contornos revisados 10 noviembre**, ID `V3-cierre-revisado-20261110`, manteniendo confianza inicial 60 %. Recargar la app para tomar el nuevo predeterminado y reanalizar las fotos guardadas cuando pertenezcan a otro peso. [Adopción y comprobación de ambas apps](../../Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md) · [MVP vigente](../../Entregables/README.md).
 
 1. Guarda el lote mediante **Descargar lote** antes de cambiar de equipo o de versión.
 2. En la aplicación nueva, usa **Abrir lote de revisión** y selecciona ese ZIP sin recomprimirlo. Recupera las fotos y las incidencias. Si modelo o estimador cambiaron, el resultado anterior queda como referencia y se solicita un análisis nuevo.

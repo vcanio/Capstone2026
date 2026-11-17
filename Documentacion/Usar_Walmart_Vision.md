@@ -1,36 +1,40 @@
 # Usar Walmart Visión V3
 
-Las apps del 11/11 comparten el cierre V3 revisado adoptado el 10/11 y Línea A del 8/11. [Descarga vigente e historial](../Entregables/README.md). El cliente muestra alertas visuales, revisión humana y CSV; la mesa del equipo añade controles técnicos y lotes de revisión.
+La entrega vigente reúne la app cliente y la mesa de revisión del equipo. Ambas usan YOLO V3 para delimitar niveles y Línea A v2.2 para estimar la disponibilidad visual. [Descarga del MVP](../Entregables/README.md).
 
 ## Abrir
 
-En Windows, abre [iniciar_cliente.cmd](../Aplicacion_Cliente/iniciar_cliente.cmd) para el cliente (8098) o [Aplicacion/iniciar.cmd](../Aplicacion/iniciar.cmd) para el equipo (8095). En el ZIP conjunto, los iniciadores están en la raíz. En Docker, ejecuta `docker compose -f compose.apps.yaml up --build -d --wait` desde la raíz y abre http://127.0.0.1:8098 o http://127.0.0.1:8095. La primera instalación requiere Internet; no necesitas el laboratorio ni CVAT para analizar fotos.
+1. En Windows x64, extrae el ZIP completo y abre `iniciar_cliente.cmd` (8098) o `iniciar_equipo.cmd` (8095). La primera ejecución necesita Internet para preparar las dependencias.
+2. Si usas un clon, los iniciadores están en `Aplicacion_Cliente/` y `Aplicacion/`. También puedes seguir la [instalación manual](../README.md#instalación-manual-y-configuración).
+3. Para la app del equipo en Docker, consulta la [guía Docker](../Aplicacion/DOCKER.md). El Compose conjunto requiere ajustar el almacenamiento de SQLite para arrancar el cliente.
 
-## Cliente: alertas y revisión humana
+## Cliente
 
-El recorrido muestra miniaturas, la foto completa y los niveles detectados. Filtra por alertas o revisión pendiente, comprueba los contornos y registra la revisión humana. Las marcas no alteran el índice ni el diagnóstico original. Exporta CSV total o filtrado. Las flechas del teclado recorren las fotos. «Limpiar pasillo» elimina definitivamente el recorrido guardado, sin borrar los originales del computador. Consulta la [guía del cliente](../Aplicacion_Cliente/README.md).
+- Pulsa **Probar un pasillo de ejemplo** para abrir los [ocho casos incluidos](../Aplicacion_Cliente/ejemplos/README.md), o carga fotos JPG, PNG o WebP.
+- Usa **Con alertas**, **Requieren revisión** o **Sin alertas** para filtrar las fotos. **Huecos** ayuda a localizar espacios sin producto visible. Las flechas recorren las fotos.
+- Descarga el CSV del filtro o del recorrido. Los reportes Excel y PDF usan el historial del servidor. El cliente muestra los resultados del análisis y el historial se guarda en el navegador y en SQLite. [Guía del cliente](../Aplicacion_Cliente/README.md).
 
-## Equipo: analizar y revisar
+## Equipo
 
-1. Toma fotos frontales o casi frontales, con apoyos visibles y sin reflejos fuertes. No hay un ángulo máximo validado.
-2. Carga fotos JPG, PNG o WebP, hasta 10 MB cada una; el lote admite hasta 50 fotos y 500 MB.
-3. Analiza el lote y comprueba los contornos. La confianza inicial es 0,60 y puede ajustarse desde 0,25.
-4. Usa Original, Niveles, Bordes y Comparar; descarga el resultado cuando lo necesites.
+1. Carga fotos JPG, PNG o WebP, de hasta 10 MB y 24 megapíxeles por foto. El visor admite hasta 50 fotos y 500 MB por lote.
+2. Pulsa **Analizar fotos** y comprueba los contornos. La confianza inicial de YOLO es 0,60 y puede ajustarse desde 0,25.
+3. Usa **Original**, **Niveles**, **Bordes** y **Comparar**. Puedes registrar incidencias y descargar un lote ZIP para seguir la revisión. [Guía del equipo](../Aplicacion/Documentacion/REVISION_EQUIPO.md).
 
-El modelo oficial se selecciona automáticamente. La app no detecta automáticamente personas, obstáculos ni completitud: revisa tú la visibilidad. Un nivel no detectado no demuestra que esté vacío.
+## Interpretar los resultados
 
 | Resultado | Lectura |
 |---|---|
-| Reponer | Índice visual menor a 52/100, cuando la señal permite decidir. |
-| Suficiente | Índice desde 52/100 sin abstención; no certifica stock. |
-| Revisar | Recorte o señal ambigua; puede ocultarse el índice. |
+| **Reponer** | El índice está por debajo de 52 o hay un hueco importante en el frente, con evidencia suficiente para decidir. |
+| **Suficiente** | El índice es 52 o más y la señal permite aceptar la lectura. |
+| **Revisar** | El nivel está recortado o la imagen aporta señales dudosas, por ejemplo un frente oscuro o una obstrucción. |
+| **Foto no evaluable** | La captura tiene un problema grave de calidad o una persona tapa la góndola. Toma otra foto. |
 
-Los niveles se numeran de abajo hacia arriba. El mapa fucsia muestra evidencia visual; la vista de bordes filtrados permite inspeccionar Canny y la exclusión de estructura. Carteles y fondos pueden activar la señal y productos lisos pueden producir poca. El índice no es porcentaje físico de stock ni conteo de productos.
+Usa tomas frontales o casi frontales y procura que se vea todo el tramo. Un nivel vacío puede contener una máscara, porque YOLO busca repisas. Si el sistema no detecta niveles, revisa el encuadre antes de tomar una decisión. El índice describe solo la disponibilidad visible en la foto.
 
-Las fotos se procesan localmente. La sesión puede guardarse en el navegador y eliminarse desde la app; no se incorpora al entrenamiento. Los resultados de revisiones anteriores se invalidan para volver a analizar las fotos con el algoritmo actual.
+Las fotos se procesan localmente y quedan fuera del entrenamiento. **Limpiar pasillo** elimina el recorrido guardado por el cliente, incluidos sus registros en el servidor si está disponible. Los archivos de origen en tu equipo se conservan.
 
 ## Si hay un problema
 
 Extrae el paquete completo, conserva sus archivos juntos y espera la preparación inicial de dependencias. Con Docker, comprueba que Docker Desktop esté activo. Si el análisis tarda demasiado o rechaza la foto, usa una imagen más pequeña. Si el resultado no coincide con la foto, revisa contornos y visibilidad antes de utilizar la alerta.
 
-[Cómo funciona](Guia_para_entender_el_proyecto.md) · [Modelo y límites](Modelo_V3_actual.md) · [Línea A](../Aplicacion/Documentacion/LINEA_A_20261108.md).
+[Cómo funciona](Guia_para_entender_el_proyecto.md) · [Modelo y límites](Modelo_V3_actual.md) · [Criterio del umbral 52](Justificacion_umbral_52.md).
