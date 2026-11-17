@@ -29,3 +29,11 @@ El 14/11/2026 se completó la anotación CVAT (`subset="test"`) y la evaluación
 La calibración inicial de Línea A se definió en desarrollo (112 niveles con máscaras humanas: 15/16 alertas sin falsas alertas) y posteriormente quedó validada en frío con predicciones YOLO sobre Ohiggins 3. No extrapolar los resultados de localización a exactitud de ocupación o stock físico.
 
 Los antecedentes, registros de correcciones y comparaciones se conservan mediante [Archivo del desarrollo](Archivo_del_desarrollo.md). La incidencia de tres fuentes V1 ausentes no se resuelve con esta reorganización ni permite afirmar auditoría global de datos aprobada. No se ha entrenado ni evaluado test para simplificar el repositorio.
+
+## Scripts reproducibles incluidos
+
+Los scripts para preparar anotaciones CVAT (incluida la regla de la mediana para el nivel superior y validación anti-fuga por escenas), configurar el ajuste fino reproducible (`seed=42`) y verificar/reproducir las métricas sobre `Ohiggins 3` están disponibles en [`Entrenamiento/`](../Entrenamiento/README.md):
+
+- [`Entrenamiento/preparar_datos_cvat.py`](../Entrenamiento/preparar_datos_cvat.py) (`--self-check` y exportación YOLO-seg)
+- [`Entrenamiento/entrenar_yolo26n_seg.py`](../Entrenamiento/entrenar_yolo26n_seg.py) (`--dry-run` y plantilla [`data.template.yaml`](../Entrenamiento/data.template.yaml))
+- [`Entrenamiento/evaluar_ohiggins3.py`](../Entrenamiento/evaluar_ohiggins3.py) (`--verify-receipt` y evaluación de directorio)

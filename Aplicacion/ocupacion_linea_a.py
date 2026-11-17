@@ -20,6 +20,7 @@ import cv2
 import numpy as np
 
 from ocupacion_paulo import Analyzer
+from oclusiones import detect_intrusions_from_rgb, evaluate_level_occlusion
 
 METHOD_LINEA_A = 'linea_a_v1_gondola_anchorage'
 REVISION_LINEA_A = 'linea_a_20261116_v2_2_cajas_sacos_picada'
@@ -124,11 +125,34 @@ def longest_empty_run_pct(col_covered: np.ndarray, bridge_single: bool = True) -
     return 100.0 * best / len(arr)
 
 
-def extract_cell_features(analyzer: Analyzer, mask: np.ndarray) -> dict | None:
+def extract_cell_features(
+    analyzer: Analyzer,
+    mask: np.ndarray,
+    occlusion_mask: np.ndarray | None = None,
+) -> dict | None:
     """Extraer grillas de señal alineadas para una máscara manteniendo exclusión de rieles."""
     level = analyzer._prepare_level(mask, {'status': 'sin_medicion'})
     if isinstance(level, dict):
         return None
+    occ_info = evaluate_level_occlusion(mask, occlusion_mask) if occlusion_mask is not None else None
+    usable = level.usable.astype(bool)
+    if occ_info and occ_info['should_mask_columns'] and occlusion_mask is not None:
+        occ_scaled = cv2.resize(
+            (np.asarray(occlusion_mask) > 0).astype(np.uint8),
+            (analyzer.rgb.shape[1], analyzer.rgb.shape[0]),
+            interpolation=cv2.INTER_NEAREST,
+        )
+        x0, y0, w0, h0 = level.bounds
+        occ_grid = cv2.resize(
+            occ_scaled[y0:y0 + h0, x0:x0 + w0].astype(np.float32),
+            level.grid_size,
+            interpolation=cv2.INTER_AREA,
+        )
+        masked_usable = usable & (occ_grid < 0.5)
+        if masked_usable.any():
+            usable = masked_usable
+        else:
+            occ_info = {**occ_info, 'requires_review': True, 'should_mask_columns': False}
     signals = analyzer._measure_cells(level)
     x, y, w, h = level.bounds
     hsv = analyzer.hsv[y:y + h, x:x + w]
@@ -147,12 +171,12 @@ def extract_cell_features(analyzer: Analyzer, mask: np.ndarray) -> dict | None:
         name: (cv2.resize(arr * signals.observed, level.grid_size, interpolation=cv2.INTER_AREA) / denom).astype(np.float32)
         for name, arr in raw_signals.items()
     }
-    return {
+    features = {
         'valid': True,
-        'valid_cells': int(level.usable.sum()),
+        'valid_cells': int(usable.sum()),
         'bounds': tuple(int(v) for v in level.bounds),
         'img_scaled_shape': tuple(int(v) for v in analyzer.rgb.shape[:2]),
-        'usable': level.usable.astype(bool),
+        'usable': usable,
         'observed_coverage': signals.observed_coverage.astype(np.float32),
         'observed': signals.observed,
         'density': signals.density.astype(np.float32),
@@ -160,6 +184,9 @@ def extract_cell_features(analyzer: Analyzer, mask: np.ndarray) -> dict | None:
         'deviation': signals.deviation.astype(np.float32),
         **cell_maps,
     }
+    if occ_info and (occ_info['requires_review'] or occ_info['should_mask_columns']):
+        features['occlusion_info'] = occ_info
+    return features
 
 
 def gondola_feature_bounds(level_features: list[dict]) -> tuple | None:
@@ -765,6 +792,9 @@ def score_level_from_features(
         or (significant_gaps_pct >= ACCUMULATED_GAP_ALERT_PCT)
     )
 
+    occ_info = feat.get('occlusion_info')
+    occ_review = bool(occ_info and occ_info.get('requires_review'))
+
     if apply_scope_rule and near_frame:
         state = 'revisar'
         label = 'Revisar · zona visible'
@@ -772,6 +802,13 @@ def score_level_from_features(
         review_required = True
         pattern = pattern or 'near_frame'
         review_reason = review_reason or 'Contorno junto al encuadre: revisa lo que queda fuera.'
+    elif occ_review:
+        state = 'revisar'
+        label = 'Revisar · zona obstruida'
+        color = '#a16207'
+        review_required = True
+        pattern = 'foreground_occlusion'
+        review_reason = 'Zona obstruida por persona u objeto externo frente al estante.'
     elif review_required:
         state = 'revisar'
         label = 'Revisar · señal ambigua'
@@ -800,7 +837,7 @@ def score_level_from_features(
         severity = 'normal'
 
     raw_pct = round(pct, 2)
-    return {
+    result = {
         'method': METHOD_LINEA_A,
         'interpretation_policy': INTERPRETATION_POLICY,
         'status': 'medido',
@@ -829,6 +866,10 @@ def score_level_from_features(
         'ceil_mask_active': maps['ceil_mask_active'],
         'valid_cells': int(feat.get('valid_cells', usable.sum())),
     }
+    if occ_info and (occ_info.get('requires_review') or occ_info.get('should_mask_columns')):
+        result['occlusion_pct'] = round(100.0 * float(occ_info['occluded_area_frac']), 2)
+        result['occlusion_masked'] = bool(occ_info.get('should_mask_columns'))
+    return result
 
 
 def analyze_gondola_rgb(
@@ -838,10 +879,19 @@ def analyze_gondola_rgb(
     near_frames: list[bool] | None = None,
     apply_scope_rule: bool = False,
     is_top_levels: list[bool] | None = None,
+    occlusion_masks: list[np.ndarray | None] | None = None,
 ) -> list[dict]:
     """Ejecutar extracción + normalización anclada de góndola + decisión Línea A desde imagen RGB."""
     analyzer = Analyzer(rgb, version='v2', front_mode=True)
-    extracted = [extract_cell_features(analyzer, mask) for mask in masks]
+    occ_masks = occlusion_masks if occlusion_masks is not None else detect_intrusions_from_rgb(rgb, masks)
+    extracted = [
+        extract_cell_features(
+            analyzer,
+            mask,
+            occlusion_mask=occ_masks[idx] if idx < len(occ_masks) else None,
+        )
+        for idx, mask in enumerate(masks)
+    ]
     bounds = gondola_feature_bounds([item for item in extracted if item is not None])
     flags = near_frames if near_frames is not None else [False] * len(masks)
     top_flags = is_top_levels if is_top_levels is not None else _top_level_flags(extracted)

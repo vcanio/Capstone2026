@@ -1,0 +1,10 @@
+# Plantilla reproducible de dataset YOLO-seg para la clase única Nivel (V3).
+# Sustituye `path` por la ruta local preparada con `preparar_datos_cvat.py`.
+
+path: ./dataset_niveles
+train: images/train
+val: images/val_real
+test: images/test  # Solo evaluación final congelada (p. ej. Ohiggins 3); nunca usar en entrenamiento o selección
+
+names:
+  0: Nivel

@@ -10,7 +10,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SECRET_KEYS = {'password', 'passwd', 'token', 'api_key', 'secret', 'client_secret', 'access_token', 'auth_token'}
-ALLOWED_DIRS = {'Aplicacion', 'Aplicacion_Cliente', 'Documentacion', 'Distribucion', 'Entregables', '.github', 'Fase 1', 'Fase 2'}
+ALLOWED_DIRS = {'Aplicacion', 'Aplicacion_Cliente', 'Documentacion', 'Distribucion', 'Entrenamiento', 'Entregables', '.github', 'Fase 1', 'Fase 2'}
 
 
 def sha256(path):
@@ -42,6 +42,14 @@ def verify_model(root=ROOT):
     path = safe_file(app, name)
     if path.stat().st_size != model['bytes'] or sha256(path) != model['sha256']:
         raise ValueError('El peso oficial no coincide con su tamaño/SHA-256.')
+    occ_model = value.get('occlusion_model')
+    if occ_model is not None:
+        occ_name = occ_model.get('file', '')
+        if not occ_name.startswith('modelos/') or PurePosixPath(occ_name).suffix != '.pt':
+            raise ValueError('Ruta inválida del modelo de oclusiones.')
+        occ_path = safe_file(app, occ_name)
+        if occ_path.stat().st_size != occ_model.get('bytes') or sha256(occ_path) != occ_model.get('sha256'):
+            raise ValueError('El modelo de oclusiones no coincide con su tamaño/SHA-256.')
     for name, expected in value.get('edge_sources', {}).items():
         if PurePosixPath(name).name != name or sha256(safe_file(app, name)) != expected:
             raise ValueError('El motor no coincide con edge_sources: ' + name)
@@ -51,7 +59,7 @@ def verify_model(root=ROOT):
         if PurePosixPath(name).name != name or sha256(safe_file(app, name)) != expected:
             raise ValueError('El algoritmo experimental no coincide con experimental_sources: ' + name)
     for name in ('inferencia.py', 'presentacion_niveles.py', 'geometria_niveles.py', 'vision_v3.py',
-                 'visibilidad_experimental.py', 'revision_rapida.js'):
+                 'visibilidad_experimental.py', 'oclusiones.py', 'calidad_foto.py', 'revision_rapida.js'):
         safe_file(app, name)
     uv = json.loads((app / 'herramientas/fuente_uv.json').read_text(encoding='utf-8'))
     for entry in uv['files']:
@@ -127,7 +135,11 @@ def verify(root=ROOT):
             python += 1
         if path.suffix == '.json':
             secret_fields(json.loads(path.read_text(encoding='utf-8-sig')))
-        if path.suffix.lower() == '.pt' and name != 'Aplicacion/' + json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))['models'][0]['file']:
+        manifest_data = json.loads((root / 'Aplicacion/modelos.json').read_text(encoding='utf-8'))
+        allowed_pts = {'Aplicacion/' + manifest_data['models'][0]['file']}
+        if isinstance(manifest_data.get('occlusion_model'), dict) and manifest_data['occlusion_model'].get('file'):
+            allowed_pts.add('Aplicacion/' + manifest_data['occlusion_model']['file'])
+        if path.suffix.lower() == '.pt' and name not in allowed_pts:
             raise ValueError('Peso adicional no declarado: ' + name)
         if path.suffix.lower() in {'.exe', '.dll', '.zip', '.7z', '.pkl', '.cache', '.log'} and name != 'Aplicacion/herramientas/uv.exe':
             raise ValueError('Binario o salida no prevista: ' + name)

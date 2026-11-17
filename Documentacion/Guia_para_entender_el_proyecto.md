@@ -1,6 +1,6 @@
 # Cómo funciona Walmart Visión
 
-V3 aprende una clase, Nivel, para localizar áreas útiles. Las dos apps vigentes ([entrega 16/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16)) comparten el cierre revisado adoptado el 10/11, el filtro previo `calidad_foto.py` y **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`): índice visual 0–100 con umbral 52, severidad operativa e índice bruto. Los ZIP anteriores conservan su contenido histórico.
+V3 aprende una clase, Nivel, para localizar áreas útiles. Las dos apps vigentes ([entrega MVP 16/11](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16)) comparten el cierre revisado adoptado el 10/11, el filtro previo `calidad_foto.py`, detección de personas con `yolo26n-seg.pt` (`oclusiones.py`), verificación de nivel superior abierto (`geometria_niveles.py`), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`), historial compartido `SQLite` y exportación CSV/XLSX/PDF. Los ZIP anteriores conservan su contenido histórico.
 
 ## Fotografías frontales
 
@@ -57,7 +57,7 @@ La línea base de Línea A (umbral 52,0 congelado) se evaluó en ciego sobre las
 
 ## Visibilidad y alcance
 
-La app incorpora además un filtro automático de calidad de captura (`calidad_foto.py`): si una foto está severamente borrosa, muy oscura o quemada por reflejos, se marca como **`no_evaluable`** antes de inferir para evitar falsas alertas de reposición. Para oclusiones por personas o carros, la app del equipo permite indicar manualmente si la góndola está despejada, recortada o tapada y el cliente registra revisión humana por nivel (`No evaluable`). El recorte al borde (`near_frame`) marca `Revisar`; una foto bloqueada muestra el motivo y pide otra toma sin contornos ni ocupación.
+La app incorpora además un filtro automático de calidad de captura (`calidad_foto.py`): si una foto está severamente borrosa, muy oscura o quemada por reflejos, se marca como **`no_evaluable`** antes de inferir para evitar falsas alertas de reposición. Con `yolo26n-seg.pt` ([`oclusiones.py`](../Aplicacion/oclusiones.py)), cuando una persona obstruye `≥ 15 %` de un nivel (o `≥ 10 %` sin niveles) la foto también se marca automáticamente como **`no_evaluable`** y muestra un contorno ámbar sutil señalando la obstrucción; carros u otros obstáculos sin máscara de persona siguen sujetos a verificación visual. En cliente se muestran directamente las alertas del modelo sin controles manuales, mientras [`geometria_niveles.py`](../Aplicacion/geometria_niveles.py) alerta cuando el nivel superior abierto parece truncado y `near_frame` marca `Revisar`.
 
 La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar por sí solas precisión de ocupación; por eso **Línea A** se evaluó por separado en el test ciego de **Ohiggins 3** (14/11/2026; el histórico de 63 fotos quedó retirado). Ver [Evaluación test Ohiggins 3](Evidencias/evaluacion_test_ohiggins3_20261114.md).
 

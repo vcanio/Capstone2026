@@ -191,23 +191,19 @@ const base = 'http://127.0.0.1:19098';
     assert(report.stress68.writes <= 2);
     assert(report.stress68.maxThumbnailSide <= 160);
     await page.evaluate(() => { testWrites.length = 0; selectItem('photo-0'); });
-    await page.locator('[data-quick-level="3"][data-action="revisado"]').click();
-    await page.evaluate(() => saveChain);
-    assert.equal(await page.evaluate(() => testWrites.filter(w => w.store === 'photos').length), 1);
     await page.reload(); await page.evaluate(() => storageReady); await settle(page);
-    assert.equal(await page.evaluate(() => state.items.find(i => i.id === 'photo-0').reviews[3].value), 'revisado');
     assert.equal(await page.evaluate(() => visualAlertCount(state.items.find(i => i.id === 'photo-0'))), 3);
 
     // Un guardado abortado conserva el registro anterior y puede reintentarse.
     await page.evaluate(async () => {
       failWrite = true;
-      state.items[0].reviews[1] = { value: 'necesita', at: 'prueba' };
+      state.items[0].name = 'pasillo_editado.jpg';
       saveSession(state.items[0].id); await saveChain;
     });
     assert.equal(await page.locator('#saveStatus').innerText(), 'No se pudo guardar');
-    assert.equal(await page.evaluate(async () => Boolean((await readStored('photos', state.items[0].id)).reviews[1])), false);
+    assert.equal(await page.evaluate(async () => (await readStored('photos', state.items[0].id)).name), 'foto-0.jpg');
     await page.evaluate(async () => { failWrite = false; saveSession(); await saveChain; });
-    assert.equal(await page.evaluate(async () => (await readStored('photos', state.items[0].id)).reviews[1].value), 'necesita');
+    assert.equal(await page.evaluate(async () => (await readStored('photos', state.items[0].id)).name), 'pasillo_editado.jpg');
 
     await page.evaluate(() => { state.viewMode = 'compare'; renderStageAndLevels(); });
     assert.equal(await page.locator('#compareResImg').getAttribute('src').then(v => v.startsWith('blob:')), true);

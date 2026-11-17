@@ -130,7 +130,23 @@
     "occupancy_evaluated_on_test": true,
     "quality_gate_automatic": true,
     "quality_gate_policy": "calidad_foto_v1",
-    "visibility_automatic": false,
+    "visibility_automatic": true,
+    "occlusion_policy": "oclusiones_v1",
+    "occlusion_model": "yolo26n-seg.pt",
+    "occlusion_coco_classes": [
+      "person"
+    ],
+    "occlusion_photo_block_level_frac": 0.15,
+    "occlusion_photo_block_frame_frac": 0.1,
+    "open_top_geometric_check": true,
+    "client_human_review": false,
+    "client_server_persistence": "sqlite3",
+    "client_exports": [
+      "csv",
+      "xlsx",
+      "pdf"
+    ],
+    "reproducible_scripts_included": true,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
     "occupancy_revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
@@ -140,17 +156,17 @@
     "status": "github_release",
     "current_model_published": true,
     "previous_published_distribution": {
-      "release_tag": "walmart-vision-apps-prueba-2026-11-11",
-      "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-prueba-2026-11-11",
-      "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-prueba-2026-11-11/Walmart_Vision_Cliente_y_Equipo_20261111.zip",
-      "package_sha256": "71aaa1151e09057f0024c01561b8508deca290402c2dc9fd229da9ad542a8bb9",
-      "package_bytes": 20960824
+      "release_tag": "walmart-vision-apps-2026-11-16",
+      "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16",
+      "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip",
+      "client_revision": "huecos_severidad_bruto_reanalisis_20261116",
+      "review_revision": "comparacion_basal_etiquetado_20261112"
     },
-    "release_tag": "walmart-vision-apps-2026-11-13",
-    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-13",
-    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-13/Walmart_Vision_Cliente_y_Equipo_20261113.zip",
-    "source_ref": "walmart-vision-apps-2026-11-13",
-    "client_revision": "movil_tres_pasos_selector_lente_20261112",
+    "release_tag": "walmart-vision-mvp-2026-11-16",
+    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16",
+    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip",
+    "source_ref": "walmart-vision-mvp-2026-11-16",
+    "client_revision": "mvp_sqlite_xlsx_pdf_oclusiones_modelo_20261116",
     "review_revision": "comparacion_basal_etiquetado_20261112"
   },
   "visual_review": {

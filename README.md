@@ -6,8 +6,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
-| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Notas de la versión](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16) | Recorrido V2; la interfaz V3 ya cambió | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
+| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) | [**Ver video funcional (7 min)**](https://youtu.be/sN_6XPdxtKk) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Notas MVP](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) | Recorrido V2; la interfaz V3 ya cambió | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
 
 [**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
@@ -40,18 +40,18 @@ A partir de una fotografía frontal de góndola, el sistema ejecuta cuatro etapa
 
 1. **Filtro previo de calidad:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) detecta capturas severamente borrosas, oscuras o quemadas y las marca como `no_evaluable` antes de inferir.
 2. **Segmentación por nivel de góndola:** `YOLO26n-seg` delimita el área útil completa de cada repisa, incluyendo tanto productos como huecos vacíos.
-3. **Estimación visual de ocupación:** **Línea A** combina bordes, gradiente, color y textura dentro de cada máscara para calcular un índice visual de `0` a `100` (umbral `52`) y derivar casos ambiguos o recortados a `Revisar`.
+3. **Estimación visual de ocupación:** **Línea A** combina bordes, gradiente, color y textura dentro de cada máscara para calcular un índice visual de `0` a `100` (umbral `52`), descuenta o deriva a `Revisar` zonas obstruidas ([`oclusiones.py`](Aplicacion/oclusiones.py)) y verifica geometría de nivel superior abierto ([`geometria_niveles.py`](Aplicacion/geometria_niveles.py)).
 4. **Flujos de operación y revisión:**
-   - **App cliente (`8098`):** consulta de alertas (`Reponer`, `Suficiente`, `Revisar`), guía móvil de captura en tres pasos con selector de lente trasera, registro de revisión humana independiente y exportación a CSV.
+   - **App cliente (`8098`):** consulta de alertas estrictamente del modelo (`Reponer`, `Suficiente`, `Revisar`), foto `no_evaluable` automática ante obstrucción de personas con contorno ámbar sutil, guía móvil de captura en tres pasos con selector de lente trasera, persistencia compartida en servidor (`SQLite`) y exportación a **CSV, Excel (`.xlsx`) y PDF**.
    - **App del equipo (`8095`):** comparación entre ejecuciones y algoritmos ([Línea A vs basal experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md)), autocompletado por lotes, mapas de señal, marcado de errores por nivel/zona y exportación de lotes ZIP.
 
 ---
 
 ## Descarga e inicio rápido
 
-Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_20261116.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
+Descarga el paquete [**Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) ([notas y SHA-256](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16)), extrae **todo** el contenido y carga fotos propias (el dataset no se incluye).
 
-> El paquete publicado (`2026-11-16`) incluye el modelo oficial **`V3-cierre-revisado-20261110`**, el filtro previo de calidad ([`calidad_foto.py`](Aplicacion/calidad_foto.py)), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`) y la app cliente actualizada con vista *Huecos*, `operational_severity` (`Crítica` / `Alta` / `Normal` / `Verificar`), índice bruto (`raw_pct`) y reanálisis automático al cambiar la revisión del motor.
+> La entrega final MVP (`walmart-vision-mvp-2026-11-16`) incluye el modelo oficial **`V3-cierre-revisado-20261110`**, el filtro previo de calidad ([`calidad_foto.py`](Aplicacion/calidad_foto.py)), detección automática de personas con `yolo26n-seg.pt` ([`oclusiones.py`](Aplicacion/oclusiones.py), bloqueando la foto como `no_evaluable` con silueta ámbar sutil si obstruye la góndola), verificación geométrica de nivel superior abierto ([`geometria_niveles.py`](Aplicacion/geometria_niveles.py)), **Línea A v2.2** (`linea_a_20261116_v2_2_cajas_sacos_picada`), app cliente con resultados directos del modelo, persistencia compartida en `SQLite`, reportes **CSV / Excel (`.xlsx`) / PDF**, scripts reproducibles en [`Entrenamiento/`](Entrenamiento/README.md) e integración continua en [GitHub Actions](.github/workflows/comprobar.yml).
 
 ### Windows x64
 
@@ -78,7 +78,7 @@ docker compose -f compose.apps.yaml down
 
 - En Windows, ejecuta `Aplicacion_Cliente/iniciar_cliente.cmd` o `Aplicacion/iniciar.cmd`. La confianza inicial de YOLO es **0,60** (fija en cliente; ajustable desde **0,25** en la app del equipo).
 - Toma fotos **frontales o casi frontales** con ambos extremos del tramo visibles, evitando reflejos fuertes o desenfoque.
-- Las fotografías se procesan **localmente** en el equipo del usuario; cada navegador guarda su sesión en local (`IndexedDB` en cliente, con botón *Limpiar pasillo*).
+- Las fotografías se procesan **localmente** en el equipo del usuario; cada navegador guarda su sesión en local (`IndexedDB`) y la sincroniza con el historial compartido del servidor (`SQLite` en cliente, con botón *Limpiar pasillo*).
 - Para pruebas rápidas sin fotos propias existe una [selección histórica de seis imágenes de ejemplo](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing).
 
 ---
@@ -87,8 +87,8 @@ docker compose -f compose.apps.yaml down
 
 ### Estrategia algorítmica
 
-1. **Definición geométrica de `Nivel`:** cada polígono cubre el área útil de una repisa desde la superficie de apoyo **sobre el portaprecio** hasta la cara inferior del estante superior (o la **mediana de altura** de los inferiores del mismo tramo cuando el superior es abierto, para mantener consistencia entre fotos llenas y vacías). Durante la inferencia, la app no fuerza la mediana de forma artificial.
-2. **Filtro de calidad y zonas no evaluables:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales) para bloquear fotos ilegibles como `no_evaluable`. Si un contorno toca el encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o tiene señal ambigua, pasa a `Revisar`. Las obstrucciones por personas o carros quedan sujetas a revisión humana, sin interpretarse ni como falta de producto ni como stock suficiente.
+1. **Definición geométrica de `Nivel`:** cada polígono cubre el área útil de una repisa desde la superficie de apoyo **sobre el portaprecio** hasta la cara inferior del estante superior (o la **mediana de altura** de los inferiores del mismo tramo cuando el superior es abierto, para mantener consistencia entre fotos llenas y vacías). En inferencia, [`geometria_niveles.py`](Aplicacion/geometria_niveles.py) verifica truncamientos anómalos del nivel superior abierto (`check_open_top_shelf`) sin alterar los contornos crudos de YOLO.
+2. **Filtro de calidad y zonas no evaluables:** [`calidad_foto.py`](Aplicacion/calidad_foto.py) evalúa nitidez (varianza del Laplaciano y Tenengrad) e iluminación extrema en HSV (`0` falsos rechazos sobre `294` capturas reales) para bloquear fotos ilegibles como `no_evaluable`. Si un contorno toca el encuadre (`near_frame` en [`vision_v3.py`](Aplicacion/vision_v3.py)) o tiene señal ambigua, pasa a `Revisar`. [`oclusiones.py`](Aplicacion/oclusiones.py) segmenta personas con el peso COCO auxiliar `yolo26n-seg.pt` (`person`, clase `0`): si una persona obstruye frontalmente la góndola (`≥ 15 %` de algún nivel o `≥ 10 %` del encuadre sin niveles) marca la foto completa como `no_evaluable`; si roza lateralmente (`5–15 %`) descuenta esas columnas del cálculo. Carros u otros obstáculos sin máscara de persona siguen sujetos a revisión visual.
 3. **Cálculo de ocupación (`Línea A v2.2`, revisión `linea_a_20261116_v2_2_cajas_sacos_picada`):** ejecuta cinco etapas deterministas dentro de cada máscara segmentada por YOLO:
    1. **Grilla de celdas y señales direccionales ([`ocupacion_paulo.py`](Aplicacion/ocupacion_paulo.py) + `extract_cell_features`):** excluye rieles/barandas horizontales sobre los píxeles originales y mide por cada celda usable densidad de bordes Canny (`d`), gradiente Sobel (`g`), saturación HSV (`c`), desviación estándar local (`t`), gradientes direccionales (`gx`, `gy`), fracción de bordes verticales (`vx`) y blancura sin saturación (`bu`).
    2. **Anclaje intra-góndola (`P10–P90`) y evidencia híbrida (`compute_cell_maps`):** normaliza `d`, `g`, `c` y `t` compartiendo los percentiles `P10–P90` entre todos los niveles de la **misma góndola** (`gondola_feature_bounds`), calcula el puntaje ponderado `cell_score = 0,35·dn + 0,28·gn + 0,17·cn + 0,20·tn` y activa la evidencia híbrida `hyb_ev = abs_ev | (cell_score ≥ 0,36)` (exigiendo respaldo mínimo de borde o gradiente/textura al color para evitar tableros lisos vacíos).
@@ -122,66 +122,74 @@ docker compose -f compose.apps.yaml down
 | **YOLO26n-seg (`PyTorch` + `Ultralytics`)** | Segmentación de instancias de cada `Nivel` y ajuste fino de pesos. | Baja latencia local en CPU/GPU y compatibilidad directa entre entrenamiento e inferencia. |
 | **OpenCV + NumPy** | Calidad de captura (`calidad_foto.py`), bordes, gradientes, color/textura y exclusión de rieles. | Procesamiento matricial determinista, liviano y auditable por repisa. |
 | **Pillow** | Lectura de imágenes, normalización EXIF y renderizado de contornos/rótulos. | Manejo consistente de orientación de cámara móvil y generación rápida de salidas visuales. |
-| **Python + HTML/CSS/JS** | Servidores HTTP locales (`app_cliente.py`, `app.py`) e interfaces web. | Flujo interactivo en navegador sin dependencias externas ni instalación compleja para el usuario final. |
+| **Python + HTML/CSS/JS + SQLite** | Servidores HTTP locales (`app_cliente.py`, `app.py`), historial compartido (`sqlite3`) y exportación CSV/XLSX/PDF. | Flujo multi-dispositivo en red local sin dependencias externas de base de datos ni oficina. |
 | **Docker (`compose.apps.yaml`)** | Contenerización conjunta de ambas aplicaciones. | Aísla versiones de Python y librerías para ejecución reproducible multiplataforma. |
-| **CVAT** | Anotación y revisión geométrica de polígonos durante el desarrollo. | Estandariza criterios de etiquetado (`Nivel`, portaprecio, oclusión) sin formar parte del runtime final. |
+| **GitHub Actions + CVAT** | CI automático (`comprobar.yml`), empaquetado verificado y trazabilidad de polígonos. | Valida integridad, pruebas unitarias, scripts reproducibles y arranque HTTP/CPU en cada cambio. |
 
 ---
 
 ## Arquitectura de la solución
 
-El flujo de entrenamiento y el de aplicación están desacoplados: CVAT, el laboratorio de entrenamiento y los datasets **no son dependencias** en tiempo de ejecución.
+El flujo de entrenamiento ([`Entrenamiento/`](Entrenamiento/README.md)) y el de aplicación están desacoplados: CVAT, el laboratorio de entrenamiento y los datasets **no son dependencias** en tiempo de ejecución.
 
 ```mermaid
 flowchart TB
-    subgraph Desarrollo
-        A[Fotografías y variantes] --> B[Anotación y revisión en CVAT]
-        B --> C[Partición anti-fuga por escenas]
-        C --> D[Afinado YOLO26n-seg]
-        D --> E[best.pt seleccionado por val real]
-        E --> T[Evaluación independiente · Test Ohiggins 3]
+    subgraph Desarrollo["Desarrollo y reproducibilidad (Entrenamiento/)"]
+        A["Fotografías y variantes"] --> B["Anotación CVAT (clase Nivel + mediana superior)"]
+        B --> C["preparar_datos_cvat.py · partición anti-fuga por escenas"]
+        C --> D["entrenar_yolo26n_seg.py · seed 42"]
+        D --> E["best.pt seleccionado por val real"]
+        E --> T["evaluar_ohiggins3.py · Test ciego Ohiggins 3"]
     end
-    subgraph Aplicación
-        F[Foto] --> Q[Filtro de calidad · borrosidad / luz]
-        Q -->|No apta| NE[No evaluable · solicitar otra toma]
-        Q -->|Apta| G[Máscaras de niveles]
+    subgraph Aplicación["Ejecución local (Cliente 8098 / Equipo 8095)"]
+        F["Foto"] --> Q["Filtro de calidad · borrosidad y luz"]
+        Q -->|"No apta"| NE["no_evaluable · solicitar otra toma"]
+        Q -->|"Apta"| G["Máscaras Nivel (best.pt) y persona (yolo26n-seg.pt)"]
         E --> G
-        G --> H[Exclusión de rieles + evidencia híbrida Línea A]
-        H --> I[Índice visual 0–100 · umbral 52 y guardas]
-        I --> J[Revisión visual y exportación]
+        G -->|"Persona ≥ 15 % nivel o ≥ 10 % sin niveles"| NEP["no_evaluable · contorno ámbar sutil"]
+        G -->|"Despejada o roce lateral"| H["geometria_niveles.py + exclusión rieles + Línea A v2.2"]
+        H --> I["Índice visual 0–100 · umbral 52 y guardas"]
+        I --> J["Alertas visuales, SQLite y exportación CSV / XLSX / PDF"]
     end
 ```
 
 ### Módulos internos en ejecución local
 
-Ambas aplicaciones comparten `inferencia.py`, el modelo oficial y el motor de ocupación:
+Ambas aplicaciones comparten `inferencia.py`, el modelo oficial, el detector auxiliar de personas (`oclusiones.py`) y el motor de ocupación:
 
 ```mermaid
 flowchart LR
     subgraph Equipo["Equipo del usuario"]
-        UI["Navegador<br/>Cliente (8098) / Equipo (8095)"]
+        UI["Navegador<br/>Cliente 8098 / Equipo 8095"]
         API["Servidor HTTP local<br/>app_cliente.py / app.py"]
+        DB["Historial compartido<br/>SQLite · /api/history"]
         RUN["Coordinación<br/>inferencia.py · ModelRunner"]
         QUAL["Filtro de calidad<br/>calidad_foto.py"]
-        MODEL["Segmentación<br/>YOLO26n-seg · best.pt"]
+        MODEL["Segmentación Nivel<br/>YOLO26n-seg · best.pt"]
+        OCC["Oclusiones persona<br/>oclusiones.py · yolo26n-seg.pt"]
+        GEOM["Geometría superior<br/>geometria_niveles.py"]
         SIGNAL["Señal e índice<br/>ocupacion_paulo.py + ocupacion_linea_a.py"]
         SCOPE["Alcance de lectura<br/>vision_v3.py"]
         VIEW["Presentación<br/>presentacion_niveles.py"]
         UI -->|"Foto · POST /api/predict"| API
+        API <-->|"Sesión compartida"| DB
         API --> RUN
         RUN --> QUAL
         QUAL -->|"Mala captura · no_evaluable"| API
         QUAL -->|"Foto apta"| MODEL
+        MODEL -->|"Máscaras y píxeles"| OCC
+        OCC -->|"Persona obstruyendo · no_evaluable"| API
+        OCC -->|"Zona despejada / columnas"| SIGNAL
         RUN -->|"Píxeles originales"| SIGNAL
-        MODEL -->|"Máscaras"| SIGNAL
-        MODEL -->|"Contornos"| VIEW
-        RUN -->|"Contornos detectados"| SCOPE
+        MODEL -->|"Contornos"| SCOPE
+        SCOPE --> GEOM
         SIGNAL -->|"Señal y métricas"| VIEW
         SCOPE -->|"Alcance"| VIEW
+        MODEL -->|"Contornos"| VIEW
         VIEW -->|"Imagen y mediciones"| API
         API -->|"Respuesta JSON"| UI
     end
-    UI -->|"Exportación"| OUTPUT["Imagen · CSV cliente · ZIP revisión"]
+    UI -->|"Exportación"| OUTPUT["Imagen · CSV / XLSX / PDF cliente · ZIP revisión"]
 ```
 
 ---
@@ -245,7 +253,7 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 
 | Caso / Escenario | Evidencia observada | Qué ocurre y cómo lo maneja el sistema |
 |---|---|---|
-| **Nivel superior abierto sin techo físico claro** | `1 FN` en validación (`55` niveles); casos puntuales en desarrollo (`R065`, `le_g10` 029/030). | Cuando el último estante superior está vacío contra cielo raso abierto, YOLO puede omitirlo o acortar su altura porque en inferencia no impone la mediana geométrica de los niveles inferiores. |
+| **Nivel superior abierto sin techo físico claro** | `1 FN` en validación (`55` niveles); casos puntuales en desarrollo (`R065`, `le_g10` 029/030). | Cuando el último estante superior está vacío contra cielo raso abierto, YOLO puede acortar su altura o omitirlo; [`geometria_niveles.py`](Aplicacion/geometria_niveles.py) verifica en inferencia si queda truncado respecto a la mediana de los niveles inferiores y lo deriva a `Revisar · nivel superior abierto` sin alterar las máscaras crudas. |
 | **Holgura en bordes superiores o laterales** | `IoU` mínimo `72,98 %` en `20261109_133429.jpg`; `7` contornos con desajuste menor en `3/68` fotos de `Ohiggins 3`. | Aunque todas las instancias superan `IoU ≥ 0,50` (`354/354 TP`), el polígono puede abarcar una franja de cielo raso o poste lateral. `Línea A v2.2` amortigua este efecto con `_open_ceiling_mask_v2` y bandas relativas. |
 | **Repisas cortadas por el borde de la foto (`near_frame`)** | Toma cercana o descentrada que recorta un extremo. | YOLO segmenta solo la porción visible y [`vision_v3.py`](Aplicacion/vision_v3.py) deriva el nivel a `Revisar · zona visible` sin inventar stock fuera de cámara. |
 | **Perspectiva muy oblicua o captura degradada** | Tomas picadas en `N5`/`N6` o fotos movidas/oscuras. | El polígono sigue la inclinación real y puede estrecharse verticalmente hacia un extremo; si la toma está severamente borrosa, oscura o quemada, [`calidad_foto.py`](Aplicacion/calidad_foto.py) la bloquea antes de YOLO como `no_evaluable`. |
@@ -257,7 +265,7 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 | **Falta de stock en profundidad (espejado / solo primera fila)** | Restricción física de vista frontal 2D. | `Línea A` mide disponibilidad visual frontal (`0–100`), no volumen en profundidad: una primera fila completa con fondo vacío se clasifica como `Suficiente`. |
 | **Envases oscuros o baja iluminación sobre frente continuo** | `2 FP` de la línea base en `Ohiggins 3` (`20261109_133300.jpg` N4 y `20261109_133413.jpg` N6). | Productos negros o de bajo contraste interno pueden caer bajo el umbral `52`; `v2.2` los intercepta (`low_contrast_continuous_front`) y los deriva a `Revisar` conservando `raw_pct`. |
 | **Casos residuales en `Ohiggins 3`** | `1 FN` sobre `36` alertas reales y `3 FP` sobre `318` niveles abastecidos en `v2.2`. | Un hueco parcial menor a `35 %` rodeado de envases con textura muy alta puede superar `52` (`FN`), mientras sombras profundas o separadores anchos entre productos pueden disparar la alerta de frente (`FP`). |
-| **Carteles colgantes, reflejos y oclusiones (`persona` / `carro`)** | Dependiente de visibilidad humana. | Carteles altos sobre banda vacía se derivan a `Revisar` (`hollow_banner`), pero las obstrucciones parciales por personas o carros frente al estante siguen requiriendo revisión visual humana. |
+| **Carteles colgantes, reflejos y oclusiones (`persona` / `carro`)** | Dependiente de visibilidad humana. | Carteles altos sobre banda vacía se derivan a `Revisar` (`hollow_banner`). Personas frente al estante (`≥ 15 %` de un nivel o `≥ 10 %` sin niveles) marcan la foto como `no_evaluable` vía `yolo26n-seg.pt`; carros sin máscara de persona siguen requiriendo revisión visual humana. |
 
 [Evaluación en Ohiggins 3](Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.md) · [Ficha del modelo](Documentacion/Modelo_V3_actual.md) · [Registro de adopción](Documentacion/Evidencias/adopcion_cierre_revisado_20261110.md)
 
@@ -267,14 +275,14 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 
 | Componente / Capacidad | Estado | Alcance operativo o pendiente |
 |---|---|---|
-| **App cliente (`8098`)** | **Operativa** | Alertas visuales, vista `Huecos`, severidad operativa (`Crítica`/`Alta`/`Normal`/`Verificar`), índice bruto (`raw_pct`), flujo móvil en 3 pasos, selector de lente trasera, revisión humana, persistencia en navegador (`IndexedDB`), reanálisis automático y exportación CSV. |
+| **App cliente (`8098`)** | **Operativa** | Alertas visuales estrictamente del modelo, vista `Huecos`, severidad operativa (`Crítica`/`Alta`/`Normal`/`Verificar`), índice bruto (`raw_pct`), flujo móvil en 3 pasos, selector de lente trasera, persistencia local (`IndexedDB`) sincronizada en servidor (`SQLite`), reanálisis automático y exportación **CSV / Excel (`.xlsx`) / PDF**. |
 | **App del equipo (`8095`)** | **Operativa** | Comparación `Línea A` vs `Basal · experimental`, autocompletado por lotes, mapas de bordes, marcado por nivel/zona y lotes ZIP. |
-| **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); en escenas puntuales (`le_g10` 029/030) aún puede fallar el nivel superior. |
+| **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); incluye verificación geométrica de nivel superior abierto en [`geometria_niveles.py`](Aplicacion/geometria_niveles.py). |
 | **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
 | **Ocupación `Línea A` (`v2.2`, umbral `52`)** | **Operativa** | Revisión `linea_a_20261116_v2_2_cajas_sacos_picada` con filtro de bandejas expuestas, protección de sacos blancos y cajas bicolor, banda picada para producto retraído y severidad operativa (`Ohiggins 3`: **F1 94,59 %**, **Recall 97,22 %**, `35 TP / 3 FP / 1 FN / 315 TN`). |
-| **Empaquetado Windows y Docker** | **Operativo** | Entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16) empaquetada con **Línea A v2.2**, `calidad_foto.py` y UI cliente con severidad operativa; Docker Compose (`:8095` y `:8098`) verificado en Windows, Linux y macOS. |
-| **Detector de oclusiones (`persona` / `carro`)** | **Pendiente** | Las obstrucciones parciales por personas o carros siguen dependiendo de revisión visual humana. |
-| **Persistencia compartida y más categorías** | **Pendiente** | Falta historial persistente en servidor (`SQLite`) para la app cliente y ampliar el test independiente a nuevas tiendas y categorías (papeles, huevos). |
+| **Empaquetado Windows y Docker** | **Operativo** | Entrega final MVP [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) verificada con CI automático (`.github/workflows/comprobar.yml`); Docker Compose (`:8095` y `:8098`) y ejecutables Windows preparados. |
+| **Detector de oclusiones (`oclusiones.py`)** | **Operativo** | Usa `yolo26n-seg.pt` (COCO clase `0`: `person`): marca la foto como `no_evaluable` con contorno ámbar sutil si la persona obstruye `≥ 15 %` de un nivel (o `≥ 10 %` sin niveles) y descuenta bordes menores (`5–15 %`). |
+| **Persistencia compartida (`SQLite`) y reportes** | **Operativo** | Historial persistente compartido en servidor (`SQLite` vía `/api/history`), reportes ejecutivos en **Excel (`.xlsx`)** y **PDF**, y scripts reproducibles en [`Entrenamiento/`](Entrenamiento/README.md). |
 
 ---
 
@@ -283,7 +291,8 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 | Carpeta / Recurso | Contenido |
 |---|---|
 | [`Aplicacion/`](Aplicacion/README.md) | App del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
-| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas, cámara móvil, revisión humana, CSV y pruebas. |
+| [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas del modelo, cámara móvil, `SQLite`, CSV/XLSX/PDF y pruebas. |
+| [`Entrenamiento/`](Entrenamiento/README.md) | Scripts reproducibles de conversión CVAT-YOLO (`seed=42`, mediana, anti-fuga) y evaluación sobre `Ohiggins 3`. |
 | [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo V3](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
 | [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Material académico de etapas anteriores conservado en su ubicación original. |

@@ -21,7 +21,12 @@ jobs:
       - name: Verificar producto, modelo, enlaces y fases académicas
         run: python Distribucion/verificar.py
       - name: Comprobar sintaxis
-        run: python -m compileall -q Aplicacion Aplicacion_Cliente Distribucion
+        run: python -m compileall -q Aplicacion Aplicacion_Cliente Distribucion Entrenamiento
+      - name: Verificar scripts reproducibles de entrenamiento y evaluación
+        run: |
+          python Entrenamiento/preparar_datos_cvat.py --self-check
+          python Entrenamiento/entrenar_yolo26n_seg.py --dry-run
+          python Entrenamiento/evaluar_ohiggins3.py --verify-receipt
       - name: Probar app del equipo y ocupación portable
         run: PYTHONPATH=Aplicacion python -m unittest discover -s Aplicacion/Pruebas -v
       - name: Probar cliente

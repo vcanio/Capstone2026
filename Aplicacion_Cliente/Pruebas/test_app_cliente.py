@@ -2,10 +2,12 @@ import io
 import json
 from http.server import ThreadingHTTPServer
 from pathlib import Path
+import tempfile
 import threading
 import unittest
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
+import zipfile
 
 from PIL import Image
 
@@ -18,7 +20,16 @@ for p in (str(CLIENT_DIR), str(APP_DIR)):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from app_cliente import ClientHandler, _attach_gap_spans, demo_catalog, enrich_for_store, store_diagnosis  # noqa: E402
+from app_cliente import (  # noqa: E402
+    ClientHandler,
+    HistoryStore,
+    _attach_gap_spans,
+    _normalize_allowed_hosts,
+    demo_catalog,
+    enrich_for_store,
+    rows_from_history,
+    store_diagnosis,
+)
 
 
 class FakeClientRunner:
@@ -230,11 +241,25 @@ class StoreDiagnosisTest(unittest.TestCase):
         self.assertGreaterEqual(spans[-1]['start'], 0.35)
         self.assertEqual(len(spans[-1]['polygon']), 4)
 
+    def test_foreground_occlusion_translates_to_obstructed_zone_notice(self):
+        det = {
+            'near_frame': False,
+            'occupancy': {'signal_pattern': 'foreground_occlusion', 'raw_pct': 62.0},
+            'occupancy_estimate': {'state': 'revisar', 'pct': None},
+        }
+        diag = store_diagnosis(det)
+        self.assertEqual(diag['operational_state'], 'revisar')
+        self.assertEqual(diag['operational_severity'], 'verificar')
+        self.assertIn('Zona obstruida', diag['headline'])
+
 
 class ClientHttpServerTest(unittest.TestCase):
     def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp_dir.cleanup)
         self.server = ThreadingHTTPServer(('127.0.0.1', 0), ClientHandler)
         self.server.runner = FakeClientRunner()
+        self.server.history_store = HistoryStore(Path(self.temp_dir.name) / 'historial.sqlite3')
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
         self.base_url = f'http://127.0.0.1:{self.server.server_port}'
@@ -249,10 +274,16 @@ class ClientHttpServerTest(unittest.TestCase):
             html = resp.read().decode('utf-8')
         self.assertIn('Walmart Visión · Visor de alertas', html)
         self.assertIn('Exportar todo (CSV)', html)
+        self.assertIn('Exportar Excel (.xlsx)', html)
+        self.assertIn('Reporte ejecutivo (PDF)', html)
         self.assertIn('Alerta crítica · baja disponibilidad', html)
         self.assertIn('Severidad Operativa', html)
         self.assertIn('levelRawPct', html)
+        self.assertIn('person-poly', html)
         self.assertNotIn('Marcar para revisión', html)
+        self.assertNotIn('review-switch', html)
+        self.assertNotIn('Verificación humana', html)
+        self.assertNotIn('data-quick-level', html)
         with urlopen(f'{self.base_url}/logo.svg') as resp:
             self.assertEqual(resp.headers.get_content_type(), 'image/svg+xml')
             self.assertEqual(resp.read(), (CLIENT_DIR / 'logo.svg').read_bytes())
@@ -324,6 +355,158 @@ class ClientHttpServerTest(unittest.TestCase):
         ctx.exception.close()
         with urlopen(f'{self.base_url}/api/health') as resp:
             self.assertFalse(json.load(resp)['analysis_ready'])
+
+    def test_allow_host_permits_matching_https_origin_only(self):
+        self.server.allow_hosts = _normalize_allowed_hosts(['https://demo.trycloudflare.com/'])
+
+        health_req = Request(
+            f'{self.base_url}/api/health',
+            headers={'Host': 'demo.trycloudflare.com'},
+        )
+        with urlopen(health_req) as resp:
+            self.assertEqual(resp.status, 200)
+
+        buf = io.BytesIO()
+        Image.new('RGB', (200, 200), (225, 230, 238)).save(buf, format='JPEG')
+        ok_req = Request(
+            f'{self.base_url}/api/predict',
+            data=buf.getvalue(),
+            headers={
+                'Content-Type': 'image/jpeg',
+                'Host': 'demo.trycloudflare.com',
+                'Origin': 'https://demo.trycloudflare.com',
+            },
+            method='POST',
+        )
+        with urlopen(ok_req) as resp:
+            self.assertEqual(resp.status, 200)
+
+        for bad_headers in (
+            {'Host': 'otro.trycloudflare.com', 'Origin': 'https://otro.trycloudflare.com'},
+            {'Host': 'demo.trycloudflare.com', 'Origin': 'https://sitio-externo.example'},
+            {'Host': 'demo.trycloudflare.com', 'Origin': 'http://demo.trycloudflare.com'},
+        ):
+            bad_req = Request(
+                f'{self.base_url}/api/predict',
+                data=buf.getvalue(),
+                headers={'Content-Type': 'image/jpeg', **bad_headers},
+                method='POST',
+            )
+            with self.assertRaises(HTTPError) as ctx:
+                urlopen(bad_req)
+            self.assertEqual(ctx.exception.code, 403)
+            ctx.exception.close()
+
+    def test_sqlite_history_persistence_and_xlsx_pdf_exports(self):
+        # 1. Historial inicialmente vacío.
+        with urlopen(f'{self.base_url}/api/history') as resp:
+            self.assertEqual(resp.status, 200)
+            initial = json.load(resp)
+        self.assertEqual(initial['persistence'], 'sqlite3')
+        self.assertEqual(initial['items'], [])
+
+        # 2. Analizar con X-Item-Id persiste directamente en SQLite y se ve en otro dispositivo.
+        buf = io.BytesIO()
+        Image.new('RGB', (200, 200), (225, 230, 238)).save(buf, format='JPEG')
+        pred_req = Request(
+            f'{self.base_url}/api/predict',
+            data=buf.getvalue(),
+            headers={
+                'Content-Type': 'image/jpeg',
+                'Origin': self.base_url,
+                'X-Item-Id': 'g_srv_1',
+                'X-Item-Name': 'gondola_pasillo_1.jpg',
+            },
+            method='POST',
+        )
+        with urlopen(pred_req) as resp:
+            self.assertEqual(resp.status, 200)
+
+        # 3. Actualizar nombre vía POST /api/history y recuperar.
+        sync_req = Request(
+            f'{self.base_url}/api/history',
+            data=json.dumps({
+                'items': [{
+                    'id': 'g_srv_1',
+                    'order': 1,
+                    'name': 'gondola_pasillo_1_v2.jpg',
+                    'aisle_state': 'reponer',
+                    'result': self.server.history_store.list_items()[0]['result'],
+                }],
+            }).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Origin': self.base_url},
+            method='POST',
+        )
+        with urlopen(sync_req) as resp:
+            self.assertEqual(resp.status, 200)
+            self.assertEqual(json.load(resp)['count'], 1)
+
+        with urlopen(f'{self.base_url}/api/history') as resp:
+            items = json.load(resp)['items']
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]['name'], 'gondola_pasillo_1_v2.jpg')
+        self.assertTrue(items[0]['result']['image_url'].startswith('data:image/jpeg;base64,'))
+
+        # 4. Exportación Excel (.xlsx) desde SQLite y mediante POST de filas.
+        with urlopen(f'{self.base_url}/api/export/xlsx') as resp:
+            self.assertEqual(resp.status, 200)
+            xlsx_bytes = resp.read()
+        self.assertTrue(xlsx_bytes.startswith(b'PK\x03\x04'))
+        with zipfile.ZipFile(io.BytesIO(xlsx_bytes)) as zf:
+            names = set(zf.namelist())
+            self.assertIn('xl/workbook.xml', names)
+            self.assertIn('xl/worksheets/sheet1.xml', names)
+            sheet_xml = zf.read('xl/worksheets/sheet1.xml').decode('utf-8')
+            self.assertIn('gondola_pasillo_1_v2.jpg', sheet_xml)
+            self.assertNotIn('Revisión humana', sheet_xml)
+
+        # 5. Exportación PDF (%PDF-1.4) desde SQLite y mediante POST.
+        with urlopen(f'{self.base_url}/api/export/pdf') as resp:
+            self.assertEqual(resp.status, 200)
+            pdf_bytes = resp.read()
+        self.assertTrue(pdf_bytes.startswith(b'%PDF-1.4'))
+        self.assertTrue(pdf_bytes.endswith(b'%%EOF\n'))
+        self.assertIn(b'gondola_pasillo_1_v2.jpg', pdf_bytes)
+
+        post_pdf_req = Request(
+            f'{self.base_url}/api/export/pdf',
+            data=json.dumps({
+                'rows': [
+                    ['Góndola', 'Estado', 'Nivel', 'Resultado', 'Severidad', 'Índice', 'Bruto', 'Hueco', 'Detalle'],
+                    ['foto_manual.jpg', 'Con alertas', 'Nivel 1', 'Alerta crítica', 'Crítica', 10, 10, 85, 'Hueco'],
+                ],
+            }).encode('utf-8'),
+            headers={'Content-Type': 'application/json', 'Origin': self.base_url},
+            method='POST',
+        )
+        with urlopen(post_pdf_req) as resp:
+            self.assertEqual(resp.status, 200)
+            post_pdf = resp.read()
+        self.assertTrue(post_pdf.startswith(b'%PDF-1.4'))
+        self.assertIn(b'foto_manual.jpg', post_pdf)
+
+        # 6. Borrado DELETE /api/history.
+        del_req = Request(f'{self.base_url}/api/history', headers={'Origin': self.base_url}, method='DELETE')
+        with urlopen(del_req) as resp:
+            self.assertEqual(resp.status, 200)
+            self.assertEqual(json.load(resp)['count'], 0)
+        with urlopen(f'{self.base_url}/api/history') as resp:
+            self.assertEqual(json.load(resp)['items'], [])
+
+    def test_no_evaluable_person_obstruction_summary_and_export_row(self):
+        enriched = enrich_for_store({
+            'photo_status': 'no_evaluable',
+            'quality_issue': 'persona_obstruyendo',
+            'message': 'Persona obstruyendo la góndola (42% del Nivel 2). Toma la foto nuevamente con el pasillo despejado.',
+            'detections': [],
+        })
+        self.assertEqual(enriched['store_summary']['aisle_state'], 'verificar')
+        self.assertEqual(enriched['store_summary']['aisle_label'], 'Foto no evaluable')
+        rows = rows_from_history([{'name': 'persona_frente.jpg', 'result': enriched}])
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(len(rows[0]), 9)
+        self.assertEqual(rows[1][3], 'Foto no evaluable')
+        self.assertIn('Persona obstruyendo', rows[1][8])
 
 
 if __name__ == '__main__':

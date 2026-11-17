@@ -116,6 +116,10 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .contour-label { pointer-events: none; }
 .contour-label rect { fill: #07131ddd; stroke: var(--contour-color); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .contour-label text { fill: var(--contour-color); font-family: "Segoe UI", sans-serif; font-weight: 600; }
+.person-poly { fill: #ffbf51; fill-opacity: .14; stroke: #ffcc6b; stroke-width: 1.5; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.person-label { pointer-events: none; }
+.person-label rect { fill: #07131de0; stroke: #ffcc6b; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.person-label text { fill: #ffcc6b; font-family: "Segoe UI", sans-serif; font-weight: 600; }
 .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; height: 100%; align-items: center; overflow: auto; }
 .compare-card { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
 .compare-card figcaption { font-size: 12px; color: var(--ink-secondary); }
@@ -142,10 +146,6 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 .bar-val { min-width: 56px; color: var(--ink-secondary); font-size: 13px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
 .front-coverage, .diag-action { margin: 0; color: var(--ink-muted); font-size: 12px; }
 .front-coverage { padding-right: 48px; }
-.review-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
-.review-switch button { border: 0; border-radius: 999px; background: var(--surface-subtle); color: var(--ink-secondary); min-height: 26px; padding: 4px; font-size: 12px; line-height: 1.2; }
-.review-switch button:hover { background: var(--surface-hover); }
-.review-switch button[aria-pressed="true"] { background: var(--brand-blue); color: #fff; }
 .level-details { margin-top: -8px; font-size: 12px; color: var(--ink-muted); }
 .level-details > summary { position: absolute; top: 70px; right: 12px; list-style: none; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
 .level-details > summary::-webkit-details-marker { display: none; }
@@ -242,7 +242,6 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   .empty-actions { margin-top: 14px; }
   .empty-hint { font-size: 12px !important; }
   .levels-list { overflow: visible; }
-  .review-switch button { min-height: 36px; }
   .app-footer { padding: 4px 12px 12px; }
   .mobile-steps {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 35;
@@ -286,10 +285,12 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
         <button id="mobileUploadBtn" type="button" class="mobile-only-action">Subir fotos de pasillo</button>
         <button id="mobileExportCsvBtn" type="button" class="mobile-only-action" disabled>Exportar todo (CSV)</button>
         <button id="exportSelectionBtn" type="button" disabled>Exportar filtro actual (CSV)</button>
+        <button id="exportXlsxBtn" type="button" disabled>Exportar Excel (.xlsx)</button>
+        <button id="exportPdfBtn" type="button" disabled>Reporte ejecutivo (PDF)</button>
         <button id="demoBtn" type="button">Cargar pasillo de ejemplo</button>
         <button id="themeBtn" type="button">Cambiar tema claro u oscuro</button>
         <button id="clearSessionBtn" type="button" title="Borrar las fotos y resultados guardados del pasillo, sin deshacer" hidden>Limpiar pasillo</button>
-        <p class="menu-note" id="sessionDetail">El recorrido se guarda en este navegador.</p>
+        <p class="menu-note" id="sessionDetail">El recorrido se guarda en este navegador y en el servidor local (SQLite).</p>
       </div>
     </details>
   </div>
@@ -398,7 +399,7 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
     </div>
   </section>
 
-  <!-- 3. Alertas y revisión por nivel -->
+  <!-- 3. Alertas por nivel -->
   <aside class="panel plan-panel" aria-labelledby="planHeading">
     <div class="panel-header">
       <h2 class="panel-title" id="planHeading">Alertas por nivel</h2>
@@ -407,7 +408,7 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
 
     <div class="levels-list" id="levelsList">
       <p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
-        Al seleccionar una góndola verás el resultado por nivel y podrás registrar tu revisión de la foto.
+        Al seleccionar una góndola verás el resultado por nivel.
       </p>
     </div>
 
@@ -420,8 +421,8 @@ button { transition: background 150ms ease-out, border-color 150ms ease-out; }
   </aside>
 </main>
 <footer class="app-footer">
-  <a href="https://github.com/vcanio/Capstone2026/tree/walmart-vision-apps-2026-11-16" target="_blank" rel="noopener noreferrer" style="color:inherit">Código fuente · AGPL-3.0</a>
-  · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-apps-2026-11-16/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
+  <a href="https://github.com/vcanio/Capstone2026/tree/walmart-vision-mvp-2026-11-16" target="_blank" rel="noopener noreferrer" style="color:inherit">Código fuente · AGPL-3.0</a>
+  · <a href="https://github.com/vcanio/Capstone2026/blob/walmart-vision-mvp-2026-11-16/LICENCIAS.md" target="_blank" rel="noopener noreferrer" style="color:inherit">Licencias y autoría</a>
 </footer>
 
 <nav class="mobile-steps" id="mobileSteps" aria-label="Pasos en móvil">
@@ -518,7 +519,7 @@ async function makeThumbnails() {
       let bitmap;
       let canvas;
       try {
-        if (!liveItem(item) || item.thumbUrl) continue;
+        if (!liveItem(item) || item.thumbUrl || !item.file) continue;
         // Solo se decodifica un original a la vez, y se libera al terminar.
         bitmap = await createImageBitmap(item.file);
         if (!liveItem(item)) continue;
@@ -630,16 +631,6 @@ function levelDiagnosis(det) {
     action: diag.action || 'Revisa la visibilidad del nivel y toma otra foto si hace falta.',
   };
 }
-function humanReviewLabel(value) {
-  return ({
-    revisado: 'Revisado',
-    alerta_confirmada: 'Alerta confirmada visualmente',
-    sin_alerta: 'Sin baja disponibilidad observada',
-    no_evaluable: 'No se puede evaluar',
-    confirmado: 'Confirmación visual anterior',
-    necesita: 'Baja disponibilidad indicada (registro anterior)',
-  })[value] || 'Sin revisar';
-}
 function effectiveGondolaState(item) {
   if (!item.result) return 'pendiente';
   const dets = item.result.detections || [];
@@ -714,10 +705,12 @@ function updateAisleBar() {
   $('exportCsvBtn').disabled = !hasAnalyzed;
   $('mobileExportCsvBtn').disabled = !hasAnalyzed;
   $('exportSelectionBtn').disabled = !visibleItems().some(i => i.result);
+  $('exportXlsxBtn').disabled = !hasAnalyzed;
+  $('exportPdfBtn').disabled = !hasAnalyzed;
   const analyzed = state.items.filter(i => i.result).length;
   const errors = state.items.filter(i => i.error).length;
   $('batchProgress').textContent = analyzed === state.items.length ? `${analyzed} analizadas` : `${analyzed} / ${state.items.length} analizadas`;
-  $('sessionDetail').textContent = `${analyzed} de ${state.items.length} analizadas${errors ? ` · ${errors} con error` : ''}. El recorrido se guarda en este navegador.`;
+  $('sessionDetail').textContent = `${analyzed} de ${state.items.length} analizadas${errors ? ` · ${errors} con error` : ''}. El recorrido se guarda en este navegador y en el servidor (SQLite).`;
   $('clearSessionBtn').hidden = state.items.length === 0 && !clearPhotosPending;
 }
 
@@ -751,7 +744,10 @@ function renderQueue() {
     let pillText = item.analyzing ? 'Analizando…' : item.error ? 'Error' : 'Pendiente';
 
     if (item.result) {
-      if (eff === 'reponer') {
+      if (item.result.photo_status === 'no_evaluable') {
+        pillClass = 'pill-verificar';
+        pillText = item.result.store_summary?.aisle_label || 'Foto no evaluable';
+      } else if (eff === 'reponer') {
         pillClass = 'pill-reponer';
         pillText = `${alerts} ${alerts === 1 ? 'nivel con alerta' : 'niveles con alerta'}`;
       } else if (eff === 'verificar') {
@@ -807,7 +803,7 @@ function renderStageAndLevels() {
     $('planFooter').hidden = true;
     $('planMeta').textContent = '';
     $('levelsList').innerHTML = `<p style="color:var(--ink-muted);font-size:0.8125rem;margin:6px 2px">
-      Al seleccionar una góndola verás el resultado por nivel y podrás registrar tu revisión de la foto.
+      Al seleccionar una góndola verás el resultado por nivel.
     </p>`;
     return;
   }
@@ -849,7 +845,9 @@ function renderStageAndLevels() {
   const pill = $('stagePill');
   pill.className = `status-pill pill-${eff}`;
 
-  if (eff === 'reponer') {
+  if (res.photo_status === 'no_evaluable') {
+    pill.textContent = res.store_summary?.aisle_label || 'Foto no evaluable';
+  } else if (eff === 'reponer') {
     pill.textContent = `${alertIds.length} ${alertIds.length === 1 ? 'nivel con alerta' : 'niveles con alerta'}`;
   } else if (eff === 'verificar') {
     pill.textContent = 'Requiere revisión';
@@ -890,7 +888,6 @@ function renderStageAndLevels() {
     const rawPct = diag.rawPct;
     const hasRawOnly = !validPct && Number.isFinite(rawPct);
 
-    const review = item.reviews?.[det.id]?.value || '';
     const cardTone = opState === 'reponer' ? 'card-reponer' : '';
     const pillTone = opState === 'reponer' ? 'pill-reponer' : opState === 'suficiente' ? 'pill-suficiente' : 'pill-verificar';
     const pillLabel = diag.label;
@@ -901,11 +898,10 @@ function renderStageAndLevels() {
     const gap = det.occupancy?.max_gap_pct;
     const front = validPct && Number.isFinite(gap) ? Math.max(0, Math.min(100, Math.round(100 - gap))) : null;
     const rawNote = hasRawOnly ? ` · índice bruto ${Math.round(rawPct)} / 100` : '';
-    const quickState = review === 'revisado' || review === 'confirmado' ? 'revisado' : review === 'no_evaluable' ? 'no_evaluable' : review ? null : 'pendiente';
     return `<article class="level-card ${cardTone}" data-level="${det.id}" aria-label="Nivel ${det.id}">
       <div class="level-top">
         <span class="level-name">Nivel ${det.id}</span>
-        <span class="status-pill ${pillTone}" data-severity="${esc(diag.severity)}" title="Resultado original de la foto">${esc(opState === 'suficiente' ? 'Sin alerta visual' : pillLabel)}</span>
+        <span class="status-pill ${pillTone}" data-severity="${esc(diag.severity)}" title="Resultado del análisis del modelo">${esc(opState === 'suficiente' ? 'Sin alerta visual' : pillLabel)}</span>
       </div>
       <div class="bar-row">
         <div class="bar-track" role="meter" aria-label="Índice visual del nivel ${det.id}" aria-valuemin="0" aria-valuemax="100" ${validPct ? `aria-valuenow="${Math.round(pct)}"` : hasRawOnly ? `aria-valuenow="${Math.round(rawPct)}" aria-valuetext="${Math.round(rawPct)} / 100 (bruto)"` : 'aria-valuetext="No evaluable"'} title="Índice visual preliminar · umbral 52 / 100">
@@ -914,31 +910,14 @@ function renderStageAndLevels() {
         <span class="bar-val">${validPct ? `${Math.round(pct)} / 100` : hasRawOnly ? `${Math.round(rawPct)} / 100 (bruto)` : 'Sin lectura'}</span>
       </div>
       <p class="front-coverage">${front === null ? `Frente cubierto sin lectura${rawNote}` : `Frente continuo cubierto ${front}%`}</p>
-      <div class="review-switch" role="group" aria-label="Verificación del nivel ${det.id}">
-        <button type="button" data-quick-level="${det.id}" data-action="pendiente" aria-pressed="${quickState === 'pendiente'}" title="Retirar la revisión humana sin cambiar el análisis">Sin revisar</button>
-        <button type="button" data-quick-level="${det.id}" data-action="revisado" aria-pressed="${quickState === 'revisado'}" title="Registrar que revisaste la foto; la alerta se conserva">Revisado</button>
-        <button type="button" data-quick-level="${det.id}" data-action="no_evaluable" aria-pressed="${quickState === 'no_evaluable'}" title="Indicar que no hay visibilidad suficiente; el análisis se conserva">No evaluable</button>
-      </div>
       <details class="level-details">
-        <summary aria-label="Diagnóstico y opciones del nivel ${det.id}">Detalle</summary>
-        ${review ? `<p class="diag-headline">Revisión humana: ${esc(humanReviewLabel(review))}</p>` : ''}
+        <summary aria-label="Diagnóstico del nivel ${det.id}">Detalle</summary>
         <p class="diag-headline">${esc(diag.headline)}</p>
         <p class="diag-action">Severidad operativa: ${esc(severityLabel(diag.severity))}${rawPct !== null ? ` · Índice bruto: ${Math.round(rawPct)} / 100` : ''}</p>
         <p class="diag-action">${esc(diag.action)}</p>
-        <p class="diag-action">La revisión humana no cambia el resultado del análisis de la foto.</p>
-        <label>Verificación humana
-          <select data-review-level="${det.id}">
-            <option value="" ${!review ? 'selected' : ''}>Sin revisar</option>
-            <option value="revisado" ${review === 'revisado' ? 'selected' : ''}>Revisado</option>
-            <option value="alerta_confirmada" ${review === 'alerta_confirmada' ? 'selected' : ''}>Alerta confirmada visualmente</option>
-            <option value="sin_alerta" ${review === 'sin_alerta' ? 'selected' : ''}>Sin baja disponibilidad observada</option>
-            <option value="no_evaluable" ${review === 'no_evaluable' ? 'selected' : ''}>No se puede evaluar</option>
-            ${review === 'confirmado' || review === 'necesita' ? `<option value="${review}" selected>${esc(humanReviewLabel(review))}</option>` : ''}
-          </select>
-        </label>
       </details>
     </article>`;
-  }).join('') || '<p>No se detectaron niveles. Prueba con otra foto que muestre la góndola completa y despejada.</p>';
+  }).join('') || `<p>${esc(res.message || res.store_summary?.aisle_summary || 'No se detectaron niveles. Prueba con otra foto que muestre la góndola completa y despejada.')}</p>`;
 
   $('levelsList').querySelectorAll('.level-card').forEach(card => {
     const lv = Number(card.dataset.level);
@@ -947,24 +926,6 @@ function renderStageAndLevels() {
   });
   $('levelsList').insertAdjacentHTML('beforeend', '<button type="button" class="link-reset" id="removePhoto">Quitar foto del recorrido</button>');
   $('removePhoto').addEventListener('click', () => removeItem(item.id));
-  $('levelsList').querySelectorAll('[data-review-level]').forEach(select => {
-    select.addEventListener('change', () => {
-      const id = Number(select.dataset.reviewLevel);
-      item.reviews ||= {};
-      if (select.value) item.reviews[id] = { value: select.value, at: new Date().toISOString() };
-      else delete item.reviews[id];
-      saveSession(item.id); renderQueue(); renderStageAndLevels();
-    });
-  });
-  $('levelsList').querySelectorAll('[data-quick-level]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = Number(btn.dataset.quickLevel);
-      item.reviews ||= {};
-      if (btn.dataset.action === 'pendiente') delete item.reviews[id];
-      else item.reviews[id] = { value: btn.dataset.action, at: new Date().toISOString() };
-      saveSession(item.id); renderQueue(); renderStageAndLevels();
-    });
-  });
 }
 
 function renderPolygonOverlay(item, activeView = 'result') {
@@ -1006,8 +967,31 @@ function renderPolygonOverlay(item, activeView = 'result') {
     </pattern>
   </defs>` : '';
 
+  const personPolys = res.photo_status === 'no_evaluable' ? (res.oclusion_persona?.polygons || []) : [];
+  let firstPersonLabel = false;
+  const personMarkup = personPolys.map(poly => {
+    const pts = (poly || []).map(p => `${p[0]},${p[1]}`).join(' ');
+    if (!pts) return '';
+    let labelMarkup = '';
+    if (!firstPersonLabel) {
+      firstPersonLabel = true;
+      const px0 = Math.max(0, Math.min(...poly.map(p => p[0])));
+      const px1 = Math.min(res.width, Math.max(...poly.map(p => p[0])));
+      const py0 = Math.max(0, Math.min(...poly.map(p => p[1])));
+      const tw = font * 4.9;
+      const th = font * 1.55;
+      const tx = Math.max(4, Math.min(res.width - tw - 4, (px0 + px1 - tw) / 2));
+      const ty = Math.max(4, py0 + font * .4);
+      labelMarkup = `<g class="person-label" transform="translate(${tx},${ty})">
+        <rect width="${tw}" height="${th}" rx="${th * .48}"/>
+        <text x="${tw / 2}" y="${font * 1.08}" font-size="${font * .9}" text-anchor="middle">Persona</text>
+      </g>`;
+    }
+    return `<polygon class="person-poly" points="${pts}"><title>Persona detectada obstruyendo la góndola</title></polygon>${labelMarkup}`;
+  }).join('');
+
   svg.setAttribute('viewBox', `0 0 ${res.width} ${res.height}`);
-  svg.innerHTML = defs + dets.map(det => {
+  svg.innerHTML = defs + personMarkup + dets.map(det => {
     const pts = (det.display_polygon || []).map(p => `${p[0]},${p[1]}`).join(' ');
     if (!pts) return '';
     const op = analysisState(det);
@@ -1114,7 +1098,11 @@ async function analyzeQueue() {
       if (state.selectedId === item.id) renderAnalysisFeedback();
       const resp = await fetch('/api/predict', {
         method: 'POST',
-        headers: { 'Content-Type': item.file.type || 'image/jpeg' },
+        headers: {
+          'Content-Type': item.file.type || 'image/jpeg',
+          'X-Item-Id': item.id,
+          'X-Item-Name': item.name,
+        },
         body: item.file,
         signal: analysisController.signal,
       });
@@ -1265,6 +1253,7 @@ $('clearSessionBtn').addEventListener('click', () => {
   analysisController?.abort();
   clearPhotosPending = true;
   dirtyIds.clear();
+  syncServerHistory({ action: 'clear' });
   saveSession(); renderQueue(); renderStageAndLevels();
 });
 function removeItem(id) {
@@ -1273,6 +1262,7 @@ function removeItem(id) {
   state.items = state.items.filter(i => i.id !== id);
   releaseItemUrls(item);
   state.selectedId = state.items[0]?.id || null;
+  syncServerHistory({ action: 'delete', id });
   saveSession(); renderQueue(); renderStageAndLevels();
 }
 
@@ -1290,20 +1280,32 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files);
 });
 
-// Exportar análisis y revisión humana por separado (CSV para Excel en español).
-function exportCsv(selectionOnly) {
+// Exportar únicamente el resultado del modelo (CSV, Excel XLSX o PDF ejecutivo).
+function collectExportRows(selectionOnly) {
   const rows = [
-    ['Góndola / Archivo', 'Resultado Góndola', 'Nivel (1=Inferior)', 'Resultado del análisis', 'Severidad Operativa', 'Índice Visual (0-100)', 'Índice Bruto (0-100)', 'Hueco Horizontal (%)', 'Detalle del análisis', 'Revisión humana', 'Fecha revisión']
+    ['Góndola / Archivo', 'Resultado Góndola', 'Nivel (1=Inferior)', 'Resultado del análisis', 'Severidad Operativa', 'Índice Visual (0-100)', 'Índice Bruto (0-100)', 'Hueco Horizontal (%)', 'Detalle del análisis']
   ];
   for (const item of (selectionOnly ? visibleItems() : state.items)) {
     if (!item.result) continue;
+    const res = item.result;
+    const summary = res.store_summary || {};
     const eff = effectiveGondolaState(item);
     const gStateLabel = eff === 'reponer' ? 'Con alertas' : eff === 'verificar' ? 'Requiere revisión' : 'Sin alertas';
-    const ordered = [...(item.result.detections || [])].sort((a, b) => b.id - a.id);
-    if (!ordered.length) rows.push([
-      item.name, gStateLabel, '', 'No se detectaron niveles', 'Verificar', '', '', '',
-      'Sin lectura evaluable. Prueba con otra foto de la góndola.', '', '',
-    ]);
+    const ordered = [...(res.detections || [])].sort((a, b) => b.id - a.id);
+    if (!ordered.length) {
+      const isNe = res.photo_status === 'no_evaluable';
+      rows.push([
+        item.name,
+        gStateLabel,
+        '',
+        summary.aisle_label || (isNe ? 'Foto no evaluable' : 'No se detectaron niveles'),
+        'Verificar',
+        '',
+        '',
+        '',
+        res.message || summary.aisle_summary || 'Sin lectura evaluable. Prueba con otra foto de la góndola.',
+      ]);
+    }
     for (const det of ordered) {
       const diag = levelDiagnosis(det);
       const pct = Number.isFinite(det.occupancy_estimate?.pct) ? Math.round(det.occupancy_estimate.pct) : '';
@@ -1319,11 +1321,13 @@ function exportCsv(selectionOnly) {
         rawCsv,
         gap,
         `${diag.headline || ''} - ${diag.action || ''}`,
-        humanReviewLabel(item.reviews?.[det.id]?.value),
-        item.reviews?.[det.id]?.at || '',
       ]);
     }
   }
+  return rows;
+}
+function exportCsv(selectionOnly) {
+  const rows = collectExportRows(selectionOnly);
   const csvContent = '\uFEFF' + rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';')).join('\r\n');
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
@@ -1335,10 +1339,64 @@ function exportCsv(selectionOnly) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1500);
 }
+async function exportServerReport(format) {
+  const rows = collectExportRows(false);
+  if (rows.length <= 1) return;
+  try {
+    const resp = await fetch(`/api/export/${format}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rows }),
+    });
+    if (!resp.ok) throw new Error('No se pudo generar el reporte.');
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = format === 'xlsx'
+      ? `alertas_disponibilidad_${new Date().toISOString().slice(0, 10)}.xlsx`
+      : `reporte_ejecutivo_${new Date().toISOString().slice(0, 10)}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  } catch (err) {
+    showError(err.message || 'No se pudo exportar el reporte.');
+  }
+}
 $('exportCsvBtn').addEventListener('click', () => exportCsv(false));
 $('mobileExportCsvBtn').addEventListener('click', () => exportCsv(false));
 $('mobileUploadBtn').addEventListener('click', () => $('fileInput').click());
 $('exportSelectionBtn').addEventListener('click', () => exportCsv(true));
+$('exportXlsxBtn').addEventListener('click', () => exportServerReport('xlsx'));
+$('exportPdfBtn').addEventListener('click', () => exportServerReport('pdf'));
+
+function compactServerItem(item) {
+  if (!item?.result) return null;
+  const { image_url, ...restResult } = item.result;
+  return {
+    id: item.id,
+    order: item.order || 1,
+    name: item.name,
+    aisle_state: effectiveGondolaState(item),
+    result: restResult,
+    reviews: item.reviews || {},
+  };
+}
+async function syncServerHistory(body) {
+  try {
+    const payload = body || { items: state.items.map(compactServerItem).filter(Boolean) };
+    if (!body && !payload.items.length) return false;
+    const resp = await fetch('/api/history', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return resp.ok;
+  } catch {
+    return false;
+  }
+}
 
 // Cada foto se guarda por separado: navegar no vuelve a copiar imágenes del recorrido.
 let clearPhotosPending = false;
@@ -1362,8 +1420,8 @@ function serializableItem(item) {
 function hydrate(items) {
   return (items || []).map(item => ({
     ...item,
-    origUrl: URL.createObjectURL(item.file),
-    thumbUrl: item.thumbnail ? URL.createObjectURL(item.thumbnail) : null,
+    origUrl: item.file ? URL.createObjectURL(item.file) : (item.result?.image_url || EMPTY_THUMB),
+    thumbUrl: item.thumbnail ? URL.createObjectURL(item.thumbnail) : (item.result?.image_url || null),
     result: item.result ? { ...item.result, ...(item.resultImage ? { image_url: URL.createObjectURL(item.resultImage) } : {}) } : null,
     analyzing: false,
   }));
@@ -1421,7 +1479,8 @@ async function flushSaves() {
         });
         persistedIds = wanted;
         migrationPending = false;
-        if (version === saveVersion) $('saveStatus').textContent = 'guardado local';
+        const synced = !clearPhotos && await syncServerHistory();
+        if (version === saveVersion) $('saveStatus').textContent = synced ? 'guardado local y servidor' : 'guardado local';
       } catch {
         clearPhotosPending ||= clearPhotos;
         changed.forEach(id => dirtyIds.add(id));
@@ -1522,6 +1581,21 @@ storageReady.then(async () => {
       }
     }
   } catch {}
+  if (!state.items.length) {
+    try {
+      const hResp = await fetch('/api/history', { cache: 'no-store' });
+      if (hResp.ok && (hResp.headers.get('content-type') || '').includes('application/json')) {
+        const hData = await hResp.json();
+        if (Array.isArray(hData.items) && hData.items.length && !state.items.length) {
+          state.items = hydrate(hData.items);
+          state.selectedId = state.items[0]?.id || null;
+          $('saveStatus').textContent = 'recuperado del servidor';
+          renderQueue();
+          renderStageAndLevels();
+        }
+      }
+    } catch {}
+  }
   analyzeQueue();
 });
 

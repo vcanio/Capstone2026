@@ -70,11 +70,13 @@ Extrae todo. Windows x64: iniciar_cliente.cmd (8098) o iniciar_equipo.cmd (8095)
 La primera preparación descarga Python 3.12 y dependencias; requiere Internet.
 Docker: docker compose -f compose.apps.yaml up --build -d --wait.
 
-Ambas apps comparten un solo modelo oficial y Línea A, índice visual preliminar
-0–100 con umbral 52. Revisa contornos y visibilidad; no mide stock físico ni
-detecta personas u obstáculos. Carga fotos propias; no se incluye el dataset.
-Las fotos y revisiones no entrenan el modelo. La limpieza del recorrido cliente
-elimina su sesión guardada. No hay sincronización entre computadores.
+Ambas apps comparten un solo modelo oficial de niveles (`Nivel`), Línea A
+(índice visual 0–100 con umbral 52) y un detector COCO auxiliar de personas
+(`person`, clase 0): si una persona obstruye la góndola (`≥ 15 %` de un nivel),
+la foto se marca como no evaluable. Revisa contornos, carros u otros obstáculos
+sin máscara de persona; no mide stock físico. Carga fotos propias; no se incluye
+el dataset. Las fotos no entrenan el modelo. La limpieza del recorrido cliente
+elimina su sesión guardada.
 
 Consulta README.md, Documentacion/ y las guías de cada app. Código original:
 AGPL-3.0-only; LICENSE, NOTICE.md y LICENCIAS.md conservan avisos y procedencia.

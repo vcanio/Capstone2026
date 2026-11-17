@@ -12,8 +12,9 @@ El proyecto comenzó aproximadamente en agosto de 2026. El equipo trabajó de fo
 | 10/11 | Cierre revisado del localizador y adopción del peso oficial tras revisión humana. |
 | 11–13/11 | Entrega conjunta de apps cliente/equipo con modelo V3, interfaz de tres columnas y comparación basal experimental. |
 | 14/11 | Cierre cuantitativo en `Ohiggins 3` (`68` fotos / `354` niveles ciegos), retiro del test histórico de `63` fotos y filtro previo `calidad_foto.py`. |
-| 16/11 | Promoción de **Línea A v2.2** (`cajas bicolor, sacos blancos y vista picada`), severidad operativa, índice bruto y reanálisis automático en UI cliente/CSV, validación sobre `193` fotos / `893` niveles en 3 sets (`F1 94,59 %` en `Ohiggins 3`), verificación Docker Compose en macOS y publicación de la entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16). |
-| Trabajo pendiente | Detector de oclusiones (`persona`/`carro`) y persistencia compartida en servidor. |
+| 16/11 | Promoción de **Línea A v2.2** (`cajas bicolor, sacos blancos y vista picada`), validación sobre `193` fotos / `893` niveles en 3 sets (`F1 94,59 %` en `Ohiggins 3`), Docker Compose y entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16). |
+| 16/11 · Cierre MVP | Scripts reproducibles en [`Entrenamiento/`](../Entrenamiento/README.md), oclusión automática de personas con `yolo26n-seg.pt` y contorno ámbar sutil ([`oclusiones.py`](../Aplicacion/oclusiones.py)), verificación de nivel superior abierto ([`geometria_niveles.py`](../Aplicacion/geometria_niveles.py)), historial compartido `SQLite` y reportes **CSV / XLSX / PDF** sin revisión manual en cliente, CI `.github/workflows/comprobar.yml` y release final [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16). |
+| Posible extensión futura | Detección explícita de carros sin máscara COCO de persona y reentrenamiento futuro con más locales. |
 
 CVAT y el laboratorio GPU fueron herramientas internas para crear el modelo. Las apps son la entrega de uso. Los planes antiguos mantienen su fecha y no convierten propuestas en actividades completadas.
 

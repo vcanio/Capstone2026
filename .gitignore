@@ -18,5 +18,6 @@ desktop.ini
 Thumbs.db
 *.pt
 !/Aplicacion/modelos/V3-cierre-revisado-20261110.pt
+!/Aplicacion/modelos/yolo26n-seg.pt
 *.zip
 *.sha256

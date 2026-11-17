@@ -48,7 +48,11 @@ class DistributionTests(unittest.TestCase):
         with zipfile.ZipFile(output) as archive:
             self.assertIsNone(archive.testzip())
             names = archive.namelist()
-            self.assertEqual(len([n for n in names if n.endswith('.pt')]), 1)
+            pt_names = {n for n in names if n.endswith('.pt')}
+            self.assertEqual(pt_names, {
+                prefix + 'Aplicacion/modelos/V3-cierre-revisado-20261110.pt',
+                prefix + 'Aplicacion/modelos/yolo26n-seg.pt',
+            })
             self.assertFalse(any('/Laboratorio/' in n or '/Datos/' in n or '/Fase ' in n for n in names))
             for app in ('cliente', 'equipo'):
                 self.assertIn(b'%~dp0', archive.read(prefix + 'iniciar_' + app + '.cmd'))

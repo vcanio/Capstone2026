@@ -79,8 +79,17 @@ class ModelRunner:
         self.device = device
         self.lock = threading.Lock()
         self.models = {}
+        self._occlusion_model = None
         self.manifest = json.loads((self.root / 'modelos.json').read_text(encoding='utf-8'))
         self.entries = {item['id']: item for item in self.manifest['models']}
+        self.occlusion_entry = self.manifest.get('occlusion_model')
+        if isinstance(self.occlusion_entry, dict) and self.occlusion_entry.get('file'):
+            occ_path = (self.root / self.occlusion_entry['file']).resolve()
+            if not occ_path.is_relative_to(self.root / 'modelos') or not occ_path.is_file():
+                raise ValueError('Falta el modelo de oclusiones COCO. Extrae el ZIP completo.')
+            with occ_path.open('rb') as stream:
+                if hashlib.file_digest(stream, 'sha256').hexdigest() != self.occlusion_entry.get('sha256'):
+                    raise ValueError('El modelo de oclusiones está incompleto o modificado. Extrae otra vez el ZIP.')
         experimental = self.manifest.get('experimental_sources', {})
         if set(experimental) - {'ocupacion_basal.py'}:
             raise ValueError('Módulo experimental no reconocido.')
@@ -131,12 +140,15 @@ class ModelRunner:
         return models
 
     def _build_prediction(self, image, result, original_rgb, base_detections, model_id, device,
-                          started, method, geometry, evaluability, visibility_mode, occupancy_algorithm):
+                          started, method, geometry, evaluability, visibility_mode, occupancy_algorithm,
+                          occlusion_masks=None):
         """Calcular ocupación, alcance y dibujo para un algoritmo sobre máscaras ya predichas."""
         detections = deepcopy(base_detections)
         extra = {}
         if method in ('yolo_paulo', 'yolo_paulo_v2'):
             options = {'occupancy_algorithm': occupancy_algorithm} if occupancy_algorithm != 'linea_a' else {}
+            if occlusion_masks is not None:
+                options['occlusion_masks'] = occlusion_masks
             extra = analyze_edges(original_rgb, result, detections, version='v2' if method == 'yolo_paulo_v2' else 'v1', **options)
             if visibility_mode == 'experimental' and any(d.get('occupancy', {}).get('status') != 'medido' for d in detections):
                 return None
@@ -226,12 +238,50 @@ class ModelRunner:
                 if not valid:
                     return blocked('dudosa', 'No se pudieron delimitar los niveles con suficiente alcance. Toma otra foto.')
             # 3. Medir las máscaras originales y revisar el alcance visible.
+            occlusion_masks = None
+            if method == 'yolo_paulo_v2' and geometry and self.occlusion_entry:
+                occ_model = self._load_occlusion_model()
+                if occ_model is not None:
+                    from oclusiones import (
+                        COCO_OCCLUSION_CLASSES,
+                        COCO_OCCLUSION_CONF,
+                        detect_person_union_mask,
+                        draw_subtle_person_overlay,
+                        extract_person_polygons,
+                        photo_blocked_by_person,
+                    )
+                    raw_masks = result.masks.data.cpu().numpy() if result.masks is not None else []
+                    if getattr(result, 'boxes', None) is not None and len(raw_masks):
+                        order = spatial_order(result.boxes.xyxy.cpu().tolist())
+                        raw_masks = [raw_masks[i] for i in order if i < len(raw_masks)]
+                    ordered_level_masks = [
+                        (raw_masks[i] > .5).astype('uint8') if i < len(raw_masks) else None
+                        for i in range(len(detections))
+                    ]
+                    person_mask = detect_person_union_mask(
+                        original_rgb,
+                        model=occ_model,
+                        device=device,
+                        conf=float(self.occlusion_entry.get('confidence', COCO_OCCLUSION_CONF)),
+                        classes=tuple(self.occlusion_entry.get('classes', COCO_OCCLUSION_CLASSES)),
+                    )
+                    block_info = photo_blocked_by_person(ordered_level_masks, person_mask, original_rgb.shape[:2])
+                    if block_info['blocked']:
+                        person_polys = extract_person_polygons(person_mask)
+                        block_payload = {**block_info, 'polygons': person_polys}
+                        res_blocked = {**blocked('persona_obstruyendo', block_info['reason']), 'oclusion_persona': block_payload}
+                        if person_polys:
+                            res_blocked['image'] = draw_subtle_person_overlay(image, person_polys)
+                        return res_blocked
+                    if person_mask is not None:
+                        occlusion_masks = [person_mask if lm is not None else None for lm in ordered_level_masks]
             if occupancy_algorithm == 'ambos':
                 variants = {}
                 for algo in ('linea_a', 'basal'):
                     payload = self._build_prediction(
                         image, result, original_rgb, detections, model_id, device,
-                        started, method, geometry, evaluability, visibility_mode, algo)
+                        started, method, geometry, evaluability, visibility_mode, algo,
+                        occlusion_masks=occlusion_masks)
                     if payload is None:
                         return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
                     if algo != primary_algorithm:
@@ -244,7 +294,8 @@ class ModelRunner:
                 return merged
             payload = self._build_prediction(
                 image, result, original_rgb, detections, model_id, device,
-                started, method, geometry, evaluability, visibility_mode, occupancy_algorithm)
+                started, method, geometry, evaluability, visibility_mode, occupancy_algorithm,
+                occlusion_masks=occlusion_masks)
             if payload is None:
                 return blocked('dudosa', 'Una región detectada no se puede medir. Toma otra foto.')
             if payload['image'] is None:
@@ -271,8 +322,17 @@ class ModelRunner:
             self.models[model_id] = model
         return self.models[model_id], device
 
+    def _load_occlusion_model(self):
+        """Cargar una sola vez el modelo COCO de oclusiones si está declarado."""
+        if not isinstance(self.occlusion_entry, dict) or not self.occlusion_entry.get('file'):
+            return None
+        if self._occlusion_model is None:
+            from oclusiones import load_coco_occlusion_model
+            self._occlusion_model = load_coco_occlusion_model(self.root / self.occlusion_entry['file'])
+        return self._occlusion_model
 
-def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algorithm='linea_a'):
+
+def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algorithm='linea_a', occlusion_masks=None):
     """Medir cada máscara en orden espacial y añadir su lectura a detections.
 
     original_rgb: arreglo RGB sin contornos ni etiquetas dibujados.
@@ -307,13 +367,29 @@ def analyze_edges(original_rgb, result, detections, version='v1', occupancy_algo
                                       score_level_from_features, compute_cell_maps,
                                       _top_level_flags,
                                       provenance as linea_a_provenance)
+        raw_masks = [
+            (masks[i] > .5).astype('uint8') if i < len(masks) else None
+            for i in range(len(detections))
+        ]
         if occupancy_algorithm == 'basal':
             from ocupacion_basal import (extract_cell_features, feature_bounds as gondola_feature_bounds,
                                         score_level_from_features, compute_cell_maps,
                                         provenance as linea_a_provenance)
-        # Compartir el anclaje de todos los niveles; medir las máscaras YOLO originales.
-        features = [extract_cell_features(analyzer, (masks[i] > .5).astype('uint8')
-                    if i < len(masks) else None) for i in range(len(detections))]
+            features = [extract_cell_features(analyzer, mask) for mask in raw_masks]
+        else:
+            from oclusiones import detect_intrusions_from_rgb
+            occ_masks = (
+                occlusion_masks if occlusion_masks is not None
+                else detect_intrusions_from_rgb(original_rgb, raw_masks)
+            )
+            features = [
+                extract_cell_features(
+                    analyzer,
+                    mask,
+                    occlusion_mask=occ_masks[i] if i < len(occ_masks) else None,
+                )
+                for i, mask in enumerate(raw_masks)
+            ]
         bounds = gondola_feature_bounds(features)
         top_flags = ([False] * len(features) if occupancy_algorithm == 'basal'
                      else _top_level_flags(features))
