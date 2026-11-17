@@ -2,6 +2,7 @@
 
 | Registro | Alcance |
 |---|---|
+| [Justificación del umbral 52](../Justificacion_umbral_52.md) · [datos agregados](justificacion_umbral_52.json) | Barridos históricos de ajuste, validación posterior y límites de la elección de 52; sin evaluación nueva. |
 | [Evaluación test Ohiggins 3 (14/11)](evaluacion_test_ohiggins3_20261114.md) | Cierre cuantitativo en 68 fotos / 354 niveles ciegos (`YOLO mAP50 99,50 %`, `354 TP / 0 FP / 0 FN`; `Línea A Accuracy 97,74 %`, `F1 88,24 %`; latencias GPU y CPU) y retiro formal del histórico de 63 fotos. |
 | [Adopción del cierre](adopcion_cierre_revisado_20261110.md) | Decisión de adopción, comprobación funcional y límites de revisión. |
 | [Catálogo del oficial](catalogo_modelo_oficial_cierre_20261110.json) | Tres etapas, hashes de manifiestos y recuento de fuentes train. Las rutas internas describen el archivo local original. |

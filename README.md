@@ -18,6 +18,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 - [Instalación manual y configuración](#instalación-manual-y-configuración)
 - [Comprobar el funcionamiento](#comprobar-el-funcionamiento)
 - [Estrategia y justificación técnica](#estrategia-y-justificación-técnica)
+  - [Por qué se utiliza el umbral 52](#por-qué-se-utiliza-el-umbral-52)
 - [Arquitectura de la solución](#arquitectura-de-la-solución)
 - [Datasets y preparación](#datasets-y-preparación)
 - [Evaluación y métricas](#evaluación-y-métricas)
@@ -185,9 +186,26 @@ Se espera `estado: correcto` en el verificador y finalización sin errores en lo
 |---|---|---|
 | **Segmentación por máscaras de clase única `Nivel`** | Cajas rectangulares (`bbox`) o clasificar directamente `Reponer`/`Suficiente` en YOLO. | Las máscaras siguen la perspectiva de la góndola y excluyen zonas ajenas. Separar geometría (`Nivel`) de ocupación permite anotar con el mismo criterio repisas llenas o vacías, auditar por separado errores de contorno y ocupación, y ajustar reglas de alerta sin reentrenar YOLO. |
 | **`YOLO26n-seg` con ajuste fino** | Entrenar desde cero o usar modelos pesados dependientes de servidor GPU. | Su tamaño liviano permite inferencia local rápida tanto en CPU como en GPU (`77 ms` GPU / `226 ms` CPU) y aprovecha pesos preentrenados para adaptarse con un dataset acotado de tienda. |
-| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. Sobre el umbral `52` calibrado en desarrollo (`112` niveles), la línea base obtuvo `F1 88,24 %` en la evaluación con etiquetado ciego de `Ohiggins 3`; la reevaluación posterior de `v2.2` en esas mismas imágenes obtuvo `F1 94,59 %` (`Recall 97,22 %`). Las `193` fotos / `893` detecciones de 3 capturas de tienda son evidencia operativa adicional, no un nuevo test ciego. El basal de `30 %` se conserva como referencia experimental en la app del equipo. |
+| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. Con el umbral `52` ajustado inicialmente en 52 niveles y comprobado en otros 112 niveles de desarrollo, la línea base obtuvo `F1 88,24 %` en la evaluación con etiquetado ciego de `Ohiggins 3`; la reevaluación posterior de `v2.2` en esas mismas imágenes obtuvo `F1 94,59 %` (`Recall 97,22 %`). Las `193` fotos / `893` detecciones de 3 capturas de tienda son evidencia operativa adicional, no un nuevo test ciego. El basal de `30 %` se conserva como referencia experimental en la app del equipo. |
 | **Compuerta de calidad (`calidad_foto.py`) y estado `Revisar`** | Inferir todas las fotos por igual y emitir siempre `Reponer` o `Suficiente`. | Evita generar falsas alertas de quiebre sobre fotografías borrosas, quemadas, oscuras o recortadas, diferenciando falta de evidencia visual de falta de producto. |
 | **Ejecución web local (`Python` + `Docker`)** | Servicio externo en la nube o ejecución solo por consola. | Mantiene las fotografías en el equipo sin latencia de red ni envío a terceros, ofrece interfaz visual directa para supervisores y empaqueta dependencias reproducibles entre equipos. |
+
+### Por qué se utiliza el umbral 52
+
+**52 es un punto de corte empírico del índice visual de Línea A, no un 52 % de stock físico ni la confianza de YOLO.** El 30 % del enunciado es una referencia inicial de disponibilidad; no se traslada directamente a este índice, que combina textura, bordes, color y huecos.
+
+El registro inicial del 8/11 compara umbrales de **30 a 66, en pasos de 2**, usando únicamente **52 niveles de ajuste (`train`: 6 alertas y 46 suficientes)**, con máscaras humanas. Después se comprueba el punto de operación en otros **112 niveles de validación**. Son dos grupos diferentes: los 112 no fueron la muestra usada por ese barrido.
+
+| Corte sobre el mismo índice Línea A | Alertas detectadas de 6 | Falsas alertas | Alertas omitidas | F1 en ajuste |
+|---|---:|---:|---:|---:|
+| 30 | 4 | 0 | 2 | 80,00 % |
+| 44 | 5 | 0 | 1 | 90,91 % |
+| 46, 48, 50, **52** o 54 | 6 | 0 | 0 | 100,00 % |
+| 56 | 6 | 1 | 0 | 92,31 % |
+
+Se justifica **conservar 52 como un corte operativo probado dentro de la meseta de buen desempeño**: en esa muestra detecta las alertas que se perdían con 30 y evita la falsa alerta que aparece al subir a 56. La validación posterior obtuvo **15/16 alertas, cero falsas alertas y F1 96,77 %**. Esto respalda el rango y el uso de 52, pero **no demuestra que 52 sea superior a 50 o 54**; el registro no contiene una regla de desempate que haga único ese número.
+
+El ajuste es preliminar: las seis alertas iniciales eran sintéticas y la validación solo contenía dos alertas reales, de las que detectó una. Un registro ampliado posterior tampoco presenta 52 como máximo único de F1. La versión v2.2 conserva ese corte y añade reglas de huecos y revisión; necesita una calibración propia con datos nuevos para demostrar un óptimo actual. [Justificación completa, barrido ampliado y límites](Documentacion/Justificacion_umbral_52.md) · [Evidencia numérica agregada](Documentacion/Evidencias/justificacion_umbral_52.json).
 
 ### Tecnologías utilizadas
 
@@ -313,7 +331,7 @@ La presencia de detecciones en `193/193` fotos no acredita que todos sus niveles
 
 ### Clasificación de ocupación (`Línea A`, umbral 52)
 
-Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
+Ajustada inicialmente sobre 52 niveles y comprobada después en 112 niveles con máscaras humanas (15/16 alertas, 0 falsas alertas, 1/2 alertas reales; [selección del corte 52](Documentacion/Justificacion_umbral_52.md)) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
 
 | Revisión Línea A (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
 |---|---|---:|---:|---:|---:|
