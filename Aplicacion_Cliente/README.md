@@ -72,7 +72,7 @@ Cada dispositivo guarda su vista en el navegador (`IndexedDB`) y la sincroniza a
 El primer análisis avisa de la preparación del modelo y puede tardar más; los siguientes muestran «Analizando foto…». El estado se consulta al servidor y se conserva al recargar la pestaña. Al cerrar y volver a iniciar el servidor, la preparación se repite.
 El recorrido usa miniaturas de hasta 160 píxeles y guardado por foto para reducir el consumo de memoria con lotes grandes. Las imágenes originales se conservan completas.
 El guardado anterior se migra automáticamente en una transacción: si falla, los datos anteriores permanecen disponibles. Cierra otras pestañas de la app si la migración lo pide; no borres los datos del sitio para solucionar un cierre por falta de memoria.
-Carga fotos propias: el dataset y las fotos del catálogo de demostración local no se distribuyen en este ZIP. La app del equipo exporta lotes de revisión para compartir; la app cliente descarga CSV, Excel (`.xlsx`) y reportes PDF.
+Carga fotos propias o usa **Probar un pasillo de ejemplo** con los 8 casos precargados en [ejemplos/README.md](ejemplos/README.md) (sin alertas, alertas crítica/alta y huecos, revisión por borde, persona obstruyendo, calidad insuficiente por oscuridad/sobreexposición/desenfoque y ausencia de niveles; el dataset completo sigue fuera de este ZIP). La app del equipo exporta lotes de revisión para compartir; la app cliente descarga CSV, Excel (`.xlsx`) y reportes PDF.
 
 ## Comprobar o desarrollar
 

@@ -684,9 +684,34 @@ def enrich_for_store(prediction: dict) -> dict:
     return prediction
 
 
+DEMO_CASES = (
+    ('caso_01_sin_alertas', 'Caso 1 · Sin alertas', '01_sin_alertas.jpg'),
+    ('caso_02_alertas_mixtas', 'Caso 2 · Alertas crítica y alta', '02_alertas_critica_alta.jpg'),
+    ('caso_03_requiere_revision', 'Caso 3 · Revisión por borde', '03_requiere_revision_borde.jpg'),
+    ('caso_04_persona_obstruyendo', 'Caso 4 · Persona frente', '04_persona_obstruyendo.jpg'),
+    ('caso_05_foto_oscura', 'Caso 5 · Foto oscura', '05_foto_oscura.jpg'),
+    ('caso_06_foto_sobreexpuesta', 'Caso 6 · Sobreexpuesta', '06_foto_sobreexpuesta.jpg'),
+    ('caso_07_foto_borrosa', 'Caso 7 · Foto borrosa', '07_foto_borrosa.jpg'),
+    ('caso_08_sin_niveles', 'Caso 8 · Sin niveles', '08_sin_niveles.jpg'),
+)
+
+
 @lru_cache(maxsize=1)
 def demo_catalog() -> dict:
-    """Catálogo pequeño de fotos de ejemplo de desarrollo (nunca de test) para demostración en 1 clic."""
+    """Catálogo de casos de ejemplo incluidos (nunca de test) para demostración en 1 clic."""
+    items = []
+    by_id = {}
+    bundled_dir = HERE / 'ejemplos'
+    if bundled_dir.is_dir():
+        for demo_id, label, filename in DEMO_CASES:
+            target = bundled_dir / filename
+            if target.is_file():
+                rec = {'id': demo_id, 'label': label, 'filename': filename, 'path': str(target)}
+                items.append({'id': demo_id, 'label': label, 'filename': filename})
+                by_id[demo_id] = rec
+    if items:
+        return {'items': items, 'by_id': by_id}
+
     export_dir = PROJECT_ROOT / 'Datos/Preparados/V3/v3_20261105_012333_53df4a59/exportacion_71b4668d/images'
     candidates = [
         ('gondola_pasillo_01', 'Pasillo Snacks · Góndola 1', 'lider_express_020_A_vacios.png'),
@@ -694,8 +719,6 @@ def demo_catalog() -> dict:
         ('gondola_pasillo_03', 'Pasillo Bebidas · Góndola 3', 'lider_express_046_D_superior_vacio.png'),
         ('gondola_pasillo_04', 'Pasillo Abarrotes · Góndola 4', 'lider_2_122_0_original.jpg'),
     ]
-    items = []
-    by_id = {}
     if export_dir.is_dir():
         dev_dirs = [export_dir / sub for sub in ('train', 'val_real', 'val_sintetica', 'val')
                     if (export_dir / sub).is_dir()]

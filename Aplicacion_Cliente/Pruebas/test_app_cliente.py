@@ -309,7 +309,17 @@ class ClientHttpServerTest(unittest.TestCase):
         with urlopen(f'{self.base_url}/api/demo-photos') as resp:
             self.assertEqual(resp.status, 200)
             demos = json.loads(resp.read().decode('utf-8'))
-        self.assertIsInstance(demos.get('demos'), list)
+        items = demos.get('demos')
+        self.assertIsInstance(items, list)
+        self.assertEqual(len(items), 8)
+        for item in items:
+            with urlopen(f"{self.base_url}/api/demo-photo/{item['id']}") as img_resp:
+                self.assertEqual(img_resp.status, 200)
+                self.assertEqual(img_resp.headers.get_content_type(), 'image/jpeg')
+                raw = img_resp.read()
+                with Image.open(io.BytesIO(raw)) as im:
+                    self.assertEqual(im.format, 'JPEG')
+                    self.assertGreater(im.width, 0)
 
     def test_predict_returns_store_summary_and_strips_internal_debug_maps(self):
         buf = io.BytesIO()

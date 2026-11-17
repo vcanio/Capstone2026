@@ -37,9 +37,13 @@ asistidas, incluido el cálculo geométrico de superiores; no se modifican como
 consecuencia de esta declaración de autoría.
 
 Las fotografías y anotaciones **no reciben una licencia pública por este acuerdo
-sobre el código**. El dataset completo no forma parte del ZIP de las apps. Los
-ejemplos o figuras que ya se compartieron no conceden por sí mismos permiso para
-redistribuir el resto de los datos. Una futura apertura del dataset requiere
+sobre el código**. El dataset completo no forma parte del ZIP de las apps. A partir
+del 17/11/2026, Vicente autorizó expresamente incluir un catálogo pequeño de 8
+imágenes de ejemplo en [Aplicacion_Cliente/ejemplos/README.md](Aplicacion_Cliente/ejemplos/README.md)
+(1 captura real redimensionada de `train`, 3 variantes sintéticas fuera de `test` y
+4 imágenes generadas por script) únicamente para demostrar los casos funcionales de
+la app cliente; los ejemplos o figuras compartidos no conceden por sí mismos permiso
+para redistribuir el resto de los datos. Una futura apertura del dataset requiere
 definir expresamente sus condiciones y revisar los permisos aplicables.
 
 Estado: **autoría y finalidad académica documentadas; licencia pública del dataset
