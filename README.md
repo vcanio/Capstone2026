@@ -15,6 +15,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 - [Problemática y descripción de la solución](#problemática-y-descripción-de-la-solución)
 - [Descarga e inicio rápido](#descarga-e-inicio-rápido)
+- [Instalación manual y configuración](#instalación-manual-y-configuración)
+- [Comprobar el funcionamiento](#comprobar-el-funcionamiento)
 - [Estrategia y justificación técnica](#estrategia-y-justificación-técnica)
 - [Arquitectura de la solución](#arquitectura-de-la-solución)
 - [Datasets y preparación](#datasets-y-preparación)
@@ -22,6 +24,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
   - [Casos límite y escenarios donde falla o requiere revisión](#casos-límite-y-escenarios-donde-falla-o-requiere-revisión)
 - [Estado actual de la implementación](#estado-actual-de-la-implementación)
 - [Documentación y estructura](#documentación-y-estructura)
+- [Historial y participación del equipo](#historial-y-participación-del-equipo)
 - [Equipo y licencia](#equipo-y-licencia)
 
 ---
@@ -83,6 +86,77 @@ docker compose -f compose.apps.yaml down
 
 ---
 
+## Instalación manual y configuración
+
+Requisitos: **Git y Python 3.12 de 64 bits**; conexión a Internet para instalar dependencias. La ejecución CPU no requiere GPU, CVAT ni el laboratorio. Node.js 22 es opcional para las pruebas de interfaz y se utiliza en CI. Los dos pesos necesarios ya están versionados en `Aplicacion/modelos/`.
+
+Desde una terminal, prepara un entorno separado con las mismas versiones principales usadas en CI:
+
+```bash
+git clone https://github.com/vcanio/Capstone2026.git
+cd Capstone2026
+python -m venv .venv
+```
+
+Comprueba antes que `python --version` indique `3.12.x`; en Windows puedes usar `py -3.12 -m venv .venv`. Activa el entorno según tu sistema:
+
+```powershell
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+```
+
+```bash
+# Linux / macOS
+source .venv/bin/activate
+```
+
+Con el entorno activo, desde la raíz del clon:
+
+```bash
+python -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r Aplicacion/requirements.txt
+python -m pip check
+python Aplicacion/app.py --check
+python Aplicacion_Cliente/app_cliente.py --check
+```
+
+Las dependencias directas se fijan en [requirements.txt](Aplicacion/requirements.txt): Ultralytics `8.4.174`, NumPy `1.26.4`, Pillow `12.3.0` y OpenCV `4.11.0.86`. SQLite y los generadores de CSV/XLSX/PDF usan la biblioteca estándar de Python. En Linux, OpenCV puede requerir `libgl1` y `libglib2.0-0`; [Docker](Aplicacion/DOCKER.md) incluye estas bibliotecas.
+
+Inicia cada aplicación en una terminal con ese entorno activo:
+
+```bash
+python Aplicacion_Cliente/app_cliente.py --host 127.0.0.1 --port 8098 --device cpu
+```
+
+```bash
+python Aplicacion/app.py --host 127.0.0.1 --port 8095 --device cpu
+```
+
+| Configuración | Valor y ubicación |
+|---|---|
+| Modelo, pesos y SHA-256 | [Aplicacion/modelos.json](Aplicacion/modelos.json); ambas apps comparten el oficial `V3-cierre-revisado-20261110`. |
+| Dispositivo y puerto | Opciones `--device cpu` / `--device auto`, `--port` y `--host`. `auto` aprovecha CUDA si el entorno instalado es compatible; la instalación anterior es CPU. |
+| Ocupación | Línea A v2.2, índice visual `0–100`, umbral `52`; cliente usa confianza `0,60`. La comparación basal es experimental y está disponible en equipo. |
+| Persistencia cliente | `Aplicacion_Cliente/.runtime/historial_cliente.sqlite3` y `IndexedDB` del navegador. La carpeta del servidor debe permitir escritura. No se necesitan claves API ni un archivo `.env`. |
+| Acceso | Por defecto solo `127.0.0.1`; Compose también publica únicamente en loopback. Acceso móvil por cámara requiere un contexto seguro permitido por el navegador. La prueba local no supone un despliegue multiusuario. |
+
+La base SQLite persiste entre reinicios del proceso cuando su carpeta se conserva. El Compose actual monta `Aplicacion_Cliente` en solo lectura: la persistencia compartida necesita configurar almacenamiento escribible antes de usar ese flujo en contenedor. No se ha certificado ese flujo mediante un build Docker o una prueba física en Mac. Consulta las [comprobaciones y límites de ejecución](Documentacion/Verificacion_funcional.md).
+
+## Comprobar el funcionamiento
+
+La [guía de verificación](Documentacion/Verificacion_funcional.md) reúne comandos, resultados esperados y una pauta manual con fotos propias. Como comprobación inicial, con las dependencias instaladas:
+
+```bash
+python Distribucion/verificar.py
+python Entrenamiento/preparar_datos_cvat.py --self-check
+python Entrenamiento/entrenar_yolo26n_seg.py --dry-run
+python Entrenamiento/evaluar_ohiggins3.py --verify-receipt
+```
+
+Se espera `estado: correcto` en el verificador y finalización sin errores en los tres scripts. `--dry-run` muestra la configuración sin entrenar; `--verify-receipt` comprueba el recibo publicado sin abrir el test ni ejecutar inferencia. **Revisar un recibo no reproduce las métricas.** Para una prueba funcional de las apps, abre sus direcciones locales, carga una foto propia y verifica contornos, estados y exportación siguiendo la guía. El [CI](https://github.com/vcanio/Capstone2026/actions/workflows/comprobar.yml) ejecuta pruebas automáticas y una comprobación HTTP/CPU de un paquete aislado con imagen generada.
+
+---
+
 ## Estrategia y justificación técnica
 
 ### Estrategia algorítmica
@@ -111,7 +185,7 @@ docker compose -f compose.apps.yaml down
 |---|---|---|
 | **Segmentación por máscaras de clase única `Nivel`** | Cajas rectangulares (`bbox`) o clasificar directamente `Reponer`/`Suficiente` en YOLO. | Las máscaras siguen la perspectiva de la góndola y excluyen zonas ajenas. Separar geometría (`Nivel`) de ocupación permite anotar con el mismo criterio repisas llenas o vacías, auditar por separado errores de contorno y ocupación, y ajustar reglas de alerta sin reentrenar YOLO. |
 | **`YOLO26n-seg` con ajuste fino** | Entrenar desde cero o usar modelos pesados dependientes de servidor GPU. | Su tamaño liviano permite inferencia local rápida tanto en CPU como en GPU (`77 ms` GPU / `226 ms` CPU) y aprovecha pesos preentrenados para adaptarse con un dataset acotado de tienda. |
-| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. Sobre el umbral `52` calibrado en desarrollo (`112` niveles), la evaluación ciega en `Ohiggins 3` pasó de `F1 88,24 %` en la línea base a `F1 94,59 %` (`Recall 97,22 %`) con la revisión `v2.2` (`193` fotos / `893` niveles revisados en 3 capturas de tienda), conservando el basal de `30 %` como referencia experimental en la app del equipo. |
+| **Señal clásica explicable (`Línea A` con OpenCV + NumPy) y umbral `52`** | Segundo modelo de Deep Learning para ocupación o mantener el umbral inicial genérico de `30 %`. | Evita entrenar y distribuir un segundo modelo pesado, mantiene trazabilidad determinista de bordes/huecos por repisa y normaliza la iluminación dentro de la misma góndola. Sobre el umbral `52` calibrado en desarrollo (`112` niveles), la línea base obtuvo `F1 88,24 %` en la evaluación con etiquetado ciego de `Ohiggins 3`; la reevaluación posterior de `v2.2` en esas mismas imágenes obtuvo `F1 94,59 %` (`Recall 97,22 %`). Las `193` fotos / `893` detecciones de 3 capturas de tienda son evidencia operativa adicional, no un nuevo test ciego. El basal de `30 %` se conserva como referencia experimental en la app del equipo. |
 | **Compuerta de calidad (`calidad_foto.py`) y estado `Revisar`** | Inferir todas las fotos por igual y emitir siempre `Reponer` o `Suficiente`. | Evita generar falsas alertas de quiebre sobre fotografías borrosas, quemadas, oscuras o recortadas, diferenciando falta de evidencia visual de falta de producto. |
 | **Ejecución web local (`Python` + `Docker`)** | Servicio externo en la nube o ejecución solo por consola. | Mantiene las fotografías en el equipo sin latencia de red ni envío a terceros, ofrece interfaz visual directa para supervisores y empaqueta dependencias reproducibles entre equipos. |
 
@@ -139,7 +213,7 @@ flowchart TB
         B --> C["preparar_datos_cvat.py · partición anti-fuga por escenas"]
         C --> D["entrenar_yolo26n_seg.py · seed 42"]
         D --> E["best.pt seleccionado por val real"]
-        E --> T["evaluar_ohiggins3.py · Test ciego Ohiggins 3"]
+        E --> T["evaluar_ohiggins3.py · recibo histórico / reevaluación"]
     end
     subgraph Aplicación["Ejecución local (Cliente 8098 / Equipo 8095)"]
         F["Foto"] --> Q["Filtro de calidad · borrosidad y luz"]
@@ -207,6 +281,8 @@ flowchart LR
   3. **Partición anti-fuga por escenas:** originales, vistas cercanas y variantes sintéticas se agrupan por escena/familia para no filtrar el mismo tramo entre `train`, `val` y `test`.
   4. **Etiquetado en CVAT:** clase única `Nivel`, delimitada sobre el portaprecio, excluyendo espesor frontal y aplicando la mediana en niveles superiores abiertos.
 
+Las fotos y las anotaciones del equipo no se distribuyen como dataset público. La cadena propia documentada utiliza capturas del equipo y variantes sintéticas; los pesos generales preentrenados tienen procedencia y condiciones de uso en [Licencias](LICENCIAS.md). Los manifiestos y recibos permiten auditar cantidades y procedencia, pero la reproducción con imágenes requiere acceso autorizado a los datos privados. Cero coincidencias SHA-256 descarta duplicados exactos; por sí solo no demuestra independencia entre escenas.
+
 [Catálogo del modelo oficial](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md)
 
 ---
@@ -224,7 +300,7 @@ Modelo oficial vigente: **`V3-cierre-revisado-20261110`** (SHA-256 `dc679fe73a75
 
 En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, con latencia media de `YOLO.predict` de **77,15 ms** en GPU (`GTX 1660 SUPER`) y **225,94 ms** en CPU (`AMD Ryzen 5 3600`, muestra de 15 fotos).
 
-**Desempeño operativo multi-fecha y multi-sucursal (`3` sets reales sin post-proceso, `conf = 0,60`):**
+**Cobertura de detecciones en operación multi-fecha y multi-sucursal (`3` sets reales sin post-proceso, `conf = 0,60`):**
 
 | Set real | Fotos | Niveles detectados | Promedio / foto | Rango por foto | Fotos con niveles segmentados |
 |---|---:|---:|---:|---:|---:|
@@ -233,6 +309,8 @@ En `Ohiggins 3`, `YOLO26n-seg` alcanzó `Precision 0,9991` y `Recall 1,0000`, co
 | `15_11 Marcoleta` (sucursal nueva) | 79 | 324 | 4,10 | 2–6 | 79 / 79 |
 | **Total acumulado** | **193** | **893** | **4,63** | **2–7** | **193 / 193 (`100 %`)** |
 
+La presencia de detecciones en `193/193` fotos no acredita que todos sus niveles sean correctos: en las otras dos capturas no se presenta aquí un emparejamiento completo con polígonos humanos. Estas cifras no son recall ni exactitud de segmentación.
+
 ### Clasificación de ocupación (`Línea A`, umbral 52)
 
 Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 falsas alertas, 1/2 críticos reales) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
@@ -240,7 +318,9 @@ Calibrada en desarrollo (112 niveles con máscaras humanas: 15/16 alertas, 0 fal
 | Revisión Línea A (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
 |---|---|---:|---:|---:|---:|
 | Línea base ciega (`linea_a_20261113_techo_y_panel_liso`) | `30 / 2 / 6 / 316` | 97,74 % | 93,75 % | 83,33 % | 88,24 % |
-| **Vigente v2.2 (`linea_a_20261116_v2_2_cajas_sacos_picada`)** | **`35 / 3 / 1 / 315`** | **98,87 %** | **92,11 %** | **97,22 %** | **94,59 %** |
+| **v2.2 vigente, reevaluación posterior (`linea_a_20261116_v2_2_cajas_sacos_picada`)** | **`35 / 3 / 1 / 315`** | **98,87 %** | **92,11 %** | **97,22 %** | **94,59 %** |
+
+El etiquetado humano ciego y los resultados congelados de la línea base se conservan como antecedente. `v2.2` se revisó después de conocer casos y errores de esas imágenes: su resultado es una reevaluación sobre un conjunto ya observado, sin demostrar generalización independiente. Hace falta un nuevo conjunto sin exposición para estimar esa generalización. Los porcentajes de `v2.2` se transcriben del estado documentado; esta actualización no ejecuta una evaluación nueva.
 
 - **Por foto completa (línea base ciega `2026-11-13`):** Accuracy **92,65 %** · **F1 89,80 %**.
 - **Latencia E2E (`YOLO + Línea A` línea base):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
@@ -280,9 +360,12 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 | **Segmentación `YOLO26n-seg` V3** | **Operativa** | Peso oficial `V3-cierre-revisado-20261110` evaluado en `Ohiggins 3` (`mAP50 99,50 %`, `354/354 TP`); incluye verificación geométrica de nivel superior abierto en [`geometria_niveles.py`](Aplicacion/geometria_niveles.py). |
 | **Filtro de calidad (`calidad_foto.py`)** | **Operativo** | Bloquea fotos borrosas, oscuras o quemadas como `no_evaluable` antes de inferir (`0` falsos rechazos en `294` capturas reales). |
 | **Ocupación `Línea A` (`v2.2`, umbral `52`)** | **Operativa** | Revisión `linea_a_20261116_v2_2_cajas_sacos_picada` con filtro de bandejas expuestas, protección de sacos blancos y cajas bicolor, banda picada para producto retraído y severidad operativa (`Ohiggins 3`: **F1 94,59 %**, **Recall 97,22 %**, `35 TP / 3 FP / 1 FN / 315 TN`). |
-| **Empaquetado Windows y Docker** | **Operativo** | Entrega final MVP [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) verificada con CI automático (`.github/workflows/comprobar.yml`); Docker Compose (`:8095` y `:8098`) y ejecutables Windows preparados. |
+| **Empaquetado Windows y definición Docker** | **Disponible; validación parcial** | Entrega final MVP [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) verificada con CI automático (`.github/workflows/comprobar.yml`); definición Docker Compose (`:8095` y `:8098`) y scripts de inicio Windows preparados. Build Docker, persistencia cliente en contenedor y prueba física en Mac pendientes de certificación. |
 | **Detector de oclusiones (`oclusiones.py`)** | **Operativo** | Usa `yolo26n-seg.pt` (COCO clase `0`: `person`): marca la foto como `no_evaluable` con contorno ámbar sutil si la persona obstruye `≥ 15 %` de un nivel (o `≥ 10 %` sin niveles) y descuenta bordes menores (`5–15 %`). |
 | **Persistencia compartida (`SQLite`) y reportes** | **Operativo** | Historial persistente compartido en servidor (`SQLite` vía `/api/history`), reportes ejecutivos en **Excel (`.xlsx`)** y **PDF**, y scripts reproducibles en [`Entrenamiento/`](Entrenamiento/README.md). |
+| **Evaluación nueva de Línea A v2.2** | **Pendiente** | Conjunto sin exposición previa y revisión humana independiente; la reevaluación de Ohiggins 3 no sustituye esta comprobación. |
+| **Obstáculos distintos de personas** | **Parcial** | Carros, pilares y reflejos no tienen un detector general certificado; requieren inspección y, si no hay visibilidad suficiente, otra captura. |
+| **Integración con inventario / SKU / stock en profundidad** | **Fuera del alcance MVP** | La salida apoya inspección visual; no contabiliza unidades ni crea tareas de reposición. |
 
 ---
 
@@ -294,8 +377,11 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 | [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas del modelo, cámara móvil, `SQLite`, CSV/XLSX/PDF y pruebas. |
 | [`Entrenamiento/`](Entrenamiento/README.md) | Scripts reproducibles de conversión CVAT-YOLO (`seed=42`, mediana, anti-fuga) y evaluación sobre `Ohiggins 3`. |
 | [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo V3](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
+| [`Distribucion/`](Distribucion/README.md) | Verificación de integridad, empaquetado autónomo y comprobación HTTP/CPU; [.github/workflows](.github/workflows/comprobar.yml) automatiza estos controles. |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
 | [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Material académico de etapas anteriores conservado en su ubicación original. |
+
+La organización separa la interfaz cliente, el motor compartido, los scripts de desarrollo y la documentación. Los datasets, entornos y registros privados quedan fuera del clon público; los antecedentes publicados se localizan en [Archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md).
 
 ### Material de demostración
 
@@ -303,6 +389,10 @@ Para uso en tienda y auditoría técnica, estos son los límites observados del 
 - 🖼️ [**Imágenes de ejemplo**](https://drive.google.com/drive/folders/1z0-GNiRUJcVwbjLVkiDc20G2F8f9QASS?usp=sharing): selección histórica real y sintética para pruebas rápidas.
 
 ---
+
+## Historial y participación del equipo
+
+El [historial de commits](https://github.com/vcanio/Capstone2026/commits/main/) conserva el avance desde las entregas académicas hasta el MVP. La [guía de participación e hitos](Documentacion/Historial_y_participacion.md) enlaza cambios comprobables de **Vicente Canio**, **Paulo Guerra** y **Vicente Vilches**, e incluye comandos para consultar autores y cambios. Los commits acreditan las modificaciones registradas; su cantidad no mide por sí sola el aporte total de cada integrante ni identifica a todos los participantes de una revisión conjunta.
 
 ## Equipo y licencia
 

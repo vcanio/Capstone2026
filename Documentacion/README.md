@@ -4,6 +4,8 @@ El repositorio se centra en el modelo oficial y las dos aplicaciones. CVAT y el 
 
 | Necesidad | Documento |
 |---|---|
+| Comprobar instalación y funcionamiento | [Procedimiento funcional](Verificacion_funcional.md) |
+| Consultar avance y participación | [Historial con commits verificables](Historial_y_participacion.md) |
 | Instalar y usar las apps | [Manual](Usar_Walmart_Vision.md) |
 | Comprender niveles y ocupación | [Funcionamiento](Guia_para_entender_el_proyecto.md) |
 | Identificar el peso y sus límites | [Modelo oficial](Modelo_V3_actual.md) |

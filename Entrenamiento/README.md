@@ -19,6 +19,8 @@ python Entrenamiento/entrenar_yolo26n_seg.py --dry-run
 python Entrenamiento/evaluar_ohiggins3.py --verify-receipt
 ```
 
+La comprobación del recibo verifica identidad y aritmética, sin reproducir inferencia ni mAP. Ejecutar la evaluación con el motor actual constituye una reevaluación: no reproduce automáticamente la revisión de Línea A congelada en el recibo. Ohiggins 3 ya fue observado durante mejoras posteriores; no usarlo como un nuevo test ciego ni ajustar reglas para presentar sus métricas como generalización independiente. Los datos privados requieren acceso autorizado.
+
 ## Reproducción con datos locales preparados
 
 1. Prepara el dataset YOLO-seg desde un snapshot CVAT y su partición anti-fuga:
