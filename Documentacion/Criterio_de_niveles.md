@@ -20,6 +20,6 @@ Delimitación y oclusión son atributos de anotación, no clases de YOLO. Un obj
 
 Las correcciones de superiores preservan inferiores, IDs y atributos ajenos; se respaldan y se verifican mediante lectura posterior de coordenadas. Hubo correcciones asistidas de geometría, conservadas en los recibos. R254 permanece excluida y las decisiones particulares sobre superiores no se generalizan a otras fotos.
 
-La mediana define el objetivo de anotación: **la app no la impone en inferencia**. El modelo puede omitir o delimitar mal un nivel. Revisar contornos y visibilidad antes de interpretar Línea A.
+La mediana define el objetivo de anotación: **la app no la impone en inferencia**. El modelo puede omitir o delimitar mal un nivel. Revisar contornos y visibilidad antes de interpretar el índice de disponibilidad visual.
 
 [Criterio original y decisiones fechadas](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Desarrollo/Criterio_V3_niveles.md) · [Regla original de superiores](https://github.com/vcanio/Capstone2026/blob/2467a62974c3f5b28b0e4548bd4c0527230cc8cd/Documentacion/Desarrollo/Regla_nivel_superior_mediana_V3.md) · [Metodología](Metodologia_desarrollo_y_revision.md).

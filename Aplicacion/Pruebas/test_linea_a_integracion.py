@@ -1,4 +1,4 @@
-"""Línea A en el flujo portable: máscaras, orden, presentación y procedencia."""
+"""Estimación de disponibilidad visual en el flujo portable: máscaras, orden, presentación y procedencia."""
 from copy import deepcopy
 from types import SimpleNamespace
 import unittest

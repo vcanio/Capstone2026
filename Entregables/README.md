@@ -4,7 +4,7 @@
 
 [Descargar ambas apps con el modelo (MVP)](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) · [SHA-256](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.sha256) · [Notas e instrucciones](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16).
 
-El paquete trae las dos apps, el peso oficial **V3-cierre-revisado-20261110** para los niveles, el peso auxiliar para detectar personas, **Línea A v2.2** y [ocho ejemplos precargados](../Aplicacion_Cliente/ejemplos/README.md). El cliente incluye historial SQLite y exportación CSV, Excel y PDF. El equipo incluye marcado de incidencias y exportación de lotes ZIP.
+El paquete trae las dos apps, el peso oficial **V3-cierre-revisado-20261110** para los niveles, el peso auxiliar para detectar personas, el **estimador de disponibilidad visual** y [ocho ejemplos precargados](../Aplicacion_Cliente/ejemplos/README.md). El cliente incluye historial SQLite y exportación CSV, Excel y PDF. El equipo incluye marcado de incidencias y exportación de lotes ZIP.
 
 Extrae la carpeta completa. En Windows x64, abre `iniciar_cliente.cmd` (8098) o `iniciar_equipo.cmd` (8095). La primera preparación requiere Internet. [Manual de uso](../Documentacion/Usar_Walmart_Vision.md) · [Docker para el equipo](../Aplicacion/DOCKER.md).
 

@@ -10,15 +10,15 @@ explicaciones están en español.
 2. `assess_photo_quality()` comprueba la nitidez y la exposición antes de YOLO.
 3. `_load_model()` reutiliza el peso y selecciona CPU o GPU. `model.predict()` devuelve las máscaras y la confianza de cada nivel.
 4. `detect_person_union_mask()` localiza personas. `photo_blocked_by_person()` decide si la foto completa queda no evaluable.
-5. `analyze_edges()` entrega las máscaras originales a Línea A. `occupancy_estimate()` prepara la lectura que se muestra en el visor.
+5. `analyze_edges()` entrega las máscaras originales al estimador de disponibilidad visual. `occupancy_estimate()` prepara la lectura que se muestra en el visor.
 6. `apply_scope()` revisa el contacto con el borde y la geometría de superiores abiertos. `draw_result()` dibuja el resultado sobre una copia de la foto.
 
 La confianza filtra detecciones de niveles. El índice visual se
 calcula después y no es la confianza de YOLO ni porcentaje físico de stock.
 
-## Línea A en V3
+## Estimación de disponibilidad visual
 
-`analyze_edges()` extrae las características de todas las máscaras con `Analyzer`, calcula límites compartidos con `gondola_feature_bounds()` y decide cada nivel con `score_level_from_features()` de `ocupacion_linea_a.py`. El mapa de evidencia usa las mismas activaciones híbridas que la decisión. `occupancy_estimate()` respeta el estado de Línea A (umbral 52) y oculta el índice si hay abstención. `apply_scope()` conserva la revisión por recorte. El módulo portable no depende del laboratorio. Los métodos anteriores conservan compatibilidad para modelos V1/V2.
+`analyze_edges()` extrae las características de todas las máscaras con `Analyzer`, calcula límites compartidos con `gondola_feature_bounds()` y decide cada nivel con `score_level_from_features()` de `ocupacion_linea_a.py`. El mapa de evidencia usa las mismas activaciones híbridas que la decisión. `occupancy_estimate()` respeta el estado del estimador de disponibilidad visual (umbral 52) y oculta el índice si hay abstención. `apply_scope()` conserva la revisión por recorte. El módulo portable no depende del laboratorio. Los métodos anteriores conservan compatibilidad para modelos V1/V2.
 
 ## Recorrido del estimador anterior
 
@@ -56,7 +56,7 @@ píxeles y cuáles están en filas × columnas de la grilla.
 
 ## Lectura vigente y diagnóstico anterior
 
-La lectura vigente de V3 es Línea A v2.2. `hyb_ev` indica qué celdas tienen señales de producto. `front_hyb_pct` mide la parte del ancho visible que tiene respaldo de producto y `raw_pct` conserva el índice visual antes de ocultarlo en una lectura ambigua. Las reglas de alerta usan 52, los huecos y la visibilidad. `front_signal_pct` y `combined_signal_pct` pertenecen a diagnósticos anteriores y compatibilidad; no sustituyen la lectura vigente.
+El estimador de disponibilidad visual usa la revisión `linea_a_20261116_v2_2_cajas_sacos_picada`. `hyb_ev` indica qué celdas tienen señales de producto. `front_hyb_pct` mide la parte del ancho visible que tiene respaldo de producto y `raw_pct` conserva el índice visual antes de ocultarlo en una lectura ambigua. Las reglas de alerta usan 52, los huecos y la visibilidad. `front_signal_pct` y `combined_signal_pct` pertenecen a diagnósticos anteriores y compatibilidad; no sustituyen la lectura vigente.
 
 Las reglas de revisión pueden impedir presentar el índice. La señal visual no reconoce productos semánticamente ni mide stock físico. El módulo portable incluye sus dependencias y no requiere el laboratorio.
 

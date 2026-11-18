@@ -24,6 +24,6 @@ Esta revisión complementa las métricas cuantitativas, pero **no equivale por s
 
 ## Producto y trabajo de ocupación
 
-La app cliente presenta alertas visuales, historial compartido y reportes CSV, Excel y PDF. La app del equipo aporta marcado humano, comparación, diagnóstico y lotes de revisión ZIP. Ambas comparten el peso oficial y Línea A; no necesitan CVAT ni el laboratorio. Las fotos cargadas no se incorporan automáticamente al entrenamiento.
+La app cliente presenta alertas visuales, historial compartido y reportes CSV, Excel y PDF. La app del equipo aporta marcado humano, comparación, diagnóstico y lotes de revisión ZIP. Ambas comparten el modelo oficial de segmentación y el estimador de disponibilidad visual. Las apps funcionan de forma autónoma. Las fotos cargadas no se incorporan automáticamente al entrenamiento.
 
 Localización de niveles y estimación de ocupación son evaluaciones distintas. El índice 0–100 y umbral 52 son preliminares y no miden stock físico. Las limitaciones reales y las pruebas funcionales se conservan sin presentarlas como evaluación final. Las herramientas internas y antecedentes pueden consultarse en [Archivo del desarrollo](Archivo_del_desarrollo.md).

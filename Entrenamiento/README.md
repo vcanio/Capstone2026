@@ -9,7 +9,7 @@ Esta carpeta reúne los scripts reproducibles para preparar anotaciones CVAT, co
 | [`preparar_datos_cvat.py`](preparar_datos_cvat.py) | Conversión de polígonos CVAT a YOLO-seg, regla de la mediana sobre portaprecio, partición anti-fuga por escenas y normalización EXIF sin alterar coordenadas. |
 | [`entrenar_yolo26n_seg.py`](entrenar_yolo26n_seg.py) | Configuración exacta del ensayo oficial (`seed=42`, `AdamW`, `lr0=0.0001`, `epochs=40`, `patience=10`, `batch=2`, `imgsz=640`) y comprobación de huella del peso oficial. |
 | [`data.template.yaml`](data.template.yaml) | Plantilla YOLO-seg de clase única `0: Nivel`. |
-| [`evaluar_ohiggins3.py`](evaluar_ohiggins3.py) | Verificación matemática del recibo congelado y script de evaluación de segmentación (`IoU ≥ 0,50`) y ocupación `Línea A`. |
+| [`evaluar_ohiggins3.py`](evaluar_ohiggins3.py) | Verificación matemática del recibo congelado y script de evaluación de segmentación (`IoU ≥ 0,50`) y estimación de disponibilidad visual. |
 
 ## Verificación rápida sin datasets privados
 
@@ -19,7 +19,7 @@ python Entrenamiento/entrenar_yolo26n_seg.py --dry-run
 python Entrenamiento/evaluar_ohiggins3.py --verify-receipt
 ```
 
-La comprobación del recibo verifica identidad y aritmética, sin reproducir inferencia ni mAP. Ejecutar la evaluación con el motor actual constituye una reevaluación: no reproduce automáticamente la revisión de Línea A congelada en el recibo. Ohiggins 3 ya fue observado durante mejoras posteriores; no usarlo como un nuevo test ciego ni ajustar reglas para presentar sus métricas como generalización independiente. Los datos privados requieren acceso autorizado.
+La comprobación del recibo verifica identidad y aritmética, sin reproducir inferencia ni mAP. Ejecutar la evaluación con el motor actual constituye una reevaluación: no reproduce automáticamente la revisión del estimador congelada en el recibo. Ohiggins 3 ya fue observado durante mejoras posteriores; no usarlo como un nuevo test ciego ni ajustar reglas para presentar sus métricas como generalización independiente. Los datos privados requieren acceso autorizado.
 
 ## Reproducción con datos locales preparados
 

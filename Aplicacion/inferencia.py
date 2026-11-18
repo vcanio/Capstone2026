@@ -2,7 +2,7 @@
 
 ModelRunner.analyze comprueba la calidad de la foto y ejecuta YOLO para
 delimitar los niveles. En el flujo V3 comprueba si hay personas obstruyendo
-la góndola. Línea A mide la disponibilidad visual dentro de cada máscara
+la góndola. El estimador mide la disponibilidad visual dentro de cada máscara
 con el preprocesamiento de ocupacion_paulo. Al final se prepara la imagen
 con los contornos y se devuelven las detecciones y sus diagnósticos.
 """
@@ -107,7 +107,7 @@ class ModelRunner:
             sources = self.manifest['edge_sources']
             legacy_sources = {'ocupacion_paulo.py', 'gondola_bordes.py'}
             if self.manifest.get('occupancy_method') == 'linea_a_v1_gondola_anchorage' and 'ocupacion_linea_a.py' not in sources:
-                raise ValueError('El análisis de bordes Línea A está incompleto.')
+                raise ValueError('El estimador de disponibilidad visual está incompleto.')
             if set(sources) not in (legacy_sources, legacy_sources | {'gondola_combinacion_ponderada.py'},
                                    legacy_sources | {'gondola_combinacion_ponderada.py', 'ocupacion_linea_a.py'}):
                 raise ValueError('El manifiesto de bordes no corresponde a este paquete.')
@@ -186,9 +186,9 @@ class ModelRunner:
             raise ValueError('Elige uno de los modelos incluidos.')
         geometry = self.entries[model_id].get('classes') == ['Nivel']
         if occupancy_algorithm not in ('linea_a', 'basal', 'ambos'):
-            raise ValueError('Elige Línea A, Franja basal experimental o Ambos.')
+            raise ValueError('Elige Estimación de disponibilidad visual, Franja basal experimental o Ambos.')
         if primary_algorithm not in ('linea_a', 'basal'):
-            raise ValueError('El algoritmo principal debe ser Línea A o Franja basal experimental.')
+            raise ValueError('Selecciona Estimación de disponibilidad visual o Franja basal experimental como algoritmo principal.')
         if occupancy_algorithm in ('basal', 'ambos') and (not geometry or method != 'yolo_paulo_v2'):
             raise ValueError('La franja basal requiere niveles V3 y análisis de bordes V2.')
         if confidence is None:
@@ -198,10 +198,10 @@ class ModelRunner:
         if method not in ('yolo', 'yolo_paulo', 'yolo_paulo_v2'):
             raise ValueError('Elige YOLO o YOLO + detección de bordes.')
         if visibility_mode not in ('stable', 'experimental') or (visibility_mode == 'experimental' and not geometry):
-            raise ValueError('El filtro experimental requiere el modelo V3.')
+            raise ValueError('El filtro experimental requiere el modelo de segmentación de niveles.')
         if geometry:
             if confidence < .25:
-                raise ValueError('La confianza mínima de V3 es 0,25.')
+                raise ValueError('La confianza mínima del modelo de segmentación es 0,25.')
         if not self.lock.acquire(blocking=False):
             raise BusyError('Ya hay una foto en análisis. Espera a que termine.')
         try:

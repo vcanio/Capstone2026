@@ -8,11 +8,11 @@ El proyecto comenzó aproximadamente en agosto de 2026. El equipo trabajó de fo
 | V2 · octubre | Más escenas, revisión semántica e integración experimental de bordes, color y textura; informe intermedio y demostración. |
 | V3 · octubre/noviembre | Una clase geométrica Nivel; criterios de apoyo y superior abierto, revisión de polígonos y separación de la estimación de ocupación. |
 | 2 y 5/11 | Afinado y refuerzo geométrico, con particiones y resultados propios. |
-| 8/11 | Integración portable de Línea A, índice 0–100 y umbral preliminar 52. |
+| 8/11 | Integración portable del estimador de disponibilidad visual, índice 0–100 y umbral preliminar 52. |
 | 10/11 | Cierre revisado del localizador y adopción del peso oficial tras revisión humana. |
-| 11–13/11 | Entrega conjunta de apps cliente/equipo con modelo V3, interfaz de tres columnas y comparación basal experimental. |
+| 11–13/11 | Entrega conjunta de apps cliente/equipo con el modelo de segmentación de niveles, interfaz de tres columnas y comparación basal experimental. |
 | 14/11 | Cierre cuantitativo en `Ohiggins 3` (`68` fotos / `354` niveles ciegos), retiro del test histórico de `63` fotos y filtro previo `calidad_foto.py`. |
-| 16/11 | Promoción de **Línea A v2.2** (`cajas bicolor, sacos blancos y vista picada`), validación sobre `193` fotos / `893` niveles en 3 sets (`F1 94,59 %` en `Ohiggins 3`), Docker Compose y entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16). |
+| 16/11 | Adopción de la revisión del estimador de disponibilidad visual (`cajas bicolor, sacos blancos y vista picada`), validación sobre `193` fotos / `893` niveles en 3 sets (`F1 94,59 %` en `Ohiggins 3`), Docker Compose y entrega [`walmart-vision-apps-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16). |
 | 16/11 · Cierre MVP | Scripts reproducibles en [`Entrenamiento/`](../Entrenamiento/README.md), oclusión automática de personas con `yolo26n-seg.pt` y contorno ámbar sutil ([`oclusiones.py`](../Aplicacion/oclusiones.py)), verificación de nivel superior abierto ([`geometria_niveles.py`](../Aplicacion/geometria_niveles.py)), historial compartido `SQLite` y reportes **CSV / XLSX / PDF** sin revisión manual en cliente, CI `.github/workflows/comprobar.yml` y release final [`walmart-vision-mvp-2026-11-16`](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16). |
 | Posible extensión futura | Detección explícita de carros sin máscara COCO de persona y reentrenamiento futuro con más locales. |
 

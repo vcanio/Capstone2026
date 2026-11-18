@@ -113,7 +113,7 @@ class LiteTests(unittest.TestCase):
             ModelRunner(self.root)
         del manifest['edge_sources']['ocupacion_linea_a.py']
         path.write_text(json.dumps(manifest))
-        with self.assertRaisesRegex(ValueError, 'Línea A.*incompleto'):
+        with self.assertRaisesRegex(ValueError, 'estimador de disponibilidad visual.*incompleto'):
             ModelRunner(self.root)
 
     def test_edges_use_original_pixels_and_keep_yolo_states(self):

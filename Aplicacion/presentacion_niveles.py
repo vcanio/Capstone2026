@@ -58,7 +58,7 @@ def occupancy_estimate(measurement, version='v1'):
             else 'Revisar · señal ambigua'
         )
         return {'pct': None, 'state': 'revisar', 'label': label, 'color': '#a16207'}
-    # Línea A decide con su índice y umbral propios, antes del redondeo de diagnóstico.
+    # El estimador de disponibilidad visual decide con su índice y umbral propios, antes del redondeo de diagnóstico.
     low = measurement.get('state') == 'reponer' if linea_a else value < REPLENISH_THRESHOLD_PCT
     return {'pct': value, 'state': 'reponer' if low else 'suficiente',
             'label': 'Reponer' if low else 'Suficiente', 'color': '#dc2626' if low else '#16a34a'}

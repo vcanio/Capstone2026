@@ -72,7 +72,8 @@ Para usar Equipo con Docker, entra en Aplicacion y ejecuta docker compose up --b
 Para Cliente usa Windows o la instalación manual del README. La definición Docker
 conjunta monta Cliente en solo lectura y SQLite necesita escritura al iniciar.
 
-Ambas apps comparten un solo modelo oficial de niveles (`Nivel`), Línea A
+Ambas apps comparten el modelo oficial de segmentación de niveles (`Nivel`),
+el estimador de disponibilidad visual
 (índice visual 0–100 con umbral 52) y un detector COCO auxiliar de personas
 (`person`, clase 0): si una persona obstruye la góndola (`≥ 15 %` del área o el ancho afectado de un nivel, o `≥ 10 %` de la foto
 cuando faltan máscaras válidas de nivel), la foto se marca como no evaluable. Revisa contornos, carros u otros obstáculos

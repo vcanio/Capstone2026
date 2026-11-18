@@ -1,8 +1,8 @@
-# Justificación técnica del umbral 52 de Línea A
+# Justificación técnica del umbral 52 del índice de disponibilidad visual
 
 ## Qué representa
 
-Línea A produce un índice visual entre 0 y 100 a partir de bordes, gradientes, color, textura y huecos. El corte 52 convierte ese índice en una decisión de alerta. No expresa un porcentaje físico de productos, unidades o volumen; tampoco es la confianza de YOLO, que en cliente es 0,60. El 30 % del enunciado es una referencia inicial que exige justificar el criterio final; no existe una equivalencia automática entre ese porcentaje físico y la escala del índice.
+El estimador produce un índice visual entre 0 y 100 a partir de bordes, gradientes, color, textura y huecos. El corte 52 convierte ese índice en una decisión de alerta. No expresa un porcentaje físico de productos, unidades o volumen; tampoco es la confianza de YOLO, que en cliente es 0,60. El 30 % del enunciado es una referencia inicial que exige justificar el criterio final; no existe una equivalencia automática entre ese porcentaje físico y la escala del índice.
 
 Esta justificación reconstruye lo que permiten afirmar los registros históricos. No inventa una regla de selección a posteriori ni modifica el umbral. La [evidencia agregada](Evidencias/justificacion_umbral_52.json) conserva los barridos y métricas tal como estaban guardados, junto con los SHA-256 de las fuentes privadas. No incluye fotografías ni etiquetas por imagen.
 
@@ -44,7 +44,7 @@ Este registro **no demuestra que 52 maximice F1**: 46 obtiene un F1 algo mayor, 
 
 ## Alcance para la versión actual
 
-Línea A v2.2 conserva `CALIBRATED_THRESHOLD_PCT = 52.0`, pero incorpora reglas adicionales: un hueco de frente puede activar `Reponer` aunque el índice sea mayor, y una zona ambigua puede terminar en `Revisar`. Por tanto, las decisiones no dependen exclusivamente de cruzar 52.
+El estimador vigente usa `CALIBRATED_THRESHOLD_PCT = 52.0`, pero incorpora reglas adicionales: un hueco de frente puede activar `Reponer` aunque el índice sea mayor, y una zona ambigua puede terminar en `Revisar`. Por tanto, las decisiones no dependen exclusivamente de cruzar 52.
 
 Los resultados de Ohiggins 3 documentan evaluación o reevaluación posterior; no fueron la evidencia de este barrido inicial ni deben utilizarse aquí para elegir de nuevo el umbral. Los registros permiten justificar **un corte empírico preliminar y trazable**. Demostrar el mejor corte de v2.2 requiere un plan nuevo, más alertas reales, un criterio de coste o selección explícito y un conjunto independiente sin exposición previa. Esta actualización solo lee registros y documenta su alcance: no ejecuta inferencia, entrenamiento ni recalibración.
 

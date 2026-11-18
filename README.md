@@ -7,7 +7,7 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
 | [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) | [**Ver video MVP (6 min)**](https://youtu.be/DKAqs9dVnV8) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Notas MVP](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) | App cliente :8098 y casos límite | Niveles, ocupación y límites | V3 oficial · evaluación y límites |
+| Windows x64 · Docker · [Notas MVP](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) | App cliente :8098 y casos límite | Niveles, ocupación y límites | Modelo oficial · evaluación y límites |
 
 [**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
@@ -42,7 +42,7 @@ Recorrer las góndolas y localizar huecos manualmente toma tiempo y depende del 
 | [Cliente](Aplicacion_Cliente/README.md) | Consulta alertas, guía la captura móvil, guarda un historial compartido en SQLite y exporta CSV, Excel y PDF. | http://127.0.0.1:8098 |
 | [Equipo](Aplicacion/README.md) | Revisa contornos y alertas, marca incidencias, compara ejecuciones y exporta lotes ZIP. | http://127.0.0.1:8095 |
 
-Ambas apps comparten **YOLO V3** y **Línea A v2.2**. YOLO delimita cada repisa. Línea A analiza la zona delimitada para determinar si corresponde **Reponer**, **Suficiente** o **Revisar**. La app del equipo permite comparar con [Basal, un algoritmo experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md).
+Ambas apps comparten la **segmentación de niveles** con `YOLO26n-seg` y la **estimación de disponibilidad visual**. El modelo delimita cada repisa y el estimador analiza esa región para determinar si corresponde **Reponer**, **Suficiente** o **Revisar**. La app del equipo permite comparar con [Basal, un algoritmo experimental](Aplicacion/Documentacion/COMPARACION_BASAL_20261112.md).
 
 ## Descarga e inicio rápido
 
@@ -112,7 +112,7 @@ python Aplicacion/app.py --host 127.0.0.1 --port 8095 --device cpu
 |---|---|
 | Modelo, pesos y SHA-256 | [Aplicacion/modelos.json](Aplicacion/modelos.json); ambas apps comparten el oficial `V3-cierre-revisado-20261110`. |
 | Dispositivo y puerto | Opciones `--device cpu` / `--device auto`, `--port` y `--host`. `auto` aprovecha CUDA si el entorno instalado es compatible; la instalación anterior es CPU. |
-| Ocupación | Línea A v2.2, índice visual `0–100`, umbral `52`; el cliente usa confianza `0,60`. La comparación basal es experimental y está disponible en equipo. |
+| Disponibilidad visual | Índice visual `0–100`, umbral `52`; el cliente usa confianza `0,60`. La comparación basal es experimental y está disponible en equipo. |
 | Persistencia cliente | `Aplicacion_Cliente/.runtime/historial_cliente.sqlite3` y `IndexedDB` del navegador. La carpeta del servidor debe permitir escritura. No se necesitan claves API ni un archivo `.env`. |
 | Acceso | Por defecto solo `127.0.0.1`; Compose también publica únicamente en loopback. Acceso móvil por cámara requiere un contexto seguro permitido por el navegador. La prueba local no supone un despliegue multiusuario. |
 
@@ -138,8 +138,8 @@ Se espera `estado: correcto` en el verificador y finalización sin errores en lo
 ### Estrategia algorítmica
 
 1. **Comprobar la calidad.** Una foto demasiado borrosa, oscura o sobreexpuesta puede quedar como no evaluable.
-2. **Localizar los niveles.** YOLO V3 delimita el área útil de cada repisa, incluidos los productos y los huecos. Un detector auxiliar comprueba si una persona tapa parte de la góndola. Ante una obstrucción importante, la app solicita otra foto.
-3. **Medir la disponibilidad.** Línea A analiza bordes, color y textura dentro de cada nivel. Excluye estructuras como los rieles y mide los espacios vacíos a lo ancho de la repisa.
+2. **Localizar los niveles.** El modelo de segmentación delimita el área útil de cada repisa, incluidos los productos y los huecos. Un detector auxiliar comprueba si una persona tapa parte de la góndola. Ante una obstrucción importante, la app solicita otra foto.
+3. **Medir la disponibilidad.** El estimador analiza bordes, color y textura dentro de cada nivel. Excluye estructuras como los rieles y mide los espacios vacíos a lo ancho de la repisa.
 4. **Mostrar el resultado.** Se indica **Reponer** cuando el índice cae por debajo de 52 o hay un hueco importante. **Suficiente** requiere un índice desde 52 y una lectura clara. **Revisar** se usa ante recortes, obstrucciones o señales dudosas. El índice `0–100` describe la disponibilidad visual de la repisa.
 
 La [guía de funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) desarrolla las reglas del índice, la definición de un nivel y el criterio de mediana para anotar repisas superiores abiertas.
@@ -149,18 +149,18 @@ La [guía de funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) de
 | Tecnología o herramienta | Qué hace y por qué se eligió |
 |---|---|
 | **YOLO26n-seg, Ultralytics y PyTorch** | El peso oficial `V3-cierre-revisado-20261110` se afinó para la clase `Nivel`. Las máscaras siguen la forma de cada repisa en perspectiva y permiten medir sus huecos. La variante compacta admite inferencia local en CPU. Un peso COCO auxiliar detecta personas. |
-| **Línea A v2.2, OpenCV y NumPy** | Mide bordes con Canny, cambios de intensidad con Sobel, saturación en HSV y textura. Compara los niveles con una escala común y mide los huecos del frente. Así se puede inspeccionar de dónde viene una alerta y ajustar sus reglas por separado del modelo de niveles. |
+| **Estimación de disponibilidad visual con OpenCV y NumPy** | Mide bordes con Canny, cambios de intensidad con Sobel, saturación en HSV y textura. Compara los niveles con una escala común y mide los huecos del frente. Así se puede inspeccionar de dónde viene una alerta y ajustar sus reglas por separado del modelo de niveles. |
 | **CVAT y scripts de Python** | CVAT permite dibujar y revisar polígonos con un criterio común. Los scripts convierten las anotaciones al formato YOLO-seg, verifican la separación por escenas y registran los parámetros del entrenamiento y la evaluación. |
 | **Python, HTML, CSS, JavaScript y SQLite** | El servidor local analiza las fotos y el navegador permite revisar los resultados. SQLite guarda el historial compartido del cliente en un archivo, lo que evita instalar un servidor de base de datos adicional. |
 | **Docker y GitHub Actions** | Docker declara el entorno CPU y sus dependencias. GitHub Actions automatiza la verificación de archivos, las pruebas y el arranque del paquete con inferencia CPU. Los límites de Docker se documentan por separado. |
 
 ### Por qué se utiliza el umbral 52
 
-**52 es un punto de corte empírico del índice visual de Línea A, no un 52 % de stock físico ni la confianza de YOLO.** El 30 % del enunciado es una referencia inicial de disponibilidad; no se traslada directamente a este índice, que combina textura, bordes, color y huecos.
+**52 es un punto de corte empírico del índice de disponibilidad visual, no un 52 % de stock físico ni la confianza de YOLO.** El 30 % del enunciado es una referencia inicial de disponibilidad; no se traslada directamente a este índice, que combina textura, bordes, color y huecos.
 
 El registro inicial del 8/11 compara umbrales de **30 a 66, en pasos de 2**, usando únicamente **52 niveles de ajuste (`train`: 6 alertas y 46 suficientes)**, con máscaras humanas. Después se comprueba el punto de operación en otros **112 niveles de validación**. Son dos grupos diferentes: los 112 no fueron la muestra usada por ese barrido.
 
-| Corte sobre el mismo índice Línea A | Alertas detectadas de 6 | Falsas alertas | Alertas omitidas | F1 en ajuste |
+| Corte sobre el mismo índice visual | Alertas detectadas de 6 | Falsas alertas | Alertas omitidas | F1 en ajuste |
 |---|---:|---:|---:|---:|
 | 30 | 4 | 0 | 2 | 80,00 % |
 | 44 | 5 | 0 | 1 | 90,91 % |
@@ -184,9 +184,9 @@ flowchart LR
     M["Motor compartido<br/>inferencia.py"]
     C --> M
     E --> M
-    M --> Y["YOLO V3 · máscaras de niveles"]
+    M --> Y["Segmentación de niveles · YOLO26n-seg"]
     M --> P["YOLO COCO · máscaras de personas"]
-    M --> L["Línea A · ocupación y huecos"]
+    M --> L["Estimación de disponibilidad visual"]
     C --> H["Historial · IndexedDB y SQLite"]
     C --> R["Reportes · CSV, Excel y PDF"]
     E --> S["Sesión de revisión · IndexedDB"]
@@ -195,18 +195,18 @@ flowchart LR
 
 ### Flujo de una fotografía
 
-El diagrama muestra la ruta predeterminada con Línea A.
+El diagrama muestra la ruta predeterminada con el estimador de disponibilidad visual.
 
 ```mermaid
 flowchart TD
     F["Foto de la góndola"] --> Q{"¿Calidad suficiente?"}
     Q -->|"No"| X["Foto no evaluable · solicitar otra captura"]
-    Q -->|"Sí"| Y["YOLO V3 delimita los niveles"]
+    Q -->|"Sí"| Y["El modelo de segmentación delimita los niveles"]
     Y --> P{"¿Una persona obstruye la góndola?"}
     P -->|"Sí"| X
     P -->|"No"| N{"¿Hay niveles detectados?"}
     N -->|"No"| V["Sin niveles detectados · verificar la foto"]
-    N -->|"Sí"| L["Línea A mide señales de producto y huecos"]
+    N -->|"Sí"| L["Estimación de disponibilidad visual"]
     L --> G["Verificar encuadre y alcance del nivel"]
     G --> R["Resultado por nivel · Reponer, Suficiente o Revisar"]
 ```
@@ -215,7 +215,7 @@ flowchart TD
 |---|---|
 | [Pesos y manifiesto](Aplicacion/modelos.json) | Identifican el YOLO que delimita los niveles y el modelo auxiliar para personas. |
 | [Motor compartido](Aplicacion/inferencia.py) | Comprueba la calidad de la foto, ejecuta los modelos y coordina el cálculo y el dibujo del resultado. |
-| [Procesamiento de imagen](Aplicacion/ocupacion_paulo.py) · [Línea A](Aplicacion/ocupacion_linea_a.py) | Preparan la señal con OpenCV y NumPy, calculan el índice y deciden la alerta. |
+| [Procesamiento de imagen](Aplicacion/ocupacion_paulo.py) · [Estimador de disponibilidad visual](Aplicacion/ocupacion_linea_a.py) | Preparan la señal con OpenCV y NumPy, calculan el índice y deciden la alerta. |
 | [Servidor cliente](Aplicacion_Cliente/app_cliente.py) · [Servidor del equipo](Aplicacion/app.py) | Sirven las interfaces. El cliente gestiona historial SQLite y reportes. El visor del equipo organiza las ejecuciones de revisión. |
 | [Entrenamiento](Entrenamiento/README.md) · [Distribución](Distribucion/README.md) | Reúnen los scripts reproducibles y las comprobaciones del producto. CVAT se usó para anotar y revisar niveles. |
 
@@ -266,11 +266,11 @@ En `Ohiggins 3`, el validador de Ultralytics registró precisión `0,9991` y rec
 
 La presencia de detecciones en `193/193` fotos no acredita que todos sus niveles sean correctos: en las otras dos capturas no se presenta aquí un emparejamiento completo con polígonos humanos. Estas cifras no son recall ni exactitud de segmentación.
 
-### Clasificación de ocupación (`Línea A`, umbral 52)
+### Estimación de disponibilidad visual (umbral 52)
 
 Ajustada inicialmente sobre 52 niveles y comprobada después en 112 niveles con máscaras humanas (15/16 alertas, 0 falsas alertas, 1/2 alertas reales; [selección del corte 52](Documentacion/Justificacion_umbral_52.md)) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
 
-| Revisión Línea A (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
+| Revisión del estimador (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
 |---|---|---:|---:|---:|---:|
 | Línea base ciega (`linea_a_20261113_techo_y_panel_liso`) | `30 / 2 / 6 / 316` | 97,74 % | 93,75 % | 83,33 % | 88,24 % |
 | **v2.2 vigente, reevaluación posterior (`linea_a_20261116_v2_2_cajas_sacos_picada`)** | **`35 / 3 / 1 / 315`** | **98,87 %** | **92,11 %** | **97,22 %** | **94,59 %** |
@@ -278,7 +278,7 @@ Ajustada inicialmente sobre 52 niveles y comprobada después en 112 niveles con 
 El etiquetado humano ciego y los resultados congelados de la línea base se conservan como antecedente. `v2.2` se revisó después de conocer casos y errores de esas imágenes: su resultado es una reevaluación sobre un conjunto ya observado, sin demostrar generalización independiente. Hace falta un nuevo conjunto sin exposición para estimar esa generalización. Los porcentajes de `v2.2` se transcriben del estado documentado; esta actualización no ejecuta una evaluación nueva.
 
 - **Por foto completa (línea base ciega `2026-11-13`):** Accuracy **92,65 %** · **F1 89,80 %**.
-- **Latencia E2E (`YOLO + Línea A` línea base):** **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
+- La latencia del flujo completo con la línea base fue de **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
 
 ### Casos límite y escenarios donde falla o requiere revisión
 
@@ -292,9 +292,9 @@ La [ficha del modelo](Documentacion/Modelo_V3_actual.md#casos-límite-y-fallos-c
 
 | Estado | Alcance |
 |---|---|
-| **Disponible en el MVP** | Cliente y equipo, YOLO V3, detector auxiliar de personas, Línea A v2.2 y ocho ejemplos precargados. |
+| **Disponible en el MVP** | Cliente y equipo, segmentación de niveles, detector auxiliar de personas, estimación de disponibilidad visual y ocho ejemplos precargados. |
 | **Verificado** | Pruebas de software, integridad del paquete, arranque HTTP e inferencia CPU en ambas apps. |
-| **Pendiente** | Evaluación independiente de Línea A v2.2 en fotos nuevas, almacenamiento escribible para SQLite en el Compose conjunto y certificación de Docker en un Mac físico. |
+| **Pendiente** | Evaluación independiente del estimador de disponibilidad visual en fotos nuevas, almacenamiento escribible para SQLite en el Compose conjunto y certificación de Docker en un Mac físico. |
 
 [Entrega y comprobaciones](Entregables/README.md) · [Límites de ejecución](Documentacion/Verificacion_funcional.md#5-empaquetado-y-límites-de-plataforma).
 
@@ -305,7 +305,7 @@ La [ficha del modelo](Documentacion/Modelo_V3_actual.md#casos-límite-y-fallos-c
 | [`Aplicacion/`](Aplicacion/README.md) | App del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
 | [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas del modelo, cámara móvil, `SQLite`, CSV/XLSX/PDF y pruebas. |
 | [`Entrenamiento/`](Entrenamiento/README.md) | Scripts reproducibles de conversión CVAT-YOLO (`seed=42`, mediana, anti-fuga) y evaluación sobre `Ohiggins 3`. |
-| [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo V3](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
+| [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo de segmentación](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
 | [`Distribucion/`](Distribucion/README.md) | Verificación de integridad, empaquetado autónomo y comprobación HTTP/CPU; [.github/workflows](.github/workflows/comprobar.yml) automatiza estos controles. |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
 | [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Material académico de etapas anteriores conservado en su ubicación original. |

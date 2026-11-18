@@ -1,4 +1,4 @@
-"""Pruebas de comparación simultánea Línea A vs Basal y etiquetado por nivel."""
+"""Pruebas de comparación simultánea Disponibilidad visual vs Basal y etiquetado por nivel."""
 from http.server import ThreadingHTTPServer
 from io import BytesIO
 import json
@@ -104,7 +104,7 @@ class DualCompareAndLabelUITests(unittest.TestCase):
 
     def test_dual_analysis_populates_both_variants_and_compare_views(self):
         self.js(r'''
-        const a={id:'linea_a',name:'Línea A',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
+        const a={id:'linea_a',name:'Estimación de disponibilidad visual',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
         const b={id:'basal',name:'Basal',method:'basal_v1_observable_columns',revision:'rb'};
         currentModel={id:'V3',geometry_only:true,occupancy_method:'linea_a_v1_gondola_anchorage',occupancy_revision:'ra',occupancy_algorithms:[a,b]};
         availableModels=[currentModel]; modelContext();
@@ -140,7 +140,7 @@ class DualCompareAndLabelUITests(unittest.TestCase):
         self.js(r'''
         global.File=class extends Blob{constructor(parts,name,options){super(parts,options);this.name=name}};
         global.confirm=()=>true; global.setTimeout=()=>0;
-        const a={id:'linea_a',name:'Línea A',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
+        const a={id:'linea_a',name:'Estimación de disponibilidad visual',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
         const b={id:'basal',name:'Basal',method:'basal_v1_observable_columns',revision:'rb'};
         currentModel={id:'V3',geometry_only:true,occupancy_method:'linea_a_v1_gondola_anchorage',occupancy_revision:'ra',occupancy_algorithms:[a,b]};
         availableModels=[currentModel]; modelContext();
@@ -204,7 +204,7 @@ class DualCompareAndLabelUITests(unittest.TestCase):
 
     def test_side_by_side_auto_compare_persistence_and_batch_fill(self):
         self.js(r'''
-        const a={id:'linea_a',name:'Línea A',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
+        const a={id:'linea_a',name:'Estimación de disponibilidad visual',method:'linea_a_v1_gondola_anchorage',revision:'ra'};
         const b={id:'basal',name:'Basal',method:'basal_v1_observable_columns',revision:'rb'};
         currentModel={id:'V3',geometry_only:true,occupancy_method:'linea_a_v1_gondola_anchorage',occupancy_revision:'ra',occupancy_algorithms:[a,b]};
         availableModels=[currentModel]; modelContext();
@@ -233,14 +233,14 @@ class DualCompareAndLabelUITests(unittest.TestCase):
         assert.equal($('compare-mode').value,'linea_a_vs_basal');
         assert.equal($('compare-original').src,'data:image/jpeg;base64,A1');
         assert.equal($('compare-result').src,'data:image/jpeg;base64,B1');
-        assert.equal($('view-compare').textContent,'Línea A vs Basal');
+        assert.equal($('view-compare').textContent,'Disponibilidad visual vs Basal');
         assert.equal($('dual-algo-summary').hidden,false);
-        assert.match($('dual-algo-summary').innerHTML,/Línea A/);
+        assert.match($('dual-algo-summary').innerHTML,/Disponibilidad visual/);
         assert.match($('dual-algo-summary').innerHTML,/Basal/);
         assert.match($('compare-left-stats').innerHTML,/Suficiente/i);
         assert.match($('compare-right-stats').innerHTML,/Revisar/i);
 
-        // Segunda foto con solo Línea A, luego completar par faltante desde resumen del lote.
+        // Segunda foto con solo el estimador principal, luego completar par faltante desde resumen del lote.
         $('analyze-both').checked=false;
         batch[1].result=makeA('2_solo',25,'reponer');
         batch[1].variantResults={[variantKey('V3','linea_a')]:{result:batch[1].result,review:ReviewDesk.snapshot(batch[1])}};

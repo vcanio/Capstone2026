@@ -19,7 +19,7 @@ def apply_scope(detections, width, height):
         if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'front_coverage_v1':
             detection['scope'] = 'Cobertura del frente · experimental'
         if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'body_fill_gap_v1':
-            detection['scope'] = 'Disponibilidad visual · Línea A'
+            detection['scope'] = 'Disponibilidad visual'
         if not near_frame and detection.get('occupancy', {}).get('interpretation_policy') == 'basal_visible_width_v1':
             detection['scope'] = 'Frente observable · Basal experimental'
         if near_frame:

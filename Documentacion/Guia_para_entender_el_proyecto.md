@@ -1,6 +1,6 @@
 # Cómo funciona Walmart Visión
 
-YOLO V3 dibuja una máscara por nivel de góndola. **Línea A v2.2** mira dentro de la máscara y calcula la disponibilidad visible. Las dos apps comparten este motor, el filtro de calidad y la detección de personas. El cliente muestra alertas, guarda historial en SQLite y exporta CSV, Excel y PDF. El equipo permite marcar fallos, comparar análisis y exportar lotes ZIP. [Entrega vigente](../Entregables/README.md) · [De la foto a la alerta](../Aplicacion_Cliente/README.md#de-la-foto-a-la-alerta).
+La **segmentación de niveles** con `YOLO26n-seg` crea una máscara por repisa. El estimador calcula la disponibilidad visual dentro de cada máscara. Las dos apps comparten este motor, el filtro de calidad y la detección de personas. El cliente muestra alertas, guarda historial en SQLite y exporta CSV, Excel y PDF. El equipo permite marcar fallos, comparar análisis y exportar lotes ZIP. [Entrega vigente](../Entregables/README.md) · [De la foto a la alerta](../Aplicacion_Cliente/README.md#de-la-foto-a-la-alerta).
 
 ## Fotografías frontales
 
@@ -37,11 +37,11 @@ La mediana reduce la influencia de una altura inferior excepcional frente a un p
 
 YOLO predice sus máscaras a partir de lo aprendido. Después, la app compara la altura del superior detectado con la mediana de los inferiores. Si el superior abierto parece truncado, añade un aviso y una lectura «Suficiente» pasa a «Revisar». La máscara original se conserva. Una omisión completa puede requerir revisión visual. [Verificación geométrica](../Aplicacion/geometria_niveles.py).
 
-[Criterio de anotación V3 y regla de mediana](Criterio_de_niveles.md).
+[Criterio de anotación de niveles y regla de mediana](Criterio_de_niveles.md).
 
-### Qué significan los bordes y cómo funciona Línea A v2.2
+### Qué significan los bordes y cómo se estima la disponibilidad visual
 
-Los bordes son cambios de intensidad que pueden coincidir con envases, carteles o estructuras. YOLO delimita cada nivel; **Línea A v2.2** ([`ocupacion_linea_a.py`](../Aplicacion/ocupacion_linea_a.py)) analiza la imagen original dentro de esas máscaras en cinco etapas:
+Los bordes son cambios de intensidad que pueden coincidir con envases, carteles o estructuras. YOLO delimita cada nivel; el estimador de disponibilidad visual ([`ocupacion_linea_a.py`](../Aplicacion/ocupacion_linea_a.py)) analiza la imagen original dentro de esas máscaras en cinco etapas:
 
 1. **Grilla de celdas y señales direccionales:** conserva Canny y excluye rieles/barandas horizontales ([`ocupacion_paulo.py`](../Aplicacion/ocupacion_paulo.py)), extrayendo por celda densidad de bordes (`d`), gradiente Sobel (`g`), saturación HSV (`c`), desviación estándar local (`t`), gradientes `gx`/`gy`, bordes verticales (`vx`) y blancura (`bu`).
 2. **Anclaje intra-góndola (`P10–P90`) y puntaje por celda:** normaliza todas las máscaras de la misma góndola con límites compartidos (`cell_score = 0,35·dn + 0,28·gn + 0,17·cn + 0,20·tn`) y exige respaldo mínimo de bordes o textura al color saturado para no confundir tableros lisos vacíos.
@@ -51,14 +51,14 @@ Los bordes son cambios de intensidad que pueden coincidir con envases, carteles 
 
 El mapa fucsia representa evidencia híbrida. No certifica presencia de productos ni mide porcentaje físico de stock. La confianza de YOLO y el índice de disponibilidad son medidas distintas.
 
-La línea base de Línea A (umbral 52,0 congelado) se evaluó en ciego sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). En una reevaluación posterior, tras revisar errores del mismo conjunto, **Línea A v2.2** obtuvo **Accuracy 98,87 %**, **Precision 92,11 %**, **Recall 97,22 %**, **Especificidad 99,06 %** y **F1 94,59 %** (`35 TP / 3 FP / 1 FN / 315 TN`), y tuvo una revisión operativa sobre **193 fotos / 893 detecciones** en tres capturas (`9_11 Ohiggins`, `14_11 Ohiggins` y `15_11 Marcoleta`). El ZIP histórico del 5/11 conserva el estimador anterior con umbral 30.
+La línea base del estimador (umbral 52,0 congelado) se evaluó en ciego sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). En una reevaluación posterior, tras revisar errores del mismo conjunto, el estimador vigente obtuvo **Accuracy 98,87 %**, **Precision 92,11 %**, **Recall 97,22 %**, **Especificidad 99,06 %** y **F1 94,59 %** (`35 TP / 3 FP / 1 FN / 315 TN`), y tuvo una revisión operativa sobre **193 fotos / 893 detecciones** en tres capturas (`9_11 Ohiggins`, `14_11 Ohiggins` y `15_11 Marcoleta`). El ZIP histórico del 5/11 conserva el estimador anterior con umbral 30.
 
-[Detalle inicial (8/11)](../Aplicacion/Documentacion/LINEA_A_20261108.md) · [Ficha vigente V3 y casos límite](Modelo_V3_actual.md).
+[Detalle inicial (8/11)](../Aplicacion/Documentacion/LINEA_A_20261108.md) · [Ficha del modelo y casos límite](Modelo_V3_actual.md).
 
 ## Visibilidad y alcance
 
 La app incorpora además un filtro automático de calidad de captura (`calidad_foto.py`): si una foto está severamente borrosa, muy oscura o quemada por reflejos, se marca como **`no_evaluable`** antes de inferir para evitar falsas alertas de reposición. Con `yolo26n-seg.pt` ([`oclusiones.py`](../Aplicacion/oclusiones.py)), cuando una persona obstruye al menos el 15 % del área o del ancho afectado de un nivel, o el 10 % de la imagen cuando faltan máscaras válidas, la foto también se marca automáticamente como **`no_evaluable`** y muestra un contorno ámbar sutil señalando la obstrucción; carros u otros obstáculos sin máscara de persona siguen sujetos a verificación visual. En cliente se muestran directamente las alertas del modelo sin controles manuales, mientras [`geometria_niveles.py`](../Aplicacion/geometria_niveles.py) alerta cuando el nivel superior abierto parece truncado y `near_frame` marca `Revisar`.
 
-La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar por sí solas precisión de ocupación. La evaluación ciega de **Línea A** del 14/11 corresponde a la línea base de Ohiggins 3. La v2.2 requiere un conjunto nuevo para medir generalización independiente. Ver [Evaluación test Ohiggins 3](Evidencias/evaluacion_test_ohiggins3_20261114.md).
+La ausencia de detecciones no prueba vacío. Las métricas mAP evalúan las máscaras de niveles, sin acreditar por sí solas precisión de ocupación. La evaluación ciega del estimador de disponibilidad visual del 14/11 corresponde a la línea base de Ohiggins 3. La v2.2 requiere un conjunto nuevo para medir generalización independiente. Ver [Evaluación test Ohiggins 3](Evidencias/evaluacion_test_ohiggins3_20261114.md).
 
 [Usar la app](Usar_Walmart_Vision.md) · [Modelo y métricas](Modelo_V3_actual.md) · [Inicio](../README.md)

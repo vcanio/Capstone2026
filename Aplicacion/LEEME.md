@@ -1,10 +1,10 @@
-# Walmart Visión V3
+# Walmart Visión
 
 ## Mesa de revisión del equipo
 
 Esta entrega incluye revisión rápida por foto, nivel o zona, varios fallos por imagen, atajos A/F/Enter/Z y revisión durante el análisis del lote. Abre **REVISION_EQUIPO.md** (en Documentacion/ en la copia de desarrollo) para el flujo completo y la comparación antes/después. **Descargar lote** guarda originales, incidencias, resultados y resumen; **Abrir lote de revisión** permite recuperarlos en otro equipo o versión. Las marcas se guardan localmente y no se envían al entrenamiento.
 
-Walmart Visión detecta niveles en fotografías de góndolas y muestra una estimación experimental de cobertura del frente. Incluye el modelo V3 vigente y funciona localmente.
+Walmart Visión detecta niveles en fotografías de góndolas y muestra una estimación experimental de cobertura del frente. Incluye el modelo oficial de segmentación de niveles y funciona localmente.
 
 ## Iniciar
 
@@ -24,6 +24,6 @@ Las fotos se procesan localmente y no se incorporan al entrenamiento. La sesión
 
 El modelo detecta una clase: **Nivel**. Puede omitir niveles o dibujar contornos incorrectos; revisa la fotografía antes de tomar decisiones. La confianza de detección no es ocupación. Si no hay detecciones, eso no significa que la góndola esté vacía.
 
-El algoritmo predeterminado es **Línea A v2.2**. Estima disponibilidad visible por nivel con un índice de 0 a 100. Emite **Reponer** con índice bajo 52 o un hueco importante. **Suficiente** requiere al menos 52 y una lectura clara. Usa **Revisar** si el encuadre o la señal dejan dudas.
+El estimador predeterminado calcula un **índice de disponibilidad visual** de 0 a 100 por nivel. Emite **Reponer** con índice bajo 52 o un hueco importante. **Suficiente** requiere al menos 52 y una lectura clara. Usa **Revisar** si el encuadre o la señal dejan dudas.
 
 El filtro de calidad y el detector de personas pueden marcar la foto completa como no evaluable. Revisa visualmente carros, reflejos y zonas fuera del encuadre. [Manual de uso](../Documentacion/Usar_Walmart_Vision.md) · [Guía del equipo](Documentacion/REVISION_EQUIPO.md) · [Docker](DOCKER.md).

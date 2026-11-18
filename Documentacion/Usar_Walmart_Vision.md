@@ -1,6 +1,6 @@
 # Usar Walmart Visión V3
 
-La entrega vigente reúne la app cliente y la mesa de revisión del equipo. Ambas usan YOLO V3 para delimitar niveles y Línea A v2.2 para estimar la disponibilidad visual. [Descarga del MVP](../Entregables/README.md).
+La entrega vigente reúne la app cliente y la mesa de revisión del equipo. Ambas usan `YOLO26n-seg` para segmentar niveles y un estimador que calcula la disponibilidad visual dentro de cada máscara. [Descarga del MVP](../Entregables/README.md).
 
 ## Abrir
 

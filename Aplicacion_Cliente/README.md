@@ -2,14 +2,14 @@
 
 La app cliente muestra las alertas de disponibilidad visual por repisa. El historial se guarda en el navegador y se sincroniza con SQLite en el servidor. Desde la app se exportan CSV, Excel y PDF.
 
-El modelo oficial y Línea A v2.2 son compartidos con la [app del equipo](../Aplicacion/README.md). El flujo de marcado manual y los lotes ZIP se encuentran en la app del equipo. [Modelo oficial y métricas](../Documentacion/Modelo_V3_actual.md).
+La segmentación de niveles y la estimación de disponibilidad visual se comparten con la [app del equipo](../Aplicacion/README.md). El flujo de marcado manual y los lotes ZIP se encuentran en la app del equipo. [Modelo oficial y métricas](../Documentacion/Modelo_V3_actual.md).
 
 ## De la foto a la alerta
 
 1. **Comprobar la foto.** El filtro de calidad marca como `no_evaluable` una captura demasiado borrosa, oscura o sobreexpuesta. [`calidad_foto.py`](../Aplicacion/calidad_foto.py)
-2. **Delimitar cada nivel.** YOLO V3 devuelve una máscara por nivel, que indica qué píxeles de la foto pertenecen a esa repisa. [`inferencia.py`](../Aplicacion/inferencia.py)
+2. **Delimitar cada nivel.** El modelo de segmentación devuelve una máscara por nivel, que indica qué píxeles de la foto pertenecen a esa repisa. [`inferencia.py`](../Aplicacion/inferencia.py)
 3. **Comprobar obstrucciones.** Un YOLO auxiliar usa `yolo26n-seg.pt` para segmentar personas (`person`, clase COCO `0`). Si la obstrucción alcanza el 15 % del área o del ancho de un nivel, la foto completa pasa a `no_evaluable`. Cuando faltan máscaras válidas de nivel, el límite es el 10 % de la imagen. Entre el 5 % y menos del 15 % de un nivel, se excluyen las columnas tapadas del cálculo. Los carros y otros obstáculos sin máscara de persona quedan sujetos a verificación visual. [`oclusiones.py`](../Aplicacion/oclusiones.py)
-4. **Medir la disponibilidad visual.** Línea A v2.2 busca señales de producto dentro de cada máscara, excluye estructuras como rieles y mide los huecos a lo ancho de la repisa. Esto produce un **índice visual de 0 a 100**. El índice describe la disponibilidad visible en la foto. [`ocupacion_paulo.py`](../Aplicacion/ocupacion_paulo.py) · [`ocupacion_linea_a.py`](../Aplicacion/ocupacion_linea_a.py)
+4. **Medir la disponibilidad visual.** El estimador busca señales de producto dentro de cada máscara, excluye estructuras como rieles y mide los huecos a lo ancho de la repisa. Esto produce un **índice visual de 0 a 100**. El índice describe la disponibilidad visible en la foto. [`ocupacion_paulo.py`](../Aplicacion/ocupacion_paulo.py) · [`ocupacion_linea_a.py`](../Aplicacion/ocupacion_linea_a.py)
 5. **Comprobar el encuadre.** Si la foto corta un nivel por el borde, se marca para revisión. Una lectura `Suficiente` también pasa a `Revisar` si el nivel superior abierto parece truncado. [`vision_v3.py`](../Aplicacion/vision_v3.py) · [`geometria_niveles.py`](../Aplicacion/geometria_niveles.py)
 
 | Resultado por nivel | Cuándo aparece |

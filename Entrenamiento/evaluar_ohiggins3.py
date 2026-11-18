@@ -4,7 +4,7 @@ Permite:
 1. Verificar de forma offline y determinista las métricas publicadas en
    `Documentacion/Evidencias/evaluacion_test_ohiggins3_20261114.json` y
    `Documentacion/Estado_V3_actual.json` (`--verify-receipt`, predeterminado).
-2. Reevaluar segmentación (IoU >= 0.50) y clasificación de disponibilidad Línea A
+2. Reevaluar la segmentación de niveles (IoU >= 0.50) y la estimación de disponibilidad visual
    cuando se provee una carpeta local de imágenes y etiquetas (`--images-dir` y
    `--labels-dir`), sin modificar pesos ni etiquetas.
 """
@@ -131,7 +131,7 @@ def verify_receipt(root: Path = ROOT) -> dict:
 
 
 def evaluate_directory(images_dir: Path, labels_dir: Path, weights_path: Path, conf: float = 0.60) -> dict:
-    """Evaluar segmentación YOLO y ocupación Línea A sobre una carpeta YOLO-seg."""
+    """Evaluar la segmentación de niveles y la estimación de disponibilidad visual sobre una carpeta YOLO-seg."""
     import cv2
     from PIL import Image, ImageOps
     from ultralytics import YOLO

@@ -84,7 +84,7 @@ class Handler(BaseHTTPRequestHandler):
             for item in models:
                 if item.get('geometry_only'):
                     item['occupancy_algorithms'] = [
-                        {'id': 'linea_a', 'name': 'Línea A · actual', 'method': item['occupancy_method'],
+                        {'id': 'linea_a', 'name': 'Estimación de disponibilidad visual', 'method': item['occupancy_method'],
                          'revision': item['occupancy_revision'], 'threshold': 52,
                          'source_sha256': hashlib.sha256((ROOT / 'ocupacion_linea_a.py').read_bytes()).hexdigest()},
                         {'id': 'basal', 'name': 'Basal · experimental', 'method': METHOD,

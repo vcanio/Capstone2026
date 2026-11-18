@@ -895,7 +895,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
               <summary>
                 <span>Ajustes de análisis</span>
                 <span class="settings-summary-right">
-                  <span class="settings-summary-pill" id="settings-summary-pill">Línea A · 60 %</span>
+                  <span class="settings-summary-pill" id="settings-summary-pill">Disponibilidad visual · 60 %</span>
                   <svg class="settings-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </summary>
@@ -907,7 +907,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
                   <input type="checkbox" id="analyze-both">
                   <span>Comparar ambos al analizar<span class="compare-both-sub">1 pasada YOLO · muestra 2 imágenes</span></span>
                 </label>
-                <p id="algorithm-help">Línea A conserva el cálculo actual. Activa «Comparar ambos» para ver los dos resultados lado a lado.</p>
+                <p id="algorithm-help">Comparar ambos muestra la estimación de disponibilidad visual y el resultado basal lado a lado.</p>
               </div>
 
               <div class="model-choice" id="model-choice-wrap" hidden>
@@ -946,7 +946,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
               <div class="batch-progress"><progress id="batch-progress" max="1" value="0" aria-label="Progreso del lote"></progress><span class="batch-progress-text" id="batch-progress-text" role="status" aria-live="polite"></span><button type="button" id="batch-pause" hidden>Pausar</button><button type="button" id="batch-cancel" hidden>Cancelar</button><span class="batch-stop-status" id="batch-stop-status" role="status" aria-live="polite" hidden></span></div>
               <div class="batch-head"><h2>Galería de fotos</h2><span id="batch-count" class="batch-count hint"></span><button type="button" id="batch-toggle" aria-expanded="false" aria-controls="batch-details">Opciones</button></div>
               <div id="batch-details" hidden>
-                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="discrepancies">Discrepancias (Línea A &#8800; Basal)</option><option value="alerts">Con alertas o revisar</option><option value="labeled">Con etiquetas de ocupaci&#243;n</option><option value="unlabeled">Sin etiquetas de ocupaci&#243;n</option><option value="marked">Para revisi&#243;n</option><option value="correct">Correctas</option><option value="unreviewed">Sin revisar</option><option value="pending">Sin analizar</option><option value="failed">Con error</option></select></div>
+                <div class="batch-toolbar"><label for="batch-filter">Mostrar</label><select id="batch-filter"><option value="all">Todas</option><option value="discrepancies">Discrepancias entre estimadores</option><option value="alerts">Con alertas o revisar</option><option value="labeled">Con etiquetas de ocupaci&#243;n</option><option value="unlabeled">Sin etiquetas de ocupaci&#243;n</option><option value="marked">Para revisi&#243;n</option><option value="correct">Correctas</option><option value="unreviewed">Sin revisar</option><option value="pending">Sin analizar</option><option value="failed">Con error</option></select></div>
                 <div class="batch-actions"><button type="button" id="batch-analyze">Analizar pendientes</button><button type="button" id="batch-retry">Reintentar fallidas</button></div>
                 <p class="batch-help" id="batch-help">Usa ← → para navegar, A para correcta y F para registrar fallo.</p><button type="button" id="batch-forget">Borrar sesión guardada</button>
               </div>
@@ -1048,7 +1048,7 @@ table.edge-table th{color:var(--muted);font-weight:600}
                   <button type="button" class="compare-pill" data-compare-mode="edges_linea_a_vs_basal" aria-pressed="false">Señal / bordes (2 alg.)</button>
                   <button type="button" class="compare-pill" data-compare-mode="original_vs_result" aria-pressed="false">Original vs activo</button>
                 </div>
-                <select id="compare-mode" class="sr-only" aria-label="Modo de comparación" hidden><option value="linea_a_vs_basal">Línea A vs Basal (niveles)</option><option value="edges_linea_a_vs_basal">Señal: Línea A vs Basal</option><option value="original_vs_result">Original vs resultado</option></select>
+                <select id="compare-mode" class="sr-only" aria-label="Modo de comparación" hidden><option value="linea_a_vs_basal">Disponibilidad visual vs Basal (niveles)</option><option value="edges_linea_a_vs_basal">Señal: Disponibilidad visual vs Basal</option><option value="original_vs_result">Original vs resultado</option></select>
                 <button type="button" id="compare-compute-pair" class="btn-compare-both" hidden>Calcular ambos (1 pasada)</button>
                 <div class="compare-zoom-slider">
                   <label for="compare-zoom">Zoom sincronizado</label>
@@ -1116,10 +1116,10 @@ table.edge-table th{color:var(--muted);font-weight:600}
             <div class="occupancy-header">
               <div>
                 <h3 id="occupancy-heading">Ocupación por nivel</h3>
-                <p class="hint" id="occupancy-help">Línea A · umbral del índice: 52 / 100</p>
+                <p class="hint" id="occupancy-help">Disponibilidad visual · umbral del índice: 52 / 100</p>
               </div>
             </div>
-            <div class="algo-status-row"><p id="algorithm-result-label" aria-live="polite">Línea A · actual</p><button type="button" id="compare-both-now" class="btn-compare-both" hidden>Comparar ambos</button></div>
+            <div class="algo-status-row"><p id="algorithm-result-label" aria-live="polite">Estimación de disponibilidad visual</p><button type="button" id="compare-both-now" class="btn-compare-both" hidden>Comparar ambos</button></div>
             <div class="occupancy-avg-badge" id="occupancy-avg-badge" title="Ocupación media calculada" hidden>
               <div class="avg-ring"><span class="avg-val" id="kpi-ocupacion">—</span></div>
               <div>
@@ -1279,7 +1279,7 @@ function updateSettingsSummary(){
   const pill=$('settings-summary-pill');
   if(!pill)return;
   const conf=Math.round(Number($('confidence')?.value||0.6)*100);
-  const algo=$('analyze-both')?.checked?'Ambos':occupancyAlgorithm==='basal'?'Basal':'Línea A';
+  const algo=$('analyze-both')?.checked?'Ambos':occupancyAlgorithm==='basal'?'Basal':'Disponibilidad visual';
   pill.textContent=`${algo} · ${conf} %`;
 }
 
@@ -1290,7 +1290,7 @@ function modelContext(){
   $('algorithm-choice').value=occupancyAlgorithm;
   if($('analyze-both'))$('analyze-both').disabled=options.length<2;
   $('algorithm-help').textContent=occupancyAlgorithm==='basal'?'Mide cobertura del frente observable. Umbral de prueba: 30 %. Pendiente de calibración; no mide stock.':'Índice visual actual, umbral 52 / 100. Los resultados de cada algoritmo se guardan por separado.';
-  $('algorithm-result-label').textContent=occupancyAlgorithm==='basal'?'Franja basal · experimental':'Línea A · actual';
+  $('algorithm-result-label').textContent=occupancyAlgorithm==='basal'?'Franja basal · experimental':'Estimación de disponibilidad visual';
   $('occupancy-heading').textContent=occupancyAlgorithm==='basal'?'Frente por nivel':'Ocupación por nivel';
   const lineaA=algorithmModel()?.occupancy_method==='linea_a_v1_gondola_anchorage';
   $('legend-enough-range').textContent=lineaA?'≥ 52 / 100':'≥ 30 %';
@@ -1361,12 +1361,12 @@ function availability(){
   const altCompareRes=canCompareBoth&&curCompareItem?ReviewDesk.variantResultFor(curCompareItem,altAlgoId,currentModel?.id,occupancyAlgorithm):null;
   const hasAltReady=Boolean(altCompareRes&&resultMatchesAlgorithm(altCompareRes,currentModel,altAlgoId));
   const hasPair=Boolean(currentComparisonPair());
-  if($('view-compare'))$('view-compare').textContent=hasPair?'Línea A vs Basal':'Comparar';
+  if($('view-compare'))$('view-compare').textContent=hasPair?'Disponibilidad visual vs Basal':'Comparar';
   if($('compare-both-now')){
     $('compare-both-now').hidden=!canCompareBoth||!file;
     $('compare-both-now').disabled=running||batchRunning||!ready||!file;
     $('compare-both-now').classList?.toggle('is-ready',hasPair);
-    $('compare-both-now').textContent=hasPair?(currentViewMode==='compare'?'Ver solo activo':'Ver 2 imágenes'):hasAltReady?(occupancyAlgorithm==='basal'?'Ver Línea A':'Ver Basal'):'Comparar ambos (1 pasada)';
+    $('compare-both-now').textContent=hasPair?(currentViewMode==='compare'?'Ver solo activo':'Ver 2 imágenes'):hasAltReady?(occupancyAlgorithm==='basal'?'Ver disponibilidad visual':'Ver Basal'):'Comparar ambos (1 pasada)';
     compareBothAction=hasPair?(currentViewMode==='compare'?'single':'compare'):hasAltReady?'switch':'run';
     $('compare-both-now').setAttribute('data-action',compareBothAction);
   }
@@ -1492,19 +1492,19 @@ function view(mode,remember=true){
     $('compare-left-card')?.classList?.toggle('is-active',showPairCards&&occupancyAlgorithm==='linea_a');
     $('compare-right-card')?.classList?.toggle('is-active',showPairCards&&occupancyAlgorithm==='basal');
     if(pair&&compareMode==='linea_a_vs_basal'){
-      if($('compare-left-caption'))$('compare-left-caption').textContent='Línea A · índice 0–100';
+      if($('compare-left-caption'))$('compare-left-caption').textContent='Disponibilidad visual · índice 0–100';
       if($('compare-left-stats'))$('compare-left-stats').innerHTML=formatCompareStatsHtml(pair.resA,'linea_a');
       $('compare-original').src=pair.resA.image_url;
-      $('compare-original').alt='Resultado Línea A';
+      $('compare-original').alt='Resultado de disponibilidad visual';
       $('compare-caption').textContent='Basal · frente observable';
       if($('compare-right-stats'))$('compare-right-stats').innerHTML=formatCompareStatsHtml(pair.resB,'basal');
       $('compare-result').src=pair.resB.image_url;
       $('compare-result').alt='Resultado Basal experimental';
     }else if(pair&&compareMode==='edges_linea_a_vs_basal'){
-      if($('compare-left-caption'))$('compare-left-caption').textContent='Señal Línea A (cuerpo)';
+      if($('compare-left-caption'))$('compare-left-caption').textContent='Señal de disponibilidad visual (cuerpo)';
       if($('compare-left-stats'))$('compare-left-stats').innerHTML=formatCompareStatsHtml(pair.resA,'linea_a');
       $('compare-original').src=pair.resA.occupancy_image_url||pair.resA.image_url;
-      $('compare-original').alt='Mapa de señal Línea A';
+      $('compare-original').alt='Mapa de señal de disponibilidad visual';
       $('compare-caption').textContent='Señal Basal (franja apoyo)';
       if($('compare-right-stats'))$('compare-right-stats').innerHTML=formatCompareStatsHtml(pair.resB,'basal');
       $('compare-result').src=pair.resB.occupancy_image_url||pair.resB.image_url;
@@ -1632,7 +1632,7 @@ function showV3(data){
   const basal=data.occupancy?.interpretation_policy?.name==='basal_visible_width_v1';
   $('algorithm-result-note').textContent=basal?'Cobertura del frente observable, no stock físico. Umbral experimental sin calibrar.':'Índice visual experimental; no representa stock físico. Revisa siempre la foto.';
   const lineaA=data.occupancy?.interpretation_policy?.name==='body_fill_gap_v1';
-  $('algorithm-result-label').textContent=basal?'Franja basal · experimental · umbral 30 %':lineaA?'Línea A · actual · umbral 52 / 100':'Ocupación experimental';
+  $('algorithm-result-label').textContent=basal?'Franja basal · experimental · umbral 30 %':lineaA?'Disponibilidad visual · umbral 52 / 100':'Ocupación experimental';
   const threshold=lineaA?data.occupancy.interpretation_policy.threshold_pct:30;
   $('legend-enough-range').textContent=lineaA?`≥ ${threshold} / 100`:'≥ 30 %';
   $('legend-low-range').textContent=lineaA?`< ${threshold} / 100`:'< 30 %';
@@ -1662,7 +1662,7 @@ function showV3(data){
 
   $('occupancy-columns').innerHTML=`<tr><th>Nivel</th><th>${lineaA?'Índice de disponibilidad':'Ocupación estimada'}</th><th>Alcance</th><th>Resultado</th><th>Aviso / acción</th></tr>`;
   const front=data.occupancy?.interpretation_policy?.name==='front_coverage_v1';
-  $('occupancy-help').textContent=basal?'Cobertura del frente observable. Umbral experimental 30 %, pendiente de calibración. Las bases poco observables requieren revisión.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':lineaA?`Línea A: reponer con índice menor a ${threshold}; suficiente desde ${threshold}. Escala de 0 a 100, no porcentaje físico de stock. Los recortes requieren revisión.`:front?'Cobertura estimada del frente: reponer bajo el 30 %, suficiente desde el 30 %. Se asume lleno detrás del producto visible. Los recortes requieren revisión.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
+  $('occupancy-help').textContent=basal?'Cobertura del frente observable. Umbral experimental 30 %, pendiente de calibración. Las bases poco observables requieren revisión.':!data.occupancy?'Localización de niveles; la ocupación queda sin calcular.':lineaA?`Reponer con índice menor a ${threshold}; suficiente desde ${threshold}. Escala de 0 a 100, no porcentaje físico de stock. Los recortes requieren revisión.`:front?'Cobertura estimada del frente: reponer bajo el 30 %, suficiente desde el 30 %. Se asume lleno detrás del producto visible. Los recortes requieren revisión.':'Rojo bajo el 30 % y verde desde el 30 % de señal experimental. Los recortes requieren revisión.';
   $('level-occupancy').hidden=!total;
   syncOccupancyPanel();
 
@@ -1675,7 +1675,7 @@ function showV3(data){
     if(pair){
       const sA=algoSummaryStats(pair.resA,'linea_a'),sB=algoSummaryStats(pair.resB,'basal');
       const card=(id,title,stats)=>`<button type="button" class="dual-algo-card" data-switch-algo="${id}" aria-pressed="${occupancyAlgorithm===id}"><span class="dual-algo-name"><span>${title}</span><span class="dual-algo-tag">${occupancyAlgorithm===id?'Activa':'Cambiar'}</span></span><span class="dual-algo-metric">Media ${esc(stats.avgText)}</span><span class="dual-algo-counts">${stats.low} rep · ${stats.enough} suf${stats.review?` · ${stats.review} rev`:''}</span></button>`;
-      $('dual-algo-summary').innerHTML=card('linea_a','Línea A',sA)+card('basal','Basal',sB);
+      $('dual-algo-summary').innerHTML=card('linea_a','Disponibilidad visual',sA)+card('basal','Basal',sB);
       $('dual-algo-summary').hidden=false;
     }else{
       $('dual-algo-summary').hidden=true;
@@ -1702,8 +1702,8 @@ function showV3(data){
     const altTone=altState==='reponer'?'low':altState==='suficiente'?'enough':altState==='revisar'?'revisar':'unknown';
     const altFill=altValid?Math.max(2,Math.min(100,Math.round(altEst.pct))):0;
     const altDiff=Boolean(altDet&&altState!==(o?.state||'sin_medicion'));
-    const activeChip=`<span class="algo-chip ${lineaA?'is-linea':'is-basal'}">${lineaA?'Línea A':'Basal'}</span>`;
-    const altChip=`<span class="algo-chip ${altAlgo==='linea_a'?'is-linea':'is-basal'}">${altAlgo==='basal'?'Basal':'Línea A'}</span>`;
+    const activeChip=`<span class="algo-chip ${lineaA?'is-linea':'is-basal'}">${lineaA?'Disponibilidad visual':'Basal'}</span>`;
+    const altChip=`<span class="algo-chip ${altAlgo==='linea_a'?'is-linea':'is-basal'}">${altAlgo==='basal'?'Basal':'Disponibilidad visual'}</span>`;
     const altHtml=altDet?`<div class="compare-alt-row${altDiff?' is-diff':''}"><div class="compare-alt-main">${altChip}<span class="compare-alt-bar"><span class="fill-${altTone}" style="width:${altFill}%"></span></span><span><b>${esc(altPct)}</b> · ${esc(stateLabel(altState))}</span></div></div>`:'';
     const activeGt=gtLabels[String(d.id)]?.label||'';
     const gtHtml=curItem?`<div class="occ-gt-group" role="group" aria-label="Etiqueta humana nivel ${d.id}">${gtOptions.map(([val,txt])=>`<button type="button" class="occ-gt-btn" data-occ-level="${d.id}" data-occ-label="${val}" aria-pressed="${activeGt===val}">${txt}</button>`).join('')}</div>`:'';
@@ -1731,7 +1731,7 @@ function showV3(data){
     </td></tr>`;
   }).join('');
 
-  if(data.occupancy)$('edge-description').textContent=basal?'Franja basal experimental: señal de bordes, color y textura cerca del apoyo. El mapa fucsia muestra evidencia en la base. El porcentaje se refiere al frente observable, no al stock. Umbral de prueba: 30 %, sin calibrar.':lineaA?'Línea A combina evidencia de bordes, color y textura con normalización por góndola y penalización por hueco continuo. El mapa fucsia muestra evidencia visual, no productos confirmados. Índice experimental de 0 a 100.':front?'Cobertura estimada del frente con señal respaldada por bordes o textura. El espacio libre sobre los productos no reduce la cobertura. Se asume lleno detrás del producto visible. Estimación experimental, pendiente de calibración.':'Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
+  if(data.occupancy)$('edge-description').textContent=basal?'Franja basal experimental: señal de bordes, color y textura cerca del apoyo. El mapa fucsia muestra evidencia en la base. El porcentaje se refiere al frente observable, no al stock. Umbral de prueba: 30 %, sin calibrar.':lineaA?'El estimador de disponibilidad visual combina evidencia de bordes, color y textura con normalización por góndola y penalización por hueco continuo. El mapa fucsia muestra evidencia visual, no productos confirmados. Índice experimental de 0 a 100.':front?'Cobertura estimada del frente con señal respaldada por bordes o textura. El espacio libre sobre los productos no reduce la cobertura. Se asume lleno detrás del producto visible. Estimación experimental, pendiente de calibración.':'Ocupación estimada = 70 % de superficie + 30 % de ancho. Se usan bordes, color y textura dentro de los niveles. Estimación experimental.';
   if(data.photo_status==='gondola_tapada'||data.photo_status==='no_evaluable'){
     $('result-tools').hidden=true;
     $('view-result').disabled=true;
@@ -1898,7 +1898,7 @@ function renderBatchCompareSummary(){
     parts.push(`<span class="batch-compare-pill">Comparadas: ${stats.comparedPhotos} fotos (${stats.comparedLevels} niveles)</span>`);
     parts.push(`<span class="batch-compare-pill">Acuerdo: ${agreePct}%</span>`);
     parts.push(`<button type="button" class="batch-compare-pill is-diff" data-filter-discrepancies="1">Discrepancias: ${stats.discrepancies} niveles (${stats.discrepancyIndices.size} fotos)</button>`);
-    parts.push(`<span class="batch-compare-pill">Revisar: Línea A ${revA}% · Basal ${revB}%</span>`);
+    parts.push(`<span class="batch-compare-pill">Revisar: Disponibilidad visual ${revA}% · Basal ${revB}%</span>`);
   }
   if(missingPairCount){
     parts.push(`<button type="button" class="batch-compare-pill is-action" data-analyze-missing-pair="1">Comparar ambos en ${missingPairCount} ${missingPairCount===1?'foto':'fotos'}</button>`);
@@ -1909,7 +1909,7 @@ function renderBatchCompareSummary(){
       const f1=m.f1!=null?Math.round(m.f1)+'%':'—',p=m.precision!=null?Math.round(m.precision)+'%':'—',r=m.recall!=null?Math.round(m.recall)+'%':'—';
       return `${name}: F1 ${f1} (P ${p} · R ${r})`;
     };
-    const mA=fmtM(stats.metrics.linea_a,'Línea A'),mB=fmtM(stats.metrics.basal,'Basal');
+    const mA=fmtM(stats.metrics.linea_a,'Disponibilidad visual'),mB=fmtM(stats.metrics.basal,'Basal');
     parts.push(`<span class="batch-compare-pill">Etiquetas: ${stats.labeledLevels} niveles (${stats.labeledPhotos} fotos)</span>`);
     if(mA)parts.push(`<span class="batch-compare-pill">${mA}</span>`);
     if(mB)parts.push(`<span class="batch-compare-pill">${mB}</span>`);

@@ -4,7 +4,7 @@ Implementa la política de zonas obstruidas u ofuscadas (Sección 5.6):
 - Si la obstrucción supera el 25 % del área o ancho del nivel, se deriva a
   `Revisar · zona obstruida` sin interpretarlo como falta de producto ni stock.
 - Si la obstrucción es parcial (entre 5 % y 25 %), se descuentan esas celdas
-  de la máscara evaluable en Línea A para medir solo el frente visible claro.
+  de la máscara evaluable en el estimador para medir solo el frente visible claro.
 """
 import os
 from pathlib import Path

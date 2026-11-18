@@ -11,7 +11,7 @@
   "models": [
     {
       "id": "V3-cierre-revisado-20261110",
-      "name": "V3 oficial - cierre con contornos revisados 10 noviembre",
+      "name": "Segmentación de niveles · YOLO26n-seg",
       "file": "modelos/V3-cierre-revisado-20261110.pt",
       "sha256": "dc679fe73a7525dcffefe0381edfc39309d2ebe3f5115387100ae53cf4550af5",
       "bytes": 6525526,
@@ -19,7 +19,7 @@
       "classes": [
         "Nivel"
       ],
-      "guide": "V3 - modelo oficial; niveles y ocupacion estimada",
+      "guide": "Segmentación de niveles con una clase: Nivel",
       "official": true
     }
   ],
@@ -39,7 +39,7 @@
   "known_limitations": [
     "Puede omitir niveles o delimitar incorrectamente sus contornos; revisión humana necesaria.",
     "Detecta personas vía COCO (clase person); carros u otros obstáculos sin clase COCO siguen requiriendo revisión visual.",
-    "Línea A v2.2 mide disponibilidad visual de 0 a 100 con umbral preliminar 52. Su resultado en Ohiggins 3 es una reevaluación sobre fotos ya observadas. Falta medir su generalización en un conjunto nuevo."
+    "El estimador mide disponibilidad visual de 0 a 100 con umbral preliminar 52. Su resultado en Ohiggins 3 es una reevaluación sobre fotos ya observadas. Falta medir su generalización en un conjunto nuevo."
   ],
   "occlusion_model": {
     "id": "yolo26n-seg-coco",

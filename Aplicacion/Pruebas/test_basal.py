@@ -173,7 +173,7 @@ class BasalUITests(unittest.TestCase):
 
     def test_switch_restores_results_and_reviews_and_keeps_default(self):
         self.js(r'''
-        const a={id:'linea_a',name:'Línea A',method:'old',revision:'a'},b={id:'basal',name:'Basal',method:'new',revision:'b'};
+        const a={id:'linea_a',name:'Estimación de disponibilidad visual',method:'old',revision:'a'},b={id:'basal',name:'Basal',method:'new',revision:'b'};
         currentModel={id:'V3',geometry_only:true,occupancy_method:'old',occupancy_revision:'a',occupancy_algorithms:[a,b]};availableModels=[currentModel];modelContext();
         assert.equal(occupancyAlgorithm,'linea_a');
         chooseBatch([{name:'a.jpg',type:'image/jpeg',size:1}]);
