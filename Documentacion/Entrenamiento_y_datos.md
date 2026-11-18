@@ -20,6 +20,19 @@ Partición: v3_cierre_revisado_20261110. Selección: cierre_yolo_contornos_revis
 
 Se trasladaron 82 antiguas val a train con cierre por escenas/familias; dejaron de ser validación independiente. Las 11 val actuales corresponden a tres escenas y no se comparan directamente con las antiguas 59 o 93 val. R254 permanece excluida. El test histórico de 63 fotos quedó retirado formalmente el 14/11/2026 (19 entraron a train y 44 pertenecen a escenas ya vistas sin polígonos CVAT) y fue reemplazado como evaluación independiente por **Ohiggins 3** (`68` fotos / `354` polígonos, `0` coincidencia con `train`/`val`).
 
+### Aumentos de datos del último ensayo
+
+Durante el ajuste fino del 10/11 se aplicaron pequeñas variaciones a las imágenes de entrenamiento. Cuando una transformación cambia la posición o la escala, también se transforman los polígonos asociados para que sigan delimitando el mismo nivel.
+
+| Transformación | Parámetro | Valor |
+| --- | --- | --- |
+| Rotación | `degrees` | Hasta ±3° |
+| Desplazamiento horizontal y vertical | `translate` | Hasta ±3 % por eje |
+| Escala | `scale` | Entre 0,90 y 1,10 |
+| Tono, saturación y brillo | `hsv_h`, `hsv_s`, `hsv_v` | `0.01`, `0.20`, `0.20`, respectivamente |
+
+El ensayo desactivó los volteos horizontal y vertical, la cizalla y la perspectiva. También fijó en cero Mosaic, MixUp, CutMix y Copy-Paste. Las 53 imágenes sintéticas de este ensayo ya formaban parte del conjunto preparado. Las transformaciones aplicadas durante el ajuste se excluyen del recuento de 519 imágenes de entrenamiento distintas de la cadena. [Configuración del ajuste fino](../Entrenamiento/entrenar_yolo26n_seg.py).
+
 ## Resultados y límites
 
 En las 11 val actuales, las máscaras tienen mAP50 99,50 % y mAP50–95 90,04 %. En una comparación bajo las mismas condiciones, oficial anterior y adoptado registran 54 TP, 0 FP y 1 FN; IoU medio 93,52 % → 93,39 %. Este panel pequeño no demuestra mejora global.

@@ -238,6 +238,8 @@ El [recorrido del código](Aplicacion/Documentacion/LEER_CODIGO.md) conecta infe
 
 Las fotos y las anotaciones del equipo no se distribuyen como dataset público. La cadena propia documentada utiliza capturas del equipo y variantes sintéticas; los pesos generales preentrenados tienen procedencia y condiciones de uso en [Licencias](LICENCIAS.md). Los manifiestos y recibos permiten auditar cantidades y procedencia, pero la reproducción con imágenes requiere acceso autorizado a los datos privados. Cero coincidencias SHA-256 descarta duplicados exactos; por sí solo no demuestra independencia entre escenas.
 
+**Aumentos de datos.** Durante el último ajuste fino, se aplicaron variaciones leves de rotación, posición, escala y color. Se desactivaron los volteos y las técnicas que mezclan imágenes, como Mosaic y MixUp. [Parámetros de los aumentos](Documentacion/Entrenamiento_y_datos.md#aumentos-de-datos-del-último-ensayo)
+
 [Catálogo del modelo oficial](Documentacion/Evidencias/catalogo_modelo_oficial_cierre_20261110.json) · [Metodología de desarrollo y revisión](Documentacion/Metodologia_desarrollo_y_revision.md)
 
 ---
