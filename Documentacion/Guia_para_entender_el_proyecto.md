@@ -53,7 +53,7 @@ El mapa fucsia representa evidencia híbrida. No certifica presencia de producto
 
 La línea base del estimador (umbral 52,0 congelado) se evaluó en ciego sobre las 68 fotos de **Ohiggins 3** (354 niveles predichos por YOLO): **Accuracy 97,74 %**, **Precision 93,75 %**, **Recall 83,33 %** y **F1 88,24 %** por nivel (**F1 89,80 %** por foto). En una reevaluación posterior, tras revisar errores del mismo conjunto, el estimador vigente obtuvo **Accuracy 98,87 %**, **Precision 92,11 %**, **Recall 97,22 %**, **Especificidad 99,06 %** y **F1 94,59 %** (`35 TP / 3 FP / 1 FN / 315 TN`), y tuvo una revisión operativa sobre **193 fotos / 893 detecciones** en tres capturas (`9_11 Ohiggins`, `14_11 Ohiggins` y `15_11 Marcoleta`). El ZIP histórico del 5/11 conserva el estimador anterior con umbral 30.
 
-[Detalle inicial (8/11)](../Aplicacion/Documentacion/LINEA_A_20261108.md) · [Ficha del modelo y casos límite](Modelo_V3_actual.md).
+[Ejemplo visual paso a paso](Ejemplo_visual_ocupacion.md) · [Detalle inicial (8/11)](../Aplicacion/Documentacion/LINEA_A_20261108.md) · [Ficha del modelo y casos límite](Modelo_V3_actual.md).
 
 ## Visibilidad y alcance
 

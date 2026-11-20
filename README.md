@@ -142,7 +142,7 @@ Se espera `estado: correcto` en el verificador y finalización sin errores en lo
 3. **Medir la disponibilidad.** El estimador analiza bordes, color y textura dentro de cada nivel. Excluye estructuras como los rieles y mide los espacios vacíos a lo ancho de la repisa.
 4. **Mostrar el resultado.** Se indica **Reponer** cuando el índice cae por debajo de 52 o hay un hueco importante. **Suficiente** requiere un índice desde 52 y una lectura clara. **Revisar** se usa ante recortes, obstrucciones o señales dudosas. El índice `0–100` describe la disponibilidad visual de la repisa.
 
-La [guía de funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) desarrolla las reglas del índice, la definición de un nivel y el criterio de mediana para anotar repisas superiores abiertas.
+La [guía de funcionamiento](Documentacion/Guia_para_entender_el_proyecto.md) desarrolla las reglas del índice, la definición de un nivel y el criterio de mediana para anotar repisas superiores abiertas; puedes ver todo el cálculo ilustrado con una captura paso a paso en el [ejemplo visual de ocupación](Documentacion/Ejemplo_visual_ocupacion.md).
 
 ### Tecnologías y decisiones de diseño
 
@@ -307,7 +307,7 @@ La [ficha del modelo](Documentacion/Modelo_V3_actual.md#casos-límite-y-fallos-c
 | [`Aplicacion/`](Aplicacion/README.md) | App del equipo (`8095`), motor compartido, modelo oficial y pruebas ([guía de revisión](Aplicacion/Documentacion/REVISION_EQUIPO.md)). |
 | [`Aplicacion_Cliente/`](Aplicacion_Cliente/README.md) | App cliente (`8098`), filtros de alertas del modelo, cámara móvil, `SQLite`, CSV/XLSX/PDF y pruebas. |
 | [`Entrenamiento/`](Entrenamiento/README.md) | Scripts reproducibles de conversión CVAT-YOLO (`seed=42`, mediana, anti-fuga) y evaluación sobre `Ohiggins 3`. |
-| [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo de segmentación](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
+| [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [ejemplo visual paso a paso](Documentacion/Ejemplo_visual_ocupacion.md), [modelo de segmentación](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
 | [`Distribucion/`](Distribucion/README.md) | Verificación de integridad, empaquetado autónomo y comprobación HTTP/CPU; [.github/workflows](.github/workflows/comprobar.yml) automatiza estos controles. |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
 | [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Entregables académicos del proyecto (Fase 1 histórica intacta y cierre final de Fase 2). |
