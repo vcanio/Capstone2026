@@ -1,0 +1,16 @@
+Walmart Visión se entrega como aplicación web de ejecución local.
+El ZIP es el ejecutable de distribución correspondiente a este apartado de la pauta.
+En este repositorio de GitHub el paquete ZIP ejecutable se descarga desde Releases (enlace y SHA-256 abajo) y el código fuente completo vive en Aplicacion/ y Aplicacion_Cliente/ en la raíz del repositorio.
+
+En Windows x64 extraiga el ZIP completo y abra iniciar_cliente.cmd (puerto 8098) o iniciar_equipo.cmd (puerto 8095).
+Incluye 8 casos de ejemplo precargados en la app cliente (botón «Probar un pasillo de ejemplo»).
+Para ejecutar con Docker (disponible solo para la app del equipo), consulte la sección Docker del instructivo de instalación.
+
+Commit fuente del paquete
+bcdb881000f5a0f56f5a87822e081524df2f0dbb
+
+Release del MVP
+https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16
+
+SHA-256 del ZIP
+9b7ddba39ea3fc94b9ef90381e5c13cdcf4ba1b7d4b3ac9c22dc1ae4ed973277

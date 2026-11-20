@@ -1,0 +1,15 @@
+Walmart Vision | Proyecto Capstone Duoc UC
+
+Repositorio documentado
+https://github.com/vcanio/Capstone2026
+
+Código y documentación correspondiente a esta entrega (commit main)
+https://github.com/vcanio/Capstone2026/tree/5267f23f55ac71129e01c32a01aeb8d38ba13d2b
+
+Código fuente exacto del paquete ZIP distribuible (8 ejemplos)
+https://github.com/vcanio/Capstone2026/tree/bcdb881000f5a0f56f5a87822e081524df2f0dbb
+
+Distribución y notas del MVP
+https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16
+
+Código original AGPL-3.0-only. Consulte LICENSE, NOTICE.md y LICENCIAS.md en el código fuente.

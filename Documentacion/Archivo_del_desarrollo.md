@@ -1,6 +1,6 @@
 # Archivo del desarrollo y alcance del repositorio
 
-El árbol actual reúne las apps cliente y equipo, su motor, el único modelo oficial, pruebas, construcción de paquetes y documentación. Las carpetas académicas [Fase 1](../Fase%201/) y [Fase 2](../Fase%202/) conservan sus rutas y bytes.
+El árbol actual reúne las apps cliente y equipo, su motor, el único modelo oficial, pruebas, construcción de paquetes y documentación. [Fase 1](../Fase%201/) conserva sus rutas y bytes históricos, y [Fase 2](../Fase%202/) reúne los entregables finales verificados por integridad académica.
 
 ## Herramientas internas y antecedentes
 

@@ -1,6 +1,6 @@
 {
-  "base_commit": "2467a62974c3f5b28b0e4548bd4c0527230cc8cd",
-  "scope": "Fase 1 y Fase 2: rutas, inventario y bytes intactos",
+  "base_commit": "5267f23f55ac71129e01c32a01aeb8d38ba13d2b",
+  "scope": "Fase 1 intacta (13 archivos) y cierre final de Fase 2 (17 archivos): rutas, inventario y bytes verificados",
   "files": {
     "Fase 1/Evidencias Grupales/1.4_APT122_FormativaFase1.docx": "f1bbd6f105b1fad29a0efab01e9ebbb04209a799b543b821b294b56f6bdd1865",
     "Fase 1/Evidencias Grupales/1.5_GuiaEstudiante_Fase 1_Definicion Proyecto APT (Español).docx": "14c09f60c91db2cb8003ae8fd71d66a20e6d1161b107b0942cfd63a2738e65a2",
@@ -16,10 +16,21 @@
     "Fase 1/Evidencias Individuales/Vilches_Vicente_1.2_APT122_DiarioReflexionFase1.docx": "011d4624bfc711c69773a85cbccd5658f0677d4c424bce1534ca01a9d72550ce",
     "Fase 1/Evidencias Individuales/Vilches_Vicente_1.3_APT122_AutoevaluacionFase1.docx": "5612d6d091183681f554004f7b6d12683fc9d72ea07a8f0028678310bfdeb8d4",
     "Fase 2/Evidencias Grupales/2.4_GuiaEstudiante_Fase 2_DesarrolloProyecto APT (Español).docx": "2b0541058ef323601ab753904416a6a5580aad6bff4ea8dad0a73b4147ab741c",
-    "Fase 2/Evidencias Grupales/2.4_GuiaEstudiante_Fase 2_DesarrolloProyecto APT (Inglés).docx": "19e0e89372a53d0d3a2ed77a3bc6809d3a9527bd915fb52a667493939c144874",
-    "Fase 2/Evidencias Grupales/2.6_GuiaEstudiante_Fase 2_Informe Final Proyecto APT.docx": "6255a7e35c6eab2ecb19e0bec42e84248da5ab7943a1301513a6db3e85511cdd",
+    "Fase 2/Evidencias Grupales/2.6_GuiaEstudiante_Fase 2_Informe Final Proyecto APT (Español).docx": "96ca35dbe59471ff5684339af59e8bbd4e18865bc44f404a793492f612e540b4",
     "Fase 2/Evidencias Individuales/Canio_Vicente_2.1_APT122_DiarioReflexionFase2.docx": "894f5d03831000bcb9252dd19c5c19d4ac5aa9ee0b82855b1a6c1c9d3c1934ad",
-    "Fase 2/Evidencias Individuales/Guerra_Paulo_2.1_APT122_DiarioReflexionFase2.docx": "bd4c0014b36906a7ab8c02701b1ad9dc5450bf52411fdce8f8f0852769e4a423",
-    "Fase 2/Evidencias Individuales/Vilches_Vicente_2.1_APT122_DiarioReflexionFase2.docx": "18839a2aefca9957111562811b2c7534f33d0ae136b2b814c3584df9757551e7"
+    "Fase 2/Evidencias Individuales/Guerra_Paulo_2.1_APT122_DiarioReflexionFase2.docx": "e67981440aef47a9d045290c8ac879bce19d645716db9713ce5860336b5cbdeb",
+    "Fase 2/Evidencias Individuales/Vilches_Vicente_2.1_APT122_DiarioReflexionFase2.docx": "43577a3413ae5a440dd337e01cb963d004a8db2b35ca0d62e05fc61288db5894",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Diagramas de CU/Nivel cero y diagramas de casos de uso.pdf": "7e6641ad29ab6d45d597504caa613feaeef749411fbc4bddbfeb8aad1dbf79a1",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Diagramas de actividad/Flujos de actividad del sistema.pdf": "55036d5c04a48d7a2373377ac27a3fa854a74c54ab77dca096c38c6c662cc4ce",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Documentación SCRUM/Análisis del caso/Análisis del caso.pdf": "b7924817ab39eb6d8542fb6a9ae13ff89556d43e3a86f94a7b89f777ef93d371",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Documentación SCRUM/Priorización de H.U/Priorización de historias de usuario.pdf": "4c32c5004a9a6de90a213a46c6575988d397a9a0e59518800b14115d7dbd6042",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Documentación SCRUM/Épicas, Sprints y Historias de Usuario/Épicas, iteraciones e historias de usuario.pdf": "9f41367e29e4d0cb2a647d14890d28175a4b85f8acd2968c4d8dd35fe81a2877",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Listado de CU y Listado de RF y RNF/Listado de CU, RF y RNF.pdf": "b5b940a2bea4b2b4389bf72177ab8e6c4733df961923cc13da41a922f63fbaf8",
+    "Fase 2/Evidencias Proyecto/Evidencias de documentación/Planillas de CU/Planillas de casos de uso.pdf": "00f402d65e4df20e07f475855b3af6db1ee7153705d3273a21936d74ec86f9f5",
+    "Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/APK sistema/Formato de aplicación.txt": "1adfe0208ec9b53513159c19e59c5a9353b7f939a4e1700ad9fa2781b1e25c7b",
+    "Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/Implementación ambiente de desarrollo.pdf": "a6951bad84a2428d1d65b0ea42641a9fe7c67771b73fe1fd681f31d299320349",
+    "Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/Repositorio GitHub del proyecto documentado.txt": "636c5c56f457731069a84805fe1af871adeaf34cdbe8785c9185a923c3d25ffc",
+    "Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/Inventario de imágenes - Walmart Visión.xlsx": "c84dc2bbc5b45a5a5648f0f38366182412eab8e70f2baaa58445832e532ab14a",
+    "Fase 2/Evidencias Proyecto/Presentación Proyecto.pptx": "aa72ac1f47fabb17e8f89d7ee7b077e0d6a54e407f225bb8f0e652c0e1eb4e2c"
   }
 }

@@ -7,12 +7,15 @@
 *.yaml text eol=lf
 *.html text eol=lf
 *.ps1 text eol=lf
+*.txt text eol=lf
 *.cmd text eol=crlf
 *.pt binary
 *.png binary
 *.jpg binary
 *.pdf binary
 *.docx binary
+*.pptx binary
+*.xlsx binary
 *.zip binary
 
 # Licencias de uv: conservar los bytes LF comprobados por fuente_uv.json.

@@ -14,7 +14,7 @@ python Entrenamiento/entrenar_yolo26n_seg.py --dry-run
 python Entrenamiento/evaluar_ohiggins3.py --verify-receipt
 ```
 
-Resultados esperados: `pip check` informa que no hay dependencias incompatibles; el verificador devuelve `estado: correcto`, conserva los 19 archivos académicos y coteja el SHA-256 del peso oficial. El `--check` de equipo informa `Listo: 1 modelos` y versiones de PyTorch/Ultralytics; el de cliente devuelve `status: ok` y `models: 1`. Los tres scripts terminan sin error; `--dry-run` imprime parámetros sin entrenar y `--verify-receipt` devuelve `mode: verify_receipt`, cotejando el recibo y la identidad del peso. No se ejecuta inferencia sobre las 68 fotos ni se acredita la precisión actual con estas órdenes.
+Resultados esperados: `pip check` informa que no hay dependencias incompatibles; el verificador devuelve `estado: correcto`, verifica los 30 archivos académicos (13 de Fase 1 intactos y 17 de Fase 2) y coteja el SHA-256 del peso oficial. El `--check` de equipo informa `Listo: 1 modelos` y versiones de PyTorch/Ultralytics; el de cliente devuelve `status: ok` y `models: 1`. Los tres scripts terminan sin error; `--dry-run` imprime parámetros sin entrenar y `--verify-receipt` devuelve `mode: verify_receipt`, cotejando el recibo y la identidad del peso. No se ejecuta inferencia sobre las 68 fotos ni se acredita la precisión actual con estas órdenes.
 
 ## 2. Pruebas automáticas existentes
 

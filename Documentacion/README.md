@@ -17,4 +17,4 @@ El repositorio se centra en el modelo oficial y las dos aplicaciones. CVAT y el 
 | Descargar la entrega publicada | [Entregables](../Entregables/README.md) |
 | Consultar las comprobaciones | [Evidencias](Evidencias/README.md) |
 
-Los antecedentes completos y el alcance de la simplificación están en [Archivo del desarrollo](Archivo_del_desarrollo.md). Fase 1 y Fase 2 se conservan sin cambios.
+Los antecedentes completos y el alcance de la simplificación están en [Archivo del desarrollo](Archivo_del_desarrollo.md). Fase 1 conserva sus archivos históricos intactos y Fase 2 reúne los entregables finales del proyecto.

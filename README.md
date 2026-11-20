@@ -310,7 +310,7 @@ La [ficha del modelo](Documentacion/Modelo_V3_actual.md#casos-límite-y-fallos-c
 | [`Documentacion/`](Documentacion/README.md) | [Manual de uso](Documentacion/Usar_Walmart_Vision.md), [guía funcional](Documentacion/Guia_para_entender_el_proyecto.md), [modelo de segmentación](Documentacion/Modelo_V3_actual.md), [metodología](Documentacion/Metodologia_desarrollo_y_revision.md) y [planificación](Documentacion/Planificacion_y_metodologia.md). |
 | [`Distribucion/`](Distribucion/README.md) | Verificación de integridad, empaquetado autónomo y comprobación HTTP/CPU; [.github/workflows](.github/workflows/comprobar.yml) automatiza estos controles. |
 | [`Entregables/`](Entregables/README.md) | Releases publicados, paquetes descargables y entregas académicas. |
-| [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Material académico de etapas anteriores conservado en su ubicación original. |
+| [`Fase 1/`](Fase%201/) · [`Fase 2/`](Fase%202/) | Entregables académicos del proyecto (Fase 1 histórica intacta y cierre final de Fase 2). |
 
 La organización separa la interfaz cliente, el motor compartido, los scripts de desarrollo y la documentación. Los datasets, entornos y registros privados quedan fuera del clon público; los antecedentes publicados se localizan en [Archivo del desarrollo](Documentacion/Archivo_del_desarrollo.md).
 
