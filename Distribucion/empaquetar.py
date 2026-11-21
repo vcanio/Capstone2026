@@ -69,8 +69,8 @@ def build(output, root=ROOT):
 Extrae todo. Windows x64: iniciar_cliente.cmd (8098) o iniciar_equipo.cmd (8095).
 La primera preparación descarga Python 3.12 y dependencias; requiere Internet.
 Para usar Equipo con Docker, entra en Aplicacion y ejecuta docker compose up --build -d --wait.
-Para Cliente usa Windows o la instalación manual del README. La definición Docker
-conjunta monta Cliente en solo lectura y SQLite necesita escritura al iniciar.
+Para Cliente con historial SQLite en Docker, compose.apps.yaml monta el volumen escribible
+cliente_runtime sobre .runtime; el build Docker y prueba en Mac físico siguen pendientes de certificación.
 
 Ambas apps comparten el modelo oficial de segmentación de niveles (`Nivel`),
 el estimador de disponibilidad visual

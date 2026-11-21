@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated": "2026-11-17",
+  "updated": "2026-11-21",
   "model": {
     "id": "V3-cierre-revisado-20261110",
     "architecture": "YOLO26n-seg",
@@ -123,6 +123,208 @@
         "specificity": 0.9906,
         "f1": 0.9459
       }
+    },
+    "occupancy_test_blind_real_171": {
+      "blind_evaluation": true,
+      "evaluation_kind": "evaluacion_ciega_independiente_fotos_reales_virgenes",
+      "document": "Documentacion/Evidencias/evaluacion_ciega_real_171_20261121.md",
+      "sealed_predictions_sha256": "7b917550183ad09b0d8c2cc0a45392eaf9e15dab6de065659d2c966f944c8376",
+      "photos": 171,
+      "overlap_with_train_val_ohiggins3_ohiggins4": 0,
+      "threshold_pct": 52.0,
+      "revision": "linea_a_20261119_v2_3_productos_bajos",
+      "yolo_visual_audit": {
+        "tp_total": 854,
+        "tp_ok": 854,
+        "tp_mal_delimitado": 0,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.9977,
+        "f1": 0.9988,
+        "exact_count_photos": 169,
+        "exact_count_rate": 0.9883
+      },
+      "by_level_decided_view_a": {
+        "total": 851,
+        "tp": 25,
+        "fp": 6,
+        "fn": 3,
+        "tn": 817,
+        "accuracy": 0.9894,
+        "precision": 0.8065,
+        "recall": 0.8929,
+        "specificity": 0.9927,
+        "f1": 0.8475
+      },
+      "by_level_operational_view_b": {
+        "total": 854,
+        "revisar_count": 3,
+        "tp": 26,
+        "fp": 8,
+        "fn": 3,
+        "tn": 817,
+        "accuracy": 0.9871,
+        "precision": 0.7647,
+        "recall": 0.8966,
+        "specificity": 0.9903,
+        "f1": 0.8254
+      },
+      "by_photo_decided": {
+        "total": 171,
+        "tp": 21,
+        "fp": 5,
+        "fn": 4,
+        "tn": 141,
+        "accuracy": 0.9474,
+        "precision": 0.8077,
+        "recall": 0.84,
+        "specificity": 0.9658,
+        "f1": 0.8235
+      },
+      "e2e_cpu_ms": {
+        "mean": 2120.61,
+        "p50": 2198.35,
+        "p95": 2541.1
+      }
+    },
+    "occupancy_test_blind_real_unseen_131": {
+      "blind_evaluation": true,
+      "photos": 131,
+      "yolo_visual_audit": {
+        "tp_total": 661,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.997,
+        "f1": 0.9985,
+        "exact_count_photos": 129,
+        "exact_count_rate": 0.9847
+      },
+      "by_level_decided_view_a": {
+        "total": 658,
+        "tp": 20,
+        "fp": 1,
+        "fn": 2,
+        "tn": 635,
+        "accuracy": 0.9954,
+        "precision": 0.9524,
+        "recall": 0.9091,
+        "specificity": 0.9984,
+        "f1": 0.9302
+      },
+      "by_level_operational_view_b": {
+        "total": 661,
+        "revisar_count": 3,
+        "tp": 21,
+        "fp": 3,
+        "fn": 2,
+        "tn": 635,
+        "accuracy": 0.9924,
+        "precision": 0.875,
+        "recall": 0.913,
+        "specificity": 0.9953,
+        "f1": 0.8936
+      }
+    },
+    "occupancy_test_blind_stress_60": {
+      "blind_evaluation": true,
+      "evaluation_kind": "stress_test_sensibilidad_variantes_sinteticas",
+      "document": "Documentacion/Evidencias/stress_test_ocupacion_60_20261121.md",
+      "sealed_predictions_sha256": "1eac10860ff602e61e2e78ffa00df294236938e07307995721aa32e27f2ccca8",
+      "photos": 60,
+      "threshold_pct": 52.0,
+      "revision": "linea_a_20261119_v2_3_productos_bajos",
+      "yolo_visual_audit": {
+        "tp_total": 304,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9967,
+        "recall": 1.0,
+        "f1": 0.9984,
+        "exact_count_photos": 59,
+        "exact_count_rate": 0.9833
+      },
+      "by_level_decided_view_a": {
+        "total": 295,
+        "tp": 102,
+        "fp": 13,
+        "fn": 6,
+        "tn": 174,
+        "accuracy": 0.9356,
+        "precision": 0.887,
+        "recall": 0.9444,
+        "specificity": 0.9305,
+        "f1": 0.9148
+      },
+      "by_level_operational_view_b": {
+        "total": 304,
+        "revisar_count": 9,
+        "tp": 108,
+        "fp": 16,
+        "fn": 6,
+        "tn": 174,
+        "accuracy": 0.9276,
+        "precision": 0.871,
+        "recall": 0.9474,
+        "specificity": 0.9158,
+        "f1": 0.9076
+      },
+      "by_photo_decided": {
+        "total": 60,
+        "tp": 43,
+        "fp": 3,
+        "fn": 1,
+        "tn": 13,
+        "accuracy": 0.9333,
+        "precision": 0.9348,
+        "recall": 0.9773,
+        "specificity": 0.8125,
+        "f1": 0.9556
+      },
+      "by_variant_type_view_a": {
+        "ocupacion_01_media": {
+          "total": 105,
+          "tp": 4,
+          "fp": 5,
+          "fn": 1,
+          "tn": 95,
+          "accuracy": 0.9429,
+          "precision": 0.4444,
+          "recall": 0.8,
+          "specificity": 0.95,
+          "f1": 0.5714
+        },
+        "ocupacion_02_baja": {
+          "total": 91,
+          "tp": 76,
+          "fp": 8,
+          "fn": 4,
+          "tn": 3,
+          "accuracy": 0.8681,
+          "precision": 0.9048,
+          "recall": 0.95,
+          "specificity": 0.2727,
+          "f1": 0.9268
+        },
+        "superior_vacio": {
+          "total": 99,
+          "tp": 22,
+          "fp": 0,
+          "fn": 1,
+          "tn": 76,
+          "accuracy": 0.9899,
+          "precision": 1.0,
+          "recall": 0.9565,
+          "specificity": 1.0,
+          "f1": 0.9778
+        }
+      },
+      "e2e_cpu_ms": {
+        "mean": 765.76,
+        "p50": 768.83,
+        "p95": 866.9
+      }
     }
   },
   "app": {
@@ -151,28 +353,26 @@
     "reproducible_scripts_included": true,
     "occupancy_method": "linea_a_v1_gondola_anchorage",
     "visual_index_threshold": 52,
-    "occupancy_revision": "linea_a_20261116_v2_2_cajas_sacos_picada",
-    "occupancy_preliminary": true
+    "occupancy_revision": "linea_a_20261119_v2_3_productos_bajos",
+    "occupancy_preliminary": false
   },
   "distribution": {
-    "status": "github_release",
+    "status": "prepared_pending_publish",
     "current_model_published": true,
     "previous_published_distribution": {
-      "release_tag": "walmart-vision-apps-2026-11-16",
-      "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-apps-2026-11-16",
-      "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-apps-2026-11-16/Walmart_Vision_Cliente_y_Equipo_20261116.zip",
-      "client_revision": "huecos_severidad_bruto_reanalisis_20261116",
+      "release_tag": "walmart-vision-mvp-2026-11-16",
+      "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16",
+      "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip",
+      "package_sha256": "9b7ddba39ea3fc94b9ef90381e5c13cdcf4ba1b7d4b3ac9c22dc1ae4ed973277",
+      "client_revision": "mvp_sqlite_xlsx_pdf_oclusiones_modelo_20261116",
       "review_revision": "comparacion_basal_etiquetado_20261112"
     },
-    "release_tag": "walmart-vision-mvp-2026-11-16",
-    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16",
-    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip",
-    "source_ref": "bcdb881000f5a0f56f5a87822e081524df2f0dbb",
-    "release_tag_commit": "6243467be034d25ad8d74942f33b291fe9c127d7",
-    "package_sha256": "9b7ddba39ea3fc94b9ef90381e5c13cdcf4ba1b7d4b3ac9c22dc1ae4ed973277",
+    "release_tag": "walmart-vision-final-v2-3-2026-11-21",
+    "release_url": "https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-final-v2-3-2026-11-21",
+    "package_url": "https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-final-v2-3-2026-11-21/Walmart_Vision_Cliente_y_Equipo_Final_20261121.zip",
     "package_has_training_scripts": false,
     "client_demo_photos": 8,
-    "client_revision": "mvp_sqlite_xlsx_pdf_oclusiones_modelo_20261116",
+    "client_revision": "final_v2_3_productos_bajos_compose_sqlite_20261121",
     "review_revision": "comparacion_basal_etiquetado_20261112"
   },
   "visual_review": {

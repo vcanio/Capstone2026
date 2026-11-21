@@ -21,7 +21,7 @@ from ocupacion_paulo import Analyzer
 from oclusiones import detect_intrusions_from_rgb, evaluate_level_occlusion
 
 METHOD_LINEA_A = 'linea_a_v1_gondola_anchorage'
-REVISION_LINEA_A = 'linea_a_20261116_v2_2_cajas_sacos_picada'
+REVISION_LINEA_A = 'linea_a_20261119_v2_3_productos_bajos'
 INTERPRETATION_POLICY = 'body_fill_gap_v1'
 CALIBRATED_THRESHOLD_PCT = 52.0
 
@@ -61,6 +61,10 @@ CEILING_SCORE_FACTOR = 0.25
 BODY_Y_RANGE = (0.22, 0.90)
 SUPPORT_Y_RANGE = (0.30, 0.94)
 SUPPORT_COL_MIN_FRAC = 0.22
+LOW_PRODUCT_Y_RANGE = (0.55, 0.94)
+LOW_PRODUCT_MIN_FRONT_PCT = 80.0
+LOW_PRODUCT_MAX_GAP_PCT = 15.0
+LOW_PRODUCT_MIN_ROWS = 2
 
 # Agregación y cota superior por mayor hueco continuo (`100 - max_gap_pct`).
 FILL_SCORE_REF = 0.55
@@ -754,6 +758,25 @@ def score_level_from_features(
         significant_gaps_pct = 100.0
         effective_gap_pct = 100.0
 
+    low_product_front = False
+    if (
+        not maps['floor_mask_active']
+        and not maps['ceil_mask_active']
+        and not maps['recessed_upper_product']
+        and front_hyb_pct >= LOW_PRODUCT_MIN_FRONT_PCT
+        and max_gap_pct < LOW_PRODUCT_MAX_GAP_PCT
+    ):
+        lower_band = _relative_vertical_bands(usable, LOW_PRODUCT_Y_RANGE, fallback_full=False)
+        if lower_band.any() and valid_cols.any():
+            lower_rows = (hyb_ev & lower_band).sum(axis=0)[valid_cols]
+            if 100.0 * float((lower_rows >= LOW_PRODUCT_MIN_ROWS).mean()) >= LOW_PRODUCT_MIN_FRONT_PCT:
+                low_hyb_pct = 100.0 * float(hyb_ev[lower_band].mean())
+                low_score_pct = min(100.0, 100.0 * float(cell_score[lower_band].mean()) / FILL_SCORE_REF)
+                low_fill_pct = 0.50 * low_hyb_pct + 0.50 * low_score_pct
+                if low_fill_pct > fill_pct:
+                    fill_pct = low_fill_pct
+                    low_product_front = True
+
     pct = float(np.clip(min(fill_pct, 100.0 - effective_gap_pct), 0.0, 100.0))
     if not math.isfinite(pct):
         pct = 0.0
@@ -779,7 +802,7 @@ def score_level_from_features(
             review_required = True
             pattern = 'hollow_banner'
             review_reason = 'Señal alta tipo cartel sobre banda inferior-media vacía.'
-        elif center_fill < CENTER_MIN_FILL:
+        elif center_fill < CENTER_MIN_FILL and not low_product_front:
             review_required = True
             pattern = 'peripheral_ambiguity'
             review_reason = 'Señal periférica sin respaldo central suficiente.'

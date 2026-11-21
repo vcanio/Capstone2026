@@ -6,8 +6,8 @@ Proyecto Capstone de **DUOC UC** orientado a apoyar la inspección visual de gó
 
 | 🚀 Probar la aplicación | 🎬 Demostración en video | 📖 Entender el proyecto | 🧪 Modelo y métricas |
 |:---:|:---:|:---:|:---:|
-| [**Descargar apps cliente y equipo**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) | [**Ver video MVP (6 min)**](https://youtu.be/DKAqs9dVnV8) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
-| Windows x64 · Docker · [Notas MVP](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-mvp-2026-11-16) | App cliente :8098 y casos límite | Niveles, ocupación y límites | Modelo oficial · evaluación y límites |
+| [**Descargar apps cliente y equipo (Final v2.3)**](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-final-v2-3-2026-11-21/Walmart_Vision_Cliente_y_Equipo_Final_20261121.zip) | [**Ver video MVP (6 min)**](https://youtu.be/DKAqs9dVnV8) | [**Guía de funcionamiento**](Documentacion/Guia_para_entender_el_proyecto.md) | [**Modelo actual y métricas**](Documentacion/Modelo_V3_actual.md) |
+| Windows x64 · Docker · [Notas de entrega](https://github.com/vcanio/Capstone2026/releases/tag/walmart-vision-final-v2-3-2026-11-21) | App cliente :8098 y casos límite | Niveles, ocupación y límites | Modelo oficial · evaluación y límites |
 
 [**App cliente**](Aplicacion_Cliente/README.md) · [**App del equipo**](Aplicacion/README.md) · [**Entregables**](Entregables/README.md) · [**Documentación**](Documentacion/README.md)
 
@@ -46,7 +46,7 @@ Ambas apps comparten la **segmentación de niveles** con `YOLO26n-seg` y la **es
 
 ## Descarga e inicio rápido
 
-[Descarga el ZIP del MVP](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-mvp-2026-11-16/Walmart_Vision_Cliente_y_Equipo_MVP_20261116.zip) y extrae la carpeta completa. El ZIP trae las dos apps, el peso oficial de niveles, el peso auxiliar para personas y ocho fotos de ejemplo. El [registro de entrega](Entregables/README.md) indica el checksum y el commit fuente del ZIP.
+[Descarga el ZIP final (v2.3)](https://github.com/vcanio/Capstone2026/releases/download/walmart-vision-final-v2-3-2026-11-21/Walmart_Vision_Cliente_y_Equipo_Final_20261121.zip) y extrae la carpeta completa. El ZIP trae las dos apps, el peso oficial de niveles, el peso auxiliar para personas, el estimador `v2.3` y ocho fotos de ejemplo. El [registro de entrega](Entregables/README.md) indica el checksum y el commit fuente del ZIP.
 
 ### Windows x64
 
@@ -56,7 +56,7 @@ Ambas apps comparten la **segmentación de niveles** con `YOLO26n-seg` y la **es
 
 ### Docker (incluido macOS)
 
-El [Compose conjunto](compose.apps.yaml) define las dos apps en CPU. El montaje de cliente es de solo lectura y su base SQLite necesita escritura al iniciar. Para probar el cliente con historial y reportes, usa el iniciador de Windows o la instalación manual. El equipo tiene una [configuración Docker propia](Aplicacion/DOCKER.md). El build Docker y la prueba en un Mac físico siguen pendientes de certificación.
+El [Compose conjunto](compose.apps.yaml) define las dos apps en CPU y monta el volumen escribible `cliente_runtime` en `/app/Aplicacion_Cliente/.runtime` para conservar la base SQLite del cliente. El equipo tiene además una [configuración Docker propia](Aplicacion/DOCKER.md). El build Docker y la prueba en un Mac físico siguen pendientes de certificación.
 
 ### Desde un clon y recomendaciones de uso
 
@@ -116,7 +116,7 @@ python Aplicacion/app.py --host 127.0.0.1 --port 8095 --device cpu
 | Persistencia cliente | `Aplicacion_Cliente/.runtime/historial_cliente.sqlite3` y `IndexedDB` del navegador. La carpeta del servidor debe permitir escritura. No se necesitan claves API ni un archivo `.env`. |
 | Acceso | Por defecto solo `127.0.0.1`; Compose también publica únicamente en loopback. Acceso móvil por cámara requiere un contexto seguro permitido por el navegador. La prueba local no supone un despliegue multiusuario. |
 
-La base SQLite persiste entre reinicios del proceso cuando su carpeta se conserva. El Compose actual monta `Aplicacion_Cliente` en solo lectura: la persistencia compartida necesita configurar almacenamiento escribible antes de usar ese flujo en contenedor. No se ha certificado ese flujo mediante un build Docker o una prueba física en Mac. Consulta las [comprobaciones y límites de ejecución](Documentacion/Verificacion_funcional.md).
+La base SQLite persiste entre reinicios del proceso cuando su carpeta se conserva. En `compose.apps.yaml`, el volumen `cliente_runtime` habilita escritura para esa base dentro del contenedor; no se ha certificado ese flujo mediante un build Docker ni una prueba física en Mac. Consulta las [comprobaciones y límites de ejecución](Documentacion/Verificacion_funcional.md).
 
 ## Comprobar el funcionamiento
 
@@ -169,7 +169,7 @@ El registro inicial del 8/11 compara umbrales de **30 a 66, en pasos de 2**, usa
 
 Se justifica **conservar 52 como un corte operativo probado dentro de la meseta de buen desempeño**: en esa muestra detecta las alertas que se perdían con 30 y evita la falsa alerta que aparece al subir a 56. La validación posterior obtuvo **15/16 alertas, cero falsas alertas y F1 96,77 %**. Esto respalda el rango y el uso de 52, pero **no demuestra que 52 sea superior a 50 o 54**; el registro no contiene una regla de desempate que haga único ese número.
 
-El ajuste es preliminar: las seis alertas iniciales eran sintéticas y la validación solo contenía dos alertas reales, de las que detectó una. Un registro ampliado posterior tampoco presenta 52 como máximo único de F1. La versión v2.2 conserva ese corte y añade reglas de huecos y revisión; necesita una calibración propia con datos nuevos para demostrar un óptimo actual. [Justificación completa, barrido ampliado y límites](Documentacion/Justificacion_umbral_52.md) · [Evidencia numérica agregada](Documentacion/Evidencias/justificacion_umbral_52.json).
+El ajuste es preliminar: las seis alertas iniciales eran sintéticas y la validación solo contenía dos alertas reales, de las que detectó una. Un registro ampliado posterior tampoco presenta 52 como máximo único de F1. La revisión vigente (`v2.3`) conserva ese corte y lo evalúa a ciegas en 171 fotos reales vírgenes y 60 variantes sintéticas. [Justificación completa, barrido ampliado y límites](Documentacion/Justificacion_umbral_52.md) · [Evidencia numérica agregada](Documentacion/Evidencias/justificacion_umbral_52.json).
 
 ## Arquitectura de la solución
 
@@ -272,15 +272,24 @@ La presencia de detecciones en `193/193` fotos no acredita que todos sus niveles
 
 Ajustada inicialmente sobre 52 niveles y comprobada después en 112 niveles con máscaras humanas (15/16 alertas, 0 falsas alertas, 1/2 alertas reales; [selección del corte 52](Documentacion/Justificacion_umbral_52.md)) y evaluada sobre los **354 niveles predichos por YOLO en `Ohiggins 3`** (más comparación cualitativa sobre **193 fotos / 893 niveles** en 3 capturas de tienda: `Ohiggins 9/11`, `Ohiggins 14/11` y `Marcoleta 15/11`):
 
-| Revisión del estimador (`Ohiggins 3`, 354 niveles) | TP / FP / FN / TN | Accuracy | Precision | Recall | F1 |
-|---|---|---:|---:|---:|---:|
-| Línea base ciega (`linea_a_20261113_techo_y_panel_liso`) | `30 / 2 / 6 / 316` | 97,74 % | 93,75 % | 83,33 % | 88,24 % |
-| **v2.2 vigente, reevaluación posterior (`linea_a_20261116_v2_2_cajas_sacos_picada`)** | **`35 / 3 / 1 / 315`** | **98,87 %** | **92,11 %** | **97,22 %** | **94,59 %** |
+| Revisión del estimador | Conjunto y alcance | TP / FP / FN / TN | Accuracy | Precision | Recall | Especificidad | F1 |
+|---|---|---|---:|---:|---:|---:|---:|
+| Línea base ciega (`linea_a_20261113_techo_y_panel_liso`) | `Ohiggins 3` (68 fotos · 354 niveles) | `30 / 2 / 6 / 316` | 97,74 % | 93,75 % | 83,33 % | 99,37 % | 88,24 % |
+| `v2.2` histórica, reevaluación posterior (`linea_a_20261116_v2_2_cajas_sacos_picada`) | `Ohiggins 3` (mismo conjunto observado) | `35 / 3 / 1 / 315` | 98,87 % | 92,11 % | 97,22 % | 99,06 % | 94,59 % |
+| **`v2.3` vigente, evaluación ciega real (`linea_a_20261119_v2_3_productos_bajos`)** | **171 fotos reales vírgenes** (`851` decididos + `3` Revisar) | **`25 / 6 / 3 / 817`** | **98,94 %** | **80,65 %** | **89,29 %** | **99,27 %** | **84,75 %** |
+| **`v2.3` · subconjunto 100 % inédito** | **131 fotos reales vírgenes** (`658` decididos + `3` Revisar) | **`20 / 1 / 2 / 635`** | **99,54 %** | **95,24 %** | **90,91 %** | **99,84 %** | **93,02 %** |
+| **`v2.3` · stress-test sintético ciego** | **60 variantes `03_Pruebas_ocupacion`** (`295` decididos + `9` Revisar) | **`102 / 13 / 6 / 174`** | **93,56 %** | **88,70 %** | **94,44 %** | **93,05 %** | **91,48 %** |
 
-El etiquetado humano ciego y los resultados congelados de la línea base se conservan como antecedente. `v2.2` se revisó después de conocer casos y errores de esas imágenes: su resultado es una reevaluación sobre un conjunto ya observado, sin demostrar generalización independiente. Hace falta un nuevo conjunto sin exposición para estimar esa generalización. Los porcentajes de `v2.2` se transcriben del estado documentado; esta actualización no ejecuta una evaluación nueva.
+Las tres evaluaciones se reportan **separadas por alcance**:
+- **Test ciego real (`171` fotos / `854` niveles en 5 sucursales, `0` coincidencia SHA-256):** auditoría visual YOLO `854 TP / 0 FP / 2 FN` (`F1 99,88 %`, `169/171` conteo exacto; no equivale a `mAP`/`IoU` CVAT). En ocupación `v2.3` por foto completa: `Accuracy 94,74 %`, `F1 82,35 %`; latencia E2E CPU media `2.120,61 ms`. [Evidencia completa](Documentacion/Evidencias/evaluacion_ciega_real_171_20261121.md).
+- **Stress-test sintético ciego (`60` variantes: `20` media, `20` baja, `20` superior vacío de 60 originales distintos):** auditoría visual YOLO `304 TP / 1 FP / 0 FN` (`F1 99,84 %`); en `superior_vacio` obtuvo `Precision 100 %`, `Recall 95,65 %`, `F1 97,78 %`; por foto completa `Accuracy 93,33 %`, `Recall 97,73 %`, `F1 95,56 %`. Se mantiene separado del test real por tratarse de imágenes editadas. [Evidencia completa](Documentacion/Evidencias/stress_test_ocupacion_60_20261121.md).
+- El etiquetado humano ciego base en `Ohiggins 3` (`Accuracy 92,65 %`, `F1 89,80 %` por foto; latencia E2E GPU `1.371,9 ms`, CPU `1.442,5 ms` en muestra de 15 fotos) se conserva como antecedente histórico junto con la reevaluación `v2.2`.
 
-- **Por foto completa (línea base ciega `2026-11-13`):** Accuracy **92,65 %** · **F1 89,80 %**.
-- La latencia del flujo completo con la línea base fue de **1.371,9 ms/foto** en GPU y **1.442,5 ms/foto** en CPU (muestra de 15 fotos).
+### Mejoras identificadas para trabajo futuro (`v2.4`)
+
+- **Vitrinas con reflejos de vidrio/acrílico y bandejas perforadas:** originaron los 3 FN reales (`V001`, `V003`, `V094`), proponiéndose reemplazar reglas heurísticas por un clasificador/segmentador ligero de huecos entrenado sobre recortes etiquetados.
+- **Guarda `low_contrast_continuous_front` en estantes oscuros vacíos:** causó los 9 casos `Revisar` del stress-test sintético (6 `Reponer` reales).
+- **Política configurable de hueco parcial (`max_gap_pct`):** permitir ajustar el corte de hueco (`35 %` actual) según preferencia comercial.
 
 ### Casos límite y escenarios donde falla o requiere revisión
 
@@ -294,9 +303,9 @@ La [ficha del modelo](Documentacion/Modelo_V3_actual.md#casos-límite-y-fallos-c
 
 | Estado | Alcance |
 |---|---|
-| **Disponible en el MVP** | Cliente y equipo, segmentación de niveles, detector auxiliar de personas, estimación de disponibilidad visual y ocho ejemplos precargados. |
-| **Verificado** | Pruebas de software, integridad del paquete, arranque HTTP e inferencia CPU en ambas apps. |
-| **Pendiente** | Evaluación independiente del estimador de disponibilidad visual en fotos nuevas, almacenamiento escribible para SQLite en el Compose conjunto y certificación de Docker en un Mac físico. |
+| **Disponible en entrega final (`v2.3`)** | Cliente y equipo, segmentación de niveles, detector auxiliar de personas, estimación de disponibilidad visual `v2.3`, volumen `cliente_runtime` en Compose y ocho ejemplos precargados. |
+| **Verificado** | Pruebas de software, integridad del paquete, arranque HTTP e inferencia CPU en ambas apps, más evaluación ciega independiente (`171` reales vírgenes y `60` stress-test). |
+| **Pendiente (trabajo futuro)** | Certificación del build Docker en contenedor ejecutado y prueba física en Mac; evolución `v2.4` para reflejos en vitrinas y clasificadores de huecos. |
 
 [Entrega y comprobaciones](Entregables/README.md) · [Límites de ejecución](Documentacion/Verificacion_funcional.md#5-empaquetado-y-límites-de-plataforma).
 

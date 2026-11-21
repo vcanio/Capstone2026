@@ -35,7 +35,7 @@ class BasalTests(unittest.TestCase):
     def test_low_products_keep_horizontal_coverage(self):
         low, tall = feature(slice(14, 19)), feature(slice(4, 19))
         bounds = feature_bounds([low, tall])
-        self.assertEqual(old_score(low, gondola_feature_bounds([low, tall]))['state'], 'reponer')
+        self.assertEqual(old_score(low, gondola_feature_bounds([low, tall]))['state'], 'suficiente')
         for f in (low, tall):
             r = score_level_from_features(f, bounds)
             self.assertEqual((r['pct'], r['state']), (100, 'suficiente'))

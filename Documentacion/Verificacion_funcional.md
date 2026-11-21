@@ -1,6 +1,6 @@
 # Comprobación funcional de Walmart Visión
 
-Pauta al 16/11/2026 para un clon público del MVP. Parte de la [instalación del README](../README.md#instalación-manual-y-configuración). Los comandos se ejecutan desde la raíz con Python 3.12 y el entorno activo. No requieren entrenamiento ni acceso a CVAT.
+Pauta al 21/11/2026 para un clon público final (`v2.3`). Parte de la [instalación del README](../README.md#instalación-manual-y-configuración). Los comandos se ejecutan desde la raíz con Python 3.12 y el entorno activo. No requieren entrenamiento ni acceso a CVAT.
 
 ## 1. Integridad y configuración, sin fotografías
 
@@ -49,7 +49,7 @@ python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('
 python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('http://127.0.0.1:8095/api/health')))"
 ```
 
-Ambas respuestas deben indicar `status: ok`; el cliente debe mostrar la revisión `linea_a_20261116_v2_2_cajas_sacos_picada`, `threshold_pct: 52.0` y `persistence: sqlite3`. `analysis_ready: false` puede ser normal antes de preparar la primera inferencia. La consola informa la dirección efectiva si el puerto solicitado estaba ocupado.
+Ambas respuestas deben indicar `status: ok`; el cliente debe mostrar la revisión `linea_a_20261119_v2_3_productos_bajos`, `threshold_pct: 52.0` y `persistence: sqlite3`. `analysis_ready: false` puede ser normal antes de preparar la primera inferencia. La consola informa la dirección efectiva si el puerto solicitado estaba ocupado.
 
 ## 4. Recorrido manual con fotos propias
 
@@ -72,7 +72,7 @@ La cámara móvil necesita dispositivo disponible, permiso y contexto seguro del
 
 Desde un clon limpio y con los cambios confirmados en Git, construir un ZIP nuevo y probarlo siguiendo [Distribución](../Distribucion/README.md). `comprobar_paquete.py` usa una extracción temporal e imagen generada; nunca pasarle el test reservado como foto de prueba.
 
-La definición Compose no equivale a un build probado ni a una prueba en Mac. Además, el montaje actual `./Aplicacion_Cliente:/app/Aplicacion_Cliente:ro` impide escribir la SQLite predeterminada del cliente: se requiere almacenamiento escribible para ese flujo. Su corrección y comprobación en Docker están pendientes. El acceso multiusuario desde terreno requiere validar además red, cámara y persistencia; no se deduce del arranque local.
+La definición Compose (`compose.apps.yaml`) define el volumen escribible `cliente_runtime` montado en `/app/Aplicacion_Cliente/.runtime` para conservar la base SQLite aunque la carpeta cliente esté montada en solo lectura. No obstante, esta definición no equivale a un build Docker probado ni a una prueba física en Mac, que siguen pendientes de certificación. El acceso multiusuario desde terreno requiere validar además red, cámara y persistencia; no se deduce del arranque local.
 
 ## Cómo registrar una comprobación
 

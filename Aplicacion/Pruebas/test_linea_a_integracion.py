@@ -341,3 +341,51 @@ class LineaAIntegrationTests(unittest.TestCase):
         res = score_level_from_features(feat, bounds)
         self.assertEqual(res['state'], 'suficiente')
         self.assertFalse(res['review_required'])
+
+    def test_full_front_of_low_products_does_not_trigger_reponer_while_empty_rail_does(self):
+        from ocupacion_linea_a import gondola_feature_bounds, score_level_from_features
+
+        # 1. Escena RGB con barandas inferiores: vacío debe alertar; lleno de productos bajos (~19% alto) no.
+        image = np.full((480, 960, 3), 70, np.uint8)
+        for y in (410, 420):
+            cv2.line(image, (20, y), (940, y), (90, 90, 90), 3)
+        mask = np.ones(image.shape[:2], np.uint8)
+
+        empty = analyze_gondola_rgb(image, [mask])[0]
+        self.assertEqual(empty['state'], 'reponer')
+
+        for x in range(80, 850, 100):
+            cv2.rectangle(image, (x, 310), (x + 70, 400), (240, 240, 240), -1)
+            cv2.circle(image, (x + 35, 350), 18, (20, 30, 120), 4)
+        low_stocked = analyze_gondola_rgb(image, [mask])[0]
+        self.assertEqual(low_stocked['state'], 'suficiente')
+        self.assertGreaterEqual(low_stocked['pct'], 52.0)
+
+        # 2. Grilla 20x40: productos bajos (filas 14..18) vs. riel de 1 sola fila (fila 17).
+        shape = (20, 40)
+
+        def make_feat(row_slice):
+            feat = {
+                'valid': True, 'valid_cells': 800,
+                'usable': np.ones(shape, bool),
+                'observed_coverage': np.ones(shape, np.float32),
+            }
+            for key, lo, hi in (
+                ('density', 0.001, 0.07), ('gradient', 3.0, 42.0),
+                ('color_density', 0.0, 0.45), ('deviation', 1.5, 20.0),
+            ):
+                feat[key] = np.full(shape, lo, np.float32)
+                if row_slice is not None:
+                    feat[key][row_slice, :] = hi
+            return feat
+
+        tall = make_feat(slice(4, 19))
+        low = make_feat(slice(14, 19))
+        one_row_rail = make_feat(slice(17, 18))
+        bounds = gondola_feature_bounds([low, tall])
+
+        res_low = score_level_from_features(low, bounds)
+        res_rail = score_level_from_features(one_row_rail, bounds)
+        self.assertEqual(res_low['state'], 'suficiente')
+        self.assertGreaterEqual(res_low['pct'], 52.0)
+        self.assertEqual(res_rail['state'], 'reponer')

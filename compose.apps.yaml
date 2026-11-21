@@ -19,9 +19,12 @@ services:
       - "127.0.0.1:8098:8098"
     volumes:
       - ./Aplicacion_Cliente:/app/Aplicacion_Cliente:ro
+      - cliente_runtime:/app/Aplicacion_Cliente/.runtime
     environment:
       PYTHONPATH: /app/Walmart_Vision
       VISION_PORT: "8098"
     command: ["python", "/app/Aplicacion_Cliente/app_cliente.py", "--app-dir", "/app/Walmart_Vision", "--host", "0.0.0.0", "--port", "8098", "--device", "cpu"]
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
+volumes:
+  cliente_runtime:
